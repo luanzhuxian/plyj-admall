@@ -1,0 +1,7 @@
+[auth]
+token=82fe55b4c1694d23bc4acd889fb3c55abad8e3fb02324932ae5a59ef0603a694
+
+[defaults]
+url=https://frontlog.youpenglai.com
+org=penglai
+project=admall
