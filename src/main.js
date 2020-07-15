@@ -10,6 +10,8 @@ import filter from './filter'
 import './assets/scss/index.scss'
 import './assets/js/axios-config'
 
+import startQiankun from './micro'
+
 /* *************** 自定义指令 ***************** */
 for (const k of Object.keys(directive)) {
     Vue.directive(k, directive[k])
@@ -20,9 +22,11 @@ for (const name of Object.keys(filter)) {
     Vue.filter(name, filter[name])
 }
 
+startQiankun()
+
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
+    el: '#main-app',
     router,
     store,
     render: h => h(App)

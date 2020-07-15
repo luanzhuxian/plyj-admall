@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// import NotFound from '../views/404.vue'
 
 Vue.use(Router)
 
@@ -44,18 +45,6 @@ Router.prototype.replace = function replace (location, onResolve, onReject) {
 }
 
 const routes = [
-    {
-        path: '*',
-        redirect: '/not-found'
-    },
-    {
-        path: '/not-found',
-        name: 'NotFound',
-        component: import('../views/404.vue'),
-        meta: {
-            title: '页面未找到'
-        }
-    },
     {
         path: '/',
         name: 'Home',

@@ -6,14 +6,13 @@ const VERSION = process.env.npm_package_version
 process.env.VUE_APP_VERSION = VERSION
 process.env.VUE_APP_MODEL = MODEL
 
-/* ********************************************* 环境 *************************************** */
-console.log(`------------------------- ${ NODE_ENV } -------------------------`)
-
-/* ********************************************* 模式 *************************************** */
-console.log(`------------------------- model: ${ MODEL } -------------------------`)
-
-/* ********************************************* 服务 *************************************** */
-console.log(`------------------------- server: ${ SERVER } -------------------------`)
+console.table([
+    {
+        NODE_ENV,
+        MODEL,
+        SERVER: `http://192.168.130.${ SERVER }`
+    }
+])
 const externals = process.env.NODE_ENV === 'production'
     ? {
         vue: 'Vue',
