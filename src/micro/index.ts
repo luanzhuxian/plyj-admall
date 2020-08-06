@@ -28,7 +28,7 @@ registerMicroApps(apps, {
  */
 addGlobalUncaughtErrorHandler(err => {
     console.error(err)
-    const { message } = err
+    const { message } = err as any
     // 加载失败时提示
     if (message && message.includes('died in status LOADING_SOURCE_CODE')) {
         console.error('微应用加载失败，请检查应用是否可运行')

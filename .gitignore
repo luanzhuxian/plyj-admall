@@ -1,10 +1,6 @@
 .DS_Store
 node_modules
 /dist
-/admall
-admall*
-/tests/e2e/videos/
-/tests/e2e/screenshots/
 
 # local env files
 .env.local
@@ -14,7 +10,8 @@ admall*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-bootstrap.css
+pnpm-debug.log*
+
 # Editor directories and files
 .idea
 .vscode
@@ -22,5 +19,4 @@ bootstrap.css
 *.ntvs*
 *.njsproj
 *.sln
-*.sw*
-*.zip
+*.sw?
