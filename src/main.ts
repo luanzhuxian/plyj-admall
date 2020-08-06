@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import { router } from './router'
 import store from './store'
-import { beforeResolve, afterEach } from './router-guard'
 
 import directive from './directive'
 import filter from './filter'
@@ -24,14 +23,12 @@ for (const name of Object.keys(filter)) {
 
 startQiankun()
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
-/* eslint-disable no-new */
 new Vue({
   el: '#main-app',
   router,
   store,
   render: h => h(App)
 })
-router.beforeResolve(beforeResolve)
-router.afterEach(afterEach)
+

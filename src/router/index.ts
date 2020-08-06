@@ -1,5 +1,7 @@
+// @ts-nocheck
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress'
 // import NotFound from '../views/404.vue'
 
 Vue.use(Router)
@@ -23,9 +25,11 @@ Router.prototype.push = function push (location, onResolve, onReject) {
             })
         }
     }
-    if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+    if (onResolve || onReject) { return originalPush.call(this, location, onResolve, onReject) }
     return originalPush.call(this, location)
-        .catch(err => console.error(err))
+        .catch(err => {
+            console.error(err)
+        })
 }
 Router.prototype.replace = function replace (location, onResolve, onReject) {
     if (typeof location === 'object') {
@@ -39,9 +43,11 @@ Router.prototype.replace = function replace (location, onResolve, onReject) {
             })
         }
     }
-    if (onResolve || onReject) return originalReplace.call(this, location, onResolve, onReject)
+    if (onResolve || onReject) { return originalReplace.call(this, location, onResolve, onReject) }
     return originalReplace.call(this, location)
-        .catch(err => console.error(err))
+        .catch(err => {
+            console.error(err)
+        })
 }
 
 const routes = [
@@ -58,7 +64,18 @@ const routes = [
 export const router = new Router({
     mode: 'history',
     scrollBehavior: () => ({
-        y: 0
+        y: 0,
+        x: 0
     }),
     routes
 })
+export const beforeResolve = async (to, from, next) => {
+    NProgress.start()
+    next()
+}
+
+export const afterEach = () => {
+    NProgress.done()
+}
+router.beforeResolve(beforeResolve)
+router.afterEach(afterEach)

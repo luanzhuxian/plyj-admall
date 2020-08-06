@@ -36,7 +36,7 @@ const externals = process.env.NODE_ENV === 'production'
 module.exports = {
     pages: {
         index: {
-            entry: 'src/main.js',
+            entry: 'src/main.ts',
             template: MODEL === 'local' ? 'public-dev/local.html' : MODEL === 'development' ? 'public-dev/index.html' : 'public/index.html',
             filename: 'index.html'
         }
@@ -72,16 +72,18 @@ module.exports = {
 
     css: {
         sourceMap: process.env.NODE_ENV !== 'production',
+        requireModuleExtension: true,
         loaderOptions: {
             sass: {
-                data: `@import "@/assets/scss/config.scss";`,
-                options: {
-                    implementation: require('sass')
-                }
+                prependData: '@import "~@/assets/scss/config.scss";',
+                // 使用dart-sass编译
+                implementation: require('sass')
             },
             css: {
-                localIdentName: '[local]-[hash:base64:10]',
-                camelCase: 'only'
+                modules: {
+                    localIdentName: '[local]-[hash:base64:10]'
+                },
+                localsConvention: 'camelCaseOnly'
             }
         }
     },

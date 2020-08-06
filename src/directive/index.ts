@@ -6,7 +6,7 @@ export default {
     imgError: {
         inserted (el: HTMLImageElement, { value }: any) {
             if (el.tagName === 'IMG') {
-                el.onerror = function () {
+                el.onerror = () => {
                     if (el.src === img) {
                         return
                     }

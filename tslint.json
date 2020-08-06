@@ -1,5 +1,5 @@
 {
-  "defaultSeverity": "warning",
+  "defaultSeverity": "error",
   "extends": [
     "tslint:recommended"
   ],
@@ -14,6 +14,14 @@
     "no-consecutive-blank-lines": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single"],
+    "trailing-comma": "never",
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "no-unused-expression": [true, "allow-new", "allow-fast-null-checks"],
+    "no-console": [true, "never"],
+    "space-before-function-paren": true,
+    "curly": [true, "ignore-same-line"],
+    "member-access": false,
+    "semicolon": [true, "never"]
   }
 }
