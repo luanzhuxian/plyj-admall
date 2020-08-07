@@ -1,7 +1,7 @@
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 interface Filter {
-    [key: string]: (arg1: string, arg2: string) => string
+    [key: string]: (arg1: string, arg2: string) => string;
 }
 export default {
     dateFrom (val) {

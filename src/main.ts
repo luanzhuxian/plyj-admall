@@ -13,22 +13,22 @@ import startQiankun from './micro'
 
 /* *************** 自定义指令 ***************** */
 for (const k of Object.keys(directive)) {
-  Vue.directive(k, directive[k])
+    Vue.directive(k, directive[k])
 }
 
 /* *************** 过滤器 ***************** */
 for (const name of Object.keys(filter)) {
-  Vue.filter(name, filter[name])
+    Vue.filter(name, filter[name])
 }
 
 startQiankun()
 
 Vue.config.productionTip = false
 
+/* eslint-disable no-new */
 new Vue({
-  el: '#main-app',
-  router,
-  store,
-  render: h => h(App)
+    el: '#main-app',
+    router,
+    store,
+    render: h => h(App)
 })
-

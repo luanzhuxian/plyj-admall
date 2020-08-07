@@ -1,0 +1,6 @@
+/dist/
+/static/
+/test/unit/coverage/
+/src/assets/fonts
+/src/components/penglai-ui/fonts
+vue.config.js

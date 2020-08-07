@@ -11,15 +11,15 @@
     </div>
 </template>
 <script lang="ts">
-    import Vue from 'vue'
-    import Component from 'vue-class-component'
-    @Component
-    export default class App extends Vue {
-        title = '这是一个title'
-        alert () {
-            alert('这是一个方法')
-        }
+import Vue from 'vue'
+import Component from 'vue-class-component'
+@Component
+export default class App extends Vue {
+    title = '这是一个title'
+    alert () {
+        alert('这是一个方法')
     }
+}
 </script>
 <style lang="scss">
 </style>

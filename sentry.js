@@ -18,6 +18,7 @@ console.log('version: ', VERSION)
 console.log('model: ', MODEL)
 console.log('assetsDir: ', assetsDir)
 
+
 console.log(`创建版本：${VERSION}`)
 console.log(`sentry-cli releases -o ${ORG} -p ${project} new ${VERSION}`)
 console.log(cp.execSync(`sentry-cli releases -o ${ORG} -p ${project} new ${VERSION}`, { encoding: 'utf8' }))
