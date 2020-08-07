@@ -18,6 +18,8 @@ module.exports = {
   // add your custom rules here
   rules: {
     'no-debugger': 'off',
+    'no-useless-catch': 'off',
+    '@typescript-eslint/no-var-requires': 0,
     'camelcase': 0,
     'indent': ['error', 4, { 'SwitchCase': 1 }],
     'prefer-const': 'error', // http://docs.youpenglai.cn/spec/javascript_specification.html#variables--const
