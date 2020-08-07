@@ -1,16 +1,18 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
+
 class ResponseError extends Error {
-    constructor (message) {
+    constructor (message: string) {
         super(message)
         this.message = message
         this.name = 'ResponseError'
     }
 }
+
 const { VUE_APP_MODEL } = process.env
-const reqHandler = config => config
-const reqErrorHandler = error => Promise.reject(error)
-const resHandler = res => res.data
-const resError = error => {
+const reqHandler = (config: AxiosRequestConfig) => config
+const reqErrorHandler = (error: AxiosError) => Promise.reject(error)
+const resHandler = (res: AxiosResponse) => res.data
+const resError = (error: AxiosError) => {
     let msg = error.message
     if (msg.indexOf('timeout') > -1) {
         msg = '请求超时◔̯◔'
@@ -39,15 +41,15 @@ axios.interceptors.response.use(resHandler, resError)
 
 // 测试环境显示服务器地址切换
 if (VUE_APP_MODEL === 'development') {
-    const serverName = document.querySelector('#set-server-name')
+    const serverName: HTMLInputElement = document.querySelector('#set-server-name') as HTMLInputElement
     const serverBaseUrl = localStorage.getItem('serverBaseUrl')
-    const confirmBtn = document.querySelector('#confirm-server-name')
+    const confirmBtn: HTMLButtonElement = document.querySelector('#confirm-server-name') as HTMLButtonElement
     if (serverBaseUrl) {
         serverName.value = serverBaseUrl
         axios.defaults.baseURL = `${ serverBaseUrl }`
         console.warn('已设置服务器地址为：', serverBaseUrl)
     }
-    confirmBtn.addEventListener('click', e => {
+    confirmBtn.addEventListener('click', () => {
         let baseURL = ''
         if (serverName.value) {
             baseURL = `http://${ serverName.value }`
@@ -59,3 +61,6 @@ if (VUE_APP_MODEL === 'development') {
         localStorage.setItem('serverBaseUrl', serverName.value)
     })
 }
+
+const myAxios: MyAxios = axios
+export default myAxios

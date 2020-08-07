@@ -12,6 +12,7 @@ export default class Countdown {
     // 倒计时结束的时间戳，如果它减当前时间小于等于0，说明倒计时结束
     // 这样一来就可以避免因锁屏导致的定时器停止问题
     endTime = Date.now()
+    callback: Function | null = null
 
     /**
      * 倒计时构造函数
@@ -20,7 +21,7 @@ export default class Countdown {
      * @param duration {number} 倒计时时长, 毫秒值
      * @param callback {function} 接收倒计时数据
      */
-    constructor (duration, callback) {
+    constructor (duration: number, callback: Function) {
         if (new.target !== Countdown) {
             console.error('必须new实例才能使用')
             return
@@ -38,16 +39,22 @@ export default class Countdown {
         if (!this.total || this.total < 0) {
             return
         }
+        if (!this.callback) {
+            return
+        }
         const duration = this.endTime - Date.now()
         if (duration <= 0) {
         // 如果回调接收到null，说明倒计时已结束，需要在外部做出相应的逻辑处理
             this.callback(null)
             return
         }
-        const { _data: data } = moment.duration(duration)
-        data.days = Math.floor(moment.duration(duration).asDays())
-        delete data.years
-        delete data.months
+        const durationData = moment.duration(duration)
+        const data = {
+            days: Math.floor(durationData.asDays()),
+            hours: durationData.hours(),
+            minutes: durationData.minutes(),
+            seconds: durationData.seconds()
+        }
         this.callback(data)
         this.timer = setTimeout(() => {
             this.start()

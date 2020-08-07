@@ -2,9 +2,10 @@ import Compressor from 'compressorjs'
 import { getSTS } from '../../apis/common'
 import { Loading } from 'element-ui'
 import store from '../../store'
+const OSS = require('ali-oss')
+
 const { VUE_APP_MODEL } = process.env
 const ENV = VUE_APP_MODEL === 'production' ? 'pro' : 'dev'
-const OSS = require('ali-oss')
 const REGION = 'oss-accelerate'
 const BUCKET = 'penglai-weimall'
 // const DOMAIN = 'https://penglai-weimall.oss-accelerate.aliyuncs.com/' // 该域名在下载的时候不会使用缓存，暂不使用
@@ -18,26 +19,26 @@ const STSLIFETIME = 600000
  * 图片URL转blob
  * @param img {HTMLImageElement}
  */
-const imgToBlob = img => {
+const imgToBlob = (img: HTMLImageElement): Promise<Blob | null> => {
     const canvas = document.createElement('canvas')
-    let ctx = null
+    let ctx: CanvasRenderingContext2D | null = null
     img.crossOrigin = ''
     return new Promise(resolve => {
         if (img.complete) {
             canvas.width = img.naturalWidth
             canvas.height = img.naturalHeight
-            ctx = canvas.getContext('2d')
+            ctx = canvas.getContext('2d') as CanvasRenderingContext2D
             ctx.drawImage(img, 0, 0)
-            canvas.toBlob(blob => {
+            canvas.toBlob((blob: Blob | null) => {
                 resolve(blob)
             }, 'image/jpeg', 0.9)
         } else {
             img.onload = () => {
                 canvas.width = img.naturalWidth
                 canvas.height = img.naturalHeight
-                ctx = canvas.getContext('2d')
+                ctx = canvas.getContext('2d') as CanvasRenderingContext2D
                 ctx.drawImage(img, 0, 0)
-                canvas.toBlob(blob => {
+                canvas.toBlob((blob: Blob | null) => {
                     resolve(blob)
                 }, 'image/jpeg', 0.9)
             }
@@ -45,15 +46,15 @@ const imgToBlob = img => {
     })
 }
 const getClient = async () => {
-    const sts = JSON.parse(localStorage.getItem('sts')) || {}
+    const sts = JSON.parse(localStorage.getItem('sts') || '') || {}
     let credentials = null
 
     if (!sts.time || STSLIFETIME < Date.now() - sts.time) {
     // sts过期
-        const { data } = await getSTS()
-        credentials = data.result.credentials
-        data.result.time = Date.now()
-        localStorage.setItem('sts', JSON.stringify(data.result))
+        const { result } = await getSTS()
+        credentials = result.credentials
+        result.time = Date.now()
+        localStorage.setItem('sts', JSON.stringify(result))
     } else {
         credentials = sts.credentials
     }
@@ -67,7 +68,7 @@ const getClient = async () => {
         timeout: 120000
     })
 }
-const compressImage = (file, maxWidth = 1920) => new Promise((resolve, reject) => {
+const compressImage = (file: Blob, maxWidth = 1920): Promise<Blob> => new Promise((resolve, reject) => {
     /* eslint-disable no-new */
     new Compressor(file, {
         // 输出图像的最大宽度。这个值应该大于0。
@@ -112,24 +113,39 @@ Compressor.setDefaults({
     // drew(context, canvas)
 })
 
+// blob转base64
+export const blobToBase64 = (blob: Blob): Promise<string> => new Promise((resolve, reject) => {
+    const reader: FileReader = new FileReader()
+    let result = ''
+    reader.onload = function () {
+        result = reader.result as string
+        resolve(result.split(',')[1])
+    }
+    reader.onerror = function () {
+        reject(new Error('文件读取错误'))
+    }
+    reader.readAsDataURL(blob)
+})
+
 /**
  * 压缩图片
  * @param file { Blob | HTMLImageElement } 要压缩的图片，可以是blob，也可以是图片URL
  * @param fileType { String } 返回值类型，blob | base64, 不传则返回blob
  * @param maxWidth { Number } 规定压缩的最大宽度
- * @returns {Promise<any>}
+ * @returns {Promise<Blob | string>}
  */
-export const compress = async (file, fileType = 'blob', maxWidth = 1920) => {
+
+export const compress = async (file: Blob | HTMLImageElement, fileType = 'blob', maxWidth = 1920): Promise<Blob | string> => {
+    let newFile: Blob | null = null
     if (file.toLocaleString().indexOf('HTMLImageElement') > -1) {
-        file = await imgToBlob(file)
+        newFile = await imgToBlob(file as HTMLImageElement)
     }
     try {
-        file = await compressImage(file, maxWidth)
+        newFile = await compressImage(newFile as Blob, maxWidth)
         if (fileType === 'base64') {
-            const base64 = await blobToBase64(file)
-            return base64
+            return blobToBase64(newFile as Blob)
         }
-        return file
+        return newFile
     } catch (e) {
         throw e
     }
@@ -140,9 +156,9 @@ export const compress = async (file, fileType = 'blob', maxWidth = 1920) => {
  * @param file {Blob} 媒体
  * @returns {Promise<void>}
  */
-export const upload = async file => {
+export const upload = async (file: Blob): Promise<object> => {
     try {
-        let ext = /jpg|png|gif|jpeg|bmp|mp4/i.exec(file.type)
+        let ext: RegExpExecArray | null | string = /jpg|png|gif|jpeg|bmp|mp4/i.exec(file.type)
         if (ext) {
             ext = ext[0]
         } else {
@@ -165,7 +181,7 @@ export const upload = async file => {
  * @param file {Blob} 媒体
  * @returns {Promise<void>}
  */
-export const uploadPdf = async file => {
+export const uploadPdf = async (file: Blob) => {
     try {
         const ext = 'pdf'
         // 使用商城id分开存储
@@ -173,7 +189,6 @@ export const uploadPdf = async file => {
         const client = await getClient()
         const key = mallId ? `${ PDF_PATH }/${ mallId }/${ randomString() }.${ ext }` : `${ PDF_PATH }/${ randomString() }.${ ext }`
         const res = await client.put(key, file)
-        console.log(res)
         res.url = `${ DOMAIN }${ res.name }`
         return res
     } catch (e) {
@@ -187,26 +202,27 @@ export const uploadPdf = async file => {
  * @param callback {Function} 进度回调
  * @returns {Promise<void>}
  */
-export const breakpointUpload = async (file, callback) => {
-    const ext = /mp4|ogg|webm/i.exec(file.type)[0]
+type BreakpointUploadCallback = (p: number, checkpoint: object, key: string, client: object) => void
+export const breakpointUpload = async (file: Blob, callback: BreakpointUploadCallback) => {
+    let ext: RegExpExecArray | string | null = /mp4|ogg|webm/i.exec(file.type)
     if (!ext) {
-        this.$error('文件格式错误')
-        return
+        throw new Error('文件格式错误')
     }
+    ext = ext[0]
     try {
     // 使用商城id分开存储
         const mallId = store.getters.mallNumber
         const client = await getClient()
         const key = mallId ? `${ VIDEO_PATH }/${ mallId }/${ randomString() }.${ ext }` : `${ VIDEO_PATH }/${ randomString() }.${ ext }`
         const { res } = await client.multipartUpload(key, file, {
-            async progress (p, checkpoint) {
+            async progress (p: number, checkpoint: object) {
                 callback(p, checkpoint, key, client)
             },
             meta: {
                 key,
                 size: file.size
             },
-            mime: `video/*`
+            mime: 'video/*'
         })
         const urls = res.requestUrls
         const newUrls = []
@@ -223,11 +239,11 @@ export const breakpointUpload = async (file, callback) => {
 /**
  * 从断点继续上传
  */
-export const resumeBreakpointUpload = async (key, file, tempCheckpoint, callback) => {
+export const resumeBreakpointUpload = async (key: string, file: Blob, tempCheckpoint: object, callback: BreakpointUploadCallback) => {
     try {
         const resumeclient = await getClient()
         const { res } = await resumeclient.multipartUpload(key, file, {
-            async progress (p, checkpoint) {
+            async progress (p: number, checkpoint: object) {
                 callback(p, checkpoint, key, resumeclient)
             },
             parallel: 2,
@@ -251,7 +267,7 @@ export const resumeBreakpointUpload = async (key, file, tempCheckpoint, callback
         throw e
     }
 }
-export const getKey = url => {
+export const getKey = (url: string): string => {
     let index = url.indexOf('img/')
     if (index === -1) {
         index = url.indexOf('video/')
@@ -261,11 +277,11 @@ export const getKey = url => {
 
 /**
  * 删除媒体接口
- * @param keys 媒体名称 {Array}
+ * @param keys 媒体名称 {Array<string>}
  * @returns {Promise<void>}
  * 如：[video/demo.mp4, img/demo.jpg]
  */
-export const deleteImage = async keys => {
+export const deleteImage = async (keys: string[]) => {
     const client = await getClient()
     // 单独删除咱不可用，所以需传入key的数组
     // if (typeof key === 'string') {
@@ -288,22 +304,14 @@ export const deleteImage = async keys => {
         throw new Error('key 必须是数组！')
     }
 }
-// blob转base64
-export const blobToBase64 = blob => new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = function () {
-        resolve(reader.result.split(',')[1])
-    }
-    reader.onerror = function () {
-        reject(new Error('文件读取错误'))
-    }
-    reader.readAsDataURL(blob)
-})
+
 // buffer转base64
-export const bufferToBase64 = buffer => new Promise((resolve, reject) => {
+export const bufferToBase64 = (buffer: ArrayBuffer) => new Promise((resolve, reject) => {
     const reader = new FileReader()
+    let result = ''
     reader.onload = function () {
-        resolve(reader.result.split(',')[1])
+        result = reader.result as string
+        resolve(result.split(',')[1])
     }
     reader.onerror = function () {
         reject(new Error('文件读取错误'))
@@ -311,10 +319,10 @@ export const bufferToBase64 = buffer => new Promise((resolve, reject) => {
     reader.readAsDataURL(new Blob([buffer]))
 })
 // blob转buffer
-export const blobToBuffer = blob => new Promise((resolve, reject) => {
+export const blobToBuffer = (blob: Blob): Promise<ArrayBuffer> => new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onload = function () {
-        resolve(reader.result)
+        resolve(reader.result as ArrayBuffer)
     }
     reader.onerror = function () {
         reject(new Error('文件读取错误'))
@@ -322,7 +330,7 @@ export const blobToBuffer = blob => new Promise((resolve, reject) => {
     reader.readAsArrayBuffer(blob)
 })
 
-export const createObjectUrl = blob => {
+export const createObjectUrl = (blob: Blob): string => {
     let url
     // basic
     if (window.createObjectURL) {
@@ -337,7 +345,7 @@ export const createObjectUrl = blob => {
     return url
 }
 
-export const revokeObjectURL = URL => {
+export const revokeObjectURL = (URL: string) => {
     window.URL.revokeObjectURL(URL)
 }
 
@@ -347,7 +355,7 @@ export const revokeObjectURL = URL => {
  * @param customName {string} 自定义名称
  * @returns {Promise<void>}
  */
-export const downloadFile = async (url, customName = '') => {
+export const downloadFile = async (url: string, customName = '') => {
     try {
         const key = url.substring(url.indexOf('.com/') + 5)
         const name = key.split('/').slice(-1)[0] || ''
@@ -355,7 +363,7 @@ export const downloadFile = async (url, customName = '') => {
         const downloadUrl = await client.signatureUrl(key, {
             expires: 1800
         })
-        let a = document.createElement('a')
+        let a: HTMLAnchorElement | null = document.createElement('a')
         a.href = downloadUrl
         a.download = customName || name
         a.click()
@@ -370,21 +378,24 @@ export const downloadFile = async (url, customName = '') => {
  * @param blob {Blob} 视频文件
  * @return {Promise<void>}
  */
-export const getVideoDuration = blob => {
+export const getVideoDuration = (blob: Blob) => {
     const Instance = Loading.service({
         background: 'transparent',
         text: '处理中...'
     })
     return new Promise((resolve, reject) => {
         const url = createObjectUrl(blob)
-        let video = document.createElement('video')
-        video.addEventListener('loadedmetadata', e => {
-            resolve(e.target.duration)
+        let video: HTMLVideoElement | null = document.createElement('video')
+        video.addEventListener('loadedmetadata', (e: Event) => {
+            if (e.target) {
+                const target = e.target as HTMLVideoElement
+                resolve(target.duration)
+            }
             revokeObjectURL(url)
             video = null
             Instance.close()
         })
-        video.addEventListener('error', e => {
+        video.addEventListener('error', () => {
             revokeObjectURL(url)
             video = null
             Instance.close()
