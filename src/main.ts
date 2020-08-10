@@ -7,7 +7,7 @@ import directive from './directive'
 import filter from './filter'
 
 import './assets/scss/index.scss'
-import './assets/js/axios-config'
+import './assets/ts/axios-config'
 
 import startQiankun from './micro'
 

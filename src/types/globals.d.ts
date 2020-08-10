@@ -20,8 +20,25 @@ declare global {
     put<T = any, R = ResponseData<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
     patch<T = any, R = ResponseData<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
   }
+  interface QrcodeConstructor {
+    new(arg: {
+      render: string;
+      // 纠错级别
+      correctLevel: 3;
+      // 内容
+      text: string;
+      // 大小
+      size: number;
+      background: '#ffffff';
+      foreground: '#000000';
+      pdground: '#000000';
+    }): HTMLCanvasElement;
+  }
   interface Window {
     uuid: Uuid;
     createObjectURL: Function;
+    Qrcode: QrcodeConstructor;
   }
+  // 短信类型
+  type SmsType = 'ACCOUNT_BIND_PHONE_NUMBER' | 'AGENT_USER_LOGIN'
 }
