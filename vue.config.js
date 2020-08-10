@@ -43,7 +43,7 @@ module.exports = {
     },
 
     publicPath: '/',
-    outputDir: 'supplier',
+    outputDir: 'admall',
     assetsDir: MODEL === 'development' ? 'static' : `${ VERSION }/static`,
 
     devServer: {

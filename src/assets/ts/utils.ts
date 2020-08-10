@@ -142,9 +142,9 @@ export const generateQrcode = async ({ size = 300, text = '', padding = 0, image
             text,
             // 大小
             size,
-            background: '#ffffff',
-            foreground: '#000000',
-            pdground: '#000000'
+            background: '#fff',
+            foreground: '#000',
+            pdground: '#000'
             // image: '', 不起作用，注释掉
             // imageSize: 30
         })

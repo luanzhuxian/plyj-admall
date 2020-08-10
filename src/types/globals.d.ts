@@ -29,9 +29,9 @@ declare global {
       text: string;
       // 大小
       size: number;
-      background: '#ffffff';
-      foreground: '#000000';
-      pdground: '#000000';
+      background: '#fff';
+      foreground: '#000';
+      pdground: '#000';
     }): HTMLCanvasElement;
   }
   interface Window {
