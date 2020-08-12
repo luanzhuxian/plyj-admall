@@ -1,6 +1,6 @@
 import Compressor from 'compressorjs'
 import { getSTS } from '../../apis/common'
-import { Loading } from 'element-ui'
+import { Loading } from 'admall-element'
 import store from '../../store'
 const OSS = require('ali-oss')
 

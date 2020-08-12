@@ -8,6 +8,9 @@
         </section>
         <!-- 子应用渲染区 -->
         <section id="child-app" v-show="!$route.name" />
+
+        <button @click="weixinLogin">微信登录</button>
+        <div id="login-container" />
     </div>
 </template>
 <script lang="ts">
@@ -18,6 +21,23 @@ export default class App extends Vue {
     title = '这是一个title'
     alert () {
         alert('这是一个方法')
+    }
+
+    weixinLogin () {
+        /* eslint-disable @typescript-eslint/camelcase */
+        /* eslint-disable no-new */
+        const state = Date.now().toString(16)
+        sessionStorage.setItem('login_state', state)
+        new window.WxLogin({
+            self_redirect: false,
+            id: 'login-container',
+            appid: 'wx7f8e7e4ea457931d',
+            scope: 'snsapi_login',
+            redirect_uri: 'http://joint.xijun.youpenglai.com',
+            state,
+            style: 'black',
+            href: ''
+        })
     }
 }
 </script>

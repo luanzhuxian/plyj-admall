@@ -20,8 +20,10 @@ declare global {
     put<T = any, R = ResponseData<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
     patch<T = any, R = ResponseData<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
   }
-  interface QrcodeConstructor {
-    new(arg: {
+  interface Window {
+    uuid: Uuid;
+    createObjectURL: Function;
+    Qrcode: new(arg: {
       render: string;
       // 纠错级别
       correctLevel: 3;
@@ -32,12 +34,17 @@ declare global {
       background: '#fff';
       foreground: '#000';
       pdground: '#000';
-    }): HTMLCanvasElement;
-  }
-  interface Window {
-    uuid: Uuid;
-    createObjectURL: Function;
-    Qrcode: QrcodeConstructor;
+    }) => HTMLCanvasElement;
+    WxLogin: new(arg: {
+      self_redirect: boolean;
+      id: string;
+      appid: string;
+      scope: 'snsapi_login';
+      redirect_uri: string;
+      state: string;
+      style: string;
+      href: '';
+    }) => void;
   }
   // 短信类型
   type SmsType = 'ACCOUNT_BIND_PHONE_NUMBER' | 'AGENT_USER_LOGIN'

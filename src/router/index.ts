@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import NProgress from 'nprogress'
+import qs from 'qs'
 // import NotFound from '../views/404.vue'
 
 Vue.use(Router)
@@ -70,6 +71,17 @@ export const router = new Router({
     routes
 })
 export const beforeResolve = async (to, from, next) => {
+    if (to.query.code) {
+        sessionStorage.setItem('redirect_state', to.query.state)
+        sessionStorage.setItem('redirect_code', to.query.code)
+        delete to.query.code
+        delete to.query.state
+        const search = qs.stringify(to.query)
+        if (search) {
+            return next(`${ to.path }?${ search }`)
+        }
+        return next(to.path)
+    }
     NProgress.start()
     next()
 }
