@@ -1,6 +1,16 @@
 <template>
     <header :class="$style.header">
-        头部
+        <div :class="$style.left">
+
+        </div>
+        <div :class="$style.right">
+            <div :class="$style.notice">
+                通知中心
+            </div>
+            <div>
+
+            </div>
+        </div>
     </header>
 </template>
 

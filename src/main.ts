@@ -2,8 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import { router } from './router'
 import store from './store'
-// import Element from 'admall-element'
-// import 'admall-element/lib/theme-chalk/index.css'
+import './assets/ts/el-components'
+import PlSvg from './components/common/Pl-Svg.vue'
 
 import directive from './directive'
 import filter from './filter'
@@ -13,7 +13,7 @@ import './assets/ts/axios-config'
 
 import startQiankun from './micro'
 
-// Vue.use(Element)
+Vue.component(PlSvg.name, PlSvg)
 
 /* *************** 自定义指令 ***************** */
 for (const k of Object.keys(directive)) {
@@ -28,7 +28,6 @@ for (const name of Object.keys(filter)) {
 startQiankun()
 
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
     el: '#main-app',

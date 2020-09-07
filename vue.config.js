@@ -27,7 +27,7 @@ const externals = process.env.NODE_ENV === 'production'
         viewerjs: 'Viewer',
         'v-viewer': 'VueViewer',
         compressorjs: 'Compressor',
-        'element-ui': 'ELEMENT',
+        'admall-element': 'ELEMENT',
         echarts: 'echarts',
         'v-charts': 'VeIndex',
         qs: 'Qs'
