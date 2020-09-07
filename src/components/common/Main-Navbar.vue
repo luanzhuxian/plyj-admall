@@ -14,6 +14,10 @@ export default class MainNavbar extends Vue {
 
 <style module lang="scss">
     .main-navbar {
-        font-size: 80px;
+        width: 120px;
+        height: 100vh;
+        color: #fff;
+        font-size: 20px;
+        background-color: #001629;
     }
 </style>

@@ -1,18 +1,23 @@
 <template>
-    <div id="main-app">
-        <Header />
-        <section v-show="$route.name">
+    <div id="main-app" :class="$style.mainApp">
+        <!--<section v-show="$route.name">
             <h1 v-text="title" />
             <button @click="alert">alert</button>
             <router-link to="/admall/login">v2</router-link>
             <router-view />
         </section>
-        <!-- 子应用渲染区 -->
+        &lt;!&ndash; 子应用渲染区 &ndash;&gt;
         <section id="child-app" v-show="!$route.name" />
 
         <button @click="weixinLogin">微信登录</button>
-        <div id="login-container" />
+        <div id="login-container" />-->
         <MainNavbar />
+        <Header />
+        <main :class="$style.main">
+            <keep-alive>
+                <router-view />
+            </keep-alive>
+        </main>
     </div>
 </template>
 <script lang="ts">
@@ -50,5 +55,17 @@ export default class App extends Vue {
     }
 }
 </script>
-<style lang="scss">
+<style module lang="scss">
+    .main-app {
+        display: grid;
+        grid-template-columns: 120px auto;
+        grid-template-rows: 60px auto;
+        > .main {
+            height: calc(100vh - 60px);
+            padding: 10px;
+            background-color: #f4f5f8;
+            grid-column-start: 2;
+            box-sizing: border-box;
+        }
+    }
 </style>
