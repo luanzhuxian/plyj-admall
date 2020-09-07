@@ -11,13 +11,16 @@
 
         <button @click="weixinLogin">微信登录</button>
         <div id="login-container" />-->
-        <MainNavbar />
-        <Header />
-        <main :class="$style.main">
-            <keep-alive>
-                <router-view />
-            </keep-alive>
-        </main>
+        <router-view v-if="noMenu.includes(routeName)" />
+        <template v-else>
+            <MainNavbar />
+            <Header />
+            <main :class="$style.main">
+                <keep-alive>
+                    <router-view />
+                </keep-alive>
+            </main>
+        </template>
     </div>
 </template>
 <script lang="ts">
@@ -32,7 +35,20 @@ import Header from './components/common/Header.vue'
     }
 })
 export default class App extends Vue {
+    // 不显示菜单的页面
+    noMenu: Array<string> = [
+        'Login',
+        'Register',
+        'ForgetPassword',
+        'ForgetPasswordMobile',
+        'ModifyPassword'
+    ];
+
     title = '这是一个title'
+    get routeName (): string | undefined | null{
+        return this.$route.name
+    }
+
     alert () {
         alert('这是一个方法')
     }

@@ -1,5 +1,8 @@
 <template>
-    <h1>HOME</h1>
+    <h1>
+        HOME
+        <div @click="$router.push({name:'Login'})">用户登录</div>
+    </h1>
 </template>
 
 <script>

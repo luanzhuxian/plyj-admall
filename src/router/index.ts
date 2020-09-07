@@ -59,6 +59,14 @@ const routes = [
         meta: {
             title: '首页'
         }
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('../views/login/Login.vue'),
+        meta: {
+            title: '登录'
+        }
     }
 ]
 
