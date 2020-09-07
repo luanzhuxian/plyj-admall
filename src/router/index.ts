@@ -51,6 +51,14 @@ Router.prototype.replace = function replace (location, onResolve, onReject) {
         })
 }
 
+// 导入其他同层路由文件
+const importRoutes = []
+let [files, file] = [require.context('./', false, /\/((?!index).)+\.js$/)]
+for (const key of files.keys()) {
+    file = files(key).default || files(key)
+    importRoutes.push(...file)
+}
+
 const routes = [
     {
         path: '/',
@@ -67,7 +75,8 @@ const routes = [
         meta: {
             title: '登录'
         }
-    }
+    },
+    ...importRoutes
 ]
 
 export const router = new Router({
