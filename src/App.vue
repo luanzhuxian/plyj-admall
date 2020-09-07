@@ -1,5 +1,6 @@
 <template>
     <div id="main-app">
+        <Header />
         <section v-show="$route.name">
             <h1 v-text="title" />
             <button @click="alert">alert</button>
@@ -11,12 +12,20 @@
 
         <button @click="weixinLogin">微信登录</button>
         <div id="login-container" />
+        <MainNavbar />
     </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-@Component
+import MainNavbar from './components/common/Main-Navbar.vue'
+import Header from './components/common/Header.vue'
+@Component({
+    components: {
+        MainNavbar,
+        Header
+    }
+})
 export default class App extends Vue {
     title = '这是一个title'
     alert () {
