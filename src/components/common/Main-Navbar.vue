@@ -56,7 +56,7 @@
                     <el-menu-item index="3-2">helper管理</el-menu-item>
                 </el-submenu>
 
-                <el-menu-item index="1">
+                <el-menu-item index="4">
                     <h2 :class="$style.title">
                         <pl-svg
                             name="icon-yxzx-44de2"

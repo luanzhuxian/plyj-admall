@@ -23,6 +23,7 @@ declare global {
   interface Window {
     uuid: Uuid;
     createObjectURL: Function;
+    [key: string]: any;
     Qrcode: new(arg: {
       render: string;
       // 纠错级别
