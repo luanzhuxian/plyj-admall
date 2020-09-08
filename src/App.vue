@@ -7,7 +7,6 @@
             <router-view />
         </section>
         &lt;!&ndash; 子应用渲染区 &ndash;&gt;
-        <section id="child-app" v-show="!$route.name" />
 
         <button @click="weixinLogin">微信登录</button>
         <div id="login-container" />-->
@@ -16,9 +15,14 @@
             <MainNavbar />
             <Header />
             <main :class="$style.main">
-                <keep-alive>
-                    <router-view />
-                </keep-alive>
+                <!-- 主应用渲染区 -->
+                <section v-if="$route.name">
+                    <keep-alive>
+                        <router-view />
+                    </keep-alive>
+                </section>
+                <!-- 子应用渲染区 -->
+                <section id="child-app" v-else />
             </main>
         </template>
     </div>

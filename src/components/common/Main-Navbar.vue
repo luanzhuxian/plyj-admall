@@ -80,7 +80,7 @@
                         <span>订单中心</span>
                     </h2>
                     <el-menu-item index="5-1">面授课程订单</el-menu-item>
-                    <el-menu-item index="5-2">云课堂订单</el-menu-item>
+                    <el-menu-item index="/admall/orders-manage/online-school-order">云课堂订单</el-menu-item>
                     <el-menu-item index="5-3">教育周边订单</el-menu-item>
                     <el-menu-item index="5-4">分销订单</el-menu-item>
                     <el-menu-item index="5-5">售后单</el-menu-item>

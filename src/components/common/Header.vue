@@ -9,7 +9,12 @@
             </el-breadcrumb>
         </div>
         <div :class="$style.right">
-            <div :class="$style.notice">
+            <router-link
+                tag="div"
+                :class="$style.notice"
+                class="pointer"
+                to="/admall/notification"
+            >
                 <pl-svg
                     :class="$style.icon"
                     name="icon-tongzhi-bfcfa"
@@ -18,7 +23,7 @@
                 />
                 <span>通知中心</span>
                 <i :class="$style.mark" />
-            </div>
+            </router-link>
             <div :class="$style.user">
                 <img
                     :class="$style.avatar"
