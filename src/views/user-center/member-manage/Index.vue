@@ -32,7 +32,7 @@ export default class MemberManage extends Vue {
         }
     ]
 
-    activeName = this.tabs[0]
+    activeName = this.tabs[0].name
     handleClick () {
         this.$router.push({ name: this.activeName })
     }

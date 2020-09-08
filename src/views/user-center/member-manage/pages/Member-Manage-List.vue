@@ -287,7 +287,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
-import pagination from '../../../../components/common/Pagination'
+import Pagination from '../../../../components/common/Pagination'
 import ExportDialog from '../../../../components/common/Export-Dialog'
 import PlTree from '../../../../components/pl-tree'
 import EditMemberTag from '../components/Edit-Member-Tag'
@@ -308,7 +308,7 @@ import moment from 'moment'
 @Component({
     components: {
         PlTree,
-        pagination,
+        Pagination,
         EditMemberTag,
         AddTags,
         ExportDialog
