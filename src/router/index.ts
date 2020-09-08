@@ -5,6 +5,7 @@ import NProgress from 'nprogress'
 import qs from 'qs'
 // import NotFound from '../views/404.vue'
 import marketingManage from './marketing-manage/index.ts'
+import userCenter from './user-center.ts'
 
 Vue.use(Router)
 
@@ -78,6 +79,7 @@ const routes = [
         }
     },
     // ...importRoutes
+    ...userCenter,
     ...marketingManage
 ]
 

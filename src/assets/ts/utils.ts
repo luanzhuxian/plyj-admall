@@ -1,3 +1,4 @@
+/*eslint-disable*/
 /**
  * 获取字符串长度，1个汉字等于2个字母
  * @param str {string}
@@ -233,4 +234,50 @@ export const SectionToChinese = (n: number) => {
         return chnStr.replace(/^一/, '')
     }
     return chnStr
+}
+
+/**
+ * 复制字段
+ * @param template {object} 要复制的所有字段
+ * @param target {object} 根据字段模板从target中复制出相关字段
+ * @returns {*}
+ */
+export const copyFields = function (template: any, target: any) {
+    if (!target) return template
+    if (typeof target !== 'object') return template
+    if (Object.keys(target).length === 0) return template
+    for (const k of Object.keys(template)) {
+        template[k] = target[k]
+    }
+    return template
+}
+
+/**
+ * 重置表单
+ * @param form {Object} 表单对象
+ * @param def {Object} 默认字段的值
+ */
+export const resetForm = function (form: any, def: any = {}) {
+    for (const k of Object.keys(form)) {
+        const val = form[k]
+        if (typeof val === 'string') {
+            form[k] = def[k] || ''
+            continue
+        }
+        if (typeof val === 'number') {
+            form[k] = def[k] || 0
+            continue
+        }
+        if (Array.isArray(form[k])) {
+            if (def[k]) {
+                form[k].splice(0, form[k].length, ...def[k])
+            } else {
+                form[k].splice(0, form[k].length)
+            }
+            continue
+        }
+        if (typeof val === 'object' && val !== null) {
+            resetForm(val)
+        }
+    }
 }
