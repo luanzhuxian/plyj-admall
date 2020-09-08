@@ -83,6 +83,7 @@ export default class App extends Vue {
             background-color: #f4f5f8;
             grid-column-start: 2;
             box-sizing: border-box;
+            overflow: auto;
         }
     }
 </style>
