@@ -11,8 +11,9 @@
                 active-text-color="#fff"
                 background-color="#001629"
                 unique-opened
+                router
             >
-                <el-menu-item index="1">
+                <el-menu-item index="/">
                     <h2 :class="$style.title">
                         <pl-svg
                             name="icon-shouye-5b56a"
@@ -56,7 +57,7 @@
                     <el-menu-item index="3-2">helper管理</el-menu-item>
                 </el-submenu>
 
-                <el-menu-item index="4">
+                <el-menu-item index="/marketing-manage">
                     <h2 :class="$style.title">
                         <pl-svg
                             name="icon-yxzx-44de2"

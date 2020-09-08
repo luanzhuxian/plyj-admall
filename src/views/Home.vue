@@ -197,7 +197,7 @@ export default class Home extends Vue {
     grid-template-rows: 267px 239px 239px;
     grid-gap: 10px;
     padding-bottom: 55px;
-
+    box-sizing: border-box;
     .functions-panel,
     .write-off-panel,
     .operation-panel,

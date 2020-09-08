@@ -153,7 +153,6 @@ export default class Gameplay extends Vue {
 
 .gameplay {
     box-sizing: border-box;
-    height: 100%;
     padding: 36px;
     overflow-y: auto;
     background-color: #FFFFFF;
@@ -166,16 +165,19 @@ export default class Gameplay extends Vue {
         margin-top: 40px;
     }
     > .package-container {
-        display: flex;
-        flex-wrap: wrap;
-        > .package {
-            width: 23%;
-            margin: 24px 0 0 30px;
-            &:nth-of-type(4n + 1) {
-                margin-left: 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 24px;
+    }
+}
+    @media screen and (max-width: 1500px) {
+        .gameplay {
+            .package-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-gap: 24px;
             }
         }
     }
-}
 
 </style>
