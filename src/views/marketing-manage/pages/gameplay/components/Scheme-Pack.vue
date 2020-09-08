@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.schemePack">
+    <div :class="$style.schemePack" @click="target">
         <div :class="$style.content">
             <img :class="$style.img" :src="imgSrc">
             <div :class="$style.detail">
@@ -17,38 +17,47 @@
     </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
-
-const Props = Vue.extend({
-    props: {
-        name: {
-            type: String,
-            default: ''
-        },
-        imgSrc: {
-            type: String,
-            default: ''
-        },
-        desc: {
-            type: String,
-            default: ''
-        },
-        expired: {
-            type: String,
-            default: ''
-        },
-        count: {
-            type: [String, Number],
-            default: 0
-        }
-    }
-})
+<script lang='ts'>
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
-export default class SchemePack extends Props {
+export default class SchemePack extends Vue {
+    @Prop({
+        type: String,
+        default: ''
+    }) readonly name: string | undefined
 
+    @Prop({
+        type: String,
+        default: ''
+    }) readonly imgSrc: string | undefined
+
+    @Prop({
+        type: String,
+        default: ''
+    }) readonly desc: string | undefined
+
+    @Prop({
+        type: String,
+        default: ''
+    }) readonly expired: string | undefined
+
+    @Prop({
+        type: [String, Object],
+        default: ''
+    }) readonly routeInfo: string | object | undefined
+
+    @Prop({
+        type: [String, Number],
+        default: 0
+    }) readonly count: string | number | undefined
+
+    target () {
+        if (typeof this.routeInfo === 'string') {
+            return this.$router.push({ name: this.routeInfo })
+        }
+        this.$router.push(this.routeInfo as object)
+    }
 }
 </script>
 
