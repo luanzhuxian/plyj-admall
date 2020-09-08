@@ -2,7 +2,7 @@
     <div>helper详情</div>
 </template>
 
-<script lang="ts">
+<script>
 import { Vue, Component } from 'vue-property-decorator'
 
   @Component
