@@ -20,7 +20,7 @@ export default [
                     {
                         path: 'member-manage-list',
                         name: 'MemberManageList',
-                        component: () => import('../views/user-center/member-manage/pages/Member-Manage-List.vue'),
+                        component: () => import('../views/user-center/member-manage/pages/MemberManageList.vue'),
                         meta: {
                             title: '会员管理'
                         }
@@ -29,7 +29,7 @@ export default [
                     {
                         path: 'member-manage-detail',
                         name: 'MemberManageDetail',
-                        component: () => import('../views/user-center/member-manage/pages/Member-Manage-Detail.vue'),
+                        component: () => import('../views/user-center/member-manage/pages/MemberManageDetail.vue'),
                         meta: {
                             title: '会员管理'
                         }
@@ -38,7 +38,7 @@ export default [
                     {
                         path: 'vistor-manage-list',
                         name: 'VistorManageList',
-                        component: () => import('../views/user-center/member-manage/pages/Visitor-Manage-List.vue'),
+                        component: () => import('../views/user-center/member-manage/pages/VisitorManageList.vue'),
                         meta: {
                             title: '游客管理'
                         }
@@ -46,8 +46,9 @@ export default [
                 ]
             },
             {
-                path: 'HelperManage',
+                path: 'helper-manage',
                 name: 'HelperManage',
+                redirect: 'helper-manage/helper-manage-list',
                 component: () => import('../views/user-center/helper-manage/Index.vue'),
                 meta: {
                     title: 'Helper管理'
@@ -57,7 +58,7 @@ export default [
                     {
                         path: 'helper-manage-list',
                         name: 'HelperManageList',
-                        component: () => import('../views/user-center/helper-manage/pages/Helper-Manage-List.vue'),
+                        component: () => import('../views/user-center/helper-manage/pages/HelperManageList.vue'),
                         meta: {
                             title: 'Helper管理'
                         }
@@ -66,7 +67,7 @@ export default [
                     {
                         path: 'helper-review-list',
                         name: 'HelperReviewList',
-                        component: () => import('../views/user-center/helper-manage/pages/Helper-Review-List.vue'),
+                        component: () => import('../views/user-center/helper-manage/pages/HelperReviewList.vue'),
                         meta: {
                             title: 'helper审核'
                         }
@@ -75,7 +76,7 @@ export default [
                     {
                         path: 'helper-detail',
                         name: 'HelperDetail',
-                        component: () => import('../views/user-center/helper-manage/pages/Helper-Detail.vue'),
+                        component: () => import('../views/user-center/helper-manage/pages/HelperDetail.vue'),
                         meta: {
                             title: 'helper详情'
                         }

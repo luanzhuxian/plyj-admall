@@ -2,9 +2,8 @@
     <div>helper详情</div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
 
   @Component
 export default class HelperDetail extends Vue {

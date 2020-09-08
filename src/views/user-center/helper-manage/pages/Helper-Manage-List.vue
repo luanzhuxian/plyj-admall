@@ -1,14 +1,13 @@
 <template>
-    <div>helper管理列表</div>
+    <div>helper管理列表 {{ name }}</div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
 
 @Component
 export default class HelperManageList extends Vue {
-
+    name = '123'
 }
 </script>
 
