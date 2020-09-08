@@ -75,9 +75,8 @@ export default class Cell extends Vue {
 
         // methods
 
-        /* eslint-disable @typescript-eslint/no-unused-vars */
-        /* eslint-disable @typescript-eslint/no-empty-function */
         @Emit('click')
+        // eslint-disable-next-line
         onClick (event: Event) {
         }
 }
