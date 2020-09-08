@@ -284,8 +284,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Vue, Component } from 'vue-property-decorator'
 
 import Pagination from '../../../../components/common/Pagination'
 import ExportDialog from '../../../../components/common/Export-Dialog'
