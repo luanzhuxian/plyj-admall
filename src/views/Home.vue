@@ -59,10 +59,10 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import Panel from '../components/common/Panel'
+import Panel from '../components/common/Panel.vue'
 
 @Component({
     components: {
@@ -70,7 +70,7 @@ import Panel from '../components/common/Panel'
     }
 })
 export default class Home extends Vue {
-    functions = [
+    private functions = [
         {
             icon: 'https://mallcdn.youpenglai.com/static/admall/3.0.0/gift-purple.png',
             name: '新人有礼',

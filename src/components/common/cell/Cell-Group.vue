@@ -11,21 +11,19 @@
     </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
-@Component({
-    props: {
-        customClass: String,
-        title: String,
-        border: Boolean
-    }
-})
+@Component
 export default class CellGroup extends Vue {
+    // props
+    @Prop() private customClass!: string
+    @Prop() private title!: string
+    @Prop() private border!: boolean
+
     // computed
-    get showTitle () {
-        return this.title || this.$slots.title
+    get showTitle (): boolean {
+        return !!this.title || !!this.$slots.title
     }
 }
 </script>

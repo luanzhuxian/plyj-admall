@@ -34,48 +34,50 @@
     </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script lang="ts">
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
+import { Location } from 'vue-router'
 
-@Component({
-    props: {
-        customClass: String,
-        title: [Number, String],
-        value: [Number, String],
-        titleClass: Object,
-        titleStyle: Object,
-        valueClass: {
+@Component
+export default class Cell extends Vue {
+        // props
+        @Prop() private customClass!: string
+        @Prop() private title!: number | string
+        @Prop() private value!: number | string
+        @Prop() private titleClass!: object
+        @Prop() private titleStyle!: object
+        @Prop({
             type: Object,
+            required: false,
             default () {
                 return {}
             }
-        },
-        valueStyle: Object,
-        // icon: String,
-        size: String,
-        center: Boolean,
-        border: Boolean,
-        isLink: Boolean,
-        arrowDirection: String,
-        url: String,
-        to: [String, Object]
-    }
-})
-export default class Cell extends Vue {
-    // computed
-    get showTitle () {
-        return this.title || this.$slots.title
-    }
+        }) private valueClass!: object
 
-    get showValue () {
-        return this.value || this.$slots.default
-    }
+        @Prop() private valueStyle!: object
+        // @Prop() private icon: string,
+        @Prop() private size!: string
+        @Prop() private center!: boolean
+        @Prop() private border!: boolean
+        @Prop() private isLink!: boolean
+        @Prop() private arrowDirection!: string
+        @Prop() private url!: string
+        @Prop() private to!: Location
 
-    // methods
-    onClick (event) {
-        this.$emit('click', event)
-    }
+        // computed
+        get showTitle (): boolean {
+            return !!this.title || !!this.$slots.title
+        }
+
+        get showValue (): boolean {
+            return !!this.value || !!this.$slots.default
+        }
+
+        // methods
+        @Emit('click')
+        onClick (event: Event) {
+            console.log(event)
+        }
 }
 </script>
 

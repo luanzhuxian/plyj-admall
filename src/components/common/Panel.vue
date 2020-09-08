@@ -16,35 +16,37 @@
     </CellGroup>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import CellGroup from './cell/Cell-Group'
-import Cell from './cell/Cell'
+<script lang="ts">
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
+import CellGroup from './cell/Cell-Group.vue'
+import Cell from './cell/Cell.vue'
+import { Location } from 'vue-router'
 
 @Component({
-    props: {
-        customClass: String,
-        // icon: String,
-        title: String,
-        value: String,
-        border: Boolean,
-        isLink: Boolean,
-        linkTarget: String,
-        to: Object
-    },
     components: {
         CellGroup,
         Cell
     }
 })
 export default class Panel extends Vue {
+    // props
+    @Prop() private customClass!: string
+    // @Prop() private icon!: string
+    @Prop() private title!: string
+    @Prop() private value!: string
+    @Prop() private border!: boolean
+    @Prop() private isLink!: boolean
+    @Prop() private linkTarget!: string
+    @Prop() private to!: Location
+
     // methods
-    onClick (event) {
-        this.$emit('click', event)
+    @Emit('click')
+    onClick (event: Event) {
         const { isLink, linkTarget, to } = this
+        const target = event.target as HTMLElement
+
         if (isLink && to && to.name) {
-            if (linkTarget && event.target.className === linkTarget) {
+            if (linkTarget && target.className === linkTarget) {
                 this.$router.push(to)
             }
             if (!linkTarget) {
