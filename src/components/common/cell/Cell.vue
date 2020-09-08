@@ -93,11 +93,11 @@ export default class Cell extends Vue {
         overflow: hidden;
         &__title,
         &__value {
+            position: relative;
+            overflow: hidden;
             flex: 1;
         }
         &__value {
-            position: relative;
-            overflow: hidden;
             // color: @cell-value-color;
             text-align: right;
             vertical-align: middle;
