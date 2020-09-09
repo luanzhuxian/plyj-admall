@@ -1,5 +1,6 @@
 import { router } from '../router'
 import store from '../store'
+import actions from './shared/actions'
 export default [
     {
         name: 'admall',
@@ -7,8 +8,9 @@ export default [
         container: '#child-app',
         activeRule: '/admall',
         props: {
-            router,
-            store
+            MAIN_ROUTER: router,
+            MAIN_STORE: store,
+            MAIN_ACTIONS: actions
         }
     }
 ]

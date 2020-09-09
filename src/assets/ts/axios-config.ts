@@ -1,11 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
 import Cookie from './storage-cookie'
 import store from '../../store'
-import Vue from 'vue'
 import { router } from '../../router'
 import { Loading } from 'admall-element'
-
-console.log(Vue.prototype)
 
 interface ResData {
     message: string;

@@ -53,8 +53,8 @@
                         />
                         <span>用户中心</span>
                     </h2>
-                    <el-menu-item index="3-1">会员管理</el-menu-item>
-                    <el-menu-item index="3-2">helper管理</el-menu-item>
+                    <el-menu-item index="/user-center/member-manage">会员管理</el-menu-item>
+                    <el-menu-item index="/user-center/helper-manage">helper管理</el-menu-item>
                 </el-submenu>
 
                 <el-menu-item index="/marketing-manage">

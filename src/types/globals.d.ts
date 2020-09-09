@@ -4,7 +4,7 @@ declare global {
         v1: () => string;
     }
     interface ResponseData<T> {
-        status: number;
+        code: number;
         result: any;
         message: string;
         devMessage: string;
