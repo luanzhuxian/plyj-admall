@@ -260,9 +260,169 @@
 
 <script>
 import { Vue, Component } from 'vue-property-decorator'
+import Pagination from '../../../../components/common/Pagination'
+import {
+    getHelperList,
+    changeHelpersAccount,
+    updateBrokerStatus
+} from '../../../../apis/member'
+import { getAccounts } from '../../../../apis/account'
 
-  @Component
+@Component({
+    components: {
+        Pagination
+    }
+})
 export default class HelperReviewList extends Vue {
+  showDialog = false
+  form = {
+      realName: '',
+      mobile: '',
+      ownnerUserId: '',
+      current: 1,
+      size: 10,
+      auditFlag: true,
+      auditStatus: ''
+  }
+
+  table = []
+  total = 0
+  statusMap = {
+      HelperWaiting: 'AWAIT',
+      HelperPassed: 'PASS',
+      HelperRejected: 'REJECT',
+      HelperList: null
+  }
+
+  /* 查询所属账号表单 */
+  searchAccountsForm = {
+      current: 1,
+      size: 200,
+      status: 1,
+      realName: '',
+      mobile: ''
+  }
+
+  accountList = []
+  routeName = ''
+
+  /* 当前正在修改所属账号的数据id */
+  currentUserId = []
+
+  /* 当前选中的表格数据 */
+  currentSelect = []
+  dialogAuditVisible = false
+  auditId = ''
+
+  /* 驳回申请理由 */
+  rejectReason = ''
+  restForm () {
+      this.form = { realName: '', mobile: '', ownnerUserId: '', current: 1, auditFlag: true, auditStatus: '' }
+      this.form.auditStatus = this.statusMap[this.routeName]
+      this.form.auditFlag = Boolean(this.form.auditStatus)
+  }
+
+  async getList () {
+      try {
+          const { data } = await getHelperList(this.form)
+          this.table = data.res.result.recordsthis.total || data.res.result.total
+      } catch (e) {
+          throw e
+      }
+  }
+
+  async updateBrokerStatus (id, status) {
+      try {
+          if (status === 'REJECT') {
+              this.auditId = id
+              this.dialogAuditVisible = true
+          } else {
+              await this.$confirm('确定通过该用户的申请吗？')
+              await updateBrokerStatus({ id, status, agentWriteBack: '' })
+              this.$success('审核成功')
+              this.form.current = 1
+              this.getList()
+          }
+      } catch (e) {
+          throw e
+      }
+  }
+
+  async getAccountList () {
+      try {
+          const { data: res } = await getAccounts(this.searchAccountsForm)
+          this.accountList = res.result.records
+      } catch (e) {
+          throw e
+      }
+  }
+
+  showDialogBox (id) {
+      this.showDialog = true
+      this.currentUserId = [id]
+  }
+
+  async changeHelperAccount (data) {
+      try {
+          await changeHelpersAccount({
+              ownnerUserId: data.userId,
+              ownneName: data.realName,
+              userId: this.currentUserId
+          })
+          this.showDialog = false
+          this.$success('变更成功！')
+          this.restForm()
+          this.getList()
+      } catch (e) {
+          throw e
+      }
+  }
+
+  selectionChange (list) {
+      this.currentSelect = list
+  }
+
+  // 批量通过
+  async batchAudit () {
+      try {
+          await this.$confirm('您确定通过所选用户的申请吗')
+          const ALL = []
+          for (const { id } of this.currentSelect) {
+              ALL.push(updateBrokerStatus({ id, status: 'PASS', agentWriteBack: '' }))
+          }
+          await Promise.all(ALL)
+          await this.getList()
+      } catch (e) {
+          if (e) throw e
+      }
+  }
+
+  dialogAuditCancel () {
+      this.dialogAuditVisible = false
+      this.rejectReason = ''
+  }
+
+  async dialogAuditConfirm () {
+      const id = this.auditId
+      const status = 'REJECT'
+      const agentWriteBack = this.rejectReason
+      await updateBrokerStatus({ id, status, agentWriteBack })
+      this.dialogAuditVisible = false
+      this.$success('审核成功')
+      this.restForm()
+      this.getList()
+  }
+
+  sizeChange (val) {
+      this.form.current = 1
+      this.form.size = val
+      this.getList()
+  }
+
+  search () {
+      this.form.current = 1
+      this.getList()
+  }
 }
 </script>
 
