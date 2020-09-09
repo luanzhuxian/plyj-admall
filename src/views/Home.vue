@@ -78,27 +78,27 @@
             <router-link class="operation-panel__item" :to="{ name: '' }">
                 <div class="operation-panel__item-name">待发货订单</div>
                 <div class="operation-panel__item-total" v-text="homeInfo.waitShip || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.waitShip || 0}单` }}</div>
+                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitShip || 0}单` }}</div>
             </router-link>
             <router-link class="operation-panel__item" :to="{ name: '' }">
                 <div class="operation-panel__item-name">待退款订单</div>
                 <div class="operation-panel__item-total" v-text="homeInfo.waitRefund || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.waitRefund || 0}单` }}</div>
+                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitRefund || 0}单` }}</div>
             </router-link>
             <router-link class="operation-panel__item" :to="{ name: 'HelperReviewList' }">
                 <div class="operation-panel__item-name">待审核Helper</div>
                 <div class="operation-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.pendingReviewHelper || 0}人` }}</div>
+                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingReviewHelper || 0}人` }}</div>
             </router-link>
             <router-link class="operation-panel__item" :to="{ name: '' }">
                 <div class="operation-panel__item-name">待审核润笔</div>
                 <div class="operation-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.shareWaitAudit || 0}人` }}</div>
+                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0}人` }}</div>
             </router-link>
             <router-link class="operation-panel__item" :to="{ name: '' }">
                 <div class="operation-panel__item-name">待提现审核</div>
                 <div class="operation-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.pendingWithdraw || 0}人` }}</div>
+                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0}人` }}</div>
             </router-link>
         </Panel>
     </div>
