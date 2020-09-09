@@ -2,8 +2,12 @@
     <div
         :class="$style.schemePack"
         :style="{
-            '--color': bgImgSrc ? '#FFFFFF' : '',
+            '--name-color': bgImgSrc ? '#fff' : '#333',
+            '--desc-color': bgImgSrc ? '#fff' : '#999',
+            '--tip-color': bgImgSrc ? '#fff' : '#6E7B8E',
+            '--border-color': bgImgSrc ? '#fff' : '#e7e7e7',
             '--opacity': bgImgSrc ? 0.6 : 1,
+            '--border-opacity': bgImgSrc ? 0.2 : 1,
             'background-image': `url(${bgImgSrc})`,
         }"
         @click="target"
@@ -125,8 +129,7 @@ export default class SchemePack extends Vue {
                 > .name {
                     margin-bottom: 4px;
                     font-size: 14px;
-                    color: #333333;
-                    color: var(--color);
+                    color: var(--name-color);
                 }
                 > .tab {
                     display: inline-block;
@@ -135,32 +138,37 @@ export default class SchemePack extends Vue {
                     box-sizing: border-box;
                     margin-left: 6px;
                     border: 1px solid #F79F1A;
-                    border-color: var(--color);
                     border-radius: 2px;
                     text-align: center;
-                    font-size: 8px;
+                    font-size: 12px;
                     color: #F79F1A;
-                    color: var(--color);
                 }
             }
             > .desc {
                 font-size: 12px;
-                color: #999999;
-                color: var(--color);
+                color: var(--desc-color);
                 opacity: var(--opacity);
             }
         }
     }
     > .tip {
+        position: relative;
         display: flex;
         justify-content: space-between;
         box-sizing: border-box;
-        border-top: 1px solid #E7E7E7;
         padding: 10px 20px;
         font-size: 10px;
-        color: #6E7B8E;
-        color: var(--color);
-        opacity: var(--opacity);
+        color: var(--tip-color);
+        &:before {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            height: 1px;
+            width: 100%;
+            background-color: var(--border-color);
+            opacity: var(--border-opacity);
+        }
     }
     > .lock {
         position: absolute;
