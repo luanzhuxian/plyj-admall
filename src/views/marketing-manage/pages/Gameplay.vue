@@ -28,7 +28,7 @@
                 :class="$style.package"
                 name="秒杀"
                 desc="限时抢购，引导用户消费"
-                :expired="secondBuyStatus ? `${getDate(activitys.secondBuy.data.createTime)}-${getDate(activitys.secondBuy.data.validity)}` : ''"
+                :expired="activitys.secondBuy.status ? `${getDate(activitys.secondBuy.data.createTime)}-${getDate(activitys.secondBuy.data.validity)}` : ''"
                 :count="activitiesInfo.seckillActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png"
             />
@@ -36,7 +36,7 @@
                 :class="$style.package"
                 name="众志成团"
                 desc="微信裂变，快速引流"
-                :expired="togetherBuyStatus ? `${getDate(activitys.togetherBuy.data.createTime)}-${getDate(activitys.togetherBuy.data.validity)}` : ''"
+                :expired="activitys.togetherBuy.status ? `${getDate(activitys.togetherBuy.data.createTime)}-${getDate(activitys.togetherBuy.data.validity)}` : ''"
                 :count="activitiesInfo.newyearGroupActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
             />
@@ -44,7 +44,7 @@
                 :class="$style.package"
                 name="预购"
                 desc="分批支付，提前享服务"
-                :expired="bookingBuyStatus ? `${getDate(activitys.bookingBuy.data.createTime)}-${getDate(activitys.bookingBuy.data.validity)}` : ''"
+                :expired="activitys.bookingBuy.status ? `${getDate(activitys.bookingBuy.data.createTime)}-${getDate(activitys.bookingBuy.data.validity)}` : ''"
                 :count="activitiesInfo.newyearPreActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png"
             />
