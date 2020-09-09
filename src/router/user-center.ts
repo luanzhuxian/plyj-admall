@@ -12,6 +12,7 @@ export default [
                 path: 'member-manage',
                 name: 'MemberManage',
                 component: () => import('../views/user-center/member-manage/Index.vue'),
+                redirect: '/user-center/member-manage/member-manage-list',
                 meta: {
                     title: '用户管理'
                 },
@@ -48,7 +49,7 @@ export default [
             {
                 path: 'helper-manage',
                 name: 'HelperManage',
-                redirect: 'helper-manage/helper-manage-list',
+                redirect: '/helper-manage/helper-manage-list',
                 component: () => import('../views/user-center/helper-manage/Index.vue'),
                 meta: {
                     title: 'Helper管理'
