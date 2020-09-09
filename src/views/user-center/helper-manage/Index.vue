@@ -27,7 +27,7 @@ export default class HelperManage extends Vue {
       title: 'Helper审核'
   }]
 
-    activeName = this.tabs[0]
+    activeName = this.tabs[0].name
 
     handleClick () {
         this.$router.push({ name: this.activeName })

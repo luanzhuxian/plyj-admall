@@ -324,8 +324,8 @@ export default class HelperReviewList extends Vue {
 
   async getList () {
       try {
-          const { data } = await getHelperList(this.form)
-          this.table = data.res.result.recordsthis.total || data.res.result.total
+          const { data: res } = await getHelperList(this.form)
+          this.table = res.result.recordsthis.total || res.result.total
       } catch (e) {
           throw e
       }
