@@ -101,13 +101,13 @@
                 <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.pendingWithdraw || 0}人` }}</div>
             </router-link>
         </Panel>
-
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
+import { AGENCY_USER_INFO } from '../store/mutation-type'
 import Panel from '../components/common/Panel.vue'
 import {
     getHomeInfo,
@@ -119,6 +119,8 @@ import {
 import { getWaitWarrantyResource } from '../apis/line-teaching/repository'
 import { getNotificationList, markReaded } from '../apis/base/message'
 import { getAuthUrl, setAuthCode } from '../apis/base/register'
+// import { testPhone } from '../assets/ts/validate'
+// import { ACCOUNT_BIND_PHONE_NUMBER } from '../assets/ts/types'
 
 const user = namespace('user')
 
@@ -192,7 +194,7 @@ const authMap: DynamicObject = {
         message: '商户升级签约失败',
         confirmButtonText: '重新开通',
         confirmButtonClass: 'message-box-confirm-btn-warning'
-    },
+    }
     // 已认证
     // AUTHENTICATE: {
     //   title: '雅集商城认证成功',
@@ -200,7 +202,7 @@ const authMap: DynamicObject = {
     //   showCancelButton: false
     // },
     // 认证失败
-    AUTH_FAIL: {}
+    // AUTH_FAIL: {}
 }
 
 const newAuthMap: DynamicObject = {
@@ -331,6 +333,9 @@ export default class Home extends Vue {
     @user.Getter vMerchantStatus!: DynamicObject
     @user.Getter upgradeStatus!: DynamicObject
     @user.Getter wechatPayStatus!: DynamicObject
+
+    // mutauion
+    @user.Mutation [AGENCY_USER_INFO]: () => void
 
     async created () {
         try {
@@ -518,7 +523,7 @@ export default class Home extends Vue {
             this.repeatAuth('授权失败，请重试')
             throw e
         } finally {
-            // this[AGENCY_USER_INFO]()
+            this.AGENCY_USER_INFO()
         }
     }
 
