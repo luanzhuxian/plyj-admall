@@ -3,7 +3,7 @@ export default [
         path: '/marketing-manage',
         redirect: '/marketing-manage/marketing-gameplay-list/classmate',
         name: 'MarketingManage',
-        component: () => import('../../views/marketing-manage/index.vue'),
+        component: () => import('../../views/marketing-manage/Index.vue'),
         meta: {
             title: '营销中心'
         },
@@ -11,7 +11,7 @@ export default [
             {
                 path: 'marketing-gameplay-list/classmate',
                 name: 'MarketingGameplayList',
-                component: () => import('../../views/marketing-manage/pages/gameplay/index.vue'),
+                component: () => import('../../views/marketing-manage/pages/Gameplay.vue'),
                 meta: {
                     title: '营销方案'
                 }

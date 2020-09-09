@@ -118,8 +118,8 @@
 <script>
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import SchemeLabel from './components/Scheme-Label'
-import SchemePack from './components/Scheme-Pack'
+import SchemeLabel from './../components/Scheme-Label'
+import SchemePack from './../components/Scheme-Pack'
 
 @Component({
     components: {
