@@ -18,14 +18,12 @@ import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
 
 const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
-// const agencyCode = Cookie.get('agencyCode') || ''
-// const mallId = Cookie.get('mallId') || ''
-// const token = Cookie.get('token') || ''
+const agencyCode = Cookie.get('agencyCode') || ''
+const mallId = Cookie.get('mallId') || ''
+const token = Cookie.get('token') || ''
 
 // 本地cookie较服务器提前一小时过期
 const CalcCookieTime = (expire: number) => Number(new Date(Date.now() + expire * 1000 - 60000000))
-
-// const getters: GetterTree<DynamicObject, DynamicObject> =
 
 const user: Module<DynamicObject, DynamicObject> = {
     state: {
@@ -58,13 +56,13 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 所拥有的机构
         agencyList: [],
         // 当前机构主键
-        agencyCode: '',
+        agencyCode,
         // 当前登录的机构
-        mallId: '',
+        mallId,
         currentRoleCode: '',
         // 审核状态
         auditStatus: '',
-        token: '',
+        token,
         inviteCode: '',
         // 小v商户审核状态
         vMerchantStatus: {},

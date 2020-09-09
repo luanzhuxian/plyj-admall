@@ -1,8 +1,4 @@
 <template>
-    <!-- <h1>
-        HOME
-        <div @click="$router.push({name:'Login'})">用户登录</div>
-    </h1> -->
     <div class="home">
         <!-- 常用功能 -->
         <Panel
@@ -80,7 +76,7 @@
         <!-- 待办事宜 -->
         <Panel custom-class="to-do-panel" title="待办事宜">
             <router-link class="operation-panel__item" :to="{ name: ''}">
-                <div class="operation-panel__item-name">支付订单量</div>
+                <div class="operation-panel__item-name">待发货订单</div>
                 <div class="operation-panel__item-total" v-text="homeInfo.waitShip || 0" />
                 <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.waitShip || 0}单` }}</div>
             </router-link>
@@ -111,7 +107,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { namespace } from 'vuex-class'
 import Panel from '../components/common/Panel.vue'
 import {
     getHomeInfo,
@@ -123,6 +119,8 @@ import {
 import { getWaitWarrantyResource } from '../apis/line-teaching/repository'
 import { getNotificationList, markReaded } from '../apis/base/message'
 import { getAuthUrl, setAuthCode } from '../apis/base/register'
+
+const user = namespace('user')
 
 const authMap: DynamicObject = {
     MP_NOT_AUTHORIZED: {
@@ -326,13 +324,13 @@ export default class Home extends Vue {
     }
 
     // computed
-    @Getter agencyCode!: string
-    @Getter auditStatus!: string
-    @Getter mallNumber!: string
-    @Getter regType!: number
-    @Getter vMerchantStatus!: DynamicObject
-    @Getter upgradeStatus!: DynamicObject
-    @Getter wechatPayStatus!: DynamicObject
+    @user.Getter agencyCode!: string
+    @user.Getter auditStatus!: string
+    @user.Getter mallNumber!: string
+    @user.Getter regType!: number
+    @user.Getter vMerchantStatus!: DynamicObject
+    @user.Getter upgradeStatus!: DynamicObject
+    @user.Getter wechatPayStatus!: DynamicObject
 
     async created () {
         try {
@@ -526,19 +524,18 @@ export default class Home extends Vue {
 
     // 重新授权
     repeatAuth (message: string) {
-        console.log(message)
-        // this.$confirm({
-        //     title: '温馨提示',
-        //     message,
-        //     confirmButtonText: '重新授权',
-        //     cancelButtonText: '我再看看'
-        // })
-        //     .then(() => {
-        //         this.givePower()
-        //     })
-        //     .catch(() => {
-        //         this.$router.replace({ name: 'Home' })
-        //     })
+        this.$confirm({
+            title: '温馨提示',
+            message,
+            confirmButtonText: '重新授权',
+            cancelButtonText: '我再看看'
+        })
+            .then(() => {
+                this.givePower()
+            })
+            .catch(() => {
+                this.$router.replace({ name: 'Home' })
+            })
     }
 }
 </script>
