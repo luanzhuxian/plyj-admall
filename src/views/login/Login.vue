@@ -1,7 +1,9 @@
 <template>
     <div :class="$style.login">
         <div :class="$style.loginBg" />
-        <phoneLogin />
+        <!--        <phoneLogin />-->
+        <passwordLogin />
+        <!--        <wxLogin />-->
     </div>
 </template>
 
@@ -30,7 +32,7 @@ export default class Login extends Vue {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        background-color: #F5F6FA;
+        background-color: #ffffff;
         .login-bg{
             width: 320px;
             height: 440px;

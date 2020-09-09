@@ -1,6 +1,21 @@
 import { Module } from 'vuex'
+import {
+    login,
+    mobileLogin,
+    getLoginInfo,
+    getRolePowerList,
+    getAgencyDetail,
+    getAgencyList
+} from '../../apis/login'
 
-// import Cookie from '../../assets/js/storage-cookie'
+import {
+    getWechatPaytStatus,
+    getUpgradeStatus,
+    getVstatus
+} from '../../apis/register'
+import * as types from '../mutation-type'
+import { resetForm } from '../../assets/ts/utils'
+import Cookie from '../../assets/ts/storage-cookie'
 
 const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
 // const agencyCode = Cookie.get('agencyCode') || ''
@@ -8,7 +23,7 @@ const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
 // const token = Cookie.get('token') || ''
 
 // 本地cookie较服务器提前一小时过期
-// const CalcCookieTime = expire => new Date(Date.now() + expire * 1000 - 60000000)
+const CalcCookieTime = (expire: number) => Number(new Date(Date.now() + expire * 1000 - 60000000))
 
 // const getters: GetterTree<DynamicObject, DynamicObject> =
 
@@ -58,8 +73,265 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 微信支付审核状态
         wechatPayStatus: {}
     },
-    mutations: {},
-    actions: {},
+    mutations: {
+        [types.SET_LOGININFO]: (state, payload) => {
+            if (payload) {
+                Cookie.set('token', payload.token, {
+                    expires: CalcCookieTime(payload.expire)
+                })
+                Cookie.set('refresh_token', payload.token, {
+                    expires: CalcCookieTime(payload.refresh_token_expire)
+                })
+                Object.assign(state.loginInfo, payload)
+                state.token = state.loginInfo.token
+            }
+        },
+        [types.AGENCY_USER_INFO] (state, payload) {
+            if (!payload) return
+            const {
+                currentStep = 1,
+                entPersonSaveModel = {},
+                enterpriseId,
+                enterpriseSaveModel = {},
+                mallSaveModel = {},
+                inviteCode,
+                auditStatus,
+                currentRoleCode
+            } = payload
+            // 对步骤进行本地缓存
+            sessionStorage.setItem('currentStep', currentStep)
+            state.currentStep = currentStep
+            state.currentRoleCode = currentRoleCode || ''
+            // 注册第二步数据
+            state.entPersonSaveModel = entPersonSaveModel
+            state.agencyCode = enterpriseId
+            // 注册第一步数据
+            state.enterpriseSaveModel = enterpriseSaveModel
+            state.mallSaveModel = mallSaveModel
+            state.inviteCode = inviteCode
+            state.auditStatus = auditStatus
+            // TODO: 由于新流程不能无法保存成功性，暂且都按老流程处理，需要的时候，放开注释即可
+            state.REG_TYPE = Number(enterpriseSaveModel.regType) || 1
+            // state.REG_TYPE = 1
+            Cookie.set('mallId', mallSaveModel.id || '', {
+                expires: CalcCookieTime(state.loginInfo.expire)
+            })
+        },
+        // 退出
+        [types.LOGOUT] (state) {
+            resetForm(state.loginInfo)
+            resetForm(state.entPersonSaveModel)
+            resetForm(state.enterpriseSaveModel)
+            resetForm(state.mallSaveModel)
+            state.inviteCode = ''
+            state.currentStep = 0
+            state.token = ''
+            state.menuList = []
+            state.subAccount = []
+            state.agencyCode = ''
+            state.currentRoleCode = ''
+            state.agencyList = []
+            Cookie.remove('token')
+            Cookie.remove('refresh_token')
+            Cookie.remove('agencyCode')
+            Cookie.remove('mallId')
+            sessionStorage.removeItem('currentStep')
+        },
+        // 缓存权限列表
+        [types.SET_POWER_LIST]: (state, payload) => {
+            if (!payload) {
+                return
+            }
+            const regType = state.REG_TYPE
+            const menus = payload[0] ? payload[0].children || [] : []
+            const container = new Set()
+            const getMenuName = (menuList: Array<any>) => {
+                for (const item of menuList) {
+                    // 删除老流程菜单
+                    if (regType === 2 && item.routePath === 'WechatBind') {
+                        menuList.splice(menuList.indexOf(item), 1)
+                        getMenuName(menuList)
+                        break
+                    }
+                    // 删除新流程菜单
+                    if (regType === 1 && item.routePath === 'BindWechat') {
+                        menuList.splice(menuList.indexOf(item), 1)
+                        getMenuName(menuList)
+                        break
+                    }
+                    if (item.routePath) {
+                        container.add(item.routePath)
+                    }
+                    if (item.children.length) {
+                        getMenuName(item.children)
+                    }
+                }
+            }
+            getMenuName(menus)
+            state.routeNames = [...container]
+            state.menuList = [{ children: menus }]
+        },
+        // 缓存机构列表
+        [types.GET_AGENCY_LIST]: (state, payload) => {
+            state.agencyList = payload
+        },
+        // 缓存当前机构
+        [types.SET_CURRENT_AGENCY]: (state, payload) => {
+            if (payload.agencyCode) {
+                state.agencyCode = payload.agencyCode
+                Cookie.set('agencyCode', payload.agencyCode, {
+                    expires: CalcCookieTime(state.loginInfo.expire)
+                })
+            }
+            if (payload.mallId) {
+                state.mallId = payload.mallId
+                Cookie.set('mallId', payload.mallId, {
+                    expires: CalcCookieTime(state.loginInfo.expire)
+                })
+            }
+        },
+        [types.V_MERCHANT_STATUS]: (state, payload) => {
+            if (payload) {
+                state.vMerchantStatus = payload
+            }
+        },
+        [types.UPGRADE_STATUS]: (state, payload) => {
+            if (payload) {
+                state.upgradeStatus = payload
+            }
+        },
+        [types.WECHAT_PAY_STATUS]: (state, payload) => {
+            if (payload) {
+                state.wechatPayStatus = payload
+            }
+        },
+        [types.HAS_GET_ALL_MALL_INFO]: (state, loaded) => {
+            state.allLoaded = loaded
+        }
+        // [types.GET_ALL_MALL_INFO]: (state, getters) => {
+        //     setSentry(getters)
+        // }
+    },
+    actions: {
+        async login ({ commit, dispatch }, form) {
+            try {
+                const data = await login(form)
+                commit(types.SET_LOGININFO, data.result)
+                await dispatch(types.GET_AGENCY_LIST)
+                return data.res
+            } catch (e) {
+                commit(types.LOGOUT)
+                throw e
+            }
+        },
+        async mobileLogin ({ commit, dispatch }, form) {
+            try {
+                const data = await mobileLogin(form)
+                commit(types.SET_LOGININFO, data.result)
+                await dispatch(types.GET_AGENCY_LIST)
+                return data.result
+            } catch (e) {
+                commit(types.LOGOUT)
+                throw e
+            }
+        },
+        // 获取所有机构列表
+        async [types.GET_AGENCY_LIST] ({ commit }) {
+            try {
+                const data = await getAgencyList()
+                commit(types.GET_AGENCY_LIST, data.result)
+                return data.result
+            } catch (e) {
+                commit(types.LOGOUT)
+                throw e
+            }
+        },
+        async [types.AGENCY_USER_INFO] ({ commit }) {
+            try {
+                const AgencyDetail = await getAgencyDetail(Cookie.get('agencyCode'))
+                commit(types.AGENCY_USER_INFO, AgencyDetail.result)
+                return AgencyDetail.result
+            } catch (e) {
+                commit(types.LOGOUT)
+                throw e
+            }
+        },
+        async [types.SET_LOGININFO] ({ commit }) {
+            try {
+                const LoginInfo = await getLoginInfo()
+                commit(types.SET_LOGININFO, LoginInfo.result)
+                return LoginInfo.result
+            } catch (e) {
+                commit(types.LOGOUT)
+                throw e
+            }
+        },
+        async [types.SET_POWER_LIST] ({ commit }) {
+            try {
+                const data = await getRolePowerList()
+                commit(types.SET_POWER_LIST, data.result)
+                return data.result
+            } catch (e) {
+                commit(types.LOGOUT)
+                throw e
+            }
+        },
+        async [types.V_MERCHANT_STATUS] ({ commit }) {
+            try {
+                const data = await getVstatus()
+                commit(types.V_MERCHANT_STATUS, data.result)
+                return data.result
+            } catch (e) {
+                throw e
+            }
+        },
+        async [types.UPGRADE_STATUS] ({ commit }) {
+            try {
+                const data = await getUpgradeStatus()
+                if (data.result.applymentState === 'SUBMITING') {
+                    // SUBMITING相当于没升级过
+                    data.result.applymentState = ''
+                }
+                commit(types.UPGRADE_STATUS, data.result)
+                return data.result
+            } catch (e) {
+                throw e
+            }
+        },
+        // 微信支付申请状态
+        async [types.WECHAT_PAY_STATUS] ({ commit }) {
+            try {
+                const data = await getWechatPaytStatus()
+                if (data.result.errCode) {
+                    data.result.applymentState = 'APPLYMENT_STATE_REJECTED'
+                    data.result.applymentStateMsg = data.result.errCodeDes
+                }
+                commit(types.WECHAT_PAY_STATUS, data.result)
+                return data.result
+            } catch (e) {
+                throw e
+            }
+        },
+        // 获取所有商城数据
+        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state, getters }) {
+            try {
+                await dispatch(types.AGENCY_USER_INFO)
+                await dispatch(types.SET_POWER_LIST)
+                await dispatch(types.GET_CLASSIFY_TREE)
+                if (state.REG_TYPE === 2) {
+                    // 新流程
+                    await dispatch(types.WECHAT_PAY_STATUS)
+                } else {
+                    // 老流程
+                    await Promise.all([dispatch(types.V_MERCHANT_STATUS), dispatch(types.UPGRADE_STATUS)])
+                }
+                commit(types.HAS_GET_ALL_MALL_INFO, true)
+                commit(types.GET_ALL_MALL_INFO, getters)
+            } catch (e) {
+                throw e
+            }
+        }
+    },
     getters: {
         token: state => state.token || null,
         // 当前登录人的id
@@ -104,4 +376,8 @@ const user: Module<DynamicObject, DynamicObject> = {
     }
 }
 
-export default user
+// export default user
+export default {
+    namespaced: true,
+    ...user
+}
