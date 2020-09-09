@@ -2,7 +2,7 @@
     <div class="helper-list">
         <el-form
             :inline="true"
-            class="wrap border-bottom"
+            class="form-filter"
         >
             <el-form-item class="mb-0">
                 <el-input
@@ -282,7 +282,7 @@ export default class HelperManageList extends Vue {
     /* 当前选中的表格数据 */
     currentSelect = []
     ownnerUserId = ''
-    currentRoleCode = ''
+    currentRoleCode = 'EMPLOYEE'
 
     /* created () {
         this.routeName = this.$route.name
@@ -414,6 +414,10 @@ export default class HelperManageList extends Vue {
 }
 </script>
 
-<style module lang="scss">
-
+<style lang="scss">
+.form-filter{
+    padding: 20px 32px;
+    background: #F5F6FA;
+    border-radius: 10px;
+}
 </style>

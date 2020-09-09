@@ -38,7 +38,7 @@ export default class HelperManage extends Vue {
 <style module lang="scss">
 .helper{
     background: #fff;
-    padding: 40px;
-    border: 1px solid #ddd;
+    padding: 30px 40px;
+    border: 1px solid #e7e7e7;
 }
 </style>
