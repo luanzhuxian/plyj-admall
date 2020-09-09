@@ -13,7 +13,7 @@ export const getProductOrder = () => axios.get('/apis/v2/base/baseMall/home/wait
 /**
  * 获取首页信息 订单相关: 支付订单量 + 收益总额 + 待发货订单 + 待退款订单
  */
-export const getOrderInfo = () => axios.get('/apis/v1/base/baseMall/home/count')
+export const getOrderInfo = () => axios.get('/apis/v2/base/baseMall/home/waitPerfect')
 
 /**
  * 判断是否绑定了手机号

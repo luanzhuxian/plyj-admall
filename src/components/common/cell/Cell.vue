@@ -41,11 +41,11 @@ import { Location } from 'vue-router'
 @Component
 export default class Cell extends Vue {
         // props
-        @Prop() private customClass!: string
-        @Prop() private title!: number | string
-        @Prop() private value!: number | string
-        @Prop() private titleClass!: object
-        @Prop() private titleStyle!: object
+        @Prop(String) private customClass!: string
+        @Prop([String, Number]) private title!: string | number
+        @Prop([String, Number]) private value!: string | number
+        @Prop(Object) private titleClass!: object
+        @Prop(Object) private titleStyle!: object
         @Prop({
             type: Object,
             required: false,
@@ -54,14 +54,14 @@ export default class Cell extends Vue {
             }
         }) private valueClass!: object
 
-        @Prop() private valueStyle!: object
-        // @Prop() private icon: string,
-        @Prop() private size!: string
-        @Prop() private center!: boolean
-        @Prop() private border!: boolean
-        @Prop() private isLink!: boolean
-        @Prop() private arrowDirection!: string
-        @Prop() private url!: string
+        @Prop(Object) private valueStyle!: object
+        // @Prop(String) private icon: string,
+        @Prop(String) private size!: string
+        @Prop(Boolean) private center!: boolean
+        @Prop(Boolean) private border!: boolean
+        @Prop(Boolean) private isLink!: boolean
+        @Prop(String) private arrowDirection!: string
+        @Prop(String) private url!: string
         @Prop() private to!: Location
 
         // computed
