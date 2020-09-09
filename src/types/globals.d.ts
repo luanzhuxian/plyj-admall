@@ -1,39 +1,4 @@
-import Vue, { VNode } from 'vue'
 import { AxiosRequestConfig, AxiosStatic } from 'axios'
-
-interface MessageBoxConfig {
-    title?: string;
-    message?: string | VNode;
-    dangerouslyUseHTMLString?: boolean;
-    showClose?: boolean;
-    confirmButtonText?: string;
-    confirmButtonClass?: string;
-    closeOnClickModal?: string;
-    closeOnPressEscape?: string;
-    center?: boolean;
-    roundButton?: boolean;
-}
-interface ConfirmMessageBoxConfig extends MessageBoxConfig {
-    cancelButtonText?: string;
-    cancelButtonClass?: string;
-}
-
-interface PromptMessageBoxConfig extends ConfirmMessageBoxConfig {
-    inputPlaceholder?: string;
-    inputType?: string;
-    inputValue?: string;
-    inputPattern?: RegExp;
-    inputValidator?: (value: string) => boolean | string;
-    inputErrorMessage?: string;
-}
-
-declare module 'vue/types/vue' {
-    interface Vue {
-        $success: (msg: string) => void;
-        $confirm: (config: string | ConfirmMessageBoxConfig) => Promise<void>;
-    }
-}
-
 declare global {
     interface Uuid {
         v1: () => string;

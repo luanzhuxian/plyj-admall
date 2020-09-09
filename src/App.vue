@@ -56,6 +56,7 @@ export default class App extends Vue {
 
     alert () {
         alert('这是一个方法')
+        this.$success('123')
     }
 
     weixinLogin () {

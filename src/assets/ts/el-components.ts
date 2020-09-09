@@ -29,7 +29,7 @@ Vue.prototype.$msgbox = MessageBox
  * @property config.roundButton {Boolean}               是否使用圆角按钮 (默认为false)
  * @return {Promise<void>}                              返回值
  */
-Vue.prototype.$alert = async (config = {}) => {
+Vue.prototype.$alert = async (config: string & object) => {
   let configDefault = {
     title: '',
     message: '',
@@ -66,7 +66,7 @@ Vue.prototype.$alert = async (config = {}) => {
  * @property config.roundButton {Boolean}                是否使用圆角按钮 (默认为false)
  * @return {Promise<void>}                               返回值
  */
-Vue.prototype.$confirm = async (config = {}) => {
+Vue.prototype.$confirm = async (config: string | object) => {
   let configDefault = {
     title: '',
     message: '',
@@ -112,7 +112,7 @@ Vue.prototype.$confirm = async (config = {}) => {
  * @property config.inputErrorMessage {string}           校验未通过时的提示文本 (默认为 输入的数据不合法!)
  * @return {Promise<text>}                               返回值
  */
-Vue.prototype.$prompt = async (config = {}) => {
+Vue.prototype.$prompt = async (config: string | object) => {
   let configDefault = {
     title: '',
     message: '',
@@ -140,21 +140,21 @@ Vue.prototype.$notify = Notification
 Vue.prototype.$success = (msg: string) => {
   const vm = Message.success({
     dangerouslyUseHTMLString: true,
-    message: `<svg aria-hidden="true"><use xlink:href="#icon-chenggong"></use></svg><span>${msg}</span>`,
+    message: msg,
     duration: 3000
   })
 }
 Vue.prototype.$error = (msg: string) => {
   const vm = Message.error({
     dangerouslyUseHTMLString: true,
-    message: `<svg aria-hidden="true"><use xlink:href="#icon-shibai"></use></svg><span>${msg}</span>`,
+    message: msg,
     duration: 3000
   })
 }
 Vue.prototype.$warning = (msg: string) => {
   const vm = Message.warning({
     dangerouslyUseHTMLString: true,
-    message: `<svg aria-hidden="true"><use xlink:href="#icon-jinggao"></use></svg><span>${msg}</span>`,
+    message: msg,
     duration: 3000
   })
 }

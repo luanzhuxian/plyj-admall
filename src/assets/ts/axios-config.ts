@@ -1,4 +1,42 @@
 import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
+import Cookie from './storage-cookie'
+import store from '../../store'
+import Vue from 'vue'
+import { Loading } from 'admall-element'
+
+interface ResData {
+    message: string;
+    data: object;
+    code: number;
+    result: object;
+    devMessage: string;
+    [key: string]: any;
+}
+interface MyRes extends AxiosResponse {
+    data: ResData;
+}
+
+const router = Vue.prototype.$router
+const { VUE_APP_MODEL } = process.env
+
+/* code码 */
+const SUCCESS_CODE = 2000
+const EXCEPTION_CODE = 5000
+const TOKEN_TIME_OUT = 4002
+
+let reqCount = 0
+let loadingInstance: any = null
+const close = function () {
+    reqCount--
+    if (reqCount === 0) {
+        loadingInstance.close()
+    }
+}
+// 存到全局，临时关闭全局 loading
+const LoadingConfig = {
+    background: 'transparent',
+    text: '拼命加载中...'
+}
 
 class ResponseError extends Error {
     constructor (message: string) {
@@ -7,17 +45,95 @@ class ResponseError extends Error {
         this.name = 'ResponseError'
     }
 }
+const parseBlobError = (blob: Blob): Promise<{ message?: string; code: number }> => new Promise(resolve => {
+    const reader: FileReader = new FileReader()
+    reader.onload = () => {
+        try {
+            const { message, code } = JSON.parse(reader.result as string)
+            resolve({ message, code })
+        } catch (e) {
+            resolve({ code: 2000 })
+        }
+    }
+    reader.readAsText(blob)
+})
 
-const { VUE_APP_MODEL } = process.env
-const reqHandler = (config: AxiosRequestConfig) => config
-const reqErrorHandler = (error: AxiosError) => Promise.reject(error)
-const resHandler = (res: AxiosResponse) => res.data
-const resError = (error: AxiosError) => {
+const reqHandler = (config: AxiosRequestConfig) => {
+    if (reqCount === 0) {
+        loadingInstance = Loading.service(LoadingConfig)
+    }
+    reqCount++
+    // 比对cookie中的mallId和内存中的mallId是否一致
+    const cookieMallId = Cookie.get('mallId')
+    const memoryMallId = store.getters.mallNumber
+    if (memoryMallId && cookieMallId && cookieMallId !== memoryMallId) {
+        alert('检测到您在当前浏览器登录了其它商城，请重新登录，并继续操作')
+        localStorage.clear()
+        sessionStorage.clear()
+        location.reload()
+        return Promise.reject(new Error('what?'))
+    }
+    config.headers.token = Cookie.get('token')
+    /* eslint-disable @typescript-eslint/camelcase */
+    config.headers.refresh_token = Cookie.get('refresh_token')
+    config.headers.agencyCode = Cookie.get('agencyCode')
+    config.headers.mallId = cookieMallId
+    return config
+}
+const reqErrorHandler = (error: AxiosError) => {
+    close()
+    return Promise.reject(error)
+}
+const resHandler = async (response: AxiosResponse): Promise<any> => {
+    close()
+    const { data, config } = response as MyRes
+
+    /* 返回的是一个文件 */
+    if (data instanceof Blob) {
+        const { message, code } = await parseBlobError(data)
+        if (code !== SUCCESS_CODE) {
+            return Promise.reject(new ResponseError(JSON.stringify({
+                message
+            }, null, 4)))
+        }
+        return data
+    }
+
+    if (data.code === SUCCESS_CODE) {
+        response.data.result = response.data.data
+        delete response.data.data
+        return response.data
+    }
+
+    if (data.code === EXCEPTION_CODE) {
+    }
+    if (data.code === TOKEN_TIME_OUT) {
+        Cookie.remove('token')
+        Cookie.remove('refresh_token')
+        Cookie.remove('agencyCode')
+        Cookie.remove('mallId')
+        sessionStorage.removeItem('currentStep')
+        await router.push({ name: 'Login' })
+    }
+    if (data && data.password) data.password = '******'
+    const { devMessage = '', message = '' } = data
+    const { method, url, data: reqData, params } = config
+    return Promise.reject(new ResponseError(JSON.stringify({
+        method,
+        url,
+        data: reqData,
+        params,
+        devMessage,
+        message
+    }, null, 4)))
+}
+const resError = async (error: any) => {
+    close()
     let msg = error.message
     if (msg.indexOf('timeout') > -1) {
         msg = '请求超时◔̯◔'
     }
-    if (msg.indexOf('40') > -1) {
+    if (msg.indexOf('404') > -1) {
         msg = '您似乎在蓬莱岛迷路了'
     }
     if (msg.indexOf('50') > -1) {
@@ -25,6 +141,10 @@ const resError = (error: AxiosError) => {
     }
     if (msg.indexOf('Network Error') > -1) {
         msg = '网络不给力'
+    }
+    if (error && error.response.data instanceof Blob) {
+        const { message } = await parseBlobError(error.response.data)
+        msg = message || '蓬莱岛消失在了迷雾中~( ˶‾᷄࿀‾᷅˵ )'
     }
     return Promise.reject(new ResponseError(JSON.stringify({
         message: msg
@@ -38,6 +158,9 @@ axios.defaults.headers = {
 // 请求拦截器
 axios.interceptors.request.use(reqHandler, reqErrorHandler)
 axios.interceptors.response.use(resHandler, resError)
+
+const myAxios: MyAxios = axios
+export default myAxios
 
 // 测试环境显示服务器地址切换
 if (VUE_APP_MODEL === 'development') {
@@ -61,6 +184,3 @@ if (VUE_APP_MODEL === 'development') {
         localStorage.setItem('serverBaseUrl', serverName.value)
     })
 }
-
-const myAxios: MyAxios = axios
-export default myAxios

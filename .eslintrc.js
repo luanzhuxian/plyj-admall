@@ -17,6 +17,7 @@ module.exports = {
   // parser: '@typescript-eslint/parser',
   // add your custom rules here
   rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
     'no-debugger': 'off',
     'no-useless-catch': 'off',
     '@typescript-eslint/no-var-requires': 0,
