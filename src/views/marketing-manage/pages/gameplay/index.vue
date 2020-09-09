@@ -24,6 +24,13 @@
             />
             <SchemePack
                 :class="$style.package"
+                name="秒杀"
+                expired="2019.10.28-2020.01.31"
+                desc="限时抢购，引导用户消费"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png"
+            />
+            <SchemePack
+                :class="$style.package"
                 name="众志成团"
                 expired="2020.05.06-2021.05.06"
                 desc="微信裂变，快速引流"
@@ -72,6 +79,13 @@
                 desc="限时抢购，引导用户消费"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
             />
+            <SchemePack
+                :class="$style.package"
+                name="众志成团"
+                expired="2020.05.06-2021.05.06"
+                desc="微信裂变，快速引流"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+            />
         </div>
         <SchemeLabel :class="$style.label" name="新春开学季" content="吸粉、老客带新客，提高下单转化率" />
         <div :class="$style.packageContainer">
@@ -80,20 +94,22 @@
                 name="我心中的年味"
                 expired="2019.12.26-2020.04.30"
                 desc="获得我的年味，即可参与抽奖有机会获得年味大礼"
-                img-src="https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/973e5a2a-0849-4caa-9c4a-5877abed78c7.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/年味.png"
+                bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"
             />
             <SchemePack
                 :class="$style.package"
                 name="春耘计划"
                 expired="2019.12.26-2020.04.30"
                 desc="组合购买，打包商品享优惠"
-                img-src="https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/973e5a2a-0849-4caa-9c4a-5877abed78c7.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/春耘.png"
+                bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"
             />
             <SchemePack
                 :class="$style.package"
                 name="满减券"
                 desc="支持发放多种满减券，购买减免商品和课程金额"
-                img-src="https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/973e5a2a-0849-4caa-9c4a-5877abed78c7.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/满减券.png"
             />
         </div>
     </div>

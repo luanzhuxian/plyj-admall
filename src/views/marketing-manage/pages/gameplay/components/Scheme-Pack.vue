@@ -1,5 +1,13 @@
 <template>
-    <div :class="$style.schemePack" @click="target">
+    <div
+        :class="$style.schemePack"
+        :style="{
+            '--color': bgImgSrc ? '#FFFFFF' : '',
+            '--opacity': bgImgSrc ? 0.6 : 1,
+            'background-image': `url(${bgImgSrc})`,
+        }"
+        @click="target"
+    >
         <div :class="$style.content">
             <img :class="$style.img" :src="imgSrc">
             <div :class="$style.detail">
@@ -17,7 +25,8 @@
         <div
             :class="{
                 [$style.lock]: true,
-                [$style.unlock]: !isLock
+                [$style.unlock]: !isLock,
+                [$style.bg]: bgImgSrc
             }"
         >
             <img :src="isLock ? 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/lock.png' : 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/unlock.png'" alt="">
@@ -55,6 +64,11 @@ export default class SchemePack extends Vue {
         default: false
     }) readonly isLock: boolean | undefined
 
+     @Prop({
+         type: String,
+         default: ''
+     }) readonly bgImgSrc: string | undefined
+
     @Prop({
         type: [String, Object],
         default: ''
@@ -80,6 +94,8 @@ export default class SchemePack extends Vue {
     position: relative;
     display: inline-block;
     border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-color: #F5F6FA;
     transition: 0.5s;
     &:hover {
@@ -110,6 +126,7 @@ export default class SchemePack extends Vue {
                     margin-bottom: 4px;
                     font-size: 14px;
                     color: #333333;
+                    color: var(--color);
                 }
                 > .tab {
                     display: inline-block;
@@ -118,15 +135,19 @@ export default class SchemePack extends Vue {
                     box-sizing: border-box;
                     margin-left: 6px;
                     border: 1px solid #F79F1A;
+                    border-color: var(--color);
                     border-radius: 2px;
                     text-align: center;
                     font-size: 8px;
                     color: #F79F1A;
+                    color: var(--color);
                 }
             }
             > .desc {
                 font-size: 12px;
                 color: #999999;
+                color: var(--color);
+                opacity: var(--opacity);
             }
         }
     }
@@ -138,6 +159,8 @@ export default class SchemePack extends Vue {
         padding: 10px 20px;
         font-size: 10px;
         color: #6E7B8E;
+        color: var(--color);
+        opacity: var(--opacity);
     }
     > .lock {
         position: absolute;
@@ -148,6 +171,9 @@ export default class SchemePack extends Vue {
         border-radius: 0px 10px 0px 10px;
         text-align: center;
         background-color: #DCDDE0;
+        &.bg {
+            background-color: #FF7046 !important;
+        }
         &.unlock {
             background-color: #fff;
         }
