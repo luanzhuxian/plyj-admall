@@ -176,8 +176,6 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 缓存当前机构
         [types.SET_CURRENT_AGENCY]: (state, payload) => {
             if (payload.agencyCode) {
-                console.log('payload.agencyCode')
-                console.log(payload.agencyCode)
                 state.agencyCode = payload.agencyCode
                 Cookie.set('agencyCode', payload.agencyCode, {
                     expires: CalcCookieTime(state.loginInfo.expire)
@@ -315,7 +313,6 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 获取所有商城数据
         async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state, getters }) {
             try {
-                console.log(999)
                 await dispatch(types.AGENCY_USER_INFO)
                 await dispatch(types.SET_POWER_LIST)
                 await dispatch(types.GET_CLASSIFY_TREE)

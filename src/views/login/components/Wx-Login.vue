@@ -35,7 +35,6 @@ export default class WxLogin extends Vue {
                 style: 'black',
                 href: ''
             })
-            console.log(a)
         }
 }
 </script>

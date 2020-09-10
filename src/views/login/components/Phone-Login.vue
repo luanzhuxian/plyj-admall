@@ -105,7 +105,6 @@ export default class PhoneLogin extends Vue {
             clearInterval(this.timer)
             this.codeForm.mobile = this.form.mobile
             const data = await getVerifyCodeFunc(this.codeForm)
-            console.log(data)
             this.getCodeing = true
             this.timer = setInterval(() => {
                 this.time--
@@ -124,9 +123,6 @@ export default class PhoneLogin extends Vue {
                 await (this.$refs[formName] as HTMLFormElement).validate()
                 this.loading = true
                 const data = await this.LOGIN(this.form)
-                console.log(data)
-                console.log('agencyListFoo')
-                console.log(this.agencyListFoo)
                 if (this.agencyListFoo.length > 1) {
                     // this.showDialog = true
                     return
