@@ -22,6 +22,8 @@
                 desc="组合商品打包售卖，立享优惠"
                 :expired="activitys.compound.status ? `${getDate(activitys.compound.createTime)}-${getDate(activitys.compound.validity)}` : ''"
                 :count="activitiesInfo.combinationMarketActivityCount"
+                :tags="['限']"
+                :is-lock="!activitys.compound.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png"
             />
             <SchemePack
@@ -30,6 +32,8 @@
                 desc="限时抢购，引导用户消费"
                 :expired="activitys.secondBuy.status ? `${getDate(activitys.secondBuy.data.createTime)}-${getDate(activitys.secondBuy.data.validity)}` : ''"
                 :count="activitiesInfo.seckillActivityCount"
+                :tags="['限','新']"
+                :is-lock="!activitys.secondBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png"
             />
             <SchemePack
@@ -38,6 +42,8 @@
                 desc="微信裂变，快速引流"
                 :expired="activitys.togetherBuy.status ? `${getDate(activitys.togetherBuy.data.createTime)}-${getDate(activitys.togetherBuy.data.validity)}` : ''"
                 :count="activitiesInfo.newyearGroupActivityCount"
+                :tags="['限','新']"
+                :is-lock="!activitys.togetherBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
             />
             <SchemePack
@@ -46,6 +52,8 @@
                 desc="分批支付，提前享服务"
                 :expired="activitys.bookingBuy.status ? `${getDate(activitys.bookingBuy.data.createTime)}-${getDate(activitys.bookingBuy.data.validity)}` : ''"
                 :count="activitiesInfo.newyearPreActivityCount"
+                :tags="['限','新']"
+                :is-lock="!activitys.bookingBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png"
             />
             <SchemePack
@@ -57,9 +65,53 @@
             />
             <SchemePack
                 :class="$style.package"
+                name="满减券"
+                desc="支持发放多种满减券，购买减免商品和课程金额"
+                :count="activitiesInfo.promptCouponActivityCount"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/满减券.png"
+            />
+            <SchemePack
+                :class="$style.package"
                 name="品类券"
                 desc="支持发放多种品类券，购买减免商品和课程金额"
                 :count="activitiesInfo.categoryCouponActivityCount"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            />
+            <SchemePack
+                :class="$style.package"
+                name="兑换码"
+                desc="支持多商品兑换，使用即可减免商品费用"
+                :expired="activitys.redeemCode.status ? `${getDate(activitys.redeemCode.data.createTime)}-${getDate(activitys.redeemCode.data.validity)}` : ''"
+                :count="activitiesInfo.exchangeCodeCount"
+                :tags="['限']"
+                :is-lock="!activitys.redeemCode.status"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            />
+            <SchemePack
+                :class="$style.package"
+                name="粽粽有礼"
+                desc="粽行四海，端午安康"
+                :expired="activitys.dumplings.status ? `${getDate(activitys.dumplings.data.createTime)}-2020.08.31` : ''"
+                :count="activitiesInfo.dragonBoatSigninActivityCount"
+                :is-lock="!activitys.dumplings.status"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            />
+            <SchemePack
+                :class="$style.package"
+                name="公益行动"
+                desc="学子携手，贡献爱心"
+                :expired="activitys.benefit.status ? `${getDate(activitys.benefit.data.createTime)}-2020.08.31` : ''"
+                :count="activitiesInfo.commonwealActivityCount"
+                :is-lock="!activitys.benefit.status"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            />
+            <SchemePack
+                :class="$style.package"
+                name="龙门抽大奖"
+                desc="抽奖嗨翻天"
+                :expired="activitys.LongmenLottery.status ? `${getDate(activitys.LongmenLottery.data.createTime)}-2020.08.31` : ''"
+                :count="activitiesInfo.luckDrawActivityCount"
+                :is-lock="!activitys.LongmenLottery.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
             />
         </div>
@@ -79,22 +131,6 @@
                 desc="签到小活动，点亮赢大奖"
                 expired="2019.10.28-2020.01.31"
                 :count="activitiesInfo.checkinActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
-            />
-            <SchemePack
-                :class="$style.package"
-                name="秒杀"
-                desc="限时抢购，引导用户消费"
-                expired="2019.10.28-2020.01.31"
-                :count="activitiesInfo.seckillActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
-            />
-            <SchemePack
-                :class="$style.package"
-                name="众志成团"
-                desc="微信裂变，快速引流"
-                expired="2020.05.06-2021.05.06"
-                :count="activitiesInfo.groupActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
             />
         </div>
@@ -117,13 +153,6 @@
                 :count="activitiesInfo.combinationActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/春耘.png"
                 bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"
-            />
-            <SchemePack
-                :class="$style.package"
-                name="满减券"
-                desc="支持发放多种满减券，购买减免商品和课程金额"
-                :count="activitiesInfo.promptCouponActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/满减券.png"
             />
         </div>
     </div>
@@ -247,11 +276,11 @@ export default class Gameplay extends Vue {
         }
     }
 
-    private getDate (date: string): string {
-        return date.split(' ')[0].replace(/-/g, '.')
+    private getDate (date: string): string | undefined {
+        if (date) return date.split(' ')[0].replace(/-/g, '.')
     }
 
-    get activityName () {
+    get activityName (): string {
         const { menuArray, activeTab } = this
         return menuArray.length && menuArray[activeTab - 1] ? menuArray[activeTab - 1].activityName : ''
     }

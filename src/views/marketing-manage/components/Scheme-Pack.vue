@@ -17,7 +17,7 @@
             <div :class="$style.detail">
                 <div :class="$style.title">
                     <span :class="$style.name" v-text="name" />
-                    <span :class="$style.tab">新</span>
+                    <span :class="$style.tag" v-for="item in tags" :key="item">{{ item }}</span>
                 </div>
                 <div :class="$style.desc" v-text="desc" />
             </div>
@@ -62,6 +62,11 @@ export default class SchemePack extends Vue {
         type: String,
         default: '长期有效'
     }) readonly expired: string | undefined
+
+    @Prop({
+        type: Array,
+        default: () => []
+    }) readonly tags: string[] | undefined
 
     @Prop({
         type: Boolean,
@@ -131,7 +136,7 @@ export default class SchemePack extends Vue {
                     font-size: 14px;
                     color: var(--name-color);
                 }
-                > .tab {
+                > .tag {
                     display: inline-block;
                     width: 16px;
                     line-height: 14px;
