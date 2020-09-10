@@ -54,7 +54,7 @@ import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { Getter, namespace } from 'vuex-class'
-import { SET_CURRENT_AGENCY, GET_ALL_MALL_INFO } from '../../../store/mutation-type'
+// import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
 type formType = {
     name: string;
@@ -95,6 +95,9 @@ export default class PhoneLogin extends Vue {
         @userModule.Getter('agencyCode') agencyCodeFoo!: string
         @userModule.Getter('agencyList') agencyListFoo: any
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
+
+        @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
+        @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Getter smsType!: string[]
 
         async getCode () {
@@ -147,7 +150,8 @@ export default class PhoneLogin extends Vue {
             }
             this.agencyError = ''
             try {
-                await this.$store.dispatch(GET_ALL_MALL_INFO)
+                // await this.$store.dispatch(GET_ALL_MALL_INFO)
+                await this.getAllMallInfo()
                 this.step()
             } catch (e) {
                 throw e
@@ -157,7 +161,7 @@ export default class PhoneLogin extends Vue {
         // 选中机构
         currentAgencyChange (val: object) {
             // 把选择的机构缓存起来
-            this.$store.commit(SET_CURRENT_AGENCY, { agencyCode: val })
+            this.setCurrentAgency({ agencyCode: val })
         }
 
         step () {
