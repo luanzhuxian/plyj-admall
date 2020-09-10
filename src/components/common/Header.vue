@@ -30,20 +30,29 @@
                     src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png"
                     alt="avatar"
                 >
-                <span :class="$style.mobile">133****3333</span>
+                <span :class="$style.mobile">{{ bindPhone }}</span>
                 <span class="el-icon-arrow-right fz-12" />
             </div>
         </div>
     </header>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { Getter } from 'vuex-class'
+import actions from '../../micro/shared/actions'
 
 @Component
 export default class Header extends Vue {
+    // computed
+    @Getter bindPhone!: string
 
+    mounted () {
+        actions.onGlobalStateChange(state => {
+            console.log(state)
+        })
+    }
 }
 </script>
 

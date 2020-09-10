@@ -2,7 +2,7 @@
     <nav :class="$style.mainNavbar">
         <img
             :class="$style.logo"
-            src="https://mallcdn.youpenglai.com/static/admall/category/yaji.png"
+            :src="logo"
             alt="logo"
         >
         <div :class="$style.menuWrap">
@@ -35,12 +35,15 @@
                         />
                         <span>产品中心</span>
                     </h2>
-                    <el-menu-item index="2-1">面授课程</el-menu-item>
-                    <el-menu-item index="2-2">直播课</el-menu-item>
-                    <el-menu-item index="2-3">云课堂</el-menu-item>
-                    <el-menu-item index="2-4">教育周边</el-menu-item>
-                    <el-menu-item index="2-5">分类管理</el-menu-item>
-                    <el-menu-item index="2-6">素材中心</el-menu-item>
+                    <!--<el-menu-item index="/admall/goods-manage/my-courses/all-courses">面授课程</el-menu-item>-->
+                    <el-menu-item index="/admall/line-teaching/live">直播课</el-menu-item>
+                    <el-menu-item index="/admall/line-teaching/function-pack">云课堂</el-menu-item>
+                    <!--<el-menu-item index="/admall/goods-manage/my-goods">教育周边</el-menu-item>-->
+                    <el-menu-item index="/admall/goods-manage/my-goods">我的商品</el-menu-item>
+                    <el-menu-item index="/admall/goods-manage/my-courses">我的课程</el-menu-item>
+                    <el-menu-item index="/admall/goods-manage/category">分类管理</el-menu-item>
+                    <el-menu-item index="/admall/goods-manage/comment">评价管理</el-menu-item>
+                    <el-menu-item index="/admall/line-teaching/library/video">素材中心</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="3">
@@ -53,7 +56,7 @@
                         />
                         <span>用户中心</span>
                     </h2>
-                    <el-menu-item index="/user-center/member-manage">会员管理</el-menu-item>
+                    <el-menu-item index="/user-center/member-manage">用户管理</el-menu-item>
                     <el-menu-item index="/user-center/helper-manage">helper管理</el-menu-item>
                 </el-submenu>
 
@@ -79,12 +82,13 @@
                         />
                         <span>订单中心</span>
                     </h2>
-                    <el-menu-item index="5-1">面授课程订单</el-menu-item>
-                    <el-menu-item index="/admall/orders-manage/online-school-order">云课堂订单</el-menu-item>
-                    <el-menu-item index="5-3">教育周边订单</el-menu-item>
-                    <el-menu-item index="5-4">分销订单</el-menu-item>
-                    <el-menu-item index="5-5">售后单</el-menu-item>
-                    <el-menu-item index="5-6">发票申请</el-menu-item>
+                    <!--<el-menu-item index="5-1">面授课程订单</el-menu-item>-->
+                    <el-menu-item index="/admall/orders-manage/order-list">商品订单</el-menu-item>
+                    <el-menu-item index="/admall/orders-manage/courses-list">课程订单</el-menu-item>
+                    <el-menu-item index="/admall/orders-manage/online-school-order">网校订单</el-menu-item>
+                    <!--<el-menu-item index="5-3">教育周边订单</el-menu-item>-->
+                    <el-menu-item index="/admall/orders-manage/backorder">售后单</el-menu-item>
+                    <el-menu-item index="/admall/orders-manage/invoice">发票管理</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="6">
@@ -99,8 +103,8 @@
                     </h2>
                     <el-menu-item index="6-1">我的店铺</el-menu-item>
                     <el-menu-item index="6-2">模板中心</el-menu-item>
-                    <el-menu-item index="6-3">我的模板箱</el-menu-item>
-                    <el-menu-item index="6-4">品宣主页</el-menu-item>
+                    <el-menu-item index="6-3">品宣主页</el-menu-item>
+                    <el-menu-item index="6-4">草稿箱</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="7">
@@ -113,22 +117,35 @@
                         />
                         <span>基础设置</span>
                     </h2>
-                    <el-menu-item index="7-1">账号管理</el-menu-item>
+                    <el-menu-item index="/admall/account-manage">账号管理</el-menu-item>
                     <el-menu-item index="7-2">店铺信息</el-menu-item>
-                    <el-menu-item index="7-3">公众号服务</el-menu-item>
-                    <el-menu-item index="7-4">物流设置</el-menu-item>
+                    <el-menu-item index="/admall/setting/wechat/bind">公众号服务</el-menu-item>
+                    <el-menu-item index="/admall/logistics-manage">物流设置</el-menu-item>
                     <el-menu-item index="7-5">我订购的服务</el-menu-item>
                 </el-submenu>
+                <!--<el-menu-item index="8">
+                    <h2 :class="$style.title">
+                        <pl-svg
+                            name="icon-shouye-5b56a"
+                            width="15"
+                            height="15"
+                            :class="$style.icon"
+                        />
+                        <span>我订购的服务</span>
+                    </h2>
+                </el-menu-item>-->
             </el-menu>
         </div>
     </nav>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { Getter } from 'vuex-class'
 @Component
 export default class MainNavbar extends Vue {
+    @Getter logo!: string
 }
 </script>
 
