@@ -34,7 +34,6 @@
                 <el-button :class="$style.registering" type="text"><span :class="$style.unregistered">还没注册？</span>立即注册</el-button>
             </div>
             <el-button
-                v-enter
                 size="large"
                 style="width: 100%;border-radius: 121px;"
                 type="primary"
@@ -75,8 +74,7 @@ export default class PasswordLogin extends Vue {
 
     @Getter currentStep!: number
     @Getter agencyList!: []
-    @userModule.Action('Login') LOGIN!: (form: { account: string; password: string }) => void
-    // @Action [Login]: (form: { account: string; password: string }) => void
+    @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
 
     async login (formName: string) {
         // 防止连续敲击回车

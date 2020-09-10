@@ -1,8 +1,8 @@
 <template>
     <div :class="$style.login">
         <div :class="$style.loginBg" />
-        <!--        <phoneLogin />-->
-        <passwordLogin />
+        <phoneLogin />
+        <!--        <passwordLogin />-->
         <!--        <wxLogin />-->
     </div>
 </template>

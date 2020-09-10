@@ -47,7 +47,7 @@ declare global {
         }) => void;
     }
     // 短信类型
-    type SmsType = 'ACCOUNT_BIND_PHONE_NUMBER' | 'AGENT_USER_LOGIN'
+    export type SmsType = 'ACCOUNT_BIND_PHONE_NUMBER' | 'AGENT_USER_LOGIN'
 
     // 动态属性的对象
     interface DynamicObject {
