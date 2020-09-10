@@ -1,8 +1,8 @@
 <template>
     <div :class="$style.login">
         <div :class="$style.loginBg" />
-        <phoneLogin />
-        <!--        <passwordLogin />-->
+        <phoneLogin v-if="typePhoneLogin" @passwordLogin="passwordLogin" />
+        <passwordLogin v-if="typePasswordLogin" @phoneLogin="phoneLogin" />
         <!--        <wxLogin />-->
     </div>
 </template>
@@ -20,7 +20,17 @@ import passwordLogin from './components/Password-Login'
         }
     })
 export default class Login extends Vue {
+    typePasswordLogin= false
+    typePhoneLogin= true
+    passwordLogin (e) {
+        this.typePasswordLogin = e
+        this.typePhoneLogin = false
+    }
 
+    phoneLogin (e) {
+        this.typePhoneLogin = e
+        this.typePasswordLogin = false
+    }
 }
 </script>
 

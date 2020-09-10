@@ -311,8 +311,10 @@ const user: Module<DynamicObject, DynamicObject> = {
             }
         },
         // 获取所有商城数据
-        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state, getters }) {
+        // 日志系统getters暂时删除
+        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state }) {
             try {
+                console.log(123)
                 await dispatch(types.AGENCY_USER_INFO)
                 await dispatch(types.SET_POWER_LIST)
                 await dispatch(types.GET_CLASSIFY_TREE)
@@ -324,7 +326,8 @@ const user: Module<DynamicObject, DynamicObject> = {
                     await Promise.all([dispatch(types.V_MERCHANT_STATUS), dispatch(types.UPGRADE_STATUS)])
                 }
                 commit(types.HAS_GET_ALL_MALL_INFO, true)
-                commit(types.GET_ALL_MALL_INFO, getters)
+                // 日志系统
+                // commit(types.GET_ALL_MALL_INFO, getters)
             } catch (e) {
                 throw e
             }

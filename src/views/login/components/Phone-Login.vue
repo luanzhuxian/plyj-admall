@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.phoneLogin">
         <div :class="$style.loginType">
-            <div :class="$style.typePassword">密码登录</div>
+            <div :class="$style.typePassword" @click="passwordLogin">密码登录</div>
             <div :class="$style.typeCode">验证码登录</div>
         </div>
         <div :class="$style.accountMessage">
@@ -28,9 +28,9 @@
             <!--            <p :class="$style.unregisteredPhone">该手机号还未注册雅集，请先注册雅集~</p>-->
 
             <div :class="$style.register">
-                <el-checkbox v-model="agree">
-                    <span style="font-size: 14px;color: #333333">保持登录</span>
-                </el-checkbox>
+                <!--                <el-checkbox v-model="agree">-->
+                <!--                    <span style="font-size: 14px;color: #333333">保持登录</span>-->
+                <!--                </el-checkbox>-->
                 <el-button :class="$style.registering" type="text"><span :class="$style.unregistered">还没注册？</span>立即注册</el-button>
             </div>
             <el-button
@@ -51,15 +51,12 @@
 
 <script lang="ts">
 import { testPhone } from '../../../assets/ts/validate'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { Getter, namespace } from 'vuex-class'
 // import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
-type formType = {
-    name: string;
-    age: number;
-}
+
     @Component
 export default class PhoneLogin extends Vue {
         form = {
@@ -89,23 +86,30 @@ export default class PhoneLogin extends Vue {
         timer: any = null
         agree = false
         loading = false
-
         @userModule.Getter('token') tokenFoo!: string
         @userModule.Getter('currentStep') currentStepFoo!: number
         @userModule.Getter('agencyCode') agencyCodeFoo!: string
         @userModule.Getter('agencyList') agencyListFoo: any
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
-
         @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Getter smsType!: string[]
 
+        @Emit('passwordLogin')
+        passwordLogin () {
+            return true
+        }
+
         async getCode () {
             if (this.getCodeing) return
             clearInterval(this.timer)
+            let validateField = true
+            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
+                if (mobileError) validateField = false
+            })
+            if (!validateField) return
             this.codeForm.mobile = this.form.mobile
-            const data = await getVerifyCodeFunc(this.codeForm)
-            console.log(data)
+            await getVerifyCodeFunc(this.codeForm)
             this.getCodeing = true
             this.timer = setInterval(() => {
                 this.time--
@@ -244,7 +248,7 @@ export default class PhoneLogin extends Vue {
                 margin: 0;
             }
             .registering{
-                margin-left: 100px;
+                margin-left: 190px;
                 .unregistered{
                     color: #999999
                 }
