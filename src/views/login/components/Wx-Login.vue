@@ -30,7 +30,7 @@ export default class WxLogin extends Vue {
                 id: 'login-container',
                 appid: 'wx7f8e7e4ea457931d',
                 scope: 'snsapi_login',
-                redirect_uri: 'http://joint.xijun.youpenglai.com',
+                redirect_uri: 'http://joint.xijun.youpenglai.com/login',
                 state,
                 style: 'black',
                 href: ''

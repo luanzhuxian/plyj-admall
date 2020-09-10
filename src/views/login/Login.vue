@@ -1,9 +1,9 @@
 <template>
     <div :class="$style.login">
         <div :class="$style.loginBg" />
-        <phoneLogin v-if="typePhoneLogin" @passwordLogin="passwordLogin" />
-        <passwordLogin v-if="typePasswordLogin" @phoneLogin="phoneLogin" />
-        <!--        <wxLogin />-->
+        <phoneLogin v-if="typePhoneLogin" @passwordLogin="passwordLogin" @WxLogin="WxLogin" />
+        <passwordLogin v-if="typePasswordLogin" @phoneLogin="phoneLogin" @WxLogin="WxLogin" />
+        <wxLogin v-if="typeWxLogin" />
     </div>
 </template>
 
@@ -21,14 +21,23 @@ import passwordLogin from './components/Password-Login'
     })
 export default class Login extends Vue {
     typePasswordLogin= false
-    typePhoneLogin= true
+    typePhoneLogin= false
+    typeWxLogin= true
     passwordLogin (e) {
         this.typePasswordLogin = e
         this.typePhoneLogin = false
+        this.typeWxLogin = false
     }
 
     phoneLogin (e) {
         this.typePhoneLogin = e
+        this.typePasswordLogin = false
+        this.typeWxLogin = false
+    }
+
+    WxLogin (e) {
+        this.typeWxLogin = e
+        this.typePhoneLogin = false
         this.typePasswordLogin = false
     }
 }
@@ -42,7 +51,7 @@ export default class Login extends Vue {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        background-color: #ffffff;
+        background-color: #F5F6FA;
         .login-bg{
             width: 320px;
             height: 440px;

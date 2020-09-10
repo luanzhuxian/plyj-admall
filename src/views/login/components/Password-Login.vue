@@ -42,7 +42,7 @@
             >
                 登录
             </el-button>
-            <el-button type="text" style="width: 100%">
+            <el-button @click="WxLogin" type="text" style="width: 100%">
                 <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>
             </el-button>
         </div>
@@ -85,6 +85,11 @@ export default class PasswordLogin extends Vue {
 
     @Emit('phoneLogin')
     passwordLogin () {
+        return true
+    }
+
+    @Emit('WxLogin')
+    WxLogin () {
         return true
     }
 

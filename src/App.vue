@@ -58,23 +58,6 @@ export default class App extends Vue {
         alert('这是一个方法')
         this.$success('123')
     }
-
-    weixinLogin () {
-        /* eslint-disable @typescript-eslint/camelcase */
-        /* eslint-disable no-new */
-        const state = Date.now().toString(16)
-        sessionStorage.setItem('login_state', state)
-        new window.WxLogin({
-            self_redirect: false,
-            id: 'login-container',
-            appid: 'wx7f8e7e4ea457931d',
-            scope: 'snsapi_login',
-            redirect_uri: 'http://joint.xijun.youpenglai.com',
-            state,
-            style: 'black',
-            href: ''
-        })
-    }
 }
 </script>
 <style module lang="scss">
