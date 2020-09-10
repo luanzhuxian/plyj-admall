@@ -3,8 +3,11 @@ import App from './App.vue'
 import { router } from './router'
 import store from './store'
 import './assets/ts/el-components'
+
 import PlSvg from './components/common/Pl-Svg.vue'
+import SearchBox from './components/common/Search-Box.vue'
 import DateRange from './components/common/Date-Range.vue'
+import PlTabs from './components/common/Pl-Tabs.vue'
 
 import directive from './directive'
 import filter from './filter'
@@ -17,6 +20,8 @@ import startQiankun from './micro'
 /* 注册全局组件 */
 Vue.component(PlSvg.name, PlSvg)
 Vue.component(DateRange.name, DateRange)
+Vue.component(SearchBox.name, SearchBox)
+Vue.component(PlTabs.name, PlTabs)
 
 /* *************** 自定义指令 ***************** */
 for (const k of Object.keys(directive)) {
