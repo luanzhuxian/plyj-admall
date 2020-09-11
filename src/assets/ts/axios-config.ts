@@ -112,7 +112,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         Cookie.remove('agencyCode')
         Cookie.remove('mallId')
         sessionStorage.removeItem('currentStep')
-        await router.push({ name: 'Login' })
+        await router.push({ name: 'PhoneLogin' })
     }
     if (data && data.password) data.password = '******'
     const { devMessage = '', message = '' } = data
