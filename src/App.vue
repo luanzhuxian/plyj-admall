@@ -29,8 +29,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component, Watch, Vue } from 'vue-property-decorator'
 import MainNavbar from './components/common/Main-Navbar.vue'
 import Header from './components/common/Header.vue'
 @Component({
@@ -53,13 +52,13 @@ export default class App extends Vue {
     ];
 
     title = '这是一个title'
-    get routeName (): string | undefined | null{
-        return this.$route.name
+    @Watch('routeName')
+    onrouteName (val: string) {
+        console.log(val)
     }
 
-    alert () {
-        alert('这是一个方法')
-        this.$success('123')
+    get routeName (): string | undefined | null{
+        return this.$route.name
     }
 }
 </script>

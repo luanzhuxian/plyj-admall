@@ -18,6 +18,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
+    'vue/custom-event-name-casing': 'off',
     'no-debugger': 'off',
     'no-useless-catch': 'off',
     '@typescript-eslint/no-var-requires': 0,

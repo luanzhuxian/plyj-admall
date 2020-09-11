@@ -8,6 +8,7 @@ import PlSvg from './components/common/Pl-Svg.vue'
 import SearchBox from './components/common/Search-Box.vue'
 import DateRange from './components/common/Date-Range.vue'
 import PlTabs from './components/common/Pl-Tabs.vue'
+import Pagination from './components/common/Pagination.vue'
 
 import directive from './directive'
 import filter from './filter'
@@ -22,6 +23,7 @@ Vue.component(PlSvg.name, PlSvg)
 Vue.component(DateRange.name, DateRange)
 Vue.component(SearchBox.name, SearchBox)
 Vue.component(PlTabs.name, PlTabs)
+Vue.component(Pagination.name, Pagination)
 
 /* *************** 自定义指令 ***************** */
 for (const k of Object.keys(directive)) {

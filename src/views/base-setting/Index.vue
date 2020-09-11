@@ -1,0 +1,19 @@
+<template>
+    <div class="base-setting">
+        <router-view />
+    </div>
+</template>
+
+<script>
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class BaseSetting extends Vue {
+
+}
+</script>
+
+<style module lang="scss">
+
+</style>
