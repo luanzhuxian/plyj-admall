@@ -1,9 +1,9 @@
 <template>
     <div :class="$style.phoneLogin">
-        <img @click="WxLogin" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
+        <img @click="$router.push({name:'WxLogin'})" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
         <div :class="$style.loginType">
             <div :class="$style.typePassword">密码登录</div>
-            <div :class="$style.typeCode" @click="passwordLogin">验证码登录</div>
+            <div :class="$style.typeCode" @click="$router.push({name:'PhoneLogin'})">验证码登录</div>
         </div>
         <div :class="$style.accountMessage">
             <el-form
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
 const userModule = namespace('user')
 
@@ -59,18 +59,17 @@ export default class PasswordLogin extends Vue {
         password: ''
     }
 
-        rules = {
-            account: [{ required: true, trigger: 'blur', message: '账号不能为空' }],
-            password: [
-                { required: true, message: '密码不能为空', trigger: 'blur' },
-                { min: 6, message: '密码不能小于6位', trigger: 'blur' }
-            ]
-        }
+    rules = {
+        account: [{ required: true, trigger: 'blur', message: '账号不能为空' }],
+        password: [
+            { required: true, message: '密码不能为空', trigger: 'blur' },
+            { min: 6, message: '密码不能小于6位', trigger: 'blur' }
+        ]
+    }
 
-        agencyError= ''
-        agree = false
-        loading = false
-        passwordType = 'password'
+    agencyError= ''
+    loading = false
+    passwordType = 'password'
 
     @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('currentStep') currentStepFoo!: number
@@ -80,16 +79,6 @@ export default class PasswordLogin extends Vue {
     @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
     @Getter smsType!: string[]
-
-    @Emit('phoneLogin')
-    passwordLogin () {
-        return true
-    }
-
-    @Emit('WxLogin')
-    WxLogin () {
-        return true
-    }
 
     async login (formName: string) {
         // 防止连续敲击回车

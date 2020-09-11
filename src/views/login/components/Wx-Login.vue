@@ -6,32 +6,21 @@
         <div :class="$style.accountMessage">
             <div id="login-container" />
         </div>
-
         <div :class="$style.loginMthods">
-            <el-button @click="phoneLogin" type="text">手机号登陆</el-button>
+            <el-button @click="$router.push({name:'PhoneLogin'})" type="text">手机号登陆</el-button>
             |
-            <el-button @click="passwordLogin" type="text">账号密码登陆</el-button>
+            <el-button @click="$router.push({name:'PasswordLogin'})" type="text">账号密码登陆</el-button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { WxScanLogin } from '../../../apis/login'
-import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
     @Component
 export default class WxLogin extends Vue {
-        agree = false
         loading = false
         code = ''
-        @Emit('passwordLogin')
-        passwordLogin () {
-            return true
-        }
-
-        @Emit('phoneLogin')
-        phoneLogin () {
-            return true
-        }
 
         async mounted () {
             this.weixinLoginCode()

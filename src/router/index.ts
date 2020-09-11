@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import NProgress from 'nprogress'
 import qs from 'qs'
 // import NotFound from '../views/404.vue'
+import login from './login.ts'
 import marketingManage from './marketing-manage/index.ts'
 import userCenter from './user-center.ts'
 
@@ -70,15 +71,8 @@ const routes = [
             title: '首页'
         }
     },
-    {
-        path: '/login',
-        name: 'Login',
-        component: () => import('../views/login/Login.vue'),
-        meta: {
-            title: '登录'
-        }
-    },
     // ...importRoutes
+    ...login,
     ...userCenter,
     ...marketingManage
 ]

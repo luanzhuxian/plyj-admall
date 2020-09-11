@@ -1,8 +1,8 @@
 <template>
     <div :class="$style.phoneLogin">
-        <img @click="WxLogin" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
+        <img @click="$router.push({name:'WxLogin'})" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
         <div :class="$style.loginType">
-            <div :class="$style.typePassword" @click="passwordLogin">密码登录</div>
+            <div :class="$style.typePassword" @click="$router.push({name:'PasswordLogin'})">密码登录</div>
             <div :class="$style.typeCode">验证码登录</div>
         </div>
         <div :class="$style.accountMessage">
@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { testPhone } from '../../../assets/ts/validate'
-import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { Getter, namespace } from 'vuex-class'
 // import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
@@ -82,7 +82,6 @@ export default class PhoneLogin extends Vue {
         getCodeing = false
         time = 60
         timer: any = null
-        agree = false
         loading = false
         @userModule.Getter('token') tokenFoo!: string
         @userModule.Getter('currentStep') currentStepFoo!: number
@@ -92,16 +91,6 @@ export default class PhoneLogin extends Vue {
         @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Getter smsType!: string[]
-
-        @Emit('passwordLogin')
-        passwordLogin () {
-            return true
-        }
-
-        @Emit('WxLogin')
-        WxLogin () {
-            return true
-        }
 
         async getCode () {
             if (this.getCodeing) return

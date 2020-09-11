@@ -2,19 +2,20 @@
     <div :class="$style.login">
         <div :class="$style.loginTop">
             <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png">
+            {{ $router.name }}
         </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
-                <phoneLogin v-if="typePhoneLogin" @passwordLogin="passwordLogin" @WxLogin="WxLogin" />
-                <passwordLogin v-if="typePasswordLogin" @phoneLogin="phoneLogin" @WxLogin="WxLogin" />
-                <wxLogin v-if="typeWxLogin" @phoneLogin="phoneLogin" @passwordLogin="passwordLogin" />
+                <phoneLogin v-if="$route.name === 'PhoneLogin'" />
+                <passwordLogin v-if="$route.name === 'PasswordLogin'" />
+                <wxLogin v-if="$route.name === 'WxLogin'" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import phoneLogin from './components/Phone-Login'
 import wxLogin from './components/Wx-Login'
 import passwordLogin from './components/Password-Login'
@@ -26,25 +27,13 @@ import passwordLogin from './components/Password-Login'
         }
     })
 export default class Login extends Vue {
-    typePasswordLogin= false
-    typePhoneLogin= false
-    typeWxLogin= true
-    passwordLogin (e) {
-        this.typePasswordLogin = e
-        this.typePhoneLogin = false
-        this.typeWxLogin = false
+    @Watch('$route.name')
+    onChangeValue (newVal) {
+        console.log(newVal)
     }
 
-    phoneLogin (e) {
-        this.typePhoneLogin = e
-        this.typePasswordLogin = false
-        this.typeWxLogin = false
-    }
-
-    WxLogin (e) {
-        this.typeWxLogin = e
-        this.typePhoneLogin = false
-        this.typePasswordLogin = false
+    mounted () {
+        console.log(this.$route.name)
     }
 }
 </script>
