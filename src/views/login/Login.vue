@@ -3,7 +3,7 @@
         <div :class="$style.loginBg" />
         <phoneLogin v-if="typePhoneLogin" @passwordLogin="passwordLogin" @WxLogin="WxLogin" />
         <passwordLogin v-if="typePasswordLogin" @phoneLogin="phoneLogin" @WxLogin="WxLogin" />
-        <wxLogin v-if="typeWxLogin" />
+        <wxLogin v-if="typeWxLogin" @phoneLogin="phoneLogin" @passwordLogin="passwordLogin" />
     </div>
 </template>
 
