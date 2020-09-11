@@ -233,6 +233,17 @@ const user: Module<DynamicObject, DynamicObject> = {
                 throw e
             }
         },
+        async wxLogin ({ commit, dispatch }, form) {
+            try {
+                const data = await mobileLogin(form)
+                commit(types.SET_LOGININFO, data.result)
+                await dispatch(types.GET_AGENCY_LIST)
+                return data.result
+            } catch (e) {
+                commit(types.LOGOUT)
+                throw e
+            }
+        },
         // 获取所有机构列表
         async [types.GET_AGENCY_LIST] ({ commit }) {
             try {

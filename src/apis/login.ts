@@ -20,5 +20,8 @@ export const getAgencyDetail = (enterpriseId: string) => axios.get(`/apis/v1/bas
 // 获取所有机构列表
 export const getAgencyList = () => axios.get('/apis/v1/base/baseUserInfo/agency/list')
 
-// 微信扫码登陆
+// 微信扫码
 export const WxScanLogin = (code: string) => axios.post(`/apis/v1/privilege/auth/open-auth/scan/${ code }`)
+
+// 微信绑定
+export const WxBind = (code: string) => axios.post(`/apis/v1/privilege/auth/bing/wx/${ code }`)

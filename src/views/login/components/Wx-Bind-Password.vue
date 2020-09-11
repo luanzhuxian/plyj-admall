@@ -43,6 +43,7 @@
 </template>
 
 <script lang="ts">
+import { WxBind } from '../../../apis/login'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
 const userModule = namespace('user')
@@ -66,27 +67,14 @@ export default class WxBindPassword extends Vue {
             ]
         }
 
-        agencyError= ''
-        agree = false
         loading = false
         passwordType = 'password'
 
-        @userModule.Getter('token') tokenFoo!: string
-        @userModule.Getter('currentStep') currentStepFoo!: number
-        @userModule.Getter('agencyCode') agencyCodeFoo!: string
-        @userModule.Getter('agencyList') agencyListFoo: any
         @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
-        @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
-        @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Getter smsType!: string[]
 
-        @Emit('phoneLogin')
-        passwordLogin () {
-            return true
-        }
-
-        @Emit('WxLogin')
-        WxLogin () {
+        @Emit('emitLogin')
+        emitLogin () {
             return true
         }
 
@@ -97,49 +85,18 @@ export default class WxBindPassword extends Vue {
                 await (this.$refs[formName] as HTMLFormElement).validate()
                 this.loading = true
                 await this.LOGIN(this.form)
-                if (this.agencyListFoo.length > 1) {
-                    // this.showDialog = true
-                    return
-                }
-                await this.selectAgency()
+
+                const code = sessionStorage.getItem('redirect_code') as string
+                await WxBind(code)
+                sessionStorage.removeItem('redirect_code')
+                sessionStorage.removeItem('redirect_state')
+                sessionStorage.removeItem('login_state')
+
+                this.emitLogin()
             } catch (e) {
-                // this.refreshSafeCode()
                 throw e
             } finally {
                 this.loading = false
-            }
-        }
-
-        async selectAgency () {
-            // if (this.agencyListFoo.length > 1 && !this.enterprise) {
-            //     this.agencyError = '请选择您要登录的机构'
-            //     return
-            // }
-            if (this.agencyListFoo.length as number === 1) {
-                this.currentAgencyChange(this.agencyListFoo[0].enterpriseId)
-            }
-            this.agencyError = ''
-            try {
-                // await this.$store.dispatch(GET_ALL_MALL_INFO)
-                await this.getAllMallInfo()
-                this.step()
-            } catch (e) {
-                throw e
-            }
-        }
-
-        // 选中机构
-        currentAgencyChange (val: object) {
-            // 把选择的机构缓存起来
-            this.setCurrentAgency({ agencyCode: val })
-        }
-
-        step () {
-            const currentStep: number = Number(sessionStorage.getItem('currentStep')) || 0
-            if (!currentStep) {
-                this.$router.replace({ name: 'Home' })
-            } else {
-                this.$router.replace({ name: 'Register' })
             }
         }
 }

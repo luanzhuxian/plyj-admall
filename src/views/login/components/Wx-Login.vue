@@ -16,11 +16,20 @@
 
 <script lang="ts">
 import { WxScanLogin } from '../../../apis/login'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Emit } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
     @Component
 export default class WxLogin extends Vue {
         loading = false
         code = ''
+        @userModule.Action('wxLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
+        @userModule.Mutation('SET_LOGININFO') setLoginInfo: any
+        @userModule.Action('GET_AGENCY_LIST') getAgencyList: any
+        @Emit('emitLogin')
+        emitLogin () {
+            return true
+        }
 
         async mounted () {
             this.weixinLoginCode()
@@ -32,19 +41,16 @@ export default class WxLogin extends Vue {
         }
 
         async WxScanLogin () {
-            console.log('this.code')
-            console.log(this.code)
-            console.log('执行 this.WxScanLogin()')
             try {
                 const data = await WxScanLogin(this.code)
-                console.log('data')
-                console.log(data)
                 if (data.code === 5001) {
                     await this.$router.push({ name: 'WxBindPhone' })
                     return
                 }
                 if (data.code === 2000) {
-                    await this.$router.replace({ name: 'Home' })
+                    await this.setLoginInfo(data)
+                    await this.getAgencyList()
+                    this.emitLogin()
                 }
                 this.clearCode()
             } catch (e) {

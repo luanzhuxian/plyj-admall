@@ -40,16 +40,13 @@
                 <el-button type="text"><span :class="$style.c999">忘记密码</span></el-button>
                 <el-button type="text"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
             </div>
-            <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
-            <!--                <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>-->
-            <!--            </el-button>-->
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { Getter, namespace } from 'vuex-class'
+import { Component, Vue, Emit } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 const userModule = namespace('user')
 
 @Component
@@ -71,18 +68,15 @@ export default class PasswordLogin extends Vue {
         ]
     }
 
-    agencyError= ''
     loading = false
     passwordType = 'password'
 
-    @userModule.Getter('token') tokenFoo!: string
-    @userModule.Getter('currentStep') currentStepFoo!: number
-    @userModule.Getter('agencyCode') agencyCodeFoo!: string
-    @userModule.Getter('agencyList') agencyListFoo: any
     @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
-    @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
-    @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
-    @Getter smsType!: string[]
+
+    @Emit('emitLogin')
+    emitLogin () {
+        return true
+    }
 
     async login (formName: string) {
         // 防止连续敲击回车
@@ -91,49 +85,11 @@ export default class PasswordLogin extends Vue {
             await (this.$refs[formName] as HTMLFormElement).validate()
             this.loading = true
             await this.LOGIN(this.form)
-            if (this.agencyListFoo.length > 1) {
-                // this.showDialog = true
-                return
-            }
-            await this.selectAgency()
+            this.emitLogin()
         } catch (e) {
-            // this.refreshSafeCode()
             throw e
         } finally {
             this.loading = false
-        }
-    }
-
-    async selectAgency () {
-        // if (this.agencyListFoo.length > 1 && !this.enterprise) {
-        //     this.agencyError = '请选择您要登录的机构'
-        //     return
-        // }
-        if (this.agencyListFoo.length as number === 1) {
-            this.currentAgencyChange(this.agencyListFoo[0].enterpriseId)
-        }
-        this.agencyError = ''
-        try {
-            // await this.$store.dispatch(GET_ALL_MALL_INFO)
-            await this.getAllMallInfo()
-            this.step()
-        } catch (e) {
-            throw e
-        }
-    }
-
-    // 选中机构
-    currentAgencyChange (val: object) {
-        // 把选择的机构缓存起来
-        this.setCurrentAgency({ agencyCode: val })
-    }
-
-    step () {
-        const currentStep: number = Number(sessionStorage.getItem('currentStep')) || 0
-        if (!currentStep) {
-            this.$router.replace({ name: 'Home' })
-        } else {
-            this.$router.replace({ name: 'Register' })
         }
     }
 }

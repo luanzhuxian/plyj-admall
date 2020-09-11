@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { testPhone } from '../../../assets/ts/validate'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { Getter, namespace } from 'vuex-class'
 // import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
@@ -67,7 +67,6 @@ export default class PhoneLogin extends Vue {
             smsType: 'AGENT_USER_LOGIN' as SmsType
         }
 
-        agencyError = ''
         rules = {
             mobile: [
                 { required: true, trigger: 'blur', message: '账号不能为空' },
@@ -83,14 +82,13 @@ export default class PhoneLogin extends Vue {
         time = 60
         timer: any = null
         loading = false
-        @userModule.Getter('token') tokenFoo!: string
-        @userModule.Getter('currentStep') currentStepFoo!: number
-        @userModule.Getter('agencyCode') agencyCodeFoo!: string
-        @userModule.Getter('agencyList') agencyListFoo: any
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
-        @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
-        @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Getter smsType!: string[]
+
+        @Emit('emitLogin')
+        emitLogin () {
+            return true
+        }
 
         async getCode () {
             if (this.getCodeing) return
@@ -119,51 +117,13 @@ export default class PhoneLogin extends Vue {
             try {
                 await (this.$refs[formName] as HTMLFormElement).validate()
                 this.loading = true
-                const data = await this.LOGIN(this.form)
-                console.log(data)
-                if (this.agencyListFoo.length > 1) {
-                    // this.showDialog = true
-                    return
-                }
-                await this.selectAgency()
+                await this.LOGIN(this.form)
+                this.emitLogin()
             } catch (e) {
                 // this.refreshSafeCode()
                 throw e
             } finally {
                 this.loading = false
-            }
-        }
-
-        async selectAgency () {
-            // if (this.agencyListFoo.length > 1 && !this.enterprise) {
-            //     this.agencyError = '请选择您要登录的机构'
-            //     return
-            // }
-            if (this.agencyListFoo.length as number === 1) {
-                this.currentAgencyChange(this.agencyListFoo[0].enterpriseId)
-            }
-            this.agencyError = ''
-            try {
-                // await this.$store.dispatch(GET_ALL_MALL_INFO)
-                await this.getAllMallInfo()
-                this.step()
-            } catch (e) {
-                throw e
-            }
-        }
-
-        // 选中机构
-        currentAgencyChange (val: object) {
-            // 把选择的机构缓存起来
-            this.setCurrentAgency({ agencyCode: val })
-        }
-
-        step () {
-            const currentStep: number = Number(sessionStorage.getItem('currentStep')) || 0
-            if (!currentStep) {
-                this.$router.replace({ name: 'Home' })
-            } else {
-                this.$router.replace({ name: 'Register' })
             }
         }
 }
