@@ -3,41 +3,17 @@
         <el-form
             :inline="true"
             class="form-filter"
+            label-width="80px"
         >
-            <el-form-item class="mb-0">
+            <el-form-item label="关键词">
                 <el-input
                     clearable
                     v-model.trim="form.realName"
-                    placeholder="真实姓名"
+                    placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
                 />
-            </el-form-item>
-            <el-form-item class="mb-0">
-                <el-input
-                    clearable
-                    v-model.trim="form.mobile"
-                    placeholder="手机号"
-                    @change="search"
-                />
-            </el-form-item>
-            <!--<el-form-item label="helper等级">-->
-            <!--<el-select v-model="form.level" clearable @change="getList">-->
-            <!--<el-option label="等级1" value="1" />-->
-            <!--<el-option label="等级2" value="2" />-->
-            <!--</el-select>-->
-            <!--</el-form-item>-->
-            <el-form-item class="mb-0">
-                <el-button
-                    type="primary"
-                    style="width:98px"
-                    size="mini"
-                    @click="search"
-                >
-                    搜索
-                </el-button>
             </el-form-item>
             <el-form-item
-                class="mb-0"
                 label="所属账号"
                 v-if="currentRoleCode !== 'EMPLOYEE'"
             >
@@ -54,6 +30,28 @@
                     />
                 </el-select>
             </el-form-item>
+            <el-form-item label="加入时间">
+                <date-range />
+            </el-form-item>
+            <el-form-item label="最近登录时间">
+                <date-range />
+            </el-form-item>
+            <div>
+                <el-button
+                    type="primary"
+                    size="mini"
+                    @click="search"
+                >
+                    查询
+                </el-button>
+                <el-button
+                    type="text"
+                    size="mini"
+                    @click="restForm"
+                >
+                    清空筛选条件
+                </el-button>
+            </div>
         </el-form>
 
         <div
@@ -282,15 +280,15 @@ export default class HelperManageList extends Vue {
     /* 当前选中的表格数据 */
     currentSelect = []
     ownnerUserId = ''
-    currentRoleCode = 'EMPLOYEE'
+    currentRoleCode = ''
 
-    /* created () {
+    created () {
         this.routeName = this.$route.name
         this.form.auditStatus = this.statusMap[this.routeName]
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
         this.getAccountList()
-    } */
+    }
 
     restForm () {
         this.form = {
@@ -307,9 +305,9 @@ export default class HelperManageList extends Vue {
 
     async getList () {
         try {
-            const { data: res } = await getHelperList(this.form)
-            this.table = res.result.records
-            this.total = res.result.total
+            const { result } = await getHelperList(this.form)
+            this.table = result.records
+            this.total = result.total
         } catch (e) {
             throw e
         }
@@ -329,8 +327,9 @@ export default class HelperManageList extends Vue {
 
     async getAccountList () {
         try {
-            const { data: res } = await getAccounts(this.searchAccountsForm)
-            this.accountList = res.result.records
+            const { result } = await getAccounts(this.searchAccountsForm)
+            // console.log(result)
+            this.accountList = result.records
         } catch (e) {
             throw e
         }

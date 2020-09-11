@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.helper">
+    <div class="wrap">
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane
                 v-for="item in tabs"
@@ -27,7 +27,7 @@ export default class HelperManage extends Vue {
       title: 'Helper审核'
   }]
 
-    activeName = this.tabs[0].name
+    activeName = this.$route.name
 
     handleClick () {
         this.$router.push({ name: this.activeName })
@@ -36,9 +36,4 @@ export default class HelperManage extends Vue {
 </script>
 
 <style module lang="scss">
-.helper{
-    background: #fff;
-    padding: 30px 40px;
-    border: 1px solid #e7e7e7;
-}
 </style>

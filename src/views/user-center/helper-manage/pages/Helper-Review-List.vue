@@ -2,58 +2,36 @@
     <div class="helper-list">
         <el-form
             :inline="true"
-            class="wrap border-bottom"
+            class="form-filter"
+            label-width="80px"
         >
-            <el-form-item class="mb-0">
+            <el-form-item label="关键词">
                 <el-input
                     clearable
                     v-model.trim="form.realName"
-                    placeholder="真实姓名"
+                    placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
                 />
             </el-form-item>
-            <el-form-item class="mb-0">
-                <el-input
-                    clearable
-                    v-model.trim="form.mobile"
-                    placeholder="手机号"
-                    @change="search"
-                />
+            <el-form-item label="申请时间">
+                <date-range />
             </el-form-item>
-            <!--<el-form-item label="helper等级">-->
-            <!--<el-select v-model="form.level" clearable @change="getList">-->
-            <!--<el-option label="等级1" value="1" />-->
-            <!--<el-option label="等级2" value="2" />-->
-            <!--</el-select>-->
-            <!--</el-form-item>-->
-            <el-form-item class="mb-0">
+            <div>
                 <el-button
                     type="primary"
-                    style="width:98px"
                     size="mini"
                     @click="search"
                 >
-                    搜索
+                    查询
                 </el-button>
-            </el-form-item>
-            <el-form-item
-                class="mb-0 "
-                label="所属账号"
-                v-if="currentRoleCode !== 'EMPLOYEE'"
-            >
-                <el-select
-                    v-model="form.ownnerUserId"
-                    clearable
-                    @change="search"
+                <el-button
+                    type="text"
+                    size="mini"
+                    @click="restForm"
                 >
-                    <el-option
-                        v-for="(item, index) of accountList"
-                        :key="index"
-                        :label="item.realName"
-                        :value="item.userId"
-                    />
-                </el-select>
-            </el-form-item>
+                    清空筛选条件
+                </el-button>
+            </div>
         </el-form>
 
         <div class="wrap mb-20" v-if="$route.name === 'HelperWaiting'">
@@ -267,9 +245,11 @@ import {
     updateBrokerStatus
 } from '../../../../apis/member'
 import { getAccounts } from '../../../../apis/account'
+import DateRange from '../../../../components/common/Date-Range'
 
 @Component({
     components: {
+        DateRange,
         Pagination
     }
 })
@@ -316,6 +296,20 @@ export default class HelperReviewList extends Vue {
 
   /* 驳回申请理由 */
   rejectReason = ''
+  currentRoleCode = ''
+
+  async created () {
+      this.routeName = this.$route.name
+      this.form.auditStatus = this.statusMap[this.routeName]
+      this.form.auditFlag = Boolean(this.form.auditStatus)
+      try {
+          await this.getList()
+          await this.getAccountList()
+      } catch (e) {
+          throw e
+      }
+  }
+
   restForm () {
       this.form = { realName: '', mobile: '', ownnerUserId: '', current: 1, auditFlag: true, auditStatus: '' }
       this.form.auditStatus = this.statusMap[this.routeName]
@@ -324,8 +318,8 @@ export default class HelperReviewList extends Vue {
 
   async getList () {
       try {
-          const { data: res } = await getHelperList(this.form)
-          this.table = res.result.recordsthis.total || res.result.total
+          const { result } = await getHelperList(this.form)
+          this.table = result.records
       } catch (e) {
           throw e
       }
@@ -350,8 +344,8 @@ export default class HelperReviewList extends Vue {
 
   async getAccountList () {
       try {
-          const { data: res } = await getAccounts(this.searchAccountsForm)
-          this.accountList = res.result.records
+          const { result } = await getAccounts(this.searchAccountsForm)
+          this.accountList = result.records
       } catch (e) {
           throw e
       }
@@ -426,6 +420,10 @@ export default class HelperReviewList extends Vue {
 }
 </script>
 
-<style module lang="scss">
-
+<style lang="scss">
+    .form-filter{
+        padding: 20px 32px;
+        background: #F5F6FA;
+        border-radius: 10px;
+    }
 </style>
