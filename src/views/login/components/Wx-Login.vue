@@ -48,7 +48,7 @@ export default class WxLogin extends Vue {
                     return
                 }
                 if (data.code === 2000) {
-                    await this.setLoginInfo(data)
+                    await this.setLoginInfo(data.result)
                     await this.getAgencyList()
                     this.emitLogin()
                 }

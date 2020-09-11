@@ -35,7 +35,7 @@
                 登录
             </el-button>
             <div :class="$style.register">
-                <el-button type="text" @click="$router.push({name:'WxBindPhone'})">账号绑定</el-button>
+                <el-button type="text" @click="$router.push({name:'WxBindPassword'})">账号绑定</el-button>
                 <el-button type="text" @click="$router.push({name:'PasswordLogin'})">已有账号，马上跳转登陆</el-button>
             </div>
         </div>
