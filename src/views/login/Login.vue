@@ -97,6 +97,12 @@ export default class Login extends Vue {
     mounted () {
         console.log(this.$route.name)
     }
+
+    destroyed (): void {
+        sessionStorage.removeItem('redirect_code')
+        sessionStorage.removeItem('redirect_state')
+        sessionStorage.removeItem('login_state')
+    }
 }
 </script>
 
