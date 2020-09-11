@@ -3,14 +3,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import NProgress from 'nprogress'
 import qs from 'qs'
-import NotFound from '../views/404.vue'
+// import NotFound from '../views/404.vue'
 import login from './login.ts'
 import marketingManage from './marketing-manage/index.ts'
 import baseSetting from './base-setting/index.ts'
 import userCenter from './user-center.ts'
 
 import Home from '../views/Home.vue'
-import Login from '../views/login/Login.vue'
 
 Vue.use(Router)
 

@@ -14,7 +14,7 @@
             >
                 <el-form-item prop="account">
                     <div :class="$style.phoneNumber">
-                        <el-input v-model="form.account" maxlength="11" style="width: 300px" placeholder="请输入手机号" />
+                        <el-input v-model="form.account" maxlength="50" style="width: 300px" placeholder="请输入账号" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">
@@ -60,10 +60,14 @@ export default class PasswordLogin extends Vue {
     }
 
     rules = {
-        account: [{ required: true, trigger: 'blur', message: '账号不能为空' }],
+        account: [{ required: true, trigger: 'blur', message: '账号不能为空' },
+            { min: 6, message: '账号不能小于6位', trigger: 'blur' },
+            { max: 50, message: '账号不能大于50位', trigger: 'blur' }
+        ],
         password: [
             { required: true, message: '密码不能为空', trigger: 'blur' },
-            { min: 6, message: '密码不能小于6位', trigger: 'blur' }
+            { min: 6, message: '密码不能小于6位', trigger: 'blur' },
+            { max: 12, message: '密码不能大于12位', trigger: 'blur' }
         ]
     }
 

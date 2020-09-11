@@ -41,10 +41,11 @@ import Header from './components/common/Header.vue'
 export default class App extends Vue {
     // 不显示菜单的页面
     noMenu: Array<string> = [
-        'WXLogin',
+        'WxLogin',
         'PasswordLogin',
         'PhoneLogin',
-        'WXBind',
+        'WxBindPassword',
+        'WxBindPhone',
         'Register',
         'ForgetPassword',
         'ForgetPasswordMobile',

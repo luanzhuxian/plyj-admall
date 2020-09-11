@@ -9,6 +9,8 @@
                 <phoneLogin v-if="$route.name === 'PhoneLogin'" />
                 <passwordLogin v-if="$route.name === 'PasswordLogin'" />
                 <wxLogin v-if="$route.name === 'WxLogin'" />
+                <WxBindPassword v-if="$route.name === 'WxBindPassword'" />
+                <WxBindPhone v-if="$route.name === 'WxBindPhone'" />
             </div>
         </div>
     </div>
@@ -19,11 +21,15 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import phoneLogin from './components/Phone-Login'
 import wxLogin from './components/Wx-Login'
 import passwordLogin from './components/Password-Login'
+import WxBindPassword from './components/Wx-Bind-Password'
+import WxBindPhone from './components/Wx-Bind-Phone'
     @Component({
         components: {
             phoneLogin,
             wxLogin,
-            passwordLogin
+            passwordLogin,
+            WxBindPassword,
+            WxBindPhone
         }
     })
 export default class Login extends Vue {

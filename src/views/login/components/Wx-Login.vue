@@ -25,17 +25,37 @@ export default class WxLogin extends Vue {
         async mounted () {
             this.weixinLoginCode()
             this.code = sessionStorage.getItem('redirect_code') as string
+
             if (this.code) {
                 await this.WxScanLogin()
-                sessionStorage.removeItem('authCode')
-                sessionStorage.removeItem('redirect_state')
-                sessionStorage.removeItem('login_state')
             }
         }
 
         async WxScanLogin () {
-            const data = await WxScanLogin(this.code)
-            console.log(data)
+            console.log('this.code')
+            console.log(this.code)
+            console.log('执行 this.WxScanLogin()')
+            try {
+                const data = await WxScanLogin(this.code)
+                console.log('data')
+                console.log(data)
+                if (data.code === 5001) {
+                    await this.$router.push({ name: 'WxBindPhone' })
+                    return
+                }
+                if (data.code === 2000) {
+                    await this.$router.replace({ name: 'Home' })
+                }
+                this.clearCode()
+            } catch (e) {
+                throw e
+            }
+        }
+
+        clearCode () {
+            sessionStorage.removeItem('redirect_code')
+            sessionStorage.removeItem('redirect_state')
+            sessionStorage.removeItem('login_state')
         }
 
         weixinLoginCode () {
@@ -49,7 +69,7 @@ export default class WxLogin extends Vue {
                 id: 'login-container',
                 appid: 'wx7f8e7e4ea457931d',
                 scope: 'snsapi_login',
-                redirect_uri: 'http://joint.xijun.youpenglai.com/login',
+                redirect_uri: 'http://joint.xijun.youpenglai.com/wx-login',
                 state,
                 style: 'black',
                 href: ''

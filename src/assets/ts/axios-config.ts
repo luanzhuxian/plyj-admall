@@ -98,7 +98,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         return data
     }
 
-    if (data.code === SUCCESS_CODE) {
+    if (data.code === SUCCESS_CODE || data.code === 4000 || data.code >= EXCEPTION_CODE) {
         response.data.result = response.data.data
         delete response.data.data
         return response.data

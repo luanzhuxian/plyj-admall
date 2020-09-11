@@ -1,8 +1,8 @@
 export default [
     {
-        path: '/wx-login',
-        redirect: '/wx-login',
-        name: 'WxLogin',
+        path: '/phone-login',
+        redirect: '/phone-login',
+        name: 'PhoneLogin',
         component: () => import('../views/user-center/Index.vue'),
         meta: {
             title: '登陆'
@@ -33,11 +33,19 @@ export default [
                 }
             },
             {
-                path: '/wx-bind',
-                name: 'WxBind',
+                path: '/wx-bind-password',
+                name: 'WxBindPassword',
                 component: () => import('../views/login/Login.vue'),
                 meta: {
                     title: '账户绑定'
+                }
+            },
+            {
+                path: '/wx-bind-phone',
+                name: 'WxBindPhone',
+                component: () => import('../views/login/Login.vue'),
+                meta: {
+                    title: '手机绑定'
                 }
             }
         ]

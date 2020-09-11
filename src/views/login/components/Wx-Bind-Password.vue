@@ -1,9 +1,7 @@
 <template>
     <div :class="$style.phoneLogin">
-        <img @click="WxLogin" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
         <div :class="$style.loginType">
-            <div :class="$style.typePassword">密码登录</div>
-            <div :class="$style.typeCode" @click="passwordLogin">验证码登录</div>
+            绑定已注册账号
         </div>
         <div :class="$style.accountMessage">
             <el-form
@@ -14,7 +12,7 @@
             >
                 <el-form-item prop="account">
                     <div :class="$style.phoneNumber">
-                        <el-input v-model="form.account" maxlength="11" style="width: 300px" placeholder="请输入手机号" />
+                        <el-input v-model="form.account" maxlength="11" style="width: 300px" placeholder="请输入" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">
@@ -34,11 +32,11 @@
                 @click.native.prevent="login('form')"
                 :loading="loading"
             >
-                登录
+                登录并绑定
             </el-button>
             <div :class="$style.register">
-                <el-button type="text"><span :class="$style.c999">忘记密码</span></el-button>
-                <el-button type="text"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
+                <el-button type="text" @click="$router.push({name:'WxBindPhone'})">手机号绑定</el-button>
+                <el-button type="text" @click="$router.push({name:'PhoneLogin'})">已有账号，马上跳转登陆</el-button>
             </div>
         </div>
     </div>
@@ -50,17 +48,21 @@ import { Getter, namespace } from 'vuex-class'
 const userModule = namespace('user')
 
     @Component
-export default class WxBind extends Vue {
+export default class WxBindPassword extends Vue {
         form = {
             account: '',
             password: ''
         }
 
         rules = {
-            account: [{ required: true, trigger: 'blur', message: '账号不能为空' }],
+            account: [{ required: true, trigger: 'blur', message: '账号不能为空' },
+                { min: 6, message: '账号不能小于6位', trigger: 'blur' },
+                { max: 50, message: '账号不能大于50位', trigger: 'blur' }
+            ],
             password: [
                 { required: true, message: '密码不能为空', trigger: 'blur' },
-                { min: 6, message: '密码不能小于6位', trigger: 'blur' }
+                { min: 6, message: '密码不能小于6位', trigger: 'blur' },
+                { max: 12, message: '密码不能大于12位', trigger: 'blur' }
             ]
         }
 
@@ -157,18 +159,11 @@ export default class WxBind extends Vue {
         }
         .login-type{
             display: flex;
-            .type-password{
-                padding-right: 32px;
-                font-size: 24px;
-                font-weight: 600;
-                color: #333333;
-            }
-            .type-code{
-                padding-top: 6px;
-                font-size: 20px;
-                font-weight: 400;
-                color: #999999;
-            }
+            justify-content: center;
+            padding-top: 4px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #333333;
         }
         .account-message{
             margin-top: 36px;
