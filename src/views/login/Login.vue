@@ -1,9 +1,15 @@
 <template>
     <div :class="$style.login">
-        <div :class="$style.loginBg" />
-        <phoneLogin v-if="typePhoneLogin" @passwordLogin="passwordLogin" @WxLogin="WxLogin" />
-        <passwordLogin v-if="typePasswordLogin" @phoneLogin="phoneLogin" @WxLogin="WxLogin" />
-        <wxLogin v-if="typeWxLogin" @phoneLogin="phoneLogin" @passwordLogin="passwordLogin" />
+        <div :class="$style.loginTop">
+            <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png">
+        </div>
+        <div :class="$style.loginBody">
+            <div :class="$style.loginBg">
+                <phoneLogin v-if="typePhoneLogin" @passwordLogin="passwordLogin" @WxLogin="WxLogin" />
+                <passwordLogin v-if="typePasswordLogin" @phoneLogin="phoneLogin" @WxLogin="WxLogin" />
+                <wxLogin v-if="typeWxLogin" @phoneLogin="phoneLogin" @passwordLogin="passwordLogin" />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -47,18 +53,28 @@ export default class Login extends Vue {
     .login{
         width: 100vw;
         height: 100vh;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background-color: #F5F6FA;
-        .login-bg{
-            width: 320px;
-            height: 440px;
-            margin-right: 10px;
-            border-radius: 10px;
-            background-image: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/login-bg.png');
-            background-size: 100% 100%;
+        /*display: flex;*/
+        /*flex-direction: row;*/
+        /*align-items: center;*/
+        background-color: #ffffff;
+        .login-top{
+            width: 100vw;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            padding-left: 18%;
+        }
+        .login-body{
+            width: 100vw;
+            height: calc(100vh - 80px);
+            background: url("https://mallcdn.youpenglai.com/static/admall-new/3.0.0/new-login-bg.png");
+            background-size: cover;
+            .login-bg{
+                position: absolute;
+                right: 17%;
+                top: 21%;
+                margin-right: 10px;
+            }
         }
     }
 </style>

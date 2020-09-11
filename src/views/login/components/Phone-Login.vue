@@ -1,5 +1,6 @@
 <template>
     <div :class="$style.phoneLogin">
+        <img @click="WxLogin" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
         <div :class="$style.loginType">
             <div :class="$style.typePassword" @click="passwordLogin">密码登录</div>
             <div :class="$style.typeCode">验证码登录</div>
@@ -18,7 +19,7 @@
                 </el-form-item>
                 <el-form-item prop="identifyingCode">
                     <div :class="$style.phoneCode">
-                        <el-input v-model="form.identifyingCode" type="number" maxlength="4" style="width: 220px" placeholder="请输入验证码" />
+                        <el-input v-model="form.identifyingCode" maxlength="4" style="width: 180px" placeholder="请输入验证码" />
                         <div :class="$style.getCode" v-if="getCodeing">{{ time }}</div>
                         <div :class="$style.getCode" v-else @click="getCode()">获取验证码</div>
                     </div>
@@ -26,13 +27,6 @@
             </el-form>
 
             <!--            <p :class="$style.unregisteredPhone">该手机号还未注册雅集，请先注册雅集~</p>-->
-
-            <div :class="$style.register">
-                <!--                <el-checkbox v-model="agree">-->
-                <!--                    <span style="font-size: 14px;color: #333333">保持登录</span>-->
-                <!--                </el-checkbox>-->
-                <el-button :class="$style.registering" type="text"><span :class="$style.unregistered">还没注册？</span>立即注册</el-button>
-            </div>
             <el-button
                 size="large"
                 style="width: 100%;border-radius: 121px;"
@@ -42,9 +36,13 @@
             >
                 登录
             </el-button>
-            <el-button @click="WxLogin" type="text" style="width: 100%">
-                <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>
-            </el-button>
+            <div :class="$style.register">
+                <el-button type="text"><span :class="$style.c999">忘记密码</span></el-button>
+                <el-button type="text"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
+            </div>
+            <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
+            <!--                <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>-->
+            <!--            </el-button>-->
         </div>
     </div>
 </template>
@@ -184,11 +182,16 @@ export default class PhoneLogin extends Vue {
 
 <style module lang="scss">
 .phone-login{
-    width: 400px;
-    height: 440px;
+    width: 360px;
+    height: 400px;
     padding: 40px;
     border-radius: 10px;
     background-color: #ffffff;
+    >img{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
     .login-type{
         display: flex;
         .type-password{
@@ -247,14 +250,12 @@ export default class PhoneLogin extends Vue {
             }
         }
         .register{
+            display: flex;
+            justify-content: space-between;
             margin-top: 30px;
-            margin-bottom: 24px;
             >button{
                 margin: 0;
-            }
-            .registering{
-                margin-left: 190px;
-                .unregistered{
+                .c999{
                     color: #999999
                 }
             }

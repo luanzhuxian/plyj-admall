@@ -59,8 +59,8 @@ export default class WxLogin extends Vue {
 
 <style module lang="scss">
     .phone-login{
-        width: 400px;
-        height: 440px;
+        width: 360px;
+        height: 400px;
         padding: 40px;
         border-radius: 10px;
         background-color: #ffffff;
