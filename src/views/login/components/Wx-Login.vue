@@ -16,12 +16,13 @@
 </template>
 
 <script lang="ts">
+import { WxScanLogin } from '../../../apis/login'
 import { Component, Vue, Emit } from 'vue-property-decorator'
     @Component
 export default class WxLogin extends Vue {
         agree = false
         loading = false
-        code: null | string = ''
+        code = ''
         @Emit('passwordLogin')
         passwordLogin () {
             return true
@@ -32,12 +33,23 @@ export default class WxLogin extends Vue {
             return true
         }
 
-        mounted () {
-            this.weixinLogin()
-            this.code = sessionStorage.getItem('redirect_code')
+        async mounted () {
+            this.weixinLoginCode()
+            this.code = sessionStorage.getItem('redirect_code') as string
+            if (this.code) {
+                await this.WxScanLogin()
+                sessionStorage.removeItem('authCode')
+                sessionStorage.removeItem('redirect_state')
+                sessionStorage.removeItem('login_state')
+            }
         }
 
-        weixinLogin () {
+        async WxScanLogin () {
+            const data = await WxScanLogin(this.code)
+            console.log(data)
+        }
+
+        weixinLoginCode () {
             /* eslint-disable @typescript-eslint/camelcase */
             /* eslint-disable no-new */
             // location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx7f8e7e4ea457931d&redirect_uri=http://joint.xijun.youpenglai.com&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect'
