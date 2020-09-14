@@ -48,6 +48,7 @@ declare global {
     }
     // 短信类型
     export type SmsType = 'ACCOUNT_BIND_PHONE_NUMBER' | 'AGENT_USER_LOGIN'
+    export type agencyStatusType = 'AUTHENTICATE' | 'AUDITING' | 'AUTH_FAIL' | 'MICRO_NOT_UPGRADE' | 'MICRO_NOT_APPLY' | 'MP_NOT_AUTHORIZED' | 'MALL_NOT_COMPLETED'
 
     // 动态属性的对象
     interface DynamicObject {

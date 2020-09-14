@@ -32,6 +32,9 @@
 import { Component, Watch, Vue } from 'vue-property-decorator'
 import MainNavbar from './components/common/Main-Navbar.vue'
 import Header from './components/common/Header.vue'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
+
 @Component({
     components: {
         MainNavbar,
@@ -50,16 +53,66 @@ export default class App extends Vue {
         'ForgetPassword',
         'ForgetPasswordMobile',
         'ModifyPassword'
-    ];
+    ]
+
+    NOLOGIN: Array<string> = [
+        'WxLogin',
+        'PasswordLogin',
+        'PhoneLogin',
+        'WxBindPassword',
+        'WxBindPhone',
+        'Register',
+        'ForgetPasswordMobile'
+    ]
 
     title = '这是一个title'
+
     @Watch('routeName')
     onrouteName (val: string) {
         console.log(val)
+        console.log(val)
+        console.log(val)
+    }
+
+    @userModule.Getter('currentStep') currentStep!: number
+
+    @userModule.Getter('agencyCode') agencyCode!: string
+    @userModule.Action('SET_LOGININFO') SET_LOGININFO!: Function
+    @userModule.Action('GET_ALL_MALL_INFO') GET_ALL_MALL_INFO!: Function
+
+    @userModule.Mutation('LOGOUT') LOGOUT!: Function
+
+    mounted () {
+        try {
+            this.step()
+        } catch (e) {
+            throw e
+        }
     }
 
     get routeName (): string | undefined | null{
         return this.$route.name
+    }
+
+    async step () {
+        // 没有选中机构
+        if (!this.agencyCode && !this.NOLOGIN.includes(this.routeName as string)) {
+            this.LOGOUT()
+            return
+        }
+        try {
+            this.SET_LOGININFO()
+            // 刷新登录信息缓存时效
+            await this.GET_ALL_MALL_INFO()
+            if (this.currentStep === 1) {
+                this.$router.replace({ name: 'Register' })
+                return
+            }
+            // this.loaded = true
+            // await this[GET_CLASSIFY_TREE]()
+        } catch (e) {
+            throw e
+        }
     }
 }
 </script>

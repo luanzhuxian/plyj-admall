@@ -1,0 +1,76 @@
+<template>
+    <el-dialog
+        class="select-video"
+        :visible="show"
+        width="65%"
+        title="添加备注"
+        @close="closeHandler"
+        :close-on-click-modal="false"
+    >
+        <el-form>
+            <el-form-item label="备注：">
+                <el-input
+                    width="480px"
+                    height="345px"
+                    clearable
+                    type="textarea"
+                    placeholder="请输入备注"
+                    v-model="form.detail"
+                />
+            </el-form-item>
+        </el-form>
+        <div class="mt-20" style="text-align: center;">
+            <el-button type="primary" @click="save">
+                保 存
+            </el-button>
+        </div>
+    </el-dialog>
+</template>
+
+<script>
+export default {
+    name: 'WatchDetailList',
+    props: {
+        show: Boolean,
+        userId: {
+        // 当前用户id
+            type: String,
+            default: ''
+        }
+    },
+    data () {
+        return {
+            form: {
+                detail: ''
+            }
+        }
+    },
+    methods: {
+        closeHandler () {
+            this.$emit('update:show', false)
+        },
+        async save () {
+            try {
+
+            } catch (e) {
+                throw e
+            }
+        }
+    }
+}
+</script>
+
+<style scoped lang="scss">
+    .tag {
+        display: inline-block;
+        min-width: 78px;
+        margin: 0 4px 4px 0;
+        padding: 0 4px;
+        border: 1px solid #ec742e;
+        line-height: 24px;
+        font-size: 12px;
+        white-space: nowrap;
+        text-align: center;
+        color: #ec742e;
+    }
+</style>

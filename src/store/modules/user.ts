@@ -86,6 +86,8 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
         [types.AGENCY_USER_INFO] (state, payload) {
             if (!payload) return
+            console.log('AGENCY_USER_INFO')
+            console.log(payload)
             const {
                 currentStep = 1,
                 entPersonSaveModel = {},
@@ -322,8 +324,8 @@ const user: Module<DynamicObject, DynamicObject> = {
             }
         },
         // 获取所有商城数据
-        // 日志系统getters暂时删除
         async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state }) {
+            // 日志系统getters暂时删除
             try {
                 console.log(123)
                 await dispatch(types.AGENCY_USER_INFO)

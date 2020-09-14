@@ -24,15 +24,45 @@
                 <span>通知中心</span>
                 <i :class="$style.mark" />
             </router-link>
-            <div :class="$style.user">
-                <img
-                    :class="$style.avatar"
-                    src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png"
-                    alt="avatar"
-                >
-                <span :class="$style.mobile">{{ bindPhone }}</span>
-                <span class="el-icon-arrow-right fz-12" />
-            </div>
+
+            <el-dropdown
+                trigger="hover"
+                @command="command"
+            >
+                <div :class="$style.userInfo">
+                    <img
+                        :class="$style.avatar"
+                        src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png"
+                        alt="avatar"
+                    >
+                    <div class="user-info-right">
+                        <div>
+                            <span v-if="mallName">{{ mallName }}</span>
+                            <span class="phone">
+                                {{ bindPhone | formatAccount }}
+                            </span>
+                            <span class="el-icon-arrow-right fz-12" />
+                        </div>
+                        <div>
+                            <span
+                                :class="$style.auth"
+                                v-if="auditStatus"
+                            >
+                                {{ auditStatus | agencyStatus }}
+                            </span>
+                            <span class="level">企业等级：1</span>
+                        </div>
+                    </div>
+                </div>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="modify">
+                        修改密码
+                    </el-dropdown-item>
+                    <el-dropdown-item command="logout">
+                        退出登录
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
         </div>
     </header>
 </template>
@@ -41,19 +71,31 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { namespace } from 'vuex-class'
-import actions from '../../micro/shared/actions'
 const userModule = namespace('user')
+// import actions from '../../micro/shared/actions'
 
 @Component
 export default class Header extends Vue {
     // computed
-    @userModule.Getter bindPhone!: string
+    @userModule.Getter('mallName') mallName!: string
+    @userModule.Getter('bindPhone') bindPhone!: string
+    @userModule.Getter('auditStatus') auditStatus!: string
 
-    mounted () {
-        actions.onGlobalStateChange(state => {
-            console.log(state)
-        })
+    @userModule.Mutation('LOGOUT') LOGOUT!: Function
+
+    async command (command: string) {
+        if (command === 'logout') {
+            await this.LOGOUT()
+            this.$router.push({ name: 'phoneLogin' })
+        }
+        if (command === 'modify') return this.$router.push({ name: 'Register' })
     }
+
+    // mounted () {
+    //     actions.onGlobalStateChange(state => {
+    //         console.log(state)
+    //     })
+    // }
 }
 </script>
 
@@ -87,20 +129,27 @@ export default class Header extends Vue {
                 border-radius: 2px;
             }
         }
-        .user {
-            display: inline-flex;
+        .user-info {
+            display: flex;
             align-items: center;
-            margin-left: 20px;
-            padding-left: 20px;
-            border-left: 1px solid $--color-gray-5;
-        }
-        .avatar {
-            width: 20px;
-            height: 20px;
-            margin-right: 4px;
-        }
-        .mobile {
-            font-size: 14px;
+            height: 50px;
+            padding: 0 20px;
+            .avatar {
+                width: 20px;
+                height: 20px;
+                margin-right: 4px;
+            }
+            .auth {
+                display: inline-block;
+                height: 16px;
+                margin-right: 12px;
+                padding: 0 7px;
+                font-size: 12px;
+                text-align: center;
+                line-height: 16px;
+                color: #fff;
+                background-color: #4F63FF;
+            }
         }
     }
 </style>

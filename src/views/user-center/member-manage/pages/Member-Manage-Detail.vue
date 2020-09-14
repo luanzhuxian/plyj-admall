@@ -67,7 +67,13 @@
         <div class="container bg-white mt-20">
             <p class="title">
                 备注用户信息
-                <el-button type="text" @click="isEdit = true">编辑</el-button>
+                <template v-if="!isEdit">
+                    <el-button type="text" @click="isEdit = true">编辑</el-button>
+                </template>
+                <template v-else>
+                    <el-button type="text" @click="saveAddMemberDetail">保存</el-button>
+                    <el-button type="text" @click="isEdit = false">取消</el-button>
+                </template>
             </p>
             <div class="remark-detail">
                 <SearchBox>
@@ -111,9 +117,104 @@
                         <div class="fill">
                             <span>备注：</span>
                             <span>{{ memberDetail.userName }}</span>
-                            <el-button type="text" @click="isEdit = true">查看更多</el-button>
+                            <el-button type="text" @click="tabName = 'RemarkList'">查看更多</el-button>
                         </div>
                     </div>
+                    <el-form
+                        v-else
+                        :inline="true"
+                        class="border-bottom mb-20"
+                    >
+                        <el-form-item class="mb-10 mr-20" label="真实姓名：">
+                            <el-input
+                                clearable
+                                placeholder="请输入真实姓名"
+                                maxlength="8"
+                                v-model="addMemberDetailForm.userName"
+                            />
+                        </el-form-item>
+                        <el-form-item class="mb-10" label="用户身份：">
+                            <el-radio-group class="mr-20" v-model="addMemberDetailForm.userType">
+                                <el-radio :label="0">家长</el-radio>
+                                <el-radio :label="1">学生</el-radio>
+                                <el-radio :label="2">其他</el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                        <el-form-item class="mb-10 mr-20" v-show="addMemberDetailForm.userType === 2">
+                            <el-input
+                                clearable
+                                placeholder="请输入用户身份"
+                                maxlength="8"
+                                v-model="addMemberDetailForm.userTypeText"
+                            />
+                        </el-form-item>
+                        <el-form-item label="生日：" class="mb-10 mr-20">
+                            <el-date-picker
+                                v-model="addMemberDetailForm.birthday"
+                                type="date"
+                                placeholder="选择生日日期" />
+                        </el-form-item>
+                        <el-form-item class="mb-10 mr-20" label="年龄：">
+                            <el-input
+                                clearable
+                                type="number"
+                                placeholder="请输入年龄"
+                                v-model="addMemberDetailForm.age"
+                            />
+                        </el-form-item>
+                        <el-form-item class="mb-10 mr-20" label="邮箱：">
+                            <el-input
+                                clearable
+                                type="email"
+                                placeholder="请输入邮箱"
+                                v-model="addMemberDetailForm.email"
+                            />
+                        </el-form-item>
+                        <el-form-item class="mb-10 mr-20" label="微信号：">
+                            <el-input
+                                clearable
+                                type="email"
+                                placeholder="请输入微信号"
+                                v-model="addMemberDetailForm.weChat"
+                            />
+                        </el-form-item>
+                        <el-form-item class="mb-10 mr-20" label="所在区域：">
+                            <el-input
+                                clearable
+                                type="email"
+                                placeholder="请输入微信号"
+                                v-model="addMemberDetailForm.a"
+                            />
+                        </el-form-item>
+                        <el-form-item
+                            label="所在区域"
+                            class="mb-10 mr-20"
+                            prop="addressPrefix"
+                        >
+                            <CityPicker
+                                @selected="selectedCity"
+                                :default-value="addressCode"
+                            />
+                        </el-form-item>
+                        <el-form-item
+                            label="详细地址"
+                            class="mb-10 mr-20"
+                            prop="agencyAddress"
+                        >
+                            <el-input
+                                v-model="addMemberDetailForm.agencyAddress"
+                                placeholder="请输入详细地址"
+                            />
+                        </el-form-item>
+                        <el-form-item class="mb-10 mr-20" label="备注：">
+                            <el-input
+                                type="textarea"
+                                placeholder="请输入内容"
+                                clearable
+                                v-model="addMemberDetailForm.remarkDetail"
+                            />
+                        </el-form-item>
+                    </el-form>
                 </SearchBox>
             </div>
         </div>
@@ -149,7 +250,7 @@
                             :inline="true"
                             class="border-bottom mb-20"
                         >
-                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                            <el-form-item class="mb-10 mr-20" label="关键字：">
                                 <el-input
                                     clearable
                                     style="width: 300px;"
@@ -158,7 +259,7 @@
                                     v-model="orderListForm.keyword"
                                 />
                             </el-form-item>
-                            <el-form-item style="width: 340px;" class="mb-10" label="产品类型：">
+                            <el-form-item class="mb-10 mr-20" label="产品类型：">
                                 <el-select
                                     v-model="orderListForm.orderType"
                                     @change="searchOrderList"
@@ -172,7 +273,7 @@
                                     />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="支付时间：" style="width: 492px;" class="mb-10">
+                            <el-form-item label="支付时间：" class="mb-10 mr-20">
                                 <date-range
                                     style="width: 380px;"
                                     :init="[orderListForm.startTime, orderListForm.endTime]"
@@ -182,7 +283,7 @@
                                     ref="dateRange"
                                 />
                             </el-form-item>
-                            <el-form-item style="width: 340px;" class="mb-10" label="订单状态：">
+                            <el-form-item class="mb-10 mr-20" label="订单状态：">
                                 <el-select
                                     v-model="orderListForm.roleType"
                                     @change="searchOrderList"
@@ -193,7 +294,7 @@
                                     <el-option value="HELPER" label="Helper" />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button
                                     type="primary"
                                     style="width:98px"
@@ -213,7 +314,7 @@
                                     导出数据
                                 </el-button>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
+                            <el-form-item class="mb-10">
                                 <el-button type="text" @click="resetOrderList">清空筛选条件</el-button>
                             </el-form-item>
                         </el-form>
@@ -283,7 +384,7 @@
                             :inline="true"
                             class="border-bottom mb-20"
                         >
-                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                            <el-form-item class="mb-10 mr-20" label="关键字：">
                                 <el-input
                                     clearable
                                     style="width: 300px;"
@@ -292,7 +393,7 @@
                                     v-model="shareListForm.keyword"
                                 />
                             </el-form-item>
-                            <el-form-item style="width: 340px;" class="mb-10" label="产品类型：">
+                            <el-form-item class="mb-10 mr-20" label="产品类型：">
                                 <el-select
                                     v-model="shareListForm.orderType"
                                     @change="searchShareList"
@@ -306,7 +407,7 @@
                                     />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item style="width: 340px;" class="mb-10" label="订单类型：">
+                            <el-form-item class="mb-10 mr-20" label="订单类型：">
                                 <el-select
                                     v-model="orderListForm.orderType"
                                     @change="searchShareList"
@@ -320,7 +421,7 @@
                                     />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="支付时间：" style="width: 492px;" class="mb-10">
+                            <el-form-item class="mb-10 mr-20" label="支付时间：">
                                 <date-range
                                     style="width: 380px;"
                                     :init="[shareListForm.startTime, shareListForm.endTime]"
@@ -330,7 +431,7 @@
                                     ref="dateRange"
                                 />
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button
                                     type="primary"
                                     style="width:98px"
@@ -339,7 +440,7 @@
                                     查询
                                 </el-button>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button
                                     @click="changeExportShareList"
                                     style="width: 98px;"
@@ -350,7 +451,7 @@
                                     导出数据
                                 </el-button>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
+                            <el-form-item class="mb-10">
                                 <el-button type="text" @click="resetShareList">清空筛选条件</el-button>
                             </el-form-item>
                         </el-form>
@@ -432,7 +533,7 @@
                             :inline="true"
                             class="border-bottom mb-20"
                         >
-                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                            <el-form-item class="mb-10 mr-20" label="关键字：">
                                 <el-input
                                     clearable
                                     style="width: 300px;"
@@ -441,7 +542,7 @@
                                     v-model="liveWatchListForm.keyword"
                                 />
                             </el-form-item>
-                            <el-form-item style="width: 340px;" class="mb-10" label="类型：">
+                            <el-form-item class="mb-10 mr-20" label="类型：">
                                 <el-select
                                     v-model="liveWatchListForm.liveType"
                                     @change="searchLiveWatchList"
@@ -452,7 +553,7 @@
                                     <el-option :value="2" label="录播" />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item class="mb-10" label="形式：">
+                            <el-form-item class="mb-10 mr-20" label="形式：">
                                 <el-select
                                     v-model="liveWatchListForm.pattern"
                                     @change="searchLiveWatchList"
@@ -463,7 +564,7 @@
                                     <el-option :value="2" label="录播" />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="直播时间：" style="width: 492px;" class="mb-10">
+                            <el-form-item class="mb-10 mr-20" label="直播时间：">
                                 <date-range
                                     style="width: 380px;"
                                     :init="[liveWatchListForm.startTime, liveWatchListForm.endTime]"
@@ -473,7 +574,7 @@
                                     ref="dateRange"
                                 />
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button
                                     type="primary"
                                     style="width:98px"
@@ -482,7 +583,7 @@
                                     查询
                                 </el-button>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button
                                     @click="changeExportLiveWatchList"
                                     style="width: 98px;"
@@ -493,7 +594,7 @@
                                     导出数据
                                 </el-button>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button type="text" @click="resetLiveWatchList">清空筛选条件</el-button>
                             </el-form-item>
                         </el-form>
@@ -571,7 +672,7 @@
                             :inline="true"
                             class="border-bottom mb-20"
                         >
-                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                            <el-form-item class="mb-10 mr-20" label="关键字：">
                                 <el-input
                                     clearable
                                     style="width: 300px;"
@@ -580,7 +681,7 @@
                                     v-model="lineLearningListForm.keyword"
                                 />
                             </el-form-item>
-                            <el-form-item style="width: 340px;" class="mb-10" label="类型：">
+                            <el-form-item class="mb-10 mr-20" label="类型：">
                                 <el-select
                                     v-model="lineLearningListForm.type"
                                     @change="searchLineLearningList"
@@ -591,7 +692,7 @@
                                     <el-option :value="2" label="系列课" />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item class="mb-10" label="分类：">
+                            <el-form-item class="mb-10 mr-20" label="分类：">
                                 <el-select
                                     v-model="lineLearningListForm.classifyId"
                                     @change="searchLineLearningList"
@@ -602,7 +703,7 @@
                                     <el-option :value="2" label="录播" />
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="首次观看时间：" style="width: 492px;" class="mb-10">
+                            <el-form-item label="首次观看时间：" class="mb-10 mr-20">
                                 <date-range
                                     style="width: 380px;"
                                     :init="[lineLearningListForm.startTime, lineLearningListForm.endTime]"
@@ -612,7 +713,7 @@
                                     ref="dateRange"
                                 />
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button
                                     type="primary"
                                     style="width:98px"
@@ -621,7 +722,7 @@
                                     查询
                                 </el-button>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
+                            <el-form-item class="mb-10 mr-20">
                                 <el-button
                                     @click="changeExportLineLearningList"
                                     style="width: 98px;"
@@ -632,7 +733,7 @@
                                     导出数据
                                 </el-button>
                             </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
+                            <el-form-item class="mb-10">
                                 <el-button type="text" @click="resetLineLearningList">清空筛选条件</el-button>
                             </el-form-item>
                         </el-form>
@@ -685,9 +786,9 @@
                                 fixed="right"
                                 label="学习进度"
                             >
-                                <template>
+                                <template #default="{row}">
                                     <div class="operate">
-                                        <a @click="$router.push({ name: 'MemberManageDetail'})">
+                                        <a @click="showWatchDetailList = true; courseResourceId = row.id">
                                             查看
                                         </a>
                                     </div>
@@ -768,6 +869,16 @@
             :current-member="memberDetail"
             @confirm="getMemberDetail"
         />
+        <!--查看学习进度-->
+        <WatchDetailList
+            :show.sync="showWatchDetailList"
+            :course-id="courseResourceId"
+            :user-id="selectedUserId"
+        />
+        <!--添加备注-->
+        <AddRemark :show.sync="showAddRemark"
+                   :user-id="selectedUserId"
+        />
     </div>
 </template>
 
@@ -776,14 +887,21 @@ import { Vue, Component } from 'vue-property-decorator'
 import Pagination from '../../../../components/common/Pagination'
 
 import Field from '../../../../components/common/Field.vue'
+import CityPicker from '../../../../components/common/City-Picker'
 import AddTags from '../components/Add-Tags'
+import WatchDetailList from '../components/Watch-Detail-List'
+import AddRemark from '../components/Add-Remark'
+
 import { getMemberDetail, getOrderList } from '../../../../apis/member'
 
   @Component({
       components: {
           AddTags,
           Field,
-          Pagination
+          CityPicker,
+          Pagination,
+          WatchDetailList,
+          AddRemark
       }
   })
 
@@ -864,6 +982,32 @@ export default class MemberManageDetail extends Vue {
                 res.result.idCard = res.result.idCard.replace(/^(\d{4})\d{9}(\d+)/, '$1*********$2')
             }
             this.memberDetail = res.result || {}
+        } catch (e) {
+            throw e
+        }
+    }
+
+    addressCode = []
+    addMemberDetailForm = {
+        userName: ''
+    }
+
+    selectedCity (val) {
+        const form = this.addMemberDetailForm
+        form.province = val[0].code
+        form.city = val[1].code
+        form.region = val[2] ? val[2].code : ''
+        form.town = val[3] ? val[3].code : ''
+        form.addressPrefix = val[0].name +
+        val[1].name +
+        (val[2] ? val[2].name : '') +
+        (val[3] ? val[3].name : '')
+    }
+
+    // 保存备注用户信息
+    async saveAddMemberDetail () {
+        try {
+            await this.getMemberDetail()
         } catch (e) {
             throw e
         }
@@ -1110,6 +1254,11 @@ export default class MemberManageDetail extends Vue {
 
     lineLearningList = []
     lineLearningListTotal = 0
+
+    // 查看学习进度
+    showWatchDetailList = false
+    selectedUserId = this.form.mallUserId
+    courseResourceId = ''
     async formatLineLearningListTimeRange ({ start, end }) {
         try {
             this.lineLearningListForm.startTime = start
@@ -1172,8 +1321,9 @@ export default class MemberManageDetail extends Vue {
     }
 
     // 备注
+    showAddRemark = false
     addRemark () {
-        console.log(1)
+        this.showAddRemark = true
     }
 
     remarkListForm = {
@@ -1317,12 +1467,15 @@ export default class MemberManageDetail extends Vue {
         }
     }
     .mb-10 {
-        margin-bottom: 10px;
+        margin-bottom: 10px!important;
     }
     .mt-20 {
         margin-top: 20px;
     }
     .ml-20 {
         margin-left: 20px;
+    }
+    .mr-20 {
+        margin-right: 20px!important;
     }
 </style>00.
