@@ -40,13 +40,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Getter } from 'vuex-class'
+import { namespace } from 'vuex-class'
 import actions from '../../micro/shared/actions'
+const userModule = namespace('user')
 
 @Component
 export default class Header extends Vue {
     // computed
-    @Getter bindPhone!: string
+    @userModule.Getter bindPhone!: string
 
     mounted () {
         actions.onGlobalStateChange(state => {

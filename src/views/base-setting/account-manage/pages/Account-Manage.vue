@@ -159,7 +159,7 @@ export default {
         roleCode: ''
     }),
     async created () {
-        const { data: res } = await AccountInfo()
+        const res = await AccountInfo()
         const { adminModel, employeeModel, enterpriseAdminModel } = res.result
         this.adminModel = adminModel
         this.employeeModel = employeeModel

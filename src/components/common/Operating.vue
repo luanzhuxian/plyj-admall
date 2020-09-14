@@ -14,20 +14,17 @@
                 <slot name="button-box" />
             </div>
             <a :class="$style.operatingMore" slot="reference">
-                更多 <pl-svg :class="{ [$style.arrow]: true, [$style.show]: isShow }" width="14" fill="#458bff" class="icon-gengduo" name="icon-xia" />
+                更多 <i class="el-icon-arrow-down" :class="{ [$style.arrow]: true, [$style.show]: isShow }" />
             </a>
         </el-popover>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Operating',
-    data () {
-        return {
-            isShow: false
-        }
-    },
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+@Component
+export default class Operating extends Vue {
+    isShow = false
     deactivated () {
         this.isShow = false
     }
@@ -39,6 +36,7 @@ export default {
     .arrow {
       transform: rotate(0deg);
       transition: transform .3s ease;
+        font-size: 16px;
       &.show {
         transform: rotate(180deg);
       }
@@ -53,8 +51,9 @@ export default {
       text-align: center;
       flex-direction: column;
       justify-content: center;
-      width: max-content;
+    //   width: max-content;
       > a, button {
+        width: 100%;
         text-align: left;
         padding: 12px 20px;
         font-size: 12px;
@@ -76,4 +75,9 @@ export default {
       color: #458bff !important;
       cursor: pointer;
     }
+  :global {
+      .el-popover {
+          min-width: auto !important;
+      }
+  }
 </style>

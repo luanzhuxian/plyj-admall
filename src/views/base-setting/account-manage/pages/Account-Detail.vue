@@ -602,7 +602,7 @@ export default {
             this[`get${ name }List`]()
         },
         async getData () {
-            const { data: res } = await getSingleAccount(this.detailForm)
+            const res = await getSingleAccount(this.detailForm)
             this.single = res.result
             // this.treeList = this.single.menuTree
             // let num = 0
@@ -612,7 +612,7 @@ export default {
             // this.powerNum = num
         },
         async getHelperList () {
-            const { data: helpers } = await getSingleAccountHerlerList(this.listForm)
+            const helpers = await getSingleAccountHerlerList(this.listForm)
             this.total = helpers.result.total
             this.helpers = helpers.result.records
         },
@@ -628,7 +628,7 @@ export default {
         },
         async getOrderList () {
             try {
-                const { data: { result } } = await getOrderList(this.orderForm)
+                const { result } = await getOrderList(this.orderForm)
                 this.orderTotal = result.total
                 this.orders = result.records
             } catch (e) {
@@ -718,7 +718,7 @@ export default {
         },
         async getAccountList () {
             try {
-                const { data: res } = await getAccounts(this.searchAccountsForm)
+                const res = await getAccounts(this.searchAccountsForm)
                 this.accountList = res.result.records
             } catch (e) {
                 throw e
@@ -752,7 +752,7 @@ export default {
                 roleCode: this.detailForm.roleCode,
                 userId: this.detailForm.userId
             }
-            const { data: res } = await getMenuByUser(data)
+            const res = await getMenuByUser(data)
             this.treeList = res.result
         }
     }

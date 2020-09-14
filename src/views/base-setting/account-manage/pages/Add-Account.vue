@@ -183,74 +183,77 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import RoleTree from '../components/Role-Tree.vue'
-// import _ from 'lodash'
 import { searchMobile, addAccount, getSingleAccount, editAccount, getEmployeeDefault } from '../../../../apis/account.js'
 import { testPhone } from '../../../../assets/ts/validate'
-import { mapGetters } from 'vuex'
-export default {
-    data () {
-        return {
-            realNameDisabled: true,
-            namePlacehoder: '请先选择联系方式',
-            loading: false,
-            error: '',
-            ruleForm: {
-                accountRole: '',
-                lockStatus: 1,
-                mobile: '',
-                nickName: '',
-                realName: '',
-                position: ''
-            },
-            menuTree: [],
-            menuCode: '',
-            mobileOptions: [],
-            rules: {
-                realName: [
-                    { required: false, message: '请输入真实姓名', trigger: 'blur' },
-                    { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
-                ],
-                mobile: [
-                    { required: true, message: '请填写手机号', trigger: 'blur' },
-                    { validator: testPhone, message: '手机号不正确', trigger: 'blur' }
-                ],
-                nickName: [
-                    { required: false, message: '请输入昵称', trigger: 'blur' },
-                    { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
-                ]
-            },
-            converRoleCode: {
-                ADMIN: '高级管理员',
-                EMPLOYEE: '子账号',
-                HELPER: 'Helper',
-                MEMBERSHIP: '普通会员',
-                ENTERPRISE_ADMIN: '企业管理管理员',
-                VISITOR: '游客'
-            },
-            visible: false,
-            roleCode: '',
-            value: 1,
-            query: {},
-            detailForm: {
-                roleCode: '',
-                userId: ''
-            },
-            defaultSelected: []
-        }
-    },
-    computed: {
-        ...mapGetters(['currentRoleCode'])
-    },
-    watch: {
-        'ruleForm.accountRole' (val) {
-            this.rules.realName[0].required = val === 'EMPLOYEE'
-        }
-    },
+import { Vue, Component, Watch } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
+@Component({
     components: {
         RoleTree
-    },
+    }
+})
+export default class AddAccount extends Vue {
+    realNameDisabled = true
+    namePlacehoder = '请先选择联系方式'
+    loading = false
+    error = ''
+    ruleForm: { [k: string]: any } = {
+        accountRole: '',
+        lockStatus: 1,
+        mobile: '',
+        nickName: '',
+        realName: '',
+        position: ''
+    }
+
+    menuTree = []
+    menuCode = ''
+    mobileOptions: any[] = []
+    rules = {
+        realName: [
+            { required: false, message: '请输入真实姓名', trigger: 'blur' },
+            { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+        ],
+        mobile: [
+            { required: true, message: '请填写手机号', trigger: 'blur' },
+            { validator: testPhone, message: '手机号不正确', trigger: 'blur' }
+        ],
+        nickName: [
+            { required: false, message: '请输入昵称', trigger: 'blur' },
+            { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+        ]
+    }
+
+    converRoleCode = {
+        ADMIN: '高级管理员',
+        EMPLOYEE: '子账号',
+        HELPER: 'Helper',
+        MEMBERSHIP: '普通会员',
+        ENTERPRISE_ADMIN: '企业管理管理员',
+        VISITOR: '游客'
+    }
+
+    visible = false
+    roleCode = ''
+    value = 1
+    query: { [key: string]: any } = {}
+    detailForm = {
+        roleCode: '',
+        userId: ''
+    }
+
+    defaultSelected: any[] = []
+
+    @userModule.Getter('currentRoleCode') currentRoleCode!: string
+
+    @Watch('ruleForm.accountRole')
+    accountRoleHandler (val: string) {
+        this.rules.realName[0].required = val === 'EMPLOYEE'
+    }
+
     created () {
         this.ruleForm.accountRole = this.$route.params.mode
         this.query = this.$route.query
@@ -273,39 +276,77 @@ export default {
         } else {
             this.getEmployeeDefaultFun()
         }
-    },
-    methods: {
-        changeTree ($event) {
-            this.menuTree = $event.menuTree
-            this.menuCode = $event.menuCode
-            this.submit('save')
-        },
-        async getData () {
-            const { data: res } = await getSingleAccount(this.detailForm)
-            this.ruleForm.accountRole = res.result.roleCode
-            this.ruleForm.userId = res.result.userId
-            this.ruleForm.lockStatus = res.result.lockStatus
-            this.ruleForm.mobile = res.result.mobile
-            this.realNameDisabled = false
-            this.ruleForm.realName = res.result.realName
-            this.ruleForm.nickName = res.result.nickName
-            this.ruleForm.position = res.result.position
-            const item = res.result.menuTree[0].children[0]
-            this.disableItem(item)
-            this.menuTree = res.result.menuTree
-        },
-        disableItem (item) {
-            item.disabled = true
-            if (item.children && item.children.length > 0) {
-                for (const c of item.children) {
-                    this.disableItem(c)
+    }
+
+    changeTree ($event: any) {
+        this.menuTree = $event.menuTree
+        this.menuCode = $event.menuCode
+        this.submit()
+    }
+
+    async getData () {
+        const { result } = await getSingleAccount(this.detailForm)
+        this.ruleForm.accountRole = result.roleCode
+        this.ruleForm.userId = result.userId
+        this.ruleForm.lockStatus = result.lockStatus
+        this.ruleForm.mobile = result.mobile
+        this.realNameDisabled = false
+        this.ruleForm.realName = result.realName
+        this.ruleForm.nickName = result.nickName
+        this.ruleForm.position = result.position
+        const item = result.menuTree[0].children[0]
+        this.disableItem(item)
+        this.menuTree = result.menuTree
+    }
+
+    disableItem (item: any) {
+        item.disabled = true
+        if (item.children && item.children.length > 0) {
+            for (const c of item.children) {
+                this.disableItem(c)
+            }
+        }
+    }
+
+    async submit () {
+        if (this.query.canEdit || this.query.selfEdit) {
+            delete this.ruleForm.mobile
+            if (this.query.canEdit && this.ruleForm.accountRole === 'EMPLOYEE') {
+                this.ruleForm.menuCode = []
+                this.ruleForm.menuCode = this.menuCode
+                if (!this.menuCode) {
+                    this.searchKeyOfSelected(this.menuTree)
+                    this.ruleForm.menuCode = this.defaultSelected
                 }
             }
-        },
-        async submit () {
-            if (this.query.canEdit || this.query.selfEdit) {
-                delete this.ruleForm.mobile
-                if (this.query.canEdit && this.ruleForm.accountRole === 'EMPLOYEE') {
+            if (this.query.canEdit && this.ruleForm.accountRole === 'ADMIN') {
+                this.ruleForm.menuCode = []
+            }
+            try {
+                const res = await editAccount(this.ruleForm)
+                if (!res.result) {
+                    this.$alert({
+                        title: '名额已满',
+                        message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`
+                    })
+                    return
+                }
+                this.$success('编辑成功')
+                this.$router.replace({
+                    name: 'AccountDetail',
+                    query: { mobile: this.query.mobile, userId: this.query.userId, roleCode: this.ruleForm.accountRole, selfEdit: this.query.selfEdit, canEdit: this.query.canEdit }
+                })
+            } catch (e) {
+                throw e
+            }
+        } else {
+            if (this.mobileOptions.length === 0) {
+                this.error = '该手机号不存在'
+                return
+            }
+            (this.$refs.ruleForm as any).validate(async (valid: boolean) => {
+                if (!valid) return false
+                if (this.ruleForm.accountRole === 'EMPLOYEE') {
                     this.ruleForm.menuCode = []
                     this.ruleForm.menuCode = this.menuCode
                     if (!this.menuCode) {
@@ -313,161 +354,136 @@ export default {
                         this.ruleForm.menuCode = this.defaultSelected
                     }
                 }
-                if (this.query.canEdit && this.ruleForm.accountRole === 'ADMIN') {
-                    this.ruleForm.menuCode = []
-                }
+                delete this.ruleForm.lockStatus
                 try {
-                    const { data: res } = await editAccount(this.ruleForm)
+                    const res = await addAccount(this.ruleForm)
                     if (!res.result) {
                         this.$alert({
                             title: '名额已满',
-                            message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`
+                            message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`,
+                            cancelButtonText: ''
                         })
                         return
                     }
-                    this.$success('编辑成功')
-                    this.$router.replace({
-                        name: 'AccountDetail',
-                        query: { mobile: this.query.mobile, userId: this.query.userId, roleCode: this.ruleForm.accountRole, selfEdit: this.query.selfEdit, canEdit: this.query.canEdit }
-                    })
+                    this.$success('新增成功')
+                    this.$router.push({ name: 'AccountList' })
                 } catch (e) {
                     throw e
                 }
-            } else {
+            })
+        }
+    }
+
+    cancel () {
+        this.$router.back()
+    }
+
+    async searchMobile (query: string) {
+        if (query !== '') {
+            this.loading = true
+            const roleCode = this.ruleForm.accountRole
+            const params = {
+                current: 1,
+                size: 100,
+                mobile: query,
+                roleCode
+            }
+            try {
+                const res = await searchMobile(params)
+                this.loading = false
+                this.mobileOptions = res.result.records
+                if (res.result.records.length === 1) {
+                    this.handleSelect(res.result.records[0])
+                }
                 if (this.mobileOptions.length === 0) {
                     this.error = '该手机号不存在'
-                    return
+                } else {
+                    this.error = ''
                 }
-                this.$refs.ruleForm.validate(async valid => {
-                    if (!valid) return false
-                    if (this.ruleForm.accountRole === 'EMPLOYEE') {
-                        this.ruleForm.menuCode = []
-                        this.ruleForm.menuCode = this.menuCode
-                        if (!this.menuCode) {
-                            this.searchKeyOfSelected(this.menuTree)
-                            this.ruleForm.menuCode = this.defaultSelected
-                        }
-                    }
-                    delete this.ruleForm.lockStatus
-                    try {
-                        const { data: res } = await addAccount(this.ruleForm)
-                        if (!res.result) {
-                            this.$alert({
-                                title: '名额已满',
-                                message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`,
-                                cancelButtonText: ''
-                            })
-                            return
-                        }
-                        this.$success('新增成功')
-                        this.$router.push({ name: 'AccountList' })
-                    } catch (e) {
-                        throw e
-                    }
-                })
+            } catch (e) {
+                this.loading = false
+                throw e
             }
-        },
-        cancel () {
-            this.$router.back()
-        },
-        async searchMobile (query) {
-            if (query !== '') {
-                this.loading = true
-                const roleCode = this.ruleForm.accountRole
-                const params = {
-                    current: 1,
-                    size: 100,
-                    mobile: query,
-                    roleCode
-                }
-                try {
-                    const { data: res } = await searchMobile(params)
-                    this.loading = false
-                    this.mobileOptions = res.result.records
-                    if (res.result.records.length === 1) {
-                        this.handleSelect(res.result.records[0])
-                    }
-                    if (this.mobileOptions.length === 0) {
-                        this.error = '该手机号不存在'
-                    } else {
-                        this.error = ''
-                    }
-                } catch (e) {
-                    this.loading = false
-                    throw e
-                }
-            }
-        },
-        clearMobile () {
-            this.ruleForm.realName = ''
-            // this.ruleForm.accountRole = ''
-            this.ruleForm.position = ''
-            this.ruleForm.nickName = ''
-        },
-        selectChange (val) {
-            this.ruleForm.mobile = val
-            const selected = this.mobileOptions.find(item => item.mobile === val)
-            if (selected) {
-                this.handleSelect(selected)
-            }
-        },
-        selectBlur (e) {
-            const num = /\d+/.exec(e.target.value)
-            if (num && !this.loading && this.ruleForm.mobile) {
-                this.ruleForm.mobile = num[0]
-                this.searchMobile(this.ruleForm.mobile)
-            }
-        },
-        handleSelect (selectItem) {
-            this.ruleForm.realName = selectItem.realName
-            this.ruleForm.nickName = selectItem.nickName
-            this.ruleForm.mobile = selectItem.mobile
-            this.ruleForm.position = selectItem.position
-            // this.$refs['ruleForm'].clearValidate(['mobile'])
-            if (!selectItem.realName) {
-                this.realNameDisabled = false
-                this.namePlacehoder = '请输入真实姓名'
-            }
-        },
-        goBack () {
-            this.$router.go(-1)
-        },
-        handleRadioChange () {
-            if (this.query.roleCode === 'ADMIN' && this.ruleForm.accountRole === 'EMPLOYEE') {
-                this.getEmployeeDefaultFun()
-            }
-            if (this.ruleForm.userId) return
-            this.ruleForm.realName = ''
-            this.ruleForm.mobile = ''
-            this.ruleForm.position = ''
-            this.error = ''
-            this.realNameDisabled = true
-            this.mobileOptions = []
-        },
-        editPermission () {
-            this.visible = !this.visible
-            this.roleCode = 'EMPLOYEE'
-        },
-        searchKeyOfSelected (list) {
-            for (const item of list) {
-                if (item.checked) {
-                    if (item.children) {
-                        this.defaultSelected.push(item.aclCode)
-                        this.searchKeyOfSelected(item.children)
-                    } else {
-                        this.defaultSelected.push(item.aclCode)
-                    }
-                }
-            }
-        },
-        async getEmployeeDefaultFun () {
-            const { data: res } = await getEmployeeDefault()
-            res.result[0].children[0].disabled = true
-            res.result[0].children[0].children[0].disabled = true
-            res.result[0].children[0].children[1].disabled = true
-            res.result[0].children[0].children[2].disabled = true
-            this.menuTree = res.result
         }
+    }
+
+    clearMobile () {
+        this.ruleForm.realName = ''
+        // this.ruleForm.accountRole = ''
+        this.ruleForm.position = ''
+        this.ruleForm.nickName = ''
+    }
+
+    selectChange (val: string) {
+        this.ruleForm.mobile = val
+        const selected = this.mobileOptions.find(item => item.mobile === val)
+        if (selected) {
+            this.handleSelect(selected)
+        }
+    }
+
+    selectBlur (e: any) {
+        const num = /\d+/.exec(e.target.value)
+        if (num && !this.loading && this.ruleForm.mobile) {
+            this.ruleForm.mobile = num[0]
+            this.searchMobile(this.ruleForm.mobile)
+        }
+    }
+
+    handleSelect (selectItem: any) {
+        this.ruleForm.realName = selectItem.realName
+        this.ruleForm.nickName = selectItem.nickName
+        this.ruleForm.mobile = selectItem.mobile
+        this.ruleForm.position = selectItem.position
+        // this.$refs['ruleForm'].clearValidate(['mobile'])
+        if (!selectItem.realName) {
+            this.realNameDisabled = false
+            this.namePlacehoder = '请输入真实姓名'
+        }
+    }
+
+    goBack () {
+        this.$router.go(-1)
+    }
+
+    handleRadioChange () {
+        if (this.query.roleCode === 'ADMIN' && this.ruleForm.accountRole === 'EMPLOYEE') {
+            this.getEmployeeDefaultFun()
+        }
+        if (this.ruleForm.userId) return
+        this.ruleForm.realName = ''
+        this.ruleForm.mobile = ''
+        this.ruleForm.position = ''
+        this.error = ''
+        this.realNameDisabled = true
+        this.mobileOptions = []
+    }
+
+    editPermission () {
+        this.visible = !this.visible
+        this.roleCode = 'EMPLOYEE'
+    }
+
+    searchKeyOfSelected (list: any[]) {
+        for (const item of list) {
+            if (item.checked) {
+                if (item.children) {
+                    this.defaultSelected.push(item.aclCode)
+                    this.searchKeyOfSelected(item.children)
+                } else {
+                    this.defaultSelected.push(item.aclCode)
+                }
+            }
+        }
+    }
+
+    async getEmployeeDefaultFun () {
+        const res = await getEmployeeDefault()
+        res.result[0].children[0].disabled = true
+        res.result[0].children[0].children[0].disabled = true
+        res.result[0].children[0].children[1].disabled = true
+        res.result[0].children[0].children[2].disabled = true
+        this.menuTree = res.result
     }
 }
 

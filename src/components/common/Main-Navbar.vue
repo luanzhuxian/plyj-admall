@@ -142,10 +142,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { Getter } from 'vuex-class'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
 @Component
 export default class MainNavbar extends Vue {
-    @Getter logo!: string
+    @userModule.Getter logo!: string
 }
 </script>
 

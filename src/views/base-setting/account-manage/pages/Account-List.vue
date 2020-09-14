@@ -188,16 +188,6 @@
                                 </div>
                             </template>
                         </Operating>
-
-                        <!-- <el-button plain size="mini" @click="deleteAccount(scope.row)" v-if="scope.row.roleStatus==='已失效'">
-            删除
-          </el-button> -->
-                        <!--          <div>-->
-                        <!--            {{ userId===row.userId }}-->
-                        <!--            {{ row.roleCode === currentRoleCode }}-->
-                        <!--            {{ row.currentRoleCode === 'EMPLOYEE' }}-->
-                        <!--            {{ row.roleCode === 'ADMIN' && currentRoleCode!== 'ENTERPRISE_ADMIN' }}-->
-                        <!--          </div>-->
                     </template>
                 </el-table-column>
             </el-table>
@@ -278,7 +268,7 @@ export default {
         },
         async getAccounts () {
             // this.filter = new Filter()
-            const { data: res } = await getAccounts(this.filter)
+            const res = await getAccounts(this.filter)
             this.table = res.result.records
             this.total = res.result.total
         },
@@ -367,7 +357,7 @@ export default {
                 //   return
                 // }
                 try {
-                    const { data: res } = await enableAccount(params)
+                    const res = await enableAccount(params)
                     if (!res.result) {
                         row.lockStatus = 0
                         this.$alert({
@@ -402,8 +392,12 @@ export default {
     padding-bottom: 10px;
     background-color: #ffffff;
   }
-  .switch-box{
-    padding-left: 20px;
-    text-align: left;
-  }
+    .switch-box {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        > span {
+            margin-left: 12px;
+        }
+    }
 </style>
