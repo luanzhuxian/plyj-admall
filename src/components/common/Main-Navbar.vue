@@ -101,7 +101,7 @@
                         />
                         <span>店铺管理</span>
                     </h2>
-                    <el-menu-item index="6-1">我的店铺</el-menu-item>
+                    <el-menu-item index="/mall-manage">我的店铺</el-menu-item>
                     <el-menu-item index="6-2">模板中心</el-menu-item>
                     <el-menu-item index="6-3">品宣主页</el-menu-item>
                     <el-menu-item index="6-4">草稿箱</el-menu-item>

@@ -1,9 +1,9 @@
 <template>
     <div>
         <!-- 顶部提醒 -->
-        <div class="new-message" v-if="latestNotification.content && latestNotification.readed === '0'">
+        <div class="notification-bar" v-if="latestNotification.content && latestNotification.readed === '0'">
             <div>
-                <pl-svg class="notification-bar__icon" name="icon-sound" width="18" />
+                <PlSvg class="notification-bar__icon" name="icon-sound" width="18" />
                 <b
                     v-if="latestNotification.version"
                     class="notification-bar__content"
