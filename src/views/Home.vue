@@ -5,9 +5,9 @@
             <div>
                 <pl-svg class="notification-bar__icon" name="icon-sound" width="18" />
                 <b
-                    class="notification-bar__content"
                     v-if="latestNotification.version"
-                    @click="goDetail(latestNotification.version)"
+                    class="notification-bar__content"
+                    @click="goDetail"
                 >
                     {{ latestNotification.title }}
                 </b>
@@ -18,7 +18,7 @@
                     v-if="latestNotification.forwardUrl"
                     class="notification-bar__btn"
                     type="text"
-                    @click="goMend(latestNotification.forwardUrl)"
+                    @click="goMend"
                 >
                     修改资料
                 </el-button>
@@ -472,19 +472,19 @@ export default class Home extends Vue {
         markReaded(ids)
     }
 
-    goDetail (id: string) {
+    goDetail () {
         this.markReaded()
         this.$router.push({
             name: 'NotificationDetail',
             params: {
-                id
+                id: this.latestNotification.version
             }
         })
     }
 
-    goMend (name: string) {
+    goMend () {
         this.markReaded()
-        this.$router.push({ name })
+        this.$router.push({ name: this.latestNotification.forwardUrl })
     }
 
     // 新流程检查状态
