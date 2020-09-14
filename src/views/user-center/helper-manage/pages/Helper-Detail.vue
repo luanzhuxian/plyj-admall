@@ -271,7 +271,7 @@ import { Vue, Component } from 'vue-property-decorator'
 
 import Field from '../../../../components/common/Field.vue'
 import Card from '../../../../components/common/Card.vue'
-import { memberDetail, getOrderList, orderRebateInfo, queryMemberDeposit } from '../../../../apis/member'
+import { getMemberDetail, getOrderList, orderRebateInfo, queryMemberDeposit } from '../../../../apis/member'
 
   @Component({
       components: {
@@ -379,7 +379,7 @@ export default class MemberManageDetail extends Vue {
     // methods
     async getMemberDetail () {
         try {
-            const { data: res } = await memberDetail(this.form)
+            const { data: res } = await getMemberDetail(this.form)
             if (res.result && res.result.idCard) {
                 res.result.idCard = res.result.idCard.replace(/^(\d{4})\d{9}(\d+)/, '$1*********$2')
             }

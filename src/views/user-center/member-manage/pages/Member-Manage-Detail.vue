@@ -1,326 +1,815 @@
 <template>
     <div class="member-detail">
-        <top-back />
         <div class="container bg-white mt-20">
+            <p class="title">用户基本信息</p>
             <div class="header">
-                <div
-                    class="member-type"
-                    v-text="role[form.roleCode]"
-                />
-                <Card class="info">
-                    <img
-                        slot="left"
-                        class="face"
-                        :src="detail.avatarUrl"
-                    >
-                    <span
-                        slot="right-top"
-                        class="name"
-                        v-text="detail.nickName"
+                <img
+                    slot="left"
+                    class="face"
+                    :src="memberDetail.avatarUrl"
+                >
+                <div class="intro">
+                    <div class="detail">
+                        <span class="user-type">{{ USER_TYPE[memberDetail.userType] }}</span>
+                        <span
+                            slot="right-top"
+                            class="name"
+                            v-text="memberDetail.nickName"
+                        />
+                        <template>
+                            <pl-svg v-if="memberDetail.gender === 0" name="icon-women-be552" width="10" height="10" />
+                            <pl-svg v-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                        </template>
+                    </div>
+                    <div
+                        class="member-type"
+                        v-text="ROLE[form.roleCode]"
                     />
-                    <span
-                        v-if="fromRouteName !== 'MemberList'"
-                        slot="right-bottom"
-                        class="ownner-name"
-                    >
-                        所属账号：{{ detail.ownnerName }}
-                    </span>
-                    <span
-                        v-if="this.form.roleCode === 'HELPER' && detail.agentStatus === 'PASS'"
-                        slot="right-top"
-                        class="is-helper"
-                    >Helper</span>
-                    <!--<span class="level" slot="right-bottom" style="margin-right: 20px;">等级：1</span>-->
-                    <!--<span class="level" slot="right-bottom">贡献值：1</span>-->
-                </Card>
-            </div>
-
-            <div class="info-list">
-                <Field
-                    title="真实姓名："
-                    :text="detail.realName"
-                />
-                <Field
-                    title="手机号："
-                    :text="detail.mobile"
-                />
-                <Field
-                    title="昵称："
-                    :text="detail.nickName"
-                />
-                <!-- <Field title="职位：" :text="detail.position" /> -->
-                <Field
-                    title="生日："
-                    :text="detail.birth"
-                />
-                <Field
-                    title="年龄："
-                    :text="detail.age"
-                />
-                <Field
-                    title="地址："
-                    :text="detail.address"
-                />
-                <Field
-                    v-if="fromRouteName === 'HelperList'"
-                    title="身份证号："
-                    :text="detail.idCard"
-                />
-                <Field
-                    title="加入时间："
-                    :text="detail.createTime"
-                />
-            </div>
-        </div>
-
-        <div class="order-detail container" v-if="detail.agentStatus === '1' && detail.auditStatus === 'PASS'">
-            <div class="content">
-                <div class="content-title">
-                    支付订单
                 </div>
-                <div class="content-num">
-                    <span>{{ orderRebateInfoData.orderTotal }}</span>单
-                </div>
-                <div class="content-detail">
-                    自购：{{ orderRebateInfoData.selfOrderTotal }}单
-                </div>
-                <div class="content-detail">
-                    分享：{{ orderRebateInfoData.shareOrderTotal }}单
-                </div>
-            </div>
-            <div class="content">
-                <div class="content-title">
-                    营收总额
-                </div>
-                <div class="content-num">
-                    <span>{{ orderRebateInfoData.incomeTotal/100 }}</span>元
-                </div>
-                <div class="content-detail">
-                    自购订单金额：￥{{ orderRebateInfoData.selfIncome/100 }}
-                </div>
-                <div class="content-detail">
-                    分享订单金额：￥{{ orderRebateInfoData.shareIncome/100 }}
-                </div>
-            </div>
-            <div class="content">
-                <div class="content-title">
-                    获得润笔
-                </div>
-                <div class="content-num">
-                    <span>{{ orderRebateInfoData.rebateTotal/100 }}</span>元
-                </div>
-                <div class="content-detail">
-                    未提现润笔：￥{{ orderRebateInfoData.noWithdrawRebateTotal/100 }}
+                <div class="info-list">
+                    <Field
+                        title="手机号："
+                        :text="memberDetail.mobile"
+                    />
+                    <Field
+                        title="姓名："
+                        :text="memberDetail.realName"
+                    />
+                    <Field
+                        title="地址："
+                        :text="memberDetail.address"
+                    />
+                    <div class="tag-list">
+                        <span>标签：</span>
+                        <span class="tags" v-if="memberDetail.userTags && memberDetail.userTags.length">
+                            <span v-for="item in memberDetail.userTags" :key="item">{{ item }}</span>
+                        </span>
+                        <a @click="showAddTagDialog = true">
+                            编辑
+                        </a>
+                    </div>
+                    <Field
+                        title="来源："
+                        :text="memberDetail.userSource"
+                    />
+                    <div class="record">
+                        <span>记录：</span>
+                        <div class="list" v-if="memberDetail.record && memberDetail.record.length">
+                            <p v-for="item in memberDetail.record" :key="item">
+                                {{ item }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="container bg-white mt-20"
-             v-if="detail.operationLogs&&detail.operationLogs.length && from === 'audit'">
-            <span class="audit-title">
-                审核信息
-            </span>
-            <div class="audit-detail-list" v-for="(item,index) in detail.operationLogs" :key="index">
-                <span class="detail-list-time">{{ item.createTime }}</span>
-                <span class="detail-list-person">
-                    操作人：
-                    <span class="list-person-name">
-                        {{ item.operationUserName }}
-                    </span>
-                </span>
-                <span class="detail-list-result" :class="[item.description === '成为Helper' ? 'color-orange' : '']">
-                    {{ item.description }}
-                </span>
+        <div class="container bg-white mt-20">
+            <p class="title">
+                备注用户信息
+                <el-button type="text" @click="isEdit = true">编辑</el-button>
+            </p>
+            <div class="remark-detail">
+                <SearchBox>
+                    <div class="text" v-if="!isEdit">
+                        <div>
+                            <span>真实姓名：</span>
+                            <span>{{ memberDetail.userName }}</span>
+                        </div>
+                        <div>
+                            <span>用户身份：</span>
+                            <span>{{ USER_TYPE[memberDetail.userType] }}</span>
+                        </div>
+                        <div>
+                            <span>年龄：</span>
+                            <span>{{ memberDetail.userName }}</span>
+                        </div>
+                        <div>
+                            <span>手机号码：</span>
+                            <span>{{ memberDetail.mobile }}</span>
+                        </div>
+                        <div>
+                            <span>生日：</span>
+                            <span>{{ memberDetail.userName }}</span>
+                        </div>
+                        <div>
+                            <span>性别：</span>
+                            <span>{{ memberDetail.gender }}</span>
+                        </div>
+                        <div>
+                            <span>微信号：</span>
+                            <span>{{ memberDetail.userName }}</span>
+                        </div>
+                        <div>
+                            <span>邮箱：</span>
+                            <span>{{ memberDetail.userName }}</span>
+                        </div>
+                        <div class="fill">
+                            <span>所在区域：</span>
+                            <span>{{ memberDetail.userName }}</span>
+                        </div>
+                        <div class="fill">
+                            <span>备注：</span>
+                            <span>{{ memberDetail.userName }}</span>
+                            <el-button type="text" @click="isEdit = true">查看更多</el-button>
+                        </div>
+                    </div>
+                </SearchBox>
             </div>
         </div>
-        <div v-if="from === 'List' || from === 'HelperList'" class="container bg-white mt-20">
-            <el-tabs v-model="activeName">
-                <el-tab-pane label="订单记录" name="first">
-                    <el-form inline>
-                        <el-form-item>
-                            <el-input style="width: 200px" @change="searchQueryMemberOrders"
-                                      v-model="orderForm.condition" placeholder="请输入订单号/商品名称" clearable />
-                        </el-form-item>
-                        <el-form-item label="订单来源">
-                            <el-select v-model="orderForm.orderSource" clearable @change="searchQueryMemberOrders">
-                                <el-option
-                                    v-for="item in orderSourceList"
-                                    :key="item.value"
-                                    :value="item.value"
-                                    :label="item.label"
+
+        <div class="container bg-white mt-20">
+            <p class="title">
+                用户行为数据
+            </p>
+            <div class="data-list">
+                <div>
+                    近30天自购订单量
+                    <b>{{ memberData.order30DayCount }}</b>
+                </div>
+                <div>
+                    累计自购订单量
+                    <b>{{ memberData.selfOrderCount }}</b>
+                </div>
+                <div>
+                    支付总额
+                    <b>{{ memberData.totalAmount }}</b>
+                </div>
+                <div>
+                    分享订单量
+                    <b>{{ memberData.shareOrderCount }}</b>
+                </div>
+            </div>
+            <pl-tabs :value="tabName" :tabs="Tab_List" @tabClick="tabClick" />
+            <div class="tab-detail">
+                <!--购买记录-->
+                <template v-if="tabName === 'OrderList'">
+                    <SearchBox>
+                        <el-form
+                            :inline="true"
+                            class="border-bottom mb-20"
+                        >
+                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                                <el-input
+                                    clearable
+                                    style="width: 300px;"
+                                    @change="searchOrderList"
+                                    placeholder="请输入用户昵称/真实姓名/手机号"
+                                    v-model="orderListForm.keyword"
                                 />
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="订单类型">
-                            <el-select v-model="orderForm.orderType" clearable @change="searchQueryMemberOrders">
-                                <el-option
-                                    v-for="item in orderTypeList"
-                                    :key="item.value"
-                                    :value="item.value"
-                                    :label="item.label"
+                            </el-form-item>
+                            <el-form-item style="width: 340px;" class="mb-10" label="产品类型：">
+                                <el-select
+                                    v-model="orderListForm.orderType"
+                                    @change="searchOrderList"
+                                    clearable
+                                >
+                                    <el-option
+                                        v-for="item in Order_Type"
+                                        :key="item.value"
+                                        :value="item.value"
+                                        :label="item.label"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="支付时间：" style="width: 492px;" class="mb-10">
+                                <date-range
+                                    style="width: 380px;"
+                                    :init="[orderListForm.startTime, orderListForm.endTime]"
+                                    @change="formatOrderListTimeRange"
+                                    disable-after
+                                    clearable
+                                    ref="dateRange"
                                 />
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="searchQueryMemberOrders">
-                                查询
-                            </el-button>
-                        </el-form-item>
-                    </el-form>
-                    <el-table :data="orderList" ref="table">
-                        <el-table-column prop="orderId" label="订单号" width="170" />
-                        <el-table-column prop="goodsName" label="商品名称" />
-                        <!--            <el-table-column label="商品名称">-->
-                        <!--              <template v-slot="{ row }">-->
-                        <!--                <div v-if="row.products.length > 0">-->
-                        <!--                  {{ row.products[0].productName }}-->
-                        <!--                </div>-->
-                        <!--                <div v-else>-->
-                        <!--                  共{{ row.products.length }}件商品-->
-                        <!--                  <pl-svg class="icon-paixujiantoushang" name="icon-paixujiantoushang" fill="#666" width="12" @click="toggleRowExpansion(row)" />-->
-                        <!--                </div>-->
-                        <!--              </template>-->
-                        <!--            </el-table-column>-->
-
-                        <!--            <el-table-column type="expand">-->
-                        <!--              <template v-slot="{ row }">-->
-                        <!--                <el-table v-if="row.products.length > 1" :data="row.products" :show-header="false">-->
-                        <!--                  <el-table-column width="170" />-->
-                        <!--                  <el-table-column prop="productName" />-->
-                        <!--                  <el-table-column prop="count" width="60" />-->
-                        <!--                  <el-table-column prop="productPrice" width="70" />-->
-                        <!--                  <el-table-column prop="price" width="80" />-->
-                        <!--                  <el-table-column prop="realRebate" width="80" />-->
-                        <!--                  <el-table-column width="80" />-->
-                        <!--                  <el-table-column width="80" />-->
-                        <!--                  <el-table-column width="100" align="center" />-->
-                        <!--                </el-table>-->
-                        <!--              </template>-->
-                        <!--            </el-table-column>-->
-
-                        <el-table-column prop="goodsNum" label="数量" width="60" />
-                        <el-table-column prop="goodsPrice" label="单价（元）" width="80">
-                            <template #default="{row}">
-                                {{ row.goodsPrice/100 }}
+                            </el-form-item>
+                            <el-form-item style="width: 340px;" class="mb-10" label="订单状态：">
+                                <el-select
+                                    v-model="orderListForm.roleType"
+                                    @change="searchOrderList"
+                                    clearable
+                                >
+                                    <el-option :value="''" label="全部" />
+                                    <el-option value="MEMBERSHIP" label="普通会员" />
+                                    <el-option value="HELPER" label="Helper" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20">
+                                <el-button
+                                    type="primary"
+                                    style="width:98px"
+                                    @click="searchOrderList"
+                                >
+                                    查询
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button
+                                    @click="changeExportOrderList"
+                                    style="width: 98px;"
+                                    type="primary"
+                                    plain
+                                    v-if="orderList && orderList.length"
+                                >
+                                    导出数据
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button type="text" @click="resetOrderList">清空筛选条件</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </SearchBox>
+                    <div class="list">
+                        <el-table
+                            :data="orderList"
+                            class="table-customer"
+                            style="width: 100%"
+                        >
+                            <template slot="empty">
+                                <div class="no-data">
+                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <p>请点击查询，查看用户更多数据~</p>
+                                </div>
                             </template>
-                        </el-table-column>
-                        <el-table-column label="实付款" width="80">
-                            <template #default="{row}">
-                                {{ row.amount/100 }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="获得润笔（元）" width="120">
-                            <template #default="{row}">
-                                {{ row.rebate/100 }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="orderStatus" label="订单状态" width="80">
-                            <template #default="{row}">
-                                <span v-if="row.orderStatus === 'WAIT_RECEIVE' && (row.orderType === 'VIRTUAL_GOODS' || row.orderType === 'FORMAL_CLASS' || row.orderType === 'EXPERIENCE_CLASS')">
-                                    待使用
-                                </span>
-                                <span v-else>
-                                    {{ orderStatusText[row.orderStatus] }}
-                                </span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="orderSourceText" label="订单来源" width="80" />
-                        <el-table-column prop="createTime" label="下单时间" width="100" align="center" />
-                    </el-table>
-                    <Pagination v-show="orderTotal" :total="orderTotal" v-model="orderForm.current"
-                                :size="orderForm.size" @change="getOrderList" />
-                </el-tab-pane>
-                <el-tab-pane label="提现记录" name="second" v-if="from === 'HelperList'">
-                    <el-form inline>
-                        <el-form-item class="mb-0 ml-40">
-                            <date-range
-                                :clearable="true"
-                                disable-after
-                                @change="depositDateChange"
-                                type="datetime"
-                                size="small"
-                                start-label="申请时间："
-                                range-separator="至"
-                                end-label=""
+                            <el-table-column
+                                prop="userName"
+                                label="订单号"
                             />
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="getOrderList">
-                                查询
-                            </el-button>
-                        </el-form-item>
-                    </el-form>
-                    <el-table :data="withdrawData" ref="withdrawTable">
-                        <el-table-column prop="userName" label="Helper" />
-                        <el-table-column prop="nickName" label="微信昵称" />
-                        <el-table-column prop="mobile" label="手机号" width="120" />
-                        <el-table-column prop="price" label="提现金额（元）" width="120" />
-                        <el-table-column prop="balance" label="剩余润笔（元）" width="120" />
-                        <el-table-column prop="createTime" label="申请时间" width="150" />
-                    </el-table>
-                    <Pagination v-show="withdrawTotal" :total="withdrawTotal" v-model="withdrawForm.current"
-                                :size="withdrawForm.size" @change="getQueryMemberDeposit" />
-                </el-tab-pane>
-            </el-tabs>
+                            <el-table-column
+                                prop="userName"
+                                label="产品名称"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="产品类型"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="数量"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="单价（元）"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="订单状态"
+                            />
+                            <el-table-column
+                                fixed="right"
+                                label="操作"
+                            >
+                                <template>
+                                    <div class="operate">
+                                        <a @click="$router.push({ name: 'MemberManageDetail'})">
+                                            订单详情
+                                        </a>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <Pagination
+                            @change="getOrderList"
+                            @sizeChange="orderListSizeChange"
+                            v-model="orderListForm.current"
+                            :total="orderListTotal"
+                            :sizes="true"
+                        />
+                    </div>
+                </template>
+                <!--分享记录-->
+                <template v-if="tabName === 'ShareList'">
+                    <SearchBox>
+                        <el-form
+                            :inline="true"
+                            class="border-bottom mb-20"
+                        >
+                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                                <el-input
+                                    clearable
+                                    style="width: 300px;"
+                                    @change="searchShareList"
+                                    placeholder="请输入订单号/商品名称/分享人"
+                                    v-model="shareListForm.keyword"
+                                />
+                            </el-form-item>
+                            <el-form-item style="width: 340px;" class="mb-10" label="产品类型：">
+                                <el-select
+                                    v-model="shareListForm.orderType"
+                                    @change="searchShareList"
+                                    clearable
+                                >
+                                    <el-option
+                                        v-for="item in Order_Type"
+                                        :key="item.value"
+                                        :value="item.value"
+                                        :label="item.label"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item style="width: 340px;" class="mb-10" label="订单类型：">
+                                <el-select
+                                    v-model="orderListForm.orderType"
+                                    @change="searchShareList"
+                                    clearable
+                                >
+                                    <el-option
+                                        v-for="item in Order_Type"
+                                        :key="item.value"
+                                        :value="item.value"
+                                        :label="item.label"
+                                    />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="支付时间：" style="width: 492px;" class="mb-10">
+                                <date-range
+                                    style="width: 380px;"
+                                    :init="[shareListForm.startTime, shareListForm.endTime]"
+                                    @change="formatShareListTimeRange"
+                                    disable-after
+                                    clearable
+                                    ref="dateRange"
+                                />
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20">
+                                <el-button
+                                    type="primary"
+                                    style="width:98px"
+                                    @click="searchShareList"
+                                >
+                                    查询
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button
+                                    @click="changeExportShareList"
+                                    style="width: 98px;"
+                                    type="primary"
+                                    plain
+                                    v-if="orderList && orderList.length"
+                                >
+                                    导出数据
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button type="text" @click="resetShareList">清空筛选条件</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </SearchBox>
+                    <div class="list">
+                        <el-table
+                            :data="orderList"
+                            class="table-customer"
+                            style="width: 100%"
+                        >
+                            <template slot="empty">
+                                <div class="no-data">
+                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <p>请点击查询，查看用户更多数据~</p>
+                                </div>
+                            </template>
+                            <el-table-column
+                                prop="userName"
+                                label="订单号"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="产品名称"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="产品类型"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="数量"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="单价（元）"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="实付款（元）"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="分享人"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="订单状态"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="支付时间"
+                            />
+                            <el-table-column
+                                fixed="right"
+                                label="操作"
+                            >
+                                <template>
+                                    <div class="operate">
+                                        <a @click="$router.push({ name: 'MemberManageDetail'})">
+                                            订单详情
+                                        </a>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <Pagination
+                            @change="getShareList"
+                            @sizeChange="shareListSizeChange"
+                            v-model="shareListForm.current"
+                            :total="shareListTotal"
+                            :sizes="true"
+                        />
+                    </div>
+                </template>
+                <!--直播观看记录-->
+                <template v-if="tabName === 'LiveWatchList'">
+                    <SearchBox>
+                        <el-form
+                            :inline="true"
+                            class="border-bottom mb-20"
+                        >
+                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                                <el-input
+                                    clearable
+                                    style="width: 300px;"
+                                    @change="searchLiveWatchList"
+                                    placeholder="请输入直播名称"
+                                    v-model="liveWatchListForm.keyword"
+                                />
+                            </el-form-item>
+                            <el-form-item style="width: 340px;" class="mb-10" label="类型：">
+                                <el-select
+                                    v-model="liveWatchListForm.liveType"
+                                    @change="searchLiveWatchList"
+                                    clearable
+                                >
+                                    <el-option :value="''" label="全部" />
+                                    <el-option :value="1" label="直播" />
+                                    <el-option :value="2" label="录播" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item class="mb-10" label="形式：">
+                                <el-select
+                                    v-model="liveWatchListForm.pattern"
+                                    @change="searchLiveWatchList"
+                                    clearable
+                                >
+                                    <el-option :value="''" label="全部" />
+                                    <el-option :value="1" label="直播" />
+                                    <el-option :value="2" label="录播" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="直播时间：" style="width: 492px;" class="mb-10">
+                                <date-range
+                                    style="width: 380px;"
+                                    :init="[liveWatchListForm.startTime, liveWatchListForm.endTime]"
+                                    @change="formatShareListTimeRange"
+                                    disable-after
+                                    clearable
+                                    ref="dateRange"
+                                />
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20">
+                                <el-button
+                                    type="primary"
+                                    style="width:98px"
+                                    @click="searchLiveWatchList"
+                                >
+                                    查询
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button
+                                    @click="changeExportLiveWatchList"
+                                    style="width: 98px;"
+                                    type="primary"
+                                    plain
+                                    v-if="liveWatchList && liveWatchList.length"
+                                >
+                                    导出数据
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button type="text" @click="resetLiveWatchList">清空筛选条件</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </SearchBox>
+                    <div class="list">
+                        <el-table
+                            :data="liveWatchList"
+                            class="table-customer"
+                            style="width: 100%"
+                        >
+                            <template slot="empty">
+                                <div class="no-data">
+                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <p>请点击查询，查看用户更多数据~</p>
+                                </div>
+                            </template>
+                            <el-table-column
+                                prop="userName"
+                                label="直播时间"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="直播信息"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="形式"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="类型"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="实付款（元）"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="支付优惠"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="分享人"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="首次观看时间"
+                            />
+                            <el-table-column
+                                fixed="right"
+                                label="操作"
+                            >
+                                <template>
+                                    <div class="operate">
+                                        <a @click="$router.push({ name: 'MemberManageDetail'})">
+                                            订单详情
+                                        </a>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <Pagination
+                            @change="getLiveWatchList"
+                            @sizeChange="liveWatchListSizeChange"
+                            v-model="liveWatchListForm.current"
+                            :total="liveWatchListTotal"
+                            :sizes="true"
+                        />
+                    </div>
+                </template>
+                <!--云课堂学习进度-->
+                <template v-if="tabName === 'LineLearningList'">
+                    <SearchBox>
+                        <el-form
+                            :inline="true"
+                            class="border-bottom mb-20"
+                        >
+                            <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                                <el-input
+                                    clearable
+                                    style="width: 300px;"
+                                    @change="searchLineLearningList"
+                                    placeholder="请输入课程名称"
+                                    v-model="lineLearningListForm.keyword"
+                                />
+                            </el-form-item>
+                            <el-form-item style="width: 340px;" class="mb-10" label="类型：">
+                                <el-select
+                                    v-model="lineLearningListForm.type"
+                                    @change="searchLineLearningList"
+                                    clearable
+                                >
+                                    <el-option :value="''" label="全部" />
+                                    <el-option :value="1" label="视频单课" />
+                                    <el-option :value="2" label="系列课" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item class="mb-10" label="分类：">
+                                <el-select
+                                    v-model="lineLearningListForm.classifyId"
+                                    @change="searchLineLearningList"
+                                    clearable
+                                >
+                                    <el-option :value="''" label="全部" />
+                                    <el-option :value="1" label="直播" />
+                                    <el-option :value="2" label="录播" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="首次观看时间：" style="width: 492px;" class="mb-10">
+                                <date-range
+                                    style="width: 380px;"
+                                    :init="[lineLearningListForm.startTime, lineLearningListForm.endTime]"
+                                    @change="formatLineLearningListTimeRange"
+                                    disable-after
+                                    clearable
+                                    ref="dateRange"
+                                />
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20">
+                                <el-button
+                                    type="primary"
+                                    style="width:98px"
+                                    @click="searchLineLearningList"
+                                >
+                                    查询
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button
+                                    @click="changeExportLineLearningList"
+                                    style="width: 98px;"
+                                    type="primary"
+                                    plain
+                                    v-if="lineLearningList && lineLearningList.length"
+                                >
+                                    导出数据
+                                </el-button>
+                            </el-form-item>
+                            <el-form-item class="mb-10 mt-20 ml-20">
+                                <el-button type="text" @click="resetLineLearningList">清空筛选条件</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </SearchBox>
+                    <div class="list">
+                        <el-table
+                            :data="liveWatchList"
+                            class="table-customer"
+                            style="width: 100%"
+                        >
+                            <template slot="empty">
+                                <div class="no-data">
+                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <p>请点击查询，查看用户更多数据~</p>
+                                </div>
+                            </template>
+                            <el-table-column
+                                prop="userName"
+                                label="课程名称"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="类型"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="分类"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="学习状态"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="首次观看时间"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="消耗流量"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="分享人"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="首次观看时间"
+                            />
+                            <el-table-column
+                                fixed="right"
+                                label="学习进度"
+                            >
+                                <template>
+                                    <div class="operate">
+                                        <a @click="$router.push({ name: 'MemberManageDetail'})">
+                                            查看
+                                        </a>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <Pagination
+                            @change="getLineLearningList"
+                            @sizeChange="lineLearningListSizeChange"
+                            v-model="lineLearningListForm.current"
+                            :total="lineLearningListTotal"
+                            :sizes="true"
+                        />
+                    </div>
+                </template>
+                <!--备注-->
+                <template v-if="tabName === 'RemarkList'">
+                    <div class="list">
+                        <el-button
+                            @click="addRemark"
+                            style="width: 98px;"
+                            type="primary"
+                            plain
+                        >
+                            添加备注
+                        </el-button>
+                        <el-table
+                            :data="remarkList"
+                            class="table-customer"
+                            style="width: 100%"
+                        >
+                            <template slot="empty">
+                                <div class="no-data">
+                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <p>该会员还没有备注哦</p>
+                                </div>
+                            </template>
+                            <el-table-column
+                                prop="userName"
+                                label="备注内容"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="添加时间"
+                            />
+                            <el-table-column
+                                prop="userName"
+                                label="添加人"
+                            />
+                            <el-table-column
+                                fixed="right"
+                                label="操作"
+                            >
+                                <template>
+                                    <div class="operate">
+                                        <a @click="$router.push({ name: 'MemberManageDetail'})">
+                                            删除
+                                        </a>
+                                    </div>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <Pagination
+                            @change="getRemarkList"
+                            @sizeChange="remarkListSizeChange"
+                            v-model="remarkListForm.current"
+                            :total="remarkListTotal"
+                            :sizes="true"
+                        />
+                    </div>
+                </template>
+            </div>
         </div>
+
+        <!-- 添加标签 -->
+        <add-tags
+            :show.sync="showAddTagDialog"
+            :current-member="memberDetail"
+            @confirm="getMemberDetail"
+        />
     </div>
 </template>
 
 <script>
 import { Vue, Component } from 'vue-property-decorator'
+import Pagination from '../../../../components/common/Pagination'
 
 import Field from '../../../../components/common/Field.vue'
-import Card from '../../../../components/common/Card.vue'
-import { memberDetail, getOrderList, orderRebateInfo, queryMemberDeposit } from '../../../../apis/member'
+import AddTags from '../components/Add-Tags'
+import { getMemberDetail, getOrderList } from '../../../../apis/member'
 
   @Component({
       components: {
+          AddTags,
           Field,
-          Card
+          Pagination
       }
   })
 
 export default class MemberManageDetail extends Vue {
-    // 数据
-    formRouteName = ''
-    form = {
-        roleCode: '',
-        mallUserId: ''
-    }
-
-    // 从列表来的还是从审核列表来的，'list' or 'audit'
-    from = ''
-    detail = {}
-    data = []
-    backRoute = ''
-    role = {
+    // 角色
+    ROLE = {
         MEMBERSHIP: '普通会员',
         HELPER: 'Helper'
     }
 
-    orderList = []
-    orderForm = {
-        current: 1,
-        size: 10,
-        userId: '',
-        orderSource: '',
-        condition: '',
-        orderType: ''
+    USER_TYPE = {
+        1: '家',
+        2: '学',
+        3: '其'
     }
 
-    orderSourceList = [
-        { value: '', label: '全部' },
-        { value: '1', label: '自购' },
-        { value: '2', label: '分享' }
+    // 用户行为数据Tab
+    Tab_List = [
+        { name: 'OrderList', label: '购买记录' },
+        { name: 'ShareList', label: '分享记录' },
+        { name: 'LiveWatchList', label: '直播观看记录' },
+        { name: 'LineLearningList', label: '云课堂学习进度' },
+        { name: 'RemarkList', label: '备注' }
     ]
 
-    orderSourceText = {
-        '': '全部',
-        1: '自购',
-        2: '分享'
-    }
-
-    orderTypeList = [
+    Order_Type = [
         { value: '', label: '全部' },
         { value: 'PHYSICAL_GOODS', label: '实体商品' },
         { value: 'VIRTUAL_GOODS', label: '虚拟商品' },
@@ -332,258 +821,508 @@ export default class MemberManageDetail extends Vue {
         { value: 'VIDEO_GOODS', label: '录播订单' }
     ]
 
-    orderStatusText = {
-        ALL_ORDER: '全部订单',
-        WAIT_SHIP: '待发货',
-        WAIT_RECEIVE: '待收货',
-        WAIT_PAY: '待付款',
-        WAIT_PAY_TAIL_MONEY: '待付尾款',
-        FINISHED: '订单完成',
-        CLOSED: '订单关闭'
+    // 请求用户数据参数
+    form = {
+        roleCode: '',
+        mallUserId: ''
     }
 
-    userId = ''
-    withdrawData = []
-    withdrawForm = {
-        current: 1,
-        size: 10,
-        startTime: '',
-        endTime: '',
-        keyword: ''
+    // 用户数据
+    memberDetail = {}
+
+    // 是否显示添加标签弹框
+    showAddTagDialog = false
+
+    // 是否编辑用户备注信息
+    isEdit = false
+
+    // 用户行为数据统计
+    memberData = {
+        order30DayCount: 1223,
+        selfOrderCount: 89,
+        totalAmount: 6565,
+        shareOrderCount: 5545
     }
 
-    withdrawTotal = 0
-    orderTotal = 0
-    activeName = 'first'
-    orderRebateInfoData = {}
+    // 当前所在的tab页
+    tabName = this.Tab_List[0].name
+
     // 生命周期函数
     async created () {
-        const { roleCode, id, fromRouteName } = this.$route.params
+        const { roleCode, id } = this.$route.params
         this.from = this.$route.query.from
-        this.fromRouteName = fromRouteName
         this.form.mallUserId = id
         this.form.roleCode = roleCode
         await this.getMemberDetail()
-        await this.getOrderRebateInfo(this.userId)
-        if (this.from === 'HelperList') {
-            this.getQueryMemberDeposit()
-        }
-    }
-
-    beforeRouteEnter (to, from, next) {
-        next(vm => {
-            vm.backRoute = from.name
-        })
     }
 
     // methods
     async getMemberDetail () {
         try {
-            const { data: res } = await memberDetail(this.form)
+            const { data: res } = await getMemberDetail(this.form)
             if (res.result && res.result.idCard) {
                 res.result.idCard = res.result.idCard.replace(/^(\d{4})\d{9}(\d+)/, '$1*********$2')
             }
-            this.detail = res.result || {}
-            this.orderForm.userId = res.result.userId
-            this.userId = res.result.userId
-            this.getOrderList()
+            this.memberDetail = res.result || {}
         } catch (e) {
             throw e
         }
     }
 
-    searchQueryMemberOrders () {
-        this.orderForm.current = 1
-        this.getOrderList()
+    tabClick (data) {
+        this.tabName = data.name
+        if (this.tabName === 'RemarkList') {
+            this.getRemarkList()
+        }
+    }
+
+    // 购买记录
+    orderListForm = {
+        current: 1,
+        size: 10,
+        keyword: '',
+        orderType: '',
+        startTime: '',
+        endTime: '',
+        roleType: ''
+    }
+
+    orderList = []
+    orderListTotal = 0
+    async formatOrderListTimeRange ({ start, end }) {
+        try {
+            this.orderListForm.startTime = start
+            this.orderListForm.endTime = end
+            await this.searchOrderList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async orderListSizeChange (val) {
+        try {
+            this.orderListForm.current = 1
+            this.orderListForm.size = val
+            await this.getOrderList()
+        } catch (e) {
+            throw e
+        }
     }
 
     async getOrderList () {
         try {
-            const { data: { result } } = await getOrderList(this.orderForm)
-            console.log(result)
-            this.orderList = result.records
-            this.orderTotal = result.total
+            const { data: { result } } = await getOrderList(this.orderListForm)
+            this.orderList = result.records || []
+            this.orderListTotal = result.total || []
         } catch (e) {
             throw e
         }
     }
 
-    toggleRowExpansion (row) {
-        row.expanded = !row.expanded
-        this.$refs.table.toggleRowExpansion(row, row.expanded)
-    }
-
-    async getOrderRebateInfo (userId) {
-        const { data: res } = await orderRebateInfo({ userId })
-        this.orderRebateInfoData = res.result
-    }
-
-    async getQueryMemberDeposit () {
-        this.withdrawForm.keyword = this.userId
-        const { data: res } = await queryMemberDeposit(this.withdrawForm)
-        this.withdrawData = res.result.records
-        this.withdrawTotal = res.result.total
-    }
-
-    depositDateChange ({ start, end }) {
-        this.withdrawForm.current = 1
-        if (start) {
-            this.withdrawForm.startTime = new Date(start).getTime()
-        } else {
-            this.withdrawForm.startTime = start
+    async searchOrderList () {
+        try {
+            this.orderListForm.current = 1
+            await this.getOrderList()
+        } catch (e) {
+            throw e
         }
-        if (end) {
-            this.withdrawForm.endTime = new Date(end).getTime()
-        } else {
-            this.withdrawForm.endTime = end
+    }
+
+    async resetOrderList () {
+        try {
+            this.orderListForm = {
+                current: 1,
+                size: 10,
+                keyword: '',
+                orderType: '',
+                startTime: '',
+                endTime: '',
+                roleType: ''
+            }
+            await this.getOrderList()
+        } catch (e) {
+            throw e
         }
-        this.getQueryMemberDeposit()
+    }
+
+    changeExportOrderList () {
+        // todo
+        console.log(1111)
+    }
+
+    // 分享记录
+    shareListForm = {
+        current: 1,
+        size: 10,
+        keyword: '',
+        orderType: '',
+        startTime: '',
+        endTime: ''
+    }
+
+    shareList = []
+    shareListTotal = 0
+    async formatShareListTimeRange ({ start, end }) {
+        try {
+            this.shareListForm.startTime = start
+            this.shareListForm.endTime = end
+            await this.searchShareList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async shareListSizeChange (val) {
+        try {
+            this.orderListForm.current = 1
+            this.orderListForm.size = val
+            await this.getShareList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getShareList () {
+        try {
+            const { data: { result } } = await getOrderList(this.shareListForm)
+            this.shareList = result.records || []
+            this.shareListTotal = result.total || []
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async searchShareList () {
+        try {
+            this.shareListForm.current = 1
+            await this.getShareList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async resetShareList () {
+        try {
+            this.orderListForm = {
+                current: 1,
+                size: 10,
+                keyword: '',
+                orderType: '',
+                startTime: '',
+                endTime: '',
+                roleType: ''
+            }
+            await this.getShareList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    changeExportShareList () {
+        // todo
+        console.log(1111)
+    }
+
+    // 直播观看记录
+    liveWatchListForm = {
+        current: 1,
+        size: 10,
+        keyword: '',
+        liveType: '',
+        pattern: '',
+        startTime: '',
+        endTime: ''
+    }
+
+    liveWatchList = []
+    liveWatchListTotal = 0
+    async formatLiveWatchListTimeRange ({ start, end }) {
+        try {
+            this.liveWatchListForm.startTime = start
+            this.liveWatchListForm.endTime = end
+            await this.searchLiveWatchList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async liveWatchListSizeChange (val) {
+        try {
+            this.liveWatchListForm.current = 1
+            this.liveWatchListForm.size = val
+            await this.getShareList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getLiveWatchList () {
+        try {
+            const { data: { result } } = await getOrderList(this.shareListForm)
+            this.liveWatchList = result.records || []
+            this.liveWatchListTotal = result.total || []
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async searchLiveWatchList () {
+        try {
+            this.liveWatchListForm.current = 1
+            await this.getLiveWatchList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async resetLiveWatchList () {
+        try {
+            this.liveWatchListForm = {
+                current: 1,
+                size: 10,
+                keyword: '',
+                liveType: '',
+                pattern: '',
+                startTime: '',
+                endTime: ''
+            }
+            await this.getLiveWatchList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    changeExportLiveWatchList () {
+        // todo
+        console.log(1111)
+    }
+
+    // 云课堂学习进度
+    lineLearningListForm = {
+        current: 1,
+        size: 10,
+        keyword: '',
+        type: '',
+        classifyId: '',
+        startTime: '',
+        endTime: ''
+    }
+
+    lineLearningList = []
+    lineLearningListTotal = 0
+    async formatLineLearningListTimeRange ({ start, end }) {
+        try {
+            this.lineLearningListForm.startTime = start
+            this.lineLearningListForm.endTime = end
+            await this.searchLineLearningList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async lineLearningListSizeChange (val) {
+        try {
+            this.lineLearningListForm.current = 1
+            this.lineLearningListForm.size = val
+            await this.getLineLearningList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getLineLearningList () {
+        try {
+            const { data: { result } } = await getOrderList(this.shareListForm)
+            this.lineLearningList = result.records || []
+            this.lineLearningListTotal = result.total || []
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async searchLineLearningList () {
+        try {
+            this.lineLearningListForm.current = 1
+            await this.getLineLearningList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async resetLineLearningList () {
+        try {
+            this.lineLearningListForm = {
+                current: 1,
+                size: 10,
+                keyword: '',
+                liveType: '',
+                pattern: '',
+                startTime: '',
+                endTime: ''
+            }
+            await this.getLineLearningList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    changeExportLineLearningList () {
+        // todo
+        console.log(1111)
+    }
+
+    // 备注
+    addRemark () {
+        console.log(1)
+    }
+
+    remarkListForm = {
+        current: 1,
+        size: 10
+    }
+
+    remarkList = []
+    remarkListTotal = 0
+    async remarkListSizeChange (val) {
+        try {
+            this.remarkListForm.current = 1
+            this.remarkListForm.size = val
+            await this.getRemarkList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getRemarkList () {
+        try {
+            const { data: { result } } = await getOrderList(this.shareListForm)
+            this.remarkList = result.records || []
+            this.remarkListTotal = result.total || []
+        } catch (e) {
+            throw e
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
     .container {
-        width: 64%;
         margin: 0 auto;
-        padding: 32px 56px;
+        padding: 44px 34px;
+        >.title {
+            margin-bottom: 40px;
+        }
 
         .header {
-            .member-type {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 24px;
-            }
-
+            display: flex;
             .face {
-                width: 62px;
-                height: 62px;
+                width: 88px;
+                height: 88px;
                 border-radius: 50%;
                 object-fit: cover;
             }
 
-            .name {
-                margin-right: 20px;
-                font-size: 20px;
-                font-weight: bold;
-            }
-
-            .ownner-name {
-                font-size: 12px;
-                font-weight: bold;
-                line-height: 16px;
-                color: rgba(236, 116, 46, 1);
-            }
-
-            .is-helper {
-                padding: 2px 4px;
-                border: 1px solid $--color-primary-orange;
-                font-size: 12px;
-                color: $--color-primary-orange;
-            }
-
-            .level {
-                color: $--color-primary-orange;
-                font-weight: bold;
-            }
-        }
-
-        .info-list {
-            margin-top: 32px;
-            font-size: 16px;
-        }
-
-        .audit-title {
-            display: inline-flex;
-            font-size: 18px;
-            font-weight: bold;
-            color: #5A5A5A;
-            padding-bottom: 10px;
-        }
-
-        .audit-detail-list {
-            color: #333333;
-            font-size: 16px;
-            display: flex;
-            padding: 10px 0;
-
-            .color-orange {
-                color: #EC742E;
-            }
-
-            .detail-list-time {
-                width: 25%;
-                font-weight: bold;
-            }
-
-            .detail-list-person {
-                width: 25%;
-
-                .list-person-name {
-                    font-weight: bold;
+            .intro {
+                margin-left: 15px;
+                .detail {
+                    display: flex;
+                    line-height: 18px;
+                    .user-type {
+                        display: inline-block;
+                        width: 18px;
+                        height: 18px;
+                        border: 1px solid #F79F1A;
+                        border-radius: 5px;
+                        font-size: 12px;
+                        font-family: Microsoft YaHei UI;
+                        line-height: 15px;
+                        text-align: center;
+                        color: #F79F1A;
+                    }
+                    .name {
+                        width: 76px;
+                        margin: 0 6px;
+                        @include elps-wrap(1);
+                    }
                 }
-            }
-
-            .detail-list-result {
-                width: 50%;
-            }
-        }
-    }
-
-    .icon-paixujiantoushang {
-        display: inline-block;
-        transform: rotate(180deg) !important;
-        cursor: pointer;
-        vertical-align: -2px;
-    }
-
-    ::v-deep .el-table__expanded-cell {
-        padding: 0;
-    }
-
-    ::v-deep .el-table__expand-icon {
-        display: none;
-    }
-
-    .order-detail {
-        display: flex;
-        padding: 20px;
-        margin-top: 24px;
-        background-color: #FFFFFF;
-
-        .content {
-            width: 300px;
-            border-right: 1px solid #E7E7E7;
-            padding: 15px 10px 15px 35px;
-
-            .content-title {
-                color: #333333;
-                font-size: 18px;
-                font-weight: bold;
-            }
-
-            .content-num {
-                padding: 20px 0;
-                font-size: 14px;
-                color: #666666;
-
-                span {
-                    font-size: 50px;
-                    color: #333333;
+                .member-type {
+                    margin-left: 24px;
+                    font-size: 12px;
                     font-weight: 400;
-                    padding-right: 14px;
+                    color: #6FD79F;
                 }
             }
 
-            .content-detail {
-                font-size: 14px;
-                font-weight: 400;
-                color: #598BF8;
+            .info-list {
+                display: grid;
+                margin-left: 24px;
+                min-width: 500px;
+                grid-template-columns: repeat(2, 50%);
+                grid-row-gap: 24px;
+                font-size: 16px;
+                .tag-list {
+                    .tags {
+                        padding: 0 13px;
+                        border-left: 1px solid;
+                        font-size: 14px;
+                        &:first-child {
+                            margin-left: -20px!important;
+                        }
+                    }
+                    >a {
+                        color: #4F63FF;
+                    }
+                }
+                .record {
+                    grid-column: 1 / 2;
+                    > .list {
+                        vertical-align: text-top;
+                        display: inline-block;
+                        > p {
+                            margin-bottom: 16px;
+                        }
+                    }
+                }
             }
         }
 
-        .content:last-child {
-            border: none;
+        .remark-detail {
+            .text {
+                min-width: 600px;
+                display: grid;
+                grid-template-columns: repeat(3, 33.33%);
+                grid-row-gap: 33px;
+                .fill {
+                    grid-column: 1 / 3;
+                }
+            }
         }
+
+        .data-list {
+            display: flex;
+            margin: 20px 0 33px;
+            > div {
+                margin: 0 98px;
+                > b {
+                    display: block;
+                    font-size: 48px;
+                }
+            }
+        }
+
+        .tab-detail{
+            .no-data{
+                margin: 60px 0;
+            }
+        }
+    }
+    .mb-10 {
+        margin-bottom: 10px;
+    }
+    .mt-20 {
+        margin-top: 20px;
+    }
+    .ml-20 {
+        margin-left: 20px;
     }
 </style>00.

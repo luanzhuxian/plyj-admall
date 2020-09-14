@@ -1,91 +1,76 @@
 <template>
-    <div class="member">
-        <!-- 左侧标签列表 -->
-        <div
-            ref="tag-list"
-            class="tag-list"
-        >
-            <div class="tag-list-top">
-                <el-button icon="el-icon-plus" @click="editTag" style="color: #4C88D6; border-color: #4C88D6;">
-                    新建用户标签
-                </el-button>
-            </div>
-            <div class="tag-list-default" @click="getMemberListByTag('')">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-rule-dir-close" />
-                </svg>
-                <span :class="{'blue-text': form.tagId === ''}">全部用户({{ userCount }})</span>
-                <pl-svg :key="1" name="icon-you" width="20" />
-            </div>
-            <div
-                @click.stop="getMemberListByTag(0)"
-                :class="{'tag-list-options0':true, 'background-color-grey': form.tagId === 0}"
-            >
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-dir-close" />
-                </svg>
-                未设置标签({{ notSetTageUserCount }})
-            </div>
-            <pl-Tree
-                class="tag-list-options"
-                @nodeClick="treeClick"
-                @change="treeSort"
-                :tree="tagList"
-                ref="tree"
-                :options="{
-                    value: 'id'
-                }"
-            >
-                <template slot="treeItemLabel" slot-scope="{ data }">
-                    {{ data.tagName }}
-                </template>
-                <template slot="default" slot-scope="{ data }">
-                    <div class="tag-ctrl">
-                        <el-tooltip
-                            class="tag-ctrl-item"
-                            effect="dark"
-                            content="编辑"
-                            placement="top-start"
-                        >
-                            <pl-svg :key="2" name="icon-bianji" @click.stop="editTag(data)" width="12" fill="#598BF8" class="icon" />
-                        </el-tooltip>
-                        <el-tooltip
-                            class="tag-ctrl-item second-item"
-                            effect="dark"
-                            content="删除"
-                            placement="top-start"
-                        >
-                            <pl-svg :key="3" name="icon-shanchu1" @click.stop="deleteTag(data.id)" width="12" fill="#598BF8" class="icon" />
-                        </el-tooltip>
-                    </div>
-                </template>
-            </pl-Tree>
-
-            <div class="category-drop-tip">
-                <i>（拖动即可调整同级分类的顺序）</i>
+    <div>
+        <!--会员数据-->
+        <div class="data">
+            <h4>会员数据</h4>
+            <div class="data-list">
+                <div>
+                    今日新增会员
+                    <b>{{ memberData.data0 }}</b>
+                </div>
+                <div>
+                    近30天新增会员
+                    <b>{{ memberData.data30 }}</b>
+                </div>
+                <div>
+                    累计会员总量
+                    <b>{{ memberData.data99 }}</b>
+                </div>
             </div>
         </div>
-        <!-- 编辑标签 -->
-        <edit-member-tag
-            :show.sync="showTagBox"
-            :data.sync="currentTag"
-            @editTag="editTagConfirm"
-        />
-        <!-- 会员列表 -->
-        <div class="member-list">
+        <!--搜索-->
+        <SearchBox>
             <el-form
                 :inline="true"
-                class="wrap border-bottom mb-20"
+                class="border-bottom mb-20"
             >
-                <el-form-item class="mb-0">
+                <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
                     <el-input
                         clearable
                         @change="search"
-                        placeholder="昵称/手机号"
+                        placeholder="请输入用户昵称/真实姓名/手机号"
                         v-model="form.keyword"
                     />
                 </el-form-item>
-                <el-form-item label="加入时间：" class="mb-0">
+                <el-form-item style="width: 340px;" class="mb-10" label="用户类型：">
+                    <el-select
+                        v-model="form.roleType"
+                        @change="getMemberList"
+                        clearable
+                    >
+                        <el-option :value="''" label="全部" />
+                        <el-option value="MEMBERSHIP" label="普通会员" />
+                        <el-option value="HELPER" label="Helper" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item :span="4" class="mb-10" label="来源：">
+                    <el-select v-model="form.roleType" @change="getMemberList" style="width: 240px;" clearable>
+                        <el-option :value="''" label="全部" />
+                        <el-option value="MEMBERSHIP" label="微信H5" />
+                        <el-option value="HELPER" label="Helper" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="注册时间：" style="width: 492px;" class="mb-10">
+                    <date-range
+                        style="width: 380px;"
+                        :init="[form.startTime, form.endTime]"
+                        @change="formatTimeRange"
+                        disable-after
+                        clearable
+                        ref="dateRange"
+                    />
+                </el-form-item>
+                <el-form-item label="最近登陆时间：" style="width: 680px;" class="mb-10">
+                    <date-range
+                        style="width: 380px;"
+                        :init="[form.startTime, form.endTime]"
+                        @change="formatTimeRange"
+                        disable-after
+                        clearable
+                        ref="dateRange"
+                    />
+                </el-form-item>
+                <el-form-item label="最近购买时间：" style="width: 492px;" class="mb-10">
                     <date-range
                         :init="[form.startTime, form.endTime]"
                         @change="formatTimeRange"
@@ -94,23 +79,46 @@
                         ref="dateRange"
                     />
                 </el-form-item>
-
-                <el-form-item class="mb-0">
-                    <span class="font-weight-bold mr-10">用户类型: </span>
-                    <el-select v-model="form.roleType" @change="getMemberList" clearable>
-                        <el-option :value="''" label="全部" />
-                        <el-option value="MEMBERSHIP" label="普通会员" />
-                        <el-option value="HELPER" label="Helper" />
-                    </el-select>
+                <el-form-item label="购买次数：" style="width: 800px;" class="mb-10">
+                    <el-input
+                        clearable
+                        style="width: 114px;"
+                        size="small"
+                        @change="search"
+                        placeholder="请输入次数"
+                        v-model="form.keyword"
+                    />
+                    至
+                    <el-input
+                        clearable
+                        style="width: 114px;"
+                        size="small"
+                        @change="search"
+                        placeholder="请输入次数"
+                        v-model="form.keyword"
+                    />
                 </el-form-item>
-                <!--<el-form-item label="会员等级" class="mb-0">-->
-                <!--<el-select v-model="leave" placeholder="请选择会员等级">-->
-                <!--<el-option label="区域一" value="shanghai"></el-option>-->
-                <!--<el-option label="区域二" value="beijing"></el-option>-->
-                <!--</el-select>-->
-                <!--</el-form-item>-->
-
-                <el-form-item class="mb-0">
+                <el-form-item label="支付金额：" class="mb-10">
+                    <el-input
+                        clearable
+                        style="width: 114px;"
+                        size="small"
+                        @change="search"
+                        placeholder="请输入金额"
+                        v-model="form.keyword"
+                    />
+                    至
+                    <el-input
+                        clearable
+                        style="width: 114px;"
+                        size="small"
+                        @change="search"
+                        placeholder="请输入金额"
+                        v-model="form.keyword"
+                    />
+                </el-form-item>
+                <br>
+                <el-form-item class="mb-10">
                     <el-button
                         type="primary"
                         style="width:98px"
@@ -119,7 +127,7 @@
                         查询
                     </el-button>
                 </el-form-item>
-                <el-form-item class="mb-0">
+                <el-form-item class="mb-10 ml-20">
                     <el-button
                         @click="changeExport"
                         style="width: 98px;"
@@ -127,159 +135,265 @@
                         plain
                         v-if="table && table.length"
                     >
-                        导出
+                        导出数据
                     </el-button>
                 </el-form-item>
+                <el-form-item class="mb-10 ml-20">
+                    <el-button type="text" @click="reset">清空筛选条件</el-button>
+                </el-form-item>
             </el-form>
-            <div class=" mb-1" />
-            <el-table
-                :data="table"
-                class="table-customer"
+        </SearchBox>
+        <div class="member-info">
+            <!-- 左侧标签列表 -->
+            <div
+                ref="tag-list"
+                class="tag-list"
             >
-                <el-table-column
-                    prop="invitationCode"
-                    label="头像"
+                <div class="tag-list-top">
+                    <el-button icon="el-icon-plus" @click="editTag" style="color: #4C88D6; border-color: #4C88D6;">
+                        新建用户标签
+                    </el-button>
+                </div>
+                <div class="tag-list-default" @click="getMemberListByTag('')">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-rule-dir-close" />
+                    </svg>
+                    <span :class="{'blue-text': form.tagId === ''}">全部用户({{ userCount }})</span>
+                    <pl-svg :key="1" name="icon-you" width="20" />
+                </div>
+                <div
+                    @click.stop="getMemberListByTag(0)"
+                    :class="{'tag-list-options0':true, 'background-color-grey': form.tagId === 0}"
                 >
-                    <template slot-scope="scope">
-                        <img
-                            height="50"
-                            :src="scope.row.avatarUrl"
-                            alt=""
-                        >
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="nickName"
-                    label="昵称"
-                />
-                <el-table-column label="用户标签" width="200">
-                    <template #default="{ row }">
-                        <p class="detail-tags">
-                            <span
-                                v-for="item of row.tags"
-                                :key="item.id"
-                            >{{ item.tagName }}</span>
-                        </p>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="mobile"
-                    label="手机号(登录账户)"
-                />
-                <el-table-column
-                    prop="sex"
-                    label="性别"
-                />
-                <!--<el-table-column prop="createTime" label="会员等级" />-->
-                <!--<el-table-column prop="status" label="成长值" />-->
-                <el-table-column
-                    prop="createTime"
-                    label="加入时间"
-                    width="170"
-                />
-                <el-table-column label="用户类型">
-                    <template #default="{ row }">
-                        {{ ROLE_TYPE[row.roleType] }}
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="lastestLogonTime"
-                    label="最近登录时间"
-                    width="170"
-                />
-                <el-table-column
-                    label="操作"
-                    align="center"
-                    header-align="center"
-                    width="100"
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-dir-close" />
+                    </svg>
+                    未设置标签({{ notSetTageUserCount }})
+                </div>
+                <pl-Tree
+                    class="tag-list-options"
+                    @nodeClick="treeClick"
+                    @change="treeSort"
+                    :tree="tagList"
+                    ref="tree"
+                    :options="{
+                        value: 'id'
+                    }"
                 >
-                    <template slot-scope="{ row }">
-                        <Operating>
-                            <template slot="button-box">
-                                <a
-                                    @click="setTagToMember(row)"
+                    <template slot="treeItemLabel" slot-scope="{ data }">
+                        {{ data.tagName }}
+                    </template>
+                    <template slot="default" slot-scope="{ data }">
+                        <div class="tag-ctrl">
+                            <el-tooltip
+                                class="tag-ctrl-item"
+                                effect="dark"
+                                content="编辑"
+                                placement="top-start"
+                            >
+                                <pl-svg :key="2" name="icon-bianji" @click.stop="editTag(data)" width="12" fill="#598BF8" class="icon" />
+                            </el-tooltip>
+                            <el-tooltip
+                                class="tag-ctrl-item second-item"
+                                effect="dark"
+                                content="删除"
+                                placement="top-start"
+                            >
+                                <pl-svg :key="3" name="icon-shanchu1" @click.stop="deleteTag(data.id)" width="12" fill="#598BF8" class="icon" />
+                            </el-tooltip>
+                        </div>
+                    </template>
+                </pl-Tree>
+
+                <div class="category-drop-tip">
+                    <i>（拖动即可调整同级分类的顺序）</i>
+                </div>
+            </div>
+            <!-- 编辑标签 -->
+            <edit-member-tag
+                :show.sync="showTagBox"
+                :data.sync="currentTag"
+                @editTag="editTagConfirm"
+            />
+            <!-- 会员列表 -->
+            <div class="member-list">
+                <el-table
+                    :data="table"
+                    @selection-change="handleSelectionChange"
+                    class="table-customer"
+                    style="width: 100%"
+                >
+                    <template slot="empty">
+                        <div class="no-data">
+                            <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                            <p>还没有新注册的用户哦~</p>
+                        </div>
+                    </template>
+                    <el-table-column
+                        type="selection"
+                        align="right"
+                        width="55"
+                    />
+                    <el-table-column label="用户信息" width="250">
+                        <template #default="{ row }">
+                            <div class="member-detail">
+                                <img
+                                    :src="row.userImage"
+                                    alt=""
                                 >
+                                <div class="info">
+                                    <div class="intro">
+                                        <span class="user-type">{{ USER_TYPE[row.userType] }}</span>
+                                        <span class="name">{{ row.nickName }}</span>
+                                        <template>
+                                            <pl-svg v-if="row.gender === 0" name="icon-women-be552" width="10" height="10" />
+                                            <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                                        </template>
+                                    </div>
+                                    <div class="tag">
+                                        <template v-if="row.userTags.length">
+                                            <el-tooltip class="item" effect="dark" :content="row.userTags.join('  ')" placement="bottom">
+                                                <span>{{ row.userTags.join('  ') }}</span>
+                                            </el-tooltip>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="userName"
+                        label="真实姓名"
+                    />
+                    <el-table-column
+                        prop="mobile"
+                        label="手机号(账户)"
+                    />
+                    <el-table-column label="用户类型">
+                        <template #default="{ row }">
+                            {{ ROLE_TYPE[row.roleName] }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="userSource"
+                        label="来源"
+                    />
+                    <el-table-column
+                        prop="purchasesNumber"
+                        label="购买次数"
+                    />
+                    <el-table-column label="支付总额（元）">
+                        <template #default="{ row }">
+                            {{ row.purchasesAmount /100 }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="createTime"
+                        label="注册时间"
+                    />
+                    <el-table-column
+                        prop="lastLoginTime"
+                        label="最近登录时间"
+                        width="170"
+                    />
+                    <el-table-column
+                        prop="lastPurchaseTime"
+                        label="最近购买时间"
+                        width="170"
+                    />
+                    <el-table-column
+                        fixed="right"
+                        label="操作"
+                        align="center"
+                        header-align="center"
+                        width="210"
+                    >
+                        <template #default="{ row }">
+                            <div class="operate">
+                                <a @click="$router.push({ name: 'MemberManageDetail', params: { id: row.mallUserId, roleCode: row.roleType, fromRouteName: routeName }, query: { from: 'List' } })">
+                                    详情
+                                </a>
+                                <a @click="setTagToMember(row)">
                                     设置标签
                                 </a>
-                                <a
-                                    @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: row.roleType, fromRouteName: routeName }, query: { from: 'List' } })"
-                                >
-                                    查看
+                                <a @click="setRemarkToMember(row)">
+                                    备注
                                 </a>
-                            </template>
-                        </Operating>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <Pagination
-                @change="getMemberList"
-                @sizeChange="sizeChange"
-                v-model="form.current"
-                :total="total"
-                :sizes="true"
+                            </div>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <Pagination
+                    @change="getMemberList"
+                    @sizeChange="sizeChange"
+                    v-model="form.current"
+                    :total="total"
+                    :sizes="true"
+                />
+            </div>
+            <!-- 添加标签 -->
+            <add-tags
+                :show.sync="showAddTagDialog"
+                :current-member="currentMemberInfo"
+                @confirm="editTagConfirm"
             />
-        </div>
-        <!-- 添加标签 -->
-        <add-tags
-            :show.sync="showAddTagDialog"
-            :current-member="currentMemberInfo"
-            @confirm="editTagConfirm"
-        />
 
-        <!-- 导出 -->
-        <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
-            <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
-                <el-form-item label="搜索关键词" prop="keyword">
-                    <el-input
-                        v-model.trim="exportData.keyword"
-                        placeholder="昵称/手机号"
-                        style="width: 369px;"
-                        clearable
-                    />
-                </el-form-item>
-                <el-form-item prop="roleType" label="用户类型">
-                    <el-select v-model="exportData.roleType" clearable>
-                        <el-option :value="''" label="全部" />
-                        <el-option value="MEMBERSHIP" label="普通会员" />
-                        <el-option value="HELPER" label="Helper" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item prop="tagId" label="用户标签">
-                    <el-select v-model="exportData.tagId" clearable>
-                        <el-option value="" label="全部" />
-                        <el-option :value="0" label="未设置标签" />
-                        <el-option v-for="(item,index) in tagList" :label="item.tagName" :value="item.id" :key="index" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="加入时间" prop="startTime">
-                    <el-radio-group @change="exportRangeChange" v-model="exportData.dateRange">
-                        <el-radio :label="1">
-                            7日内
-                        </el-radio>
-                        <el-radio :label="2">
-                            30日内
-                        </el-radio>
-                        <el-radio :label="3">
-                            自选时间
-                        </el-radio>
-                    </el-radio-group>
-                    <date-range
-                        v-if="showExport"
-                        style="margin-top: 20px"
-                        size="small"
-                        ref="exportDatePicker"
-                        :disabled-start-time="exportData.dateRange !== 3"
-                        :disabled-end-time="exportData.dateRange !== 3"
-                        disable-after
-                        :init="exportData.startTime ? [exportData.startTime,exportData.endTime] : []"
-                        :clearable="true"
-                        @change="exportDatechange"
-                        range-separator="至"
-                        end-label=""
-                    />
-                </el-form-item>
-            </el-form>
-        </ExportDialog>
+            <!-- 导出 -->
+            <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
+                <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
+                    <el-form-item label="搜索关键词" prop="keyword">
+                        <el-input
+                            v-model.trim="exportData.keyword"
+                            placeholder="昵称/手机号"
+                            style="width: 369px;"
+                            clearable
+                        />
+                    </el-form-item>
+                    <el-form-item prop="roleType" label="用户类型">
+                        <el-select v-model="exportData.roleType" clearable>
+                            <el-option :value="''" label="全部" />
+                            <el-option value="MEMBERSHIP" label="普通会员" />
+                            <el-option value="HELPER" label="Helper" />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item prop="tagId" label="用户标签">
+                        <el-select v-model="exportData.tagId" clearable>
+                            <el-option value="" label="全部" />
+                            <el-option :value="0" label="未设置标签" />
+                            <el-option v-for="(item,index) in tagList" :label="item.tagName" :value="item.id" :key="index" />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="加入时间" prop="startTime">
+                        <el-radio-group @change="exportRangeChange" v-model="exportData.dateRange">
+                            <el-radio :label="1">
+                                7日内
+                            </el-radio>
+                            <el-radio :label="2">
+                                30日内
+                            </el-radio>
+                            <el-radio :label="3">
+                                自选时间
+                            </el-radio>
+                        </el-radio-group>
+                        <date-range
+                            v-if="showExport"
+                            style="margin-top: 20px"
+                            size="small"
+                            ref="exportDatePicker"
+                            :disabled-start-time="exportData.dateRange !== 3"
+                            :disabled-end-time="exportData.dateRange !== 3"
+                            disable-after
+                            :init="exportData.startTime ? [exportData.startTime,exportData.endTime] : []"
+                            :clearable="true"
+                            @change="exportDatechange"
+                            range-separator="至"
+                            end-label=""
+                        />
+                    </el-form-item>
+                </el-form>
+            </ExportDialog>
+
+        </div>
     </div>
 </template>
 
@@ -342,6 +456,8 @@ export default class MemberManageList extends Vue {
       roleType: ''
   }
 
+  multipleSelection = []
+  multipleSelectionId =[]
   timeRange = []
   total = 0
   table = []
@@ -362,6 +478,19 @@ export default class MemberManageList extends Vue {
   ROLE_TYPE = {
       MEMBERSHIP: '普通会员',
       HELPER: 'Helper'
+  }
+
+  // TODO.会员统计信息
+  memberData = {
+      data0: 1,
+      data30: 33,
+      data99: 909
+  }
+
+  USER_TYPE = {
+      1: '家',
+      2: '学',
+      3: '其'
   }
 
   noRefresh = true
@@ -484,9 +613,9 @@ export default class MemberManageList extends Vue {
 
   async getMemberNum () {
       try {
-          const { data } = await getMemberNum()
-          this.notSetTageUserCount = data.result.notSetTageUserCount || 0
-          this.userCount = data.result.userCount || 0
+          const { notSetTageUserCount, userCount } = await getMemberNum()
+          this.notSetTageUserCount = notSetTageUserCount || 0
+          this.userCount = userCount || 0
       } catch (e) {
           throw e
       }
@@ -494,12 +623,39 @@ export default class MemberManageList extends Vue {
 
   async getMemberList () {
       try {
-          const { data: res } = await getMemberList(this.form)
-          this.table = res.result.records
-          this.total = res.result.total
+          const { records, total } = await getMemberList(this.form)
+          // todo
+          this.table = records
+
+          this.table = [{
+              userImage: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/年味.png',
+              userType: 1,
+              userTags: ['12312', '2312321', 'sdaid回到家啊'],
+              nickName: 'sadkasod经反复',
+              userName: 'sdajsiodjajdasiod',
+              gender: 1,
+              mobile: '2312314212121',
+              roleName: 'MEMBERSHIP',
+              userSource: '微信',
+              purchasesNumber: '23124',
+              purchasesAmount: '23124',
+              createTime: '2142424412',
+              lastLoginTime: '41241',
+              lastPurchaseTime: '243213'
+          }]
+          this.total = total
           this.getMemberNum()
       } catch (e) {
           throw e
+      }
+  }
+
+  // 处理批量操作数据
+  handleSelectionChange (val) {
+      this.multipleSelection = val
+      this.multipleSelectionId = []
+      for (const i of val) {
+          this.multipleSelectionId.push(i.id)
       }
   }
 
@@ -534,9 +690,18 @@ export default class MemberManageList extends Vue {
       this.getMemberList()
   }
 
+  reset () {
+      console.log(111)
+  }
+
   setTagToMember (row) {
       this.showAddTagDialog = true
       this.currentMemberInfo = row
+  }
+
+  // 设置备注
+  setRemarkToMember () {
+      console.log(111)
   }
 
   // 获取标签列表
@@ -544,7 +709,7 @@ export default class MemberManageList extends Vue {
       try {
           const { data } = await getTagList()
           this.getMemberNum()
-          this.tagList = data.result || []
+          this.tagList = data || []
       } catch (e) {
           throw (e)
       }
@@ -583,122 +748,185 @@ export default class MemberManageList extends Vue {
 </script>
 
 <style lang="scss" scoped>
-    .member {
-        display: flex;
-        width: 1680px;
-        margin: 20px auto 0;
-        background-color: #fff;
-
-        .tag-list {
-            position: relative;
-            z-index: 1;
-            width: 250px;
-            height: calc(100vh - 80px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-            overflow: auto;
-
-            .tag-list-top {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                height: 61px;
-                padding: 0 15px;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .tag-list-default {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-size: 14px;
-                padding: 0 20px;
-                line-height: 50px;
-                border-bottom: 1px solid #e7e7e7;
-                cursor: pointer;
-
-                > .icon {
-                    width: 25px;
-                    height: 18px;
-                }
-
-                > span {
-                    flex: 1;
-                    padding-left: 8px;
-                }
-            }
-
-            .tag-list-options0 {
-                position: relative;
-                padding-left: 38px;
-                line-height: 50px;
-                font-size: var(--fontSize);
-                color: #333;
-                font-weight: bold;
-                user-select: none;
-                height: 50px;
-                svg {
-                    width: 25px;
-                    height: 18px;
-                    margin-right: 10px;
-                    vertical-align: middle;
-                }
-            }
-
-            .tag-list-options {
-                position: relative;
-                .tag-ctrl {
-                    position: absolute;
-                    top: 0;
-                    right: 15px;
-                    display: inline-flex;
-                    justify-content: flex-end;
-                    align-items: center;
-                    width: 100px;
-                    height: 50px;
-                    > .icon {
-                        margin-left: 10px;
-                    }
-                    > .tag-ctrl-item {
-                        display: block;
-                    }
-                }
-            }
-            .category-drop-tip {
-                height: 100px;
-                margin-top: 20px;
-                line-height: 150px;
-                text-align: center;
-                color: #4C88D6;
-                background:  #fff url("https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png") center top/65px auto no-repeat;
-            }
-        }
-
-        .member-list {
-            flex: 1;
-            min-height: calc(100vh - 110px);
-            padding-bottom: 30px;
-            background-color: #ffffff;
-
-            .detail-tags {
-                span {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    max-width: 200px;
-                    height: 18px;
-                    margin: 0 10px 4px 0;
-                    padding: 0 2px;
-                    color: #4C88D6;
-                    font-size: 10px;
-                    border: 1px solid #4C88D6;
+    .data {
+        font-size: 16px;
+        color: #333333;
+        .data-list {
+            display: flex;
+            margin: 20px 0 33px;
+            > div {
+                margin: 0 98px;
+                > b {
+                    display: block;
+                    font-size: 48px;
                 }
             }
         }
     }
+
+    .member-info {
+        display: flex;
+        margin-top: 33px;
+    }
+
+    .tag-list {
+        position: relative;
+        z-index: 1;
+        width: 250px;
+        height: calc(100vh - 80px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        overflow: auto;
+
+        .tag-list-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 61px;
+            padding: 0 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tag-list-default {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            padding: 0 20px;
+            line-height: 50px;
+            border-bottom: 1px solid #e7e7e7;
+            cursor: pointer;
+
+            > .icon {
+                width: 25px;
+                height: 18px;
+            }
+
+            > span {
+                flex: 1;
+                padding-left: 8px;
+            }
+        }
+
+        .tag-list-options0 {
+            position: relative;
+            padding-left: 38px;
+            line-height: 50px;
+            font-size: var(--fontSize);
+            color: #333;
+            font-weight: bold;
+            user-select: none;
+            height: 50px;
+            svg {
+                width: 25px;
+                height: 18px;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+        }
+
+        .tag-list-options {
+            position: relative;
+            .tag-ctrl {
+                position: absolute;
+                top: 0;
+                right: 15px;
+                display: inline-flex;
+                justify-content: flex-end;
+                align-items: center;
+                width: 100px;
+                height: 50px;
+                > .icon {
+                    margin-left: 10px;
+                }
+                > .tag-ctrl-item {
+                    display: block;
+                }
+            }
+        }
+        .category-drop-tip {
+            height: 100px;
+            margin-top: 20px;
+            line-height: 150px;
+            text-align: center;
+            color: #4C88D6;
+            background:  #fff url("https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png") center top/65px auto no-repeat;
+        }
+    }
+
+    .member-list {
+        flex: 1;
+        min-height: calc(100vh - 110px);
+        padding-bottom: 30px;
+        background-color: #ffffff;
+        .no-data {
+            margin-top: 145px;
+            margin-bottom: 249px;
+        }
+        .member-detail {
+            display: flex;
+            > img {
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+                border-radius: 14px;
+            }
+            .info {
+                display: inline-block;
+                .intro {
+                    display: flex;
+                    line-height: 18px;
+                    .user-type {
+                        display: inline-block;
+                        width: 18px;
+                        height: 18px;
+                        border: 1px solid #F79F1A;
+                        border-radius: 5px;
+                        font-size: 12px;
+                        font-family: Microsoft YaHei UI;
+                        font-weight: 600;
+                        line-height: 15px;
+                        text-align: center;
+                        color: #F79F1A;
+                    }
+                    .name {
+                        width: 81px;
+                        margin: 0 6px;
+                        @include elps-wrap(1);
+                    }
+                    >svg {
+                        vertical-align: -2px;
+                    }
+                }
+                .tag {
+                    width: 110px;
+                    color: #999999;
+                    @include elps-wrap(1);
+                }
+            }
+        }
+        .operate {
+          > a {
+              padding: 0 13px;
+              border-left: 1px solid;
+              font-size: 14px;
+              color: #4F63FF;
+              &:first-child {
+                  margin-left: -20px!important;
+              }
+          }
+        }
+    }
+
     .background-color-grey {
         background-color: #eee!important;
     }
     .blue-text {
         color: #4C88D6!important;
+    }
+    .mb-10 {
+        margin-bottom: 10px!important;
+    }
+    .ml-20 {
+        margin-left: 20px!important;
     }
 </style>

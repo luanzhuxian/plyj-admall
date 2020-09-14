@@ -15,7 +15,7 @@ export const getHelperList = ({ realName, mobile, ownnerUserId, current, size, a
  * @param params {Object} { mallUserId, roleCode }
  * @returns {Promise<AxiosResponse<T>>}
  */
-export const memberDetail = params => axios.get('/apis/v1/systemctl/memberManager/member/detail', { params })
+export const getMemberDetail = params => axios.get('/apis/v1/systemctl/memberManager/member/detail', { params })
 
 export const orderRebateInfo = ({ userId }) => axios.get('/apis/v2/order/agency/orderRebateInfo', { params: { userId } })
 
