@@ -24,7 +24,7 @@
                 :inline="true"
                 class="border-bottom mb-20"
             >
-                <el-form-item style="width: 492px;" class="mb-10" label="关键字：">
+                <el-form-item class="mb-10 mr-20" label="关键字：">
                     <el-input
                         clearable
                         @change="search"
@@ -32,7 +32,7 @@
                         v-model="form.keyword"
                     />
                 </el-form-item>
-                <el-form-item style="width: 340px;" class="mb-10" label="用户类型：">
+                <el-form-item class="mb-10 mr-20" label="用户类型：">
                     <el-select
                         v-model="form.roleType"
                         @change="getMemberList"
@@ -43,14 +43,14 @@
                         <el-option value="HELPER" label="Helper" />
                     </el-select>
                 </el-form-item>
-                <el-form-item :span="4" class="mb-10" label="来源：">
-                    <el-select v-model="form.roleType" @change="getMemberList" style="width: 240px;" clearable>
+                <el-form-item :span="4" class="mb-10 mr-20" label="来源：">
+                    <el-select v-model="form.roleType" @change="getMemberList" clearable>
                         <el-option :value="''" label="全部" />
                         <el-option value="MEMBERSHIP" label="微信H5" />
                         <el-option value="HELPER" label="Helper" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="注册时间：" style="width: 492px;" class="mb-10">
+                <el-form-item label="注册时间：" class="mb-10 mr-20">
                     <date-range
                         style="width: 380px;"
                         :init="[form.startTime, form.endTime]"
@@ -60,7 +60,7 @@
                         ref="dateRange"
                     />
                 </el-form-item>
-                <el-form-item label="最近登陆时间：" style="width: 680px;" class="mb-10">
+                <el-form-item label="最近登陆时间：" class="mb-10 mr-20">
                     <date-range
                         style="width: 380px;"
                         :init="[form.startTime, form.endTime]"
@@ -70,7 +70,7 @@
                         ref="dateRange"
                     />
                 </el-form-item>
-                <el-form-item label="最近购买时间：" style="width: 492px;" class="mb-10">
+                <el-form-item label="最近购买时间：" class="mb-10 mr-20">
                     <date-range
                         :init="[form.startTime, form.endTime]"
                         @change="formatTimeRange"
@@ -79,7 +79,7 @@
                         ref="dateRange"
                     />
                 </el-form-item>
-                <el-form-item label="购买次数：" style="width: 800px;" class="mb-10">
+                <el-form-item label="购买次数：" class="mb-10 mr-20">
                     <el-input
                         clearable
                         style="width: 114px;"
@@ -98,7 +98,7 @@
                         v-model="form.keyword"
                     />
                 </el-form-item>
-                <el-form-item label="支付金额：" class="mb-10">
+                <el-form-item label="支付金额：" class="mb-10 mr-20">
                     <el-input
                         clearable
                         style="width: 114px;"
@@ -691,7 +691,16 @@ export default class MemberManageList extends Vue {
   }
 
   reset () {
-      console.log(111)
+      this.form = {
+          keyword: '',
+          current: 1,
+          size: 10,
+          tagId: '',
+          startTime: '',
+          endTime: '',
+          roleType: ''
+      }
+      this.search()
   }
 
   setTagToMember (row) {
@@ -925,6 +934,9 @@ export default class MemberManageList extends Vue {
     }
     .mb-10 {
         margin-bottom: 10px!important;
+    }
+    .mr-20 {
+        margin-right: 20px!important;
     }
     .ml-20 {
         margin-left: 20px!important;

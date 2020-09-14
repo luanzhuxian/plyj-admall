@@ -124,3 +124,6 @@ export const addTagToMember = (userId, tagIds) => axios.post('/apis/v1/mall/user
 
 // 获取未设置标签的用户数量以及所有用户的数量
 export const getMemberNum = () => axios.get('/apis/v1/mall/user/tag/mallTagInfo')
+
+// 查看 当前学员观看列表
+export const getWatchDetailList = params => axios.get('/apis/v1/mall/live/cost/subVideo/view/detail', { params })
