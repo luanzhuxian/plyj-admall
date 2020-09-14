@@ -1,106 +1,145 @@
 <template>
-    <div class="home">
-        <!-- 常用功能 -->
-        <Panel
-            custom-class="functions-panel"
-            title="常用功能"
-            value="更多功能"
-            is-link
-            link-target="pl-cell__value-text"
-            :to="{ name: 'MarketingManage' }"
-        >
-            <div v-for="(item, key) in functionsPanelTmpl" :key="key">
-                <router-link class="functions-panel__item" :to="item.to">
-                    <img class="functions-panel__item-icon" :src="item.icon" alt="">
-                    <div class="functions-panel__item-info">
-                        <div class="functions-panel__item-name" v-text="item.name" />
-                        <div class="functions-panel__item-desc" v-text="item.desc" />
+    <div>
+        <!-- 顶部提醒 -->
+        <div class="new-message" v-if="latestNotification.content && latestNotification.readed === '0'">
+            <div>
+                <pl-svg class="notification-bar__icon" name="icon-sound" width="18" />
+                <b
+                    class="notification-bar__content"
+                    v-if="latestNotification.version"
+                    @click="goDetail(latestNotification.version)"
+                >
+                    {{ latestNotification.title }}
+                </b>
+                <b v-else>
+                    {{ latestNotification.content }}
+                </b>
+                <el-button
+                    v-if="latestNotification.forwardUrl"
+                    class="notification-bar__btn"
+                    type="text"
+                    @click="goMend(latestNotification.forwardUrl)"
+                >
+                    修改资料
+                </el-button>
+            </div>
+            <div class="notification-bar__more">
+                <span>
+                    {{ latestNotification.createTime | dateFormat('YYYY-MM-DD ') }}
+                </span>
+                <el-button
+                    class="notification-bar__btn"
+                    type="text"
+                    @click="$router.push({ name:'Notification' })"
+                >
+                    更多通知
+                </el-button>
+            </div>
+        </div>
+
+        <div class="home">
+            <!-- 常用功能 -->
+            <Panel
+                custom-class="functions-panel"
+                title="常用功能"
+                value="更多功能"
+                is-link
+                link-target="pl-cell__value-text"
+                :to="{ name: 'MarketingManage' }"
+            >
+                <div v-for="(item, key) in functionsPanelTmpl" :key="key">
+                    <router-link class="functions-panel__item" :to="item.to">
+                        <img class="functions-panel__item-icon" :src="item.icon" alt="">
+                        <div class="functions-panel__item-info">
+                            <div class="functions-panel__item-name" v-text="item.name" />
+                            <div class="functions-panel__item-desc" v-text="item.desc" />
+                        </div>
+                    </router-link>
+                </div>
+            </Panel>
+
+            <!-- 待核销订单 -->
+            <Panel custom-class="write-off-panel" title="待核销订单">
+                <div class="write-off-panel__item">
+                    <div>
+                        <div>虚拟商品</div>
+                        <router-link class="write-off-panel__item-number" :to="{ name: ' '}" v-text="homeInfo.virtualCount || 0" />
                     </div>
-                </router-link>
-            </div>
-        </Panel>
-
-        <!-- 待核销订单 -->
-        <Panel custom-class="write-off-panel" title="待核销订单">
-            <div class="write-off-panel__item">
-                <div>
-                    <div>虚拟商品</div>
-                    <router-link class="write-off-panel__item-number" :to="{ name: ' '}" v-text="homeInfo.virtualCount || 0" />
+                    <router-link class="write-off-panel__item-link" :to="{ name: ' '}">
+                        <PlSvg name="icon-arrow-right-large-59f85" width="25" />
+                        <div>查看详情</div>
+                    </router-link>
                 </div>
-                <router-link class="write-off-panel__item-link" :to="{ name: ' '}">
-                    <PlSvg name="icon-arrow-right-large-59f85" width="25" />
-                    <div>查看详情</div>
-                </router-link>
-            </div>
-            <div class="write-off-panel__item">
-                <div>
-                    <div>课程商品</div>
-                    <router-link class="write-off-panel__item-number" :to="{ name: ' '}" v-text="homeInfo.courseCount || 0" />
+                <div class="write-off-panel__item">
+                    <div>
+                        <div>课程商品</div>
+                        <router-link class="write-off-panel__item-number" :to="{ name: ' '}" v-text="homeInfo.courseCount || 0" />
+                    </div>
+                    <router-link class="write-off-panel__item-link" :to="{ name: ' '}">
+                        <PlSvg name="icon-arrow-right-large-59f85" width="25" />
+                        <div>查看详情</div>
+                    </router-link>
                 </div>
-                <router-link class="write-off-panel__item-link" :to="{ name: ' '}">
-                    <PlSvg name="icon-arrow-right-large-59f85" width="25" />
-                    <div>查看详情</div>
+            </Panel>
+
+            <!-- 经营数据 -->
+            <Panel custom-class="operation-panel" title="经营数据">
+                <div class="operation-panel__item" :to="{ name: '' }">
+                    <div class="operation-panel__item-name">支付订单量</div>
+                    <div class="operation-panel__item-total" v-text="homeInfo.orderTotal || 0" />
+                    <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.orderYesterdayAdd || 0}单` }}</div>
+                </div>
+                <div class="operation-panel__item" :to="{ name: '' }">
+                    <div class="operation-panel__item-name">收益总额</div>
+                    <div class="operation-panel__item-total" v-text="homeInfo.revenueTotal || 0" />
+                    <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.revenueYesterdayAdd/100 || 0}单` }}</div>
+                </div>
+                <div class="operation-panel__item" :to="{ name: '' }">
+                    <div class="operation-panel__item-name">会员数</div>
+                    <div class="operation-panel__item-total" v-text="homeInfo.memberTotal || 0" />
+                    <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.memberYesterdayAdds || 0}人` }}</div>
+                </div>
+                <div class="operation-panel__item" :to="{ name: '' }">
+                    <div class="operation-panel__item-name">helper数</div>
+                    <div class="operation-panel__item-total" v-text="homeInfo.helperTotal || 0" />
+                    <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.helperYesterdayAdd || 0}人` }}</div>
+                </div>
+                <div class="operation-panel__item" :to="{ name: '' }">
+                    <div class="operation-panel__item-name">月访客人数</div>
+                    <div class="operation-panel__item-total" v-text="homeInfo.visitorTotal || 0" />
+                    <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.visitorYesterdayAdd || 0}人` }}</div>
+                </div>
+            </Panel>
+
+            <!-- 待办事宜 -->
+            <Panel custom-class="to-do-panel" title="待办事宜">
+                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                    <div class="to-do-panel__item-name">待发货订单</div>
+                    <div class="to-do-panel__item-total" v-text="homeInfo.waitShip || 0" />
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitShip || 0}单` }}</div>
                 </router-link>
-            </div>
-        </Panel>
-
-        <!-- 经营数据 -->
-        <Panel custom-class="operation-panel" title="经营数据">
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">支付订单量</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.orderTotal || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.orderYesterdayAdd || 0}单` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">收益总额</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.revenueTotal || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.revenueYesterdayAdd/100 || 0}单` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">会员数</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.memberTotal || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.memberYesterdayAdds || 0}人` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">helper数</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.helperTotal || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.helperYesterdayAdd || 0}人` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">月访客人数</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.visitorTotal || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.visitorYesterdayAdd || 0}人` }}</div>
-            </router-link>
-        </Panel>
-
-        <!-- 待办事宜 -->
-        <Panel custom-class="to-do-panel" title="待办事宜">
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">待发货订单</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.waitShip || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitShip || 0}单` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">待退款订单</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.waitRefund || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitRefund || 0}单` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: 'HelperReviewList' }">
-                <div class="operation-panel__item-name">待审核Helper</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingReviewHelper || 0}人` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">待审核润笔</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0}人` }}</div>
-            </router-link>
-            <router-link class="operation-panel__item" :to="{ name: '' }">
-                <div class="operation-panel__item-name">待提现审核</div>
-                <div class="operation-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
-                <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0}人` }}</div>
-            </router-link>
-        </Panel>
+                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                    <div class="to-do-panel__item-name">待退款订单</div>
+                    <div class="to-do-panel__item-total" v-text="homeInfo.waitRefund || 0" />
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitRefund || 0}单` }}</div>
+                </router-link>
+                <router-link class="to-do-panel__item" :to="{ name: 'HelperReviewList' }">
+                    <div class="to-do-panel__item-name">待审核Helper</div>
+                    <div class="to-do-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingReviewHelper || 0}人` }}</div>
+                </router-link>
+                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                    <div class="to-do-panel__item-name">待审核润笔</div>
+                    <div class="to-do-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0}人` }}</div>
+                </router-link>
+                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                    <div class="to-do-panel__item-name">待提现审核</div>
+                    <div class="to-do-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0}人` }}</div>
+                </router-link>
+            </Panel>
+        </div>
     </div>
 </template>
 
@@ -433,6 +472,21 @@ export default class Home extends Vue {
         markReaded(ids)
     }
 
+    goDetail (id: string) {
+        this.markReaded()
+        this.$router.push({
+            name: 'NotificationDetail',
+            params: {
+                id
+            }
+        })
+    }
+
+    goMend (name: string) {
+        this.markReaded()
+        this.$router.push({ name })
+    }
+
     // 新流程检查状态
     async newCheckStatus () {
         let status = this.auditStatus
@@ -553,6 +607,18 @@ export default class Home extends Vue {
     grid-gap: 10px;
     padding-bottom: 55px;
     box-sizing: border-box;
+
+    &-link {
+        cursor: pointer;
+        &:hover,
+        &:focus {
+            color: mix(#FFFFFF, #4F63FF, 20%);
+        }
+        &:active {
+            color: mix(#FFFFFF, #4F63FF, 10%);
+        }
+    }
+
     .functions-panel,
     .write-off-panel,
     .operation-panel,
@@ -635,6 +701,7 @@ export default class Home extends Vue {
                 margin-left: 40px;
                 margin-bottom: 13px;
                 color: #4F63FF;
+                @extend .home-link;
                 > svg {
                     margin-bottom: 5px;
                 }
@@ -665,7 +732,6 @@ export default class Home extends Vue {
                 color: #999999;
             }
             &:hover {
-                .operation-panel__item-total,
                 .to-do-panel__item-total {
                     color: #4F63FF;
                 }
@@ -686,9 +752,39 @@ export default class Home extends Vue {
             font-family: Microsoft YaHei;
             color: #4F63FF;
             &-text {
-                cursor: pointer;
+                @extend .home-link;
             }
         }
+    }
+}
+
+.notification-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 52px;
+    padding: 0 24px;
+    background-color: #fff;
+    border: 1px solid #e7e7e7;
+    font-size: 16px;
+    &__icon {
+        margin-right: 20px;
+    }
+    &__content {
+        color: #4F63FF;
+        cursor: pointer
+    }
+    &__btn {
+        font-size: 16px;
+    }
+    &__more {
+        > .notification-bar__btn {
+            margin-left: 32px;
+            color: #4F63FF;
+        }
+
     }
 }
 
