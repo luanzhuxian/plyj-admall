@@ -109,8 +109,9 @@ export default {
     name: 'AddTags',
     props: {
         show: Boolean,
+        isMultiple: Boolean,
         currentMember: {
-            type: Object,
+            type: [Object, Array],
             required: true,
             default () {
                 return {}
@@ -145,6 +146,7 @@ export default {
         currentMember: {
             // 获取已选中标签的id列表
             handler (member) {
+                if (this.isMultiple) return
                 const tags = member.tags || []
                 this.selected = tags.map(item => item.id)
             },
@@ -243,7 +245,8 @@ export default {
                 if (selected.length > 4) {
                     return this.$warning(`标签数量不能超过${ this.maxSetTagNum }个`)
                 }
-                await addTagToMember(this.currentMember.userId, this.selected)
+                const userIds = this.isMultiple ? this.currentMember : [this.currentMember.userId]
+                await addTagToMember(userIds, this.selected)
                 this.close()
             } catch (e) {
                 throw e

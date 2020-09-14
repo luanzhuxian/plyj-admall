@@ -2,20 +2,22 @@
     <el-dialog
         class="select-video"
         :visible="show"
-        width="65%"
+        width="640px"
         title="添加备注"
         @close="closeHandler"
         :close-on-click-modal="false"
+        append-to-body
     >
         <el-form>
             <el-form-item label="备注：">
                 <el-input
-                    width="480px"
-                    height="345px"
+                    style="width: 504px;"
+                    rows="15"
                     clearable
                     type="textarea"
                     placeholder="请输入备注"
                     v-model="form.detail"
+                    maxlength="500"
                 />
             </el-form-item>
         </el-form>
@@ -51,7 +53,7 @@ export default {
         },
         async save () {
             try {
-
+                this.closeHandler()
             } catch (e) {
                 throw e
             }

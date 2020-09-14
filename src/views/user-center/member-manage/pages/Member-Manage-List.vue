@@ -217,6 +217,10 @@
             />
             <!-- 会员列表 -->
             <div class="member-list">
+                <div class="multiple-selection" v-if="multipleSelectionId.length">
+                    <p>已选择<span>{{ multipleSelectionId.length }}</span>个用户</p>
+                    <el-button type="text" @click="setTagToMultipleMember">设置标签</el-button>
+                </div>
                 <el-table
                     :data="table"
                     @selection-change="handleSelectionChange"
@@ -334,7 +338,8 @@
             <!-- 添加标签 -->
             <add-tags
                 :show.sync="showAddTagDialog"
-                :current-member="currentMemberInfo"
+                :is-multiple="isMultiple"
+                :current-member="isMultiple? multipleSelectionId : currentMemberInfo"
                 @confirm="editTagConfirm"
             />
 
@@ -393,6 +398,8 @@
                 </el-form>
             </ExportDialog>
 
+            <!--显示备注信息列表-->
+            <RemarkList :show.sync="isShowRemarkList" :user-id="currentUserId" />
         </div>
     </div>
 </template>
@@ -405,6 +412,7 @@ import ExportDialog from '../../../../components/common/Export-Dialog'
 import PlTree from '../../../../components/pl-tree'
 import EditMemberTag from '../components/Edit-Member-Tag'
 import AddTags from '../components/Add-Tags'
+import RemarkList from '../components/Remark-List'
 
 import {
     getMemberList,
@@ -424,7 +432,8 @@ import moment from 'moment'
         Pagination,
         EditMemberTag,
         AddTags,
-        ExportDialog
+        ExportDialog,
+        RemarkList
     }
 })
 
@@ -472,6 +481,7 @@ export default class MemberManageList extends Vue {
   notSetTageUserCount = 0
   // 全部用户数量
   userCount = 0
+  isMultiple = true
   showAddTagDialog = false
   // 当前用户信息
   currentMemberInfo = {}
@@ -655,7 +665,7 @@ export default class MemberManageList extends Vue {
       this.multipleSelection = val
       this.multipleSelectionId = []
       for (const i of val) {
-          this.multipleSelectionId.push(i.id)
+          this.multipleSelectionId.push(i.userId)
       }
   }
 
@@ -703,14 +713,23 @@ export default class MemberManageList extends Vue {
       this.search()
   }
 
-  setTagToMember (row) {
+  setTagToMultipleMember () {
+      this.isMultiple = true
       this.showAddTagDialog = true
-      this.currentMemberInfo = row
   }
 
+  setTagToMember (row) {
+      this.isMultiple = false
+      this.currentMemberInfo = row
+      this.showAddTagDialog = true
+  }
+
+  isShowRemarkList = false
+  currentUserId = ''
   // 设置备注
-  setRemarkToMember () {
-      console.log(111)
+  setRemarkToMember (row) {
+      this.isShowRemarkList = true
+      this.currentUserId = row.userId
   }
 
   // 获取标签列表
@@ -867,6 +886,15 @@ export default class MemberManageList extends Vue {
         min-height: calc(100vh - 110px);
         padding-bottom: 30px;
         background-color: #ffffff;
+        .multiple-selection {
+            padding-left: 21px;
+            > p {
+                display: inline-block;
+                > span {
+                    color: #4F63FF;
+                }
+            }
+        }
         .no-data {
             margin-top: 145px;
             margin-bottom: 249px;
