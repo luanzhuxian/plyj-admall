@@ -246,78 +246,67 @@
                 <!--购买记录-->
                 <template v-if="tabName === 'OrderList'">
                     <SearchBox>
-                        <el-form
-                            :inline="true"
-                            class="border-bottom mb-20"
-                        >
-                            <el-form-item class="mb-10 mr-20" label="关键字：">
-                                <el-input
-                                    clearable
-                                    style="width: 300px;"
-                                    @change="searchOrderList"
-                                    placeholder="请输入用户昵称/真实姓名/手机号"
-                                    v-model="orderListForm.keyword"
+                        <el-form-item label="关键字：">
+                            <el-input
+                                clearable
+                                style="width: 300px;"
+                                @change="searchOrderList"
+                                placeholder="请输入用户昵称/真实姓名/手机号"
+                                v-model="orderListForm.keyword"
+                            />
+                        </el-form-item>
+                        <el-form-item label="产品类型：">
+                            <el-select
+                                v-model="orderListForm.orderType"
+                                @change="searchOrderList"
+                                clearable
+                            >
+                                <el-option
+                                    v-for="item in Order_Type"
+                                    :key="item.value"
+                                    :value="item.value"
+                                    :label="item.label"
                                 />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="产品类型：">
-                                <el-select
-                                    v-model="orderListForm.orderType"
-                                    @change="searchOrderList"
-                                    clearable
-                                >
-                                    <el-option
-                                        v-for="item in Order_Type"
-                                        :key="item.value"
-                                        :value="item.value"
-                                        :label="item.label"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="支付时间：" class="mb-10 mr-20">
-                                <date-range
-                                    style="width: 380px;"
-                                    :init="[orderListForm.startTime, orderListForm.endTime]"
-                                    @change="formatOrderListTimeRange"
-                                    disable-after
-                                    clearable
-                                    ref="dateRange"
-                                />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="订单状态：">
-                                <el-select
-                                    v-model="orderListForm.roleType"
-                                    @change="searchOrderList"
-                                    clearable
-                                >
-                                    <el-option :value="''" label="全部" />
-                                    <el-option value="MEMBERSHIP" label="普通会员" />
-                                    <el-option value="HELPER" label="Helper" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button
-                                    type="primary"
-                                    style="width:98px"
-                                    @click="searchOrderList"
-                                >
-                                    查询
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mt-20 ml-20">
-                                <el-button
-                                    @click="changeExportOrderList"
-                                    style="width: 98px;"
-                                    type="primary"
-                                    plain
-                                    v-if="orderList && orderList.length"
-                                >
-                                    导出数据
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10">
-                                <el-button type="text" @click="resetOrderList">清空筛选条件</el-button>
-                            </el-form-item>
-                        </el-form>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="支付时间：">
+                            <date-range
+                                style="width: 380px;"
+                                :init="[orderListForm.startTime, orderListForm.endTime]"
+                                @change="formatOrderListTimeRange"
+                                disable-after
+                                clearable
+                                ref="dateRange"
+                            />
+                        </el-form-item>
+                        <el-form-item label="订单状态：">
+                            <el-select
+                                v-model="orderListForm.roleType"
+                                @change="searchOrderList"
+                                clearable
+                            >
+                                <el-option :value="''" label="全部" />
+                                <el-option value="MEMBERSHIP" label="普通会员" />
+                                <el-option value="HELPER" label="Helper" />
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button
+                                type="primary"
+                                @click="searchOrderList"
+                            >
+                                查询
+                            </el-button>
+                            <el-button
+                                @click="changeExportOrderList"
+                                type="primary"
+                                plain
+                                v-if="orderList && orderList.length"
+                            >
+                                导出数据
+                            </el-button>
+                            <el-button type="text" @click="resetOrderList">清空筛选条件</el-button>
+                        </el-form-item>
                     </SearchBox>
                     <div class="list">
                         <el-table
@@ -380,81 +369,70 @@
                 <!--分享记录-->
                 <template v-if="tabName === 'ShareList'">
                     <SearchBox>
-                        <el-form
-                            :inline="true"
-                            class="border-bottom mb-20"
-                        >
-                            <el-form-item class="mb-10 mr-20" label="关键字：">
-                                <el-input
-                                    clearable
-                                    style="width: 300px;"
-                                    @change="searchShareList"
-                                    placeholder="请输入订单号/商品名称/分享人"
-                                    v-model="shareListForm.keyword"
+                        <el-form-item label="关键字：">
+                            <el-input
+                                clearable
+                                style="width: 300px;"
+                                @change="searchShareList"
+                                placeholder="请输入订单号/商品名称/分享人"
+                                v-model="shareListForm.keyword"
+                            />
+                        </el-form-item>
+                        <el-form-item label="产品类型：">
+                            <el-select
+                                v-model="shareListForm.orderType"
+                                @change="searchShareList"
+                                clearable
+                            >
+                                <el-option
+                                    v-for="item in Order_Type"
+                                    :key="item.value"
+                                    :value="item.value"
+                                    :label="item.label"
                                 />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="产品类型：">
-                                <el-select
-                                    v-model="shareListForm.orderType"
-                                    @change="searchShareList"
-                                    clearable
-                                >
-                                    <el-option
-                                        v-for="item in Order_Type"
-                                        :key="item.value"
-                                        :value="item.value"
-                                        :label="item.label"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="订单类型：">
-                                <el-select
-                                    v-model="orderListForm.orderType"
-                                    @change="searchShareList"
-                                    clearable
-                                >
-                                    <el-option
-                                        v-for="item in Order_Type"
-                                        :key="item.value"
-                                        :value="item.value"
-                                        :label="item.label"
-                                    />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="支付时间：">
-                                <date-range
-                                    style="width: 380px;"
-                                    :init="[shareListForm.startTime, shareListForm.endTime]"
-                                    @change="formatShareListTimeRange"
-                                    disable-after
-                                    clearable
-                                    ref="dateRange"
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="订单类型：">
+                            <el-select
+                                v-model="orderListForm.orderType"
+                                @change="searchShareList"
+                                clearable
+                            >
+                                <el-option
+                                    v-for="item in Order_Type"
+                                    :key="item.value"
+                                    :value="item.value"
+                                    :label="item.label"
                                 />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button
-                                    type="primary"
-                                    style="width:98px"
-                                    @click="searchShareList"
-                                >
-                                    查询
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button
-                                    @click="changeExportShareList"
-                                    style="width: 98px;"
-                                    type="primary"
-                                    plain
-                                    v-if="orderList && orderList.length"
-                                >
-                                    导出数据
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10">
-                                <el-button type="text" @click="resetShareList">清空筛选条件</el-button>
-                            </el-form-item>
-                        </el-form>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="支付时间：">
+                            <date-range
+                                style="width: 380px;"
+                                :init="[shareListForm.startTime, shareListForm.endTime]"
+                                @change="formatShareListTimeRange"
+                                disable-after
+                                clearable
+                                ref="dateRange"
+                            />
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button
+                                type="primary"
+                                @click="searchShareList"
+                            >
+                                查询
+                            </el-button>
+                            <el-button
+                                @click="changeExportShareList"
+                                type="primary"
+                                plain
+                                v-if="orderList && orderList.length"
+                            >
+                                导出数据
+                            </el-button>
+                            <el-button type="text" @click="resetShareList">清空筛选条件</el-button>
+                        </el-form-item>
                     </SearchBox>
                     <div class="list">
                         <el-table
@@ -529,75 +507,64 @@
                 <!--直播观看记录-->
                 <template v-if="tabName === 'LiveWatchList'">
                     <SearchBox>
-                        <el-form
-                            :inline="true"
-                            class="border-bottom mb-20"
-                        >
-                            <el-form-item class="mb-10 mr-20" label="关键字：">
-                                <el-input
-                                    clearable
-                                    style="width: 300px;"
-                                    @change="searchLiveWatchList"
-                                    placeholder="请输入直播名称"
-                                    v-model="liveWatchListForm.keyword"
-                                />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="类型：">
-                                <el-select
-                                    v-model="liveWatchListForm.liveType"
-                                    @change="searchLiveWatchList"
-                                    clearable
-                                >
-                                    <el-option :value="''" label="全部" />
-                                    <el-option :value="1" label="直播" />
-                                    <el-option :value="2" label="录播" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="形式：">
-                                <el-select
-                                    v-model="liveWatchListForm.pattern"
-                                    @change="searchLiveWatchList"
-                                    clearable
-                                >
-                                    <el-option :value="''" label="全部" />
-                                    <el-option :value="1" label="直播" />
-                                    <el-option :value="2" label="录播" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="直播时间：">
-                                <date-range
-                                    style="width: 380px;"
-                                    :init="[liveWatchListForm.startTime, liveWatchListForm.endTime]"
-                                    @change="formatShareListTimeRange"
-                                    disable-after
-                                    clearable
-                                    ref="dateRange"
-                                />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button
-                                    type="primary"
-                                    style="width:98px"
-                                    @click="searchLiveWatchList"
-                                >
-                                    查询
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button
-                                    @click="changeExportLiveWatchList"
-                                    style="width: 98px;"
-                                    type="primary"
-                                    plain
-                                    v-if="liveWatchList && liveWatchList.length"
-                                >
-                                    导出数据
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button type="text" @click="resetLiveWatchList">清空筛选条件</el-button>
-                            </el-form-item>
-                        </el-form>
+                        <el-form-item label="关键字：">
+                            <el-input
+                                clearable
+                                style="width: 300px;"
+                                @change="searchLiveWatchList"
+                                placeholder="请输入直播名称"
+                                v-model="liveWatchListForm.keyword"
+                            />
+                        </el-form-item>
+                        <el-form-item label="类型：">
+                            <el-select
+                                v-model="liveWatchListForm.liveType"
+                                @change="searchLiveWatchList"
+                                clearable
+                            >
+                                <el-option :value="''" label="全部" />
+                                <el-option :value="1" label="直播" />
+                                <el-option :value="2" label="录播" />
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="形式：">
+                            <el-select
+                                v-model="liveWatchListForm.pattern"
+                                @change="searchLiveWatchList"
+                                clearable
+                            >
+                                <el-option :value="''" label="全部" />
+                                <el-option :value="1" label="直播" />
+                                <el-option :value="2" label="录播" />
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="直播时间：">
+                            <date-range
+                                style="width: 380px;"
+                                :init="[liveWatchListForm.startTime, liveWatchListForm.endTime]"
+                                @change="formatShareListTimeRange"
+                                disable-after
+                                clearable
+                                ref="dateRange"
+                            />
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button
+                                type="primary"
+                                @click="searchLiveWatchList"
+                            >
+                                查询
+                            </el-button>
+                            <el-button
+                                @click="changeExportLiveWatchList"
+                                type="primary"
+                                plain
+                                v-if="liveWatchList && liveWatchList.length"
+                            >
+                                导出数据
+                            </el-button>
+                            <el-button type="text" @click="resetLiveWatchList">清空筛选条件</el-button>
+                        </el-form-item>
                     </SearchBox>
                     <div class="list">
                         <el-table
@@ -668,75 +635,64 @@
                 <!--云课堂学习进度-->
                 <template v-if="tabName === 'LineLearningList'">
                     <SearchBox>
-                        <el-form
-                            :inline="true"
-                            class="border-bottom mb-20"
-                        >
-                            <el-form-item class="mb-10 mr-20" label="关键字：">
-                                <el-input
-                                    clearable
-                                    style="width: 300px;"
-                                    @change="searchLineLearningList"
-                                    placeholder="请输入课程名称"
-                                    v-model="lineLearningListForm.keyword"
-                                />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="类型：">
-                                <el-select
-                                    v-model="lineLearningListForm.type"
-                                    @change="searchLineLearningList"
-                                    clearable
-                                >
-                                    <el-option :value="''" label="全部" />
-                                    <el-option :value="1" label="视频单课" />
-                                    <el-option :value="2" label="系列课" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20" label="分类：">
-                                <el-select
-                                    v-model="lineLearningListForm.classifyId"
-                                    @change="searchLineLearningList"
-                                    clearable
-                                >
-                                    <el-option :value="''" label="全部" />
-                                    <el-option :value="1" label="直播" />
-                                    <el-option :value="2" label="录播" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="首次观看时间：" class="mb-10 mr-20">
-                                <date-range
-                                    style="width: 380px;"
-                                    :init="[lineLearningListForm.startTime, lineLearningListForm.endTime]"
-                                    @change="formatLineLearningListTimeRange"
-                                    disable-after
-                                    clearable
-                                    ref="dateRange"
-                                />
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button
-                                    type="primary"
-                                    style="width:98px"
-                                    @click="searchLineLearningList"
-                                >
-                                    查询
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10 mr-20">
-                                <el-button
-                                    @click="changeExportLineLearningList"
-                                    style="width: 98px;"
-                                    type="primary"
-                                    plain
-                                    v-if="lineLearningList && lineLearningList.length"
-                                >
-                                    导出数据
-                                </el-button>
-                            </el-form-item>
-                            <el-form-item class="mb-10">
-                                <el-button type="text" @click="resetLineLearningList">清空筛选条件</el-button>
-                            </el-form-item>
-                        </el-form>
+                        <el-form-item label="关键字：">
+                            <el-input
+                                clearable
+                                style="width: 300px;"
+                                @change="searchLineLearningList"
+                                placeholder="请输入课程名称"
+                                v-model="lineLearningListForm.keyword"
+                            />
+                        </el-form-item>
+                        <el-form-item label="类型：">
+                            <el-select
+                                v-model="lineLearningListForm.type"
+                                @change="searchLineLearningList"
+                                clearable
+                            >
+                                <el-option :value="''" label="全部" />
+                                <el-option :value="1" label="视频单课" />
+                                <el-option :value="2" label="系列课" />
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="分类：">
+                            <el-select
+                                v-model="lineLearningListForm.classifyId"
+                                @change="searchLineLearningList"
+                                clearable
+                            >
+                                <el-option :value="''" label="全部" />
+                                <el-option :value="1" label="直播" />
+                                <el-option :value="2" label="录播" />
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="首次观看时间：">
+                            <date-range
+                                style="width: 380px;"
+                                :init="[lineLearningListForm.startTime, lineLearningListForm.endTime]"
+                                @change="formatLineLearningListTimeRange"
+                                disable-after
+                                clearable
+                                ref="dateRange"
+                            />
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button
+                                type="primary"
+                                @click="searchLineLearningList"
+                            >
+                                查询
+                            </el-button>
+                            <el-button
+                                @click="changeExportLineLearningList"
+                                type="primary"
+                                plain
+                                v-if="lineLearningList && lineLearningList.length"
+                            >
+                                导出数据
+                            </el-button>
+                            <el-button type="text" @click="resetLineLearningList">清空筛选条件</el-button>
+                        </el-form-item>
                     </SearchBox>
                     <div class="list">
                         <el-table

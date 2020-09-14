@@ -20,128 +20,114 @@
         </div>
         <!--搜索-->
         <SearchBox>
-            <el-form
-                :inline="true"
-                class="border-bottom mb-20"
-            >
-                <el-form-item class="mb-10 mr-20" label="关键字：">
-                    <el-input
-                        clearable
-                        @change="search"
-                        placeholder="请输入用户昵称/真实姓名/手机号"
-                        v-model="form.keyword"
-                    />
-                </el-form-item>
-                <el-form-item class="mb-10 mr-20" label="用户类型：">
-                    <el-select
-                        v-model="form.roleType"
-                        @change="getMemberList"
-                        clearable
-                    >
-                        <el-option :value="''" label="全部" />
-                        <el-option value="MEMBERSHIP" label="普通会员" />
-                        <el-option value="HELPER" label="Helper" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item :span="4" class="mb-10 mr-20" label="来源：">
-                    <el-select v-model="form.roleType" @change="getMemberList" clearable>
-                        <el-option :value="''" label="全部" />
-                        <el-option value="MEMBERSHIP" label="微信H5" />
-                        <el-option value="HELPER" label="Helper" />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="注册时间：" class="mb-10 mr-20">
-                    <date-range
-                        style="width: 380px;"
-                        :init="[form.startTime, form.endTime]"
-                        @change="formatTimeRange"
-                        disable-after
-                        clearable
-                        ref="dateRange"
-                    />
-                </el-form-item>
-                <el-form-item label="最近登陆时间：" class="mb-10 mr-20">
-                    <date-range
-                        style="width: 380px;"
-                        :init="[form.startTime, form.endTime]"
-                        @change="formatTimeRange"
-                        disable-after
-                        clearable
-                        ref="dateRange"
-                    />
-                </el-form-item>
-                <el-form-item label="最近购买时间：" class="mb-10 mr-20">
-                    <date-range
-                        :init="[form.startTime, form.endTime]"
-                        @change="formatTimeRange"
-                        disable-after
-                        clearable
-                        ref="dateRange"
-                    />
-                </el-form-item>
-                <el-form-item label="购买次数：" class="mb-10 mr-20">
-                    <el-input
-                        clearable
-                        style="width: 114px;"
-                        size="small"
-                        @change="search"
-                        placeholder="请输入次数"
-                        v-model="form.keyword"
-                    />
-                    至
-                    <el-input
-                        clearable
-                        style="width: 114px;"
-                        size="small"
-                        @change="search"
-                        placeholder="请输入次数"
-                        v-model="form.keyword"
-                    />
-                </el-form-item>
-                <el-form-item label="支付金额：" class="mb-10 mr-20">
-                    <el-input
-                        clearable
-                        style="width: 114px;"
-                        size="small"
-                        @change="search"
-                        placeholder="请输入金额"
-                        v-model="form.keyword"
-                    />
-                    至
-                    <el-input
-                        clearable
-                        style="width: 114px;"
-                        size="small"
-                        @change="search"
-                        placeholder="请输入金额"
-                        v-model="form.keyword"
-                    />
-                </el-form-item>
-                <br>
-                <el-form-item class="mb-10">
-                    <el-button
-                        type="primary"
-                        style="width:98px"
-                        @click="search"
-                    >
-                        查询
-                    </el-button>
-                </el-form-item>
-                <el-form-item class="mb-10 ml-20">
-                    <el-button
-                        @click="changeExport"
-                        style="width: 98px;"
-                        type="primary"
-                        plain
-                        v-if="table && table.length"
-                    >
-                        导出数据
-                    </el-button>
-                </el-form-item>
-                <el-form-item class="mb-10 ml-20">
-                    <el-button type="text" @click="reset">清空筛选条件</el-button>
-                </el-form-item>
-            </el-form>
+            <el-form-item label="关键字：">
+                <el-input
+                    clearable
+                    @change="search"
+                    placeholder="请输入用户昵称/真实姓名/手机号"
+                    v-model="form.keyword"
+                />
+            </el-form-item>
+            <el-form-item label="用户类型：">
+                <el-select
+                    v-model="form.roleType"
+                    @change="getMemberList"
+                    clearable
+                >
+                    <el-option :value="''" label="全部" />
+                    <el-option value="MEMBERSHIP" label="普通会员" />
+                    <el-option value="HELPER" label="Helper" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="来源：">
+                <el-select v-model="form.roleType" @change="getMemberList" clearable>
+                    <el-option :value="''" label="全部" />
+                    <el-option value="MEMBERSHIP" label="微信H5" />
+                    <el-option value="HELPER" label="Helper" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="注册时间：">
+                <date-range
+                    :init="[form.startTime, form.endTime]"
+                    @change="formatTimeRange"
+                    disable-after
+                    clearable
+                    ref="dateRange"
+                />
+            </el-form-item>
+            <el-form-item label="最近登陆时间：">
+                <date-range
+                    :init="[form.startTime, form.endTime]"
+                    @change="formatTimeRange"
+                    disable-after
+                    clearable
+                    ref="dateRange"
+                />
+            </el-form-item>
+            <el-form-item label="最近购买时间：">
+                <date-range
+                    :init="[form.startTime, form.endTime]"
+                    @change="formatTimeRange"
+                    disable-after
+                    clearable
+                    ref="dateRange"
+                />
+            </el-form-item>
+            <el-form-item label="购买次数：">
+                <el-input
+                    clearable
+                    size="small"
+                    style="width: 116px"
+                    @change="search"
+                    placeholder="请输入次数"
+                    v-model="form.keyword"
+                />
+                至
+                <el-input
+                    clearable
+                    size="small"
+                    style="width: 116px"
+                    @change="search"
+                    placeholder="请输入次数"
+                    v-model="form.keyword"
+                />
+            </el-form-item>
+            <el-form-item label="支付金额：">
+                <el-input
+                    clearable
+                    size="small"
+                    style="width: 116px"
+                    @change="search"
+                    placeholder="请输入金额"
+                    v-model="form.keyword"
+                />
+                至
+                <el-input
+                    clearable
+                    size="small"
+                    style="width: 116px"
+                    @change="search"
+                    placeholder="请输入金额"
+                    v-model="form.keyword"
+                />
+            </el-form-item>
+            <el-form-item>
+                <el-button
+                    type="primary"
+                    @click="search"
+                >
+                    查询
+                </el-button>
+                <el-button
+                    @click="changeExport"
+                    type="primary"
+                    plain
+                    v-if="table && table.length"
+                >
+                    导出数据
+                </el-button>
+                <el-button type="text" @click="reset">清空筛选条件</el-button>
+            </el-form-item>
         </SearchBox>
         <div class="member-info">
             <!-- 左侧标签列表 -->
@@ -959,14 +945,5 @@ export default class MemberManageList extends Vue {
     }
     .blue-text {
         color: #4C88D6!important;
-    }
-    .mb-10 {
-        margin-bottom: 10px!important;
-    }
-    .mr-20 {
-        margin-right: 20px!important;
-    }
-    .ml-20 {
-        margin-left: 20px!important;
     }
 </style>
