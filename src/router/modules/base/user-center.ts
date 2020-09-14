@@ -3,7 +3,7 @@ export default [
         path: '/user-center',
         redirect: '/user-center/member-manage/member-manage-list',
         name: 'UserCenter',
-        component: () => import('../views/user-center/Index.vue'),
+        component: () => import('../../../views/user-center/Index.vue'),
         meta: {
             title: '用户中心'
         },
@@ -11,7 +11,7 @@ export default [
             {
                 path: 'member-manage',
                 name: 'MemberManage',
-                component: () => import('../views/user-center/member-manage/Index.vue'),
+                component: () => import('../../../views/user-center/member-manage/Index.vue'),
                 redirect: '/user-center/member-manage/member-manage-list',
                 meta: {
                     title: '用户管理'
@@ -21,7 +21,7 @@ export default [
                     {
                         path: 'member-manage-list',
                         name: 'MemberManageList',
-                        component: () => import('../views/user-center/member-manage/pages/Member-Manage-List.vue'),
+                        component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-List.vue'),
                         meta: {
                             title: '会员管理'
                         }
@@ -30,7 +30,7 @@ export default [
                     {
                         path: 'member-manage-detail',
                         name: 'MemberManageDetail',
-                        component: () => import('../views/user-center/member-manage/pages/Member-Manage-Detail.vue'),
+                        component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-Detail.vue'),
                         meta: {
                             title: '会员管理'
                         }
@@ -39,7 +39,7 @@ export default [
                     {
                         path: 'vistor-manage-list',
                         name: 'VistorManageList',
-                        component: () => import('../views/user-center/member-manage/pages/Visitor-Manage-List.vue'),
+                        component: () => import('../../../views/user-center/member-manage/pages/Visitor-Manage-List.vue'),
                         meta: {
                             title: '游客管理'
                         }
@@ -50,7 +50,7 @@ export default [
                 path: 'helper-manage',
                 name: 'HelperManage',
                 redirect: '/user-center/helper-manage/helper-manage-list',
-                component: () => import('../views/user-center/helper-manage/Index.vue'),
+                component: () => import('../../../views/user-center/helper-manage/Index.vue'),
                 meta: {
                     title: 'Helper管理'
                 },
@@ -59,7 +59,7 @@ export default [
                     {
                         path: 'helper-manage-list',
                         name: 'HelperManageList',
-                        component: () => import('../views/user-center/helper-manage/pages/Helper-Manage-List.vue'),
+                        component: () => import('../../../views/user-center/helper-manage/pages/Helper-Manage-List.vue'),
                         meta: {
                             title: 'Helper管理'
                         }
@@ -68,7 +68,7 @@ export default [
                     {
                         path: 'helper-review-list',
                         name: 'HelperReviewList',
-                        component: () => import('../views/user-center/helper-manage/pages/Helper-Review-List.vue'),
+                        component: () => import('../../../views/user-center/helper-manage/pages/Helper-Review-List.vue'),
                         meta: {
                             title: 'helper审核'
                         }
@@ -77,7 +77,7 @@ export default [
                     {
                         path: 'helper-detail',
                         name: 'HelperDetail',
-                        component: () => import('../views/user-center/helper-manage/pages/Helper-Detail.vue'),
+                        component: () => import('../../../views/user-center/helper-manage/pages/Helper-Detail.vue'),
                         meta: {
                             title: 'helper详情'
                         }

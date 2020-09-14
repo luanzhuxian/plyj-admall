@@ -281,3 +281,17 @@ export const resetForm = function (form: any, def: any = {}) {
         }
     }
 }
+
+/**
+ * 自动导入文件
+ * @param context webpackContext
+ */
+export const importFiles = (context: any): any[] => {
+    const files = []
+    for (const key of context.keys()) {
+        const file = context(key).default || context(key)
+        files.push(...file)
+    }
+    console.log(files)
+    return files
+}

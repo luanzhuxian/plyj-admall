@@ -4,12 +4,9 @@ import Router from 'vue-router'
 import NProgress from 'nprogress'
 import qs from 'qs'
 // import NotFound from '../views/404.vue'
-import login from './login.ts'
-import marketingManage from './marketing-manage/index.ts'
-import baseSetting from './base-setting/index.ts'
-import userCenter from './user-center.ts'
 
 import Home from '../views/Home.vue'
+import { importFiles } from './../assets/ts/utils'
 
 Vue.use(Router)
 
@@ -57,13 +54,8 @@ Router.prototype.replace = function replace (location, onResolve, onReject) {
         })
 }
 
-// 导入其他同层路由文件
-// const importRoutes = []
-// let [files, file] = [require.context('./', false, /\/((?!index).)+\.js$/)]
-// for (const key of files.keys()) {
-//     file = files(key).default || files(key)
-//     importRoutes.push(...file)
-// }
+const context = require.context('./modules', true, /index\.ts$/)
+const importRoutes = importFiles(context)
 
 const routes = [
     {
@@ -74,11 +66,7 @@ const routes = [
             title: '首页'
         }
     },
-    // ...importRoutes
-    ...login,
-    ...userCenter,
-    ...marketingManage,
-    ...baseSetting
+    ...importRoutes
 ]
 
 export const router = new Router({
@@ -110,3 +98,4 @@ export const afterEach = () => {
 }
 router.beforeResolve(beforeResolve)
 router.afterEach(afterEach)
+window.aa = router
