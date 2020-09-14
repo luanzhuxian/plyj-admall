@@ -56,8 +56,8 @@ function getListByParent (parentCode) {
       }
       // 如果数据库无数据，则从服务器获取，并将获取到的数据写入数据库
       if (list.length === 0) {
-        const { data } = await getCityListByParentId(parentCode)
-        list = data.result
+        const { result } = await getCityListByParentId(parentCode)
+        list = result
         let store = getStore(db, 'cities')
         for (const item of list) {
           // 是否为叶子节点，即最后一级

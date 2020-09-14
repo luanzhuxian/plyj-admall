@@ -17,3 +17,9 @@ export const getSTS = () => axios.get('/apis/v1/oss/upload/sts')
  */
 type VerifyCodeFunType = (arg: { smsType: SmsType; mobile: string }) => Promise<object>
 export const getVerifyCodeFunc: VerifyCodeFunType = ({ smsType = '', mobile = '' }) => axios.post(`/apis/v1/systemctl/sms/${ smsType }/verify/${ mobile }`)
+
+/**
+ * 获取数据字典
+ * @param type
+ */
+export const getDataDictionary = (type: string) => axios.get(`/apis/v1/systemctl/sysdictionary/detail/list/${ type }`)

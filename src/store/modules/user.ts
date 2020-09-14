@@ -327,7 +327,6 @@ const user: Module<DynamicObject, DynamicObject> = {
         async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state }) {
             // 日志系统getters暂时删除
             try {
-                console.log(123)
                 await dispatch(types.AGENCY_USER_INFO)
                 await dispatch(types.SET_POWER_LIST)
                 await dispatch(types.GET_CLASSIFY_TREE)

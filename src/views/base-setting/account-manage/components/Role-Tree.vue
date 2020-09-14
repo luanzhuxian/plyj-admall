@@ -45,8 +45,8 @@
     </div>
 </template>
 
-<script>
-import { getAllRolesByCode } from '../../../../apis/setting.js'
+<script lang="ts">
+import { getAllRolesByCode } from '../../../../apis/setting'
 export default {
     name: 'RoleTree',
     data () {
