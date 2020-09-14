@@ -28,6 +28,10 @@ export default class LogisticsManage extends Vue {
         }
     ]
 
+    created () {
+        this.currentTab = this.$route.name
+    }
+
     tabClick (data) {
         this.currentTab = data.name
         this.$router.push({ name: data.name })

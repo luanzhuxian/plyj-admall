@@ -20,7 +20,7 @@ const { VUE_APP_MODEL } = process.env
 
 /* code码 */
 const SUCCESS_CODE = 2000
-const EXCEPTION_CODE = 5000
+// const EXCEPTION_CODE = 5000
 const TOKEN_TIME_OUT = 4002
 
 let reqCount = 0
@@ -97,14 +97,12 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         }
         return data
     }
-
-    if (data.code === SUCCESS_CODE || data.code === 4000 || data.code >= EXCEPTION_CODE) {
+    // if (data.code === EXCEPTION_CODE) {
+    // }
+    if (data.code === SUCCESS_CODE) {
         response.data.result = response.data.data
         delete response.data.data
         return response.data
-    }
-
-    if (data.code === EXCEPTION_CODE) {
     }
     if (data.code === TOKEN_TIME_OUT) {
         Cookie.remove('token')

@@ -40,6 +40,19 @@ for (const name of Object.keys(filter)) {
 startQiankun()
 
 Vue.config.productionTip = false
+
+/* 处理所有组件抛出的错误 */
+Vue.config.errorHandler = function (err, vm) {
+    if (err) {
+        // 响应出错
+        if (err.name === 'ResponseError') {
+            const error = JSON.parse(err.message)
+            vm.$error(error.message)
+        }
+        console.error(err)
+    }
+}
+
 /* eslint-disable no-new */
 new Vue({
     el: '#main-app',
