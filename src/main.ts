@@ -17,8 +17,6 @@ import filter from './filter'
 import './assets/scss/index.scss'
 import './assets/ts/axios-config'
 
-import startQiankun from './micro'
-
 /* 注册全局组件 */
 Vue.component(PlSvg.name, PlSvg)
 Vue.component(DateRange.name, DateRange)
@@ -36,8 +34,6 @@ for (const k of Object.keys(directive)) {
 for (const name of Object.keys(filter)) {
     Vue.filter(name, filter[name])
 }
-
-startQiankun()
 
 Vue.config.productionTip = false
 

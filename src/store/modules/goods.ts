@@ -65,11 +65,11 @@ const goodsManage: Module<DynamicObject, DynamicObject> = {
     actions: {
 
         /**
-     * 获取分类
-     * @param commit
-     * @param type {number} 1 商品分类 2 课程分类
-     * @return {Promise<void>}
-     */
+         * 获取分类
+         * @param commit
+         * @param type {number} 1 商品分类 2 课程分类
+         * @return {Promise<void>}
+         */
         [GET_CLASSIFY_TREE]: async ({ commit }, type) => {
             if (type === 1) {
                 const { result: goodsCategory } = await getCategoryTree()

@@ -73,6 +73,7 @@ const user: Module<DynamicObject, DynamicObject> = {
     },
     mutations: {
         [types.SET_LOGININFO]: (state, payload) => {
+            console.log(payload)
             if (payload) {
                 Cookie.set('token', payload.token, {
                     expires: CalcCookieTime(payload.expire)
@@ -224,17 +225,17 @@ const user: Module<DynamicObject, DynamicObject> = {
                 throw e
             }
         },
-        async mobileLogin ({ commit, dispatch }, form) {
-            try {
-                const data = await mobileLogin(form)
-                commit(types.SET_LOGININFO, data.result)
-                await dispatch(types.GET_AGENCY_LIST)
-                return data.result
-            } catch (e) {
-                commit(types.LOGOUT)
-                throw e
-            }
-        },
+        // async mobileLogin ({ commit, dispatch }, form) {
+        //     try {
+        //         const data = await mobileLogin(form)
+        //         commit(types.SET_LOGININFO, data.result)
+        //         await dispatch(types.GET_AGENCY_LIST)
+        //         return data.result
+        //     } catch (e) {
+        //         commit(types.LOGOUT)
+        //         throw e
+        //     }
+        // },
         async wxLogin ({ commit, dispatch }, form) {
             try {
                 const data = await mobileLogin(form)
@@ -329,7 +330,6 @@ const user: Module<DynamicObject, DynamicObject> = {
             try {
                 await dispatch(types.AGENCY_USER_INFO)
                 await dispatch(types.SET_POWER_LIST)
-                await dispatch(types.GET_CLASSIFY_TREE)
                 if (state.REG_TYPE === 2) {
                     // 新流程
                     await dispatch(types.WECHAT_PAY_STATUS)

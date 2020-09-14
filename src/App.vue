@@ -33,7 +33,10 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import MainNavbar from './components/common/Main-Navbar.vue'
 import Header from './components/common/Header.vue'
 import { namespace } from 'vuex-class'
+import startQiankun from './micro'
+
 const userModule = namespace('user')
+const goodsModule = namespace('goods')
 
 @Component({
     components: {
@@ -70,8 +73,6 @@ export default class App extends Vue {
     @Watch('routeName')
     onrouteName (val: string) {
         console.log(val)
-        console.log(val)
-        console.log(val)
     }
 
     @userModule.Getter('currentStep') currentStep!: number
@@ -79,10 +80,11 @@ export default class App extends Vue {
     @userModule.Getter('agencyCode') agencyCode!: string
     @userModule.Action('SET_LOGININFO') SET_LOGININFO!: Function
     @userModule.Action('GET_ALL_MALL_INFO') GET_ALL_MALL_INFO!: Function
+    @goodsModule.Action('GET_CLASSIFY_TREE') getClassifyTree!: Function
 
     @userModule.Mutation('LOGOUT') LOGOUT!: Function
 
-    mounted () {
+    created () {
         try {
             this.step()
         } catch (e) {
@@ -109,7 +111,8 @@ export default class App extends Vue {
                 return
             }
             // this.loaded = true
-            // await this[GET_CLASSIFY_TREE]()
+            await this.getClassifyTree()
+            startQiankun()
         } catch (e) {
             throw e
         }
