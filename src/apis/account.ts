@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 // 获取账户首页信息
 export const AccountInfo = () => axios.get('/apis/v1/systemctl/account/index')
 

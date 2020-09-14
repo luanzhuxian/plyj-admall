@@ -1,5 +1,61 @@
 <template>
-    <div class="account-list wrap">
+    <div :class="$style.accountManage">
+        <div :class="$style.accountInfo">
+            <div :class="$style.head">
+                <div :class="$style.label">账号管理</div>
+                <div :class="$style.desc">您可新增管理机构店铺的账号了</div>
+            </div>
+            <div :class="$style.content">
+                <div>
+                    <el-button
+                        round
+                        type="primary"
+                        @click="$router.push({ name: 'AddAccount', params: { mode: 'EMPLOYEE' } })"
+                    >
+                        添加账号
+                        <i class="el-icon-plus" />
+                    </el-button>
+                </div>
+                <div :class="$style.infoBox">
+                    <div :class="$style.title">
+                        企业管理员
+                        <el-tooltip placement="top">
+                            <template #content>
+                                账号是包括角色为企业管理员、高级管理员或自子账号的所有账号；<br>
+                                其中超级管理员仅关联1个账号；
+                            </template>
+                            <div :class="$style.descTip">?</div>
+                        </el-tooltip>
+                    </div>
+                    <div :class="$style.account">
+                        <div :class="$style.number">
+                            账号：{{ enterpriseAdminModel.mobile }}
+                            <span :class="$style.tip">当前账号</span>
+                        </div>
+                        <div :class="$style.name">姓名：{{ enterpriseAdminModel.name }}</div>
+                    </div>
+                </div>
+                <div :class="$style.infoBox">
+                    <div :class="$style.title">
+                        普通账号
+                        <el-tooltip placement="top">
+                            <template #content>
+                                高级管理员角色至多可关联4个账号，高级管理员角色拥有除<br>
+                                不可管理企业管理员之外的店铺最高管理操作权限；<br>
+                                子账号至多可添加 {{ employeeModel.maxCount }} 个，支持自定义配置权限
+                            </template>
+                            <div :class="$style.descTip">?</div>
+                        </el-tooltip>
+                    </div>
+                    <div :class="$style.progressBox">
+                        <div :class="$style.progress">
+                            <div :class="$style.bar" :style="{ width: `${employeeModel.currentCount / employeeModel.maxCount * 100}%` }" />
+                        </div>
+                        <div>{{ employeeModel.currentCount }}/{{ employeeModel.maxCount }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <search-box label-width="85px">
             <el-form-item label="搜索内容：">
                 <el-input
@@ -46,14 +102,6 @@
         </search-box>
 
         <div class="mt-24">
-            <router-link :to="{name:'AddAccount',params:{mode:'EMPLOYEE'}}">
-                <el-button
-                    round
-                    type="primary"
-                >
-                    新增
-                </el-button>
-            </router-link>
             <el-table :data="table">
                 <el-table-column
                     prop="realName"
@@ -170,7 +218,7 @@
                                 >
                                     查看
                                 </a>
-                                <div class="switch-box">
+                                <div :class="$style.switchBox">
                                     <el-switch
                                         :disabled="canEdit(row)"
                                         v-model="row.lockStatus"
@@ -201,15 +249,18 @@
     </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex'
+<script lang='ts'>
+import { Vue, Component } from 'vue-property-decorator'
+import { Getter } from 'vuex-class'
 import {
+    AccountInfo,
     getAccounts,
     deleteAccount,
     enableAccount,
     downgradeAccount,
     editAccount
-} from '../../../../apis/account.js'
+} from '../../../../apis/account'
+
 class Filter {
   current = 1
   size = 10
@@ -235,163 +286,244 @@ class Account {
       }
   }
 }
-export default {
-    name: 'AccountList',
-    data () {
-        return {
-            statusOptions: [
-                { label: '全部', value: null },
-                { label: '已开启', value: 1 },
-                { label: '已禁用', value: 0 }
-            ],
-            dateRange: [],
-            filter: new Filter(),
-            table: [],
-            total: 0,
-            isEdit: false,
-            account: new Account()
+
+@Component
+export default class AccountList extends Vue {
+    @Getter userId!: string;
+    @Getter currentRoleCode!: string;
+
+    statusOptions = [
+        { label: '全部', value: null },
+        { label: '已开启', value: 1 },
+        { label: '已禁用', value: 0 }
+    ]
+
+    dateRange = []
+    table = []
+    total = 0
+    isEdit = false
+    filter = new Filter()
+    account = new Account()
+    adminModel = {}
+    employeeModel = {}
+    enterpriseAdminModel = {}
+
+    async created () {
+        await Promise.all([
+            this.getAccounts(),
+            this.getAccountInfo()
+        ])
+    }
+
+    private async getAccountInfo () {
+        const { result } = await AccountInfo()
+        const { adminModel, employeeModel, enterpriseAdminModel } = result
+        this.adminModel = adminModel
+        this.employeeModel = employeeModel
+        enterpriseAdminModel.idCard = enterpriseAdminModel.idCard.replace(/^(\d{6})\d{8}(\d+)/, '$1********$2')
+        enterpriseAdminModel.mobile = enterpriseAdminModel.mobile.replace(/^(\d{3})\d{4}(\d+)/, '$1****$2')
+        this.enterpriseAdminModel = enterpriseAdminModel
+    }
+
+    private canEdit (row: any) {
+        return this.userId === row.userId || (row.roleCode === this.currentRoleCode) || (row.currentRoleCode === 'EMPLOYEE') || (row.roleCode === 'ADMIN' && this.currentRoleCode !== 'ENTERPRISE_ADMIN')
+    }
+
+    private async pageChange (page: number) {
+        this.filter.current = page
+        await this.getAccounts()
+    }
+
+    private async getAccounts () {
+        debugger
+        const res = await getAccounts(this.filter)
+        debugger
+        this.table = res.result.records
+        this.total = res.result.total
+    }
+
+    private async search () {
+        this.filter.current = 1
+        await this.getAccounts()
+    }
+
+    private async goDetail (row: any, selfEdit: boolean, canEdit: boolean) {
+        const { mobile, userId, roleCode } = row
+        const data = {
+            name: 'AccountDetail',
+            query: {
+                mobile,
+                userId,
+                roleCode,
+                selfEdit,
+                canEdit
+            }
         }
-    },
-    created () {
-        this.getAccounts()
-    },
-    computed: {
-        ...mapGetters(['userId', 'currentRoleCode'])
-    },
-    methods: {
-        canEdit (row) {
-            return this.userId === row.userId || (row.roleCode === this.currentRoleCode) || (row.currentRoleCode === 'EMPLOYEE') || (row.roleCode === 'ADMIN' && this.currentRoleCode !== 'ENTERPRISE_ADMIN')
-        },
-        pageChange (page) {
-            this.filter.current = page
-            this.getAccounts()
-        },
-        async getAccounts () {
-            // this.filter = new Filter()
-            const res = await getAccounts(this.filter)
-            this.table = res.result.records
-            this.total = res.result.total
-        },
-        search () {
+        await this.$router.push(data)
+    }
+
+    private async deleteAccount (row: any) {
+        await this.$confirm('删除后将无法恢复！')
+        await deleteAccount(row)
+        this.$success('删除成功')
+        this.filter.current = 1
+        await this.getAccounts()
+    }
+
+    private async dateRangeChange (value: any) {
+        this.filter.current = 1
+        const { end, start } = value
+        this.filter.startTime = start
+        this.filter.endTime = end
+        await this.getAccounts()
+    }
+
+    private async statusOptionChange () {
+        this.filter.current = 1
+        await this.getAccounts()
+    }
+
+    private realNameClear () {
+        this.filter.realName = ''
+    }
+
+    private mobileClear () {
+        this.filter.mobile = ''
+    }
+
+    private async downgradeAccount (row: any) {
+        const { roleCode, userId } = row
+        const params = { roleCode, userId }
+        const roleMap = {
+            EMPLOYEE: '子账号',
+            ADMIN: '高级管理员'
+        }
+        await this.$confirm({
+            title: '确认降级此账户？',
+            message: `降级后，所属该${ roleMap[roleCode] }的所有helper用户，将自动更新所属账号为“企业管理员”！`
+        })
+        await downgradeAccount(params)
+        this.$success('降级成功')
+        this.filter.current = 1
+        await this.getAccounts()
+    }
+
+    private editAccount (data) {
+        return editAccount(data)
+    }
+
+    private async toSave () {
+        try {
+            await this.editAccount(this.account)
+            this.isEdit = !this.isEdit
+            this.$success('编辑成功')
             this.filter.current = 1
-            this.getAccounts()
-        },
-        goDetail (row, selfEdit, canEdit) {
-            const { mobile, userId, roleCode } = row
-            this.$router.push({
-                name: 'AccountDetail',
-                query: { mobile, userId, roleCode, selfEdit, canEdit }
-            })
-        },
-        async deleteAccount (row) {
-            await this.$confirm('删除后将无法恢复！')
-            await deleteAccount(row)
-            this.$success('删除成功')
-            this.filter.current = 1
-            this.getAccounts()
-        },
-        dateRangeChange (value) {
-            this.filter.current = 1
-            const { end, start } = value
-            this.filter.startTime = start
-            this.filter.endTime = end
-            this.getAccounts()
-        },
-        statusOptionChange () {
-            this.filter.current = 1
-            this.getAccounts()
-        },
-        realNameClear () {
-            this.filter.realName = ''
-        },
-        mobileClear () {
-            this.filter.mobile = ''
-        },
-        async downgradeAccount (row) {
-            const { roleCode, userId } = row
-            const params = { roleCode, userId }
-            const roleMap = {
-                EMPLOYEE: '子账号',
-                ADMIN: '高级管理员'
-            }
-            await this.$confirm({
-                title: '确认降级此账户？',
-                message: `降级后，所属该${ roleMap[roleCode] }的所有helper用户，将自动更新所属账号为“企业管理员”！`
-            })
-            await downgradeAccount(params)
-            this.$success('降级成功')
-            this.filter.current = 1
-            this.getAccounts()
-        },
-        editAccount (data) {
-            return editAccount(data)
-        },
-        async toSave () {
-            try {
-                await this.editAccount(this.account)
-                this.isEdit = !this.isEdit
-                this.$success('编辑成功')
-                this.filter.current = 1
-                this.getAccounts()
-            } catch (e) {
-                this.isEdit = !this.isEdit
-                throw e
-            }
-        },
-        async switchChange (row) {
-            const { roleCode, userId, lockStatus } = row
-            const params = { roleCode, userId, lockStatus }
-            if (row.lockStatus) {
-                // let data = {
-                //   userId: row.userId,
-                //   accountRole: row.roleCode,
-                //   lockStatus: 1
-                // }
-                // const { data: res } = await validatedOpen(data)
-                // if (!res.result) {
-                //   row.lockStatus = 0
-                //   this.$confirm({
-                //     title: '名额已满',
-                //     message: '当前高级管理员名额已满，如若设置请先禁用其他管理员。'
-                //   })
-                //   return
-                // }
-                try {
-                    const res = await enableAccount(params)
-                    if (!res.result) {
-                        row.lockStatus = 0
-                        this.$alert({
-                            title: '名额已满',
-                            message: `当前${ row.roleName }名额已满，如若设置请先禁用其他管理员。`,
-                            cancelButtonText: ''
-                        })
-                        return
-                    }
-                    this.$success('启用成功')
-                    row.lockStatusText = '已启用'
-                } catch (e) {
-                    throw e
-                }
-            } else {
-                row.lockStatus = 1
-                await this.$confirm('确认禁用此账户吗？')
-                await enableAccount(params)
-                this.$success('禁用成功')
-                row.lockStatusText = '已禁用'
+            await this.getAccounts()
+        } catch (e) {
+            this.isEdit = !this.isEdit
+            throw e
+        }
+    }
+
+    private async switchChange (row: any) {
+        const { roleCode, userId, lockStatus } = row
+        const params = { roleCode, userId, lockStatus }
+        if (row.lockStatus) {
+            const res = await enableAccount(params)
+            if (!res.result) {
                 row.lockStatus = 0
+                this.$alert({
+                    title: '名额已满',
+                    message: `当前${ row.roleName }名额已满，如若设置请先禁用其他管理员。`,
+                    cancelButtonText: ''
+                })
+                return
             }
+            this.$success('启用成功')
+            row.lockStatusText = '已启用'
+        } else {
+            row.lockStatus = 1
+            await this.$confirm('确认禁用此账户吗？')
+            await enableAccount(params)
+            this.$success('禁用成功')
+            row.lockStatusText = '已禁用'
+            row.lockStatus = 0
         }
     }
 }
 
 </script>
 
-<style lang="scss" scoped>
-  .account-list{
-    min-height: calc(100vh - 110px);
-    padding-bottom: 10px;
-    background-color: #ffffff;
-  }
+<style lang="scss" module>
+  .account-manage{
+    .desc-tip {
+        display: inline-block;
+        margin-left: 10px;
+        width: 16px;
+        line-height: 16px;
+        border-radius: 50%;
+        font-size: 12px;
+        text-align: center;
+        color: #FFFFFF;
+        background-color: #999999;
+        cursor: pointer;
+    }
+    > .account-info {
+        > .head {
+            display: flex;
+            align-items: baseline;
+            > .label {
+                font-size: 16px;
+                font-weight: 600;
+            }
+            > .desc {
+                margin-left: 20px;
+                font-size: 12px;
+                color: #999999;
+            }
+        }
+        > .content {
+            display: flex;
+            margin: 35px 0;
+            > .info-box {
+                margin-left: 80px;
+                font-size: 14px;
+                > .account {
+                    display: flex;
+                    margin-top: 18px;
+                    > .number {
+                        margin-right: 76px;
+                        > .tip {
+                            margin-left: 12px;
+                            padding: 3px 5px;
+                            border: 1px solid #4F63FF;
+                            border-radius: 2px;
+                            font-size: 12px;
+                            color: #4F63FF;
+                        }
+                    }
+                }
+                > .progress-box {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 18px;
+                    font-size: 12px;
+                    > .progress {
+                        width: 200px;
+                        height: 4px;
+                        margin-right: 10px;
+                        border-radius: 20px;
+                        background-color: #F5F6FA;
+                        > .bar {
+                            height: 100%;
+                            border-radius: 20px;
+                            background-color: #4F63FF;
+                        }
+                    }
+                }
+            }
+        }
+    }
     .switch-box {
         display: flex;
         align-items: center;
@@ -400,4 +532,5 @@ export default {
             margin-left: 12px;
         }
     }
+  }
 </style>

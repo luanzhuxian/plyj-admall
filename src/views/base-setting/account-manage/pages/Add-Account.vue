@@ -185,7 +185,7 @@
 
 <script lang="ts">
 import RoleTree from '../components/Role-Tree.vue'
-import { searchMobile, addAccount, getSingleAccount, editAccount, getEmployeeDefault } from '../../../../apis/account.js'
+import { searchMobile, addAccount, getSingleAccount, editAccount, getEmployeeDefault } from '../../../../apis/account'
 import { testPhone } from '../../../../assets/ts/validate'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'

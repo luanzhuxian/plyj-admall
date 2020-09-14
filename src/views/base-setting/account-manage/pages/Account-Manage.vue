@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import { AccountInfo } from '../../../../apis/account.js'
+import { AccountInfo } from '../../../../apis/account'
 import RoleTree from '../components/Role-Tree.vue'
 import Field from '../../../../components/common/Field.vue'
 import { mapGetters } from 'vuex'

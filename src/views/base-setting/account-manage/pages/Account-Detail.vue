@@ -460,7 +460,7 @@
 import moment from 'moment'
 import RoleTree from '../components/Role-Tree.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
-import { getSingleAccount, getSingleAccountHerlerList, getAccounts, getMenuByUser } from '../../../../apis/account.js'
+import { getSingleAccount, getSingleAccountHerlerList, getAccounts, getMenuByUser } from '../../../../apis/account'
 import { changeHelpersAccount, getOrderList, exportOrderDetail } from '../../../../apis/member'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import { mapGetters } from 'vuex'

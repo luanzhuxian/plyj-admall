@@ -1,5 +1,5 @@
 <template>
-    <div class="account-container">
+    <div class="account-container wrap">
         <keep-alive>
             <router-view />
         </keep-alive>
