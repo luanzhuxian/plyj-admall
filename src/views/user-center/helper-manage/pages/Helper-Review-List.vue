@@ -11,12 +11,13 @@
                     v-model.trim="form.realName"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
+                    class="filter-inp"
                 />
             </el-form-item>
             <el-form-item label="申请时间">
                 <date-range />
             </el-form-item>
-            <div>
+            <div class="filter-btns">
                 <el-button
                     type="primary"
                     size="mini"
@@ -425,5 +426,15 @@ export default class HelperReviewList extends Vue {
         padding: 20px 32px;
         background: #F5F6FA;
         border-radius: 10px;
+        .filter-inp{
+            width: 350px;
+        }
+        .filter-btns{
+            padding-left: 80px;
+            button{
+                height: 32px;
+                border-radius: 16px;
+            }
+        }
     }
 </style>
