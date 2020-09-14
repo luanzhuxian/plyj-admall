@@ -2,11 +2,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import NProgress from 'nprogress'
+import Cookie from './../assets/ts/storage-cookie'
 import qs from 'qs'
 // import NotFound from '../views/404.vue'
 
 import Home from '../views/Home.vue'
 import { importFiles } from './../assets/ts/utils'
+
+// 无需登录就可以看到的页面
+const NOLOGIN = [
+    'WxLogin',
+    'PasswordLogin',
+    'PhoneLogin',
+    'WxBindPassword',
+    'WxBindPhone',
+    'Register',
+    'ForgetPassword'
+]
 
 Vue.use(Router)
 
@@ -90,6 +102,29 @@ export const beforeResolve = async (to, from, next) => {
         return next(to.path)
     }
     NProgress.start()
+
+    // 部分路由没有title，此时就找离它最近的父级title
+    // try {
+    //     document.title = [...to.matched].reverse().find(item => item.meta.title).meta.title
+    // } catch (e) {
+    //     document.title = ''
+    // }
+    const token = Cookie.get('token') || ''
+    const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
+    // 需要登录，但未登录
+    if (!token && !NOLOGIN.includes(to.name)) {
+        return next({ name: 'PhoneLogin' })
+    }
+    // 已登录，访问不需要登录的页面
+    if (token && NOLOGIN.includes(to.name) && currentStep !== 1) {
+        next({ path: '/' })
+        return
+    }
+    if (currentStep === 1 && to.name !== 'Register') {
+        next({ path: '/register' })
+        return
+    }
+
     next()
 }
 

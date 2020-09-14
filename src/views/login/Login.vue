@@ -122,11 +122,10 @@ export default class Login extends Vue {
 
     step () {
         const currentStep: number = Number(sessionStorage.getItem('currentStep')) || 0
-        alert(currentStep)
-        if (!currentStep) {
-            this.$router.replace({ name: 'Home' })
-        } else {
+        if (currentStep === 6) {
             this.$router.replace({ name: 'Register' })
+        } else {
+            this.$router.replace({ name: 'Home' })
         }
     }
 

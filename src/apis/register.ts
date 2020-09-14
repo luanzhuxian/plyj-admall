@@ -1,6 +1,6 @@
 import axios from '../assets/ts/axios-config'
 // 获取微信支付申请状态
-export const getWechatPaytStatus = () => axios.get('/apis/v1/pay/applyment/status')
+export const getWechatPaytStatus = () => axios.get('/apis/v2/pay/applyment/status')
 
 export const getUpgradeStatus = () => axios.get('/apis/v2/micro/upgrade/status')
 
