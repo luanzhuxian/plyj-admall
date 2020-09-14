@@ -292,6 +292,5 @@ export const importFiles = (context: any): any[] => {
         const file = context(key).default || context(key)
         files.push(...file)
     }
-    console.log(files)
     return files
 }

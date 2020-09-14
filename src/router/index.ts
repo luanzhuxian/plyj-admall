@@ -98,4 +98,3 @@ export const afterEach = () => {
 }
 router.beforeResolve(beforeResolve)
 router.afterEach(afterEach)
-window.aa = router
