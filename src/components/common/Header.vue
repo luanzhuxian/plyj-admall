@@ -86,9 +86,9 @@ export default class Header extends Vue {
     async command (command: string) {
         if (command === 'logout') {
             await this.LOGOUT()
-            this.$router.push({ name: 'phoneLogin' })
+            this.$router.push({ name: 'PhoneLogin' })
         }
-        if (command === 'modify') return this.$router.push({ name: 'Register' })
+        if (command === 'modify') return this.$router.push({ name: 'ModifyPassword' })
     }
 
     // mounted () {

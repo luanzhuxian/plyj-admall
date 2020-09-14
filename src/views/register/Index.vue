@@ -6,6 +6,9 @@
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
                 <Register @emitLogin="login" v-if="$route.name === 'Register'" />
+                <ForgetPassword @emitLogin="login" v-if="$route.name === 'ForgetPassword'" />
+                <ResetPassword @emitLogin="login" v-if="$route.name === 'ResetPassword'" />
+                <ModifyPassword @emitLogin="login" v-if="$route.name === 'ModifyPassword'" />
             </div>
         </div>
         <el-dialog
@@ -46,11 +49,17 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Register from './components/Register.vue'
+import ForgetPassword from './components/Forget-Password.vue'
+import ResetPassword from './components/Reset-Password.vue'
+import ModifyPassword from './components/Modify-Password.vue'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')
     @Component({
         components: {
-            Register
+            Register,
+            ForgetPassword,
+            ResetPassword,
+            ModifyPassword
         }
     })
 export default class RegisterIndex extends Vue {

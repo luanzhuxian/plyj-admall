@@ -260,20 +260,6 @@ export default class Register extends Vue {
                     margin: 0;
                 }
             }
-            .wechat-text{
-                width: 100%;
-                height:60px ;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 16px;
-                font-weight: 400;
-                color: #333333;
-                img{
-                    width: 24px;
-                    margin-right: 10px;
-                }
-            }
         }
     }
 </style>

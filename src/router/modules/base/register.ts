@@ -15,6 +15,30 @@ export default [
                 meta: {
                     title: '注册雅集'
                 }
+            },
+            {
+                path: '/forget-password',
+                name: 'ForgetPassword',
+                component: () => import('../../../views/register/Index.vue'),
+                meta: {
+                    title: '忘记密码'
+                }
+            },
+            {
+                path: '/modify-password',
+                name: 'ModifyPassword',
+                component: () => import('../../../views/register/Index.vue'),
+                meta: {
+                    title: '修改密码'
+                }
+            },
+            {
+                path: '/reset-password',
+                name: 'ResetPassword',
+                component: () => import('../../../views/register/Index.vue'),
+                meta: {
+                    title: '重置密码'
+                }
             }
         ]
     }

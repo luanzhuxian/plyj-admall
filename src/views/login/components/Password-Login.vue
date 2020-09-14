@@ -37,7 +37,7 @@
                 登录
             </el-button>
             <div :class="$style.register">
-                <el-button type="text"><span :class="$style.c999">忘记密码</span></el-button>
+                <el-button type="text" @click="$router.push({name:'ForgetPassword'})"><span :class="$style.c999">忘记密码</span></el-button>
                 <el-button type="text" @click="$router.push({name:'Register'})"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
             </div>
         </div>

@@ -25,8 +25,6 @@
                     </div>
                 </el-form-item>
             </el-form>
-
-            <!--            <p :class="$style.unregisteredPhone">该手机号还未注册雅集，请先注册雅集~</p>-->
             <el-button
                 size="large"
                 style="width: 100%;border-radius: 121px;"
@@ -37,12 +35,9 @@
                 登录
             </el-button>
             <div :class="$style.register">
-                <el-button type="text"><span :class="$style.c999">忘记密码</span></el-button>
+                <el-button type="text" @click="$router.push({name:'ForgetPassword'})"><span :class="$style.c999">忘记密码</span></el-button>
                 <el-button type="text" @click="$router.push({name:'Register'})"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
             </div>
-            <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
-            <!--                <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>-->
-            <!--            </el-button>-->
         </div>
     </div>
 </template>
@@ -52,7 +47,6 @@ import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { Getter, namespace } from 'vuex-class'
-// import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
 
     @Component

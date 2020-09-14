@@ -54,7 +54,7 @@ export default class App extends Vue {
         'WxBindPhone',
         'Register',
         'ForgetPassword',
-        'ForgetPasswordMobile',
+        'ResetPassword',
         'ModifyPassword'
     ]
 
@@ -65,7 +65,8 @@ export default class App extends Vue {
         'WxBindPassword',
         'WxBindPhone',
         'Register',
-        'ForgetPasswordMobile'
+        'ForgetPassword',
+        'ResetPassword'
     ]
 
     title = '这是一个title'
