@@ -6,3 +6,6 @@ export const getUpgradeStatus = () => axios.get('/apis/v2/micro/upgrade/status')
 
 /* 查询小V商户 */
 export const getVstatus = () => axios.get('/apis/v2/micro/applyment/status')
+
+// 注册
+export const register = (data: any) => axios.post('/apis/v2/base/baseUserInfo/agency/register', data)

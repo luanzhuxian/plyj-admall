@@ -5,7 +5,7 @@ export default [
         name: 'PhoneLogin',
         component: () => import('../../../views/user-center/Index.vue'),
         meta: {
-            title: '登陆'
+            title: '登录'
         },
         children: [
             {

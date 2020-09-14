@@ -2,7 +2,6 @@
     <div :class="$style.login">
         <div :class="$style.loginTop">
             <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png">
-            {{ $router.name }}
         </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
@@ -123,6 +122,7 @@ export default class Login extends Vue {
 
     step () {
         const currentStep: number = Number(sessionStorage.getItem('currentStep')) || 0
+        alert(currentStep)
         if (!currentStep) {
             this.$router.replace({ name: 'Home' })
         } else {

@@ -38,7 +38,7 @@
             </el-button>
             <div :class="$style.register">
                 <el-button type="text"><span :class="$style.c999">忘记密码</span></el-button>
-                <el-button type="text"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
+                <el-button type="text" @click="$router.push({name:'Register'})"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
             </div>
         </div>
     </div>
@@ -171,20 +171,6 @@ export default class PasswordLogin extends Vue {
                     .c999{
                         color: #999999
                     }
-                }
-            }
-            .wechat-text{
-                width: 100%;
-                height:60px ;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 16px;
-                font-weight: 400;
-                color: #333333;
-                img{
-                    width: 24px;
-                    margin-right: 10px;
                 }
             }
         }

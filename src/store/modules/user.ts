@@ -9,6 +9,7 @@ import {
 } from '../../apis/login'
 
 import {
+    register,
     getWechatPaytStatus,
     getUpgradeStatus,
     getVstatus
@@ -244,6 +245,20 @@ const user: Module<DynamicObject, DynamicObject> = {
                 return data.result
             } catch (e) {
                 commit(types.LOGOUT)
+                throw e
+            }
+        },
+
+        async register ({ commit, dispatch, state }, payload) {
+            try {
+                const data = await register(payload)
+                commit(types.SET_LOGININFO, data.result)
+                await dispatch(types.GET_AGENCY_LIST)
+                // agencyCode 存到cookie中
+                commit(types.SET_CURRENT_AGENCY, { agencyCode: state.agencyList[state.agencyList.length - 1].enterpriseId })
+                await dispatch(types.AGENCY_USER_INFO)
+                return data.result
+            } catch (e) {
                 throw e
             }
         },

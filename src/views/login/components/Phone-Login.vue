@@ -38,7 +38,7 @@
             </el-button>
             <div :class="$style.register">
                 <el-button type="text"><span :class="$style.c999">忘记密码</span></el-button>
-                <el-button type="text"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
+                <el-button type="text" @click="$router.push({name:'Register'})"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
             </div>
             <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
             <!--                <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>-->
@@ -73,8 +73,8 @@ export default class PhoneLogin extends Vue {
                 { validator: testPhone, trigger: 'blur' }
             ],
             identifyingCode: [
-                { required: true, message: '密码不能为空', trigger: 'blur' },
-                { min: 4, message: '密码不能小于6位', trigger: 'blur' }
+                { required: true, message: '验证码不能为空', trigger: 'blur' },
+                { min: 4, message: '验证码不能小于4位', trigger: 'blur' }
             ]
         }
 
