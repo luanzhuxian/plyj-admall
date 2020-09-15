@@ -65,7 +65,7 @@
                         <div>虚拟商品</div>
                         <router-link class="write-off-panel__item-number" :to="{ name: ' '}" v-text="homeInfo.virtualCount || 0" />
                     </div>
-                    <router-link class="write-off-panel__item-link" :to="{ name: ' '}">
+                    <router-link class="write-off-panel__item-link" to="/admall/orders-manage/order-list?status=WAIT_RECEIVE&goodsTypes=VIRTUAL_GOODS">
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
                     </router-link>
@@ -151,9 +151,7 @@ import Panel from '../components/common/Panel.vue'
 import {
     getHomeInfo,
     getProductOrder,
-    getOrderInfo,
-    isBindMobile
-    // modifyMobile
+    getOrderInfo
 } from '../apis/home'
 import { getWaitWarrantyResource } from '../apis/line-teaching/repository'
 import { getNotificationList, markReaded } from '../apis/base/message'
@@ -357,6 +355,7 @@ export default class Home extends Vue {
     // 是否展示资源库送客
     private showGiveResource = false
     private showPhoneTips = false
+    private countdown = '获取验证码'
     private form = {
         // 绑定的手机号
         mobile: '',
@@ -373,13 +372,9 @@ export default class Home extends Vue {
     @user.Getter upgradeStatus!: DynamicObject
     @user.Getter wechatPayStatus!: DynamicObject
 
-    // mutauion
-    @user.Mutation [AGENCY_USER_INFO]: () => void
-
     async created () {
         try {
             await this.getHomeInfo()
-            await this.testBindPhone()
         } catch (e) {
             throw e
         }
@@ -412,6 +407,32 @@ export default class Home extends Vue {
     }
 
     // methods
+    @user.Action [AGENCY_USER_INFO]: () => void
+    // 获取送课的资源
+    async getWaitWarrantyResource () {
+        try {
+            const { result } = await getWaitWarrantyResource(0)
+            this.giveResourceList = result || []
+            if (result && result.length) {
+                this.showGiveResource = true
+            }
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getNotificationList () {
+        try {
+            const { result } = await getNotificationList({
+                current: 1,
+                size: 1,
+                toAgencyCode: this.agencyCode
+            })
+            this.latestNotification = result.records[0] || {}
+        } catch (e) {
+            throw e
+        }
+    }
 
     // 获取首页数据
     async getHomeInfo () {
@@ -433,33 +454,6 @@ export default class Home extends Vue {
                 ...homeInfo,
                 ...productOrder,
                 ...orderInfo
-            }
-        } catch (e) {
-            throw e
-        }
-    }
-
-    // 获取通知消息
-    async getNotificationList () {
-        try {
-            const { result } = await getNotificationList({
-                current: 1,
-                size: 1,
-                toAgencyCode: this.agencyCode
-            })
-            this.latestNotification = result.records && result.records.length ? result.records[0] : {}
-        } catch (e) {
-            throw e
-        }
-    }
-
-    // 获取送课的资源
-    async getWaitWarrantyResource () {
-        try {
-            const { result = [] } = await getWaitWarrantyResource(0)
-            this.giveResourceList = result
-            if (result && result.length) {
-                this.showGiveResource = true
             }
         } catch (e) {
             throw e
@@ -539,15 +533,6 @@ export default class Home extends Vue {
                         name: 'WechatBind'
                     })
                 })
-        }
-    }
-
-    async testBindPhone () {
-        try {
-            const { result } = await isBindMobile()
-            this.showPhoneTips = !result
-        } catch (e) {
-            throw e
         }
     }
 
