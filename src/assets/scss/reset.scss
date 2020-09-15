@@ -13,6 +13,7 @@ section, nav, main, header, body, h1, h2, h3, h4, h5, i, h6, hr, p, span, a, blo
   font-family: "Microsoft YaHei", Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   box-sizing: border-box;
   word-break: break-all;
+  font-style: normal;
   //scroll-behavior: smooth;
   &::-webkit-scrollbar {
     width: 6px;

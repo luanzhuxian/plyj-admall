@@ -14,7 +14,7 @@
         <template v-else>
             <MainNavbar />
             <Header />
-            <main :class="$style.main">
+            <main class="main-container" :class="$style.main">
                 <!-- 主应用渲染区 -->
                 <section :class="$style.section" v-if="$route.name">
                     <keep-alive>
@@ -33,7 +33,7 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import MainNavbar from './components/common/Main-Navbar.vue'
 import Header from './components/common/Header.vue'
 import { namespace } from 'vuex-class'
-import startQiankun from './micro'
+// import startQiankun from './micro'
 
 const userModule = namespace('user')
 const goodsModule = namespace('goods')
@@ -115,7 +115,7 @@ export default class App extends Vue {
             }
             // this.loaded = true
             await this.getClassifyTree()
-            startQiankun()
+            // startQiankun()
         } catch (e) {
             throw e
         }

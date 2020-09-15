@@ -46,12 +46,13 @@ const imgToBlob = (img: HTMLImageElement): Promise<Blob | null> => {
     })
 }
 const getClient = async () => {
-    const sts = JSON.parse(localStorage.getItem('sts') || '') || {}
+    const sts = JSON.parse(localStorage.getItem('sts') || '{}')
     let credentials = null
-
+    console.log(sts)
     if (!sts.time || STSLIFETIME < Date.now() - sts.time) {
-    // sts过期
-        const { result } = await getSTS()
+        // sts过期
+        let { result } = await getSTS()
+        result = JSON.parse(result)
         credentials = result.credentials
         result.time = Date.now()
         localStorage.setItem('sts', JSON.stringify(result))
@@ -329,6 +330,24 @@ export const blobToBuffer = (blob: Blob): Promise<ArrayBuffer> => new Promise((r
     }
     reader.readAsArrayBuffer(blob)
 })
+
+/**
+ * 将base64转为Blob
+ * @param base64 {string}
+ * @returns {Blob}
+ */
+export const base64ToBlob = (base64: any) => {
+    const arr = base64.split(',')
+    const mime = arr[0].match(/:(.*?);/)[1]
+    // 解码
+    const bstr = atob(arr[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+    }
+    return new Blob([u8arr], { type: mime })
+}
 
 export const createObjectUrl = (blob: Blob): string => {
     let url

@@ -1,4 +1,5 @@
-import axios from 'axios'
+// @ts-nocheck
+import axios from '../assets/ts/axios-config'
 
 // 获取账户首页信息
 export const AccountInfo = () => axios.get('/apis/v1/systemctl/account/index')

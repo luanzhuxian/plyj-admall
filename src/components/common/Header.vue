@@ -1,11 +1,29 @@
 <template>
     <header :class="$style.header">
         <div :class="$style.left">
-            <el-breadcrumb separator-class="el-icon-arrow-right">
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-                <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+            <el-breadcrumb v-if="$route.matched.length" separator-class="el-icon-arrow-right">
+                <template
+                    v-for="(route, i) of $route.matched"
+                >
+                    <el-breadcrumb-item
+                        :key="i"
+                        v-if="route.meta && route.meta.title"
+                        :to="{ path: route.path }"
+                    >
+                        {{ route.meta.title }}
+                    </el-breadcrumb-item>
+                </template>
+            </el-breadcrumb>
+            <el-breadcrumb v-else-if="childRoute" separator-class="el-icon-arrow-right">
+                <template v-for="(route, i) of childRoute.matched">
+                    <el-breadcrumb-item
+                        :key="i"
+                        v-if="route.meta && route.meta.title"
+                        :to="{ path: `/admall/${ route.path }` }"
+                    >
+                        {{ route.meta.title }}
+                    </el-breadcrumb-item>
+                </template>
             </el-breadcrumb>
         </div>
         <div :class="$style.right">
@@ -70,7 +88,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import { namespace } from 'vuex-class'
+import { namespace, Getter } from 'vuex-class'
 const userModule = namespace('user')
 // import actions from '../../micro/shared/actions'
 
@@ -80,6 +98,7 @@ export default class Header extends Vue {
     @userModule.Getter('mallName') mallName!: string
     @userModule.Getter('bindPhone') bindPhone!: string
     @userModule.Getter('auditStatus') auditStatus!: string
+    @Getter('childRoute') childRoute!: any
 
     @userModule.Mutation('LOGOUT') LOGOUT!: Function
 

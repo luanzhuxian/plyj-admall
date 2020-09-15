@@ -39,8 +39,8 @@
                     <el-menu-item index="/admall/line-teaching/live">直播课</el-menu-item>
                     <el-menu-item index="/admall/line-teaching/function-pack">云课堂</el-menu-item>
                     <!--<el-menu-item index="/admall/goods-manage/my-goods">教育周边</el-menu-item>-->
-                    <el-menu-item index="/admall/goods-manage/my-goods">我的商品</el-menu-item>
-                    <el-menu-item index="/admall/goods-manage/my-courses">我的课程</el-menu-item>
+                    <el-menu-item index="/product-center/goods-manage">我的商品</el-menu-item>
+                    <el-menu-item index="/product-center/courses-manage">我的课程</el-menu-item>
                     <el-menu-item index="/admall/goods-manage/category">分类管理</el-menu-item>
                     <el-menu-item index="/admall/goods-manage/comment">评价管理</el-menu-item>
                     <el-menu-item index="/admall/line-teaching/library/video">素材中心</el-menu-item>

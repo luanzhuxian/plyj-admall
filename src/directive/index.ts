@@ -6,7 +6,6 @@ export default {
     imgError: {
         /* eslint-disable */
         inserted (el: HTMLImageElement, { value }: any) {
-            console.log(value)
             if (el.tagName === 'IMG') {
                 el.onerror = () => {
                     if (el.src === img) {

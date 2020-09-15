@@ -262,6 +262,21 @@ export const testExpressNumber = (rule: any, value: any, callback: Function) => 
     }
 }
 
+// 分类字数
+export const testCategory = (len: number) => (rule: any, value: any, callback: Function) => {
+    const valLen = codePointNo(value)
+    if (valLen > len) {
+        callback(new Error(rule.message))
+        return
+    }
+    callback()
+    // if (!/^[\u4e00-\u9fa5|A-Za-z|\d]+$/.test(value)) {
+    //   callback(new Error(rule.message))
+    // } else {
+    //   callback()
+    // }
+}
+
 /**
  * 检查数字
  * @param max {number} 最大值

@@ -11,11 +11,20 @@ import PlTabs from './components/common/Pl-Tabs.vue'
 import Pagination from './components/common/Pagination.vue'
 import Operating from './components/common/Operating.vue'
 
+import VueViewer from 'v-viewer'
+import VueClipboard from 'vue-clipboard2'
 import directive from './directive'
 import filter from './filter'
 
 import './assets/scss/index.scss'
 import './assets/ts/axios-config'
+
+Vue.use(VueClipboard)
+Vue.use(VueViewer, {
+    defaultOptions: {
+        zIndex: 9999
+    }
+})
 
 /* 注册全局组件 */
 Vue.component(PlSvg.name, PlSvg)

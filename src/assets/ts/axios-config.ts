@@ -64,7 +64,7 @@ const reqHandler = (config: AxiosRequestConfig) => {
     reqCount++
     // 比对cookie中的mallId和内存中的mallId是否一致
     const cookieMallId = Cookie.get('mallId')
-    const memoryMallId = store.getters.mallNumber
+    const memoryMallId = store.state.user.mallId
     if (memoryMallId && cookieMallId && cookieMallId !== memoryMallId) {
         alert('检测到您在当前浏览器登录了其它商城，请重新登录，并继续操作')
         localStorage.clear()
