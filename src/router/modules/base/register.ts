@@ -19,7 +19,6 @@ export default [
             {
                 path: '/forget-password',
                 name: 'ForgetPassword',
-                component: () => import('../../../views/register/Index.vue'),
                 meta: {
                     title: '忘记密码'
                 }
@@ -27,7 +26,6 @@ export default [
             {
                 path: '/modify-password',
                 name: 'ModifyPassword',
-                component: () => import('../../../views/register/Index.vue'),
                 meta: {
                     title: '修改密码'
                 }
@@ -36,7 +34,6 @@ export default [
                 path: '/reset-password/:code',
                 name: 'ResetPassword',
                 props: true,
-                component: () => import('../../../views/register/Index.vue'),
                 meta: {
                     title: '重置密码'
                 }
