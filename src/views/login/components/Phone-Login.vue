@@ -76,6 +76,8 @@ export default class PhoneLogin extends Vue {
         time = 60
         timer: any = null
         loading = false
+        @userModule.Getter('codePass') codePass!: boolean
+        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @Getter smsType!: string[]
 
@@ -84,7 +86,20 @@ export default class PhoneLogin extends Vue {
             return true
         }
 
+        @Emit('codeShowFoo')
+        codeShowFoo (type: boolean) {
+            return type
+        }
+
+        mounted (): void {
+            this.setCodePass(false)
+        }
+
         async getCode () {
+            if (!this.codePass) {
+                this.codeShowFoo(true)
+                return
+            }
             if (this.getCodeing) return
             clearInterval(this.timer)
             let validateField = true
@@ -114,6 +129,7 @@ export default class PhoneLogin extends Vue {
                 await this.LOGIN(this.form)
                 this.emitLogin()
             } catch (e) {
+                this.setCodePass(false)
                 // this.refreshSafeCode()
                 throw e
             } finally {

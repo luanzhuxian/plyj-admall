@@ -5,11 +5,12 @@
         </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
-                <phoneLogin @emitLogin="login" v-if="$route.name === 'PhoneLogin'" />
-                <passwordLogin @emitLogin="login" v-if="$route.name === 'PasswordLogin'" />
+                <phoneLogin @emitLogin="login" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PhoneLogin'" />
+                <passwordLogin @emitLogin="login" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PasswordLogin'" />
                 <wxLogin @emitLogin="login" v-if="$route.name === 'WxLogin'" />
                 <WxBindPassword @emitLogin="login" v-if="$route.name === 'WxBindPassword'" />
                 <WxBindPhone @emitLogin="login" v-if="$route.name === 'WxBindPhone'" />
+                <CompleteLogin @emitLogin="login" v-if="$route.name === 'CompleteLogin'" />
             </div>
         </div>
         <el-dialog
@@ -44,16 +45,19 @@
                 </el-form-item>
             </el-form>
         </el-dialog>
+        <Vcode :show="codeShow" @success="success" @close="close" />
     </div>
 </template>
 
-<script lang="ts">
+<script lang=ts>
 import { Component, Vue, Watch } from 'vue-property-decorator'
+import Vcode from 'vue-puzzle-vcode'
 import phoneLogin from './components/Phone-Login.vue'
 import wxLogin from './components/Wx-Login.vue'
 import passwordLogin from './components/Password-Login.vue'
 import WxBindPassword from './components/Wx-Bind-Password.vue'
 import WxBindPhone from './components/Wx-Bind-Phone.vue'
+import CompleteLogin from './components/Complete-Login.vue'
 import { namespace } from 'vuex-class'
 import startQiankun from '../../micro'
 const userModule = namespace('user')
@@ -63,10 +67,13 @@ const userModule = namespace('user')
         wxLogin,
         passwordLogin,
         WxBindPassword,
-        WxBindPhone
+        WxBindPhone,
+        CompleteLogin,
+        Vcode
     }
 })
 export default class Login extends Vue {
+    codeShow = false
     agencyError = ''
     enterprise = ''
     showDialog = false
@@ -76,10 +83,16 @@ export default class Login extends Vue {
     @userModule.Getter('agencyList') agencyList: any
     @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
     @userModule.Mutation('LOGOUT') logout!: Function
+    @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
     @Watch('$route.name')
     onChangeValue (newVal: string) {
         console.log(newVal)
+    }
+
+    codeShowFoo (e: boolean) {
+        console.log(e)
+        this.codeShow = e
     }
 
     async login () {
@@ -129,6 +142,16 @@ export default class Login extends Vue {
             this.$router.replace({ name: 'Home' })
         }
         startQiankun()
+    }
+
+    success () {
+        this.codeShow = false
+        this.setCodePass(true)
+    }
+
+    close () {
+        this.codeShow = false
+        this.setCodePass(false)
     }
 
     mounted () {

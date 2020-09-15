@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.phoneLogin">
         <div :class="$style.loginType">
-            绑定已注册账号
+            完善资料
         </div>
         <div :class="$style.accountMessage">
             <el-form
@@ -12,47 +12,59 @@
             >
                 <el-form-item prop="account">
                     <div :class="$style.phoneNumber">
-                        <el-input v-model="form.account" maxlength="11" style="width: 300px" placeholder="请输入" />
+                        <el-input v-model="form.account" maxlength="50" style="width: 300px" placeholder="请输6-12位数字字母组合的账号" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">
                     <div :class="$style.phoneCode">
-                        <el-input v-model="form.password" :type="passwordType" min="6" max="12" style="width: 300px" placeholder="请输入密码" />
+                        <el-input v-model="form.password" :type="passwordType" min="6" max="12" style="width: 300px" placeholder="请输入登录密码" />
                         <img :class="$style.hidePassword" @click="passwordType = 'text'" v-if="passwordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
                         <img :class="$style.showPassword" @click="passwordType = 'password'" v-else src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
                     </div>
                 </el-form-item>
+                <el-form-item prop="confirmPassword">
+                    <div :class="$style.phoneCode">
+                        <el-input v-model="form.confirmPassword" :type="confirmPasswordType" min="6" max="12" style="width: 300px" placeholder="请再次输入登录密码" />
+                        <img :class="$style.hidePassword" @click="confirmPasswordType = 'text'" v-if="confirmPasswordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
+                        <img :class="$style.showPassword" @click="confirmPasswordType = 'password'" v-else src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
+                    </div>
+                </el-form-item>
             </el-form>
 
-            <!--            <p v-show="invalidData.invalidAccount" :class="$style.unregisteredPhone">该账号不存在，请联系管理员登录</p>-->
+            <el-checkbox v-model="agree">
+                我已阅读并同意<span style="color: #4F63FF">《朋来雅集服务协议》</span>
+            </el-checkbox>
             <el-button
                 size="large"
-                style="width: 100%;border-radius: 121px;"
+                style="width: 100%;border-radius: 121px;margin-top: 20px"
                 type="primary"
                 @click.native.prevent="login('form')"
                 :loading="loading"
             >
-                登录并绑定
+                完善资料，进入雅集
             </el-button>
-            <div :class="$style.register">
-                <el-button type="text" @click="$router.push({name:'WxBindPhone'})">手机号绑定</el-button>
-                <el-button type="text" @click="$router.push({name:'PhoneLogin'})">已有账号，马上跳转登陆</el-button>
-            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { WxBind } from '../../../apis/login'
-import { Component, Vue, Emit } from 'vue-property-decorator'
-import { Getter, namespace } from 'vuex-class'
+import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 const userModule = namespace('user')
 
     @Component
-export default class WxBindPassword extends Vue {
+export default class CompleteLogin extends Vue {
         form = {
             account: '',
             password: ''
+        }
+
+        testConfirmPassword = (rule: any, value: any, callback: Function) => {
+            if (this.form.password !== value) {
+                callback(new Error('两次密码输入不一致'))
+            } else {
+                callback()
+            }
         }
 
         rules = {
@@ -64,36 +76,52 @@ export default class WxBindPassword extends Vue {
                 { required: true, message: '密码不能为空', trigger: 'blur' },
                 { min: 6, message: '密码不能小于6位', trigger: 'blur' },
                 { max: 12, message: '密码不能大于12位', trigger: 'blur' }
+            ],
+            confirmPassword: [
+                { required: true, message: '密码不能为空', trigger: 'blur' },
+                { min: 6, message: '密码不能小于6位', trigger: 'blur' },
+                { max: 12, message: '密码不能大于12位', trigger: 'blur' },
+                { validator: this.testConfirmPassword, trigger: 'blur' }
             ]
         }
 
         loading = false
         passwordType = 'password'
+        confirmPasswordType = 'password'
 
+        @Prop(Boolean) codeShow!: boolean;
+        @userModule.Getter('codePass') codePass!: boolean
+        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
-        @Getter smsType!: string[]
 
         @Emit('emitLogin')
         emitLogin () {
             return true
         }
 
+        @Emit('codeShowFoo')
+        codeShowFoo (type: boolean) {
+            return type
+        }
+
+        mounted (): void {
+            this.setCodePass(false)
+        }
+
         async login (formName: string) {
             // 防止连续敲击回车
             if (this.loading) return
+            if (!this.codePass) {
+                this.codeShowFoo(true)
+                return
+            }
             try {
                 await (this.$refs[formName] as HTMLFormElement).validate()
                 this.loading = true
                 await this.LOGIN(this.form)
-
-                const code = sessionStorage.getItem('redirect_code') as string
-                await WxBind(code)
-                sessionStorage.removeItem('redirect_code')
-                sessionStorage.removeItem('redirect_state')
-                sessionStorage.removeItem('login_state')
-
                 this.emitLogin()
             } catch (e) {
+                this.setCodePass(false)
                 throw e
             } finally {
                 this.loading = false
@@ -104,16 +132,11 @@ export default class WxBindPassword extends Vue {
 
 <style module lang="scss">
     .phone-login{
-        width: 360px;
-        height: 400px;
+        width: 400px;
+        height: 440px;
         padding: 40px;
         border-radius: 10px;
         background-color: #ffffff;
-        >img{
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
         .login-type{
             display: flex;
             justify-content: center;
@@ -122,7 +145,7 @@ export default class WxBindPassword extends Vue {
             color: #333333;
         }
         .account-message{
-            margin-top: 36px;
+            margin-top: 20px;
             input{
                 border: none;
             }
@@ -159,31 +182,6 @@ export default class WxBindPassword extends Vue {
                 }
                 .hide-password{
                     width: 20px;
-                }
-            }
-            .register{
-                display: flex;
-                justify-content: space-between;
-                margin-top: 30px;
-                >button{
-                    margin: 0;
-                    .c999{
-                        color: #999999
-                    }
-                }
-            }
-            .wechat-text{
-                width: 100%;
-                height:60px ;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 16px;
-                font-weight: 400;
-                color: #333333;
-                img{
-                    width: 24px;
-                    margin-right: 10px;
                 }
             }
         }

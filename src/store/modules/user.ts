@@ -28,6 +28,7 @@ const CalcCookieTime = (expire: number) => Number(new Date(Date.now() + expire *
 
 const user: Module<DynamicObject, DynamicObject> = {
     state: {
+        codePass: false,
         // 新老注册流程 1 老 2 新
         REG_TYPE: 1,
         // 数据是否加载完毕
@@ -73,8 +74,10 @@ const user: Module<DynamicObject, DynamicObject> = {
         wechatPayStatus: {}
     },
     mutations: {
+        [types.SET_CODEPASS]: (state, payload) => {
+            state.codePass = payload
+        },
         [types.SET_LOGININFO]: (state, payload) => {
-            console.log(payload)
             if (payload) {
                 Cookie.set('token', payload.token, {
                     expires: CalcCookieTime(payload.expire)
@@ -361,6 +364,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         }
     },
     getters: {
+        codePass: state => state.codePass,
         token: state => state.token || null,
         // 当前登录人的id
         userId: state => state.loginInfo.userId || null,

@@ -55,7 +55,8 @@ export default class App extends Vue {
         'Register',
         'ForgetPassword',
         'ResetPassword',
-        'ModifyPassword'
+        'ModifyPassword',
+        'CompleteLogin'
     ]
 
     NOLOGIN: Array<string> = [
@@ -66,7 +67,8 @@ export default class App extends Vue {
         'WxBindPhone',
         'Register',
         'ForgetPassword',
-        'ResetPassword'
+        'ResetPassword',
+        'CompleteLogin'
     ]
 
     title = '这是一个title'

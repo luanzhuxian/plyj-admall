@@ -43,6 +43,13 @@ export default [
                 meta: {
                     title: '手机绑定'
                 }
+            },
+            {
+                path: '/complete-login',
+                name: 'CompleteLogin',
+                meta: {
+                    title: '完善资料'
+                }
             }
         ]
     }

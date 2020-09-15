@@ -146,7 +146,6 @@ export default class WxBindPhone extends Vue {
         .login-type{
             display: flex;
             justify-content: center;
-            padding-top: 4px;
             font-size: 20px;
             font-weight: 600;
             color: #333333;

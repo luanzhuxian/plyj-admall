@@ -95,7 +95,6 @@ export default class WxLogin extends Vue {
         .login-type{
             display: flex;
             justify-content: center;
-            padding-top: 10px;
             font-size: 20px;
             font-weight: 600;
             color: #333333;

@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')
 
@@ -71,6 +71,9 @@ export default class PasswordLogin extends Vue {
     loading = false
     passwordType = 'password'
 
+    @Prop(Boolean) codeShow!: boolean;
+    @userModule.Getter('codePass') codePass!: boolean
+    @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
     @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
 
     @Emit('emitLogin')
@@ -78,15 +81,29 @@ export default class PasswordLogin extends Vue {
         return true
     }
 
+    @Emit('codeShowFoo')
+    codeShowFoo (type: boolean) {
+        return type
+    }
+
+    mounted (): void {
+        this.setCodePass(false)
+    }
+
     async login (formName: string) {
         // 防止连续敲击回车
         if (this.loading) return
+        if (!this.codePass) {
+            this.codeShowFoo(true)
+            return
+        }
         try {
             await (this.$refs[formName] as HTMLFormElement).validate()
             this.loading = true
             await this.LOGIN(this.form)
             this.emitLogin()
         } catch (e) {
+            this.setCodePass(false)
             throw e
         } finally {
             this.loading = false
