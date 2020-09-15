@@ -63,7 +63,7 @@
                 <div class="write-off-panel__item">
                     <div>
                         <div>虚拟商品</div>
-                        <router-link class="write-off-panel__item-number" :to="{ name: ' '}" v-text="homeInfo.virtualCount || 0" />
+                        <router-link class="write-off-panel__item-number" to="/admall/orders-manage/order-list?status=WAIT_RECEIVE&goodsTypes=VIRTUAL_GOODS" v-text="homeInfo.virtualCount || 0" />
                     </div>
                     <router-link class="write-off-panel__item-link" to="/admall/orders-manage/order-list?status=WAIT_RECEIVE&goodsTypes=VIRTUAL_GOODS">
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
@@ -73,9 +73,9 @@
                 <div class="write-off-panel__item">
                     <div>
                         <div>课程商品</div>
-                        <router-link class="write-off-panel__item-number" :to="{ name: ' '}" v-text="homeInfo.courseCount || 0" />
+                        <router-link class="write-off-panel__item-number" to="/admall/orders-manage/courses-list?status=WAIT_RECEIVE" v-text="homeInfo.courseCount || 0" />
                     </div>
-                    <router-link class="write-off-panel__item-link" :to="{ name: ' '}">
+                    <router-link class="write-off-panel__item-link" to="/admall/orders-manage/courses-list?status=WAIT_RECEIVE">
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
                     </router-link>
@@ -113,30 +113,30 @@
 
             <!-- 待办事宜 -->
             <Panel custom-class="to-do-panel" title="待办事宜">
-                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                <router-link class="to-do-panel__item" to="/admall/orders-manage/order-list?status=WAIT_SHIP">
                     <div class="to-do-panel__item-name">待发货订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitShip || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitShip || 0}单` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitShip || 0 }单` }}</div>
                 </router-link>
-                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                <router-link class="to-do-panel__item" to="/admall/orders-manage/backorder?status=WaitReview">
                     <div class="to-do-panel__item-name">待退款订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitRefund || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitRefund || 0}单` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitRefund || 0 }单` }}</div>
                 </router-link>
                 <router-link class="to-do-panel__item" :to="{ name: 'HelperReviewList' }">
                     <div class="to-do-panel__item-name">待审核Helper</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingReviewHelper || 0}人` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingReviewHelper || 0 }人` }}</div>
                 </router-link>
-                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                <router-link class="to-do-panel__item" to="/admall/money-manage/runbi/await">
                     <div class="to-do-panel__item-name">待审核润笔</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0}人` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0 }人` }}</div>
                 </router-link>
-                <router-link class="to-do-panel__item" :to="{ name: '' }">
+                <router-link class="to-do-panel__item" to="/admall/money-manage/withdraw-deposit/await">
                     <div class="to-do-panel__item-name">待提现审核</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0}人` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0 }人` }}</div>
                 </router-link>
             </Panel>
         </div>
