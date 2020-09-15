@@ -2,7 +2,7 @@ import {
     registerMicroApps,
     addGlobalUncaughtErrorHandler,
     start
-} from '../../static/qiankun/lib/index.js'
+} from 'qiankun/lib/index.js'
 import apps from './apps'
 
 /**

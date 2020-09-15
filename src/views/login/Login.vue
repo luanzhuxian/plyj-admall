@@ -55,6 +55,7 @@ import passwordLogin from './components/Password-Login.vue'
 import WxBindPassword from './components/Wx-Bind-Password.vue'
 import WxBindPhone from './components/Wx-Bind-Phone.vue'
 import { namespace } from 'vuex-class'
+import startQiankun from '../../micro'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -127,6 +128,7 @@ export default class Login extends Vue {
         } else {
             this.$router.replace({ name: 'Home' })
         }
+        startQiankun()
     }
 
     mounted () {
