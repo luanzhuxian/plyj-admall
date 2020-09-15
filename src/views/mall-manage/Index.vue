@@ -1,7 +1,12 @@
 <template>
-    <keep-alive>
+    <div class="wrap">
+        <pl-tabs
+            :tabs="tabs"
+            :value="currentTab"
+            @tabClick="tabClick"
+        />
         <router-view />
-    </keep-alive>
+    </div>
 </template>
 
 <script>
@@ -10,7 +15,27 @@ import Component from 'vue-class-component'
 
 @Component
 export default class MallManage extends Vue {
+    currentTab = 'Main'
 
+    tabs = [
+        {
+            name: 'MallMain',
+            label: '我的店铺'
+        },
+        {
+            name: 'MallThemes',
+            label: '店铺主题'
+        }
+    ]
+
+    created () {
+        this.currentTab = this.$route.name
+    }
+
+    tabClick (data) {
+        this.currentTab = data.name
+        this.$router.push({ name: data.name })
+    }
 }
 </script>
 

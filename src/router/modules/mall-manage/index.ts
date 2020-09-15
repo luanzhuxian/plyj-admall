@@ -2,18 +2,25 @@ export default [
     {
         path: '/mall-manage',
         name: 'MallManage',
-        redirect: '/mall-manage/current',
+        redirect: '/mall-manage/main',
         component: () => import('../../../views/mall-manage/Index.vue'),
         meta: {
             title: '店铺管理'
         },
         children: [
             {
-                path: 'current',
-                name: 'Current',
-                component: () => import('../../../views/mall-manage/pages/Mall-Current.vue'),
+                path: 'main',
+                name: 'MallMain',
+                component: () => import('../../../views/mall-manage/pages/Main.vue'),
                 meta: {
-                    title: '当前使用首页'
+                    title: '我的店铺'
+                }
+            }, {
+                path: 'themes',
+                name: 'MallThemes',
+                component: () => import('../../../views/mall-manage/pages/Themes.vue'),
+                meta: {
+                    title: '店铺主题'
                 }
             }
         ]
