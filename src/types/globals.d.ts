@@ -24,26 +24,26 @@ declare global {
         createObjectURL: Function;
         [key: string]: any;
         Qrcode: new(arg: {
-        render: string;
-        // 纠错级别
-        correctLevel: 3;
-        // 内容
-        text: string;
-        // 大小
-        size: number;
-        background: '#fff';
-        foreground: '#000';
-        pdground: '#000';
+            render: string;
+            // 纠错级别
+            correctLevel: 3;
+            // 内容
+            text: string;
+            // 大小
+            size: number;
+            background: '#fff';
+            foreground: '#000';
+            pdground: '#000';
         }) => HTMLCanvasElement;
         WxLogin: new(arg: {
-        self_redirect: boolean;
-        id: string;
-        appid: string;
-        scope: 'snsapi_login';
-        redirect_uri: string;
-        state: string;
-        style: string;
-        href: '';
+            self_redirect: boolean;
+            id: string;
+            appid: string;
+            scope: 'snsapi_login';
+            redirect_uri: string;
+            state: string;
+            style: string;
+            href: '';
         }) => void;
     }
     // 短信类型
