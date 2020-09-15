@@ -29,10 +29,10 @@
                 size="large"
                 style="width: 100%;border-radius: 121px;"
                 type="primary"
-                @click.native.prevent="login('form')"
+                @click.native.prevent="reset()"
                 :loading="loading"
             >
-                下一步
+                确定
             </el-button>
             <div @click="$router.push({name:'PhoneLogin'})" :class="$style.register">
                 <el-button type="text"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
@@ -42,13 +42,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Emit } from 'vue-property-decorator'
-import { Getter, namespace } from 'vuex-class'
-const userModule = namespace('user')
+import { resetPassword } from '../../../apis/register'
+import { Component, Vue } from 'vue-property-decorator'
 
     @Component
 export default class ResetPassword extends Vue {
         form = {
+            mobile: '',
+            verifyCode: '',
             password: '',
             confirmPassword: ''
         }
@@ -79,29 +80,32 @@ export default class ResetPassword extends Vue {
         passwordType = 'password'
         confirmPasswordType = 'password'
 
-        @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
-        @Getter smsType!: string[]
-
-        @Emit('emitLogin')
-        emitLogin () {
-            return true
+        mounted () {
+            const params: string = this.$route.params.code
+            if (!params) {
+                this.$error('请重新验证手机')
+                return this.$router.replace({ name: 'ForgetPassword' })
+            }
+            this.form.mobile = params.split('&')[0]
+            this.form.verifyCode = params.split('&')[1]
         }
 
-    // async login (formName: string) {
-    //     // 防止连续敲击回车
-    //     if (this.loading) return
-    //     try {
-    //         await (this.$refs[formName] as HTMLFormElement).validate()
-    //         this.loading = true
-    //         await this.LOGIN(this.form)
-    //         this.emitLogin()
-    //     } catch (e) {
-    //         // this.refreshSafeCode()
-    //         throw e
-    //     } finally {
-    //         this.loading = false
-    //     }
-    // }
+        async reset () {
+            // 防止连续敲击回车
+            if (this.loading) return
+            try {
+                await (this.$refs.form as HTMLFormElement).validate()
+                this.loading = true
+                await resetPassword(this.form)
+                await this.$success('重置成功')
+                this.$router.replace({ name: 'PasswordLogin' })
+            } catch (e) {
+                // this.refreshSafeCode()
+                throw e
+            } finally {
+                this.loading = false
+            }
+        }
 }
 </script>
 

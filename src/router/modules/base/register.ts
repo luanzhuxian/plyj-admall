@@ -33,8 +33,9 @@ export default [
                 }
             },
             {
-                path: '/reset-password',
+                path: '/reset-password/:code',
                 name: 'ResetPassword',
+                props: true,
                 component: () => import('../../../views/register/Index.vue'),
                 meta: {
                     title: '重置密码'

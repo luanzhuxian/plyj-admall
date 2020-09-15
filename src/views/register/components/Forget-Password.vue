@@ -15,9 +15,9 @@
                         +86 <el-input v-model="form.mobile" type="number" maxlength="11" style="width: 200px" placeholder="请输入手机号" />
                     </div>
                 </el-form-item>
-                <el-form-item prop="identifyingCode">
+                <el-form-item prop="verifyCode">
                     <div :class="$style.phoneCode">
-                        <el-input v-model="form.identifyingCode" maxlength="4" style="width: 220px" placeholder="请输入验证码" />
+                        <el-input v-model="form.verifyCode" maxlength="4" style="width: 220px" placeholder="请输入验证码" />
                         <div :class="$style.getCode" v-if="getCodeing">{{ time }}</div>
                         <div :class="$style.getCode" v-else @click="getCode()">获取验证码</div>
                     </div>
@@ -27,7 +27,7 @@
                 size="large"
                 style="width: 100%;border-radius: 121px;"
                 type="primary"
-                @click.native.prevent="login('form')"
+                @click.native.prevent="login()"
                 :loading="loading"
             >
                 下一步
@@ -41,16 +41,16 @@
 
 <script lang="ts">
 import { testPhone } from '../../../assets/ts/validate'
-import { Component, Vue, Emit } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
-import { Getter, namespace } from 'vuex-class'
-const userModule = namespace('user')
+import { forgetPassword } from '../../../apis/register'
+import { Getter } from 'vuex-class'
 
     @Component
 export default class ForgetPassword extends Vue {
         form = {
             mobile: '',
-            identifyingCode: ''
+            verifyCode: ''
         }
 
         codeForm = {
@@ -63,7 +63,7 @@ export default class ForgetPassword extends Vue {
                 { required: true, trigger: 'blur', message: '账号不能为空' },
                 { validator: testPhone, trigger: 'blur' }
             ],
-            identifyingCode: [
+            verifyCode: [
                 { required: true, message: '验证码不能为空', trigger: 'blur' },
                 { min: 4, message: '验证码不能小于4位', trigger: 'blur' }
             ]
@@ -73,13 +73,7 @@ export default class ForgetPassword extends Vue {
         time = 60
         timer: any = null
         loading = false
-        @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @Getter smsType!: string[]
-
-        @Emit('emitLogin')
-        emitLogin () {
-            return true
-        }
 
         async getCode () {
             if (this.getCodeing) return
@@ -102,14 +96,14 @@ export default class ForgetPassword extends Vue {
             }, 1000)
         }
 
-        async login (formName: string) {
+        async login () {
             // 防止连续敲击回车
             if (this.loading) return
             try {
-                await (this.$refs[formName] as HTMLFormElement).validate()
+                await (this.$refs.form as HTMLFormElement).validate()
                 this.loading = true
-                await this.LOGIN(this.form)
-                this.emitLogin()
+                await forgetPassword(this.form)
+                this.$router.replace({ name: 'ResetPassword', params: { code: `${ this.form.mobile }&${ this.form.verifyCode }` } })
             } catch (e) {
                 // this.refreshSafeCode()
                 throw e
