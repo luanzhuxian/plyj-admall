@@ -9,3 +9,7 @@ export const getVstatus = () => axios.get('/apis/v2/micro/applyment/status')
 
 // 注册
 export const register = (data: any) => axios.post('/apis/v2/base/baseUserInfo/agency/register', data)
+
+// 修改密码
+type modifyPasswordType = (arg: { lastPassword: string; password: string }) => Promise<any>
+export const modifyPassword: modifyPasswordType = ({ lastPassword, password }) => axios.put('/apis/v1/base/baseUserInfo/password/modify', { lastPassword, password })
