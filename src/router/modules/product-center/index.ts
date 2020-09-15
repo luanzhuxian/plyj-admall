@@ -1,7 +1,6 @@
 import { importFiles } from './../../../assets/ts/utils'
 
 const context = require.context('./', false, /\/((?!index).)+\.ts$/)
-console.log(context)
 export default [
     {
         path: '/product-center',

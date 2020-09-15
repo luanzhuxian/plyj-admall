@@ -16,7 +16,7 @@
             :node-data="item"
             :key="item.id"
             :hidden="hidden"
-            @nodeClick="clickHandler"
+            @node-click="clickHandler"
             @change="change"
             ref="treeItem"
         >

@@ -10,6 +10,7 @@ import DateRange from './components/common/Date-Range.vue'
 import PlTabs from './components/common/Pl-Tabs.vue'
 import Pagination from './components/common/Pagination.vue'
 import Operating from './components/common/Operating.vue'
+import PlTable from './components/common/Pl-Table.vue'
 
 import VueViewer from 'v-viewer'
 import VueClipboard from 'vue-clipboard2'
@@ -33,6 +34,7 @@ Vue.component(SearchBox.name, SearchBox)
 Vue.component(PlTabs.name, PlTabs)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Operating.name, Operating)
+Vue.component(PlTable.name, PlTable)
 
 /* *************** 自定义指令 ***************** */
 for (const k of Object.keys(directive)) {
