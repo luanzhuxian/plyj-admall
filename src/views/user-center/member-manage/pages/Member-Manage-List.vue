@@ -6,15 +6,15 @@
             <div class="data-list">
                 <div>
                     今日新增会员
-                    <b>{{ memberData.data0 }}</b>
+                    <b>{{ memberData.todayUserCount }}</b>
                 </div>
                 <div>
                     近30天新增会员
-                    <b>{{ memberData.data30 }}</b>
+                    <b>{{ memberData.monthUserCount }}</b>
                 </div>
                 <div>
                     累计会员总量
-                    <b>{{ memberData.data99 }}</b>
+                    <b>{{ memberData.count }}</b>
                 </div>
             </div>
         </div>
@@ -26,12 +26,13 @@
                     @change="search"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     v-model="form.keyword"
+                    style="width: 250px;"
                 />
             </el-form-item>
             <el-form-item label="用户类型：">
                 <el-select
-                    v-model="form.roleType"
-                    @change="getMemberList"
+                    v-model="form.roleCode"
+                    @change="search"
                     clearable
                 >
                     <el-option :value="''" label="全部" />
@@ -40,16 +41,15 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="来源：">
-                <el-select v-model="form.roleType" @change="getMemberList" clearable>
+                <el-select v-model="form.userSource" @change="search" clearable>
                     <el-option :value="''" label="全部" />
-                    <el-option value="MEMBERSHIP" label="微信H5" />
-                    <el-option value="HELPER" label="Helper" />
+                    <el-option value="微信H5" label="微信H5" />
                 </el-select>
             </el-form-item>
             <el-form-item label="注册时间：">
                 <date-range
-                    :init="[form.startTime, form.endTime]"
-                    @change="formatTimeRange"
+                    :init="timeRange"
+                    @change="formatTimeRange('startTime', 'endTime')"
                     disable-after
                     clearable
                     ref="dateRange"
@@ -57,8 +57,8 @@
             </el-form-item>
             <el-form-item label="最近登陆时间：">
                 <date-range
-                    :init="[form.startTime, form.endTime]"
-                    @change="formatTimeRange"
+                    :init="loginTimeRange"
+                    @change="formatTimeRange('loginStartTime', 'loginEndTime')"
                     disable-after
                     clearable
                     ref="dateRange"
@@ -66,8 +66,8 @@
             </el-form-item>
             <el-form-item label="最近购买时间：">
                 <date-range
-                    :init="[form.startTime, form.endTime]"
-                    @change="formatTimeRange"
+                    :init="lastPurchaseTimeRange"
+                    @change="formatTimeRange('lastPurchaseStartTime', 'lastPurchaseEndTime')"
                     disable-after
                     clearable
                     ref="dateRange"
@@ -80,7 +80,7 @@
                     style="width: 116px"
                     @change="search"
                     placeholder="请输入次数"
-                    v-model="form.keyword"
+                    v-model="form.purchasesMinNumber"
                 />
                 至
                 <el-input
@@ -89,7 +89,7 @@
                     style="width: 116px"
                     @change="search"
                     placeholder="请输入次数"
-                    v-model="form.keyword"
+                    v-model="form.purchasesMaxNumber"
                 />
             </el-form-item>
             <el-form-item label="支付金额：">
@@ -99,7 +99,7 @@
                     style="width: 116px"
                     @change="search"
                     placeholder="请输入金额"
-                    v-model="form.keyword"
+                    v-model="form.purchasesMinAmount"
                 />
                 至
                 <el-input
@@ -108,7 +108,7 @@
                     style="width: 116px"
                     @change="search"
                     placeholder="请输入金额"
-                    v-model="form.keyword"
+                    v-model="form.purchasesMaxAmount"
                 />
             </el-form-item>
             <el-form-item>
@@ -136,15 +136,15 @@
                 class="tag-list"
             >
                 <div class="tag-list-top">
-                    <el-button icon="el-icon-plus" @click="editTag" style="color: #4C88D6; border-color: #4C88D6;">
-                        新建用户标签
+                    <el-button icon="el-icon-plus" @click="editTag" style="color: #333333; border-radius: 20px;">
+                        新建标签
                     </el-button>
                 </div>
                 <div class="tag-list-default" @click="getMemberListByTag('')">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-rule-dir-close" />
                     </svg>
-                    <span :class="{'blue-text': form.tagId === ''}">全部用户({{ userCount }})</span>
+                    <span class="color-333">全部用户({{ userCount }})</span>
                     <pl-svg :key="1" name="icon-you" width="20" />
                 </div>
                 <div
@@ -195,12 +195,6 @@
                     <i>（拖动即可调整同级分类的顺序）</i>
                 </div>
             </div>
-            <!-- 编辑标签 -->
-            <edit-member-tag
-                :show.sync="showTagBox"
-                :data.sync="currentTag"
-                @editTag="editTagConfirm"
-            />
             <!-- 会员列表 -->
             <div class="member-list">
                 <div class="multiple-selection" v-if="multipleSelectionId.length">
@@ -233,10 +227,10 @@
                                 >
                                 <div class="info">
                                     <div class="intro">
-                                        <span class="user-type">{{ USER_TYPE[row.userType] }}</span>
+                                        <span v-if="row.userType" class="user-type">{{ USER_TYPE[row.userType] }}</span>
                                         <span class="name">{{ row.nickName }}</span>
                                         <template>
-                                            <pl-svg v-if="row.gender === 0" name="icon-women-be552" width="10" height="10" />
+                                            <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
                                             <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
                                         </template>
                                     </div>
@@ -261,7 +255,7 @@
                     />
                     <el-table-column label="用户类型">
                         <template #default="{ row }">
-                            {{ ROLE_TYPE[row.roleName] }}
+                            {{ ROLE_TYPE[row.roleCode] }}
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -280,6 +274,7 @@
                     <el-table-column
                         prop="createTime"
                         label="注册时间"
+                        width="170"
                     />
                     <el-table-column
                         prop="lastLoginTime"
@@ -292,15 +287,12 @@
                         width="170"
                     />
                     <el-table-column
-                        fixed="right"
                         label="操作"
-                        align="center"
-                        header-align="center"
                         width="210"
                     >
                         <template #default="{ row }">
                             <div class="operate">
-                                <a @click="$router.push({ name: 'MemberManageDetail', params: { id: row.mallUserId, roleCode: row.roleType, fromRouteName: routeName }, query: { from: 'List' } })">
+                                <a @click="$router.push({ name: 'MemberManageDetail', params: { userId: row.id } })">
                                     详情
                                 </a>
                                 <a @click="setTagToMember(row)">
@@ -321,6 +313,14 @@
                     :sizes="true"
                 />
             </div>
+
+            <!-- 编辑标签 -->
+            <edit-member-tag
+                :show.sync="showTagBox"
+                :data.sync="currentTag"
+                @editTag="editTagConfirm"
+            />
+
             <!-- 添加标签 -->
             <add-tags
                 :show.sync="showAddTagDialog"
@@ -401,6 +401,7 @@ import AddTags from '../components/Add-Tags'
 import RemarkList from '../components/Remark-List'
 
 import {
+    getMemberData,
     getMemberList,
     exportMemberQuery,
     getTagList,
@@ -424,6 +425,74 @@ import moment from 'moment'
 })
 
 export default class MemberManageList extends Vue {
+  ROLE_TYPE = {
+      MEMBERSHIP: '普通会员',
+      HELPER: 'Helper'
+  }
+
+  USER_TYPE = {
+      1: '家',
+      2: '学',
+      3: '其'
+  }
+
+  form = {
+      keyword: '',
+      current: 1,
+      size: 10,
+      roleCode: '',
+      userSource: '',
+      startTime: '',
+      endTime: '',
+      loginStartTime: '',
+      loginEndTime: '',
+      lastPurchaseStartTime: '',
+      lastPurchaseEndTime: '',
+      purchasesMinNumber: '',
+      purchasesMaxNumber: '',
+      purchasesMinAmount: '',
+      purchasesMaxAmount: '',
+      tagId: ''
+  }
+
+  timeRange = ['', '']
+  loginTimeRange = ['', '']
+  lastPurchaseTimeRange = ['', '']
+
+  multipleSelection = []
+  multipleSelectionId =[]
+
+  total = 0
+  table = []
+
+  // 会员统计信息
+  memberData = {
+      todayUserCount: 0,
+      monthUserCount: 0,
+      count: 0
+  }
+
+  // 查看备注信息
+  isShowRemarkList = false
+  currentUserId = ''
+
+  // 标签列表
+  tagList = []
+  // 显示标签编辑框
+  showTagBox = false
+  // 当前编辑的标签
+  currentTag = {}
+  // 未设置标签的会员列表
+  notSetTageUserCount = 0
+  // 全部用户数量
+  userCount = 0
+  // 是否批量设置标签
+  isMultiple = true
+  showAddTagDialog = false
+  // 当前用户信息
+  currentMemberInfo = {}
+
+  // 导出数据
   showExport = false
   exportData = {
       keyword: '',
@@ -440,74 +509,14 @@ export default class MemberManageList extends Vue {
       ]
   }
 
-  leave = ''
-  form = {
-      keyword: '',
-      current: 1,
-      size: 10,
-      tagId: '',
-      startTime: '',
-      endTime: '',
-      roleType: ''
-  }
-
-  multipleSelection = []
-  multipleSelectionId =[]
-  timeRange = []
-  total = 0
-  table = []
-  routeName = ''
-  // 标签列表
-  tagList = []
-  // 显示标签编辑框
-  showTagBox = false
-  // 当前编辑的标签
-  currentTag = {}
-  // 未设置标签的会员列表
-  notSetTageUserCount = 0
-  // 全部用户数量
-  userCount = 0
-  isMultiple = true
-  showAddTagDialog = false
-  // 当前用户信息
-  currentMemberInfo = {}
-  ROLE_TYPE = {
-      MEMBERSHIP: '普通会员',
-      HELPER: 'Helper'
-  }
-
-  // TODO.会员统计信息
-  memberData = {
-      data0: 1,
-      data30: 33,
-      data99: 909
-  }
-
-  USER_TYPE = {
-      1: '家',
-      2: '学',
-      3: '其'
-  }
-
-  noRefresh = true
-
   //  life circle
-  created () {
-      this.routeName = this.$route.name
-      if (sessionStorage.getItem('filterForm')) {
-          this.form = JSON.parse(sessionStorage.getItem('filterForm'))
-          sessionStorage.removeItem('filterForm')
-      }
-      this.getMemberList()
-      this.getTagList()
-  }
-
-  beforeRouteLeave (to, from, next) {
-      if (to.name === 'MemberDetail') {
-          sessionStorage.setItem('filterForm', JSON.stringify(this.form))
-          next()
-      } else {
-          next()
+  async created () {
+      try {
+          await this.getMemberData()
+          await this.getMemberList()
+          await this.getTagList()
+      } catch (e) {
+          throw e
       }
   }
 
@@ -533,6 +542,7 @@ export default class MemberManageList extends Vue {
       this.getMemberListByTag(id)
   }
 
+  // 导出
   changeExport () {
       this.exportData = {
           ...this.exportData,
@@ -607,6 +617,20 @@ export default class MemberManageList extends Vue {
       }
   }
 
+  async getMemberData () {
+      try {
+          const { result: { todayUserCount, monthUserCount, count } } = await getMemberData()
+          this.memberData = {
+              todayUserCount,
+              monthUserCount,
+              count
+          }
+          this.getMemberNum()
+      } catch (e) {
+          throw e
+      }
+  }
+
   async getMemberNum () {
       try {
           const { notSetTageUserCount, userCount } = await getMemberNum()
@@ -619,26 +643,16 @@ export default class MemberManageList extends Vue {
 
   async getMemberList () {
       try {
-          const { records, total } = await getMemberList(this.form)
-          // todo
-          this.table = records
+          const params = { ...this.form }
+          if (params.purchasesMinAmount.trim()) {
+              params.purchasesMinAmount = Number(params.purchasesMinAmount) * 100
+          }
+          if (params.purchasesMaxAmount.trim()) {
+              params.purchasesMaxAmount = Number(params.purchasesMaxAmount) * 100
+          }
+          const { result: { records, total } } = await getMemberList(params)
 
-          this.table = [{
-              userImage: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/年味.png',
-              userType: 1,
-              userTags: ['12312', '2312321', 'sdaid回到家啊'],
-              nickName: 'sadkasod经反复',
-              userName: 'sdajsiodjajdasiod',
-              gender: 1,
-              mobile: '2312314212121',
-              roleName: 'MEMBERSHIP',
-              userSource: '微信',
-              purchasesNumber: '23124',
-              purchasesAmount: '23124',
-              createTime: '2142424412',
-              lastLoginTime: '41241',
-              lastPurchaseTime: '243213'
-          }]
+          this.table = records
           this.total = total
           this.getMemberNum()
       } catch (e) {
@@ -669,33 +683,51 @@ export default class MemberManageList extends Vue {
       }
   }
 
-  formatTimeRange ({ start, end }) {
-      this.form.startTime = start
-      this.form.endTime = end
-      this.getMemberList()
+  formatTimeRange ({ start, end }, startText, endText) {
+      this.form[startText] = start
+      this.form[endText] = end
+      this.search()
   }
 
   sizeChange (val) {
       this.form.current = 1
       this.form.size = val
-      this.getMemberList()
+      this.search()
   }
 
-  search () {
-      this.form.current = 1
-      this.getMemberList()
+  async search () {
+      try {
+          this.form.current = 1
+          await this.getMemberList()
+      } catch (e) {
+          throw e
+      }
   }
 
   reset () {
+      const tagId = this.form.tagId
       this.form = {
           keyword: '',
           current: 1,
           size: 10,
-          tagId: '',
+          roleCode: '',
+          userSource: '',
           startTime: '',
           endTime: '',
-          roleType: ''
+          loginStartTime: '',
+          loginEndTime: '',
+          lastPurchaseStartTime: '',
+          lastPurchaseEndTime: '',
+          purchasesMinNumber: '',
+          purchasesMaxNumber: '',
+          purchasesMinAmount: '',
+          purchasesMaxAmount: '',
+          tagId: ''
       }
+      this.timeRange = ['', '']
+      this.loginTimeRange = ['', '']
+      this.lastPurchaseTimeRange = ['', '']
+      this.form.tagId = tagId
       this.search()
   }
 
@@ -710,20 +742,18 @@ export default class MemberManageList extends Vue {
       this.showAddTagDialog = true
   }
 
-  isShowRemarkList = false
-  currentUserId = ''
   // 设置备注
   setRemarkToMember (row) {
       this.isShowRemarkList = true
-      this.currentUserId = row.userId
+      this.currentUserId = row.id
   }
 
   // 获取标签列表
   async getTagList () {
       try {
-          const { data } = await getTagList()
+          const { result } = await getTagList()
           this.getMemberNum()
-          this.tagList = data || []
+          this.tagList = result || []
       } catch (e) {
           throw (e)
       }
@@ -733,12 +763,13 @@ export default class MemberManageList extends Vue {
   async editTag (tagInfo) {
       this.currentTag = {}
       if (tagInfo) {
-          this.currentTag = { id: tagInfo.id, tagName: tagInfo.tagName }
+          this.currentTag = { id: tagInfo.id, sort: tagInfo.sort, tagName: tagInfo.tagName }
       }
       this.showTagBox = true
   }
 
   editTagConfirm () {
+      console.log(1111)
       this.getTagList()
       this.getMemberList()
   }
@@ -748,7 +779,7 @@ export default class MemberManageList extends Vue {
       try {
           const { data } = await checkIsTagUsed(id)
           if (data.result) {
-              await this.$confirm('删除标签后，该标签下的所有用户将失去该标签属性。是否确定删除？')
+              await this.$confirm('删除标签后，该标签下的所有用户将失去该标签属性是否确定删除？')
           }
           await deleteTag(id)
           await this.getTagList()
@@ -786,9 +817,10 @@ export default class MemberManageList extends Vue {
     .tag-list {
         position: relative;
         z-index: 1;
-        width: 250px;
+        width: 132px;
         height: calc(100vh - 80px);
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        background-color: #F5F5F5;
         overflow: auto;
 
         .tag-list-top {
@@ -796,7 +828,7 @@ export default class MemberManageList extends Vue {
             align-items: center;
             justify-content: space-between;
             height: 61px;
-            padding: 0 15px;
+            padding: 0 6px;
             border-bottom: 1px solid #ddd;
         }
 
@@ -805,7 +837,6 @@ export default class MemberManageList extends Vue {
             justify-content: space-between;
             align-items: center;
             font-size: 14px;
-            padding: 0 20px;
             line-height: 50px;
             border-bottom: 1px solid #e7e7e7;
             cursor: pointer;
@@ -823,7 +854,6 @@ export default class MemberManageList extends Vue {
 
         .tag-list-options0 {
             position: relative;
-            padding-left: 38px;
             line-height: 50px;
             font-size: var(--fontSize);
             color: #333;
@@ -833,7 +863,6 @@ export default class MemberManageList extends Vue {
             svg {
                 width: 25px;
                 height: 18px;
-                margin-right: 10px;
                 vertical-align: middle;
             }
         }
@@ -859,11 +888,11 @@ export default class MemberManageList extends Vue {
         }
         .category-drop-tip {
             height: 100px;
-            margin-top: 20px;
-            line-height: 150px;
+            margin-top: 50px;
+            padding: 100px 20px 0;
             text-align: center;
             color: #4C88D6;
-            background:  #fff url("https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png") center top/65px auto no-repeat;
+            background:  transparent url("https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png") center top/65px auto no-repeat;
         }
     }
 
@@ -902,6 +931,7 @@ export default class MemberManageList extends Vue {
                         display: inline-block;
                         width: 18px;
                         height: 18px;
+                        margin-right: 6px;
                         border: 1px solid #F79F1A;
                         border-radius: 5px;
                         font-size: 12px;
@@ -912,8 +942,8 @@ export default class MemberManageList extends Vue {
                         color: #F79F1A;
                     }
                     .name {
-                        width: 81px;
-                        margin: 0 6px;
+                        max-width: 81px;
+                        margin-right: 6px;
                         @include elps-wrap(1);
                     }
                     >svg {
@@ -921,6 +951,7 @@ export default class MemberManageList extends Vue {
                     }
                 }
                 .tag {
+                    margin-top: 8px;
                     width: 110px;
                     color: #999999;
                     @include elps-wrap(1);
@@ -943,7 +974,7 @@ export default class MemberManageList extends Vue {
     .background-color-grey {
         background-color: #eee!important;
     }
-    .blue-text {
-        color: #4C88D6!important;
+    #color-333{
+        color: #333;
     }
 </style>

@@ -51,12 +51,13 @@
         <!--添加备注-->
         <AddRemark :show.sync="showAddRemark"
                    :user-id="userId"
+                   @success="addTagSuccess"
         />
     </el-dialog>
 </template>
 
 <script>
-import { getWatchDetailList } from '../../../../apis/member'
+import { getRemarkList } from '../../../../apis/member'
 import AddRemark from './Add-Remark'
 export default {
     name: 'WatchDetailList',
@@ -86,7 +87,7 @@ export default {
         async show (val) {
             if (val) {
                 this.filterForm = {
-                    userId: this.userId,
+                    mallUserId: this.userId,
                     current: 1,
                     size: 10
                 }
@@ -97,12 +98,11 @@ export default {
     methods: {
         // 备注
         addRemark () {
-            console.log(525454)
             this.showAddRemark = true
         },
         async getList () {
             try {
-                const { data: { result: { records, total } } } = await getWatchDetailList(this.filterForm)
+                const { data: { result: { records, total } } } = await getRemarkList(this.filterForm)
                 this.table = records
                 this.total = total
             } catch (e) {
@@ -113,6 +113,14 @@ export default {
             try {
                 this.filterForm.current = 1
                 this.filterForm.size = val
+                await this.getList()
+            } catch (e) {
+                throw e
+            }
+        },
+        async addTagSuccess () {
+            try {
+                this.filterForm.current = 1
                 await this.getList()
             } catch (e) {
                 throw e

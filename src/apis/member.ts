@@ -1,8 +1,11 @@
 import axios from '../assets/ts/axios-config'
 
+/* 会员统计信息 */
+export const getMemberData = () => axios.get('/apis/v2/user/count')
+
 /* 会员列表 */
-export const getMemberList = ({ keyword, current, size, tagId, startTime, endTime, roleType }: any) => axios.get('/apis/v1/systemctl/memberManager/member/list', {
-    params: { keyword, current, size, tagId, startTime, endTime, roleType }
+export const getMemberList = ({ current, size, keyword, roleCode, userSource, startTime, endTime, loginStartTime, loginEndTime, lastPurchaseStartTime, lastPurchaseEndTime, purchasesMinNumber, purchasesMaxNumber, purchasesMinAmount, purchasesMaxAmount, tagId }: any) => axios.get('/apis/v2/user', {
+    params: { current, size, keyword, roleCode, userSource, startTime, endTime, loginStartTime, loginEndTime, lastPurchaseStartTime, lastPurchaseEndTime, purchasesMinNumber, purchasesMaxNumber, purchasesMinAmount, purchasesMaxAmount, tagId }
 })
 
 /* Helper列表 */
@@ -15,7 +18,9 @@ export const getHelperList = ({ realName, mobile, ownnerUserId, current, size, a
  * @param params {Object} { mallUserId, roleCode }
  * @returns {Promise<AxiosResponse<T>>}
  */
-export const getMemberDetail = (params: any) => axios.get('/apis/v1/systemctl/memberManager/member/detail', { params })
+export const getMemberDetail = (id: any) => axios.get(`/apis/v2/user/${ id }`)
+
+export const saveMemberInfo = (params: any) => axios.put('/apis/v2/user', params)
 
 export const orderRebateInfo = ({ userId }: any) => axios.get('/apis/v2/order/agency/orderRebateInfo', { params: { userId } })
 
@@ -78,13 +83,13 @@ export const getYouKe = (params: any) => axios.get('/apis/v1/systemctl/memberMan
 export const addTag = (tagName: string) => axios.post('/apis/v1/mall/user/tag/add', { tagName })
 
 // 编辑标签
-export const updateTag = (id: string, tagName: string) => axios.post('/apis/v1/mall/user/tag/update', { id, tagName })
+export const updateTag = (params: any) => axios.post('/apis/v2/user/tag', params)
 
 // 删除用户标签
-export const deleteTag = (id: string) => axios.delete(`/apis/v1/mall/user/tag/delete/${ id }`)
+export const deleteTag = (id: string) => axios.delete(`/apis/v2/user/tag/${ id }`)
 
 // 获取用户标签列表
-export const getTagList = () => axios.get('/apis/v1/mall/user/tag/list')
+export const getTagList = () => axios.get('/apis/v2/user/tag')
 
 // 排序用户标签列表
 export const sortTagList = (ids: string[]) => axios.post('/apis/v1/mall/user/tag/sort', ids)
@@ -93,10 +98,19 @@ export const sortTagList = (ids: string[]) => axios.post('/apis/v1/mall/user/tag
 export const checkIsTagUsed = (id: string) => axios.get(`/apis/v1/mall/user/tag/isTagUsed/${ id }`)
 
 // 向当前用户添加标签
-export const addTagToMember = (userId: string, tagIds: string[]) => axios.post('/apis/v1/mall/user/tag/relation/add', { userId, tagIds })
+export const addTagToMember = (userId: string, tags: string[]) => axios.post('/apis/v2/user/tag/r', { userId, tags })
 
 // 获取未设置标签的用户数量以及所有用户的数量
 export const getMemberNum = () => axios.get('/apis/v1/mall/user/tag/mallTagInfo')
 
 // 查看 当前学员观看列表
 export const getWatchDetailList = (params: any) => axios.get('/apis/v1/mall/live/cost/subVideo/view/detail', { params })
+
+// 新增备注信息
+export const saveRemark = (params: any) => axios.post('/apis/v2/user/remark', params)
+
+// 查看 当前备注列表
+export const getRemarkList = (params: any) => axios.get('/apis/v2/user/remark', params)
+
+// 新增备注信息
+export const deleteRemark = (params: any) => axios.delete('/apis/v2/user/remark', params)

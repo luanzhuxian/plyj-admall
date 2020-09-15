@@ -44,7 +44,7 @@
 
 <script>
 import { copyFields, resetForm } from '../../../../assets/ts/utils'
-import { addTag, updateTag } from '../../../../apis/member'
+import { updateTag } from '../../../../apis/member'
 export default {
     name: 'EditMemberTag',
     data () {
@@ -100,14 +100,14 @@ export default {
                 await this.$refs.form.validate()
                 if (this.data && this.data.id) {
                     // 编辑
-                    await updateTag(this.data.id, this.form.tagName)
+                    await updateTag({ id: this.data.id, sort: this.data.sort, tagName: this.form.tagName })
                     this.$success('编辑标签成功')
                 } else {
                     // 添加
-                    await addTag(this.form.tagName)
+                    await updateTag({ tagName: this.form.tagName })
                     this.$success('添加标签成功')
                 }
-                this.$emit('edit-tag')
+                this.$emit('editTag')
                 this.close()
             } catch (e) {
                 throw e

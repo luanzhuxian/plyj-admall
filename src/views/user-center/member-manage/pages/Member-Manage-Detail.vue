@@ -1,29 +1,30 @@
 <template>
     <div class="member-detail">
+        <!--用户信息-->
         <div class="container bg-white mt-20">
             <p class="title">用户基本信息</p>
             <div class="header">
                 <img
                     slot="left"
                     class="face"
-                    :src="memberDetail.avatarUrl"
+                    :src="memberDetail.userImage"
                 >
                 <div class="intro">
                     <div class="detail">
-                        <span class="user-type">{{ USER_TYPE[memberDetail.userType] }}</span>
+                        <span class="user-type" v-if="memberDetail.type">{{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}</span>
                         <span
                             slot="right-top"
                             class="name"
                             v-text="memberDetail.nickName"
                         />
                         <template>
-                            <pl-svg v-if="memberDetail.gender === 0" name="icon-women-be552" width="10" height="10" />
+                            <pl-svg v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />
                             <pl-svg v-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
                         </template>
                     </div>
                     <div
                         class="member-type"
-                        v-text="ROLE[form.roleCode]"
+                        v-text="ROLE[memberDetail.roleCode]"
                     />
                 </div>
                 <div class="info-list">
@@ -33,16 +34,16 @@
                     />
                     <Field
                         title="姓名："
-                        :text="memberDetail.realName"
+                        :text="memberDetail.name"
                     />
                     <Field
                         title="地址："
-                        :text="memberDetail.address"
+                        :text="memberDetail.province + memberDetail.region + memberDetail.city + memberDetail.address"
                     />
                     <div class="tag-list">
                         <span>标签：</span>
-                        <span class="tags" v-if="memberDetail.userTags && memberDetail.userTags.length">
-                            <span v-for="item in memberDetail.userTags" :key="item">{{ item }}</span>
+                        <span class="tags" v-if="memberDetail.tags && memberDetail.tags.length">
+                            <span v-for="item in memberDetail.tags" :key="item">{{ item }} </span>
                         </span>
                         <a @click="showAddTagDialog = true">
                             编辑
@@ -50,7 +51,7 @@
                     </div>
                     <Field
                         title="来源："
-                        :text="memberDetail.userSource"
+                        :text="memberDetail.source"
                     />
                     <div class="record">
                         <span>记录：</span>
@@ -64,6 +65,7 @@
             </div>
         </div>
 
+        <!--备注用户信息-->
         <div class="container bg-white mt-20">
             <p class="title">
                 备注用户信息
@@ -80,15 +82,11 @@
                     <div class="text" v-if="!isEdit">
                         <div>
                             <span>真实姓名：</span>
-                            <span>{{ memberDetail.userName }}</span>
+                            <span>{{ memberDetail.name }}</span>
                         </div>
                         <div>
                             <span>用户身份：</span>
-                            <span>{{ USER_TYPE[memberDetail.userType] }}</span>
-                        </div>
-                        <div>
-                            <span>年龄：</span>
-                            <span>{{ memberDetail.userName }}</span>
+                            <span>{{ USER_TYPE[memberDetail.type] }}</span>
                         </div>
                         <div>
                             <span>手机号码：</span>
@@ -96,99 +94,91 @@
                         </div>
                         <div>
                             <span>生日：</span>
-                            <span>{{ memberDetail.userName }}</span>
+                            <span>{{ memberDetail.birthday }}</span>
                         </div>
                         <div>
                             <span>性别：</span>
-                            <span>{{ memberDetail.gender }}</span>
+                            <span>{{ GENDER[memberDetail.gender] }}</span>
                         </div>
                         <div>
                             <span>微信号：</span>
-                            <span>{{ memberDetail.userName }}</span>
+                            <span>{{ memberDetail.wechatNumber }}</span>
                         </div>
                         <div>
                             <span>邮箱：</span>
-                            <span>{{ memberDetail.userName }}</span>
+                            <span>{{ memberDetail.email }}</span>
                         </div>
                         <div class="fill">
                             <span>所在区域：</span>
-                            <span>{{ memberDetail.userName }}</span>
+                            <span>{{ memberDetail.province + memberDetail.city + memberDetail.region + memberDetail.address }}</span>
+                        </div>
+                        <div v-if="memberDetail.type !== 2">
+                            <span>行业：</span>
+                            <span>{{ memberDetail.industry }}</span>
+                        </div>
+                        <div v-if="memberDetail.type !== 2">
+                            <span>公司：</span>
+                            <span>{{ memberDetail.company }}</span>
+                        </div>
+                        <div v-if="memberDetail.type !== 2">
+                            <span>职位：</span>
+                            <span>{{ memberDetail.workPosition }}</span>
                         </div>
                         <div class="fill">
                             <span>备注：</span>
-                            <span>{{ memberDetail.userName }}</span>
+                            <span>{{ memberDetail.remark }}</span>
                             <el-button type="text" @click="tabName = 'RemarkList'">查看更多</el-button>
                         </div>
                     </div>
-                    <el-form
-                        v-else
-                        :inline="true"
-                        class="border-bottom mb-20"
-                    >
-                        <el-form-item class="mb-10 mr-20" label="真实姓名：">
+                    <template v-else>
+                        <el-form-item label="真实姓名：">
                             <el-input
                                 clearable
                                 placeholder="请输入真实姓名"
-                                maxlength="8"
-                                v-model="addMemberDetailForm.userName"
+                                maxlength="16"
+                                v-model="addMemberDetailForm.name"
                             />
                         </el-form-item>
-                        <el-form-item class="mb-10" label="用户身份：">
-                            <el-radio-group class="mr-20" v-model="addMemberDetailForm.userType">
-                                <el-radio :label="0">家长</el-radio>
-                                <el-radio :label="1">学生</el-radio>
-                                <el-radio :label="2">其他</el-radio>
+                        <el-form-item label="用户身份：">
+                            <el-radio-group class="mr-20" v-model="addMemberDetailForm.type">
+                                <el-radio :label="1">家长</el-radio>
+                                <el-radio :label="2">学生</el-radio>
+                                <el-radio :label="3">其他</el-radio>
                             </el-radio-group>
                         </el-form-item>
-                        <el-form-item class="mb-10 mr-20" v-show="addMemberDetailForm.userType === 2">
+                        <el-form-item v-show="addMemberDetailForm.type === 3">
                             <el-input
                                 clearable
                                 placeholder="请输入用户身份"
                                 maxlength="8"
-                                v-model="addMemberDetailForm.userTypeText"
+                                v-model="addMemberDetailForm.other"
                             />
                         </el-form-item>
-                        <el-form-item label="生日：" class="mb-10 mr-20">
+                        <el-form-item label="生日：">
                             <el-date-picker
                                 v-model="addMemberDetailForm.birthday"
                                 type="date"
                                 placeholder="选择生日日期" />
                         </el-form-item>
-                        <el-form-item class="mb-10 mr-20" label="年龄：">
-                            <el-input
-                                clearable
-                                type="number"
-                                placeholder="请输入年龄"
-                                v-model="addMemberDetailForm.age"
-                            />
-                        </el-form-item>
-                        <el-form-item class="mb-10 mr-20" label="邮箱：">
+                        <el-form-item label="邮箱：">
                             <el-input
                                 clearable
                                 type="email"
+                                maxlength="20"
                                 placeholder="请输入邮箱"
                                 v-model="addMemberDetailForm.email"
                             />
                         </el-form-item>
-                        <el-form-item class="mb-10 mr-20" label="微信号：">
+                        <el-form-item label="微信号：">
                             <el-input
                                 clearable
-                                type="email"
+                                maxlength="20"
                                 placeholder="请输入微信号"
-                                v-model="addMemberDetailForm.weChat"
-                            />
-                        </el-form-item>
-                        <el-form-item class="mb-10 mr-20" label="所在区域：">
-                            <el-input
-                                clearable
-                                type="email"
-                                placeholder="请输入微信号"
-                                v-model="addMemberDetailForm.a"
+                                v-model="addMemberDetailForm.wechatNumber"
                             />
                         </el-form-item>
                         <el-form-item
                             label="所在区域"
-                            class="mb-10 mr-20"
                             prop="addressPrefix"
                         >
                             <CityPicker
@@ -198,23 +188,40 @@
                         </el-form-item>
                         <el-form-item
                             label="详细地址"
-                            class="mb-10 mr-20"
                             prop="agencyAddress"
                         >
                             <el-input
-                                v-model="addMemberDetailForm.agencyAddress"
+                                maxlength="30"
+                                v-model="addMemberDetailForm.address"
                                 placeholder="请输入详细地址"
                             />
                         </el-form-item>
-                        <el-form-item class="mb-10 mr-20" label="备注：">
+                        <el-form-item v-show="addMemberDetailForm.type !== 2" label="行业：">
                             <el-input
-                                type="textarea"
-                                placeholder="请输入内容"
                                 clearable
-                                v-model="addMemberDetailForm.remarkDetail"
+                                placeholder="请输入行业"
+                                maxlength="30"
+                                v-model="addMemberDetailForm.industry"
                             />
                         </el-form-item>
-                    </el-form>
+                        <el-form-item v-show="addMemberDetailForm.type !== 2" label="公司：">
+                            <el-input
+                                clearable
+                                placeholder="请输入公司名称"
+                                maxlength="30"
+                                v-model="addMemberDetailForm.company"
+                            />
+                        </el-form-item>
+                        <el-form-item v-show="addMemberDetailForm.type !== 2" label="职位：">
+                            <el-input
+                                clearable
+                                type="email"
+                                placeholder="请输入职位"
+                                maxlength="20"
+                                v-model="addMemberDetailForm.workPosition"
+                            />
+                        </el-form-item>
+                    </template>
                 </SearchBox>
             </div>
         </div>
@@ -798,9 +805,9 @@
                                 fixed="right"
                                 label="操作"
                             >
-                                <template>
+                                <template #default="{row}">
                                     <div class="operate">
-                                        <a @click="$router.push({ name: 'MemberManageDetail'})">
+                                        <a @click="deleteRemark(row.id)">
                                             删除
                                         </a>
                                     </div>
@@ -848,7 +855,13 @@ import AddTags from '../components/Add-Tags'
 import WatchDetailList from '../components/Watch-Detail-List'
 import AddRemark from '../components/Add-Remark'
 
-import { getMemberDetail, getOrderList } from '../../../../apis/member'
+import {
+    getMemberDetail,
+    saveMemberInfo,
+    getOrderList,
+    getRemarkList,
+    deleteRemark
+} from '../../../../apis/member'
 
   @Component({
       components: {
@@ -869,9 +882,9 @@ export default class MemberManageDetail extends Vue {
     }
 
     USER_TYPE = {
-        1: '家',
-        2: '学',
-        3: '其'
+        1: '家长',
+        2: '学生',
+        3: '其他'
     }
 
     // 用户行为数据Tab
@@ -895,14 +908,41 @@ export default class MemberManageDetail extends Vue {
         { value: 'VIDEO_GOODS', label: '录播订单' }
     ]
 
-    // 请求用户数据参数
-    form = {
-        roleCode: '',
-        mallUserId: ''
+    GENDER = {
+        0: '保密',
+        1: '男',
+        2: '女'
     }
 
+    // 请求用户数据参数
+    userId = ''
+
     // 用户数据
-    memberDetail = {}
+    memberDetail = {
+        userImage: '',
+        type: '',
+        nickName: '',
+        gender: '',
+        roleCode: '',
+        mobile: '',
+        name: '',
+        province: '',
+        region: '',
+        city: '',
+        address: '',
+        tags: '',
+        source: '',
+        wechatNumber: '',
+        email: '',
+        birthday: '',
+        company: '',
+        createTime: '',
+        id: '',
+        lastLoginTime: '',
+        lastPurchaseTime: '',
+        remark: '',
+        workPosition: ''
+    }
 
     // 是否显示添加标签弹框
     showAddTagDialog = false
@@ -923,21 +963,16 @@ export default class MemberManageDetail extends Vue {
 
     // 生命周期函数
     async created () {
-        const { roleCode, id } = this.$route.params
-        this.from = this.$route.query.from
-        this.form.mallUserId = id
-        this.form.roleCode = roleCode
+        const { userId } = this.$route.params
+        this.userId = userId
         await this.getMemberDetail()
     }
 
     // methods
     async getMemberDetail () {
         try {
-            const { data: res } = await getMemberDetail(this.form)
-            if (res.result && res.result.idCard) {
-                res.result.idCard = res.result.idCard.replace(/^(\d{4})\d{9}(\d+)/, '$1*********$2')
-            }
-            this.memberDetail = res.result || {}
+            const { result } = await getMemberDetail(this.userId)
+            this.memberDetail = result || {}
         } catch (e) {
             throw e
         }
@@ -945,7 +980,21 @@ export default class MemberManageDetail extends Vue {
 
     addressCode = []
     addMemberDetailForm = {
-        userName: ''
+        mallUserId: '',
+        name: '',
+        // 1家长，2学生，3其他
+        type: '',
+        other: '',
+        birthday: '',
+        email: '',
+        wechatNumber: '',
+        province: '',
+        city: '',
+        region: '',
+        address: '',
+        industry: '',
+        company: '',
+        workPosition: ''
     }
 
     selectedCity (val) {
@@ -953,17 +1002,25 @@ export default class MemberManageDetail extends Vue {
         form.province = val[0].code
         form.city = val[1].code
         form.region = val[2] ? val[2].code : ''
-        form.town = val[3] ? val[3].code : ''
+
+        /* form.town = val[3] ? val[3].code : ''
         form.addressPrefix = val[0].name +
         val[1].name +
         (val[2] ? val[2].name : '') +
-        (val[3] ? val[3].name : '')
+        (val[3] ? val[3].name : '') */
     }
 
     // 保存备注用户信息
     async saveAddMemberDetail () {
         try {
-            await this.getMemberDetail()
+            const params = { ...this.addMemberDetailForm }
+            if (params.type === 2) {
+                params.industry = ''
+                params.workPosition = ''
+                params.company = ''
+            }
+            params.mallUserId = this.userId
+            await saveMemberInfo(params)
         } catch (e) {
             throw e
         }
@@ -1213,7 +1270,7 @@ export default class MemberManageDetail extends Vue {
 
     // 查看学习进度
     showWatchDetailList = false
-    selectedUserId = this.form.mallUserId
+    selectedUserId = this.userId
     courseResourceId = ''
     async formatLineLearningListTimeRange ({ start, end }) {
         try {
@@ -1301,9 +1358,19 @@ export default class MemberManageDetail extends Vue {
 
     async getRemarkList () {
         try {
-            const { data: { result } } = await getOrderList(this.shareListForm)
+            this.remarkListForm.mallUserId = this.userId
+            const { data: { result } } = await getRemarkList(this.remarkListForm)
             this.remarkList = result.records || []
             this.remarkListTotal = result.total || []
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async deleteRemark (id) {
+        try {
+            await deleteRemark({ id })
+            this.getRemarkList()
         } catch (e) {
             throw e
         }
@@ -1369,7 +1436,6 @@ export default class MemberManageDetail extends Vue {
                 .tag-list {
                     .tags {
                         padding: 0 13px;
-                        border-left: 1px solid;
                         font-size: 14px;
                         &:first-child {
                             margin-left: -20px!important;

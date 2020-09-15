@@ -16,7 +16,7 @@
                     clearable
                     type="textarea"
                     placeholder="请输入备注"
-                    v-model="form.detail"
+                    v-model="content"
                     maxlength="500"
                 />
             </el-form-item>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { saveRemark } from '../../../../apis/member'
 export default {
     name: 'WatchDetailList',
     props: {
@@ -42,9 +43,7 @@ export default {
     },
     data () {
         return {
-            form: {
-                detail: ''
-            }
+            content: ''
         }
     },
     methods: {
@@ -53,6 +52,11 @@ export default {
         },
         async save () {
             try {
+                await saveRemark({
+                    content: this.content,
+                    mallUserId: this.userId
+                })
+                this.$emit('success')
                 this.closeHandler()
             } catch (e) {
                 throw e

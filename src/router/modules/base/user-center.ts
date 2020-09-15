@@ -28,7 +28,7 @@ export default [
                     },
                     // 会员管理详情
                     {
-                        path: 'member-manage-detail',
+                        path: 'member-manage-detail/:userId?',
                         name: 'MemberManageDetail',
                         component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-Detail.vue'),
                         meta: {

@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         class="add-tags"
-        title="设置用户标签"
+        title="设置标签"
         :modal-append-to-body="false"
         :close-on-click-modal="false"
         :close-on-press-escape="false"
@@ -10,16 +10,26 @@
     >
         <template>
             <div class="add-tags__top">
-                <el-input
-                    class="add-tags__top-input"
-                    v-model.trim="inputAdd"
-                    type="text"
-                    placeholder="请填写标签名称"
-                    :maxlength="maxTagNameLength"
-                />
-                <el-button class="add-tags__btn" type="primary" @click="add">
-                    新增
-                </el-button>
+                <template v-if="!showAddInput">
+                    <el-button class="add-tags__btn" type="primary" @click="showAddInput = true">
+                        新增标签
+                    </el-button>
+                </template>
+                <template v-else>
+                    <el-input
+                        class="add-tags__top-input"
+                        v-model.trim="inputAdd"
+                        type="text"
+                        placeholder="请填写标签名称"
+                        :maxlength="maxTagNameLength"
+                    />
+                    <el-button type="text" @click="add">
+                        保存
+                    </el-button>
+                    <el-button type="text" @click="showAddInput = false">
+                        取消
+                    </el-button>
+                </template>
             </div>
             <!-- 已选中的标签 -->
             <div class="add-tags__selected">
@@ -103,7 +113,7 @@
 </template>
 
 <script>
-import { addTag, updateTag, getTagList, deleteTag, checkIsTagUsed, addTagToMember } from '../../../../apis/member'
+import { updateTag, getTagList, deleteTag, checkIsTagUsed, addTagToMember } from '../../../../apis/member'
 
 export default {
     name: 'AddTags',
@@ -120,6 +130,7 @@ export default {
     },
     data () {
         return {
+            showAddInput: false,
             maxSetTagNum: 4,
             // 标签最小长度
             minTagNameLength: 2,
@@ -169,7 +180,7 @@ export default {
         // 获取所有标签列表
         async getTagList () {
             try {
-                const { data: { result } } = await getTagList()
+                const { result } = await getTagList()
                 this.tagList = result
                 // 强制刷新当前组件
                 this.$forceUpdate()
@@ -182,7 +193,7 @@ export default {
             try {
                 if (!this.inputAdd) return this.$warning('用户标签名称不能为空')
                 if (this.inputAdd.length < this.minTagNameLength) return this.$warning('用户标签名称为2到8个字')
-                const { data } = await addTag(this.inputAdd)
+                const { data } = await updateTag({ tagName: this.inputAdd })
                 // 在添加标签中新建标签，用户选中时，自动选中
                 if (this.selected.length < 4) {
                     const id = data && data.result && data.result.id
@@ -190,6 +201,7 @@ export default {
                 }
                 this.getTagList()
                 this.$success('添加标签成功')
+                this.showAddInput = false
                 this.inputAdd = ''
             } catch (e) {
                 throw e
@@ -200,7 +212,7 @@ export default {
             try {
                 if (!this.inputEdit) return this.$warning('用户标签名称不能为空')
                 if (this.inputEdit.length < this.minTagNameLength) return this.$warning('用户标签名称为2到8个字')
-                await updateTag(tag.id, this.inputEdit)
+                await updateTag({ id: tag.id, sort: tag.sort, tagName: this.inputEdit })
                 this.$success('编辑标签成功')
                 this.cancelEdit()
                 this.getTagList()
@@ -304,7 +316,6 @@ export default {
       display: flex;
       align-items: center;
       padding: 0 27px 16px 27px;
-      border-bottom: 1px solid #e7e7e7;
 
       &-input {
         width: 180px;
@@ -318,7 +329,6 @@ export default {
       padding: 16px 27px 8px;
       font-size: 14px;
       color: #333333;
-      border-bottom: 1px solid #e7e7e7;
 
       &--left {
         min-width: 100px;
