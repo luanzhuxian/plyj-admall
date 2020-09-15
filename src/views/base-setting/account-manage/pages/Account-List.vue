@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.accountManage">
+    <div :class="$style.accountManage" class="wrap">
         <div :class="$style.accountInfo">
             <div :class="$style.head">
                 <div :class="$style.label">账号管理</div>
@@ -30,7 +30,7 @@
                     <div :class="$style.account">
                         <div :class="$style.number">
                             账号：{{ enterpriseAdminModel.mobile }}
-                            <span :class="$style.tip">当前账号</span>
+                            <!-- <span :class="$style.tip">当前账号</span> -->
                         </div>
                         <div :class="$style.name">姓名：{{ enterpriseAdminModel.name }}</div>
                     </div>
@@ -46,16 +46,18 @@
                             </template>
                             <div :class="$style.descTip">?</div>
                         </el-tooltip>
+                        <span style="font-size: 12px; color: #999999">至多可设置4个超高级管理员</span>
                     </div>
                     <div :class="$style.progressBox">
                         <div :class="$style.progress">
-                            <div :class="$style.bar" :style="{ width: `${employeeModel.currentCount / employeeModel.maxCount * 100}%` }" />
+                            <div :class="$style.bar" :style="{ width: `${currentCount / maxCount * 100}%` }" />
                         </div>
-                        <div>{{ employeeModel.currentCount }}/{{ employeeModel.maxCount }}</div>
+                        <div>{{ currentCount }}/{{ maxCount }}</div>
                     </div>
                 </div>
             </div>
         </div>
+
         <search-box label-width="85px">
             <el-form-item label="搜索内容：">
                 <el-input
@@ -66,16 +68,16 @@
                     :clearable="true"
                 />
             </el-form-item>
-            <el-form-item label="状态：">
+            <el-form-item label="角色：">
                 <el-select
-                    v-model="filter.status"
-                    @change="statusOptionChange"
+                    v-model="filter.roleCode"
+                    @change="search"
                     :clearable="true"
                 >
                     <el-option
                         :label="option.label"
                         :value="option.value"
-                        v-for="option in statusOptions"
+                        v-for="option in roleOptions"
                         :key="option.value"
                     />
                 </el-select>
@@ -101,7 +103,14 @@
             </el-form-item>
         </search-box>
 
-        <div class="mt-24">
+        <pl-tabs
+            class="mt-24 mb-24"
+            :value="filter.status"
+            :tabs="tabs"
+            @tabClick="tabClick"
+        />
+
+        <div>
             <el-table :data="table">
                 <el-table-column
                     prop="realName"
@@ -181,6 +190,7 @@
                     label="操作人"
                 />
                 <el-table-column
+                    v-if="filter.status !== '3'"
                     prop="helperCount"
                     label="发展helper"
                 />
@@ -202,7 +212,7 @@
                         <Operating>
                             <template slot="button-box">
                                 <a
-                                    v-if="!canEdit(row) && row.lockStatus "
+                                    v-if="!canEdit(row) && row.lockStatus"
                                     @click="downgradeAccount(row)"
                                 >
                                     降级
@@ -255,21 +265,12 @@ import { Getter } from 'vuex-class'
 import {
     AccountInfo,
     getAccounts,
+    getNotActiveAccounts,
     deleteAccount,
     enableAccount,
     downgradeAccount,
     editAccount
 } from '../../../../apis/account'
-
-class Filter {
-  current = 1
-  size = 10
-  status = null
-  createdTime = ''
-  searchContent = ''
-  startTime = ''
-  endTime = ''
-}
 
 class Account {
   searchContent
@@ -292,27 +293,64 @@ export default class AccountList extends Vue {
     @Getter userId!: string;
     @Getter currentRoleCode!: string;
 
-    statusOptions = [
-        { label: '全部', value: null },
-        { label: '已开启', value: 1 },
-        { label: '已禁用', value: 0 }
+    tabs = [
+        { label: '已启用', name: '1' },
+        { label: '已禁用', name: '0' },
+        { label: '待激活', name: '3' }
     ]
 
-    dateRange = []
-    table = []
+    roleOptions = [
+        { label: '全部', value: '' },
+        { label: '高级管理员', value: 'ADMIN' },
+        { label: '子账号', value: 'EMPLOYEE' }
+    ]
+
     total = 0
     isEdit = false
-    filter = new Filter()
+    currentTab = '1'
+    dateRange = []
+    table = []
+
     account = new Account()
-    adminModel = {}
-    employeeModel = {}
-    enterpriseAdminModel = {}
+    enterpriseAdminModel = {
+        mobil: '',
+        name: ''
+    }
+
+    filter = {
+        current: 1,
+        size: 10,
+        status: '1',
+        roleCode: '',
+        createdTime: '',
+        searchContent: '',
+        startTime: '',
+        endTime: ''
+    }
+
+    adminModel = {
+        currentCount: 0,
+        maxCount: 1
+    }
+
+    employeeModel = {
+        currentCount: 0,
+        maxCount: 1
+    }
 
     async created () {
         await Promise.all([
             this.getAccounts(),
             this.getAccountInfo()
         ])
+    }
+
+    get maxCount () {
+        return this.employeeModel.maxCount + this.adminModel.maxCount
+    }
+
+    get currentCount () {
+        return this.employeeModel.currentCount + this.adminModel.currentCount
     }
 
     private async getAccountInfo () {
@@ -335,11 +373,47 @@ export default class AccountList extends Vue {
     }
 
     private async getAccounts () {
-        debugger
-        const res = await getAccounts(this.filter)
-        debugger
-        this.table = res.result.records
-        this.total = res.result.total
+        const {
+            current,
+            size,
+            status,
+            searchContent,
+            startTime,
+            endTime,
+            roleCode
+        } = this.filter
+
+        let result
+        // 未激活
+        if (status === '3') {
+            const { result: res } = await getNotActiveAccounts({
+                current,
+                size,
+                searchContent,
+                startTime,
+                endTime,
+                roleCode
+            })
+            result = res
+        } else {
+            const { result: res } = await getAccounts({
+                current,
+                size,
+                status,
+                searchContent,
+                startTime,
+                endTime,
+                roleCode
+            })
+            result = res
+        }
+        this.table = result.records
+        this.total = result.total
+    }
+
+    private async tabClick (data) {
+        this.filter.status = data.name
+        await this.search()
     }
 
     private async search () {
@@ -375,11 +449,6 @@ export default class AccountList extends Vue {
         const { end, start } = value
         this.filter.startTime = start
         this.filter.endTime = end
-        await this.getAccounts()
-    }
-
-    private async statusOptionChange () {
-        this.filter.current = 1
         await this.getAccounts()
     }
 
@@ -458,7 +527,7 @@ export default class AccountList extends Vue {
   .account-manage{
     .desc-tip {
         display: inline-block;
-        margin-left: 10px;
+        margin: 0 20px 0 10px;
         width: 16px;
         line-height: 16px;
         border-radius: 50%;

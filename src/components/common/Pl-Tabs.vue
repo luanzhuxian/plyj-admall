@@ -9,9 +9,10 @@ import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 
 @Component
 export default class PlTabs extends Vue {
-  @Prop(String) value?: string
+  @Prop([String, Number]) value?: string | number
   @Prop({ default: [] }) tabs?: any[]
   @Prop(Function) tabClick?: () => void
+
   @Emit('tabClick')
   handleClick (data: any) {
       return data

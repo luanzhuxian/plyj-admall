@@ -16,13 +16,13 @@
             <Header />
             <main :class="$style.main">
                 <!-- 主应用渲染区 -->
-                <section v-if="$route.name">
+                <section :class="$style.section" v-if="$route.name">
                     <keep-alive>
                         <router-view />
                     </keep-alive>
                 </section>
                 <!-- 子应用渲染区 -->
-                <section id="child-app" v-else />
+                <section :class="$style.section" id="child-app" v-else />
             </main>
         </template>
     </div>
@@ -134,6 +134,9 @@ export default class App extends Vue {
             grid-column-start: 2;
             box-sizing: border-box;
             overflow: auto;
+            > .section {
+                height: 100%;
+            }
         }
     }
 </style>

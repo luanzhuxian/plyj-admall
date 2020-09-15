@@ -6,10 +6,11 @@ export const AccountInfo = () => axios.get('/apis/v1/systemctl/account/index')
 // 添加一个账户
 export const addAccount = data => axios.post('/apis/v1/systemctl/account/add', data)
 
-// 获取账户列表
-export const getAccounts = ({ current, size, status, searchContent, startTime, endTime }) => axios.get('/apis/v1/systemctl/account/roleUser/list', {
-    params: { current, size, status, searchContent, startTime, endTime }
-})
+// 获取启用，禁用账户列表
+export const getAccounts = params => axios.get('/apis/v2/systemctl/account/roleUser/list', { params })
+
+// 获取待激活账户列表
+export const getNotActiveAccounts = params => axios.get('/apis/v2/systemctl/account/roleUser/list/acting', { params })
 
 // 获取单个账户的详情
 export const getSingleAccount = params => axios.get('/apis/v1/systemctl/account/detail', { params })

@@ -1,5 +1,5 @@
 <template>
-    <div class="account-container wrap">
+    <div :class="$style.accountContainer">
         <keep-alive>
             <router-view />
         </keep-alive>
@@ -15,3 +15,11 @@ export default class AccountManager extends Vue {
 
 }
 </script>
+
+<style lang="scss" module>
+
+.account-container {
+    height: 100%;
+}
+
+</style>

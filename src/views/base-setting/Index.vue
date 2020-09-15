@@ -1,5 +1,5 @@
 <template>
-    <div class="base-setting">
+    <div :class="$style.baseSetting">
         <router-view />
     </div>
 </template>
@@ -15,5 +15,9 @@ export default class BaseSetting extends Vue {
 </script>
 
 <style module lang="scss">
+
+.base-setting {
+    height: 100%;
+}
 
 </style>

@@ -1,177 +1,122 @@
 <template>
     <div class="account-new">
-        <div class="mt-20 content">
-            <el-card class="box-card">
-                <div
-                    slot="header"
-                    class="clearfix font-weight-bold"
+        <div class="wrap">
+            <div class="title">
+                <span class="float-left">添加账号</span>
+            </div>
+
+            <el-form
+                class="demo-ruleForm"
+                ref="ruleForm"
+                :model="ruleForm"
+                :rules="rules"
+                label-width="158px"
+                label-position="right"
+            >
+                <el-form-item label="账号角色：">
+                    <el-radio-group v-model="ruleForm.accountRole" @change="handleRadioChange">
+                        <el-radio
+                            label="ADMIN"
+                            :disabled="currentRoleCode!=='ENTERPRISE_ADMIN' || query.selfEdit"
+                        >
+                            高级管理员
+                        </el-radio>
+                        <el-radio label="EMPLOYEE" :disabled="query.selfEdit">
+                            子账号
+                        </el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item
+                    :error="error"
+                    v-if="!query.selfEdit && query.canEdit"
+                    label="状态："
                 >
-                    <span class="float-left">请完善账号的相关信息</span>
-                </div>
-                <div>
-                    <el-form
-                        class="demo-ruleForm"
-                        ref="ruleForm"
-                        :model="ruleForm"
-                        :rules="rules"
-                        label-width="120px"
-                        label-position="left"
+                    <el-switch
+                        v-model="ruleForm.lockStatus"
+                        active-color="#4F63FF"
+                        :active-value="1"
+                        :inactive-value="0"
+                    />
+                    <span v-if="ruleForm.lockStatus" style="color: #4F63FF">
+                        &nbsp;启用
+                    </span>
+                    <span v-else style="color: #ccc">
+                        &nbsp;关闭
+                    </span>
+                </el-form-item>
+                <el-form-item
+                    prop="mobile"
+                    :error="error"
+                    label="手机号（账号）:"
+                >
+                    <el-select
+                        :value="ruleForm.mobile"
+                        :disabled="query.selfEdit || query.canEdit"
+                        filterable
+                        clearable
+                        remote
+                        reserve-keyword
+                        placeholder="请输入手机号"
+                        :remote-method="searchMobile"
+                        :loading="loading"
+                        autocomplete="off"
+                        @change="selectChange"
+                        @blur="selectBlur"
+                        @clear="clearMobile"
                     >
-                        <el-form-item label="账号角色">
-                            <el-radio-group
-                                v-model="ruleForm.accountRole"
-                                @change="handleRadioChange"
-                            >
-                                <el-radio
-                                    label="ADMIN"
-                                    :disabled="currentRoleCode!=='ENTERPRISE_ADMIN' || query.selfEdit"
-                                >
-                                    高级管理员
-                                </el-radio>
-                                <el-radio label="EMPLOYEE" :disabled="query.selfEdit">
-                                    子账号
-                                </el-radio>
-                            </el-radio-group>
-                        </el-form-item>
-                        <el-form-item
-                            :error="error"
-                            v-if="!query.selfEdit && query.canEdit"
-                        >
-                            <span slot="label" class="red">
-                                状态
-                            </span>
-                            <el-switch
-                                v-model="ruleForm.lockStatus"
-                                active-color="#4F63FF"
-                                :active-value="1"
-                                :inactive-value="0"
-                            />
-                            <span v-if="ruleForm.lockStatus" style="color: #4F63FF">
-                                &nbsp;启用
-                            </span>
-                            <span v-else style="color: #ccc">
-                                &nbsp;关闭
-                            </span>
-                        </el-form-item>
-                        <el-form-item
-                            prop="mobile"
-                            :error="error"
-                        >
-                            <span slot="label" class="red">
-                                联系方式
-                            </span>
-                            <el-select
-                                :value="ruleForm.mobile"
-                                :disabled="query.selfEdit || query.canEdit"
-                                filterable
-                                clearable
-                                remote
-                                reserve-keyword
-                                placeholder="请输入手机号"
-                                :remote-method="searchMobile"
-                                :loading="loading"
-                                autocomplete="off"
-                                @change="selectChange"
-                                @blur="selectBlur"
-                                @clear="clearMobile"
-                            >
-                                <el-option
-                                    v-for="item in mobileOptions"
-                                    :key="item.mobile"
-                                    :label="item.mobile + '(' + converRoleCode[item.roleCode] + ')'"
-                                    :value="item.mobile"
-                                />
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item prop="realName">
-                            <div
-                                slot="label"
-                                class="pl-0_5 fline red"
-                            >
-                                真实姓名
-                            </div>
-                            <el-input
-                                class="w180"
-                                v-model="ruleForm.realName"
-                                :disabled="realNameDisabled"
-                                :placeholder="namePlacehoder"
-                            />
-                        </el-form-item>
-                        <el-form-item prop="nickName">
-                            <div
-                                slot="label"
-                                class="pl-0_5"
-                            >
-                                昵称
-                            </div>
-                            <el-input
-                                class="w180"
-                                v-model="ruleForm.nickName"
-                                placeholder="请输入昵称"
-                            />
-                        </el-form-item>
-                        <el-form-item prop="position">
-                            <div
-                                slot="label"
-                                class="pl-0_5"
-                            >
-                                职位
-                            </div>
-                            <el-input
-                                class="w180"
-                                autocomplete="off"
-                                v-model="ruleForm.position"
-                                placeholder="请输入所属职位"
-                            />
-                        </el-form-item>
-                        <el-form-item v-if="!(ruleForm.accountRole === 'ADMIN')">
-                            <div
-                                slot="label"
-                                class="pl-0_5"
-                                style="font-weight: bold;color: #333333"
-                            >
-                                权限配置*
-                            </div>
-                            <div class="edit-label">
-                                <!--                <el-button type="text" @click="editPermission" v-if="query.selfEdit || query.roleCode === 'ADMIN'">-->
-                                <!--                  查看-->
-                                <!--                </el-button>-->
-                                <el-button type="text" @click="editPermission">
-                                    编辑
-                                </el-button>
-                            </div>
-                            <!--              <div class="fl">-->
-                            <!--                <div class="permission-label-box">-->
-                            <!--                  <div class="label">-->
-                            <!--                    商品管理-->
-                            <!--                  </div>-->
-                            <!--                </div>-->
-                            <!--                <div class="edit-label">-->
-                            <!--                  <el-button type="text" @click="editPermission">-->
-                            <!--                    编辑-->
-                            <!--                  </el-button>-->
-                            <!--                </div>-->
-                            <!--              </div>-->
-                        </el-form-item>
-                    </el-form>
-                    <div class="border-top pb-1" />
-                    <hr class="hr mb-20">
-                    <div>
-                        <el-button
-                            class="px-1_5"
-                            @click="cancel"
-                        >
-                            取消
-                        </el-button>
-                        <el-button
-                            class="px-1_5"
-                            @click="submit"
-                        >
-                            保 存
-                        </el-button>
-                    </div>
-                </div>
-            </el-card>
+                        <el-option
+                            v-for="item in mobileOptions"
+                            :key="item.mobile"
+                            :label="item.mobile + '(' + converRoleCode[item.roleCode] + ')'"
+                            :value="item.mobile"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item prop="realName" label="真实姓名：">
+                    <el-input
+                        class="w180"
+                        v-model="ruleForm.realName"
+                        :disabled="realNameDisabled"
+                        :placeholder="namePlacehoder"
+                    />
+                </el-form-item>
+                <el-form-item prop="nickName" label="昵称：">
+                    <el-input
+                        class="w180"
+                        v-model="ruleForm.nickName"
+                        placeholder="请输入昵称"
+                    />
+                </el-form-item>
+                <el-form-item prop="position" label="职位：">
+                    <el-input
+                        class="w180"
+                        autocomplete="off"
+                        v-model="ruleForm.position"
+                        placeholder="请输入所属职位"
+                    />
+                </el-form-item>
+                <el-form-item v-if="!(ruleForm.accountRole === 'ADMIN')" label="权限范围：">
+                    <el-button type="text" @click="editPermission">
+                        编辑
+                    </el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+
+        <div class="account-handle">
+            <el-button
+                round
+                @click="cancel"
+            >
+                取消
+            </el-button>
+            <el-button
+                round
+                type="primary"
+                @click="submit"
+            >
+                保 存
+            </el-button>
         </div>
 
         <role-tree
@@ -255,7 +200,7 @@ export default class AddAccount extends Vue {
     }
 
     created () {
-        this.ruleForm.accountRole = this.$route.params.mode
+        this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
         this.query = this.$route.query
         if (this.query.selfEdit === 'false') {
             this.query.selfEdit = false
@@ -490,46 +435,49 @@ export default class AddAccount extends Vue {
 </script>
 
 <style scoped lang="scss">
-  .fl{
-    display: flex;
-  }
-  .fline{
-    display: inline-flex;
-  }
-  .red{
-    color: #D0423C;
-  }
-  .w180{
-    width: 180px;
-  }
-.account-new {
-  .el-form {
-    width: 500px;
-  }
-  > .content {
-    width: 70%;
-    margin: 0 auto;
-  }
-}
-  .permission-label-box{
-    width: 320px;
-    & .label{
-      display: inline-flex;
-      padding: 0 11px;
-      font-size: 12px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      background: #ccc;
-      color: #fff;
-      border-radius: 4px;
+    .account-new {
+        position: relative;
+        height: 100%;
+        .w180{
+            width: 180px;
+        }
+        .el-form {
+            width: 500px;
+        }
+        > .title {
+            margin-bottom: 40px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        > .account-handle {
+            position: absolute;
+            left: -10px;
+            bottom: -10px;
+            width: calc(100% + 20px);
+            padding: 16px 0;
+            text-align: center;
+            background-color: #fff;
+        }
     }
-  }
-  .edit-label{
-    display: inline-flex;
-    align-items: flex-end;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    color: $--color-primary-blue;
-    font-size: 12px;
-  }
+    .permission-label-box{
+        width: 320px;
+        & .label{
+            display: inline-flex;
+            padding: 0 11px;
+            font-size: 12px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            background: #ccc;
+            color: #fff;
+            border-radius: 4px;
+        }
+    }
+    .edit-label{
+        display: inline-flex;
+        align-items: flex-end;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        color: $--color-primary-blue;
+        font-size: 12px;
+    }
 </style>
