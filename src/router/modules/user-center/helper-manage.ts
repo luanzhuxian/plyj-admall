@@ -12,10 +12,7 @@ export default [
             {
                 path: 'helper-manage-list',
                 name: 'HelperManageList',
-                component: () => import('../../../views/user-center/helper-manage/pages/Helper-Manage-List.vue'),
-                meta: {
-                    title: 'Helper管理'
-                }
+                component: () => import('../../../views/user-center/helper-manage/pages/Helper-Manage-List.vue')
             },
             // helper审核列表
             {

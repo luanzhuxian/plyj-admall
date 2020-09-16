@@ -12,10 +12,7 @@ export default [
             {
                 path: 'member-manage-list',
                 name: 'MemberManageList',
-                component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-List.vue'),
-                meta: {
-                    title: '会员管理'
-                }
+                component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-List.vue')
             },
             // 会员管理详情
             {
@@ -23,7 +20,7 @@ export default [
                 name: 'MemberManageDetail',
                 component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-Detail.vue'),
                 meta: {
-                    title: '会员管理'
+                    title: '会员详情'
                 }
             },
             // 游客管理列表
