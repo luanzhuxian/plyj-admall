@@ -9,8 +9,8 @@ export const getMemberList = ({ current, size, keyword, roleCode, userSource, st
 })
 
 /* Helper列表 */
-export const getHelperList = ({ realName, mobile, ownnerUserId, current, size, auditFlag, auditStatus }: any) => axios.get('/apis/v1/systemctl/memberManager/helper/list', {
-    params: { realName, mobile, ownnerUserId, current, size, auditFlag, auditStatus }
+export const getHelperList = ({ keyword, ownnerUser, current, size, auditFlag, auditStatus, loginStartTime, loginEndTime, startTime, endTime }: any) => axios.get('/apis/v2/helper', {
+    params: { keyword, ownnerUser, current, size, auditFlag, auditStatus, loginStartTime, loginEndTime, startTime, endTime }
 })
 
 /**
@@ -22,19 +22,25 @@ export const getMemberDetail = (id: any) => axios.get(`/apis/v2/user/${ id }`)
 
 export const saveMemberInfo = (params: any) => axios.put('/apis/v2/user', params)
 
+/**
+ * Helper 详情
+ * @param id
+ */
+export const getHelperDetail = (id: any) => axios.get(`/apis/v2/helper/${ id }`)
+
 export const orderRebateInfo = ({ userId }: any) => axios.get('/apis/v2/order/agency/orderRebateInfo', { params: { userId } })
 
 /* 解除helper */
-export const relieveHelper = (userId: string) => axios.put(`/apis/v1/systemctl/memberManager/release?userId=${ userId }`)
+export const relieveHelper = (ids: any) => axios.post('/apis/v2/helper/demote', ids)
 
 /* 批量解除helper */
-export const relieveHelperBatched = (userIdArr: string) => axios.put(`/apis/v1/systemctl/memberManager/batch/release?userId=${ userIdArr }`)
+export const relieveHelperBatched = (ids: any) => axios.post('/apis/v2/helper/demote', ids)
 
 /* helper所属账号变更 */
-export const changeHelpersAccount = ({ ownnerUserId, ownneName, userId }: any) => axios.put(`/apis/v1/systemctl/memberManager/helper/ownner/changed?ownnerUserId=${ ownnerUserId }&ownneName=${ ownneName }&userId=${ userId }`)
+export const changeHelpersAccount = ({ ownerUserId, userId }: any) => axios.put(`/apis/v2/helper/audit/${ ownerUserId }`, { userId })
 
 /* 修改经纪人审核状态 */
-export const updateBrokerStatus = ({ id, status, agentWriteBack }: any) => axios.put(`/apis/v1/agent/user/info/audit/${ id }/${ status }?agentWriteBack=${ agentWriteBack }`)
+export const updateBrokerStatus = ({ ids, status, reviewContent }: any) => axios.post('/apis/v2/helper/audit', { ids, status, reviewContent })
 
 /**
  * HElper详情提现记录
@@ -76,7 +82,9 @@ export const exportOrderDetail = (params: any) => axios.get('/apis/v2/order/agen
  * @property params.nickName {string}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const getYouKe = (params: any) => axios.get('/apis/v1/systemctl/memberManager/visitor/list', { params })
+export const getYouKe = (params: any) => axios.get('/apis/v2/tourist', { params })
+
+export const getYouKeCount = () => axios.get('/apis/v2/tourist/count')
 
 /* 用户标签 */
 // 添加用户标签

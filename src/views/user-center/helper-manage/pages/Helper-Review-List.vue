@@ -1,5 +1,13 @@
 <template>
     <div class="helper-list">
+        <el-tabs v-model="currentStatus" type="card" @tab-click="handleStatusClick">
+            <el-tab-pane
+                v-for="item in statusMap"
+                :key="item.name"
+                :label="item.title"
+                :name="item.name"
+            />
+        </el-tabs>
         <el-form
             :inline="true"
             class="form-filter"
@@ -8,7 +16,7 @@
             <el-form-item label="关键词">
                 <el-input
                     clearable
-                    v-model.trim="form.realName"
+                    v-model.trim="form.keyword"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
                     class="filter-inp"
@@ -35,8 +43,9 @@
             </div>
         </el-form>
 
-        <div class="wrap mb-20" v-if="$route.name === 'HelperWaiting'">
-            <el-button type="primary" :disabled="!currentSelect.length" @click="batchAudit">
+        <div class="mt-20" v-if="currentStatus === 'AWAIT'">
+            已选择{{ currentSelect.length }}个用户
+            <el-button type="text" :disabled="!currentSelect.length" size="mini" @click="batchAudit">
                 批量通过
             </el-button>
         </div>
@@ -47,85 +56,85 @@
         >
             <el-table-column
                 type="selection"
-                width="55"
-                v-if="$route.name === 'HelperWaiting'"
+                width="30"
+                v-if="false"
             />
-            <el-table-column
-                prop="userId"
-                label="ID"
-            />
-            <el-table-column label="头像">
-                <template slot-scope="scope">
-                    <img
-                        height="50"
-                        :src="scope.row.avatarUrl"
-                        alt=""
-                    >
+            <el-table-column label="用户信息">
+                <template slot-scope="{row}">
+                    <div class="user-info">
+                        <img
+                            class="avatar"
+                            :src="row.userImage"
+                            alt=""
+                        >
+                        <div>
+                            <div class="name">{{ row.userName }}</div>
+                            <ul class="tag" v-if="row.userTags.length < 3">
+                                <li v-for="(tag, k) in row.userTags" :key="k">
+                                    {{ tag }}
+                                </li>
+                            </ul>
+                            <ul class="tag" v-else>
+                                <li v-for="(tag, k) in row.userTags" :key="k">
+                                    {{ tag }}
+                                </li>
+                                <li>更多</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </template>
             </el-table-column>
-            <el-table-column
-                prop="realName"
-                label="真实姓名"
-            />
             <el-table-column
                 prop="mobile"
-                label="手机号（登录账户）"
+                label="手机（账户）"
             />
             <el-table-column
-                prop="ownnerName"
+                prop="ownedUser"
                 label="所属账号"
             />
-            <!--<el-table-column prop="weChatNumber" label="Helper等级" />-->
-            <!--<el-table-column prop="weChatNumber" label="成长值" />-->
-            <!-- <el-table-column prop="ownnerName" label="所属账号" /> -->
-            <!-- <el-table-column prop="status" label="状态" /> -->
-            <!--<template slot-scope="scope">-->
-            <!--<span v-if="scope.row.auditStatus === 'AWAIT'">待审核</span>-->
-            <!--<span v-else-if="scope.row.auditStatus === 'PASS'">正常（已论证）</span>-->
-            <!--<span v-else-if="scope.row.auditStatus === 'REJECT'">驳回</span>-->
-            <!--</template>-->
-            <!--</el-table-column>-->
-            <el-table-column
-                :label="$route.name === 'HelperWaiting'? '申请时间':'审核时间'"
-            >
-                <template slot-scope="{ row }">
-                    {{ $route.name === 'HelperWaiting'? row.applyTime:row.auditTime }}
+            <el-table-column label="审核状态">
+                <template slot-scope="{row}">
+                    <span v-if="row.auditStatus === 'AWAIT'">待审核</span>
+                    <span v-else-if="row.auditStatus === 'PASS'">正常（已论证）</span>
+                    <span v-else-if="row.auditStatus === 'REJECT'">驳回</span>
                 </template>
             </el-table-column>
+            <el-table-column label="申请时间" prop="applyTime" />
+            <el-table-column v-if="currentStatus !== 'AWAIT'" label="审核时间" prop="auditTime" />
             <el-table-column
-                v-if="$route.name==='HelperRejected'"
-                prop="agentWriteBack"
+                v-if="currentStatus === 'REJECT'"
+                prop="reviewContent"
                 label="驳回理由"
             />
             <el-table-column
                 label="操作"
-                align="center"
-                header-align="center"
-                width="100"
+                align="right"
+                header-align="right"
+                width="200"
             >
                 <template slot-scope="{ row }">
-                    <Operating>
-                        <template slot="button-box">
-                            <template v-if="routeName === 'HelperWaiting'">
-                                <a
-                                    @click="updateBrokerStatus(row.id, 'PASS')"
-                                >
-                                    通过
-                                </a>
-                                <a
-                                    @click="updateBrokerStatus(row.id, 'REJECT')"
-                                >
-                                    驳回
-                                </a>
-                            </template>
-
+                    <div class="action">
+                        <template v-if="currentStatus === 'AWAIT'">
                             <a
-                                @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: routeName }, query: { from: 'audit' } })"
+                                @click="updateBrokerStatus(row.id, 'PASS')"
                             >
-                                查看
+                                通过
                             </a>
+                            |
+                            <a
+                                @click="updateBrokerStatus(row.id, 'REJECT')"
+                            >
+                                驳回
+                            </a>
+                            |
                         </template>
-                    </Operating>
+                        <a
+                            @click="$router.push({ name: 'HelperDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: routeName }, query: { from: 'audit' } })"
+                        >
+                            详情
+                        </a>
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -150,16 +159,8 @@
                     <el-input
                         clearable
                         @clear="getAccountList"
-                        v-model="searchAccountsForm.realName"
-                        placeholder="真实姓名"
-                    />
-                </el-form-item>
-                <el-form-item>
-                    <el-input
-                        clearable
-                        @clear="getAccountList"
-                        v-model="searchAccountsForm.mobile"
-                        placeholder="手机号"
+                        v-model="searchAccountsForm.keyword"
+                        placeholder="请输入真实姓名/手机号"
                     />
                 </el-form-item>
                 <el-form-item>
@@ -268,20 +269,17 @@ export default class HelperReviewList extends Vue {
 
   table = []
   total = 0
-  statusMap = {
-      HelperWaiting: 'AWAIT',
-      HelperPassed: 'PASS',
-      HelperRejected: 'REJECT',
-      HelperList: null
-  }
+  statusMap = [
+      { title: '待审核', name: 'AWAIT' },
+      { title: '审核通过', name: 'PASS' },
+      { title: '审核驳回', name: 'REJECT' }]
 
   /* 查询所属账号表单 */
   searchAccountsForm = {
       current: 1,
       size: 200,
       status: 1,
-      realName: '',
-      mobile: ''
+      keyword: ''
   }
 
   accountList = []
@@ -298,10 +296,11 @@ export default class HelperReviewList extends Vue {
   /* 驳回申请理由 */
   rejectReason = ''
   currentRoleCode = ''
+  currentStatus = 'AWAIT'
 
   async created () {
       this.routeName = this.$route.name
-      this.form.auditStatus = this.statusMap[this.routeName]
+      this.form.auditStatus = this.currentStatus
       this.form.auditFlag = Boolean(this.form.auditStatus)
       try {
           await this.getList()
@@ -313,7 +312,7 @@ export default class HelperReviewList extends Vue {
 
   restForm () {
       this.form = { realName: '', mobile: '', ownnerUserId: '', current: 1, auditFlag: true, auditStatus: '' }
-      this.form.auditStatus = this.statusMap[this.routeName]
+      this.form.auditStatus = this.currentStatus
       this.form.auditFlag = Boolean(this.form.auditStatus)
   }
 
@@ -321,6 +320,7 @@ export default class HelperReviewList extends Vue {
       try {
           const { result } = await getHelperList(this.form)
           this.table = result.records
+          this.total = result.total
       } catch (e) {
           throw e
       }
@@ -333,7 +333,7 @@ export default class HelperReviewList extends Vue {
               this.dialogAuditVisible = true
           } else {
               await this.$confirm('确定通过该用户的申请吗？')
-              await updateBrokerStatus({ id, status, agentWriteBack: '' })
+              await updateBrokerStatus({ ids: [id], status, reviewContent: '' })
               this.$success('审核成功')
               this.form.current = 1
               this.getList()
@@ -360,8 +360,7 @@ export default class HelperReviewList extends Vue {
   async changeHelperAccount (data) {
       try {
           await changeHelpersAccount({
-              ownnerUserId: data.userId,
-              ownneName: data.realName,
+              ownerUserId: data.userId,
               userId: this.currentUserId
           })
           this.showDialog = false
@@ -381,11 +380,7 @@ export default class HelperReviewList extends Vue {
   async batchAudit () {
       try {
           await this.$confirm('您确定通过所选用户的申请吗')
-          const ALL = []
-          for (const { id } of this.currentSelect) {
-              ALL.push(updateBrokerStatus({ id, status: 'PASS', agentWriteBack: '' }))
-          }
-          await Promise.all(ALL)
+          updateBrokerStatus({ ids: this.currentSelect, status: 'PASS', reviewContent: '' })
           await this.getList()
       } catch (e) {
           if (e) throw e
@@ -398,10 +393,10 @@ export default class HelperReviewList extends Vue {
   }
 
   async dialogAuditConfirm () {
-      const id = this.auditId
+      const ids = [this.auditId]
       const status = 'REJECT'
-      const agentWriteBack = this.rejectReason
-      await updateBrokerStatus({ id, status, agentWriteBack })
+      const reviewContent = this.rejectReason
+      await updateBrokerStatus({ ids, status, reviewContent })
       this.dialogAuditVisible = false
       this.$success('审核成功')
       this.restForm()
@@ -415,6 +410,13 @@ export default class HelperReviewList extends Vue {
   }
 
   search () {
+      this.form.current = 1
+      this.getList()
+  }
+
+  handleStatusClick (e) {
+      this.currentStatus = e.name
+      this.form.auditStatus = e.name
       this.form.current = 1
       this.getList()
   }
@@ -435,6 +437,36 @@ export default class HelperReviewList extends Vue {
                 height: 32px;
                 border-radius: 16px;
             }
+        }
+    }
+    .user-info {
+        display: flex;
+        .avatar{
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            margin-right: 10px;
+        }
+        .name{
+            height: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+        .tag{
+            display: flex;
+            height: 20px;
+            li{
+                margin-right: 12px;
+                color: #999;
+                font-size: 12px;
+                width: 24px;
+            }
+        }
+    }
+    .action {
+        color: #4F63FF;
+        a{
+            color: #4F63FF;
         }
     }
 </style>

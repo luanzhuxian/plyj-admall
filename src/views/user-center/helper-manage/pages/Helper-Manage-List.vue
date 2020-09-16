@@ -8,7 +8,7 @@
             <el-form-item label="关键词">
                 <el-input
                     clearable
-                    v-model.trim="form.realName"
+                    v-model.trim="form.keyword"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
                     class="filter-inp"
@@ -26,16 +26,22 @@
                     <el-option
                         v-for="(item, index) of accountList"
                         :key="index"
-                        :label="item.realName"
-                        :value="item.userId"
+                        :label="item.name"
+                        :value="item.baseUserId"
                     />
                 </el-select>
             </el-form-item>
             <el-form-item label="最近登录时间">
-                <date-range />
+                <date-range :init="[form.loginStartTime, form.loginEndTime]"
+                            @change="loginTimeRange"
+                            disable-after
+                            clearable />
             </el-form-item>
             <el-form-item label="加入时间">
-                <date-range />
+                <date-range :init="[form.startTime, form.endTime]"
+                            @change="joinTimeRange"
+                            disable-after
+                            clearable />
             </el-form-item>
             <div class="filter-btns">
                 <el-button
@@ -61,26 +67,24 @@
             </div>
         </el-form>
 
-        <div
-            class="wrap mb-20"
-        >
-            <!--<el-button type="primary">新增Helper</el-button>-->
-            <!--<el-button type="primary">批量注册Helper</el-button>-->
-            <div v-if="routeName === 'HelperList'">
-                已选择{{ currentSelect.length }}条
-                <el-button
-                    :disabled="!currentSelect.length"
-                    @click="relieveBatched"
-                >
-                    批量降级
-                </el-button>
-                <el-button
-                    :disabled="!currentSelect.length"
-                    @click="belongBatched"
-                >
-                    批量更改所属账号
-                </el-button>
-            </div>
+        <div class="mt-20">
+            已选择{{ currentSelect.length }}个用户
+            <el-button
+                type="text"
+                size="mini"
+                :disabled="!currentSelect.length"
+                @click="relieveBatched"
+            >
+                降级
+            </el-button>
+            <el-button
+                type="text"
+                size="mini"
+                :disabled="!currentSelect.length"
+                @click="belongBatched"
+            >
+                更改所属账号
+            </el-button>
         </div>
 
         <el-table
@@ -89,74 +93,75 @@
         >
             <el-table-column
                 type="selection"
-                width="55"
-                v-if="$route.name === 'HelperList'"
+                width="30"
             />
-            <el-table-column
-                prop="userId"
-                label="ID"
-            />
-            <el-table-column label="头像">
-                <template slot-scope="scope">
-                    <img
-                        height="50"
-                        :src="scope.row.avatarUrl"
-                        alt=""
-                    >
+            <el-table-column label="用户信息">
+                <template slot-scope="{row}">
+                    <div class="user-info">
+                        <img
+                            class="avatar"
+                            :src="row.userImage"
+                            alt=""
+                        >
+                        <div>
+                            <div class="name">{{ row.userName }}</div>
+                            <ul class="tag" v-if="row.userTags.length < 3">
+                                <li v-for="(tag, k) in row.userTags" :key="k">
+                                    {{ tag }}
+                                </li>
+                            </ul>
+                            <ul class="tag" v-else>
+                                <li v-for="(tag, k) in row.userTags" :key="k">
+                                    {{ tag }}
+                                </li>
+                                <li>更多</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </template>
             </el-table-column>
             <el-table-column
-                prop="realName"
-                label="真实姓名"
-            />
-            <el-table-column
                 prop="mobile"
-                label="手机号（登录账户）"
+                label="手机（账户）"
             />
             <el-table-column
-                prop="ownnerName"
+                prop="ownedUser"
                 label="所属账号"
             />
-            <!--<el-table-column prop="weChatNumber" label="Helper等级" />-->
-            <!--<el-table-column prop="weChatNumber" label="成长值" />-->
-            <!-- <el-table-column prop="ownnerName" label="所属账号" /> -->
-            <!-- <el-table-column prop="status" label="状态" /> -->
-            <!--<template slot-scope="scope">-->
-            <!--<span v-if="scope.row.auditStatus === 'AWAIT'">待审核</span>-->
-            <!--<span v-else-if="scope.row.auditStatus === 'PASS'">正常（已论证）</span>-->
-            <!--<span v-else-if="scope.row.auditStatus === 'REJECT'">驳回</span>-->
-            <!--</template>-->
-            <!--</el-table-column>-->
             <el-table-column
-                prop="lastestLogonTime"
+                prop="lastLoginTime"
                 label="最近登录时间"
             />
             <el-table-column
+                prop="createTime"
+                label="加入时间"
+            />
+            <el-table-column
                 label="操作"
-                align="center"
-                header-align="center"
-                width="100"
+                align="right"
+                header-align="right"
+                width="200"
             >
                 <template slot-scope="{ row }">
-                    <Operating>
-                        <template slot="button-box">
-                            <template v-if="routeName === 'HelperList'">
-                                <a
-                                    @click="showDialogBox(row.userId, row.ownnerUserId)"
-                                >
-                                    更改所属账号
-                                </a>
-                                <a
-                                    @click="relieve(row.userId)"
-                                >
-                                    降级
-                                </a>
-                            </template>
-                            <a @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER' }, query: { from: 'HelperList' } })">
-                                查看
-                            </a>
-                        </template>
-                    </Operating>
+                    <div class="action">
+                        <a
+                            @click="showDialogBox(row.mallUserId, row.ownnerUserId)"
+                        >
+                            更改所属账号
+                        </a>
+                        |
+                        <a
+                            @click="relieve(row.mallUserId)"
+                        >
+                            降级
+                        </a>
+                        |
+                        <a
+                            @click="$router.push({ name: 'HelperDetail', params: { id: row.mallUserId, roleCode: 'HELPER' }, query: { from: 'HelperList' } })">
+                            详情
+                        </a>
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -181,7 +186,7 @@
                     <el-input
                         clearable
                         @change="getAccountList"
-                        v-model="searchAccountsForm.searchContent"
+                        v-model="searchAccountsForm.keyword"
                         placeholder="请输入真实姓名或手机号"
                     />
                 </el-form-item>
@@ -197,7 +202,7 @@
 
             <el-table :data="accountList">
                 <el-table-column
-                    prop="realName"
+                    prop="name"
                     label="真实姓名"
                 />
                 <el-table-column
@@ -253,13 +258,16 @@ import { getAccounts } from '../../../../apis/account'
 export default class HelperManageList extends Vue {
     showDialog = false
     form = {
-        realName: '',
-        mobile: '',
+        keyword: '',
         ownnerUserId: '',
         current: 1,
         size: 10,
         auditFlag: true,
-        auditStatus: ''
+        auditStatus: '',
+        loginStartTime: '',
+        loginEndTime: '',
+        startTime: '',
+        endTime: ''
     }
 
     table = []
@@ -275,7 +283,7 @@ export default class HelperManageList extends Vue {
     searchAccountsForm = {
         current: 1,
         size: 200,
-        searchContent: ''
+        keyword: ''
     }
 
     accountList = []
@@ -299,12 +307,16 @@ export default class HelperManageList extends Vue {
 
     restForm () {
         this.form = {
-            realName: '',
-            mobile: '',
+            keyword: '',
             ownnerUserId: '',
             current: 1,
+            size: 10,
             auditFlag: true,
-            auditStatus: ''
+            auditStatus: '',
+            loginStartTime: '',
+            loginEndTime: '',
+            startTime: '',
+            endTime: ''
         }
         this.form.auditStatus = this.statusMap[this.routeName]
         this.form.auditFlag = Boolean(this.form.auditStatus)
@@ -332,6 +344,18 @@ export default class HelperManageList extends Vue {
         }
     }
 
+    loginTimeRange ({ start, end }) {
+        this.form.loginStartTime = start
+        this.form.loginEndTime = end
+        this.getList()
+    }
+
+    joinTimeRange ({ start, end }) {
+        this.form.startTime = start
+        this.form.endTime = end
+        this.getList()
+    }
+
     async getAccountList () {
         try {
             const { result } = await getAccounts(this.searchAccountsForm)
@@ -343,9 +367,10 @@ export default class HelperManageList extends Vue {
     }
 
     async relieve (id) {
+        const ids = [id]
         try {
             await this.$confirm({ message: '对Helper降级后，降级后该Helper将成为普通会员用户，不再享受Helper的相关权限，确认要解除Helper账号的权限吗？' })
-            await relieveHelper(id)
+            await relieveHelper(ids)
             this.$success('降级成功')
             this.restForm()
             this.getList()
@@ -355,13 +380,13 @@ export default class HelperManageList extends Vue {
     }
 
     async relieveBatched () {
-        const userIdList = []
+        const ids = []
         for (const item of this.currentSelect) {
-            userIdList.push(item.userId)
+            ids.push(item.mallUserId)
         }
         try {
             await this.$confirm({ message: '对Helper降级后，降级后该Helper将成为普通会员用户，不再享受Helper的相关权限，确认要批量解除Helper账号的权限吗？' })
-            await relieveHelperBatched(userIdList.join(','))
+            await relieveHelperBatched(ids)
             this.$success('降级成功')
             this.restForm()
             this.getList()
@@ -373,7 +398,7 @@ export default class HelperManageList extends Vue {
     async belongBatched () {
         this.currentUserId = []
         for (const item of this.currentSelect) {
-            this.currentUserId.push(item.userId)
+            this.currentUserId.push(item.mallUserId)
         }
         if (this.currentUserId.length !== 1) {
             this.ownnerUserId = ''
@@ -390,8 +415,7 @@ export default class HelperManageList extends Vue {
     async changeHelperAccount (data) {
         try {
             await changeHelpersAccount({
-                ownnerUserId: data.userId,
-                ownneName: data.realName,
+                ownerUserId: data.userId,
                 userId: this.currentUserId
             })
             this.showDialog = false
@@ -434,6 +458,36 @@ export default class HelperManageList extends Vue {
             height: 32px;
             border-radius: 16px;
         }
+    }
+}
+.user-info {
+    display: flex;
+    .avatar{
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        margin-right: 10px;
+    }
+    .name{
+        height: 20px;
+        font-size: 14px;
+        color: #333;
+    }
+    .tag{
+        display: flex;
+        height: 20px;
+        li{
+            margin-right: 12px;
+            color: #999;
+            font-size: 12px;
+            width: 24px;
+        }
+    }
+}
+.action {
+    color: #4F63FF;
+    a{
+        color: #4F63FF;
     }
 }
 </style>

@@ -4,16 +4,16 @@
             <h4>游客数据</h4>
             <div class="data-list">
                 <div>
-                    今日新增会员
-                    <b>{{ visitorData.data0 }}</b>
+                    <b>{{ visitorData.todayUserCount }}</b>
+                    今日新增游客
                 </div>
                 <div>
-                    近30天新增会员
-                    <b>{{ visitorData.data30 }}</b>
+                    <b>{{ visitorData.monthUserCount }}</b>
+                    近30天新增游客
                 </div>
                 <div>
-                    累计会员总量
-                    <b>{{ visitorData.data99 }}</b>
+                    <b>{{ visitorData.count }}</b>
+                    游客总量
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <el-form-item label="关键词">
                 <el-input
                     clearable
-                    v-model.trim="form.nickName"
+                    v-model.trim="form.keyword"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
                     class="filter-inp"
@@ -35,7 +35,7 @@
                 label="来源"
             >
                 <el-select
-                    v-model="form.sourceId"
+                    v-model="form.userSource"
                     clearable
                     @change="search"
                 >
@@ -48,7 +48,10 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="首次访问时间">
-                <date-range />
+                <date-range :init="[form.createStartTime, form.createEndTime]"
+                            @change="visitTimeRange"
+                            disable-after
+                            clearable />
             </el-form-item>
             <div class="filter-btns">
                 <el-button
@@ -61,6 +64,7 @@
                 <el-button
                     type="text"
                     size="mini"
+                    @click="resetForm"
                 >
                     清空筛选条件
                 </el-button>
@@ -72,17 +76,12 @@
             class="table-customer"
         >
             <el-table-column
-                prop="mallUserId"
-                label="ID"
-            />
-            <el-table-column
-                prop="invitationCode"
                 label="头像"
             >
                 <template #default="{ row }">
                     <img
-                        height="50"
-                        :src="row.avatarUrl"
+                        class="avatar"
+                        :src="row.userHeadImage"
                         alt=""
                     >
                 </template>
@@ -92,8 +91,28 @@
                 label="昵称"
             />
             <el-table-column
-                prop="sex"
                 label="性别"
+            >
+                <template slot-scope="{row}">
+                    <span v-if="row.gender === 1">男</span>
+                    <span v-if="row.gender === 2">女</span>
+                    <span v-if="row.gender === 3">未知</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="地区"
+            >
+                <template slot-scope="{row}">
+                    {{ row.province + row.city }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="userSource"
+                label="来源"
+            />
+            <el-table-column
+                prop="createTime"
+                label="首次访问时间"
             />
         </el-table>
         <Pagination
@@ -111,7 +130,7 @@ import { Vue, Component } from 'vue-property-decorator'
 
 import Pagination from '../../../../components/common/Pagination'
 
-import { getYouKe } from '../../../../apis/member'
+import { getYouKe, getYouKeCount } from '../../../../apis/member'
 
 @Component({
     components: {
@@ -123,29 +142,38 @@ export default class VistorManageList extends Vue {
   // 数据
   leave=''
   form= {
-      nickName: '',
+      keyword: '',
       current: 1,
       size: 10,
-      sourceId: '1'
+      createStartTime: '',
+      createEndTime: '',
+      userSource: '微信H5'
   }
 
   sourceList = [
-      { sourceId: '1', sourceName: '微信H5' },
-      { sourceId: '2', sourceName: '小程序' }
+      { sourceId: '微信H5', sourceName: '微信H5' },
+      { sourceId: '小程序', sourceName: '小程序' }
   ]
 
   total=0
   table= []
   routeName= ''
   visitorData = {
-      data0: 0,
-      data30: 30,
-      data99: 99
+      todayUserCount: 0,
+      monthUserCount: 0,
+      count: 0
   }
 
   // 生命周期函数
   created () {
       this.routeName = this.$route.name
+      this.getYouKe()
+      this.getYouKeCount()
+  }
+
+  visitTimeRange ({ start, end }) {
+      this.form.createStartTime = start
+      this.form.createEndTime = end
       this.getYouKe()
   }
 
@@ -160,6 +188,15 @@ export default class VistorManageList extends Vue {
       }
   }
 
+  async getYouKeCount () {
+      try {
+          const { result } = await getYouKeCount()
+          this.visitorData = result
+      } catch (e) {
+          throw e
+      }
+  }
+
   sizeChange (val) {
       this.form.current = 1
       this.form.size = val
@@ -168,6 +205,18 @@ export default class VistorManageList extends Vue {
 
   search () {
       this.form.current = 1
+      this.getYouKe()
+  }
+
+  resetForm () {
+      this.form = {
+          keyword: '',
+          current: 1,
+          size: 10,
+          createStartTime: '',
+          createEndTime: '',
+          userSource: '微信H5'
+      }
       this.getYouKe()
   }
 }
@@ -208,5 +257,10 @@ export default class VistorManageList extends Vue {
                 border-radius: 16px;
             }
         }
+    }
+    .avatar{
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
     }
 </style>
