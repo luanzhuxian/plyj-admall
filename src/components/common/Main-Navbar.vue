@@ -43,7 +43,7 @@
                     <el-menu-item index="/product-center/courses-manage">我的课程</el-menu-item>
                     <el-menu-item index="/product-center/category-manage">分类管理</el-menu-item>
                     <el-menu-item index="/product-center/comment">评价管理</el-menu-item>
-                    <el-menu-item index="/admall/line-teaching/library/video">素材中心</el-menu-item>
+                    <el-menu-item index="/product-center/material-manage">素材中心</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="3">
