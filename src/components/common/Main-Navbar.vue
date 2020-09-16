@@ -118,7 +118,7 @@
                         <span>基础设置</span>
                     </h2>
                     <el-menu-item index="/base-setting/account-manage/list">账号管理</el-menu-item>
-                    <el-menu-item index="7-2">店铺信息</el-menu-item>
+                    <el-menu-item index="/base-setting/shop-info/set">店铺信息</el-menu-item>
                     <el-menu-item index="/base-setting/wechat/bind">公众号服务</el-menu-item>
                     <el-menu-item index="/base-setting/logistics/postage">物流设置</el-menu-item>
                     <el-menu-item index="7-5">我订购的服务</el-menu-item>

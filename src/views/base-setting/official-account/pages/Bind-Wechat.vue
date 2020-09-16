@@ -65,22 +65,31 @@ export default {
             return this.wechatPayStatus.applymentState
         }
     },
-    async activated () {
-        const auditStatus = this.auditStatus
-        try {
-            if (this.$route.name !== 'WechatAuth' && auditStatus === 'MP_NOT_AUTHORIZED') {
-                await this.$router.replace({ name: 'WechatAuth', query: this.$route.query })
-                return
+    mounted () {
+        this.nav()
+    },
+    activated () {
+        this.nav()
+    },
+    methods: {
+        async nav () {
+            const auditStatus = this.auditStatus
+            console.log(auditStatus)
+            try {
+                if (this.$route.name !== 'WechatAuth' && auditStatus === 'MP_NOT_AUTHORIZED') {
+                    await this.$router.replace({ name: 'WechatAuth', query: this.$route.query })
+                    return
+                }
+                if (this.$route.name !== 'WechatPay' && auditStatus === 'OPEN_WECHAT_PAYMENT') {
+                    await this.$router.replace({ name: 'WechatPay', query: this.$route.query })
+                    return
+                }
+                if (this.$route.name !== 'YajiAuthenticate' && (auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE')) {
+                    await this.$router.replace({ name: 'YajiAuthenticate', query: this.$route.query })
+                }
+            } catch (e) {
+                console.log(e)
             }
-            if (this.$route.name !== 'WechatPay' && auditStatus === 'OPEN_WECHAT_PAYMENT') {
-                await this.$router.replace({ name: 'WechatPay', query: this.$route.query })
-                return
-            }
-            if (this.$route.name !== 'YajiAuthenticate' && (auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE')) {
-                await this.$router.replace({ name: 'YajiAuthenticate', query: this.$route.query })
-            }
-        } catch (e) {
-            console.log(e)
         }
     }
 }

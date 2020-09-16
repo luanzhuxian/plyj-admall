@@ -43,7 +43,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['goods/categoryTree', 'goods/courseCategoryTree']),
+        ...mapGetters({
+            categoryTree: 'goods/categoryTree',
+            courseCategoryTree: 'goods/courseCategoryTree'
+        }),
         // 知识课程分类树
         knowledgeCourse () {
             return this.courseCategoryTree[0] ? this.courseCategoryTree[0][this.props.children] : []

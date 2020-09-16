@@ -149,7 +149,9 @@ export default {
         Field
     },
     computed: {
-        ...mapGetters(['currentRoleCode'])
+        ...mapGetters({
+            currentRoleCode: 'user/currentRoleCode'
+        })
     },
     data: () => ({
         visible: false,

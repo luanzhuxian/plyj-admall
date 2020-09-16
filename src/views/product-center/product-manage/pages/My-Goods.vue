@@ -701,9 +701,14 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['productType', 'goods/categoryTree', 'user/logo', 'user/mallUrl']),
+        ...mapGetters({
+            productType: 'productType',
+            categoryTree: 'goods/categoryTree',
+            logo: 'user/logo',
+            mallUrl: 'user/mallUrl'
+        }),
         localCategoryTree () {
-            const tree = JSON.parse(JSON.stringify(this['goods/categoryTree']))
+            const tree = JSON.parse(JSON.stringify(this.categoryTree))
             tree.unshift({
                 id: '',
                 categoryName: '全部'
@@ -947,7 +952,7 @@ export default {
         },
         async showShare (row) {
             this.currentShareShow = {
-                qrcodeText: `${ this['user/mallUrl'] }/detail/product/${ row.id }`,
+                qrcodeText: `${ this.mallUrl }/detail/product/${ row.id }`,
                 thumbnail: row.productMainImage
             }
             this.showShareDialog = true

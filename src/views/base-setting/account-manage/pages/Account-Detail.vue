@@ -566,10 +566,12 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['currentRoleCode'])
+        ...mapGetters({
+            currentRoleCode: 'user/currentRoleCode'
+        })
     },
     async created () {
-        this.getAccountList()
+        await this.getAccountList()
         const query = this.$route.query
         this.orderForm.userId = query.userId
         this.detailForm.userId = query.userId
