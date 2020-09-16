@@ -177,7 +177,7 @@
                                 content="编辑"
                                 placement="top-start"
                             >
-                                <pl-svg :key="2" name="icon-bianji" @click.stop="editTag(data)" width="12" fill="#598BF8" class="icon" />
+                                <pl-svg :key="2" name="icon-edit-511af" @click.stop="editTag(data)" width="12" fill="#598BF8" class="icon" />
                             </el-tooltip>
                             <el-tooltip
                                 class="tag-ctrl-item second-item"
@@ -185,7 +185,7 @@
                                 content="删除"
                                 placement="top-start"
                             >
-                                <pl-svg :key="3" name="icon-shanchu1" @click.stop="deleteTag(data.id)" width="12" fill="#598BF8" class="icon" />
+                                <pl-svg :key="3" name="icon-delete-9811c" @click.stop="deleteTag(data.id)" width="12" fill="#598BF8" class="icon" />
                             </el-tooltip>
                         </div>
                     </template>
@@ -455,9 +455,9 @@ export default class MemberManageList extends Vue {
       tagId: ''
   }
 
-  timeRange = ['', '']
-  loginTimeRange = ['', '']
-  lastPurchaseTimeRange = ['', '']
+  timeRange = []
+  loginTimeRange = []
+  lastPurchaseTimeRange = []
 
   multipleSelection = []
   multipleSelectionId =[]
@@ -817,7 +817,7 @@ export default class MemberManageList extends Vue {
     .tag-list {
         position: relative;
         z-index: 1;
-        width: 132px;
+        width: 260px;
         height: calc(100vh - 80px);
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         background-color: #F5F5F5;
@@ -836,6 +836,7 @@ export default class MemberManageList extends Vue {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-left: 20px;
             font-size: 14px;
             line-height: 50px;
             border-bottom: 1px solid #e7e7e7;
@@ -855,6 +856,7 @@ export default class MemberManageList extends Vue {
         .tag-list-options0 {
             position: relative;
             line-height: 50px;
+            padding-left: 20px;
             font-size: var(--fontSize);
             color: #333;
             font-weight: bold;
@@ -868,6 +870,7 @@ export default class MemberManageList extends Vue {
         }
 
         .tag-list-options {
+            line-height: 50px;
             position: relative;
             .tag-ctrl {
                 position: absolute;
@@ -876,7 +879,6 @@ export default class MemberManageList extends Vue {
                 display: inline-flex;
                 justify-content: flex-end;
                 align-items: center;
-                width: 100px;
                 height: 50px;
                 > .icon {
                     margin-left: 10px;
