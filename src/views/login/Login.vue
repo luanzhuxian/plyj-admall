@@ -10,7 +10,7 @@
                 <wxLogin @emitLogin="login" v-if="$route.name === 'WxLogin'" />
                 <WxBindPassword @emitLogin="login" v-if="$route.name === 'WxBindPassword'" />
                 <WxBindPhone @emitLogin="login" v-if="$route.name === 'WxBindPhone'" />
-                <CompleteLogin @emitLogin="login" v-if="$route.name === 'CompleteLogin'" />
+                <CompleteLogin @emitLogin="login" @codeShowFoo="codeShowFoo" v-if="$route.name === 'CompleteLogin'" />
             </div>
         </div>
         <el-dialog
@@ -86,9 +86,6 @@ export default class Login extends Vue {
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
     @Watch('$route.name')
-    onChangeValue (newVal: string) {
-        console.log(newVal)
-    }
 
     codeShowFoo (e: boolean) {
         console.log(e)
@@ -152,10 +149,6 @@ export default class Login extends Vue {
     close () {
         this.codeShow = false
         this.setCodePass(false)
-    }
-
-    mounted () {
-        console.log(this.$route.name)
     }
 
     destroyed (): void {

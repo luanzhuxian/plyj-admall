@@ -29,7 +29,7 @@
                 size="large"
                 style="width: 100%;border-radius: 121px;"
                 type="primary"
-                @click.native.prevent="login('form')"
+                @click.native.prevent="login()"
                 :loading="loading"
             >
                 登录
@@ -43,6 +43,7 @@
 </template>
 
 <script lang="ts">
+import { getAccountInfo } from '../../../apis/login'
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
@@ -120,13 +121,18 @@ export default class PhoneLogin extends Vue {
             }, 1000)
         }
 
-        async login (formName: string) {
+        async login () {
             // 防止连续敲击回车
             if (this.loading) return
             try {
-                await (this.$refs[formName] as HTMLFormElement).validate()
+                await (this.$refs.form as HTMLFormElement).validate()
                 this.loading = true
                 await this.LOGIN(this.form)
+                const { result }: any = await getAccountInfo()
+                if (!result.account) {
+                    await this.$router.push({ name: 'CompleteLogin' })
+                    return
+                }
                 this.emitLogin()
             } catch (e) {
                 this.setCodePass(false)

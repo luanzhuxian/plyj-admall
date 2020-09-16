@@ -91,8 +91,6 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
         [types.AGENCY_USER_INFO] (state, payload) {
             if (!payload) return
-            console.log('AGENCY_USER_INFO')
-            console.log(payload)
             const {
                 currentStep = 1,
                 entPersonSaveModel = {},
