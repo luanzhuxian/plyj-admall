@@ -25,7 +25,7 @@ export default [
             },
             // helper详情
             {
-                path: 'helper-detail',
+                path: 'helper-detail/:id?',
                 name: 'HelperDetail',
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Detail.vue'),
                 meta: {

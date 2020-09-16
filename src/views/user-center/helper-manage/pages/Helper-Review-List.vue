@@ -23,7 +23,10 @@
                 />
             </el-form-item>
             <el-form-item label="申请时间">
-                <date-range />
+                <date-range :init="[form.startTime, form.endTime]"
+                            @change="joinTimeRange"
+                            disable-after
+                            clearable />
             </el-form-item>
             <div class="filter-btns">
                 <el-button
@@ -130,7 +133,7 @@
                             |
                         </template>
                         <a
-                            @click="$router.push({ name: 'HelperDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: routeName }, query: { from: 'audit' } })"
+                            @click="$router.push({ name: 'HelperDetail', params: { id: row.id, roleCode: 'HELPER', fromRouteName: routeName }, query: { from: 'audit' } })"
                         >
                             详情
                         </a>
@@ -258,13 +261,16 @@ import DateRange from '../../../../components/common/Date-Range'
 export default class HelperReviewList extends Vue {
   showDialog = false
   form = {
-      realName: '',
-      mobile: '',
+      keyword: '',
       ownnerUserId: '',
       current: 1,
       size: 10,
       auditFlag: true,
-      auditStatus: ''
+      auditStatus: '',
+      loginStartTime: '',
+      loginEndTime: '',
+      startTime: '',
+      endTime: ''
   }
 
   table = []
@@ -311,9 +317,18 @@ export default class HelperReviewList extends Vue {
   }
 
   restForm () {
-      this.form = { realName: '', mobile: '', ownnerUserId: '', current: 1, auditFlag: true, auditStatus: '' }
+      this.form = {
+          keyword: '',
+          ownnerUserId: '',
+          current: 1,
+          loginStartTime: '',
+          loginEndTime: '',
+          startTime: '',
+          endTime: ''
+      }
       this.form.auditStatus = this.currentStatus
       this.form.auditFlag = Boolean(this.form.auditStatus)
+      this.getList()
   }
 
   async getList () {
@@ -398,7 +413,7 @@ export default class HelperReviewList extends Vue {
       const reviewContent = this.rejectReason
       await updateBrokerStatus({ ids, status, reviewContent })
       this.dialogAuditVisible = false
-      this.$success('审核成功')
+      this.$success('审核驳回')
       this.restForm()
       this.getList()
   }
@@ -418,6 +433,12 @@ export default class HelperReviewList extends Vue {
       this.currentStatus = e.name
       this.form.auditStatus = e.name
       this.form.current = 1
+      this.getList()
+  }
+
+  joinTimeRange ({ start, end }) {
+      this.form.startTime = start
+      this.form.endTime = end
       this.getList()
   }
 }

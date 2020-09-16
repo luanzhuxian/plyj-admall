@@ -158,7 +158,7 @@
                         </a>
                         |
                         <a
-                            @click="$router.push({ name: 'HelperDetail', params: { id: row.mallUserId, roleCode: 'HELPER' }, query: { from: 'HelperList' } })">
+                            @click="$router.push({ name: 'HelperDetail', params: { id: row.id, roleCode: 'HELPER' }, query: { from: 'HelperList' } })">
                             详情
                         </a>
                     </div>
