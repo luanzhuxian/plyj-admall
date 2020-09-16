@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tabs v-model="activeName" @tab-click="handleClick" v-if="$route.name !== 'HelperDetail'">
             <el-tab-pane
                 v-for="item in tabs"
                 :key="item.name"
