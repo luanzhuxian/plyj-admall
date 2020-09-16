@@ -310,20 +310,6 @@
                                     width="100"
                                     align="center"
                                 />
-                                <!-- <el-table-column
-                  label="操作"
-                  width="100"
-                >
-                  <template v-slot="{row:{orderId:id}}">
-                    <el-button
-                      size="small"
-                      plain
-                      @click="$router.push({name:'OrderDetail', params:{id}})"
-                    >
-                      查看
-                    </el-button>
-                  </template>
-                </el-table-column> -->
                             </el-table>
                             <Pagination v-show="orderTotal" :total="orderTotal" v-model="orderForm.current" :size="orderForm.size" @change="getOrderList" />
                         </el-tab-pane>

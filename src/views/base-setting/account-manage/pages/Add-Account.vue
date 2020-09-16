@@ -49,44 +49,28 @@
                     :error="error"
                     label="手机号（账号）:"
                 >
-                    <el-select
-                        :value="ruleForm.mobile"
-                        :disabled="query.selfEdit || query.canEdit"
-                        filterable
+                    <el-input
+                        class="w180"
                         clearable
-                        remote
-                        reserve-keyword
+                        :disabled="query.selfEdit || query.canEdit"
+                        v-model.trim="ruleForm.mobile"
                         placeholder="请输入手机号"
-                        :remote-method="searchMobile"
-                        :loading="loading"
-                        autocomplete="off"
-                        @change="selectChange"
-                        @blur="selectBlur"
-                        @clear="clearMobile"
-                    >
-                        <el-option
-                            v-for="item in mobileOptions"
-                            :key="item.mobile"
-                            :label="item.mobile + '(' + converRoleCode[item.roleCode] + ')'"
-                            :value="item.mobile"
-                        />
-                    </el-select>
+                    />
                 </el-form-item>
                 <el-form-item prop="realName" label="真实姓名：">
                     <el-input
                         class="w180"
-                        v-model="ruleForm.realName"
-                        :disabled="realNameDisabled"
-                        :placeholder="namePlacehoder"
+                        v-model.trim="ruleForm.realName"
+                        placeholder="请输入真实姓名"
                     />
                 </el-form-item>
-                <el-form-item prop="nickName" label="昵称：">
+                <!-- <el-form-item prop="nickName" label="昵称：">
                     <el-input
                         class="w180"
                         v-model="ruleForm.nickName"
                         placeholder="请输入昵称"
                     />
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item prop="position" label="职位：">
                     <el-input
                         class="w180"
@@ -95,9 +79,12 @@
                         placeholder="请输入所属职位"
                     />
                 </el-form-item>
-                <el-form-item v-if="!(ruleForm.accountRole === 'ADMIN')" label="权限范围：">
-                    <el-button type="text" @click="editPermission">
+                <el-form-item label="权限范围：">
+                    <el-button v-if="ruleForm.accountRole !== 'ADMIN'" type="text" @click="editPermission">
                         编辑
+                    </el-button>
+                    <el-button v-else type="text" @click="editPermission">
+                        查看
                     </el-button>
                 </el-form-item>
             </el-form>
@@ -115,14 +102,14 @@
                 type="primary"
                 @click="submit"
             >
-                保 存
+                保存
             </el-button>
         </div>
 
         <role-tree
             :visible.sync="visible"
             :tree-list="menuTree"
-            :show-checkbox="!query.selfEdit"
+            :show-checkbox="!query.selfEdit && ruleForm.accountRole !== 'ADMIN'"
             @changeTree="changeTree"
         />
     </div>
@@ -130,7 +117,7 @@
 
 <script lang="ts">
 import RoleTree from '../components/Role-Tree.vue'
-import { searchMobile, addAccount, getSingleAccount, editAccount, getEmployeeDefault } from '../../../../apis/account'
+import { addAccount, getSingleAccount, editAccount, getEmployeeDefault } from '../../../../apis/account'
 import { testPhone } from '../../../../assets/ts/validate'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
@@ -141,9 +128,6 @@ const userModule = namespace('user')
     }
 })
 export default class AddAccount extends Vue {
-    realNameDisabled = true
-    namePlacehoder = '请先选择联系方式'
-    loading = false
     error = ''
     ruleForm: { [k: string]: any } = {
         accountRole: '',
@@ -156,7 +140,6 @@ export default class AddAccount extends Vue {
 
     menuTree = []
     menuCode = ''
-    mobileOptions: any[] = []
     rules = {
         realName: [
             { required: false, message: '请输入真实姓名', trigger: 'blur' },
@@ -235,7 +218,6 @@ export default class AddAccount extends Vue {
         this.ruleForm.userId = result.userId
         this.ruleForm.lockStatus = result.lockStatus
         this.ruleForm.mobile = result.mobile
-        this.realNameDisabled = false
         this.ruleForm.realName = result.realName
         this.ruleForm.nickName = result.nickName
         this.ruleForm.position = result.position
@@ -285,10 +267,6 @@ export default class AddAccount extends Vue {
                 throw e
             }
         } else {
-            if (this.mobileOptions.length === 0) {
-                this.error = '该手机号不存在'
-                return
-            }
             (this.$refs.ruleForm as any).validate(async (valid: boolean) => {
                 if (!valid) return false
                 if (this.ruleForm.accountRole === 'EMPLOYEE') {
@@ -323,70 +301,6 @@ export default class AddAccount extends Vue {
         this.$router.back()
     }
 
-    async searchMobile (query: string) {
-        if (query !== '') {
-            this.loading = true
-            const roleCode = this.ruleForm.accountRole
-            const params = {
-                current: 1,
-                size: 100,
-                mobile: query,
-                roleCode
-            }
-            try {
-                const res = await searchMobile(params)
-                this.loading = false
-                this.mobileOptions = res.result.records
-                if (res.result.records.length === 1) {
-                    this.handleSelect(res.result.records[0])
-                }
-                if (this.mobileOptions.length === 0) {
-                    this.error = '该手机号不存在'
-                } else {
-                    this.error = ''
-                }
-            } catch (e) {
-                this.loading = false
-                throw e
-            }
-        }
-    }
-
-    clearMobile () {
-        this.ruleForm.realName = ''
-        // this.ruleForm.accountRole = ''
-        this.ruleForm.position = ''
-        this.ruleForm.nickName = ''
-    }
-
-    selectChange (val: string) {
-        this.ruleForm.mobile = val
-        const selected = this.mobileOptions.find(item => item.mobile === val)
-        if (selected) {
-            this.handleSelect(selected)
-        }
-    }
-
-    selectBlur (e: any) {
-        const num = /\d+/.exec(e.target.value)
-        if (num && !this.loading && this.ruleForm.mobile) {
-            this.ruleForm.mobile = num[0]
-            this.searchMobile(this.ruleForm.mobile)
-        }
-    }
-
-    handleSelect (selectItem: any) {
-        this.ruleForm.realName = selectItem.realName
-        this.ruleForm.nickName = selectItem.nickName
-        this.ruleForm.mobile = selectItem.mobile
-        this.ruleForm.position = selectItem.position
-        // this.$refs['ruleForm'].clearValidate(['mobile'])
-        if (!selectItem.realName) {
-            this.realNameDisabled = false
-            this.namePlacehoder = '请输入真实姓名'
-        }
-    }
-
     goBack () {
         this.$router.go(-1)
     }
@@ -400,8 +314,6 @@ export default class AddAccount extends Vue {
         this.ruleForm.mobile = ''
         this.ruleForm.position = ''
         this.error = ''
-        this.realNameDisabled = true
-        this.mobileOptions = []
     }
 
     editPermission () {
