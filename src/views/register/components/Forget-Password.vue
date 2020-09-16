@@ -43,7 +43,7 @@
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
-import { forgetPassword } from '../../../apis/register'
+import { forgetPassword } from '../../../apis/base/register'
 import { Getter } from 'vuex-class'
 
     @Component

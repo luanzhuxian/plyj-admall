@@ -125,7 +125,6 @@ export const beforeResolve = async (to, from, next) => {
         next({ path: '/register' })
         return
     }
-
     next()
 }
 

@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { resetPassword } from '../../../apis/register'
+import { resetPassword } from '../../../apis/base/register'
 import { Component, Vue } from 'vue-property-decorator'
 
     @Component

@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { modifyPassword } from '../../../apis/register'
+import { modifyPassword } from '../../../apis/base/register'
 import { Component, Vue } from 'vue-property-decorator'
 
     @Component

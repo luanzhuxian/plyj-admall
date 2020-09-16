@@ -13,7 +13,7 @@ import {
     getWechatPaytStatus,
     getUpgradeStatus,
     getVstatus
-} from '../../apis/register'
+} from '../../apis/base/register'
 import * as types from '../mutation-type'
 import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
