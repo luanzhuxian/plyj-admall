@@ -481,7 +481,7 @@ export default {
         },
         async getList () {
             try {
-                const { data: { result } } = await getReturnOrdersList(this.queryPage, this.form)
+                const { result } = await getReturnOrdersList(this.queryPage, this.form)
                 this.table = result.records
                 this.total = result.total
             } catch (e) {

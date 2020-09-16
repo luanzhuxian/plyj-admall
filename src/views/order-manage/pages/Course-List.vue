@@ -459,12 +459,12 @@ export default {
         // 获取列表数据
         async getList () {
             try {
-                const { data: res } = await getOrderQuery(this.queryPage, this.form)
-                for (const item of res.result.records) {
+                const { result } = await getOrderQuery(this.queryPage, this.form)
+                for (const item of result.records) {
                     item.expanded = false
                 }
-                this.tableData = res.result.records || []
-                this.total = res.result.total
+                this.tableData = result.records || []
+                this.total = result.total
             } catch (e) {
                 throw e
             }
@@ -472,10 +472,10 @@ export default {
         // 获取筛选条件
         async getRedeemUserList () {
             try {
-                const { data } = await redeemUserList()
+                const { result } = await redeemUserList()
                 const array = []
-                if (data && data.result && data.result.length) {
-                    for (const item of data.result) {
+                if (result && result.length) {
+                    for (const item of result) {
                         array.push({ label: item, value: item })
                     }
                 }

@@ -405,12 +405,12 @@ export default {
         // 获取列表数据
         async getList () {
             try {
-                const { data: res } = await getOrderQuery(this.queryPage, this.form)
-                for (const item of res.result.records) {
+                const { result } = await getOrderQuery(this.queryPage, this.form)
+                for (const item of result.records) {
                     item.expanded = false
                 }
-                this.tableData = res.result.records || []
-                this.total = res.result.total
+                this.tableData = result.records || []
+                this.total = result.total
             } catch (e) {
                 throw e
             }

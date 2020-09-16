@@ -504,9 +504,9 @@ export default {
         },
         async getList () {
             try {
-                const { data: { result: res } } = await getInvoiceList(this.form)
-                this.table = res.records
-                this.total = res.total
+                const { result } = await getInvoiceList(this.form)
+                this.table = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }
@@ -521,8 +521,8 @@ export default {
             }
             if (status === 'confirm') {
                 this.dialogTitle = '确认票号'
-                const { data: res } = await confirmInvoice(id)
-                if (res.result) {
+                const { result } = await confirmInvoice(id)
+                if (result) {
                     await this.$confirm('该开票申请含有未核销订单，是否开票？')
                 }
             }
