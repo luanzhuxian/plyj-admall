@@ -105,7 +105,7 @@ export default {
                 })
             }
         },
-        categoryType (val) {
+        categoryType () {
             if (this.loaded) {
                 this.$nextTick(() => {
                     this.init()
