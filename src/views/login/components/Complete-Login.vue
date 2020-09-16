@@ -38,7 +38,7 @@
                 size="large"
                 style="width: 100%;border-radius: 121px;margin-top: 20px"
                 type="primary"
-                @click.native.prevent="login('form')"
+                @click.native.prevent="login()"
                 :loading="loading"
             >
                 完善资料，进入雅集
@@ -48,6 +48,7 @@
 </template>
 
 <script lang="ts">
+import { completeInfo } from '../../../apis/login'
 import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')
@@ -56,7 +57,8 @@ const userModule = namespace('user')
 export default class CompleteLogin extends Vue {
         form = {
             account: '',
-            password: ''
+            password: '',
+            confirmPassword: ''
         }
 
         testConfirmPassword = (rule: any, value: any, callback: Function) => {
@@ -86,6 +88,7 @@ export default class CompleteLogin extends Vue {
         }
 
         loading = false
+        agree = false
         passwordType = 'password'
         confirmPasswordType = 'password'
 
@@ -108,17 +111,18 @@ export default class CompleteLogin extends Vue {
             this.setCodePass(false)
         }
 
-        async login (formName: string) {
+        async login () {
             // 防止连续敲击回车
             if (this.loading) return
+            if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
             if (!this.codePass) {
                 this.codeShowFoo(true)
                 return
             }
             try {
-                await (this.$refs[formName] as HTMLFormElement).validate()
+                await (this.$refs.form as HTMLFormElement).validate()
                 this.loading = true
-                await this.LOGIN(this.form)
+                await completeInfo(this.form)
                 this.emitLogin()
             } catch (e) {
                 this.setCodePass(false)

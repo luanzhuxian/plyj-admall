@@ -74,9 +74,6 @@ export default class RegisterIndex extends Vue {
         @userModule.Mutation('LOGOUT') logout!: Function
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Watch('$route.name')
-        onChangeValue (newVal: string) {
-            console.log(newVal)
-        }
 
         async login () {
             try {
@@ -124,10 +121,6 @@ export default class RegisterIndex extends Vue {
             } else {
                 this.$router.replace({ name: 'Register' })
             }
-        }
-
-        mounted () {
-            console.log(this.$route.name)
         }
 
         destroyed (): void {

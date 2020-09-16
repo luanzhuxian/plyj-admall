@@ -18,8 +18,7 @@ const NOLOGIN = [
     'WxBindPhone',
     'Register',
     'ForgetPassword',
-    'ResetPassword',
-    'CompleteLogin'
+    'ResetPassword'
 ]
 
 Vue.use(Router)
