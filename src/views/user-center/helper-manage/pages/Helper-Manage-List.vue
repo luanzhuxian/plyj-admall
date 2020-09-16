@@ -311,8 +311,6 @@ export default class HelperManageList extends Vue {
             ownnerUserId: '',
             current: 1,
             size: 10,
-            auditFlag: true,
-            auditStatus: '',
             loginStartTime: '',
             loginEndTime: '',
             startTime: '',
@@ -320,6 +318,7 @@ export default class HelperManageList extends Vue {
         }
         this.form.auditStatus = this.statusMap[this.routeName]
         this.form.auditFlag = Boolean(this.form.auditStatus)
+        this.getList()
     }
 
     async getList () {

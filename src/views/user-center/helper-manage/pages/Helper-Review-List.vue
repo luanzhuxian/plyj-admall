@@ -58,9 +58,9 @@
             :data="table"
         >
             <el-table-column
+                v-if="currentStatus === 'AWAIT'"
                 type="selection"
                 width="30"
-                v-if="false"
             />
             <el-table-column label="用户信息">
                 <template slot-scope="{row}">
@@ -91,30 +91,33 @@
             <el-table-column
                 prop="mobile"
                 label="手机（账户）"
+                width="150"
             />
             <el-table-column
                 prop="ownedUser"
                 label="所属账号"
+                width="240"
             />
-            <el-table-column label="审核状态">
+            <el-table-column label="审核状态" width="100">
                 <template slot-scope="{row}">
                     <span v-if="row.auditStatus === 'AWAIT'">待审核</span>
                     <span v-else-if="row.auditStatus === 'PASS'">正常（已论证）</span>
                     <span v-else-if="row.auditStatus === 'REJECT'">驳回</span>
                 </template>
             </el-table-column>
-            <el-table-column label="申请时间" prop="applyTime" />
-            <el-table-column v-if="currentStatus !== 'AWAIT'" label="审核时间" prop="auditTime" />
+            <el-table-column label="申请时间" prop="applyTime" width="150" />
+            <el-table-column v-if="currentStatus !== 'AWAIT'" label="审核时间" prop="auditTime" width="150" />
             <el-table-column
                 v-if="currentStatus === 'REJECT'"
                 prop="reviewContent"
                 label="驳回理由"
+                width="150"
             />
             <el-table-column
                 label="操作"
                 align="right"
                 header-align="right"
-                width="200"
+                width="150"
             >
                 <template slot-scope="{ row }">
                     <div class="action">
@@ -302,9 +305,10 @@ export default class HelperReviewList extends Vue {
   /* 驳回申请理由 */
   rejectReason = ''
   currentRoleCode = ''
-  currentStatus = 'AWAIT'
+  currentStatus = ''
 
   async created () {
+      this.currentStatus = 'AWAIT'
       this.routeName = this.$route.name
       this.form.auditStatus = this.currentStatus
       this.form.auditFlag = Boolean(this.form.auditStatus)
