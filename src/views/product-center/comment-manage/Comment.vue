@@ -204,7 +204,7 @@ import {
     getCommentById,
     updateComment,
     deleteComment
-} from '../../../../apis/goods'
+} from '../../../apis/goods'
 export default {
     data () {
         return {

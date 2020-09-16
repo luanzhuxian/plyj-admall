@@ -1,35 +1,62 @@
 export default [
     {
-        path: 'courses-manage',
-        redirect: '/product-center/courses-manage/my-courses',
-        name: 'CoursesManage',
-        component: () => import('../../../views/product-center/course-manage/Index.vue'),
+        path: 'goods-manage',
+        redirect: '/product-center/goods-manage/my-goods',
+        name: 'GoodsManage',
+        component: () => import('../../../views/product-center/product-manage/Index.vue'),
         meta: {
-            title: '我的课程'
+            title: '我的商品'
         },
         children: [
             {
-                path: 'my-courses/edit/:id',
-                name: 'EditCourses',
+                path: 'my-goods/edit/:id',
+                name: 'EditProduct',
                 props: true,
-                component: () => import('../../../views/product-center/course-manage/pages/Add-Courses.vue'),
+                component: () => import('../../../views/product-center/product-manage/pages/Add-Product.vue'),
                 meta: {
-                    title: '编辑课程'
+                    title: '编辑商品'
                 }
             },
             {
-                path: 'my-courses/add',
-                name: 'AddCourses',
+                path: 'my-goods/add',
+                name: 'AddProduct',
                 props: true,
-                component: () => import('../../../views/product-center/course-manage/pages/Add-Courses.vue'),
+                component: () => import('../../../views/product-center/product-manage/pages/Add-Product.vue'),
                 meta: {
-                    title: '新增课程'
+                    title: '新增商品'
                 }
             },
             {
-                path: 'my-courses',
-                name: 'MyCourses',
-                component: () => import('../../../views/product-center/course-manage/pages/My-Courses.vue')
+                path: 'my-goods',
+                name: 'MyGoods',
+                component: () => import('../../../views/product-center/product-manage/pages/My-Goods.vue'),
+                meta: {
+                    title: ''
+                }
+            },
+            {
+                path: 'recommend',
+                name: 'Recommend',
+                component: () => import('../../../views/product-center/product-manage/pages/Recommend.vue'),
+                meta: {
+                    title: '推荐榜单'
+                },
+                children: [
+                    {
+                        path: 'recommend-goods',
+                        name: 'RecommendGoods',
+                        meta: {
+                            title: '商品推荐榜单'
+                        }
+                    },
+                    {
+                        path: 'recommend-course',
+                        name: 'RecommendCourse',
+                        meta: {
+                            title: '课程推荐榜单'
+                        }
+                    }
+                ]
             }
         ]
     }
