@@ -1,4 +1,26 @@
 /*eslint-disable*/
+
+/**
+ * 延迟执行
+ * @params time {number} 要延迟的时间
+ */
+export class DelayExec {
+    time = 0
+    timer = 0
+    constructor (time: number) {
+        this.time = time
+        this.timer = 0
+    }
+    exec () {
+        return new Promise(resolve => {
+            clearInterval(this.timer)
+            this.timer = setTimeout(() => {
+                resolve()
+            }, this.time)
+        })
+    }
+}
+
 /**
  * 获取字符串长度，1个汉字等于2个字母
  * @param str {string}
@@ -293,4 +315,27 @@ export const importFiles = (context: any): any[] => {
         files.push(...file)
     }
     return files
+}
+
+/**
+ * 作用营销中心，保存时间重叠的提示以及跳转
+ * 第一个参数是后台返回
+ * @param warnMessage {string} 提醒消息
+ * @param routerName {string} 跳转路由
+ */
+export const goPage = async (vm: any, { flag, list }: any, warnMessage: string, routerName: string) => {
+    if (flag) {
+        await vm.$success(warnMessage)
+        vm.$router.push({ name: routerName })
+    } else {
+        let htmlStr = '<p>商品在该活动时间内，已参与了其他活动，请勿重复设置<p/><p>商品已参与活动时间如下：</p>'
+        for (let { activityType, activityStartTime, activityEndTime } of list) {
+            htmlStr += `<p><span>${activityType}：</span> <span>${activityStartTime} 至 ${activityEndTime}</span></p>`
+        }
+        vm.$alert({
+            title: '提示',
+            message: htmlStr,
+            dangerouslyUseHTMLString: true
+        })
+    }
 }

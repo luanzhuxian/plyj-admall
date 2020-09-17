@@ -336,7 +336,7 @@ export default {
                     value: ''
                 },
                 {
-                    label: '待收货',
+                    label: '待使用',
                     value: 'WAIT_RECEIVE'
                 },
                 {
@@ -401,11 +401,15 @@ export default {
     },
     computed: {
         ...mapState(['orderStatus']),
-        ...mapGetters(['bindPhone', 'receiveAddressList'])
+        // ...mapGetters(['bindPhone', 'receiveAddressList'])
+        ...mapGetters({
+            bindPhone: 'user/bindPhone',
+            receiveAddressList: 'goods/receiveAddressList'
+        })
     },
     async created () {
         if (this.$route.params.id) this.form.keywords = this.$route.params.id
-        // this.form.orderStatus = this.routeMap[this.$route.name] || ''
+        this.form.orderStatus = this.$route.query.status || ''
         try {
             await this.getList()
             await this.getRedeemUserList()
@@ -420,7 +424,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions([GET_RECEIVE_ADDRESS]),
+        ...mapActions({
+            [GET_RECEIVE_ADDRESS]: 'goods/GET_RECEIVE_ADDRESS'
+        }),
         canApplyRefund (row) {
             // 申请条件 不等于待付款、订单关闭，订单可申请售后，订单没有申请过售后
             if (row.orderStatus === 'WAIT_SHIP') {

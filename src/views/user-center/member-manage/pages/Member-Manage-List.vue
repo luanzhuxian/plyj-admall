@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="member-manage-list">
         <!--会员数据-->
         <div class="data">
             <h4>会员数据</h4>
@@ -113,16 +113,18 @@
             </el-form-item>
             <el-form-item>
                 <el-button
+                    round
                     type="primary"
                     @click="search"
                 >
                     查询
                 </el-button>
                 <el-button
-                    @click="changeExport"
+                    v-if="table && table.length"
+                    round
                     type="primary"
                     plain
-                    v-if="table && table.length"
+                    @click="changeExport"
                 >
                     导出数据
                 </el-button>
@@ -162,14 +164,15 @@
                     @change="treeSort"
                     :tree="tagList"
                     ref="tree"
+                    :has-left-icon="false"
                     :options="{
                         value: 'id'
                     }"
                 >
-                    <template slot="treeItemLabel" slot-scope="{ data }">
-                        {{ data.tagName }}
+                    <template #treeItemLabel="{ data }">
+                        <div class="tree-tag-name">{{ data.tagName }}</div>
                     </template>
-                    <template slot="default" slot-scope="{ data }">
+                    <template #defaulte="{ data }">
                         <div class="tag-ctrl">
                             <el-tooltip
                                 class="tag-ctrl-item"
@@ -752,6 +755,7 @@ export default class MemberManageList extends Vue {
   async getTagList () {
       try {
           const { result } = await getTagList()
+          console.log(result)
           this.getMemberNum()
           this.tagList = result || []
       } catch (e) {
@@ -793,6 +797,7 @@ export default class MemberManageList extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.member-manage-list {
     .data {
         font-size: 16px;
         color: #333333;
@@ -899,7 +904,7 @@ export default class MemberManageList extends Vue {
     }
 
     .member-list {
-        flex: 1;
+        width: calc(100% - 260px);
         min-height: calc(100vh - 110px);
         padding-bottom: 30px;
         background-color: #ffffff;
@@ -973,10 +978,14 @@ export default class MemberManageList extends Vue {
         }
     }
 
+    .tree-tag-name {
+        // padding: 0 16px;
+    }
     .background-color-grey {
         background-color: #eee!important;
     }
     #color-333{
         color: #333;
     }
+}
 </style>

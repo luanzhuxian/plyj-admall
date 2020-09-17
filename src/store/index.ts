@@ -3,6 +3,7 @@ import Vuex, { StoreOptions } from 'vuex'
 import user from './modules/user'
 import goods from './modules/goods'
 import mall from './modules/mall-manage'
+import account from './modules/account'
 
 import state from './state'
 import mutations from './mutations'
@@ -15,7 +16,8 @@ const option: StoreOptions<DynamicObject> = {
     modules: {
         user,
         goods,
-        mall
+        mall,
+        account
     },
     state,
     mutations,

@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { resetForm } from '../../assets/js/utils'
+import { resetForm } from '../../assets/ts/utils'
 import {
     courierCompany
 } from '../../apis/order'

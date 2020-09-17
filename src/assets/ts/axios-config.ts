@@ -121,7 +121,8 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         data: reqData,
         params,
         devMessage,
-        message
+        message,
+        resCode: data.code
     }, null, 4)))
 }
 const resError = async (error: any) => {

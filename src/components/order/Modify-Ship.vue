@@ -79,8 +79,8 @@
 <script>
 import { getDataDictionary } from '../../apis/common'
 import { updateOrderShipment } from '../../apis/order'
-import { resetForm } from '../../assets/js/utils'
-import { testExpressNumber } from '../../assets/js/validate'
+import { resetForm } from '../../assets/ts/utils'
+import { testExpressNumber } from '../../assets/ts/validate'
 
 export default {
     name: 'ModifyShip',

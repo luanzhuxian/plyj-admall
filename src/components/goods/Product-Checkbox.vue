@@ -243,7 +243,7 @@ export default {
                     subCategoryId: classifyCodes[1] || '',
                     activityType: 'GROUPBUGACTIVITY'
                 })
-                data.result.records.map((item, index) => {
+                data.result.records.forEach((item, index) => {
                     item.index = (index + 1) + (Number(data.result.current) - 1) * Number(data.result.size)
                 })
                 this.goodsList = data.result.records

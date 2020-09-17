@@ -214,7 +214,7 @@ export default {
                 }
                 if (this.newYearType) queryData.type = '2019_02' // 新春开学季类型
                 const data = await togetherActivityGoods(queryData)
-                data.result.records.map((item, index) => {
+                data.result.records.forEach((item, index) => {
                     item.index = (index + 1) + (Number(data.result.current) - 1) * Number(data.result.size)
                 })
                 this.goodsList = data.result.records

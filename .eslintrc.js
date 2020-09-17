@@ -52,10 +52,11 @@ module.exports = {
     }], // http://docs.youpenglai.cn/spec/javascript_specification.html#accessors--consistent
     'newline-per-chained-call': "error", // http://docs.youpenglai.cn/spec/javascript_specification.html#whitespace--chains
     'array-bracket-spacing': ["error", "never"], // http://docs.youpenglai.cn/spec/javascript_specification.html#whitespace--in-brackets
-    'line-comment-position': ["error", { "position": "above" }], // http://docs.youpenglai.cn/spec/javascript_specification.html#comments--singleline
+    // 'line-comment-position': ["error", { "position": "above" }], // http://docs.youpenglai.cn/spec/javascript_specification.html#comments--singleline
+    // 'line-comment-position': ["error", "never"], // http://docs.youpenglai.cn/spec/javascript_specification.html#comments--singleline
     'lines-around-comment': ["error", { "beforeLineComment": false, "allowBlockStart": true }], // http://docs.youpenglai.cn/spec/javascript_specification.html#comments--singleline
     // 'multiline-comment-style': ["error", "starred-block"], // http://docs.youpenglai.cn/spec/javascript_specification.html#comments--multiline
-    'no-inline-comments': "error", // http://docs.youpenglai.cn/spec/javascript_specification.html#comments--singleline
+    'no-inline-comments': "off", // http://docs.youpenglai.cn/spec/javascript_specification.html#comments--singleline
     // 'no-nested-ternary': "error", // http://docs.youpenglai.cn/spec/javascript_specification.html#comparison--nested-ternaries
     'dot-notation': "error", // http://docs.youpenglai.cn/spec/javascript_specification.html#properties--dot
     'one-var': ["error", "never"], // http://docs.youpenglai.cn/spec/javascript_specification.html#variables--one-const
@@ -95,7 +96,8 @@ module.exports = {
     'nonblock-statement-body-position': ['error', 'any'],
     'brace-style': "error",
     'no-else-return': 'error',
-    'no-underscore-dangle': 'error'
+    'no-underscore-dangle': 'error',
+    'vue/no-mutating-props': 'off'
   },
 
   // 优先使用vue强烈推荐的配置和标准配置，其余配置在rules中修改
