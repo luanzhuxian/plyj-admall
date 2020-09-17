@@ -2,6 +2,7 @@ export default [
     {
         path: '/orders-manage',
         name: 'OrderManage',
+        component: () => import('../../../views/order-manage/Index.vue'),
         children: [
             {
                 path: 'order-list',
