@@ -271,8 +271,10 @@ export default {
                 size: 10,
                 total: 0
             },
-            qrcodeText: '', // 分享链接
-            qrcodeShow: false, // 分享开关,
+            // 分享链接
+            qrcodeText: '',
+            // 分享开关,
+            qrcodeShow: false,
             showExplanation: false,
             newcomersDialog: false,
             presentDialog: false,
@@ -285,9 +287,11 @@ export default {
             // await this.getCouponList()
             await this.doQuery()
             const { data: { result } } = await isShowGuide()
-            if (result === 1) { // 新用户
+            // 新用户
+            if (result === 1) {
                 this.newcomersDialog = true
-            } else if (result === 2) { // 老用户
+                // 老用户
+            } else if (result === 2) {
                 this.dlgCreate = true
             } else {
                 this.dlgCreate = false

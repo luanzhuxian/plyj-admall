@@ -195,15 +195,23 @@ export default {
             giftData: [],
             dialogVerificationVisible: false,
             total: 0,
-            giftStatus: ['待使用', '已使用', '已过期'], // 礼品状态
-            useStatus: ['待领取', '未使用', '已使用', '已过期', '已失效', '已删除'], // 奖学金状态
-            couponStatus: ['待使用', '已使用', '已过期'], // 券使用状态
+            // 礼品状态
+            giftStatus: ['待使用', '已使用', '已过期'],
+            // 奖学金状态
+            useStatus: ['待领取', '未使用', '已使用', '已过期', '已失效', '已删除'],
+            // 券使用状态
+            couponStatus: ['待使用', '已使用', '已过期'],
             statistics: {
-                pv: 0, // 浏览量
-                uv: 0, // 访客量
-                takeSum: 0, // 参与人数
-                drawSum: 0, // 抽奖人数
-                finalSum: 0 // 年味大礼包人数
+                // 浏览量
+                pv: 0,
+                // 访客量
+                uv: 0,
+                // 参与人数
+                takeSum: 0,
+                // 抽奖人数
+                drawSum: 0,
+                // 年味大礼包人数
+                finalSum: 0
             }
         }
     },

@@ -69,14 +69,13 @@ export default {
     name: 'ByOldBeltNewActivity',
     data () {
         return {
-            explainFlag: false // 是否显示活动说明
+            // 是否显示活动说明
+            explainFlag: false
         }
     }
 }
 </script>
 <style module lang="scss">
-  .spring-ploughing {
-  }
   .status-bar {
     display: flex;
     align-items: center;

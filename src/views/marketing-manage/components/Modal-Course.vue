@@ -120,11 +120,13 @@ export default {
                 return []
             }
         },
-        courseType: { // 查询的课程类型，默认查所有 1-单课 2-系列课
+        // 查询的课程类型，默认查所有 1-单课 2-系列课
+        courseType: {
             type: String,
             default: ''
         },
-        status: { // 查询的课程状态，默认查所有 1-仅上架
+        // 查询的课程状态，默认查所有 1-仅上架
+        status: {
             type: String,
             default: ''
         },

@@ -32,8 +32,10 @@ export default {
     name: 'RoadLearningList',
     data () {
         return {
-            isShowShareDialog: false, // 是否显示分享页面
-            hasCanShareActivity: false // 是否有正在进行中或未开启的活动，false时不可分享，true可分享
+            // 是否显示分享页面
+            isShowShareDialog: false,
+            // 是否有正在进行中或未开启的活动，false时不可分享，true可分享
+            hasCanShareActivity: false
         }
     }
 }

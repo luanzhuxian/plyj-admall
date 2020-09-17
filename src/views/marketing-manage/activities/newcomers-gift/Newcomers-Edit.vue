@@ -599,7 +599,8 @@ export default {
             }
             this.form.couponModels = array
         },
-        clearData () { // 清除当前数据，还原到页面的初始数据
+        // 清除当前数据，还原到页面的初始数据
+        clearData () {
             // setDefaultTime()
             this.$refs.ruleForm.clearValidate()
             this.form = {

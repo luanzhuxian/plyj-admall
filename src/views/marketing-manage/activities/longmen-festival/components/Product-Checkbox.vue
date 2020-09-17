@@ -128,14 +128,18 @@ export default {
             goodsList: [],
             goodsClassifyList: [],
             total: 0,
-            classifyCodes: [], // 分类
+            // 分类
+            classifyCodes: [],
             form: {
                 type: 'ALL',
                 productName: '',
                 productType: '',
-                productStatus: 2, // 0：已删除 1：下架 2：上架  3：草稿箱
-                categoryId: '', //   一级分类ID
-                subCategoryId: '', //  二级分类ID
+                // 0：已删除 1：下架 2：上架  3：草稿箱
+                productStatus: 2,
+                //   一级分类ID
+                categoryId: '',
+                //  二级分类ID
+                subCategoryId: '',
                 current: 1,
                 size: 4
             }
@@ -158,8 +162,10 @@ export default {
             try {
                 const queryData = {
                     ...this.form,
-                    categoryId: this.classifyCodes[0] || '', //   一级分类ID
-                    subCategoryId: this.classifyCodes[1] || '' //  二级分类ID
+                    //   一级分类ID
+                    categoryId: this.classifyCodes[0] || '',
+                    //  二级分类ID
+                    subCategoryId: this.classifyCodes[1] || ''
                 }
                 const { result } = await getGoods(queryData)
                 this.total = result.total
@@ -196,9 +202,12 @@ export default {
                 type: 'ALL',
                 productName: '',
                 productType: '',
-                productStatus: 2, // 0：已删除 1：下架 2：上架  3：草稿箱
-                categoryId: '', //   一级分类ID
-                subCategoryId: '', //  二级分类ID
+                // 0：已删除 1：下架 2：上架  3：草稿箱
+                productStatus: 2,
+                //   一级分类ID
+                categoryId: '',
+                //  二级分类ID
+                subCategoryId: '',
                 current: 1,
                 size: 4
             }
@@ -219,7 +228,7 @@ export default {
         }
     },
     computed: {
-    // 是否在可添加数量内
+        // 是否在可添加数量内
         isInRange () {
             return this.selectedGoods.length <= this.maxSelectNum
         }

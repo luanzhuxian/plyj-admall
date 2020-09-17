@@ -228,7 +228,8 @@ export default {
                     distributionMethod: 1,
                     couponType: this.couponType
                 })
-                const table = this.$refs.table // 隐藏弹框时，清空选中状态
+                // 隐藏弹框时，清空选中状态
+                const table = this.$refs.table
                 table.clearSelection()
             }
         }

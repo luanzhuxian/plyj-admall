@@ -198,7 +198,8 @@ export default {
             showExport: false,
             exportData: {
                 keyword: '',
-                dateRange: 3, // 1 7日内 2 30日内 3自选
+                // 1 7日内 2 30日内 3自选
+                dateRange: 3,
                 startDate: '',
                 endDate: ''
             },
@@ -285,7 +286,8 @@ export default {
         exportClose () {
             this.exportData = {
                 keyword: '',
-                dateRange: 3, // 1 7日内 2 30日内 3自选
+                // 1 7日内 2 30日内 3自选
+                dateRange: 3,
                 startDate: '',
                 endDate: ''
             }

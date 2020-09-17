@@ -151,16 +151,26 @@ import {
 } from '../../../../../apis/marketing-manage/new-year/spring-ploughing'
 
 class CombinationDetail {
-  name = '' // 组合名字
-  imageUrl = '' // 封面图
-  startTime = `${ moment().format('YYYY-MM-DD') } 00:00:00` // 开始时间，延后一个小时
-  endTime = `${ moment().format('YYYY-MM-DD') } 23:59:59` // 结束时间
-  productModelList = [] // 商品列表
-  discount = '' // 折扣
-  stock = 0 // 库存
-  haveGift = 0 // 附赠礼品：0 无礼品 1 有礼品
-  status = 1 // 开启状态
-  giftModelList = [] // 礼品列表
+    // 组合名字
+  name = ''
+  // 封面图
+  imageUrl = ''
+  // 开始时间，延后一个小时
+  startTime = `${ moment().format('YYYY-MM-DD') } 00:00:00`
+  // 结束时间
+  endTime = `${ moment().format('YYYY-MM-DD') } 23:59:59`
+  // 商品列表
+  productModelList = []
+  // 折扣
+  discount = ''
+  // 库存
+  stock = 0
+  // 附赠礼品：0 无礼品 1 有礼品
+  haveGift = 0
+  // 开启状态
+  status = 1
+  // 礼品列表
+  giftModelList = []
 }
 
 // 活动细则预设值
@@ -190,19 +200,29 @@ export default {
             }
         }
         return {
-            activityTags: [], // 活动标签列表
+            // 活动标签列表
+            activityTags: [],
             userGroup: [],
             form: {
-                activityName: '', // 活动名称
-                regulation: defaultRegulation, // 活动细则
-                preheatTime: 1, // 活动预热
-                receiveLimit: 0, // 限制的角色 0:全部用户 1:会员 2:Helper 3:部分用户组
-                tagIds: [], // 用户组id
-                combinationDetailList: [], // 活动组合
-                quarterVersion: '', // 活动标签
+                // 活动名称
+                activityName: '',
+                // 活动细则
+                regulation: defaultRegulation,
+                // 活动预热
+                preheatTime: 1,
+                // 限制的角色 0:全部用户 1:会员 2:Helper 3:部分用户组
+                receiveLimit: 0,
+                // 用户组id
+                tagIds: [],
+                // 活动组合
+                combinationDetailList: [],
+                // 活动标签
+                quarterVersion: '',
                 // 0 未开始 1 进行中 2 已结束
+
                 status: 0,
-                batchType: 2 // 新春春耘
+                // 新春春耘
+                batchType: 2
             },
             rules: {
                 activityName: [

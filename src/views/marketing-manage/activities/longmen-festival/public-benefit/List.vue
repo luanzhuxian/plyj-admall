@@ -129,8 +129,10 @@ export default {
                 startTime: '',
                 endTime: ''
             },
-            qrcodeText: '', // 分享链接
-            qrcodeShow: false// 分享开关
+            // 分享链接
+            qrcodeText: '',
+            // 分享开关
+            qrcodeShow: false
         }
     },
     async created () {

@@ -102,16 +102,22 @@ export default {
     data () {
         return {
             activityDetail: {
-                entity: {}, // 详细
+                // 详细
+                entity: {},
                 bigGifts: [],
                 smallGifts: [],
-                tagGroups: [], // 用户分组
-                materialSchemes: []// 年味
+                // 用户分组
+                tagGroups: [],
+                // 年味
+                materialSchemes: []
             },
-            yearFlavorList: [], // 年味
-            userTagList: [], // 用户标签
+            // 年味
+            yearFlavorList: [],
+            // 用户标签
+            userTagList: [],
             userTag: ['所有注册用户', 'helper可用', '普通会员', '部分用户组可用'],
-            ladderTag: ['礼品', '奖学金', '全场满减券', '品类券'] // 阶梯奖品类型 ' 1 礼品 2 奖学金  3 全场满减券 4 品类券'
+            // 阶梯奖品类型 ' 1 礼品 2 奖学金  3 全场满减券 4 品类券'
+            ladderTag: ['礼品', '奖学金', '全场满减券', '品类券']
         }
     },
     computed: {

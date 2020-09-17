@@ -345,10 +345,14 @@ import moment from 'moment'
 // 奖品类
 class Award {
   id = ''
-  awardName = '' // 奖品名称
-  stock = 1 // 发放数量
-  winningProbability = 0 // 概率
-  awardType = 0 // 1 礼品 2 奖学金 3 全场满减券 4 品类券
+  // 奖品名称
+  awardName = ''
+  // 发放数量
+  stock = 1
+  // 概率
+  winningProbability = 0
+  // 1 礼品 2 奖学金 3 全场满减券 4 品类券
+  awardType = 0
   constructor ({ id = '', awardName = '', stock = 1, winningProbability = 0.01, awardType, adjustment = 0 }) {
       this.id = id
       this.awardName = awardName
@@ -359,10 +363,14 @@ class Award {
   }
 }
 class Coupon extends Award {
-  giftUseStartTime = '' // 兑换开始时间
-  giftUseEndTime = '' // 兑换结束时间
-  favorablePrice = '' // 优惠券价格
-  awardId = '' // 优惠券id
+    // 兑换开始时间
+  giftUseStartTime = ''
+  // 兑换结束时间
+  giftUseEndTime = ''
+  // 优惠券价格
+  favorablePrice = ''
+  // 优惠券id
+  awardId = ''
   constructor (args) {
       super(args)
       this.favorablePrice = args.favorablePrice
@@ -374,10 +382,14 @@ class Coupon extends Award {
   }
 }
 class Present extends Award {
-  giftUseStartTime = '' // 兑换开始时间
-  giftUseEndTime = '' // 兑换结束时间
-  giftBrief = '' // 礼品简介
-  giftImage = [] // 封面
+    // 兑换开始时间
+  giftUseStartTime = ''
+  // 兑换结束时间
+  giftUseEndTime = ''
+  // 礼品简介
+  giftBrief = ''
+  // 封面
+  giftImage = []
   constructor (args) {
       super(args)
       this.giftImage = args.giftImage ? [args.giftImage] : []
@@ -387,8 +399,10 @@ class Present extends Award {
   }
 }
 class Scholarship extends Award {
-  scholarshipPrice = 0 // 奖学金金额
-  scholarshipEffectiveTime = 0 // 奖学金有效期
+    // 奖学金金额
+  scholarshipPrice = 0
+  // 奖学金有效期
+  scholarshipEffectiveTime = 0
   constructor (args) {
       super(args)
       this.scholarshipPrice = args.scholarshipPrice
@@ -425,6 +439,7 @@ export default {
         }
         const checkDate = (rule, value, callback) => {
             // 非进行中的活动校验开始时间
+
             if (moment(this.form.startTime).valueOf() < Date.now() && this.status !== 2) {
                 callback(new Error('活动开始时间不能小于当前时间'))
             } else {

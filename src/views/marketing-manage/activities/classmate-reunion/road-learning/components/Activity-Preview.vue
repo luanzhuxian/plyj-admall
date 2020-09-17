@@ -78,10 +78,12 @@ export default {
             this.endding = false
             this.willStart = false
 
-            if (now < startTime) { // 未开始，显示开始倒计时
+            // 未开始，显示开始倒计时
+            if (now < startTime) {
                 this.willStart = true
                 distanceTime = startTime - now
-            } else if (now > startTime) { // 已开始，显示结束倒计时
+            } else if (now > startTime) {
+            // 已开始，显示结束倒计时
                 this.willStart = false
                 distanceTime = endTime - now
                 if (now > endTime) {

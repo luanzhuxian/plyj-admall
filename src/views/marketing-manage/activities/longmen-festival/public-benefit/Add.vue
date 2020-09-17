@@ -268,7 +268,7 @@ export default {
         readOnly: Boolean
     },
     data () {
-    // 选择用户分组
+        // 选择用户分组
         const checkTagIds = (rule, value, callBack) => {
             if (this.form.userScope === 3 && !value.length) {
                 callBack(new Error(rule.message))
@@ -302,8 +302,10 @@ export default {
         return {
             showSelectProduct: false,
             showSelectKnowledge: false,
-            showPreview: false, // 是否显示预览
-            maxPublicGoodsNum: 30, // 公益商品最大数量
+            // 是否显示预览
+            showPreview: false,
+            // 公益商品最大数量
+            maxPublicGoodsNum: 30,
             goodsTypes: {
                 PHYSICAL_GOODS: '实体商品',
                 VIRTUAL_GOODS: '虚拟商品',
@@ -313,7 +315,8 @@ export default {
             userGroup: [],
             logoUrl: [],
             form: {
-                definiteStatus: 1, // 1未开始，2进行中，3已过期，4已结束
+                // 1未开始，2进行中，3已过期，4已结束
+                definiteStatus: 1,
                 activityName: '',
                 activityDesc:
 `1.任何注册用户均可参与公益行动的活动；

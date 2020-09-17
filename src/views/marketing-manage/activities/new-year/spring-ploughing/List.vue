@@ -176,10 +176,13 @@ export default {
                 startTime: '',
                 endTime: '',
                 status: '',
-                batchType: 2 // 新春春耘
+                // 新春春耘
+                batchType: 2
             },
-            qrcodeText: '', // 分享链接
-            qrcodeShow: false// 分享开关
+            // 分享链接
+            qrcodeText: '',
+            // 分享开关
+            qrcodeShow: false
         }
     },
     async activated () {

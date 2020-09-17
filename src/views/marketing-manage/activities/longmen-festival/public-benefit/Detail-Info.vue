@@ -26,7 +26,8 @@ export default {
     data () {
         return {
             detail: {
-                definiteStatus: 1 // 1未开始，2进行中，3已过期，4已结束
+                // 1未开始，2进行中，3已过期，4已结束
+                definiteStatus: 1
             }
         }
     },

@@ -120,7 +120,8 @@ export default {
     data () {
         return {
             activityDetail: {},
-            userTagList: [], // 用户标签
+            // 用户标签
+            userTagList: [],
             userTag: ['所有注册用户', 'helper可用', '普通会员', '部分用户组可用']
         }
     },

@@ -49,8 +49,10 @@ export default {
             showTop: false,
             activeTab: '',
             newcomersInfo: {},
-            qrcodeText: '', // 分享链接
-            qrcodeShow: false // 分享开关
+            // 分享链接
+            qrcodeText: '',
+            // 分享开关
+            qrcodeShow: false
         }
     },
     watch: {

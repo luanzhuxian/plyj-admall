@@ -247,8 +247,10 @@ export default {
             showPreview: false,
             singleGoods: {},
             total: 0,
-            qrcodeText: '', // 分享链接
-            qrcodeShow: false, // 分享开关
+            // 分享链接
+            qrcodeText: '',
+            // 分享开关
+            qrcodeShow: false,
             start: '',
             end: ''
         }
@@ -353,17 +355,20 @@ export default {
             this.qrcodeText = `${ this.mallUrl }/detail/product/${ row.productId }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         },
-        async deleteData (id, status) { // 删除活动
+        // 删除活动
+        async deleteData (id, status) {
             try {
                 // status 0-未开始 1-进行中 2-已结束
                 // setStatus 4-软删除 5-物理删除
                 let setStatus
-                if (status === 0) { // 未开始 的活动做删除操作为 物理删除，数据库也会清除该活动
+                // 未开始 的活动做删除操作为 物理删除，数据库也会清除该活动
+                if (status === 0) {
                     await this.$confirm('确认要删除此活动吗？')
                     setStatus = 5
                 }
 
-                if (status === 2) { // 已结束 的活动做删除操作为 软删除
+                // 已结束 的活动做删除操作为 软删除
+                if (status === 2) {
                     await this.$confirm({
                         title: '确认要删除此活动吗？',
                         message: '活动删除后，将不可查看活动期间的相关数据！请谨慎进行删除操作。'

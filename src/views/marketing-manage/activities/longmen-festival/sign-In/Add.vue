@@ -307,22 +307,36 @@ import EditPresent from '../../../../../components/common/Edit-Present.vue'
 import UploadImage from '../../../../../components/file/Image-Manager'
 import { checkNumber } from '../../../../../assets/ts/validate'
 class LadderData {
-  giftName = '' // 礼品名称
-  giftBrief = '' // 礼品简介
-  giftImage = '' // 礼品图片
-  stock = 1 //  礼品库存
+    // 礼品名称
+  giftName = ''
+  // 礼品简介
+  giftBrief = ''
+  // 礼品图片
+  giftImage = ''
+  //  礼品库存
+  stock = 1
   useStartTime = ''
   useEndTime = ''
-  ladderAwardType = 1 // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
-  ladderAwardLocation = 1 // 奖品位置（排序）
-  isShow = '' // 是否隐藏 (暂无此字段)
-  allAwardLimit = '' // 是否隐藏
-  awardDraw = '' // 奖品派发量(剩余量，添加时等于库存)
-  scholarshipPrice = '' // 奖学金
-  scholarshipEffectiveTime = '' // 奖学金有效时间
-  awardId = '' // 奖品Id（优惠券才有）
-  awardType = 1 // 奖品类型 1 阶梯奖 2 终极大奖
-  key = Math.random() // key, 排序动画有用
+  // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
+  ladderAwardType = 1
+  // 奖品位置（排序）
+  ladderAwardLocation = 1
+  // 是否隐藏 (暂无此字段)
+  isShow = ''
+  // 是否隐藏
+  allAwardLimit = ''
+  // 奖品派发量(剩余量，添加时等于库存)
+  awardDraw = ''
+  // 奖学金
+  scholarshipPrice = ''
+  // 奖学金有效时间
+  scholarshipEffectiveTime = ''
+  // 奖品Id（优惠券才有）
+  awardId = ''
+  // 奖品类型 1 阶梯奖 2 终极大奖
+  awardType = 1
+  // key, 排序动画有用
+  key = Math.random()
 }
 export default {
     name: 'GeneralAdd',
@@ -418,7 +432,8 @@ export default {
             logImgUrl: [],
             // 粽粽id
             materialSchemeModels: [],
-            status: 0, // 活动状态 0  未开始  1 进行中   2  活动已结束
+            // 活动状态 0  未开始  1 进行中   2  活动已结束
+            status: 0,
             rules: {
                 activityStartTime: [
                     { required: true, message: '请选择活动时间', trigger: 'blur' }
@@ -499,32 +514,50 @@ export default {
                         activityStartTime,
                         activityEndTime,
                         status,
-                        isShowLog, // 展示 logo
-                        logImgUrl// logo 地址
+                        // 展示 logo
+                        isShowLog,
+                        // logo 地址
+                        logImgUrl
                     } = entity
                     smallGifts = (smallGifts || []).map(item => ({
                         key: Math.random(),
-                        giftName: item.giftName, // 礼品名称
-                        giftBrief: item.giftBrief, // 礼品简介
-                        giftImage: item.giftImage, // 礼品图片
-                        allAwardLimit: item.allAwardLimit || 0, // 礼品总库存
-                        allAwardLimitCopy: item.allAwardLimit || 0, // 礼品总库存备份，解决编辑库存不可减少
-                        stock: (this.isCopy ? item.allAwardLimit : item.stock) || 0, // 剩余库存
+                        // 礼品名称
+                        giftName: item.giftName,
+                        // 礼品简介
+                        giftBrief: item.giftBrief,
+                        // 礼品图片
+                        giftImage: item.giftImage,
+                        // 礼品总库存
+                        allAwardLimit: item.allAwardLimit || 0,
+                        // 礼品总库存备份，解决编辑库存不可减少
+                        allAwardLimitCopy: item.allAwardLimit || 0,
+                        // 剩余库存
+                        stock: (this.isCopy ? item.allAwardLimit : item.stock) || 0,
                         useStartTime: item.useStartTime,
                         useEndTime: item.useEndTime,
                         // ladder组件 el-Select GiftTypeMap值只有1，2，3 需将品类券3，4全部处理为3 否则会报错，另外增加couponType值，用来区别ladderAwardType的原始值
+
                         couponType: item.ladderAwardType === 3 ? 1 : item.ladderAwardType === 4 ? 2 : null,
-                        ladderAwardType: item.ladderAwardType === 4 ? 3 : item.ladderAwardType, // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
-                        ladderAwardLocation: item.location, // 奖品位置（排序）
-                        isShow: '', // 是否隐藏
-                        awardDraw: this.isCopy ? null : item.awardDraw, // 奖品派发量(剩余量，添加时等于库存)  复制时应无领用量
-                        scholarshipPrice: item.price, // 奖学金
-                        scholarshipEffectiveTime: item.scholarshipEffectiveTime, // 奖学金有效时间
-                        awardId: item.awardId, // 奖品Id（优惠券才有）
-                        awardType: item.awardType, // 奖品类型 1 阶梯奖 2 终极大奖
+                        // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
+                        ladderAwardType: item.ladderAwardType === 4 ? 3 : item.ladderAwardType,
+                        // 奖品位置（排序）
+                        ladderAwardLocation: item.location,
+                        // 是否隐藏
+                        isShow: '',
+                        // 奖品派发量(剩余量，添加时等于库存)  复制时应无领用量
+                        awardDraw: this.isCopy ? null : item.awardDraw,
+                        // 奖学金
+                        scholarshipPrice: item.price,
+                        // 奖学金有效时间
+                        scholarshipEffectiveTime: item.scholarshipEffectiveTime,
+                        // 奖品Id（优惠券才有）
+                        awardId: item.awardId,
+                        // 奖品类型 1 阶梯奖 2 终极大奖
+                        awardType: item.awardType,
                         id: item.id,
                         giftId: item.giftId
-                    })) // 添加key，支持排序动画
+                    }))
+                    // 添加key，支持排序动画
                     const form = {
                         activityName: '粽粽有礼',
                         activityType: 3,
@@ -548,14 +581,18 @@ export default {
                             id: item.id,
                             giftId: item.giftId,
                             allAwardLimit: item.allAwardLimit || 0,
-                            allAwardLimitCopy: item.allAwardLimit || 0, // 备份库存，解决编辑库存不可减少
-                            isShow: item.isShow // 是否开启神秘大奖
+                            // 备份库存，解决编辑库存不可减少
+                            allAwardLimitCopy: item.allAwardLimit || 0,
+                            // 是否开启神秘大奖
+                            isShow: item.isShow
                         })),
                         // 阶梯奖
                         awardModels: smallGifts,
                         ladderAward,
-                        isShowLog, // 展示 logo
-                        logImgUrl// logo 地址
+                        // 展示 logo
+                        isShowLog,
+                        // logo 地址
+                        logImgUrl
                     }
                     this.logImgUrl = logImgUrl ? [logImgUrl] : []
                     this.materialSchemeModels = materialSchemes.map(item => item.materialId)
@@ -603,7 +640,8 @@ export default {
                 useStartTime: data.useStartTime,
                 useEndTime: data.useEndTime,
                 awardType: 2,
-                isShow: 1 // 默认不开启大奖
+                // 默认不开启大奖
+                isShow: 1
             }
             if (this.editIndex !== -1) {
                 this.form.giftModels.splice(this.editIndex, 1, data)

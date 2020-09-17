@@ -310,22 +310,36 @@ import UploadImage from '../../../../../components/file/Image-Manager'
 import { checkNumber } from '../../../../../assets/ts/validate'
 // import { resetForm } from '../../../../assets/js/utils'
 class LadderData {
-  giftName = '' // 礼品名称
-  giftBrief = '' // 礼品简介
-  giftImage = '' // 礼品图片
-  stock = 1 //  礼品库存
+    // 礼品名称
+  giftName = ''
+  // 礼品简介
+  giftBrief = ''
+  // 礼品图片
+  giftImage = ''
+  //  礼品库存
+  stock = 1
   useStartTime = ''
   useEndTime = ''
-  ladderAwardType = 1 // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
-  ladderAwardLocation = 1 // 奖品位置（排序）
-  isShow = '' // 是否隐藏 (暂无此字段)
-  allAwardLimit = '' // 是否隐藏
-  awardDraw = '' // 奖品派发量(剩余量，添加时等于库存)
-  scholarshipPrice = '' // 奖学金
-  scholarshipEffectiveTime = '' // 奖学金有效时间
-  awardId = '' // 奖品Id（优惠券才有）
-  awardType = 1 // 奖品类型 1 阶梯奖 2 终极大奖
-  key = Math.random() // key, 排序动画有用
+  // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
+  ladderAwardType = 1
+  // 奖品位置（排序）
+  ladderAwardLocation = 1
+  // 是否隐藏 (暂无此字段)
+  isShow = ''
+  // 是否隐藏
+  allAwardLimit = ''
+  // 奖品派发量(剩余量，添加时等于库存)
+  awardDraw = ''
+  // 奖学金
+  scholarshipPrice = ''
+  // 奖学金有效时间
+  scholarshipEffectiveTime = ''
+  // 奖品Id（优惠券才有）
+  awardId = ''
+  // 奖品类型 1 阶梯奖 2 终极大奖
+  awardType = 1
+  // key, 排序动画有用
+  key = Math.random()
 }
 export default {
     name: 'AddYearFlavor',
@@ -421,7 +435,8 @@ export default {
             logImgUrl: [],
             // 年味id
             materialSchemeModels: [],
-            status: 0, // 活动状态 0  未开始  1 进行中   2  活动已结束
+            // 活动状态 0  未开始  1 进行中   2  活动已结束
+            status: 0,
             rules: {
                 activityStartTime: [
                     { required: true, message: '请选择活动时间', trigger: 'blur' }
@@ -502,30 +517,47 @@ export default {
                         activityStartTime,
                         activityEndTime,
                         status,
-                        isShowLog, // 展示 logo
-                        logImgUrl// logo 地址
+                        // 展示 logo
+                        isShowLog,
+                        // logo 地址
+                        logImgUrl
                     } = entity
                     smallGifts = (smallGifts || []).map(item => ({
                         key: Math.random(),
-                        giftName: item.giftName, // 礼品名称
-                        giftBrief: item.giftBrief, // 礼品简介
-                        giftImage: item.giftImage, // 礼品图片
-                        allAwardLimit: item.allAwardLimit, // 礼品总库存
-                        allAwardLimitCopy: item.allAwardLimit, // 礼品总库存备份，解决编辑库存不可减少
-                        stock: this.isCopy ? item.allAwardLimit : item.stock, // 剩余库存
+                        // 礼品名称
+                        giftName: item.giftName,
+                        // 礼品简介
+                        giftBrief: item.giftBrief,
+                        // 礼品图片
+                        giftImage: item.giftImage,
+                        // 礼品总库存
+                        allAwardLimit: item.allAwardLimit,
+                        // 礼品总库存备份，解决编辑库存不可减少
+                        allAwardLimitCopy: item.allAwardLimit,
+                        // 剩余库存
+                        stock: this.isCopy ? item.allAwardLimit : item.stock,
                         useStartTime: item.useStartTime,
                         useEndTime: item.useEndTime,
-                        ladderAwardType: item.ladderAwardType, // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
-                        ladderAwardLocation: item.location, // 奖品位置（排序）
-                        isShow: '', // 是否隐藏
-                        awardDraw: this.isCopy ? null : item.awardDraw, // 奖品派发量(剩余量，添加时等于库存)  复制时应无领用量
-                        scholarshipPrice: item.price, // 奖学金
-                        scholarshipEffectiveTime: item.scholarshipEffectiveTime, // 奖学金有效时间
-                        awardId: item.awardId, // 奖品Id（优惠券才有）
-                        awardType: item.awardType, // 奖品类型 1 阶梯奖 2 终极大奖
+                        // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
+                        ladderAwardType: item.ladderAwardType,
+                        // 奖品位置（排序）
+                        ladderAwardLocation: item.location,
+                        // 是否隐藏
+                        isShow: '',
+                        // 奖品派发量(剩余量，添加时等于库存)  复制时应无领用量
+                        awardDraw: this.isCopy ? null : item.awardDraw,
+                        // 奖学金
+                        scholarshipPrice: item.price,
+                        // 奖学金有效时间
+                        scholarshipEffectiveTime: item.scholarshipEffectiveTime,
+                        // 奖品Id（优惠券才有）
+                        awardId: item.awardId,
+                        // 奖品类型 1 阶梯奖 2 终极大奖
+                        awardType: item.awardType,
                         id: item.id,
                         giftId: item.giftId
-                    })) // 添加key，支持排序动画
+                        // 添加key，支持排序动画
+                    }))
                     const form = {
                         activityType: 2,
                         activityStartTime,
@@ -536,6 +568,7 @@ export default {
                         userGroupTagModels: tagGroups.map(item => item.groupTagId),
                         materialSchemeModels: materialSchemes.map(item => ({ materialId: item.materialId, materialOrder: item.materialOrder })),
                         // 年味大礼数据回填
+
                         giftModels: bigGifts.map(item => ({
                             giftName: item.giftName,
                             giftBrief: item.giftBrief,
@@ -548,14 +581,19 @@ export default {
                             id: item.id,
                             giftId: item.giftId,
                             allAwardLimit: item.allAwardLimit,
-                            allAwardLimitCopy: item.allAwardLimit, // 备份库存，解决编辑库存不可减少
-                            isShow: item.isShow // 是否开启神秘大奖
+                            // 备份库存，解决编辑库存不可减少
+                            allAwardLimitCopy: item.allAwardLimit,
+                            // 是否开启神秘大奖
+                            isShow: item.isShow
                         })),
                         // 阶梯奖
+
                         awardModels: smallGifts,
                         ladderAward,
-                        isShowLog, // 展示 logo
-                        logImgUrl// logo 地址
+                        // 展示 logo
+                        isShowLog,
+                        // logo 地址
+                        logImgUrl
                     }
                     this.logImgUrl = logImgUrl ? [logImgUrl] : []
                     this.materialSchemeModels = materialSchemes.map(item => item.materialId)
@@ -569,6 +607,7 @@ export default {
             }
         },
         // 阶梯数量变化后进行排序
+
         ladderAwardLocationChange () {
             this.form.awardModels.sort((a, b) => a.ladderAwardLocation - b.ladderAwardLocation)
         },
@@ -577,12 +616,14 @@ export default {
             this.$refs.form.clearValidate('awardModels')
         },
         // 获取年味和用户分组
+
         async getTagListFun () {
             try {
                 const res = await Promise.all([getUserTtagList(), materialSchemeList({ activityType: 2 })])
                 this.userTagList = res[0].data.result
                 this.yearFlavorList = res[1].data.result
                 // 年味默认全选
+
                 if (!this.id) {
                     this.form.materialSchemeModels = this.yearFlavorList.map((item, index) => ({ materialId: item.id, materialOrder: index }))
                     this.materialSchemeModels = this.yearFlavorList.map(({ id }) => id)
@@ -592,6 +633,7 @@ export default {
             }
         },
         // 选择年味大礼
+
         selectPresent (data) {
             data = data.giftDetail
             data = {
@@ -603,7 +645,8 @@ export default {
                 useStartTime: data.useStartTime,
                 useEndTime: data.useEndTime,
                 awardType: 2,
-                isShow: 1 // 默认不开启大奖
+                // 默认不开启大奖
+                isShow: 1
             }
             if (this.editIndex !== -1) {
                 this.form.giftModels.splice(this.editIndex, 1, data)
@@ -614,16 +657,19 @@ export default {
             this.editPresentData = null
         },
         // 编辑年味大礼
+
         editPresent (detail, index) {
             this.editPresentData = detail
             this.showPresent = true
             this.editIndex = index
         },
         // 删除一个年味大礼
+
         removePresent (index) {
             this.form.giftModels.splice(index, 1)
         },
         // 年味全选
+
         checkAllChange (val) {
             if (val) {
                 this.form.materialSchemeModels = this.yearFlavorList.map(item => ({
@@ -637,6 +683,7 @@ export default {
             }
         },
         // 年味改变后
+
         materialSchemeChange (val) {
             this.form.materialSchemeModels = val.map((item, index) => ({
                 materialId: item,
@@ -645,6 +692,7 @@ export default {
             this.getBrief()
         },
         // 修改奖品数量
+
         bigGiftCountChange (row, count, isEdit) {
             if (!isEdit) {
                 row.stock = count

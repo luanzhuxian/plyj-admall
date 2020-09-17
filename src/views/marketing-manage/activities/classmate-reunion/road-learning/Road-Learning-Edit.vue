@@ -281,21 +281,26 @@ export default {
         return {
             id: '',
             isCopy: false,
-            status: 1, // 0-已结束 1-未开始 2-进行中 只有1-未开始 + 2-进行中可进入编辑页面
+            // 0-已结束 1-未开始 2-进行中 只有1-未开始 + 2-进行中可进入编辑页面
+            status: 1,
             isStart: false,
             giftType: '',
             giftDetail: {},
-            startPickerOptions: { // 时间开始时间不能迟于当前时间
+            // 时间开始时间不能迟于当前时间
+            startPickerOptions: {
                 disabledDate: time => time.getTime() < Date.now() - 8.64e7
             },
+            // 使用说明, string
             form: {
                 activityBrief: '1.在活动有效期内，累计签到满10次，即可开启见学之旅，开启大奖；\n' +
           '2.每人仅有1次抽取奖品的机会；\n' +
           '3.奖品：用户抽奖采用先到先到的方式，奖品派发完毕，则活动结束；\n' +
           '4.获得的奖品将自动存入“我的礼品”中，使用有效期内用户可随时查看使用；\n' +
-          '5.“我的礼品”中存放的礼品需在该礼品使用有效期内到店兑换；过期或未到兑换时间使用时不予兑换，请妥善保管。', // 使用说明, string
-                activityEndTime: '', // 活动结束时间 2019-10-22T02:53:47.339Z
-                activityStartTime: '', // 活动开始时间 2019-10-22T02:53:47.339Z
+          '5.“我的礼品”中存放的礼品需在该礼品使用有效期内到店兑换；过期或未到兑换时间使用时不予兑换，请妥善保管。',
+                // 活动结束时间 2019-10-22T02:53:47.339Z
+                activityEndTime: '',
+                // 活动开始时间 2019-10-22T02:53:47.339Z
+                activityStartTime: '',
                 mallCheckinActivityGiftEntities: [
 
                     /* {
@@ -321,13 +326,18 @@ export default {
                     { max: 500, message: '使用须知不能超过500个字符', trigger: ['blur', 'change'] }
                 ]
             },
-            hasConsolationPrize: 1, // 是否设置安慰奖， 默认设置
-            canConsolationPrize: true, // 是否可设置安慰奖
-            giftList: [], // 当前奖品列表
-            consolationPrizeList: [], // 安慰奖列表
+            // 是否设置安慰奖， 默认设置
+            hasConsolationPrize: 1,
+            // 是否可设置安慰奖
+            canConsolationPrize: true,
+            // 当前奖品列表
+            giftList: [],
+            // 安慰奖列表
+            consolationPrizeList: [],
             isShowAddPresent: false,
             giftIndex: '',
-            isShowPreviewDialog: false // 是否显示预览框
+            // 是否显示预览框
+            isShowPreviewDialog: false
         }
     },
     async activated () {
@@ -401,11 +411,11 @@ export default {
                 throw e
             }
         },
-        async cancel () { // 取消
+        async cancel () {
             await this.clearData()
             this.$router.back()
         },
-        save () { // 保存
+        save () {
             this.$refs.ruleForm.validate(valid => {
                 if (valid && this.checkGiftNum() && this.checkConsolationPrize()) {
                     this.saveCoupon()
@@ -417,18 +427,23 @@ export default {
         async saveCoupon () {
             const form = {
                 mallCheckinActivityEntity: {
-                    activityBrief: '', // 使用说明, string
-                    activityEndTime: '', // 活动结束时间 2019-10-22T02:53:47.339Z
-                    activityStartTime: '' // 活动开始时间 2019-10-22T02:53:47.339Z
+                    // 使用说明, string
+                    activityBrief: '',
+                    // 活动结束时间 2019-10-22T02:53:47.339Z
+                    activityEndTime: '',
+                    // 活动开始时间 2019-10-22T02:53:47.339Z
+                    activityStartTime: ''
                 },
                 mallCheckinActivityGiftEntities: []
             }
             copyFields(form.mallCheckinActivityEntity, this.form)
             form.mallCheckinActivityGiftEntities = [...this.giftList, ...this.consolationPrizeList]
 
-            if (this.id) { // 编辑活动
+            if (this.id) {
+                // 编辑活动
                 await updateRoadLearningActivitys(this.id, form)
-            } else { // 新加活动
+            } else {
+                // 新加活动
                 await saveRoadLearningActivitys(form)
             }
 
@@ -459,7 +474,8 @@ export default {
         },
         edit (data) {
             // 将编辑的礼品信息放入礼品数组中
-            const giftType = Number(data.giftType) // 礼品类型，0 - 奖品， 1- 安慰奖
+            // 礼品类型，0 - 奖品， 1- 安慰奖
+            const giftType = Number(data.giftType)
             const giftDetail = data.giftDetail
             if (this.giftIndex === '') {
                 giftType ? this.consolationPrizeList.push(giftDetail) : this.giftList.push(giftDetail)
@@ -486,13 +502,16 @@ export default {
         async clearData () {
             // 还原默认值
             this.form = {
+                // 使用说明, string
                 activityBrief: '1.在活动有效期内，累计签到满10次，即可开启见学之旅，开启大奖；\n' +
           '2.每人仅有1次抽取奖品的机会；\n' +
           '3.奖品：用户抽奖采用先到先到的方式，奖品派发完毕，则活动结束；\n' +
           '4.获得的奖品将自动存入“我的礼品”中，使用有效期内用户可随时查看使用；\n' +
-          '5.“我的礼品”中存放的礼品需在该礼品使用有效期内到店兑换；过期或未到兑换时间使用时不予兑换，请妥善保管。', // 使用说明, string
-                activityEndTime: '', // 活动结束时间 2019-10-22T02:53:47.339Z
-                activityStartTime: '', // 活动开始时间 2019-10-22T02:53:47.339Z
+          '5.“我的礼品”中存放的礼品需在该礼品使用有效期内到店兑换；过期或未到兑换时间使用时不予兑换，请妥善保管。',
+                // 活动结束时间 2019-10-22T02:53:47.339Z
+                activityEndTime: '',
+                // 活动开始时间 2019-10-22T02:53:47.339Z
+                activityStartTime: '',
                 mallCheckinActivityGiftEntities: []
             }
             this.activityTimeRange = []
@@ -500,8 +519,8 @@ export default {
             this.giftList = []
             this.consolationPrizeList = []
             this.canConsolationPrize = true
-
-            await this.$refs.ruleForm.clearValidate() // 清除校验
+            // 清除校验
+            await this.$refs.ruleForm.clearValidate()
         }
     },
     watch: {

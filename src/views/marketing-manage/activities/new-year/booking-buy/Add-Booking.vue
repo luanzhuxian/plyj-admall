@@ -257,8 +257,10 @@ export default {
                 countdown: 3,
                 activityStartTime: moment(Date.now() + (1000 * 60 * 60)).format('YYYY-MM-DD HH:mm:ss'),
                 activityEndTime: '',
-                validityPeriodStart: moment(Date.now() + (1000 * 60 * 60 * 48)).format('YYYY-MM-DD HH:mm:ss'), // 核销时间
-                validityPeriodEnd: '', // 核销时间
+                // 核销时间
+                validityPeriodStart: moment(Date.now() + (1000 * 60 * 60 * 48)).format('YYYY-MM-DD HH:mm:ss'),
+                // 核销时间
+                validityPeriodEnd: '',
                 price: 10,
                 stock: 100,
                 multiple: true,
@@ -267,14 +269,21 @@ export default {
                 useStartTime: moment(Date.now() + (1000 * 60 * 60 * 24)).format('YYYY-MM-DD HH:mm:ss'),
                 useEndTime: '',
                 receiveLimit: 0,
-                type: '2019_02', // 新春开学季类型
-                activityLimit: false, // 活动是否限购 0：不限  1：限制
-                activityLimitNumber: 1, // 限购数量
-                userTagIdList: [], // 标签
-                payMethod: 0, // 支付方式 0：线上  1：线下
-                productType: false // 是否实体商品
+                // 新春开学季类型
+                type: '2019_02',
+                // 活动是否限购 0：不限  1：限制
+                activityLimit: false,
+                // 限购数量
+                activityLimitNumber: 1,
+                // 标签
+                userTagIdList: [],
+                // 支付方式 0：线上  1：线下
+                payMethod: 0,
+                // 是否实体商品
+                productType: false
             },
-            userTagList: [], // 用户标签
+            // 用户标签
+            userTagList: [],
             activityStatus: 0,
             addVisible: false,
             showPreview: false,
@@ -366,14 +375,21 @@ export default {
                 multipleNumber: result.multipleNumber,
                 useStartTime: result.useStartTime,
                 useEndTime: result.useEndTime,
-                type: '2019_02', // 新春开学季类型
+                // 新春开学季类型
+                type: '2019_02',
                 receiveLimit: result.receiveLimit,
-                activityLimit: result.activityLimit === 1, // 活动是否限购 0：不限  1：限制
-                activityLimitNumber: result.activityLimitNumber, // 限购数量
-                userTagIdList: result.userTagIdList, // 标签
-                payMethod: result.payMethod, // 支付方式 0：线上  1：线下
-                validityPeriodStart: result.validityPeriodStart, // 核销时间
-                validityPeriodEnd: result.validityPeriodEnd // 核销时间
+                // 活动是否限购 0：不限  1：限制
+                activityLimit: result.activityLimit === 1,
+                // 限购数量
+                activityLimitNumber: result.activityLimitNumber,
+                // 标签
+                userTagIdList: result.userTagIdList,
+                // 支付方式 0：线上  1：线下
+                payMethod: result.payMethod,
+                // 核销时间
+                validityPeriodStart: result.validityPeriodStart,
+                // 核销时间
+                validityPeriodEnd: result.validityPeriodEnd
             })
             this.activityStatus = this.type ? 0 : result.status
         },
@@ -445,14 +461,21 @@ export default {
                     multipleNumber: Form.multipleNumber,
                     useStartTime: Form.useStartTime,
                     useEndTime: Form.useEndTime,
-                    type: '2019_02', // 新春开学季类型
+                    // 新春开学季类型
+                    type: '2019_02',
                     receiveLimit: Form.receiveLimit,
-                    activityLimit: Form.activityLimit ? 1 : 0, // 活动是否限购 0：不限  1：限制
-                    activityLimitNumber: Form.activityLimit ? parseInt(Form.activityLimitNumber) : null, // 限购数量
-                    userTagIdList: Form.userTagIdList, // 标签
-                    payMethod: Form.payMethod, // 支付方式 0：线上  1：线下
-                    validityPeriodStart: Form.validityPeriodStart, // 核销时间
-                    validityPeriodEnd: Form.validityPeriodEnd // 核销时间
+                    // 活动是否限购 0：不限  1：限制
+                    activityLimit: Form.activityLimit ? 1 : 0,
+                    // 限购数量
+                    activityLimitNumber: Form.activityLimit ? parseInt(Form.activityLimitNumber) : null,
+                    // 标签
+                    userTagIdList: Form.userTagIdList,
+                    // 支付方式 0：线上  1：线下
+                    payMethod: Form.payMethod,
+                    // 核销时间
+                    validityPeriodStart: Form.validityPeriodStart,
+                    // 核销时间
+                    validityPeriodEnd: Form.validityPeriodEnd
                 }
                 // 判断商品是否参加了其他活动，否则跳转，是则提示
                 let [gomMes, warnMessage] = [{}]
