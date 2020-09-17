@@ -386,17 +386,17 @@ export default class Home extends Vue {
     @user.Getter auditStatus!: string
     @user.Getter mallNumber!: string
     @user.Getter regType!: number
-    @user.Getter agencyList!: []
+    @user.Getter agencyList!: any
     @user.Getter vMerchantStatus!: DynamicObject
     @user.Getter upgradeStatus!: DynamicObject
     @user.Getter wechatPayStatus!: DynamicObject
 
     async created () {
         try {
-            if (!this.agencyList.length) {
-                this.createdMallShow = true
-            } else {
+            if (this.agencyList.length && this.agencyList[0].enterpriseName) {
                 await this.getHomeInfo()
+            } else {
+                this.createdMallShow = true
             }
         } catch (e) {
             throw e

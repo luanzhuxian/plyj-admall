@@ -101,7 +101,7 @@ export default class RegisterIndex extends Vue {
                     return
                 }
                 if (!this.agencyList.length) {
-                    this.$router.push({ name: 'Home' })
+                    this.$router.replace({ name: 'Home' })
                     return
                 }
                 await this.selectAgency()
