@@ -24,8 +24,6 @@ export default {
             type: String,
             default: ''
         }
-    },
-    async activated () {
     }
 }
 </script>

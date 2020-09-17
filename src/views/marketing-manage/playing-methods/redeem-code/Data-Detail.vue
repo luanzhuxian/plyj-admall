@@ -641,7 +641,7 @@ export default {
             this.multipleSelection = []
             this.remarkForm.remarks = ''
         },
-        handleViewRemarks (id) {
+        handleViewRemarks () {
             this.showViewRemarks = true
         },
         async handleShowProduct (userId, codeId) {

@@ -143,8 +143,8 @@
                                         <el-table-column property="goodsName" label="商品名称" />
                                         <el-table-column property="count" label="商品数量" />
                                         <el-table-column label="商品规格">
-                                            <template #default="{ row }">
-                                                {{ row.sku }}<span v-if="row.subSku">,</span>{{ row.subSku }}
+                                            <template #default="{ row_ }">
+                                                {{ row.sku }}<span v-if="row.subSku">,</span>{{ row_.subSku }}
                                             </template>
                                         </el-table-column>
                                     </el-table>
@@ -364,7 +364,7 @@ export default {
             this.$refs.orderTable.toggleRowExpansion(row, row.expanded)
             // 订单子表关闭后，也关闭商品子表
             if (!row.expanded) {
-                row.orderModels.map(item => {
+                row.orderModels.forEach(item => {
                     item.expanded = false
                 })
             }
@@ -415,8 +415,6 @@ export default {
 </script>
 
 <style module lang="scss">
-  .detail-data {
-  }
   .data-preview {
     display: flex;
     align-items: center;

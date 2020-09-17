@@ -664,11 +664,11 @@ export default {
         // 粽粽全选
         checkAllChange (val) {
             if (val) {
-                this.form.materialSchemeModels = this.yearFlavorList.map((item, index) => ({
+                this.form.materialSchemeModels = this.yearFlavorList.map(item => ({
                     materialId: item.id,
                     materialOrder: Number(item.id)
                 }))
-                this.materialSchemeModels = this.yearFlavorList.map((item, index) => item.id)
+                this.materialSchemeModels = this.yearFlavorList.map(item => item.id)
             } else {
                 this.form.materialSchemeModels = []
                 this.materialSchemeModels = []

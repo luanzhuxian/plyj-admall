@@ -336,8 +336,6 @@ export default {
         this.getList()
         this.getStatistics()
     },
-    created () {
-    },
     deactivated () {
         resetForm(this.form, {
             current: 1,
