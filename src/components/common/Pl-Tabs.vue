@@ -7,10 +7,15 @@
 <script lang="ts">
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 
+interface Tab {
+    name: string;
+    label: string;
+}
+
 @Component
 export default class PlTabs extends Vue {
-  @Prop([String, Number]) value?: string | number
-  @Prop({ default: [] }) tabs?: any[]
+  @Prop([String, Number]) value!: string | number
+  @Prop({ default: () => [] }) tabs!: Tab[]
   @Prop(Function) tabClick?: () => void
 
   @Emit('tabClick')
