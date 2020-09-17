@@ -145,6 +145,17 @@
                 </router-link>
             </Panel>
         </div>
+        <el-dialog
+            title="请您创建一家颠覆"
+            :visible.sync="createdMallShow"
+            :close-on-click-modal="false"
+            width="25%"
+            @close="closeCreatedMall"
+        >
+            <div>
+                创建商城
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -368,18 +379,25 @@ export default class Home extends Vue {
         verifyCode: ''
     }
 
+    createdMallShow = false
+
     // computed
     @user.Getter agencyCode!: string
     @user.Getter auditStatus!: string
     @user.Getter mallNumber!: string
     @user.Getter regType!: number
+    @user.Getter agencyList!: []
     @user.Getter vMerchantStatus!: DynamicObject
     @user.Getter upgradeStatus!: DynamicObject
     @user.Getter wechatPayStatus!: DynamicObject
 
     async created () {
         try {
-            await this.getHomeInfo()
+            if (!this.agencyList.length) {
+                this.createdMallShow = true
+            } else {
+                await this.getHomeInfo()
+            }
         } catch (e) {
             throw e
         }
@@ -413,6 +431,11 @@ export default class Home extends Vue {
 
     // methods
     @user.Action [AGENCY_USER_INFO]: () => void
+
+    closeCreatedMall () {
+        this.createdMallShow = false
+    }
+
     // 获取送课的资源
     async getWaitWarrantyResource () {
         try {

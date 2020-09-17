@@ -43,10 +43,6 @@ export default class WxLogin extends Vue {
         async WxScanLogin () {
             try {
                 const data = await WxScanLogin(this.code)
-                if (data.code === 5001) {
-                    await this.$router.push({ name: 'WxBindPhone' })
-                    return
-                }
                 if (data.code === 2000) {
                     await this.setLoginInfo(data.result)
                     await this.getAgencyList()
@@ -54,6 +50,12 @@ export default class WxLogin extends Vue {
                 }
                 this.clearCode()
             } catch (e) {
+                const ResponseError = JSON.parse(e.message)
+                if (ResponseError.resCode === 5001) {
+                    await this.$router.push({ name: 'Register' })
+                } else {
+                    this.clearCode()
+                }
                 throw e
             }
         }

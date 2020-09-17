@@ -61,6 +61,9 @@ import CompleteLogin from './components/Complete-Login.vue'
 import { namespace } from 'vuex-class'
 // import startQiankun from '../../micro'
 const userModule = namespace('user')
+Component.registerHooks([
+    'beforeRouteLeave'
+])
 @Component({
     components: {
         phoneLogin,
@@ -77,6 +80,7 @@ export default class Login extends Vue {
     agencyError = ''
     enterprise = ''
     showDialog = false
+    toName= ''
     @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('currentStep') currentStepFoo!: number
     @userModule.Getter('agencyCode') agencyCodeFoo!: string
@@ -86,8 +90,8 @@ export default class Login extends Vue {
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
     @Watch('$route.name')
-    routeFoo (val: string) {
-        return val
+    onChangeValue (newVal: string) {
+        console.log(newVal)
     }
 
     codeShowFoo (e: boolean) {
@@ -154,10 +158,19 @@ export default class Login extends Vue {
         this.setCodePass(false)
     }
 
-    destroyed (): void {
+    clearCode () {
         sessionStorage.removeItem('redirect_code')
         sessionStorage.removeItem('redirect_state')
         sessionStorage.removeItem('login_state')
+    }
+
+    beforeRouteLeave (to, from, next): void {
+        this.toName = to.name
+        next()
+    }
+
+    destroyed (): void {
+        if (this.toName !== 'WxBindPhone') this.clearCode()
     }
 }
 </script>

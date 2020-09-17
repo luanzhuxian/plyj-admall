@@ -89,7 +89,8 @@ export default class App extends Vue {
 
     created () {
         try {
-            this.step()
+            const code = sessionStorage.getItem('redirect_code')
+            if (!code) this.step()
         } catch (e) {
             throw e
         }

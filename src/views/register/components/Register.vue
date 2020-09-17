@@ -49,13 +49,26 @@
             <el-button
                 size="large"
                 style="width: 100%;border-radius: 121px;margin-top: 20px"
+                type="success"
+                plain
+                @click.native.prevent="$router.push({name:'WxLogin'})"
+                :loading="loading"
+            >
+                <div :class="$style.wxButton">
+                    <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" style="width: 20px" alt="">微信注册
+                </div>
+            </el-button>
+            <span />
+            <el-button
+                size="large"
+                style="width: 100%;border-radius: 121px;margin-top: 20px"
                 type="primary"
                 @click.native.prevent="login('form')"
                 :loading="loading"
             >
-                下一步
+                完成入驻，进入雅集
             </el-button>
-            <div @click="$router.push({name:'PhoneLogin'})" :class="$style.register">
+            <div @click="$router.push({name:'WxBindPhone'})" :class="$style.register">
                 <el-button type="text"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
             </div>
             <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
@@ -95,7 +108,8 @@ export default class Register extends Vue {
             account: '',
             password: '',
             confirmPassword: '',
-            registeredSource: 'PC'
+            registeredSource: 'PC',
+            wxCode: ''
         }
 
         codeForm = {
@@ -155,6 +169,7 @@ export default class Register extends Vue {
         }
 
         mounted (): void {
+            this.form.wxCode = sessionStorage.getItem('redirect_code') || ''
             this.setCodePass(false)
         }
 
@@ -208,7 +223,7 @@ export default class Register extends Vue {
     }
     .phone-login{
         width: 400px;
-        height: 620px;
+        height: 680px;
         padding: 40px;
         border-radius: 10px;
         background-color: #ffffff;
@@ -279,6 +294,14 @@ export default class Register extends Vue {
                 margin-top: 20px;
                 >button{
                     margin: 0;
+                }
+            }
+            .wx-button{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img{
+                    margin-right: 10px;
                 }
             }
         }

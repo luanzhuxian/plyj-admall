@@ -55,6 +55,10 @@ import ForgetPassword from './components/Forget-Password.vue'
 import ResetPassword from './components/Reset-Password.vue'
 import ModifyPassword from './components/Modify-Password.vue'
 import { namespace } from 'vuex-class'
+
+Component.registerHooks([
+    'beforeRouteLeave'
+])
 const userModule = namespace('user')
     @Component({
         components: {
@@ -70,6 +74,7 @@ export default class RegisterIndex extends Vue {
         agencyError = ''
         enterprise = ''
         showDialog = false
+        toName = ''
         @userModule.Getter('token') tokenFoo!: string
         @userModule.Getter('currentStep') currentStepFoo!: number
         @userModule.Getter('agencyCode') agencyCodeFoo!: string
@@ -79,8 +84,9 @@ export default class RegisterIndex extends Vue {
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Watch('$route.name')
-        routeFoo (val: string) {
-            return val
+        onChangeValue (newVal: string) {
+            console.log(newVal)
+            alert(22)
         }
 
         codeShowFoo (e: boolean) {
@@ -93,6 +99,9 @@ export default class RegisterIndex extends Vue {
                 if (this.agencyList.length > 1) {
                     this.showDialog = true
                     return
+                }
+                if (!this.agencyList.length) {
+                    this.$router.push({ name: 'home' })
                 }
                 await this.selectAgency()
             } catch (e) {
@@ -146,10 +155,19 @@ export default class RegisterIndex extends Vue {
             this.setCodePass(false)
         }
 
-        destroyed (): void {
+        clearCode () {
             sessionStorage.removeItem('redirect_code')
             sessionStorage.removeItem('redirect_state')
             sessionStorage.removeItem('login_state')
+        }
+
+        beforeRouteLeave (to, from, next): void {
+            this.toName = to.name
+            next()
+        }
+
+        destroyed (): void {
+            if (this.toName !== 'WxBindPhone') this.clearCode()
         }
 }
 </script>
