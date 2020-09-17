@@ -19,7 +19,7 @@
             <SchemePack
                 name="组合聚惠学"
                 desc="组合商品打包售卖，立享优惠"
-                :expired="activitys.compound.status ? `${getDate(activitys.compound.createTime)}-${getDate(activitys.compound.validity)}` : ''"
+                :expired="activitys.compound.status ? `${getDate(activitys.compound.data.createTime)}-${getDate(activitys.compound.data.validity)}` : ''"
                 :count="activitiesInfo.combinationMarketActivityCount"
                 :tags="['限']"
                 :is-lock="!activitys.compound.status"
@@ -305,6 +305,7 @@ export default class Gameplay extends Vue {
             this.getActivitiesInfo(),
             this.getActivityAuth()
         ])
+        await this.getmMrketStatuAuth()
     }
 
     private tryTo (lockStatus: number, activityName: string, e: Event) {
