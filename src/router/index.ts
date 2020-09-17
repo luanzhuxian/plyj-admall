@@ -111,20 +111,19 @@ export const beforeResolve = async (to, from, next) => {
     //     document.title = ''
     // }
     const token = Cookie.get('token') || ''
-    const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
     // 需要登录，但未登录
     if (!token && !NOLOGIN.includes(to.name)) {
         return next({ name: 'PhoneLogin' })
     }
     // 已登录，访问不需要登录的页面
-    if (token && NOLOGIN.includes(to.name) && currentStep !== 1) {
+    if (token && NOLOGIN.includes(to.name)) {
         next({ path: '/' })
         return
     }
-    if (currentStep === 1 && to.name !== 'Register') {
-        next({ path: '/register' })
-        return
-    }
+    // if (currentStep === 1 && to.name !== 'Register') {
+    //     next({ path: '/register' })
+    //     return
+    // }
     next()
 }
 

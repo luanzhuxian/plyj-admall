@@ -63,7 +63,7 @@
                 size="large"
                 style="width: 100%;border-radius: 121px;margin-top: 20px"
                 type="primary"
-                @click.native.prevent="login('form')"
+                @click.native.prevent="login()"
                 :loading="loading"
             >
                 完成入驻，进入雅集
@@ -198,21 +198,22 @@ export default class Register extends Vue {
             }, 1000)
         }
 
-        async login (formName: string) {
+        async login () {
+            this.$router.replace({ name: 'Home' })
             // 防止连续敲击回车
-            if (this.loading) return
-            if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
-            try {
-                await (this.$refs[formName] as HTMLFormElement).validate()
-                this.loading = true
-                await this.register(this.form)
-                this.emitLogin()
-            } catch (e) {
-                // this.refreshSafeCode()
-                throw e
-            } finally {
-                this.loading = false
-            }
+            // if (this.loading) return
+            // if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
+            // try {
+            //     await (this.$refs.form as HTMLFormElement).validate()
+            //     this.loading = true
+            //     await this.register(this.form)
+            //     this.emitLogin()
+            // } catch (e) {
+            //     // this.refreshSafeCode()
+            //     throw e
+            // } finally {
+            //     this.loading = false
+            // }
         }
 }
 </script>
