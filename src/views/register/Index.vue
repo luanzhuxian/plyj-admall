@@ -6,7 +6,7 @@
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
                 <Register @emitLogin="login" v-if="$route.name === 'Register'" />
-                <ForgetPassword @emitLogin="login" v-if="$route.name === 'ForgetPassword'" />
+                <ForgetPassword v-if="$route.name === 'ForgetPassword'" />
                 <ResetPassword @emitLogin="login" v-if="$route.name === 'ResetPassword'" />
                 <ModifyPassword @emitLogin="login" v-if="$route.name === 'ModifyPassword'" />
             </div>
@@ -74,6 +74,9 @@ export default class RegisterIndex extends Vue {
         @userModule.Mutation('LOGOUT') logout!: Function
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Watch('$route.name')
+        routeFoo (val: string) {
+            return val
+        }
 
         async login () {
             try {
