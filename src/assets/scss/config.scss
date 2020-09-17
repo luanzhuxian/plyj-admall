@@ -20,6 +20,8 @@ $--header-height: 60px;
 $--main-menu-width: 200px;
 $--main-menu-width-collapse: 66px;
 
+$--border-color: $--color-gray-5;
+
 $padding: 20px;
 // 文本溢出隐藏并显示省略号
 @mixin elps {

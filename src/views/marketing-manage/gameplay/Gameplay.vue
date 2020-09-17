@@ -62,6 +62,7 @@
                 desc="设置Helper返现活动"
                 :count="activitiesInfo.helperActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/Helper.png"
+                route-info="MarketingHelper"
             />
             <SchemePack
                 :class="$style.package"
@@ -161,11 +162,12 @@
 <script lang='ts'>
 import moment from 'moment'
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter, Action } from 'vuex-class'
-import SchemeLabel from './../components/Scheme-Label.vue'
-import SchemePack from './../components/Scheme-Pack.vue'
-import { GET_MRKET_STATU_AUTH } from './../../../store/mutation-type'
-import { getActivitiesInfo, getActivityAuth } from './../../../apis/marketing-manage/gameplay'
+import { namespace } from 'vuex-class'
+import SchemeLabel from '../components/Scheme-Label.vue'
+import SchemePack from '../components/Scheme-Pack.vue'
+import { GET_MRKET_STATU_AUTH } from '../../../store/mutation-type'
+import { getActivitiesInfo, getActivityAuth } from '../../../apis/marketing-manage/gameplay'
+const account = namespace('account')
 
 interface Menu {
     activityName: string;
@@ -189,9 +191,10 @@ interface ActivityCounts {
         SchemePack
     }
 })
+
 export default class Gameplay extends Vue {
-    @Getter mrketStatuAuth!: string
-    @Action(GET_MRKET_STATU_AUTH) GET_MRKET_STATU_AUTH: any
+    @account.Getter mrketStatuAuth!: any[]
+    @account.Action(GET_MRKET_STATU_AUTH) GET_MRKET_STATU_AUTH: any
 
     activitiesInfo: ActivityCounts = {}
 
@@ -245,8 +248,8 @@ export default class Gameplay extends Vue {
     }
 
     private async getActivityAuth () {
-        const data = await getActivityAuth()
-        this.menuArray = data.filter(({ activityValue }) => activityValue !== '3')
+        const { result } = await getActivityAuth()
+        this.menuArray = result.filter(({ activityValue }: any) => activityValue !== '3')
     }
 
     private async getmMrketStatuAuth () {
