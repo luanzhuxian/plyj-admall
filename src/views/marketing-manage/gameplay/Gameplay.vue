@@ -156,7 +156,7 @@
             />
         </div>
         <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />
-        <div :class="$style.packageContainer">
+        <div :class="$style.packageContainer" @click.capture="tryTo(menuArray[0].lockStatus, '双十二疯狂同学会', $event)">
             <SchemePack
                 name="赢取豪礼"
                 desc="邀请新用户助力，获得小礼品"
@@ -175,7 +175,7 @@
             />
         </div>
         <SchemeLabel :class="$style.label" name="新春开学季" content="吸粉、老客带新客，提高下单转化率" />
-        <div :class="$style.packageContainer">
+        <div :class="$style.packageContainer" @click.capture="tryTo(menuArray[1].lockStatus, '新春开学季', $event)">
             <SchemePack
                 name="我心中的年味"
                 desc="获得我的年味，即可参与抽奖有机会获得年味大礼"
@@ -195,6 +195,31 @@
                 route-info="SpringPloughing"
             />
         </div>
+        <el-dialog top="40vh" custom-class="warn-12" width="620px" :visible.sync="dlgUnOpened">
+            <div slot="title">
+                您尚未获取{{ activityName }}授权校权限，请联系您的咨询师和客服开通。
+            </div>
+            <!-- <div class="dbl12-contact-us">
+        <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/qingfeng-weixin.png">
+        <div class="content">
+          朋来清风<br>
+          微信号：plyj007<br>
+          电话：18601773363
+        </div>
+      </div> -->
+            <div slot="footer">
+                <el-button @click="dlgUnOpened = false">
+                    朕知道了
+                </el-button>
+            </div>
+        </el-dialog>
+        <el-dialog :title="`${activityName}专场活动已结束！`" :visible.sync="dlgExpired">
+            <div slot="footer">
+                <el-button @click="dlgExpired = false">
+                    朕知道了
+                </el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -235,10 +260,11 @@ export default class Gameplay extends Vue {
     @account.Getter mrketStatuAuth!: any[]
     @account.Action(GET_MRKET_STATU_AUTH) GET_MRKET_STATU_AUTH: any
 
-    activitiesInfo: ActivityCounts = {}
-
+    dlgExpired = false
+    dlgUnOpened = false
+    activityName = ''
     menuArray: Menu[] = []
-    activeTab = 0
+    activitiesInfo: ActivityCounts = {}
     activitys: Activitys = {
         compound: {
             data: {},
@@ -275,10 +301,25 @@ export default class Gameplay extends Vue {
     }
 
     async activated () {
-        // await Promise.all([
-        //     this.getActivitiesInfo(),
-        //     this.getActivityAuth()
-        // ])
+        await Promise.all([
+            this.getActivitiesInfo(),
+            this.getActivityAuth()
+        ])
+    }
+
+    private tryTo (lockStatus: number, activityName: string, e: Event) {
+        this.activityName = activityName
+        if (lockStatus === 2) {
+            this.dlgExpired = true
+        } else if (lockStatus === 3) {
+            this.dlgUnOpened = true
+        }
+
+        // 若锁定，阻止子事件
+        if (lockStatus !== 1) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
     }
 
     private async getActivitiesInfo () {
@@ -320,11 +361,6 @@ export default class Gameplay extends Vue {
 
     private getDate (date: string): string | undefined {
         if (date) return date.split(' ')[0].replace(/-/g, '.')
-    }
-
-    get activityName (): string {
-        const { menuArray, activeTab } = this
-        return menuArray.length && menuArray[activeTab - 1] ? menuArray[activeTab - 1].activityName : ''
     }
 }
 </script>
