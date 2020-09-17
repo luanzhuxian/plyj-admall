@@ -66,7 +66,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['mallUrl', 'mrketStatuAuth'])
+        ...mapGetters({
+            mallUrl: 'user/mallUrl',
+            mrketStatuAuth: 'account/mrketStatuAuth'
+        })
     },
     async created () {
         if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()

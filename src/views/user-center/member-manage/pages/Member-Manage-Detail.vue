@@ -889,7 +889,7 @@ export default class MemberManageDetail extends Vue {
 
     // 用户行为数据Tab
     Tab_List = [
-        { name: 'OrderList', label: '购买记录' },
+        { name: 'ProductList', label: '购买记录' },
         { name: 'ShareList', label: '分享记录' },
         { name: 'LiveWatchList', label: '直播观看记录' },
         { name: 'LineLearningList', label: '云课堂学习进度' },

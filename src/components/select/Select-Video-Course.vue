@@ -116,7 +116,6 @@
 
 <script>
 import { getVideoLibraryList } from '../../apis/line-teaching/knowledge-course'
-// import { resetForm } from '../../../../../assets/js/utils'
 export default {
     name: 'SelectVideoCourse',
     props: {

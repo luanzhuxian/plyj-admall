@@ -97,7 +97,9 @@ export default {
         activityStatus () {
             return 'activityStatus' in this.$route.query ? Number(this.$route.query.activityStatus) : -1
         },
-        ...mapGetters(['mrketStatuAuth'])
+        ...mapGetters({
+            mrketStatuAuth: 'account/mrketStatuAuth'
+        })
     },
     async activated () {
         if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()

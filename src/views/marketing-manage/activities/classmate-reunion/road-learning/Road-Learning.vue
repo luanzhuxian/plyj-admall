@@ -276,7 +276,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['mallUrl'])
+        ...mapGetters({
+            mallUrl: 'user/mallUrl'
+        })
     }
 }
 </script>

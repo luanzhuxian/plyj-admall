@@ -384,7 +384,7 @@ export default {
             this.getList()
         },
         goOrderDetail (id) {
-            this.$router.push({ name: 'ClassDetail', params: { id } })
+            this.$router.push({ name: 'ClassOrderDetail', params: { id } })
         },
         changeExport () {
             const obj = {

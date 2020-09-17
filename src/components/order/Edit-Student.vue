@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { testPhone, testName } from '../../assets/js/validate'
+import { testPhone, testName } from '../../assets/ts/validate'
 export default {
     name: 'EditStudent',
     data () {

@@ -92,7 +92,9 @@ export default {
         ...mapActions([GET_MRKET_STATU_AUTH])
     },
     computed: {
-        ...mapGetters(['mrketStatuAuth']),
+        ...mapGetters({
+            mrketStatuAuth: 'account/mrketStatuAuth'
+        }),
         showTop () {
             return this.$route.name === 'LongmenPublicBenefitList'
         },

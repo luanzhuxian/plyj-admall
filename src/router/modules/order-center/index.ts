@@ -3,10 +3,10 @@ export default [
         path: '/orders-manage',
         name: 'OrderManage',
         component: () => import('../../../views/order-manage/Index.vue'),
-        redirect: '/orders-manage/list',
+        redirect: '/orders-manage/order-list',
         children: [
             {
-                path: 'list',
+                path: 'order-list',
                 name: 'OrderList',
                 component: () => import('../../../views/order-manage/pages/Goods-List.vue'),
                 meta: {
@@ -43,6 +43,58 @@ export default [
                 component: () => import('../../../views/order-manage/pages/Invoice.vue'),
                 meta: {
                     title: '发票申请'
+                }
+            },
+            {
+                path: 'order-detail/:id',
+                name: 'OrderDetail',
+                component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
+                props: true,
+                meta: {
+                    title: '订单详情'
+                }
+            },
+            {
+                path: 'class-detail/:id',
+                name: 'ClassOrderDetail',
+                component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
+                props: true,
+                meta: {
+                    title: '课程订单详情'
+                }
+            },
+            {
+                path: 'online-school-order-detail/:id',
+                name: 'OnlineSchoolOrderDetail',
+                component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
+                props: true,
+                meta: {
+                    title: '网校订单详情'
+                }
+            },
+            {
+                path: 'backorder-detail/:id',
+                name: 'BackorderDetail',
+                component: () => import('../../../views/order-manage/pages/Backorder-Detail.vue'),
+                props: true,
+                meta: {
+                    title: '售后详情'
+                }
+            },
+            {
+                path: '/orders/invoice/apply-invoice',
+                name: 'ApplyInvoice',
+                component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
+                meta: {
+                    title: '申请发票'
+                }
+            },
+            {
+                path: '/orders/invoice/edit-invoice',
+                name: 'EditInvoice',
+                component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
+                meta: {
+                    title: '修改发票'
                 }
             }
         ]

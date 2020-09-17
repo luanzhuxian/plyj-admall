@@ -15,7 +15,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['mrketStatuAuth'])
+        ...mapGetters({
+            mrketStatuAuth: 'account/mrketStatuAuth'
+        })
     },
     async activated () {
         const routeName = this.$route

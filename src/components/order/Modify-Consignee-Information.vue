@@ -112,8 +112,8 @@
 <script>
 import { getAddressList, addAddressList, modifyConsigneeInformation } from '../../apis/order'
 import CityPicker from '../common/City-Picker.vue'
-import { resetForm } from '../../assets/js/utils'
-import { isPhone } from '../../assets/js/validate'
+import { resetForm } from '../../assets/ts/utils'
+import { isPhone } from '../../assets/ts/validate'
 export default {
     name: 'ModifyConsigneeInformation',
     components: {

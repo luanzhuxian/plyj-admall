@@ -77,7 +77,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['mrketStatuAuth'])
+        ...mapGetters({
+            mrketStatuAuth: 'account/mrketStatuAuth'
+        })
     },
     async mounted () {
         try {

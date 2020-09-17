@@ -206,7 +206,7 @@ export default {
             // 网校订单
             this.$router.push({ name: 'OnlineSchoolOrder', params: { id: row.productId } })
             // 商品订单
-            this.$router.push({ name: 'OrderList', params: { id: row.productId } })
+            this.$router.push({ name: 'ProductList', params: { id: row.productId } })
             // 课程订单
             this.$router.push({ name: 'CoursesList', params: { id: row.productId } })
         },

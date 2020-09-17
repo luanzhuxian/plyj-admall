@@ -347,7 +347,11 @@ export default {
     },
     computed: {
         ...mapState(['orderStatus']),
-        ...mapGetters(['categoryTree', 'bindPhone', 'receiveAddressList'])
+        ...mapGetters({
+            categoryTree: 'goods/categoryTree',
+            bindPhone: 'user/bindPhone',
+            receiveAddressList: 'goods/receiveAddressList'
+        })
     },
     async created () {
         if (this.$route.params.courseId) this.form.keywords = this.$route.params.courseId
