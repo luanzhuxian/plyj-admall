@@ -190,7 +190,7 @@ export default {
         },
         async init () {
             try {
-                const { data: res } = await getInvitingDetail(this.id)
+                const res = await getInvitingDetail(this.id)
                 this.form.invitingEventsEntity = res.result.invitingEventsEntity
                 this.form.invitingEventsGiftEntities = res.result.invitingEventsGiftEntities
                 this.selectedTicket = res.result.mallInvitingEventsCouponEntities
@@ -198,9 +198,8 @@ export default {
                 if (this.isCopy) {
                     this.form.invitingEventsEntity.status = ''
                 }
-                const _this = this
                 for (const i in this.selectedTicket) {
-                    _this.selectedTicket[i].id = _this.selectedTicket[i].coupon
+                    this.selectedTicket[i].id = this.selectedTicket[i].coupon
                 }
                 this.activityDaterange = [res.result.invitingEventsEntity.activityStartTime, res.result.invitingEventsEntity.activityEndTime]
                 this.giftData = this.form.invitingEventsGiftEntities
@@ -259,9 +258,8 @@ export default {
             })
         },
         async save () {
-            const _this = this
             for (const i in this.selectedTicket) {
-                _this.form.mallInvitingEventsCouponEntities[i] = {
+                this.form.mallInvitingEventsCouponEntities[i] = {
                     coupon: this.selectedTicket[i].id,
                     stock: this.selectedTicket[i].stock,
                     couponName: this.selectedTicket[i].couponName

@@ -4,16 +4,16 @@ import axios from 'axios'
 export const getInviting = params => axios.get('/apis/v1/invitingEvents/page', { params })
 
 // 操作活动状态
-export const changeInvitingStatus = (id, status) => axios.put(`/apis/v1/invitingEvents/${id}/activityStatus/${status}`)
+export const changeInvitingStatus = (id, status) => axios.put(`/apis/v1/invitingEvents/${ id }/activityStatus/${ status }`)
 
 // 创建邀新活动
 export const saveInviting = data => axios.post('/apis/v1/invitingEvents', data)
 
 // 获取活动详情
-export const getInvitingDetail = id => axios.get(`/apis/v1/invitingEvents/${id}`)
+export const getInvitingDetail = id => axios.get(`/apis/v1/invitingEvents/${ id }`)
 
 // 更新活动
-export const updateInviting = (id, data) => axios.post(`/apis/v1/invitingEvents/${id}`, data)
+export const updateInviting = (id, data) => axios.post(`/apis/v1/invitingEvents/${ id }`, data)
 
 // 分页查询礼物领取信息
 export const getClaimGift = params => axios.get('/apis/v1/invitingEvents/page/claimGift', { params })
@@ -22,17 +22,15 @@ export const getClaimGift = params => axios.get('/apis/v1/invitingEvents/page/cl
 export const getInvitingDetailList = params => axios.get('/apis/v1/invitingEvents/page/selectActivityDetail', { params })
 
 // 导出礼物领取信息
-export const exportClaimGift = params =>
-  axios.get('/apis/v1/invitingEvents/export/page/claimGift', {
+export const exportClaimGift = params => axios.get('/apis/v1/invitingEvents/export/page/claimGift', {
     responseType: 'blob',
     timeout: 0,
     params
-  })
+})
 
 // 导出礼物领取信息
-export const exportInvitingDetailList = params =>
-  axios.get('/apis/v1/invitingEvents/page/selectActivityDetail/export', {
+export const exportInvitingDetailList = params => axios.get('/apis/v1/invitingEvents/page/selectActivityDetail/export', {
     responseType: 'blob',
     timeout: 0,
     params
-  })
+})

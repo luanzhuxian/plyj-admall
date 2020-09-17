@@ -1,17 +1,20 @@
 import axios from 'axios'
+
 /**
  * 新增春耘计划活动
  * @param data {object} 数据
  * @return {Promise<AxiosResponse<T>>}
  */
-export const addSpringPloughing = data => axios.post(`/apis/v1/combination/save`, data)
+export const addSpringPloughing = data => axios.post('/apis/v1/combination/save', data)
+
 /**
  * 新增春耘计划活动
  * @param id {string}
  * @param data {object} 数据
  * @return {Promise<AxiosResponse<T>>}
  */
-export const updateSpringPloughing = (id, data) => axios.post(`/apis/v1/combination/modify/${id}`, data)
+export const updateSpringPloughing = (id, data) => axios.post(`/apis/v1/combination/modify/${ id }`, data)
+
 /**
  * 获取春耘计划列表
  * @param params {object}
@@ -25,24 +28,28 @@ export const updateSpringPloughing = (id, data) => axios.post(`/apis/v1/combinat
  * @return {Promise<AxiosResponse<T>>}
  */
 export const getSpringPloughingList = params => axios.get('/apis/v2/combination/page', { params })
+
 /**
  * 获取春耘计划详情
  * @param combinationId {string}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const getSpringPloughingDetail = combinationId => axios.get(`/apis/v1/combination/detail?combinationId=${combinationId}`)
+export const getSpringPloughingDetail = combinationId => axios.get(`/apis/v1/combination/detail?combinationId=${ combinationId }`)
+
 /**
  * 结束活动
  * @param id {string}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const endSpringPloughing = id => axios.put(`/apis/v1/combination/end`, { id })
+export const endSpringPloughing = id => axios.put('/apis/v1/combination/end', { id })
+
 /**
  * 查询春耘活动统计数据
  * @param id
  * @return {Promise<AxiosResponse<T>>}
  */
-export const getSpringPloughingStatistics = id => axios.get(`/apis/v2/combination/queryReport?activityId=${id}`)
+export const getSpringPloughingStatistics = id => axios.get(`/apis/v2/combination/queryReport?activityId=${ id }`)
+
 /**
  * 查询春耘活动订单数据
  * @param params {object}
@@ -54,20 +61,22 @@ export const getSpringPloughingStatistics = id => axios.get(`/apis/v2/combinatio
  * @property params.condition {string}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const getSpringPloughingOrderData = params => axios.get(`/apis/v1/combination/queryOrderPage`, { params })
+export const getSpringPloughingOrderData = params => axios.get('/apis/v1/combination/queryOrderPage', { params })
+
 /**
  * 检查活动中的商品上下架状态，用户复制活动时的检查
  * @param data
  * @return {Promise<AxiosResponse<T>>}
  */
-export const checkSpringPloughingProductStatus = data => axios.post(`/apis/v1/combination/check/activity/product`, data)
+export const checkSpringPloughingProductStatus = data => axios.post('/apis/v1/combination/check/activity/product', data)
+
 /**
  * 删除春耘活动
  * @param params {object}
  * @property params.id {string}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const deleteSpringPloughingActivity = (params) => axios.put('/apis/v1/combination/delete', params)
+export const deleteSpringPloughingActivity = params => axios.put('/apis/v1/combination/delete', params)
 
 /**
  * 获取20个年味
@@ -100,6 +109,7 @@ export const addSigninActivity = data => axios.post('/apis/v1/signinActivity', d
  * @return {Promise<AxiosResponse<T>>}
  */
 export const editActivityInfoDataStart = data => axios.post('/apis/v1/signinActivity/updateActivity/updateStart', data)
+
 /**
  * 未开始调用
  * @param data {object}
@@ -112,7 +122,7 @@ export const editActivityInfoNotStart = data => axios.post('/apis/v1/signinActiv
  * @param activityId {string}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const signinActivityDetail = (activityId) => axios.get(`/apis/v1/signinActivity/detail/${activityId}`)
+export const signinActivityDetail = activityId => axios.get(`/apis/v1/signinActivity/detail/${ activityId }`)
 
 /**
  * 导出年味数据
@@ -123,8 +133,8 @@ export const signinActivityDetail = (activityId) => axios.get(`/apis/v1/signinAc
  * @property data.activityId {string}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const exportSpringData = params => axios.post(`/apis/v2/combination/export`, null, {
-  timeout: 0,
-  params,
-  responseType: 'blob'
+export const exportSpringData = params => axios.post('/apis/v2/combination/export', null, {
+    timeout: 0,
+    params,
+    responseType: 'blob'
 })

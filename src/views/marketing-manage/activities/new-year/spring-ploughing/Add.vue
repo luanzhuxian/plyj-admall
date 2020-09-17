@@ -164,7 +164,7 @@ class CombinationDetail {
 }
 
 // 活动细则预设值
-const default_regulation = `1.选择参与的用户均可参与
+const defaultRegulation = `1.选择参与的用户均可参与
 2.选择组合商品，享受组合商品折扣价位，单独购买不享受优惠价位
 3.该组合价位购买不与其他活动一同享受（秒杀，团购，预购等）
 4.部分组合更有超值礼品等你来拿，先到先得`
@@ -194,7 +194,7 @@ export default {
             userGroup: [],
             form: {
                 activityName: '', // 活动名称
-                regulation: default_regulation, // 活动细则
+                regulation: defaultRegulation, // 活动细则
                 preheatTime: 1, // 活动预热
                 receiveLimit: 0, // 限制的角色 0:全部用户 1:会员 2:Helper 3:部分用户组
                 tagIds: [], // 用户组id
@@ -240,7 +240,7 @@ export default {
             if (this.id) {
                 await this.getDetail()
             } else {
-                this.form.regulation = default_regulation
+                this.form.regulation = defaultRegulation
             }
             await this.getTagList()
         } catch (e) {

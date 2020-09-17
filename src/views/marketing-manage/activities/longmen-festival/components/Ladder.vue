@@ -126,7 +126,7 @@
                 align="right"
                 header-align="right"
             >
-                <template #default="{ row }">
+                <template>
                     <el-button v-if="model.ladderAwardType !== 3 && (status !== 1 || !model.id)" @click="editLadderGif" type="text">
                         编辑
                     </el-button>

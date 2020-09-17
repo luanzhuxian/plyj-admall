@@ -223,7 +223,7 @@ export default {
                 return
             }
             this.giftList = res.result.records
-            this.giftList.map(item => {
+            this.giftList.forEach(item => {
                 item.createTime = item.createTime || '--'
                 item.giftName = item.giftName || '--'
                 item.useStartTime = item.useStartTime || '-'

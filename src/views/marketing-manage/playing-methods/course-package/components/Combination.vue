@@ -586,7 +586,7 @@ export default {
             if (!this.model.giftModelList.length) {
                 return []
             }
-            return this.model.giftModelList.filter(item => item.hasOwnProperty('giftType') && item.giftType === 0)
+            return this.model.giftModelList.filter(item => item.giftType === 0)
         }
     },
     watch: {
@@ -595,7 +595,6 @@ export default {
             this.$refs.form.clearValidate('imageUrl')
         }
     },
-    created () {},
     methods: {
         init () {
             for (const item of this.model.productModelList) {
