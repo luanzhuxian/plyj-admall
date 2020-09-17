@@ -93,7 +93,8 @@
         >
             <el-table-column
                 type="selection"
-                width="30"
+                align="right"
+                width="50"
             />
             <el-table-column label="用户信息">
                 <template slot-scope="{row}">

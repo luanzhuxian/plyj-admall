@@ -60,7 +60,8 @@
             <el-table-column
                 v-if="currentStatus === 'AWAIT'"
                 type="selection"
-                width="30"
+                align="right"
+                width="50"
             />
             <el-table-column label="用户信息">
                 <template slot-scope="{row}">
@@ -461,7 +462,7 @@ export default class HelperReviewList extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .form-filter{
         padding: 20px 32px;
         background: #F5F6FA;
