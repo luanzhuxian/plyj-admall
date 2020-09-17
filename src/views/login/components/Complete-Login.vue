@@ -12,7 +12,7 @@
             >
                 <el-form-item prop="account">
                     <div :class="$style.phoneNumber">
-                        <el-input v-model="form.account" maxlength="50" style="width: 300px" placeholder="请输6-12位数字字母组合的账号" />
+                        <el-input v-model="form.account" maxlength="50" style="width: 300px" placeholder="请输6-50位数字字母组合的账号" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">
@@ -32,7 +32,7 @@
             </el-form>
 
             <el-checkbox v-model="agree">
-                我已阅读并同意<span style="color: #4F63FF">《朋来雅集服务协议》</span>
+                我已阅读并同意<span @click="showAgreement = true" style="color: #4F63FF">《朋来雅集服务协议》</span>
             </el-checkbox>
             <el-button
                 size="large"
@@ -49,12 +49,18 @@
 
 <script lang="ts">
 import { completeInfo } from '../../../apis/login'
+import Agreement from '../../../components/register/Agreement'
 import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')
 
-    @Component
+    @Component({
+        components: {
+            Agreement
+        }
+    })
 export default class CompleteLogin extends Vue {
+        showAgreement= false
         form = {
             account: '',
             password: '',
@@ -115,12 +121,12 @@ export default class CompleteLogin extends Vue {
             // 防止连续敲击回车
             if (this.loading) return
             if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
-            if (!this.codePass) {
-                this.codeShowFoo(true)
-                return
-            }
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
+                if (!this.codePass) {
+                    this.codeShowFoo(true)
+                    return
+                }
                 this.loading = true
                 await completeInfo(this.form)
                 this.emitLogin()

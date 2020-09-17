@@ -5,8 +5,8 @@
         </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
-                <Register @emitLogin="login" v-if="$route.name === 'Register'" />
-                <ForgetPassword @emitLogin="login" v-if="$route.name === 'ForgetPassword'" />
+                <Register @codeShowFoo="codeShowFoo" @emitLogin="login" v-if="$route.name === 'Register'" />
+                <ForgetPassword @codeShowFoo="codeShowFoo" v-if="$route.name === 'ForgetPassword'" />
                 <ResetPassword @emitLogin="login" v-if="$route.name === 'ResetPassword'" />
                 <ModifyPassword @emitLogin="login" v-if="$route.name === 'ModifyPassword'" />
             </div>
@@ -43,11 +43,13 @@
                 </el-form-item>
             </el-form>
         </el-dialog>
+        <Vcode :show="codeShow" @success="success" @close="close" />
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
+import Vcode from 'vue-puzzle-vcode'
 import Register from './components/Register.vue'
 import ForgetPassword from './components/Forget-Password.vue'
 import ResetPassword from './components/Reset-Password.vue'
@@ -59,10 +61,12 @@ const userModule = namespace('user')
             Register,
             ForgetPassword,
             ResetPassword,
-            ModifyPassword
+            ModifyPassword,
+            Vcode
         }
     })
 export default class RegisterIndex extends Vue {
+        codeShow = false
         agencyError = ''
         enterprise = ''
         showDialog = false
@@ -72,8 +76,17 @@ export default class RegisterIndex extends Vue {
         @userModule.Getter('agencyList') agencyList: any
         @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
         @userModule.Mutation('LOGOUT') logout!: Function
+        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
         @Watch('$route.name')
+        routeFoo (val: string) {
+            return val
+        }
+
+        codeShowFoo (e: boolean) {
+            console.log(e)
+            this.codeShow = e
+        }
 
         async login () {
             try {
@@ -121,6 +134,16 @@ export default class RegisterIndex extends Vue {
             } else {
                 this.$router.replace({ name: 'Register' })
             }
+        }
+
+        success () {
+            this.codeShow = false
+            this.setCodePass(true)
+        }
+
+        close () {
+            this.codeShow = false
+            this.setCodePass(false)
         }
 
         destroyed (): void {

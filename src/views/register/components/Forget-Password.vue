@@ -18,7 +18,7 @@
                 <el-form-item prop="verifyCode">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.verifyCode" maxlength="4" style="width: 220px" placeholder="请输入验证码" />
-                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}</div>
+                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}S</div>
                         <div :class="$style.getCode" v-else @click="getCode()">获取验证码</div>
                     </div>
                 </el-form-item>
@@ -41,10 +41,11 @@
 
 <script lang="ts">
 import { testPhone } from '../../../assets/ts/validate'
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { forgetPassword } from '../../../apis/base/register'
-import { Getter } from 'vuex-class'
+import { Getter, namespace } from 'vuex-class'
+const userModule = namespace('user')
 
     @Component
 export default class ForgetPassword extends Vue {
@@ -73,7 +74,18 @@ export default class ForgetPassword extends Vue {
         time = 60
         timer: any = null
         loading = false
+        @userModule.Getter('codePass') codePass!: boolean
+        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @Getter smsType!: string[]
+
+        @Emit('codeShowFoo')
+        codeShowFoo (type: boolean) {
+            return type
+        }
+
+        mounted (): void {
+            this.setCodePass(false)
+        }
 
         async getCode () {
             if (this.getCodeing) return
@@ -83,6 +95,10 @@ export default class ForgetPassword extends Vue {
                 if (mobileError) validateField = false
             })
             if (!validateField) return
+            if (!this.codePass) {
+                this.codeShowFoo(true)
+                return
+            }
             this.codeForm.mobile = this.form.mobile
             await getVerifyCodeFunc(this.codeForm)
             this.getCodeing = true
@@ -101,6 +117,10 @@ export default class ForgetPassword extends Vue {
             if (this.loading) return
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
+                if (!this.codePass) {
+                    this.codeShowFoo(true)
+                    return
+                }
                 this.loading = true
                 await forgetPassword(this.form)
                 this.$router.replace({ name: 'ResetPassword', params: { code: `${ this.form.mobile }&${ this.form.verifyCode }` } })

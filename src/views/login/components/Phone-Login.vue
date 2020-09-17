@@ -20,7 +20,7 @@
                 <el-form-item prop="identifyingCode">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.identifyingCode" maxlength="4" style="width: 180px" placeholder="请输入验证码" />
-                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}</div>
+                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}S</div>
                         <div :class="$style.getCode" v-else @click="getCode()">获取验证码</div>
                     </div>
                 </el-form-item>
@@ -97,17 +97,17 @@ export default class PhoneLogin extends Vue {
         }
 
         async getCode () {
+            let validateField = true
+            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
+                if (mobileError) validateField = false
+            })
+            if (!validateField) return
             if (!this.codePass) {
                 this.codeShowFoo(true)
                 return
             }
             if (this.getCodeing) return
             clearInterval(this.timer)
-            let validateField = true
-            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
-                if (mobileError) validateField = false
-            })
-            if (!validateField) return
             this.codeForm.mobile = this.form.mobile
             await getVerifyCodeFunc(this.codeForm)
             this.getCodeing = true
