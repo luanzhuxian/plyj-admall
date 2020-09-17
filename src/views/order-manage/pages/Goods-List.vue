@@ -359,7 +359,7 @@ import {
 } from '../../../apis/order'
 import moment from 'moment'
 import { GET_RECEIVE_ADDRESS } from '../../../store/mutation-type'
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { createObjectUrl } from '../../../assets/ts/upload'
 import Shipments from '../../../components/order/Shipments.vue'
 import ApplyAfter from '../../../components/order/Apply-After.vue'
@@ -485,14 +485,16 @@ export default {
         }
     },
     computed: {
-        ...mapState(['orderStatus']),
-        ...mapGetters(['receiveAddressList'])
+        ...mapGetters({
+            receiveAddressList: 'goods/receiveAddressList'
+        })
     },
     async created () {
         if (this.$route.params.id) this.form.keywords = this.$route.params.id
-        // this.form.orderStatus = this.routeMap[this.$route.name] || ''
+        this.form.orderStatus = this.$route.query.status || ''
+        this.goodsTypes = this.$route.query.productType || ''
         try {
-            await this.getList()
+            await this.goodsTypesChange()
             await this.getRedeemUserList()
         } catch (e) {
             throw e
@@ -516,7 +518,9 @@ export default {
     //   })
     // },
     methods: {
-        ...mapActions([GET_RECEIVE_ADDRESS]),
+        ...mapActions({
+            [GET_RECEIVE_ADDRESS]: 'goods/GET_RECEIVE_ADDRESS'
+        }),
         canApplyRefund (row) {
             const comon = row.orderStatus !== 'WAIT_PAY' && row.orderStatus !== 'CLOSED' && !row.redeemCodeOperatorUserName.length && row.supportAfterSales === 1 && row.aftersaleStatus === 'NO_AFTER_SALES' && row.skuSource < 2
             // 申请条件 不等于待付款、订单关闭，订单可申请售后，订单没有申请过售后
@@ -601,7 +605,7 @@ export default {
                 const { result } = await redeemUserList()
                 const array = []
                 if (result && result.length) {
-                    for (const item of result.result) {
+                    for (const item of result) {
                         array.push({ label: item, value: item })
                     }
                 }

@@ -693,8 +693,10 @@ export default {
         }
     },
     async created () {
-        console.log(555)
         try {
+            console.log(this.$route.query.goodsType)
+            this.filter.productType = this.$route.query.productType || ''
+            this.filter.productStatus = this.$route.query.status || ''
             await this.getGoods(1)
         } catch (e) {
             throw e

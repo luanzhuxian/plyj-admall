@@ -3,9 +3,10 @@ export default [
         path: '/orders-manage',
         name: 'OrderManage',
         component: () => import('../../../views/order-manage/Index.vue'),
+        redirect: '/orders-manage/list',
         children: [
             {
-                path: 'order-list',
+                path: 'list',
                 name: 'OrderList',
                 component: () => import('../../../views/order-manage/pages/Goods-List.vue'),
                 meta: {
