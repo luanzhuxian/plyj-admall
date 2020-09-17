@@ -12,7 +12,7 @@
             >
                 <el-form-item prop="account">
                     <div :class="$style.phoneNumber">
-                        <el-input v-model="form.account" maxlength="11" style="width: 300px" placeholder="请输入" />
+                        <el-input v-model="form.account" maxlength="11" style="width: 300px" placeholder="请输入账户" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">

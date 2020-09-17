@@ -170,7 +170,7 @@ export default class Login extends Vue {
     }
 
     destroyed (): void {
-        if (this.toName !== 'WxBindPhone') this.clearCode()
+        if (this.toName !== 'WxBindPhone' && this.toName !== 'Register') this.clearCode()
     }
 }
 </script>

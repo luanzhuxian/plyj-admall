@@ -3,6 +3,18 @@
         <div :class="$style.loginType">
             注册雅集
         </div>
+        <el-button
+            size="large"
+            style="width: 100%;border-radius: 121px;margin-top: 20px"
+            type="success"
+            plain
+            @click.native.prevent="$router.push({name:'WxLogin'})"
+            :loading="loading"
+        >
+            <div :class="$style.wxButton">
+                <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" style="width: 20px" alt="">微信注册
+            </div>
+        </el-button>
         <div :class="$style.accountMessage">
             <el-form
                 :model="form"
@@ -46,18 +58,6 @@
             <el-checkbox v-model="agree">
                 我已阅读并同意<span @click="showAgreement = true" style="color: #4F63FF">《朋来雅集服务协议》</span>
             </el-checkbox>
-            <el-button
-                size="large"
-                style="width: 100%;border-radius: 121px;margin-top: 20px"
-                type="success"
-                plain
-                @click.native.prevent="$router.push({name:'WxLogin'})"
-                :loading="loading"
-            >
-                <div :class="$style.wxButton">
-                    <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" style="width: 20px" alt="">微信注册
-                </div>
-            </el-button>
             <span />
             <el-button
                 size="large"
