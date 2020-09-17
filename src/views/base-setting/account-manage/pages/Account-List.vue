@@ -62,7 +62,6 @@
             <el-form-item label="搜索内容：">
                 <el-input
                     v-model="filter.searchContent"
-                    @clear="realNameClear"
                     @change="search"
                     placeholder="请输入真实姓名或手机号"
                     :clearable="true"
@@ -261,7 +260,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { namespace } from 'vuex-class'
 import {
     AccountInfo,
     getAccounts,
@@ -272,12 +271,21 @@ import {
     editAccount
 } from '../../../../apis/account'
 
-class Account {
+interface AccountData {
+    searchContent: string;
+    idCard: string;
+    position: string;
+    roleCode: string;
+}
+
+const user = namespace('user')
+
+class Account implements AccountData {
   searchContent = ''
   idCard = ''
   position = ''
   roleCode = ''
-  constructor (account: any) {
+  constructor (account: AccountData | null) {
       if (account) {
           const { searchContent, idCard, position, roleCode } = account
           this.searchContent = searchContent
@@ -290,8 +298,8 @@ class Account {
 
 @Component
 export default class AccountList extends Vue {
-    @Getter userId!: string;
-    @Getter currentRoleCode!: string;
+    @user.Getter userId!: string;
+    @user.Getter currentRoleCode!: string;
 
     tabs = [
         { label: '已启用', name: '1' },
@@ -317,7 +325,7 @@ export default class AccountList extends Vue {
         name: ''
     }
 
-    filter: any = {
+    filter = {
         current: 1,
         size: 10,
         status: '1',
@@ -363,7 +371,7 @@ export default class AccountList extends Vue {
         this.enterpriseAdminModel = enterpriseAdminModel
     }
 
-    private canEdit (row: any) {
+    private canEdit (row: DynamicObject) {
         return this.userId === row.userId || (row.roleCode === this.currentRoleCode) || (row.currentRoleCode === 'EMPLOYEE') || (row.roleCode === 'ADMIN' && this.currentRoleCode !== 'ENTERPRISE_ADMIN')
     }
 
@@ -411,7 +419,7 @@ export default class AccountList extends Vue {
         this.total = result.total
     }
 
-    private async tabClick (data: any) {
+    private async tabClick (data) {
         this.filter.status = data.name
         await this.search()
     }
@@ -452,18 +460,9 @@ export default class AccountList extends Vue {
         await this.getAccounts()
     }
 
-    private realNameClear () {
-        this.filter.realName = ''
-    }
-
-    private mobileClear () {
-        this.filter.mobile = ''
-    }
-
-    private async downgradeAccount (row: any) {
+    private async downgradeAccount (row: { roleCode: 'EMPLOYEE' | 'ADMIN'; userId: string }) {
         const { roleCode, userId } = row
-        const params = { roleCode, userId }
-        const roleMap: any = {
+        const roleMap = {
             EMPLOYEE: '子账号',
             ADMIN: '高级管理员'
         }
@@ -471,13 +470,13 @@ export default class AccountList extends Vue {
             title: '确认降级此账户？',
             message: `降级后，所属该${ roleMap[roleCode] }的所有helper用户，将自动更新所属账号为“企业管理员”！`
         })
-        await downgradeAccount(params)
+        await downgradeAccount({ roleCode, userId })
         this.$success('降级成功')
         this.filter.current = 1
         await this.getAccounts()
     }
 
-    private editAccount (data: any) {
+    private editAccount (data: AccountData) {
         return editAccount(data)
     }
 
