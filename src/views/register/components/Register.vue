@@ -70,9 +70,8 @@
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
-import Agreement from '../../../components/register/Agreement'
+import Agreement from '../../../components/register/Agreement.vue'
 import { Getter, namespace } from 'vuex-class'
-// import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
 
     @Component({

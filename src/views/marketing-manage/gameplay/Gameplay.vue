@@ -297,7 +297,7 @@ export default class Gameplay extends Vue {
 
         const timeNow = moment().valueOf()
         const { mrketStatuAuth, activitys } = this
-        const info = {
+        const info: any = {
             compound: '1',
             dumplings: '2',
             secondBuy: '3',

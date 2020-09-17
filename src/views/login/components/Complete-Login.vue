@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { completeInfo } from '../../../apis/login'
-import Agreement from '../../../components/register/Agreement'
+import Agreement from '../../../components/register/Agreement.vue'
 import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')

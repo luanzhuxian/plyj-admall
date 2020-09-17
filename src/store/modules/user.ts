@@ -17,6 +17,7 @@ import {
 import * as types from '../mutation-type'
 import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
+import setSentry from '../../assets/ts/set-sentry'
 
 const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
 const agencyCode = Cookie.get('agencyCode') || ''
@@ -210,10 +211,10 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
         [types.HAS_GET_ALL_MALL_INFO]: (state, loaded) => {
             state.allLoaded = loaded
+        },
+        [types.GET_ALL_MALL_INFO]: (state, getters) => {
+            setSentry(getters)
         }
-        // [types.GET_ALL_MALL_INFO]: (state, getters) => {
-        //     setSentry(getters)
-        // }
     },
     actions: {
         async login ({ commit, dispatch }, form) {
@@ -341,7 +342,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             }
         },
         // 获取所有商城数据
-        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state }) {
+        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state, getters }) {
             // 日志系统getters暂时删除
             try {
                 await dispatch(types.AGENCY_USER_INFO)
@@ -355,7 +356,7 @@ const user: Module<DynamicObject, DynamicObject> = {
                 }
                 commit(types.HAS_GET_ALL_MALL_INFO, true)
                 // 日志系统
-                // commit(types.GET_ALL_MALL_INFO, getters)
+                commit(types.GET_ALL_MALL_INFO, getters)
             } catch (e) {
                 throw e
             }

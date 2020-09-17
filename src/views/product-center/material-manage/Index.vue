@@ -26,7 +26,7 @@ export default class MaterialManage extends Vue {
         }
     ]
 
-    tabClick (el) {
+    tabClick (el: any) {
         this.$router.push({ name: el.name })
     }
 }

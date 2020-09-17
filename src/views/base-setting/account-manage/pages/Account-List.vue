@@ -273,11 +273,11 @@ import {
 } from '../../../../apis/account'
 
 class Account {
-  searchContent
-  idCard
-  position
-  roleCode
-  constructor (account = null) {
+  searchContent = ''
+  idCard = ''
+  position = ''
+  roleCode = ''
+  constructor (account: any) {
       if (account) {
           const { searchContent, idCard, position, roleCode } = account
           this.searchContent = searchContent
@@ -311,13 +311,13 @@ export default class AccountList extends Vue {
     dateRange = []
     table = []
 
-    account = new Account()
+    account = new Account(null)
     enterpriseAdminModel = {
         mobil: '',
         name: ''
     }
 
-    filter = {
+    filter: any = {
         current: 1,
         size: 10,
         status: '1',
@@ -411,7 +411,7 @@ export default class AccountList extends Vue {
         this.total = result.total
     }
 
-    private async tabClick (data) {
+    private async tabClick (data: any) {
         this.filter.status = data.name
         await this.search()
     }
@@ -423,7 +423,7 @@ export default class AccountList extends Vue {
 
     private async goDetail (row: any, selfEdit: boolean, canEdit: boolean) {
         const { mobile, userId, roleCode } = row
-        const data = {
+        const data: any = {
             name: 'AccountDetail',
             query: {
                 mobile,
@@ -463,7 +463,7 @@ export default class AccountList extends Vue {
     private async downgradeAccount (row: any) {
         const { roleCode, userId } = row
         const params = { roleCode, userId }
-        const roleMap = {
+        const roleMap: any = {
             EMPLOYEE: '子账号',
             ADMIN: '高级管理员'
         }
@@ -477,7 +477,7 @@ export default class AccountList extends Vue {
         await this.getAccounts()
     }
 
-    private editAccount (data) {
+    private editAccount (data: any) {
         return editAccount(data)
     }
 

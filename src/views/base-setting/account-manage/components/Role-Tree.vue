@@ -45,7 +45,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import { getAllRolesByCode } from '../../../../apis/setting'
 export default {
     name: 'RoleTree',
