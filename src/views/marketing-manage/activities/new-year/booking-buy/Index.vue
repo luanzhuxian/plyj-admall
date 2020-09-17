@@ -1,6 +1,5 @@
 <template>
     <div class="wrap">
-        <top-back />
         <router-view />
     </div>
 </template>

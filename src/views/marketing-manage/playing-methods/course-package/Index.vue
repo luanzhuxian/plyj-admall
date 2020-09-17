@@ -1,6 +1,5 @@
 <template>
     <div :class="$style.coursePackage" class="wrap">
-        <top-back />
         <div
             :class="$style.statusBar"
             v-show="$route.name !== 'AddCoursePackage' && $route.name !== 'EditCoursePackage'"

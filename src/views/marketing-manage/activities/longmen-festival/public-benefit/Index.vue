@@ -1,7 +1,5 @@
 <template>
     <div class="benefit wrap">
-        <top-back />
-
         <div v-if="showTop" class="header bg-white">
             <img class="mr-10 activity-icon" src="https://mallcdn.youpenglai.com/static/admall/2.9.0/public-benefit.png">
             <span class="mr-10 font-weight-bold">公益助力</span>

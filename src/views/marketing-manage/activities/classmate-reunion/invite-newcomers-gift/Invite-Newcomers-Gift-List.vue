@@ -1,6 +1,5 @@
 <template>
     <div class="invite-newcomers-gift-list wrap">
-        <top-back />
         <div v-if="showTop" class="invite-newcomers-list-header bg-white">
             <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/gift@1x.png">
             <span class="mr-10 font-weight-bold">赢取豪礼</span>

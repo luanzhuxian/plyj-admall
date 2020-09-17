@@ -1,6 +1,5 @@
 <template>
     <div class="newcomers-gift-list wrap">
-        <top-back />
         <div v-if="showTop" class="newcomers-detail-header bg-white">
             <div class="flex align-item-center">
                 <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.0.0/c24c82f1-6e4e-43f2-b164-ca8ec65f2ebb.png">

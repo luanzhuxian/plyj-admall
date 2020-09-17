@@ -1,6 +1,5 @@
 <template>
     <div :class="$style.buyNowContainer">
-        <top-back :title="Number($route.query.isFirstBuy) === 1 ? '立即购买' : '续费'" />
         <Panel title="支付与订单" width="80%" top="40">
             <ul :class="$style.detail">
                 <li>

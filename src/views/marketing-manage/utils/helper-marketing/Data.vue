@@ -1,6 +1,5 @@
 <template>
     <div>
-        <top-back />
         <div class="header border-bottom">
             <div>
                 <span class="fz-16 font-weight-bold">{{ detail.activityName }}</span>

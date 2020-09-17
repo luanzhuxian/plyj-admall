@@ -1,6 +1,5 @@
 <template>
     <div class="road-learning-detail wrap">
-        <top-back />
         <div class="road-learning-detail-header bg-white mb-20">
             <div class="flex align-item-center">
                 <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/gift@1x.png">

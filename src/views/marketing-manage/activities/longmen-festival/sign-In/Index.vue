@@ -1,6 +1,5 @@
 <template>
     <div class="newcomers-gift-list wrap">
-        <top-back />
         <div v-if="activeTab === 'GeneralList' || activeTab === 'GeneralSetting'" class="newcomers-list-header bg-white">
             <img class="mr-10 activity-icon" src="https://mallcdn.youpenglai.com/static/admall/2.9.0/longmen-sign.png">
             <span class="mr-10 font-weight-bold">端午佳话粽粽有礼</span>

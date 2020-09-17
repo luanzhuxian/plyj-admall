@@ -1,6 +1,5 @@
 <template>
     <div class="by-old-belt-new-activity">
-        <top-back />
         <div
             :class="$style.statusBar"
             v-show="$route.name !== 'AddByOldBeltNewActivity'"

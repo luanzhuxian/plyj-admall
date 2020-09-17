@@ -1,6 +1,5 @@
 <template>
     <div class="add-product">
-        <top-back />
         <div class="add-content">
             <el-form label-width="150px" :model="form" :rules="rules" ref="ruleForm" label-position="left" class="main-form">
                 <div class="content-title">

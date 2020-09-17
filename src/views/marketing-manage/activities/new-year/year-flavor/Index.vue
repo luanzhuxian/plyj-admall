@@ -1,6 +1,5 @@
 <template>
     <div class="newcomers-gift-list wrap">
-        <top-back />
         <div v-if="activeTab === 'YearFlavorList' || activeTab === 'YearFlavorSetting'" class="newcomers-list-header bg-white">
             <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.0.0/74b79faf-04ae-4507-ae69-85aa63391d4b.png">
             <span class="mr-10 font-weight-bold">我心中的年味</span>
