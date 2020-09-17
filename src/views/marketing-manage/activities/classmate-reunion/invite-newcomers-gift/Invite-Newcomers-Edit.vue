@@ -100,7 +100,8 @@ const setDefaultTime = () => {
     // 默认结束时间，默认不得小于当天23点
     START_TIME = moment().format('YYYY-MM-DD HH:mm:ss')
     END_TIME = `${ moment().format('YYYY-MM-DD') } 23:59:59`
-    if (moment(DEFAULT_TIME[0]).valueOf() < moment(START_TIME).valueOf()) { // 活动时间超出预设的时间后，向后延申
+    // 活动时间超出预设的时间后，向后延申
+    if (moment(DEFAULT_TIME[0]).valueOf() < moment(START_TIME).valueOf()) {
         DEFAULT_TIME[0] = moment(START_TIME).add(1, 'hour')
             .format('YYYY-MM-DD HH:mm:ss')
     }
@@ -179,7 +180,8 @@ export default {
         this.id = this.$route.params.id
         if (this.id) {
             this.init()
-        } else { // 再次编辑 + 复制都会进入if中，只有新加时会进入当前页
+        } else {
+            // 再次编辑 + 复制都会进入if中，只有新加时会进入当前页
             this.resetData()
         }
         this.$parent.showTop = false

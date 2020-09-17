@@ -4,20 +4,19 @@
         <SchemeLabel :class="$style.label" name="基础方案包" content="吸粉、老客带新客，提高下单转化率" />
         <div :class="$style.packageContainer">
             <SchemePack
-                :class="$style.package"
                 name="新人有礼"
                 desc="新人注册立享豪礼大礼包"
                 :count="activitiesInfo.helperActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新人有礼.png"
+                route-info="NewcomersGiftList"
             />
             <SchemePack
-                :class="$style.package"
                 name="公众号增粉"
                 desc="商城引导关注服务号"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公众号增粉.png"
+                route-info="MpWeixin"
             />
             <SchemePack
-                :class="$style.package"
                 name="组合聚惠学"
                 desc="组合商品打包售卖，立享优惠"
                 :expired="activitys.compound.status ? `${getDate(activitys.compound.createTime)}-${getDate(activitys.compound.validity)}` : ''"
@@ -25,9 +24,14 @@
                 :tags="['限']"
                 :is-lock="!activitys.compound.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png"
+                :route-info="{
+                    name: 'CoursePackage',
+                    params: {
+                        programId: '1'
+                    }
+                }"
             />
             <SchemePack
-                :class="$style.package"
                 name="秒杀"
                 desc="限时抢购，引导用户消费"
                 :expired="activitys.secondBuy.status ? `${getDate(activitys.secondBuy.data.createTime)}-${getDate(activitys.secondBuy.data.validity)}` : ''"
@@ -35,9 +39,14 @@
                 :tags="['限','新']"
                 :is-lock="!activitys.secondBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png"
+                :route-info="{
+                    name: 'SecondBuy',
+                    params: {
+                        programId: '3'
+                    }
+                }"
             />
             <SchemePack
-                :class="$style.package"
                 name="众志成团"
                 desc="微信裂变，快速引流"
                 :expired="activitys.togetherBuy.status ? `${getDate(activitys.togetherBuy.data.createTime)}-${getDate(activitys.togetherBuy.data.validity)}` : ''"
@@ -45,9 +54,14 @@
                 :tags="['限','新']"
                 :is-lock="!activitys.togetherBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+                :route-info="{
+                    name: 'NewYearTogetherBuy',
+                    params: {
+                        programId: '4'
+                    }
+                }"
             />
             <SchemePack
-                :class="$style.package"
                 name="预购"
                 desc="分批支付，提前享服务"
                 :expired="activitys.bookingBuy.status ? `${getDate(activitys.bookingBuy.data.createTime)}-${getDate(activitys.bookingBuy.data.validity)}` : ''"
@@ -55,9 +69,14 @@
                 :tags="['限','新']"
                 :is-lock="!activitys.bookingBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png"
+                :route-info="{
+                    name: 'NewYearBookingBuy',
+                    params: {
+                        programId: '5'
+                    }
+                }"
             />
             <SchemePack
-                :class="$style.package"
                 name="Helper活动"
                 desc="设置Helper返现活动"
                 :count="activitiesInfo.helperActivityCount"
@@ -65,21 +84,20 @@
                 route-info="MarketingHelper"
             />
             <SchemePack
-                :class="$style.package"
                 name="满减券"
                 desc="支持发放多种满减券，购买减免商品和课程金额"
                 :count="activitiesInfo.promptCouponActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/满减券.png"
+                route-info="ReductionCouponList"
             />
             <SchemePack
-                :class="$style.package"
                 name="品类券"
                 desc="支持发放多种品类券，购买减免商品和课程金额"
                 :count="activitiesInfo.categoryCouponActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                route-info="CategoryCouponList"
             />
             <SchemePack
-                :class="$style.package"
                 name="兑换码"
                 desc="支持多商品兑换，使用即可减免商品费用"
                 :expired="activitys.redeemCode.status ? `${getDate(activitys.redeemCode.data.createTime)}-${getDate(activitys.redeemCode.data.validity)}` : ''"
@@ -87,73 +105,94 @@
                 :tags="['限']"
                 :is-lock="!activitys.redeemCode.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                :route-info="{
+                    name: 'RedeemCode',
+                    params: {
+                        programId: '8'
+                    }
+                }"
             />
             <SchemePack
-                :class="$style.package"
                 name="粽粽有礼"
                 desc="粽行四海，端午安康"
                 :expired="activitys.dumplings.status ? `${getDate(activitys.dumplings.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.dragonBoatSigninActivityCount"
                 :is-lock="!activitys.dumplings.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                :route-info="{
+                    name: 'GeneralCoursePackage',
+                    params: {
+                        programId: '8'
+                    }
+                }"
             />
             <SchemePack
-                :class="$style.package"
                 name="公益行动"
                 desc="学子携手，贡献爱心"
                 :expired="activitys.benefit.status ? `${getDate(activitys.benefit.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.commonwealActivityCount"
                 :is-lock="!activitys.benefit.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                :route-info="{
+                    name: 'LongmenPublicBenefit',
+                    params: {
+                        programId: '6'
+                    }
+                }"
             />
             <SchemePack
-                :class="$style.package"
                 name="龙门抽大奖"
                 desc="抽奖嗨翻天"
                 :expired="activitys.LongmenLottery.status ? `${getDate(activitys.LongmenLottery.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.luckDrawActivityCount"
                 :is-lock="!activitys.LongmenLottery.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                :route-info="{
+                    name: 'LongmenLottery',
+                    params: {
+                        programId: '7'
+                    }
+                }"
             />
         </div>
         <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />
         <div :class="$style.packageContainer">
             <SchemePack
-                :class="$style.package"
                 name="赢取豪礼"
                 desc="邀请新用户助力，获得小礼品"
                 expired="2019.10.28-2020.01.31"
                 :count="activitiesInfo.invitingActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+                route-info="InviteNewcomersGiftList"
             />
             <SchemePack
-                :class="$style.package"
                 name="见学之旅"
                 desc="签到小活动，点亮赢大奖"
                 expired="2019.10.28-2020.01.31"
                 :count="activitiesInfo.checkinActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+                route-info="RoadLearningList"
             />
         </div>
         <SchemeLabel :class="$style.label" name="新春开学季" content="吸粉、老客带新客，提高下单转化率" />
         <div :class="$style.packageContainer">
             <SchemePack
-                :class="$style.package"
                 name="我心中的年味"
                 desc="获得我的年味，即可参与抽奖有机会获得年味大礼"
                 expired="2019.12.26-2020.04.30"
                 :count="activitiesInfo.signinActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/年味.png"
                 bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"
+                route-info="YearFlavor"
             />
             <SchemePack
-                :class="$style.package"
                 name="春耘计划"
                 desc="组合购买，打包商品享优惠"
                 expired="2019.12.26-2020.04.30"
                 :count="activitiesInfo.combinationActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/春耘.png"
                 bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"
+                route-info="SpringPloughing"
             />
         </div>
     </div>

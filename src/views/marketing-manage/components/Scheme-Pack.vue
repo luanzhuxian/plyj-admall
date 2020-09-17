@@ -41,6 +41,13 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
+interface RouteInfo {
+    params: {
+        programId: string;
+    };
+    [propName: string]: object | string;
+}
+
 @Component
 export default class SchemePack extends Vue {
     @Prop({
@@ -89,6 +96,11 @@ export default class SchemePack extends Vue {
     }) readonly count: string | number | undefined
 
     private target () {
+        const programId = (this.routeInfo as RouteInfo)?.params?.programId
+        const isLongmen = ['2', '6', '7'].includes(programId)
+
+        if (isLongmen) return this.$alert('龙门节专属活动，若要开通请联系城市经理或者客服')
+
         if (typeof this.routeInfo === 'string') {
             return this.$router.push({ name: this.routeInfo })
         }

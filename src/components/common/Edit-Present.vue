@@ -163,16 +163,26 @@ export default {
         return {
             form: {
                 checkinId: '',
-                giftBrief: '', // 礼品描述，string
-                giftImage: '', // 礼品图片
-                giftName: '', // 礼品名称
-                giftType: 0, // 0 - 奖品， 1- 安慰奖
-                id: '', // 只修改时需要传
-                stock: 1, // 库存，默认为1
-                salesVolume: '0', // 礼品领用量
-                status: 0, // 显示，默认为0，显示
-                useEndTime: '', // 使用截至时间
-                useStartTime: '' // 使用开始时间
+                // 礼品描述，string
+                giftBrief: '',
+                // 礼品图片
+                giftImage: '',
+                // 礼品名称
+                giftName: '',
+                // 0 - 奖品， 1- 安慰奖
+                giftType: 0,
+                // 只修改时需要传
+                id: '',
+                // 库存，默认为1
+                stock: 1,
+                // 礼品领用量
+                salesVolume: '0',
+                // 显示，默认为0，显示
+                status: 0,
+                // 使用截至时间
+                useEndTime: '',
+                // 使用开始时间
+                useStartTime: ''
             },
             imgArr: [],
             timeRange: [],
@@ -267,14 +277,22 @@ export default {
             //  清除数据
             this.form = {
                 checkinId: 0,
-                giftBrief: '', // 礼品描述，string
-                giftImage: '', // 礼品图片
-                giftName: '', // 礼品名称
-                giftType: 0, // 0 - 奖品， 1- 安慰奖
-                id: 0, // 只修改时需要传
-                stock: 1, // 库存，默认为1
-                useEndTime: '', // 使用截至时间
-                useStartTime: '', // 使用开始时间
+                // 礼品描述，string
+                giftBrief: '',
+                // 礼品图片
+                giftImage: '',
+                // 礼品名称
+                giftName: '',
+                // 0 - 奖品， 1- 安慰奖
+                giftType: 0,
+                // 只修改时需要传
+                id: 0,
+                // 库存，默认为1
+                stock: 1,
+                // 使用截至时间
+                useEndTime: '',
+                // 使用开始时间
+                useStartTime: '',
                 timeRange: ''
             }
             this.imgArr = []

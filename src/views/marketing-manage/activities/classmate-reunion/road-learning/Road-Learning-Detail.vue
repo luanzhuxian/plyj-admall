@@ -160,8 +160,10 @@ export default {
                 prizewinnerNum: 0,
                 // 活动状态
                 status: 0,
-                activityStartTime: '', // 活动开始时间
-                activityEndTime: '' // 活动结束时间
+                // 活动开始时间
+                activityStartTime: '',
+                // 活动结束时间
+                activityEndTime: ''
             },
             giftStatus: {
                 0: '未领取',
