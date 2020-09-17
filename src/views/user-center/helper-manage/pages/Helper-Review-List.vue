@@ -1,6 +1,6 @@
 <template>
     <div class="helper-list">
-        <el-tabs v-model="currentStatus" type="card" @tab-click="handleStatusClick">
+        <el-tabs :value="currentStatus" type="card" @tab-click="handleStatusClick">
             <el-tab-pane
                 v-for="item in statusMap"
                 :key="item.name"
@@ -52,9 +52,9 @@
                 批量通过
             </el-button>
         </div>
-
         <el-table
             @selection-change="selectionChange"
+            :key="currentStatus"
             :data="table"
         >
             <el-table-column
@@ -71,17 +71,30 @@
                             alt=""
                         >
                         <div>
-                            <div class="name">{{ row.userName }}</div>
-                            <ul class="tag" v-if="row.userTags.length < 3">
+                            <div class="name">
+                                {{ row.userName }}
+                                <div class="ml-10">
+                                    <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
+                                    <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                                </div>
+                            </div>
+                            <ul class="tag">
                                 <li v-for="(tag, k) in row.userTags" :key="k">
                                     {{ tag }}
                                 </li>
-                            </ul>
-                            <ul class="tag" v-else>
-                                <li v-for="(tag, k) in row.userTags" :key="k">
-                                    {{ tag }}
+                                <li v-if="row.userTags.length >= 3">
+                                    <el-popover
+                                        placement="bottom"
+                                        width="200"
+                                        trigger="hover">
+                                        <ul class="tag" slot="content">
+                                            <li v-for="(tag, k) in row.userTags" :key="k">
+                                                {{ tag }}
+                                            </li>
+                                        </ul>
+                                        更多
+                                    </el-popover>
                                 </li>
-                                <li>更多</li>
                             </ul>
                         </div>
                     </div>
@@ -91,33 +104,33 @@
             <el-table-column
                 prop="mobile"
                 label="手机（账户）"
-                width="150"
             />
             <el-table-column
-                prop="ownedUser"
                 label="所属账号"
-                width="240"
-            />
-            <el-table-column label="审核状态" width="100">
+            >
+                <template slot-scope="{row}">
+                    {{ row.ownedUser }}
+                    <span class="acc-label">{{ row.ownedRoleCode === 'ENTERPRISE_ADMIN' ? '企' : '高' }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column label="审核状态">
                 <template slot-scope="{row}">
                     <span v-if="row.auditStatus === 'AWAIT'">待审核</span>
                     <span v-else-if="row.auditStatus === 'PASS'">正常（已论证）</span>
                     <span v-else-if="row.auditStatus === 'REJECT'">驳回</span>
                 </template>
             </el-table-column>
-            <el-table-column label="申请时间" prop="applyTime" width="150" />
-            <el-table-column v-if="currentStatus !== 'AWAIT'" label="审核时间" prop="auditTime" width="150" />
+            <el-table-column label="申请时间" prop="applyTime" />
+            <el-table-column v-if="currentStatus !== 'AWAIT'" label="审核时间" prop="auditTime" />
             <el-table-column
                 v-if="currentStatus === 'REJECT'"
                 prop="reviewContent"
                 label="驳回理由"
-                width="150"
             />
             <el-table-column
                 label="操作"
                 align="right"
                 header-align="right"
-                width="150"
             >
                 <template slot-scope="{ row }">
                     <div class="action">
@@ -476,6 +489,7 @@ export default class HelperReviewList extends Vue {
             height: 20px;
             font-size: 14px;
             color: #333;
+            display: flex;
         }
         .tag{
             display: flex;
@@ -493,5 +507,16 @@ export default class HelperReviewList extends Vue {
         a{
             color: #4F63FF;
         }
+    }
+    .acc-label{
+        display: inline-block;
+        width: 18px;
+        text-align: center;
+        height: 18px;
+        line-height: 16px;
+        font-size: 12px;
+        color: #F79F1A;
+        border-radius: 5px;
+        border: 1px solid #F79F1A;
     }
 </style>

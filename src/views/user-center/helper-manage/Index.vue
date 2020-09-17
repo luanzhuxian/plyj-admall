@@ -1,13 +1,11 @@
 <template>
     <div class="wrap">
-        <el-tabs v-model="activeName" @tab-click="handleClick" v-if="$route.name !== 'HelperDetail'">
-            <el-tab-pane
-                v-for="item in tabs"
-                :key="item.name"
-                :label="item.title"
-                :name="item.name"
-            />
-        </el-tabs>
+        <pl-tabs
+            v-if="$route.name !== 'HelperDetail'"
+            :value="activeName"
+            :tabs="tabs"
+            @tabClick="handleClick"
+        />
         <!-- 空的路由入口，仅作为导航 -->
         <router-view />
     </div>
@@ -20,17 +18,21 @@ import { Vue, Component } from 'vue-property-decorator'
 export default class HelperManage extends Vue {
   tabs = [{
       name: 'HelperManageList',
-      title: 'Helper管理'
+      label: 'Helper管理'
   },
   {
       name: 'HelperReviewList',
-      title: 'Helper审核'
+      label: 'Helper审核'
   }]
 
-    activeName = this.$route.name
+    activeName = ''
 
-    handleClick () {
-        this.$router.push({ name: this.activeName })
+    created () {
+        this.activeName = this.$route.name
+    }
+
+    handleClick (e) {
+        this.$router.push({ name: e.name })
     }
 }
 </script>

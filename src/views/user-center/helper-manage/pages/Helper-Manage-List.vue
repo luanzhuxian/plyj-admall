@@ -104,17 +104,30 @@
                             alt=""
                         >
                         <div>
-                            <div class="name">{{ row.userName }}</div>
-                            <ul class="tag" v-if="row.userTags.length < 3">
+                            <div class="name">
+                                {{ row.userName }}
+                                <div class="ml-10">
+                                    <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
+                                    <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                                </div>
+                            </div>
+                            <ul class="tag">
                                 <li v-for="(tag, k) in row.userTags" :key="k">
                                     {{ tag }}
                                 </li>
-                            </ul>
-                            <ul class="tag" v-else>
-                                <li v-for="(tag, k) in row.userTags" :key="k">
-                                    {{ tag }}
+                                <li v-if="row.userTags.length >= 3">
+                                    <el-popover
+                                        placement="bottom"
+                                        width="200"
+                                        trigger="hover">
+                                        <ul class="tag" slot="content">
+                                            <li v-for="(tag, k) in row.userTags" :key="k">
+                                                {{ tag }}
+                                            </li>
+                                        </ul>
+                                        更多
+                                    </el-popover>
                                 </li>
-                                <li>更多</li>
                             </ul>
                         </div>
                     </div>
@@ -126,9 +139,13 @@
                 label="手机（账户）"
             />
             <el-table-column
-                prop="ownedUser"
                 label="所属账号"
-            />
+            >
+                <template slot-scope="{row}">
+                    {{ row.ownedUser }}
+                    <span class="acc-label">{{ row.ownedRoleCode === 'ENTERPRISE_ADMIN' ? '企' : '高' }}</span>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="lastLoginTime"
                 label="最近登录时间"
@@ -471,6 +488,7 @@ export default class HelperManageList extends Vue {
         height: 20px;
         font-size: 14px;
         color: #333;
+        display: flex;
     }
     .tag{
         display: flex;
@@ -489,4 +507,15 @@ export default class HelperManageList extends Vue {
         color: #4F63FF;
     }
 }
+    .acc-label{
+        display: inline-block;
+        width: 18px;
+        text-align: center;
+        height: 18px;
+        line-height: 16px;
+        font-size: 12px;
+        color: #F79F1A;
+        border-radius: 5px;
+        border: 1px solid #F79F1A;
+    }
 </style>

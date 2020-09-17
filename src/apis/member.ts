@@ -37,7 +37,7 @@ export const relieveHelper = (ids: any) => axios.post('/apis/v2/helper/demote', 
 export const relieveHelperBatched = (ids: any) => axios.post('/apis/v2/helper/demote', ids)
 
 /* helper所属账号变更 */
-export const changeHelpersAccount = ({ ownerUserId, userId }: any) => axios.put(`/apis/v2/helper/audit/${ ownerUserId }`, { userId })
+export const changeHelpersAccount = ({ ownerUserId, userId }: any) => axios.put(`/apis/v2/helper/audit/${ ownerUserId }`, userId)
 
 /* 修改经纪人审核状态 */
 export const updateBrokerStatus = ({ ids, status, reviewContent }: any) => axios.post('/apis/v2/helper/audit', { ids, status, reviewContent })
