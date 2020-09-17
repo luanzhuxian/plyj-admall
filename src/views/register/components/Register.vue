@@ -44,7 +44,7 @@
             </el-form>
 
             <el-checkbox v-model="agree">
-                我已阅读并同意<span style="color: #4F63FF">《朋来雅集服务协议》</span>
+                我已阅读并同意<span @click="showAgreement = true" style="color: #4F63FF">《朋来雅集服务协议》</span>
             </el-checkbox>
             <el-button
                 size="large"
@@ -62,6 +62,7 @@
             <!--                <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>-->
             <!--            </el-button>-->
         </div>
+        <Agreement :show.sync="showAgreement" type="1" />
     </div>
 </template>
 
@@ -69,11 +70,16 @@
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
+import Agreement from '../../../components/register/Agreement'
 import { Getter, namespace } from 'vuex-class'
 // import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
 
-    @Component
+    @Component({
+        components: {
+            Agreement
+        }
+    })
 export default class Register extends Vue {
         testConfirmPassword = (rule: any, value: any, callback: Function) => {
             if (this.form.password !== value) {
@@ -83,6 +89,7 @@ export default class Register extends Vue {
             }
         }
 
+        showAgreement= false
         form = {
             bindPhone: '',
             verifyCode: '',
@@ -94,7 +101,7 @@ export default class Register extends Vue {
 
         codeForm = {
             mobile: '',
-            smsType: 'AGENT_USER_LOGIN' as SmsType
+            smsType: 'AGENCY_MOBILE_REGISTER' as SmsType
         }
 
         agree = false
@@ -133,6 +140,8 @@ export default class Register extends Vue {
         time = 60
         timer: any = null
         loading = false
+        @userModule.Getter('codePass') codePass!: boolean
+        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('register') register!: (form: Record<string, any>) => void
         @Getter smsType!: string[]
 
@@ -141,14 +150,27 @@ export default class Register extends Vue {
             return true
         }
 
+        @Emit('codeShowFoo')
+        codeShowFoo (type: boolean) {
+            return type
+        }
+
+        mounted (): void {
+            this.setCodePass(false)
+        }
+
         async getCode () {
-            if (this.getCodeing) return
-            clearInterval(this.timer)
             let validateField = true
             await (this.$refs.form as HTMLFormElement).validateField('bindPhone', (mobileError: any) => {
                 if (mobileError) validateField = false
             })
             if (!validateField) return
+            if (!this.codePass) {
+                this.codeShowFoo(true)
+                return
+            }
+            if (this.getCodeing) return
+            clearInterval(this.timer)
             this.codeForm.mobile = this.form.bindPhone
             await getVerifyCodeFunc(this.codeForm)
             this.getCodeing = true

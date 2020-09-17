@@ -93,12 +93,12 @@ export default class PasswordLogin extends Vue {
     async login (formName: string) {
         // 防止连续敲击回车
         if (this.loading) return
-        if (!this.codePass) {
-            this.codeShowFoo(true)
-            return
-        }
         try {
             await (this.$refs[formName] as HTMLFormElement).validate()
+            if (!this.codePass) {
+                this.codeShowFoo(true)
+                return
+            }
             this.loading = true
             await this.LOGIN(this.form)
             this.emitLogin()

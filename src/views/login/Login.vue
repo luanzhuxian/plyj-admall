@@ -86,6 +86,9 @@ export default class Login extends Vue {
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
     @Watch('$route.name')
+    routeFoo (val: string) {
+        return val
+    }
 
     codeShowFoo (e: boolean) {
         console.log(e)

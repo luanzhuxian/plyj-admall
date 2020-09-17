@@ -97,17 +97,17 @@ export default class PhoneLogin extends Vue {
         }
 
         async getCode () {
+            let validateField = true
+            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
+                if (mobileError) validateField = false
+            })
+            if (!validateField) return
             if (!this.codePass) {
                 this.codeShowFoo(true)
                 return
             }
             if (this.getCodeing) return
             clearInterval(this.timer)
-            let validateField = true
-            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
-                if (mobileError) validateField = false
-            })
-            if (!validateField) return
             this.codeForm.mobile = this.form.mobile
             await getVerifyCodeFunc(this.codeForm)
             this.getCodeing = true
