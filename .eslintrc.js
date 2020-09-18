@@ -97,7 +97,8 @@ module.exports = {
     'brace-style': "error",
     'no-else-return': 'error',
     'no-underscore-dangle': 'error',
-    'vue/no-mutating-props': 'off'
+    'vue/no-mutating-props': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off'
   },
 
   // 优先使用vue强烈推荐的配置和标准配置，其余配置在rules中修改

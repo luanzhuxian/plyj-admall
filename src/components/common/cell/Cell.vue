@@ -40,45 +40,45 @@ import { Location } from 'vue-router'
 
 @Component
 export default class Cell extends Vue {
-        // props
-        @Prop(String) private customClass!: string
-        @Prop([String, Number]) private title!: string | number
-        @Prop([String, Number]) private value!: string | number
-        @Prop(Object) private titleClass!: object
-        @Prop(Object) private titleStyle!: object
-        @Prop({
-            type: Object,
-            required: false,
-            default () {
-                return {}
-            }
-        }) private valueClass!: object
-
-        @Prop(Object) private valueStyle!: object
-        // @Prop(String) private icon: string,
-        @Prop(String) private size!: string
-        @Prop(Boolean) private center!: boolean
-        @Prop(Boolean) private border!: boolean
-        @Prop(Boolean) private isLink!: boolean
-        @Prop(String) private arrowDirection!: string
-        @Prop(String) private url!: string
-        @Prop() private to!: Location
-
-        // computed
-        get showTitle (): boolean {
-            return !!this.title || !!this.$slots.title
+    /* props */
+    @Prop(String) private customClass!: string
+    @Prop([String, Number]) private title!: string | number
+    @Prop([String, Number]) private value!: string | number
+    @Prop(Object) private titleClass!: object
+    @Prop(Object) private titleStyle!: object
+    @Prop({
+        type: Object,
+        required: false,
+        default () {
+            return {}
         }
+    }) private valueClass!: object
 
-        get showValue (): boolean {
-            return !!this.value || !!this.$slots.default
-        }
+    @Prop(Object) private valueStyle!: object
+    // @Prop(String) private icon: string,
+    @Prop(String) private size!: string
+    @Prop(Boolean) private center!: boolean
+    @Prop(Boolean) private border!: boolean
+    @Prop(Boolean) private isLink!: boolean
+    @Prop(String) private arrowDirection!: string
+    @Prop(String) private url!: string
+    @Prop() private to!: Location
 
-        // methods
+    /* computed */
+    get showTitle (): boolean {
+        return !!this.title || !!this.$slots.title
+    }
 
-        @Emit('click')
-        // eslint-disable-next-line
-        onClick (event: Event) {
-        }
+    get showValue (): boolean {
+        return !!this.value || !!this.$slots.default
+    }
+
+    /* methods */
+
+    @Emit('click')
+    // eslint-disable-next-line
+    onClick (event: Event) {
+    }
 }
 </script>
 

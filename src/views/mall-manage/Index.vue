@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="wrap mall-manage">
         <pl-tabs
             :tabs="tabs"
             :value="currentTab"
@@ -56,5 +56,8 @@ export default class MallManage extends Vue {
 </script>
 
 <style lang="scss">
+.mall-manage {
+    min-height: calc(100vh - 110px);
+}
 
 </style>

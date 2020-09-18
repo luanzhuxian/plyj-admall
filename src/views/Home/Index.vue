@@ -271,7 +271,7 @@ const functionsPanelTmpl = [
     }
 })
 export default class Home extends Vue {
-    // data
+    /* data */
     private functionsPanelTmpl = Object.freeze(functionsPanelTmpl)
     private homeInfo = {}
     // 通知消息
@@ -289,7 +289,7 @@ export default class Home extends Vue {
         verifyCode: ''
     }
 
-    // computed
+    /* computed */
     @user.Getter agencyCode!: string
     @user.Getter auditStatus!: string
     @user.Getter mallNumber!: string
@@ -336,7 +336,7 @@ export default class Home extends Vue {
         }
     }
 
-    // methods
+    /* methods */
     @user.Action [AGENCY_USER_INFO]: () => void
 
     // 获取送课的资源

@@ -23,8 +23,8 @@ export const isBindMobile = () => axios.get('/apis/v1/base/baseUserInfo/isBindMo
 /**
  * 绑定管理员手机号
  * @param {object} data
- * @property data.mobile 绑定的手机号
- * @property data.verifyCode 验证码
+ * @property {string} data.mobile 绑定的手机号
+ * @property {string} data.verifyCode 验证码
  */
 export const modifyMobile = (data: { mobile: string; verifyCode: string }) => axios.put('/apis/v1/base/baseUserInfo/modifyMobile', data)
 

@@ -29,7 +29,7 @@ import { Location } from 'vue-router'
     }
 })
 export default class Panel extends Vue {
-    // props
+    /* props */
     @Prop(String) private customClass!: string
     // @Prop(String) private icon!: string
     @Prop(String) private title!: string
@@ -39,7 +39,7 @@ export default class Panel extends Vue {
     @Prop(String) private linkTarget!: string
     @Prop() private to!: Location
 
-    // methods
+    /* methods */
     @Emit('click')
     onClick (event: Event) {
         const { isLink, linkTarget, to } = this

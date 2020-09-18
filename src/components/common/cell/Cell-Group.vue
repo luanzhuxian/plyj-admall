@@ -16,12 +16,12 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class CellGroup extends Vue {
-    // props
+    /* props */
     @Prop(String) private customClass!: string
     @Prop(String) private title!: string
     @Prop(Boolean) private border!: boolean
 
-    // computed
+    /* computed */
     get showTitle (): boolean {
         return !!this.title || !!this.$slots.title
     }
