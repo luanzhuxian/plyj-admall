@@ -41,28 +41,28 @@ import { Location } from 'vue-router'
 @Component
 export default class Cell extends Vue {
     /* props */
-    @Prop(String) private customClass!: string
-    @Prop([String, Number]) private title!: string | number
-    @Prop([String, Number]) private value!: string | number
-    @Prop(Object) private titleClass!: object
-    @Prop(Object) private titleStyle!: object
+    @Prop(String) readonly customClass!: string
+    @Prop([String, Number]) readonly title!: string | number
+    @Prop([String, Number]) readonly value!: string | number
+    @Prop(Object) readonly titleClass!: object
+    @Prop(Object) readonly titleStyle!: object
     @Prop({
         type: Object,
         required: false,
         default () {
             return {}
         }
-    }) private valueClass!: object
+    }) readonly valueClass!: object
 
-    @Prop(Object) private valueStyle!: object
-    // @Prop(String) private icon: string,
-    @Prop(String) private size!: string
-    @Prop(Boolean) private center!: boolean
-    @Prop(Boolean) private border!: boolean
-    @Prop(Boolean) private isLink!: boolean
-    @Prop(String) private arrowDirection!: string
-    @Prop(String) private url!: string
-    @Prop() private to!: Location
+    @Prop(Object) readonly valueStyle!: object
+    // @Prop(String) readonly icon: string,
+    @Prop(String) readonly size!: string
+    @Prop(Boolean) readonly center!: boolean
+    @Prop(Boolean) readonly border!: boolean
+    @Prop(Boolean) readonly isLink!: boolean
+    @Prop(String) readonly arrowDirection!: string
+    @Prop(String) readonly url!: string
+    @Prop() readonly to!: Location
 
     /* computed */
     get showTitle (): boolean {

@@ -33,17 +33,17 @@ import moment from 'moment'
 
 @Component
 export default class ModalTimeSetting extends Vue {
-    // props
-    @Prop(Boolean) private show!: boolean
+    /* props */
+    @Prop(Boolean) readonly show!: boolean
 
-    // data
+    /* data */
     isShow = false
     isAlertShow = false
     time = ''
     resolve!: (value?: unknown) => void
     reject!: (value?: unknown) => void
 
-    // watch
+    /* watch */
     @Watch('show')
     onChange (val: boolean) {
         this.isShow = val
@@ -53,7 +53,7 @@ export default class ModalTimeSetting extends Vue {
         }
     }
 
-    // methods
+    /* methods */
     onShow () {
         this.isShow = true
         return new Promise((resolve, reject) => {

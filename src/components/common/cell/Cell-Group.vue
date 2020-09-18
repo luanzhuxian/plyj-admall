@@ -17,9 +17,9 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 @Component
 export default class CellGroup extends Vue {
     /* props */
-    @Prop(String) private customClass!: string
-    @Prop(String) private title!: string
-    @Prop(Boolean) private border!: boolean
+    @Prop(String) readonly customClass!: string
+    @Prop(String) readonly title!: string
+    @Prop(Boolean) readonly border!: boolean
 
     /* computed */
     get showTitle (): boolean {

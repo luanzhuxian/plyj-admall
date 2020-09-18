@@ -30,14 +30,14 @@ import { Location } from 'vue-router'
 })
 export default class Panel extends Vue {
     /* props */
-    @Prop(String) private customClass!: string
-    // @Prop(String) private icon!: string
-    @Prop(String) private title!: string
-    @Prop(String) private value!: string
-    @Prop(Boolean) private border!: boolean
-    @Prop(Boolean) private isLink!: boolean
-    @Prop(String) private linkTarget!: string
-    @Prop() private to!: Location
+    @Prop(String) readonly customClass!: string
+    // @Prop(String) readonly icon!: string
+    @Prop(String) readonly title!: string
+    @Prop(String) readonly value!: string
+    @Prop(Boolean) readonly border!: boolean
+    @Prop(Boolean) readonly isLink!: boolean
+    @Prop(String) readonly linkTarget!: string
+    @Prop() readonly to!: Location
 
     /* methods */
     @Emit('click')
