@@ -16,7 +16,13 @@
             </div>
         </div>
         <div :class="$style.menu">
-            <div :class="$style.menuTitle">云课堂</div>
+            <div
+                @click="target({ route: 'LineTeaching' })"
+                :class="{
+                    [$style.menuTitle]: true,
+                    [$style.isActive]: activeRoute === 'LineTeaching'
+                }"
+            >云课堂</div>
             <div
                 @click="target(item)"
                 :class="{
@@ -69,8 +75,8 @@ export default class OnlineTeachingNavBar extends Vue {
         }
     ]
 
-    private target ({ name, route }: MenuItem) {
-        this.activeRoute = route
+    private target ({ route: name }: MenuItem) {
+        this.activeRoute = name
         this.$router.push({ name })
     }
 }
@@ -122,6 +128,14 @@ export default class OnlineTeachingNavBar extends Vue {
         > .menu-title {
             margin-top: 34px;
             padding: 6px 20px;
+            cursor: pointer;
+            &:hover {
+                color: #4f63ff;
+                background-color: #f5f6fa;
+                &:before {
+                    background-color: #4f63ff;
+                }
+            }
         }
         > .menu-item {
             padding: 10px 20px;

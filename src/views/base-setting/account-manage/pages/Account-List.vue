@@ -48,12 +48,12 @@
                         </el-tooltip>
                         <span style="font-size: 12px; color: #999999">至多可设置4个超高级管理员</span>
                     </div>
-                    <div :class="$style.progressBox">
-                        <div :class="$style.progress">
-                            <div :class="$style.bar" :style="{ width: `${currentCount / maxCount * 100}%` }" />
-                        </div>
-                        <div>{{ currentCount }}/{{ maxCount }}</div>
-                    </div>
+                    <Progress
+                        :percentage="currentCount / maxCount * 100"
+                        :show-text="true"
+                        :text="`${currentCount}/${maxCount}`"
+                        style="margin-top: 18px"
+                    />
                 </div>
             </div>
         </div>
@@ -270,6 +270,7 @@ import {
     downgradeAccount,
     editAccount
 } from '../../../../apis/account'
+import Progress from './../components/Progress.vue'
 
 interface AccountData {
     searchContent: string;
@@ -296,7 +297,11 @@ class Account implements AccountData {
   }
 }
 
-@Component
+@Component({
+    components: {
+        Progress
+    }
+})
 export default class AccountList extends Vue {
     @user.Getter userId!: string;
     @user.Getter currentRoleCode!: string;
@@ -523,7 +528,7 @@ export default class AccountList extends Vue {
 </script>
 
 <style lang="scss" module>
-  .account-manage{
+.account-manage {
     .desc-tip {
         display: inline-block;
         margin: 0 20px 0 10px;
@@ -532,8 +537,8 @@ export default class AccountList extends Vue {
         border-radius: 50%;
         font-size: 12px;
         text-align: center;
-        color: #FFFFFF;
-        background-color: #999999;
+        color: #fff;
+        background-color: #999;
         cursor: pointer;
     }
     > .account-info {
@@ -547,7 +552,7 @@ export default class AccountList extends Vue {
             > .desc {
                 margin-left: 20px;
                 font-size: 12px;
-                color: #999999;
+                color: #999;
             }
         }
         > .content {
@@ -564,28 +569,10 @@ export default class AccountList extends Vue {
                         > .tip {
                             margin-left: 12px;
                             padding: 3px 5px;
-                            border: 1px solid #4F63FF;
+                            border: 1px solid #4f63ff;
                             border-radius: 2px;
                             font-size: 12px;
-                            color: #4F63FF;
-                        }
-                    }
-                }
-                > .progress-box {
-                    display: flex;
-                    align-items: center;
-                    margin-top: 18px;
-                    font-size: 12px;
-                    > .progress {
-                        width: 200px;
-                        height: 4px;
-                        margin-right: 10px;
-                        border-radius: 20px;
-                        background-color: #F5F6FA;
-                        > .bar {
-                            height: 100%;
-                            border-radius: 20px;
-                            background-color: #4F63FF;
+                            color: #4f63ff;
                         }
                     }
                 }
@@ -600,5 +587,6 @@ export default class AccountList extends Vue {
             margin-left: 12px;
         }
     }
-  }
+}
+
 </style>
