@@ -351,8 +351,9 @@ export default class MallMain extends Vue {
             const { pass, errMsg } = await validatorProducer(result.type, moduleModels).validate()
 
             if (pass === true) {
-                const result = await this.$refs.modal.onShow()
-                if (result) {
+                const modal = this.$refs.modal as ModalTimeSetting
+                const result = await modal.onShow()
+                if (typeof result === 'string') {
                     await updateTemplateStatus({ id, type, status: 1, upShelf: result })
                     this.$success('设置成功')
                     this.getDraft()

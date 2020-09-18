@@ -61,7 +61,7 @@ export default {
         event: 'change'
     },
     methods: {
-        change (item, i) {
+        change (item) {
             if (this.currentItem !== item) {
                 this.descending = true
             }
