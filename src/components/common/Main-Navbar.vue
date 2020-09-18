@@ -121,7 +121,7 @@
                     <el-menu-item index="/base-setting/shop-info/set">店铺信息</el-menu-item>
                     <el-menu-item index="/base-setting/wechat/bind">公众号服务</el-menu-item>
                     <el-menu-item index="/base-setting/logistics/postage">物流设置</el-menu-item>
-                    <el-menu-item index="7-5">我订购的服务</el-menu-item>
+                    <el-menu-item index="/base-setting/subscription-service">我订购的服务</el-menu-item>
                 </el-submenu>
                 <!--<el-menu-item index="8">
                     <h2 :class="$style.title">
