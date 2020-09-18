@@ -392,7 +392,7 @@
 
 <script>
 import moment from 'moment/moment'
-import ProductSelector from '../../../../components/goods/Product-Checkbox.vue'
+import ProductSelector from '../../../../components/product-center/goods/Product-Checkbox.vue'
 import Preview from '../../../../components/common/Preview.vue'
 import { copyFields, resetForm } from '../../../../assets/ts/utils'
 import {

@@ -14,9 +14,9 @@ export const validateURL = (text: string) => {
 export const validateStr = (str: string) => /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(str)
 
 // 姓名检查
-export const isName = (name: string) => {
-    if (codePointNo(name) <= 20) {
-        return /^[a-zA-Z_\u4e00-\u9fa5\\-]{2,20}$/.test(name)
+export const isName = (len: number, name: string) => {
+    if (name.length <= len) {
+        return /^[a-zA-Z_\u4e00-\u9fa5\\-]+$/.test(name)
     }
     return false
 }
@@ -48,7 +48,11 @@ export const validatAlphabets = (str: string) => /^[A-Za-z]+$/.test(str)
 // 校验手机号和固定电话
 export const isTelNumber = (str: string) => /^(1[0-9]{10})$|^(\d{10})$|^(\d{3}-)(\d{8})$|^(\d{4}-)(\d{7})$|^(\d{4}-)(\d{8})$/.test(str)
 
+// 校验手机号
 export const isPhone = (val: string) => /^1[0-9]{10}$/.test(val)
+
+// 校验座机号
+export const isLandlinePhone = (val: string) => /^[0][1-9]{2,3}-[0-9]{5,10}$/.test(val)
 
 // 校验快递单号
 export const isExpressNumber = (str: string) => /^[0-9a-zA-Z]+$/.test(str)
@@ -118,7 +122,7 @@ export const isAccount = (val: string) => /^[\da-zA-Z_@.]{6,50}$/.test(val)
 // 判断统一社会信用编码
 export const isCreditNumber = (code: string) => /^([a-zA-Z0-9]{13}|[a-zA-Z0-9]{15}|[a-zA-Z0-9]{18})$/.test(code)
 
-/* 适用于element-ui 表单组件验证的方法 */
+/* ******************** 适用于element-ui 表单组件验证的方法 ******************** */
 export const testPhone = (rule: any, value: any, callback: Function) => {
     if (!isPhone(value)) {
         callback(new Error(rule.message))
@@ -127,9 +131,16 @@ export const testPhone = (rule: any, value: any, callback: Function) => {
     }
 }
 
-/* 适用于element-ui 表单组件验证的方法 */
-export const testName = (rule: any, value: any, callback: Function) => {
-    if (!isName(value)) {
+export const testLandlinePhone = (rule: any, value: any, callback: Function) => {
+    if (!isLandlinePhone(value)) {
+        callback(new Error(rule.message))
+    } else {
+        callback()
+    }
+}
+
+export const testName = (len: number) => function (rule: any, value: any, callback: Function) {
+    if (!isName(len, value)) {
         callback(new Error(rule.message))
     } else {
         callback()

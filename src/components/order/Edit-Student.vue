@@ -59,7 +59,7 @@ export default {
                 ],
                 userName: [
                     { required: true, message: '姓名不能为空', trigger: 'blur' },
-                    { validator: testName, message: '请输入正确的2~20位中英文姓名', trigger: 'blur' }
+                    { validator: testName(20), message: '请输入正确的2~20位中英文姓名', trigger: 'blur' }
                 ]
             }
         }

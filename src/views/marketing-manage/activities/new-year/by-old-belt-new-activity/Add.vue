@@ -123,7 +123,7 @@
 
 <script>
 import Ladder from './components/Ladder.vue'
-import ProductCheckbox from '../../../../../components/goods/Product-Checkbox.vue'
+import ProductCheckbox from '../../../../../components/product-center/goods/Product-Checkbox.vue'
 export default {
     name: 'AddByOldBeltNewActivity',
     components: {

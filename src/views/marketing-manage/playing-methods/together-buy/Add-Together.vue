@@ -258,8 +258,8 @@
 </template>
 
 <script>
-import GoodsPreview from '../../../../components/goods/Goods-Preview'
-import ProductSelector from '../../../../components/goods/Product-Radio.vue'
+import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview'
+import ProductSelector from '../../../../components/product-center/goods/Product-Radio.vue'
 import { getSingleGoods } from '../../../../apis/goods'
 import { goPage } from '../../../../assets/ts/utils'
 import { createTogetherActivity, updateTogetherActivity, togetherActivityDetail, getUserTagList } from '../../../../apis/marketing-manage/together'

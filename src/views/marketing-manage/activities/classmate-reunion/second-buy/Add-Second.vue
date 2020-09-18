@@ -150,8 +150,8 @@
 </template>
 
 <script>
-import GoodsPreview from '../../../../../components/goods/Goods-Preview'
-import ProductRadio from '../../../../../components/goods/Product-Radio.vue'
+import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview'
+import ProductRadio from '../../../../../components/product-center/goods/Product-Radio.vue'
 import { getSingleGoods } from '../../../../../apis/goods'
 import {
     createSecondActivity,

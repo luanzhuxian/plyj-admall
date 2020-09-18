@@ -221,8 +221,8 @@
 </template>
 
 <script>
-import UploadImage from '../file/Image-Manager.vue'
-import { isMoney, isPositiveInteger, isVolume } from '../../assets/ts/validate'
+import UploadImage from '../../file/Image-Manager.vue'
+import { isMoney, isPositiveInteger, isVolume } from '../../../assets/ts/validate'
 import { mapGetters } from 'vuex'
 export default {
     name: 'SkuTable',
@@ -276,7 +276,7 @@ export default {
     },
     watch: {
         productType: {
-            handler (val) {
+            handler () {
                 if (this.productType !== 'PHYSICAL_GOODS') {
                     delete this.batchSet.weight
                     delete this.batchSet.volume
