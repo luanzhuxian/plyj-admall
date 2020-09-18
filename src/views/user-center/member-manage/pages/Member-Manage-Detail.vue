@@ -323,7 +323,7 @@
                         >
                             <template slot="empty">
                                 <div class="no-data">
-                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
                                     <p>请点击查询，查看用户更多数据~</p>
                                 </div>
                             </template>
@@ -449,7 +449,7 @@
                         >
                             <template slot="empty">
                                 <div class="no-data">
-                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
                                     <p>请点击查询，查看用户更多数据~</p>
                                 </div>
                             </template>
@@ -581,7 +581,7 @@
                         >
                             <template slot="empty">
                                 <div class="no-data">
-                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
                                     <p>请点击查询，查看用户更多数据~</p>
                                 </div>
                             </template>
@@ -709,7 +709,7 @@
                         >
                             <template slot="empty">
                                 <div class="no-data">
-                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
                                     <p>请点击查询，查看用户更多数据~</p>
                                 </div>
                             </template>
@@ -785,7 +785,7 @@
                         >
                             <template slot="empty">
                                 <div class="no-data">
-                                    <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
                                     <p>该会员还没有备注哦</p>
                                 </div>
                             </template>

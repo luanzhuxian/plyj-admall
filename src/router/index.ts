@@ -5,8 +5,6 @@ import NProgress from 'nprogress'
 import Cookie from './../assets/ts/storage-cookie'
 import qs from 'qs'
 // import NotFound from '../views/404.vue'
-
-import Home from '../views/Home/Index.vue'
 import { importFiles } from './../assets/ts/utils'
 
 // 无需登录就可以看到的页面
@@ -74,7 +72,7 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home,
+        component: () => import('../views/Home/Index.vue'),
         meta: {
             title: '首页'
         }

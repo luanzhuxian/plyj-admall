@@ -161,7 +161,7 @@ export default class RegisterIndex extends Vue {
             sessionStorage.removeItem('login_state')
         }
 
-        beforeRouteLeave (to, from, next): void {
+        beforeRouteLeave (to: any, from: any, next: any): void {
             this.toName = to.name
             next()
         }

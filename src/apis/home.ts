@@ -61,4 +61,4 @@ export const getMainCategories = () => axios.get('/apis/v2/mall/category/list')
  * @param province {string} 省code
  * @returns {Promise<AxiosResponse<T>>}
  */
-export const getConsultantList = (province: string) => axios.get(`/apis/v2/base/baseMall/consultant/list?province=${ province }`)
+export const getConsultantList = (province: string) => axios.get(`/apis/v2/mall/consultant/list?province=${ province }`)

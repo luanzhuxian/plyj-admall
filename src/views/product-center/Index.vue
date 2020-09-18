@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="$style.productCenter">
         <router-view />
     </div>
 </template>
@@ -15,5 +15,7 @@ export default class ProductCenter extends Vue {
 </script>
 
 <style module lang="scss">
-
+    .productCenter {
+        height: 100%;
+    }
 </style>

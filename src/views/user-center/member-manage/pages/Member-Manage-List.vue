@@ -151,18 +151,16 @@
                 </div>
                 <div
                     @click.stop="getMemberListByTag(0)"
-                    :class="{'tag-list-options0':true, 'background-color-grey': form.tagId === 0}"
+                    :class="{'tag-list-options':true, 'background-color-grey': form.tagId === 0}"
                 >
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-dir-close" />
-                    </svg>
                     未设置标签({{ notSetTageUserCount }})
                 </div>
-                <pl-Tree
+                <pl-tree
                     class="tag-list-options"
                     @node-click="treeClick"
                     @change="treeSort"
                     :tree="tagList"
+                    :allow-expand="false"
                     ref="tree"
                     :has-left-icon="false"
                     :options="{
@@ -192,7 +190,7 @@
                             </el-tooltip>
                         </div>
                     </template>
-                </pl-Tree>
+                </pl-tree>
 
                 <div class="category-drop-tip">
                     <i>（拖动即可调整同级分类的顺序）</i>
@@ -212,7 +210,7 @@
                 >
                     <template slot="empty">
                         <div class="no-data">
-                            <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
+                            <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
                             <p>{{ userCount ? '暂无数据' : '还没有新注册的用户哦' }}~</p>
                         </div>
                     </template>
@@ -398,7 +396,7 @@ import { Vue, Component } from 'vue-property-decorator'
 
 import Pagination from '../../../../components/common/Pagination'
 import ExportDialog from '../../../../components/common/Export-Dialog'
-import PlTree from '../../../../components/pl-tree'
+import PlTree from '../../../../components/common/pl-tree'
 import EditMemberTag from '../components/Edit-Member-Tag'
 import AddTags from '../components/Add-Tags'
 import RemarkList from '../components/Remark-List'
@@ -763,7 +761,7 @@ export default class MemberManageList extends Vue {
 .member-manage-list {
     .data {
         font-size: 16px;
-        color: #333;
+        color: #333333;
         .data-list {
             display: flex;
             margin: 20px 0 33px;
@@ -788,7 +786,7 @@ export default class MemberManageList extends Vue {
         width: 260px;
         height: calc(100vh - 80px);
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-        background-color: #f5f5f5;
+        background-color: #F5F5F5;
         overflow: auto;
 
         .tag-list-top {
@@ -821,20 +819,8 @@ export default class MemberManageList extends Vue {
             }
         }
 
-        .tag-list-options0 {
-            position: relative;
-            line-height: 50px;
-            padding-left: 20px;
-            font-size: var(--fontSize);
-            color: #333;
-            font-weight: bold;
-            user-select: none;
-            height: 50px;
-            svg {
-                width: 25px;
-                height: 18px;
-                vertical-align: middle;
-            }
+        .tag-list-options {
+            padding-left: 8px;
         }
 
         .tag-list-options {
@@ -861,8 +847,8 @@ export default class MemberManageList extends Vue {
             margin-top: 50px;
             padding: 100px 20px 0;
             text-align: center;
-            color: #4c88d6;
-            background: transparent url('https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png') center top/65px auto no-repeat;
+            color: #4C88D6;
+            background:  transparent url("https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png") center top/65px auto no-repeat;
         }
     }
 
@@ -870,13 +856,13 @@ export default class MemberManageList extends Vue {
         width: calc(100% - 260px);
         min-height: calc(100vh - 110px);
         padding-bottom: 30px;
-        background-color: #fff;
+        background-color: #ffffff;
         .multiple-selection {
             padding-left: 21px;
             > p {
                 display: inline-block;
                 > span {
-                    color: #4f63ff;
+                    color: #4F63FF;
                 }
             }
         }
@@ -902,42 +888,42 @@ export default class MemberManageList extends Vue {
                         width: 18px;
                         height: 18px;
                         margin-right: 6px;
-                        border: 1px solid #f79f1a;
+                        border: 1px solid #F79F1A;
                         border-radius: 5px;
                         font-size: 12px;
                         font-family: Microsoft YaHei UI;
                         font-weight: 600;
                         line-height: 15px;
                         text-align: center;
-                        color: #f79f1a;
+                        color: #F79F1A;
                     }
                     .name {
                         max-width: 81px;
                         margin-right: 6px;
                         @include elps-wrap(1);
                     }
-                    > svg {
+                    >svg {
                         vertical-align: -2px;
                     }
                 }
                 .tag {
                     margin-top: 8px;
                     width: 110px;
-                    color: #999;
+                    color: #999999;
                     @include elps-wrap(1);
                 }
             }
         }
         .operate {
-            > a {
-                padding: 0 13px;
-                border-left: 1px solid;
-                font-size: 14px;
-                color: #4f63ff;
-                &:first-child {
-                    margin-left: -20px!important;
-                }
-            }
+          > a {
+              padding: 0 13px;
+              border-left: 1px solid;
+              font-size: 14px;
+              color: #4F63FF;
+              &:first-child {
+                  margin-left: -20px!important;
+              }
+          }
         }
     }
 
@@ -947,9 +933,8 @@ export default class MemberManageList extends Vue {
     .background-color-grey {
         background-color: #eee!important;
     }
-    #color-333 {
+    #color-333{
         color: #333;
     }
 }
-
 </style>

@@ -15,14 +15,9 @@
             <components :is="navComponent" />
             <Header />
             <main class="main-container" :class="$style.main">
-                <!-- 主应用渲染区 -->
-                <section :class="$style.section" v-if="$route.name">
-                    <keep-alive>
-                        <router-view />
-                    </keep-alive>
-                </section>
-                <!-- 子应用渲染区 -->
-                <section :class="$style.section" id="child-app" v-else />
+                <keep-alive>
+                    <router-view />
+                </keep-alive>
             </main>
         </template>
     </div>
@@ -140,7 +135,7 @@ export default class App extends Vue {
         grid-column-start: 2;
         box-sizing: border-box;
         overflow: auto;
-        > .section {
+        > div {
             height: 100%;
         }
     }

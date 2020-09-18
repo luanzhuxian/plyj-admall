@@ -1,24 +1,21 @@
 <template>
-    <div class="category wrap">
+    <div class="category">
         <div
             ref="category-list"
             class="category-list"
         >
             <div class="category-list-top">
-                <el-button icon="el-icon-plus" @click="addMain" style="color: #4C88D6; border-color: #4C88D6;">
+                <el-button type="primary" icon="el-icon-plus" @click="addMain" round size="medium">
                     新建主分类
                 </el-button>
                 <pl-svg class="icon" @click="expand" name="icon-xiala" v-if="!isExpand" />
                 <pl-svg class="icon" @click="expand" name="icon-shouqi" v-else />
             </div>
             <div class="category-list-default" @click="getDefaultCategory">
-                <pl-svg class="icon" name="icon-dir-close" width="20" />
                 <span>默认分类</span>
-                <pl-svg class="icon" name="icon-you" fill="#4F63FF" width="12" />
             </div>
             <!-- 知识课程分类 -->
             <pl-tree
-                class="category-tree"
                 @node-click="treeClick"
                 @change="treeSort"
                 :tree="courseCategoryTree"
@@ -30,8 +27,8 @@
                 }"
             >
                 <template slot="treeItemLabel" slot-scope="{ data }">
-                    {{ `${data.categoryName}` }}{{ data.parentCode === '0' ? data.subcategoryCount > 0 ?
-                        `(${data.subcategoryCount})` : '' : '' }}
+                    <span>{{ `${data.categoryName}` }}</span>
+                    <i class="gray-3" style="margin-left: 8px">{{ data.parentCode === '0' ? data.subcategoryCount > 0 ? `${data.subcategoryCount}` : '' : '' }}</i>
                 </template>
                 <template slot="default" slot-scope="{ data }">
                     <div class="category-ctrl">
@@ -67,7 +64,6 @@
                 </template>
             </pl-tree>
             <pl-Tree
-                class="category-tree"
                 @nodeClick="treeClick"
                 @change="treeSort"
                 :tree="categoryTree"
@@ -79,8 +75,8 @@
                 }"
             >
                 <template slot="treeItemLabel" slot-scope="{ data }">
-                    {{ `${data.categoryName}` }}{{ data.parentCode === '0' ? data.subcategoryCount > 0 ?
-                        `(${data.subcategoryCount})` : '' : '' }}
+                    <span>{{ `${data.categoryName}` }}</span>
+                    <i class="gray-3" style="margin-left: 8px">{{ data.parentCode === '0' ? data.subcategoryCount > 0 ? `${data.subcategoryCount}` : '' : '' }}</i>
                 </template>
                 <template slot="default" slot-scope="{ data }">
                     <div class="category-ctrl">
@@ -263,7 +259,7 @@
     import EditSubset from '../../../components/product-center/category-manage/Edit-Subset.vue'
     import Pagination from '../../../components/common/Pagination.vue'
     import SelectCategory from '../../../components/product-center/category-manage/Select-Category.vue'
-    import PlTree from '../../../components/pl-tree'
+    import PlTree from '../../../components/common/pl-tree'
     import {
         deleteCategory,
         getGoodsByCategory,
@@ -660,13 +656,13 @@
 <style scoped lang="scss">
     .category {
         display: flex;
+        background-color: #fff;
         .category-list-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
             height: 61px;
             padding: 0 15px;
-            border-bottom: 1px solid #ddd;
 
             > .icon {
                 cursor: pointer;
@@ -674,30 +670,21 @@
         }
 
         .category-list-default {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             font-size: 14px;
-            color: #4C88D6;
-            padding: 0 20px 0 36px;
-            line-height: 50px;
-            border-bottom: 1px solid #e7e7e7;
+            color: $--color-primary-blue;
+            padding: 0 34px;
+            line-height: 34px;
             cursor: pointer;
 
             > .icon {
                 width: 25px;
                 height: 18px;
             }
-
-            > span {
-                flex: 1;
-                padding-left: 8px;
-            }
         }
 
         .category-list {
             position: relative;
-            height: calc(100vh - 145px);
+            height: calc(100vh - 80px);
             width: 250px;
             overflow: auto;
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
@@ -728,10 +715,11 @@
             justify-content: flex-end;
             align-items: center;
             width: 100px;
-            height: 50px;
+            height: 34px;
 
             > .icon {
                 margin-left: 10px;
+                cursor: pointer;
             }
 
             > .category-ctrl-item {

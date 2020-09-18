@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        title="请您创建一家颠覆"
+        title="请您创建一家店铺"
         :visible="createdMallShow"
         :close-on-click-modal="false"
         :show-close="false"
@@ -135,6 +135,7 @@ export default class CreateMall extends Vue {
     }
 
     @user.Getter currentStep!: number
+    @user.Action('AGENCY_USER_INFO') updateAgencyUserInfo!: Function
 
     async mounted () {
         if (this.currentStep === 1) {
@@ -190,6 +191,9 @@ export default class CreateMall extends Vue {
         ]
         delete this.mallInfoForm.contactWay
         await saveMallInfo(this.mallInfoForm)
+        await this.updateAgencyUserInfo()
+        this.createdMallShow = false
+        this.$success('保存成功')
     }
 
     // 输入联系方式

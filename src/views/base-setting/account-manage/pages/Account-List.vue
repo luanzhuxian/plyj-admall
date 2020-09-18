@@ -424,7 +424,7 @@ export default class AccountList extends Vue {
         this.total = result.total
     }
 
-    private async tabClick (data) {
+    private async tabClick (data: any) {
         this.filter.status = data.name
         await this.search()
     }

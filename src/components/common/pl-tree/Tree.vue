@@ -19,6 +19,7 @@
             @node-click="clickHandler"
             @change="change"
             ref="treeItem"
+            :allow-expand="allowExpand"
         >
             <template
                 slot="treeItemLabel"
@@ -38,7 +39,7 @@
 
 <script>
 import TreeItem from './Tree-Item.vue'
-import Draggable from '../draggable'
+import Draggable from '../../draggable'
 export default {
     name: 'Tree',
     components: {
@@ -56,6 +57,11 @@ export default {
             default () {
                 return []
             }
+        },
+        // 是否允许展开
+        allowExpand: {
+            type: Boolean,
+            default: true
         },
         // 禁用父级拖拽
         disabled: Boolean,
