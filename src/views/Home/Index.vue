@@ -146,85 +146,24 @@
             </Panel>
         </div>
 
-        <el-dialog
-            title="请您创建一家颠覆"
-            :visible.sync="createdMallShow"
-            :close-on-click-modal="false"
-            :show-close="false"
-            width="540px"
-            @close="closeCreatedMall"
-        >
-            <el-form ref="mallInfoForm" :model="mallInfoForm" :rules="mallInfoFormRules" style="padding: 0 54px;" label-width="95px" label-position="left">
-                <el-form-item label="店铺名称：" prop="mallName">
-                    <el-input v-model="mallInfoForm.mallName" placeholder="请输入15字以内的中英文字符" />
-                </el-form-item>
-                <el-form-item label="联系方式：" prop="contactWay">
-                    <el-input placeholder="请输入内容" v-model="contactWay.contactWay" @change="contactWayChange">
-                        <el-select v-model="contactWay.contactWayType" slot="prepend" placeholder="请选择" :class="$style.contactWay" @change="contactWayTypeChange">
-                            <el-option label="座机" value="LANDLINE" />
-                            <el-option label="手机" value="MOBILE" />
-                        </el-select>
-                    </el-input>
-                </el-form-item>
-                <el-form-item label="详细地址：">
-                    <CityPicker @selected="citySelected" />
-                </el-form-item>
-                <el-form-item label="">
-                    <el-input v-model="mallInfoForm.address" placeholder="请输入详细地址" />
-                </el-form-item>
-                <el-form-item label="服务顾问：">
-                    <el-select
-                        v-model="mallInfoForm.consultantUserId"
-                        :disabled="!mallInfoForm.province" :placeholder="!mallInfoForm.province ? '请先选择地址' : '请选择服务顾问'"
-                        style="width: 100%;"
-                    >
-                        <el-option
-                            v-for="(item, i) of consultantList"
-                            :key="i"
-                            :value="item.userId"
-                            :label="item.name + ' ' + item.engName"
-                        />
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="主营类目：">
-                    <el-checkbox-group v-model="mallInfoForm.mallCategoryIds" :class="$style.mallCategory">
-                        <el-checkbox
-                            v-for="item of mainCategories"
-                            :key="item.code"
-                            :label="item.code"
-                        >
-                            {{ item.name }}
-                        </el-checkbox>
-                    </el-checkbox-group>
-                </el-form-item>
-                <el-form-item label-width="65px">
-                    <el-button round size="medium" type="primary" style="width: 272px;" @click="saveMallInfo">完成</el-button>
-                </el-form-item>
-            </el-form>
-        </el-dialog>
+        <CreateMall />
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { AGENCY_USER_INFO } from '../store/mutation-type'
-import Panel from '../components/common/Panel.vue'
-import CityPicker from '../components/common/City-Picker.vue'
+import { AGENCY_USER_INFO } from '../../store/mutation-type'
+import Panel from '../../components/common/Panel.vue'
+import CreateMall from './components/Create-Mall.vue'
 import {
     getHomeInfo,
     getProductOrder,
-    getOrderInfo,
-    saveMallInfo,
-    getMainCategories,
-    getConsultantList,
-    mallInfoData,
-    contactWayType
-} from '../apis/home'
-import { getWaitWarrantyResource } from '../apis/line-teaching/repository'
-import { getNotificationList, markReaded } from '../apis/base/message'
-import { getAuthUrl, setAuthCode } from '../apis/base/register'
-import { testName, isPhone, isLandlinePhone } from '../assets/ts/validate'
+    getOrderInfo
+} from '../../apis/home'
+import { getWaitWarrantyResource } from '../../apis/line-teaching/repository'
+import { getNotificationList, markReaded } from '../../apis/base/message'
+import { getAuthUrl, setAuthCode } from '../../apis/base/register'
 
 const user = namespace('user')
 
@@ -325,28 +264,10 @@ const functionsPanelTmpl = [
     }
 ]
 
-const testServicePhoneModels = (contactWayType: string): Function => function (rule: any, value: any, callback: Function) {
-    if (contactWayType === 'MOBILE') {
-        if (!isPhone(value)) {
-            callback(new Error('请输入正确的手机号'))
-            return
-        }
-        callback()
-        return
-    }
-    if (contactWayType === 'LANDLINE') {
-        if (!isLandlinePhone(value)) {
-            callback(new Error('请输入正确的座机号'))
-            return
-        }
-        callback()
-    }
-}
-
 @Component({
     components: {
         Panel,
-        CityPicker
+        CreateMall
     }
 })
 export default class Home extends Vue {
@@ -357,10 +278,6 @@ export default class Home extends Vue {
     private latestNotification = {} as DynamicObject
     // 资源库送课列表
     private giveResourceList = []
-    // 主营类目
-    private mainCategories = []
-    // 顾问
-    private consultantList = []
     // 是否展示资源库送客
     private showGiveResource = false
     private showPhoneTips = false
@@ -372,43 +289,6 @@ export default class Home extends Vue {
         verifyCode: ''
     }
 
-    createdMallShow = false
-
-    // 联系方式
-    private contactWay: contactWayType = {
-        contactWay: '',
-        contactWayType: 'MOBILE'
-    }
-
-    // 商城信息
-    private mallInfoForm: mallInfoData = {
-        mallName: '',
-        province: '',
-        city: '',
-        region: '',
-        town: '',
-        address: '',
-        provinceCode: '',
-        cityCode: '',
-        regionCode: '',
-        townCode: '',
-        consultantUserId: '',
-        mallCategoryIds: [],
-        servicePhoneModels: [],
-        contactWay: ''
-    }
-
-    private mallInfoFormRules = {
-        mallName: [
-            { required: true, message: '请输入店铺名称', trigger: 'blur' },
-            { validator: testName(15), message: '请输入15字以内的中英文字符', trigger: 'blur' }
-        ],
-        contactWay: [
-            { required: true, message: '请输入联系方式', trigger: 'blur' },
-            { validator: testServicePhoneModels('MOBILE'), trigger: 'blur' }
-        ]
-    }
-
     // computed
     @user.Getter agencyCode!: string
     @user.Getter auditStatus!: string
@@ -418,16 +298,11 @@ export default class Home extends Vue {
     @user.Getter vMerchantStatus!: DynamicObject
     @user.Getter upgradeStatus!: DynamicObject
     @user.Getter wechatPayStatus!: DynamicObject
-    @user.Getter currentStep!: number
 
     async created () {
         try {
             if (this.agencyList.length && this.agencyList[0].enterpriseName) {
                 await this.getHomeInfo()
-            }
-            if (this.currentStep === 1) {
-                this.createdMallShow = true
-                await this.getMainCategories()
             }
         } catch (e) {
             throw e
@@ -463,72 +338,6 @@ export default class Home extends Vue {
 
     // methods
     @user.Action [AGENCY_USER_INFO]: () => void
-
-    // 获取主营类目
-    async getMainCategories () {
-        const { result } = await getMainCategories()
-        this.mainCategories = result || []
-    }
-
-    // 获取顾问
-    async getConsultantList (province: string) {
-        try {
-            const { result } = await getConsultantList(province)
-            this.consultantList = result
-        } catch (e) {
-            throw e
-        }
-    }
-
-    // 选择地区
-    async citySelected (data: any) {
-        const province = data[0]
-        const city = data[1]
-        const counties = data[2]
-        const town = data[3]
-        this.mallInfoForm.province = province.name
-        this.mallInfoForm.provinceCode = province.code
-        this.mallInfoForm.city = city.name
-        this.mallInfoForm.cityCode = city.code
-        if (counties) {
-            this.mallInfoForm.region = counties.name
-            this.mallInfoForm.regionCode = counties.code
-        }
-        if (town) {
-            this.mallInfoForm.town = town.name
-            this.mallInfoForm.townCode = town.code
-        }
-        await this.getConsultantList(province.code)
-    }
-
-    async saveMallInfo () {
-        await (this.$refs.mallInfoForm as HTMLFormElement).validate()
-        this.mallInfoForm.servicePhoneModels = [
-            {
-                contactWayType: this.contactWay.contactWayType,
-                contactWay: this.contactWay.contactWay
-            }
-        ]
-        delete this.mallInfoForm.contactWay
-        await saveMallInfo(this.mallInfoForm)
-    }
-
-    // 输入联系方式
-    contactWayChange (val: string) {
-        this.mallInfoForm.contactWay = val
-    }
-
-    // 切换联系方式
-    contactWayTypeChange (val: string) {
-        this.mallInfoFormRules.contactWay.splice(1, 1, {
-            validator: testServicePhoneModels(val),
-            trigger: 'blur'
-        })
-    }
-
-    closeCreatedMall () {
-        this.createdMallShow = false
-    }
 
     // 获取送课的资源
     async getWaitWarrantyResource () {
@@ -707,16 +516,6 @@ export default class Home extends Vue {
     }
 }
 </script>
-<style module lang="scss">
-    .contactWay {
-        width: 80px;
-    }
-    .mallCategory {
-        display: grid;
-        grid-template-columns: repeat(3, 33%);
-        grid-column-gap: 10px;
-    }
-</style>
 
 <style lang="scss">
 .home {
