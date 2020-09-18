@@ -94,17 +94,17 @@ import {
 // deleteCategory,
 // setCategoryBatch,
 // sortCategory
-} from '../../apis/goods'
-import { testCategory } from '../../assets/ts/validate'
-import EditImage from '../file/Edit-Image.vue'
+} from '../../../apis/goods'
+import { testCategory } from '../../../assets/ts/validate'
+import EditImage from '../../file/Edit-Image.vue'
 import { mapGetters } from 'vuex'
-import { copyFields } from '../../assets/ts/utils'
-import ImageSelector from '../file/File-Selector.vue'
+import { copyFields } from '../../../assets/ts/utils'
+import ImageSelector from '../../file/File-Selector.vue'
 import {
     createObjectUrl,
     upload,
     deleteImage
-} from '../../assets/ts/upload'
+} from '../../../assets/ts/upload'
 export default {
     name: 'EditMain',
     components: {

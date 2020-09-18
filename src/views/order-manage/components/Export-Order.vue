@@ -94,7 +94,7 @@ import moment from 'moment'
 import { redeemUserList as getRedeemUserList, exportOrderQuery } from '../../../apis/order'
 import { createObjectUrl } from '../../../assets/ts/upload'
 import ExportDialog from './Export-Dialog'
-import SelectCategoryName from '../../../components/category/Select-Category-Name.vue'
+import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
 export default {
     name: 'ExportOrder',
     components: {

@@ -130,17 +130,17 @@ import {
 // deleteCategory,
 // setCategoryBatch,
 // sortCategory
-} from '../../apis/goods'
+} from '../../../apis/goods'
 import { mapGetters } from 'vuex'
-import { copyFields } from '../../assets/ts/utils'
-import { testCategory } from '../../assets/ts/validate'
-import ImageSelector from '../file/File-Selector.vue'
-import EditImage from '../file/Edit-Image.vue'
+import { copyFields } from '../../../assets/ts/utils'
+import { testCategory } from '../../../assets/ts/validate'
+import ImageSelector from '../../file/File-Selector.vue'
+import EditImage from '../../file/Edit-Image.vue'
 import {
     createObjectUrl,
     upload,
     deleteImage
-} from '../../assets/ts/upload'
+} from '../../../assets/ts/upload'
 // img/dJYBK2q9Q-BwZwChow-L2-1561685633037.jpeg
 // img/JvgDShG6L-ftPtkve0-24SAFp3W-SR-1561685709971.jpeg
 // http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/img/kegRQCKaj-ziNGAdBi-EPr-1561688756756.jpeg

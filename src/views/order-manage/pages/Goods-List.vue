@@ -366,7 +366,7 @@ import ApplyAfter from '../../../components/order/Apply-After.vue'
 import Verification from '../../../components/order/Verification.vue'
 import UncodedVerification from '../../../components/order/Uncoded-Verification.vue'
 import CloseOrder from '../../../components/order/Close-Order.vue'
-import SelectCategoryName from '../../../components/category/Select-Category-Name.vue'
+import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
 import ExportOrder from '../components/Export-Order'
 
 export default {

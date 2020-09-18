@@ -259,10 +259,10 @@
 <script>
 /* eslint-disable */
     import { mapGetters } from 'vuex'
-    import EditMain from '../../../components/category/Edit-Main.vue'
-    import EditSubset from '../../../components/category/Edit-Subset.vue'
+    import EditMain from '../../../components/product-center/category-manage/Edit-Main.vue'
+    import EditSubset from '../../../components/product-center/category-manage/Edit-Subset.vue'
     import Pagination from '../../../components/common/Pagination.vue'
-    import SelectCategory from '../../../components/category/Select-Category.vue'
+    import SelectCategory from '../../../components/product-center/category-manage/Select-Category.vue'
     import PlTree from '../../../components/pl-tree'
     import {
         deleteCategory,

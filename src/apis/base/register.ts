@@ -166,7 +166,7 @@ export const getWchatPayInfo = () => axios.post('/apis/v2/pay/applyment/confirm'
  * @param data
  * @returns {Promise<AxiosResponse<T>>}
  */
-export const submitWechatPay = data => axios.post('/apis/v1/pay/applyment/submit', data)
+export const submitWechatPay = data => axios.post('/apis/v2/pay/applyment/submit', data)
 
 /**
  * 获取雅集专属顾问列表

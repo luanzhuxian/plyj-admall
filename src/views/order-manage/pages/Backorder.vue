@@ -326,7 +326,7 @@ import {
 } from '../../../apis/order'
 import { createObjectUrl } from '../../../assets/ts/upload'
 import moment from 'moment'
-import SelectCategoryName from '../../../components/category/Select-Category-Name.vue'
+import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
 import ExportDialog from './../components/Export-Dialog'
 
 export default {
