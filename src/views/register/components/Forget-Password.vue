@@ -61,8 +61,8 @@ export default class ForgetPassword extends Vue {
 
         rules = {
             mobile: [
-                { required: true, trigger: 'blur', message: '账号不能为空' },
-                { validator: testPhone, trigger: 'blur' }
+                { required: true, trigger: 'blur', message: '手机号码不能为空' },
+                { validator: testPhone, trigger: 'blur', message: '请输入正确的手机号码' }
             ],
             verifyCode: [
                 { required: true, message: '验证码不能为空', trigger: 'blur' },

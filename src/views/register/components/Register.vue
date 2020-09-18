@@ -58,13 +58,13 @@
             <el-checkbox v-model="agree">
                 我已阅读并同意<span @click="showAgreement = true" style="color: #4F63FF">《朋来雅集服务协议》</span>
             </el-checkbox>
-            <span />
             <el-button
                 size="large"
                 style="width: 100%;border-radius: 121px;margin-top: 20px"
                 type="primary"
                 @click.native.prevent="login()"
                 :loading="loading"
+                :disabled="!agree"
             >
                 完成入驻，进入雅集
             </el-button>
@@ -171,6 +171,15 @@ export default class Register extends Vue {
         mounted (): void {
             this.form.wxCode = sessionStorage.getItem('redirect_code') || ''
             this.setCodePass(false)
+            document.addEventListener('keydown', this.keyupEnter)
+        }
+
+        beforeDestroy (): void {
+            document.removeEventListener('keydown', this.keyupEnter)
+        }
+
+        keyupEnter (e: any) {
+            if (e.keyCode === 13 && this.agree) this.login()
         }
 
         async getCode () {
@@ -239,6 +248,14 @@ export default class Register extends Vue {
             font-weight: 600;
             color: #333333;
         }
+        .wx-button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                margin-right: 10px;
+            }
+        }
         .account-message{
             margin-top: 36px;
             border-radius: 10px;
@@ -294,14 +311,6 @@ export default class Register extends Vue {
                 margin-top: 20px;
                 >button{
                     margin: 0;
-                }
-            }
-            .wx-button{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                img{
-                    margin-right: 10px;
                 }
             }
         }

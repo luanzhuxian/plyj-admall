@@ -86,7 +86,6 @@ export default class RegisterIndex extends Vue {
         @Watch('$route.name')
         onChangeValue (newVal: string) {
             console.log(newVal)
-            alert(22)
         }
 
         codeShowFoo (e: boolean) {
