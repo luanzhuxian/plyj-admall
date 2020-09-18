@@ -160,7 +160,7 @@
                 </div>
                 <pl-Tree
                     class="tag-list-options"
-                    @nodeClick="treeClick"
+                    @node-click="treeClick"
                     @change="treeSort"
                     :tree="tagList"
                     ref="tree"
@@ -170,7 +170,7 @@
                     }"
                 >
                     <template #treeItemLabel="{ data }">
-                        <div class="tree-tag-name">{{ data.tagName }}</div>
+                        {{ data.tagName }}
                     </template>
                     <template #defaulte="{ data }">
                         <div class="tag-ctrl">
@@ -213,7 +213,7 @@
                     <template slot="empty">
                         <div class="no-data">
                             <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
-                            <p>还没有新注册的用户哦~</p>
+                            <p>暂无数据~</p>
                         </div>
                     </template>
                     <el-table-column
@@ -512,37 +512,30 @@ export default class MemberManageList extends Vue {
       ]
   }
 
-  //  life circle
   async created () {
-      try {
-          await this.getMemberData()
-          await this.getMemberList()
-          await this.getTagList()
-      } catch (e) {
-          throw e
-      }
+      await this.getMemberData()
+      await this.getMemberList()
+      await this.getTagList()
   }
 
   //  methods
   // 标签排序
   async treeSort (node, list) {
-      const ids = []
-      for (const item of list) {
-          ids.push(item.id)
-      }
+      const ids = list.map(item => item.id)
+
       try {
           await sortTagList(ids)
       } catch (e) {
           throw e
       } finally {
-      // 任何时候都去刷新分类
+          // 任何时候都去刷新分类
           await this.getTagList()
       }
   }
 
   // 点击树节点
-  treeClick ({ id }) {
-      this.getMemberListByTag(id)
+  async treeClick ({ id }) {
+      await this.getMemberListByTag(id)
   }
 
   // 导出
@@ -607,73 +600,54 @@ export default class MemberManageList extends Vue {
           startTime: exportData.startTime,
           endTime: exportData.endTime
       }
-      try {
-          const blob = await exportMemberQuery(data)
-          const url = createObjectUrl(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = `会员列表${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
-          a.click()
-          a.remove()
-      } catch (e) {
-          throw e
-      }
+      const blob = await exportMemberQuery(data)
+      const url = createObjectUrl(blob)
+      let a = document.createElement('a')
+      a.href = url
+      a.download = `会员列表${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+      a.click()
+      a = null
   }
 
   async getMemberData () {
-      try {
-          const { result: { todayUserCount, monthUserCount, count } } = await getMemberData()
-          this.memberData = {
-              todayUserCount,
-              monthUserCount,
-              count
-          }
-          this.getMemberNum()
-      } catch (e) {
-          throw e
+      const { result: { todayUserCount, monthUserCount, count } } = await getMemberData()
+      this.memberData = {
+          todayUserCount,
+          monthUserCount,
+          count
       }
+      await this.getMemberNum()
   }
 
   async getMemberNum () {
-      try {
-          const { notSetTageUserCount, userCount } = await getMemberNum()
-          this.notSetTageUserCount = notSetTageUserCount || 0
-          this.userCount = userCount || 0
-      } catch (e) {
-          throw e
-      }
+      const { notSetTageUserCount, userCount } = await getMemberNum()
+      this.notSetTageUserCount = notSetTageUserCount || 0
+      this.userCount = userCount || 0
   }
 
   async getMemberList () {
-      try {
-          const params = { ...this.form }
-          if (params.purchasesMinAmount.trim()) {
-              params.purchasesMinAmount = Number(params.purchasesMinAmount) * 100
-          }
-          if (params.purchasesMaxAmount.trim()) {
-              params.purchasesMaxAmount = Number(params.purchasesMaxAmount) * 100
-          }
-          const { result: { records, total } } = await getMemberList(params)
-
-          this.table = records
-          this.total = total
-          this.getMemberNum()
-      } catch (e) {
-          throw e
+      const params = { ...this.form }
+      if (params.purchasesMinAmount.trim()) {
+          params.purchasesMinAmount = Number(params.purchasesMinAmount) * 100
       }
+      if (params.purchasesMaxAmount.trim()) {
+          params.purchasesMaxAmount = Number(params.purchasesMaxAmount) * 100
+      }
+      const { result: { records, total } } = await getMemberList(params)
+
+      this.table = records
+      this.total = total
+      await this.getMemberNum()
   }
 
   // 处理批量操作数据
   handleSelectionChange (val) {
       this.multipleSelection = val
-      this.multipleSelectionId = []
-      for (const i of val) {
-          this.multipleSelectionId.push(i.userId)
-      }
+      this.multipleSelectionId = val.map(item => item.userId)
   }
 
   // 根据标签获取用户列表
-  getMemberListByTag (tagId) {
+  async getMemberListByTag (tagId) {
       try {
           this.form.tagId = tagId
           if (tagId === 0) {
@@ -681,33 +655,31 @@ export default class MemberManageList extends Vue {
                   item.$el.classList.remove('tree-node-active')
               })
           }
+      } catch (e) {
+          throw e
       } finally {
-          this.getMemberList()
+          await this.getMemberList()
       }
   }
 
-  formatTimeRange ({ start, end }, startText, endText) {
+  async formatTimeRange ({ start, end }, startText, endText) {
       this.form[startText] = start
       this.form[endText] = end
-      this.search()
+      await this.search()
   }
 
-  sizeChange (val) {
+  async sizeChange (val) {
       this.form.current = 1
       this.form.size = val
-      this.search()
+      await this.search()
   }
 
   async search () {
-      try {
-          this.form.current = 1
-          await this.getMemberList()
-      } catch (e) {
-          throw e
-      }
+      this.form.current = 1
+      await this.getMemberList()
   }
 
-  reset () {
+  async reset () {
       const tagId = this.form.tagId
       this.form = {
           keyword: '',
@@ -731,7 +703,7 @@ export default class MemberManageList extends Vue {
       this.loginTimeRange = ['', '']
       this.lastPurchaseTimeRange = ['', '']
       this.form.tagId = tagId
-      this.search()
+      await this.search()
   }
 
   setTagToMultipleMember () {
@@ -753,45 +725,36 @@ export default class MemberManageList extends Vue {
 
   // 获取标签列表
   async getTagList () {
-      try {
-          const { result } = await getTagList()
-          console.log(result)
-          this.getMemberNum()
-          this.tagList = result || []
-      } catch (e) {
-          throw (e)
-      }
+      const { result } = await getTagList()
+      await this.getMemberNum()
+      this.tagList = result || []
   }
 
   // 新建/编辑用户标签
   async editTag (tagInfo) {
-      this.currentTag = {}
       if (tagInfo) {
           this.currentTag = { id: tagInfo.id, sort: tagInfo.sort, tagName: tagInfo.tagName }
+      } else {
+          this.currentTag = {}
       }
       this.showTagBox = true
   }
 
-  editTagConfirm () {
-      console.log(1111)
-      this.getTagList()
-      this.getMemberList()
+  async editTagConfirm () {
+      await this.getTagList()
+      await this.getMemberList()
   }
 
   // 删除用户标签
   async deleteTag (id) {
-      try {
-          const { data } = await checkIsTagUsed(id)
-          if (data.result) {
-              await this.$confirm('删除标签后，该标签下的所有用户将失去该标签属性是否确定删除？')
-          }
-          await deleteTag(id)
-          await this.getTagList()
-          await this.getMemberList()
-          this.$success('删除用户标签成功')
-      } catch (e) {
-          throw (e)
+      const { data } = await checkIsTagUsed(id)
+      if (data.result) {
+          await this.$confirm('删除标签后，该标签下的所有用户将失去该标签属性是否确定删除？')
       }
+      await deleteTag(id)
+      await this.getTagList()
+      await this.getMemberList()
+      this.$success('删除用户标签成功')
   }
 }
 </script>

@@ -9,7 +9,7 @@
     </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component
@@ -25,8 +25,7 @@ export default class MemberManage extends Vue {
         }
     ]
 
-    activeName = this.tabs[0].name
-    handleClick ({ name }) {
+    handleClick ({ name }: { name: string }) {
         this.$router.push({ name })
     }
 }
