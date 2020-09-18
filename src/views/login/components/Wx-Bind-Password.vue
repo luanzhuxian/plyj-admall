@@ -36,7 +36,7 @@
             </el-button>
             <div :class="$style.register">
                 <el-button type="text" @click="$router.push({name:'WxBindPhone'})">手机号绑定</el-button>
-                <el-button type="text" @click="$router.push({name:'PhoneLogin'})">已有账号，马上跳转登陆</el-button>
+                <el-button type="text" @click="goLogin()">已有账号，马上跳转登陆</el-button>
             </div>
         </div>
     </div>
@@ -88,16 +88,24 @@ export default class WxBindPassword extends Vue {
 
                 const code = sessionStorage.getItem('redirect_code') as string
                 await WxBind(code)
-                sessionStorage.removeItem('redirect_code')
-                sessionStorage.removeItem('redirect_state')
-                sessionStorage.removeItem('login_state')
-
+                this.clearCode()
                 this.emitLogin()
             } catch (e) {
                 throw e
             } finally {
                 this.loading = false
             }
+        }
+
+        goLogin () {
+            this.clearCode()
+            this.$router.push({ name: 'PhoneLogin' })
+        }
+
+        clearCode () {
+            sessionStorage.removeItem('redirect_code')
+            sessionStorage.removeItem('redirect_state')
+            sessionStorage.removeItem('login_state')
         }
 }
 </script>

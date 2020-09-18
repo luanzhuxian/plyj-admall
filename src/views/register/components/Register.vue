@@ -4,6 +4,7 @@
             注册雅集
         </div>
         <el-button
+            v-if="!form.wxCode"
             size="large"
             style="width: 100%;border-radius: 121px;margin-top: 20px"
             type="success"
@@ -68,7 +69,7 @@
             >
                 完成入驻，进入雅集
             </el-button>
-            <div @click="$router.push({name:'WxBindPhone'})" :class="$style.register">
+            <div @click="goLogin()" :class="$style.register">
                 <el-button type="text"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
             </div>
             <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
@@ -221,6 +222,14 @@ export default class Register extends Vue {
                 throw e
             } finally {
                 this.loading = false
+            }
+        }
+
+        goLogin () {
+            if (this.form.wxCode) {
+                this.$router.push({ name: 'WxBindPhone' })
+            } else {
+                this.$router.push({ name: 'PhoneLogin' })
             }
         }
 }

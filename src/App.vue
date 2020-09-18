@@ -82,7 +82,7 @@ export default class App extends Vue {
     }
 
     @userModule.Getter('currentStep') currentStep!: number
-
+    @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('agencyCode') agencyCode!: string
     @userModule.Action('SET_LOGININFO') SET_LOGININFO!: Function
     @userModule.Action('GET_ALL_MALL_INFO') GET_ALL_MALL_INFO!: Function
@@ -104,6 +104,8 @@ export default class App extends Vue {
     }
 
     async step () {
+        // 没有token return
+        if (!this.tokenFoo && this.NOLOGIN.includes(this.routeName as string)) return
         // 没有选中机构
         if (!this.agencyCode && !this.NOLOGIN.includes(this.routeName as string)) {
             this.LOGOUT()
