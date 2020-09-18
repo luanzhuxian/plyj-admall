@@ -187,7 +187,7 @@ export default class MainNavbar extends Vue {
         border: none;
         padding-left: 17px;
         .el-menu {
-            padding-left: 10px;
+            padding-left: 22px;
         }
     }
     .el-menu-item,
@@ -198,11 +198,16 @@ export default class MainNavbar extends Vue {
         margin-bottom: 20px;
         min-width: auto !important;
     }
+    .is-opened {
+        .el-submenu__icon-arrow {
+            transform: translateY(3px) scale(.8) rotateZ(180deg) !important;
+        }
+    }
     .el-submenu__icon-arrow {
         color: #fff;
         font-size: 12px;
         right: 10px;
-        vertical-align: -2px;
+        transform: translateY(3px) scale(.8);
     }
 }
 
