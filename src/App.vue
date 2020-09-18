@@ -12,7 +12,7 @@
         <div id="login-container" />-->
         <router-view v-if="noMenu.includes(routeName)" />
         <template v-else>
-            <MainNavbar />
+            <components :is="navComponent" />
             <Header />
             <main class="main-container" :class="$style.main">
                 <!-- 主应用渲染区 -->
@@ -31,6 +31,7 @@
 <script lang="ts">
 import { Component, Watch, Vue } from 'vue-property-decorator'
 import MainNavbar from './components/common/Main-Navbar.vue'
+import OnlineTeachingNavbar from './components/common/Online-Teaching-NavBar.vue'
 import Header from './components/common/Header.vue'
 import { namespace } from 'vuex-class'
 // import startQiankun from './micro'
@@ -40,6 +41,7 @@ const goodsModule = namespace('goods')
 
 @Component({
     components: {
+        OnlineTeachingNavbar,
         MainNavbar,
         Header
     }
@@ -71,6 +73,7 @@ export default class App extends Vue {
         'CompleteLogin'
     ]
 
+    navComponent = 'MainNavbar'
     title = '这是一个title'
 
     @Watch('routeName')
@@ -124,20 +127,21 @@ export default class App extends Vue {
 }
 </script>
 <style module lang="scss">
-    .main-app {
-        display: grid;
-        grid-template-columns: 120px auto;
-        grid-template-rows: 60px auto;
-        > .main {
-            height: calc(100vh - 60px);
-            padding: 10px;
-            background-color: #f4f5f8;
-            grid-column-start: 2;
-            box-sizing: border-box;
-            overflow: auto;
-            > .section {
-                height: 100%;
-            }
+.main-app {
+    display: grid;
+    grid-template-columns: 140px auto;
+    grid-template-rows: 60px auto;
+    > .main {
+        height: calc(100vh - 60px);
+        padding: 10px;
+        background-color: #f4f5f8;
+        grid-column-start: 2;
+        box-sizing: border-box;
+        overflow: auto;
+        > .section {
+            height: 100%;
         }
     }
+}
+
 </style>

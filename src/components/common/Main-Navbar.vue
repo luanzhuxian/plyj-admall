@@ -151,56 +151,59 @@ export default class MainNavbar extends Vue {
 </script>
 
 <style module lang="scss">
-    .main-navbar {
-        width: 120px;
-        height: 100vh;
-        color: #fff;
-        font-size: 20px;
-        background-color: #001629;
-        overflow: auto;
-        > .logo {
-            display: block;
-            width: auto;
-            height: 40px;
-            max-width: 100px;
-            object-fit: cover;
-            margin: 10px auto 30px;
-        }
-        > .menu-wrap {
-            height: calc(100vh - 80px);
-            overflow: auto;
-        }
-        .icon {
-            vertical-align: -3px;
-            margin-right: 8px;
-        }
-        .title {
-            font-size: 14px;
-            font-weight: normal;
-        }
+.main-navbar {
+    width: 140px;
+    height: 100vh;
+    color: #fff;
+    font-size: 20px;
+    background-color: #001629;
+    overflow: auto;
+    > .logo {
+        display: block;
+        width: auto;
+        height: 40px;
+        max-width: 100px;
+        object-fit: cover;
+        margin: 10px auto 30px;
     }
+    > .menu-wrap {
+        height: calc(100vh - 80px);
+        overflow: auto;
+    }
+    .icon {
+        vertical-align: -3px;
+        margin-right: 8px;
+    }
+    .title {
+        font-size: 14px;
+        font-weight: normal;
+    }
+}
+
 </style>
 <style scoped lang="scss">
-    ::v-deep {
+::v-deep {
+    .el-menu {
+        border: none;
+        padding-left: 17px;
         .el-menu {
-            border: none;
-            padding-left: 17px;
-            .el-menu {
-                padding-left: 10px;
-            }
-        }
-        .el-menu-item, .el-submenu__title {
-            line-height: 20px !important;
-            height: 20px !important;
-            padding: 0 0 0 0 !important;
-            margin-bottom: 20px;
-            min-width: auto !important;
-        }
-        .el-submenu__icon-arrow {
-            color: #fff;
-            font-size: 12px;
-            right: 10px;
-            vertical-align: -2px;
+            padding-left: 10px;
         }
     }
+    .el-menu-item,
+    .el-submenu__title {
+        line-height: 20px !important;
+        height: 20px !important;
+        padding: 0 0 0 0 !important;
+        margin-bottom: 20px;
+        min-width: auto !important;
+    }
+    .el-submenu__icon-arrow {
+        color: #fff;
+        font-size: 12px;
+        right: 10px;
+        vertical-align: -2px;
+    }
+}
+
 </style>

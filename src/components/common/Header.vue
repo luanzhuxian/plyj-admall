@@ -125,8 +125,8 @@ export default class Header extends Vue {
         align-items: center;
         height: 60px;
         padding: 0 24px;
+        border-left: 1px solid #E7E7E7;
         background-color: #fff;
-        box-shadow: 0 1px 0 #E7E7E7;
     }
     .right {
         display: inline-flex;
@@ -171,4 +171,5 @@ export default class Header extends Vue {
             }
         }
     }
+
 </style>
