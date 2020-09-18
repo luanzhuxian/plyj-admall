@@ -6,7 +6,7 @@ import Cookie from './../assets/ts/storage-cookie'
 import qs from 'qs'
 // import NotFound from '../views/404.vue'
 
-import Home from '../views/Home.vue'
+import Home from '../views/Home/Index.vue'
 import { importFiles } from './../assets/ts/utils'
 
 // 无需登录就可以看到的页面

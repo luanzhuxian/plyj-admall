@@ -7,7 +7,7 @@ import axios from '../../assets/ts/axios-config'
  * @property params.current
  * @property params.size
  */
-export const getNotificationList = (params: { toAgencyCode: string; current: number; size: number }) => axios.get('/apis/v1/agency/AgencyNotificationCenter/page', { params })
+export const getNotificationList = (params: { toAgencyCode: string; current: number; size: number }) => axios.get('/apis/v2/agency/AgencyNotificationCenter/page', { params })
 
 /**
  * 标记消息为已读

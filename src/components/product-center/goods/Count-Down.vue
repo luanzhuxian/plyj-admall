@@ -14,7 +14,7 @@
 
 <script>
 import moment from 'moment'
-import { getServerTime } from '../../apis/mall'
+import { getServerTime } from '../../../apis/mall'
 export default {
     name: 'CountDown',
     props: {

@@ -1,6 +1,6 @@
 import axios from '../assets/ts/axios-config'
 
-export const getCityListByParentId = (parentCode: string) => axios.get(`/apis/v1/systemctl/location/parent/${ parentCode }`)
+export const getCityListByParentId = (parentCode: string) => axios.get(`/apis/v2/base/location/parent/${ parentCode }`)
 
 // 创建地址
 export const createAddress = (data: any) => axios.post('/apis/v1/publicuser/address', data)

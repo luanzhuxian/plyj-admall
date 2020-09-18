@@ -140,8 +140,8 @@
 </template>
 
 <script>
-import { togetherActivityGoods } from '../../apis/marketing-manage/together'
-import { getCategoryTreePlatform } from '../../apis/goods'
+import { togetherActivityGoods } from '../../../apis/marketing-manage/together'
+import { getCategoryTreePlatform } from '../../../apis/goods'
 export default {
     name: 'ProductRadio',
     data () {

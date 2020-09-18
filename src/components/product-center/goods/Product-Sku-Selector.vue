@@ -83,7 +83,7 @@
                         <el-table-column type="selection" width="55" />
                         <el-table-column width="200" />
                         <el-table-column width="150">
-                            <template #default="{ row }">
+                            <template>
                                 <span v-text="row.skuCode1Name" />
                                 <template v-if="row.skuCode2Name">
                                     <span>/</span>
@@ -153,8 +153,8 @@
 </template>
 
 <script>
-import { getCategoryTreePlatform, getGoods } from '../../apis/goods'
-import { resetForm } from '../../assets/ts/utils'
+import { getCategoryTreePlatform, getGoods } from '../../../apis/goods'
+import { resetForm } from '../../../assets/ts/utils'
 export default {
     name: 'ProductSelector',
     data () {

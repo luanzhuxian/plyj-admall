@@ -168,12 +168,6 @@ export const getWchatPayInfo = () => axios.post('/apis/v2/pay/applyment/confirm'
  */
 export const submitWechatPay = data => axios.post('/apis/v2/pay/applyment/submit', data)
 
-/**
- * 获取雅集专属顾问列表
- * @param province {string} 省code
- * @returns {Promise<AxiosResponse<T>>}
- */
-export const getConsultantList = province => axios.get(`/apis/v1/base/baseMall/consultant/list?province=${ province }`)
 // 获取微信支付申请状态
 export const getWechatPaytStatus = () => axios.get('/apis/v2/pay/applyment/status')
 export const getAuthUrl = () => axios.get('/apis/v1/api/auth/goto_auth_url?authType=1')

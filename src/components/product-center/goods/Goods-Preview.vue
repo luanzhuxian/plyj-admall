@@ -220,7 +220,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import TogetherCountDown from './Count-Down'
 import BookCountDown from './Book-Count-Down'
 // import PlMask from '../common/PlMask.vue'
-import Preview from '../common/Preview.vue'
+import Preview from '../../common/Preview.vue'
 export default {
     name: 'GoodsPreview',
     components: {

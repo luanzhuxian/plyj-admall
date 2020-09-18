@@ -511,8 +511,8 @@ import {
     showProductSales,
     showProduct
 } from '../../../../apis/goods'
-import GoodsPreview from '../../../../components/goods/Goods-Preview.vue'
-import Sort from '../../../../components/goods/Sort.vue'
+import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
+import Sort from '../../../../components/product-center/goods/Sort.vue'
 import Share from '../../../../components/common/Share.vue'
 
 const msg = [

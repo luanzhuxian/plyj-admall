@@ -145,118 +145,27 @@
                 </router-link>
             </Panel>
         </div>
-        <el-dialog
-            title="请您创建一家颠覆"
-            :visible.sync="createdMallShow"
-            :close-on-click-modal="false"
-            width="25%"
-            @close="closeCreatedMall"
-        >
-            <div>
-                创建商城
-            </div>
-        </el-dialog>
+
+        <CreateMall />
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { AGENCY_USER_INFO } from '../store/mutation-type'
-import Panel from '../components/common/Panel.vue'
+import { AGENCY_USER_INFO } from '../../store/mutation-type'
+import Panel from '../../components/common/Panel.vue'
+import CreateMall from './components/Create-Mall.vue'
 import {
     getHomeInfo,
     getProductOrder,
     getOrderInfo
-} from '../apis/home'
-import { getWaitWarrantyResource } from '../apis/line-teaching/repository'
-import { getNotificationList, markReaded } from '../apis/base/message'
-import { getAuthUrl, setAuthCode } from '../apis/base/register'
-// import { testPhone } from '../assets/ts/validate'
-// import { ACCOUNT_BIND_PHONE_NUMBER } from '../assets/ts/types'
+} from '../../apis/home'
+import { getWaitWarrantyResource } from '../../apis/line-teaching/repository'
+import { getNotificationList, markReaded } from '../../apis/base/message'
+import { getAuthUrl, setAuthCode } from '../../apis/base/register'
 
 const user = namespace('user')
-
-// const authMap: DynamicObject = {
-//     MP_NOT_AUTHORIZED: {
-//         title: '注册成功',
-//         message: '<p>您已成功注册雅集商城，立即授权雅集商城与您的服务号绑定</p><i style="font-size: 13px; color: #999;">注：授权登录账号与服务号管理员账号一致</i>',
-//         dangerouslyUseHTMLString: true,
-//         confirmButtonText: '立即授权'
-//     },
-//
-//     /* 小v状态 */
-//     MICRO_NOT_APPLY: {
-//         title: '授权成功',
-//         message: '您已授权成功，为了不影响您的商城正常支付，请立即开通微信小V商户',
-//         confirmButtonText: '立即开通'
-//     },
-//     MICRO_NOT_APPLY_AUDITING: {
-//         title: '小V商户签约中',
-//         message: '您的小V 商户资料已经提交，请耐心等待微信审核审核时间1个工作日左右',
-//         showCancelButton: false,
-//         showClose: false
-//     },
-//     MICRO_NOT_APPLY_REJECTED: {
-//         title: '小V商户签约失败',
-//         message: '请检查您上传的资质，重新申请',
-//         confirmButtonText: '重新签约',
-//         confirmButtonClass: 'message-box-confirm-btn-warning'
-//     },
-//     MICRO_NOT_APPLY_TO_BE_SIGNED: {
-//         title: '小V商户签约中',
-//         message: '您的小V 商户资料审核成功，请立即授权签约',
-//         confirmButtonText: '立即签约'
-//     },
-//
-//     /* 升级状态 */
-//     MICRO_NOT_UPGRADE: {
-//         title: '小V商户签约成功',
-//         message: '您的小V 商户已签约成功，升级商户享受更多服务，请立即升级微信支付商户',
-//         confirmButtonText: '立即升级'
-//     },
-//     MICRO_NOT_UPGRADE_AUDITING: {
-//         title: '商户升级签约中',
-//         message: '您的商户升级资料已经提交，请耐心等待微信审核审核时间1-2个工作日左右',
-//         confirmButtonText: '确定',
-//         showCancelButton: false,
-//         showClose: false
-//     },
-//     MICRO_NOT_UPGRADE_ACCOUNT_NEED_VERIFY: {
-//         title: '商户升级签约中',
-//         message: '您的商户升级资料待账户验证',
-//         confirmButtonText: '立即验证'
-//     },
-//     // 升级待签约
-//     MICRO_NOT_UPGRADE_NEED_SIGN: {
-//         title: '商户升级签约中',
-//         message: '您的商户升级资料资料审核成功，请立即授权签约',
-//         confirmButtonText: '商户升级签约中'
-//     },
-//     // 升级签约成功
-//     MICRO_NOT_UPGRADE_FINISH: {
-//         title: '商户升级签约成功',
-//         message: '您的商户升级已签约成功，请耐心等待1-2个工作日雅集认证',
-//         confirmButtonText: '确定',
-//         showCancelButton: false,
-//         showClose: false
-//     },
-//     // 升级驳回
-//     MICRO_NOT_UPGRADE_REJECTED: {
-//         title: '商户升级签约失败',
-//         message: '商户升级签约失败',
-//         confirmButtonText: '重新开通',
-//         confirmButtonClass: 'message-box-confirm-btn-warning'
-//     }
-//     // 已认证
-//     // AUTHENTICATE: {
-//     //   title: '雅集商城认证成功',
-//     //   message: '您的商城认证已经通过，可开启您商城吧~',
-//     //   showCancelButton: false
-//     // },
-//     // 认证失败
-//     // AUTH_FAIL: {}
-// }
 
 const newAuthMap: DynamicObject = {
     MP_NOT_AUTHORIZED: {
@@ -357,7 +266,8 @@ const functionsPanelTmpl = [
 
 @Component({
     components: {
-        Panel
+        Panel,
+        CreateMall
     }
 })
 export default class Home extends Vue {
@@ -379,8 +289,6 @@ export default class Home extends Vue {
         verifyCode: ''
     }
 
-    createdMallShow = false
-
     // computed
     @user.Getter agencyCode!: string
     @user.Getter auditStatus!: string
@@ -395,8 +303,6 @@ export default class Home extends Vue {
         try {
             if (this.agencyList.length && this.agencyList[0].enterpriseName) {
                 await this.getHomeInfo()
-            } else {
-                this.createdMallShow = true
             }
         } catch (e) {
             throw e
@@ -432,10 +338,6 @@ export default class Home extends Vue {
 
     // methods
     @user.Action [AGENCY_USER_INFO]: () => void
-
-    closeCreatedMall () {
-        this.createdMallShow = false
-    }
 
     // 获取送课的资源
     async getWaitWarrantyResource () {
