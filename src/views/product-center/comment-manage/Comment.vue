@@ -16,9 +16,10 @@
                     :init="[filter.startTime, filter.endTime]"
                 />
             </el-form-item>
-            <el-form-item class="mr-10 mb-0">
+            <br>
+            <el-form-item label=" ">
                 <el-button
-                    style="width:98px;"
+                    round
                     type="primary"
                     @click.enter.native="handleSearch"
                 >

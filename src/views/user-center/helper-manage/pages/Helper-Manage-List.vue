@@ -1,27 +1,24 @@
 <template>
     <div class="helper-list">
-        <el-form
-            :inline="true"
-            class="form-filter"
-            label-width="96px"
-        >
-            <el-form-item label="关键词">
+        <search-box label-width="110px">
+            <el-form-item label="关键词：">
                 <el-input
                     clearable
                     v-model.trim="form.keyword"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
-                    class="filter-inp"
+                    style="width: 350px"
                 />
             </el-form-item>
             <el-form-item
-                label="所属账号"
+                label="所属账号："
                 v-if="currentRoleCode !== 'EMPLOYEE'"
             >
                 <el-select
                     v-model="form.ownnerUserId"
                     clearable
                     @change="search"
+                    style="width: 350px"
                 >
                     <el-option
                         v-for="(item, index) of accountList"
@@ -31,41 +28,42 @@
                     />
                 </el-select>
             </el-form-item>
-            <el-form-item label="最近登录时间">
+            <br>
+            <el-form-item label="最近登录时间：">
                 <date-range :init="[form.loginStartTime, form.loginEndTime]"
                             @change="loginTimeRange"
                             disable-after
                             clearable />
             </el-form-item>
-            <el-form-item label="加入时间">
+            <el-form-item label="加入时间：">
                 <date-range :init="[form.startTime, form.endTime]"
                             @change="joinTimeRange"
                             disable-after
                             clearable />
             </el-form-item>
-            <div class="filter-btns">
+            <br>
+            <el-form-item label=" ">
                 <el-button
                     type="primary"
-                    size="mini"
                     @click="search"
+                    round
                 >
                     查询
                 </el-button>
                 <el-button
-                    size="mini"
                     @click="search"
+                    round
                 >
                     导出数据
                 </el-button>
                 <el-button
                     type="text"
-                    size="mini"
                     @click="restForm"
                 >
                     清空筛选条件
                 </el-button>
-            </div>
-        </el-form>
+            </el-form-item>
+        </search-box>
 
         <div class="mt-20">
             已选择{{ currentSelect.length }}个用户
@@ -462,21 +460,6 @@ export default class HelperManageList extends Vue {
 </script>
 
 <style lang="scss">
-.form-filter{
-    padding: 20px 32px;
-    background: #F5F6FA;
-    border-radius: 10px;
-    .filter-inp{
-        width: 350px;
-    }
-    .filter-btns{
-        padding-left: 96px;
-        button{
-            height: 32px;
-            border-radius: 16px;
-        }
-    }
-}
 .user-info {
     display: flex;
     .avatar{

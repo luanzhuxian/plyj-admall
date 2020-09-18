@@ -19,32 +19,15 @@
             </div>
         </div>
         <!--搜索-->
-        <SearchBox>
+        <SearchBox label-width="110px">
             <el-form-item label="关键字：">
                 <el-input
                     clearable
                     @change="search"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     v-model="form.keyword"
-                    style="width: 250px;"
+                    style="width: 254px;"
                 />
-            </el-form-item>
-            <el-form-item label="用户类型：">
-                <el-select
-                    v-model="form.roleCode"
-                    @change="search"
-                    clearable
-                >
-                    <el-option :value="''" label="全部" />
-                    <el-option value="MEMBERSHIP" label="普通会员" />
-                    <el-option value="HELPER" label="Helper" />
-                </el-select>
-            </el-form-item>
-            <el-form-item label="来源：">
-                <el-select v-model="form.userSource" @change="search" clearable>
-                    <el-option :value="''" label="全部" />
-                    <el-option value="微信H5" label="微信H5" />
-                </el-select>
             </el-form-item>
             <el-form-item label="注册时间：">
                 <date-range
@@ -55,23 +38,11 @@
                     ref="dateRange"
                 />
             </el-form-item>
-            <el-form-item label="最近登陆时间：">
-                <date-range
-                    :init="loginTimeRange"
-                    @change="formatTimeRange('loginStartTime', 'loginEndTime')"
-                    disable-after
-                    clearable
-                    ref="dateRange"
-                />
-            </el-form-item>
-            <el-form-item label="最近购买时间：">
-                <date-range
-                    :init="lastPurchaseTimeRange"
-                    @change="formatTimeRange('lastPurchaseStartTime', 'lastPurchaseEndTime')"
-                    disable-after
-                    clearable
-                    ref="dateRange"
-                />
+            <el-form-item label="来源：">
+                <el-select v-model="form.userSource" @change="search" clearable>
+                    <el-option :value="''" label="全部" />
+                    <el-option value="微信H5" label="微信H5" />
+                </el-select>
             </el-form-item>
             <el-form-item label="购买次数：">
                 <el-input
@@ -92,6 +63,26 @@
                     v-model="form.purchasesMaxNumber"
                 />
             </el-form-item>
+            <el-form-item label="最近登陆时间：">
+                <date-range
+                    :init="loginTimeRange"
+                    @change="formatTimeRange('loginStartTime', 'loginEndTime')"
+                    disable-after
+                    clearable
+                    ref="dateRange"
+                />
+            </el-form-item>
+            <el-form-item label="用户类型：">
+                <el-select
+                    v-model="form.roleCode"
+                    @change="search"
+                    clearable
+                >
+                    <el-option :value="''" label="全部" />
+                    <el-option value="MEMBERSHIP" label="普通会员" />
+                    <el-option value="HELPER" label="Helper" />
+                </el-select>
+            </el-form-item>
             <el-form-item label="支付金额：">
                 <el-input
                     clearable
@@ -109,6 +100,16 @@
                     @change="search"
                     placeholder="请输入金额"
                     v-model="form.purchasesMaxAmount"
+                />
+            </el-form-item>
+
+            <el-form-item label="最近购买时间：">
+                <date-range
+                    :init="lastPurchaseTimeRange"
+                    @change="formatTimeRange('lastPurchaseStartTime', 'lastPurchaseEndTime')"
+                    disable-after
+                    clearable
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>

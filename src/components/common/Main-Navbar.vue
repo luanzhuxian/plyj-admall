@@ -2,7 +2,8 @@
     <nav :class="$style.mainNavbar">
         <img
             :class="$style.logo"
-            :src="logo"
+            v-imgError
+            :src="logo || 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo-white.png'"
             alt="logo"
         >
         <div :class="$style.menuWrap">
@@ -160,10 +161,11 @@ export default class MainNavbar extends Vue {
     overflow: auto;
     > .logo {
         display: block;
-        width: auto;
-        height: 40px;
+        width: 100%;
+        height: 100%;
+        max-height: 40px;
         max-width: 100px;
-        object-fit: cover;
+        object-fit: contain;
         margin: 10px auto 30px;
     }
     > .menu-wrap {
