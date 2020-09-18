@@ -21,7 +21,7 @@
                 <el-button
                     round
                     type="primary"
-                    @click.enter.native="handleSearch"
+                    @click="handleSearch"
                 >
                     搜索
                 </el-button>

@@ -7,7 +7,7 @@
                     style="width: 350px"
                     placeholder="输入订单编号/售后单号/收货电话/收货人姓名/商品名称"
                     clearable
-                    @keyup.enter.native="getList"
+                    @change="getList"
                 />
             </el-form-item>
             <el-form-item label="订单类型：">

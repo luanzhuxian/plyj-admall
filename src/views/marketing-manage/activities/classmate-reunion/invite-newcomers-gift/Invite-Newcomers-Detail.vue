@@ -83,7 +83,7 @@
                         v-model.trim="params.keyWord"
                         clearable
                         placeholder="搜索发起人昵称/手机号"
-                        @keyup.enter.native="search"
+                        @change="search"
                     />
                 </el-form-item>
                 <!-- 目前列表按照发起人展示，礼品合并到弹框招式，状态暂时不可查，隐藏 -->

@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import { Lengthwise, Range } from './types'
-// import { TemplateModule, TemplateModuleItem } from '../types'
+import { isString, isNumber } from '../helper'
 
 // TODO: ts DynamicObject
 export const methods: DynamicObject = {
@@ -42,7 +42,7 @@ class Validator {
 
     // 沿原型链找出属性名
     // TODO: ts DynamicObject
-    _findKeys (instance: DynamicObject, { prefix, Type, filter }: { prefix?: string; Type?: Function; filter?: Function }) {
+    _findKeys (instance: DynamicObject, { prefix, Type, filter }: { prefix?: string; Type?: new() => unknown; filter?: Function }) {
         // TODO: ts (key as string)
         function _shouldKeep (key: string | number | symbol) {
             if (filter) {
@@ -51,14 +51,14 @@ class Validator {
                 }
             }
 
-            if (prefix) {
-                if ((key as string).startsWith(prefix)) {
+            if (isString(key) && prefix) {
+                if (key.startsWith(prefix)) {
                     return true
                 }
             }
 
-            if (Type) {
-                if (instance[(key as string)] instanceof Type) {
+            if ((isString(key) || isNumber(key)) && Type) {
+                if (instance[key] instanceof Type) {
                     return true
                 }
             }

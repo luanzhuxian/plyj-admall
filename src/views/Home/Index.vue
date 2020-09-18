@@ -65,11 +65,26 @@
                         <div>虚拟商品</div>
                         <router-link
                             class="write-off-panel__item-number"
-                            :to="{ name: 'OrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } }"
+                            :to="{
+                                name: 'OrderList',
+                                query: {
+                                    status: 'WAIT_RECEIVE',
+                                    productType: 'VIRTUAL_GOODS'
+                                }
+                            }"
                             v-text="homeInfo.virtualCount || 0"
                         />
                     </div>
-                    <router-link class="write-off-panel__item-link" :to="{ name: 'OrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } }">
+                    <router-link
+                        class="write-off-panel__item-link"
+                        :to="{
+                            name: 'OrderList',
+                            query: {
+                                status: 'WAIT_RECEIVE',
+                                productType: 'VIRTUAL_GOODS'
+                            }
+                        }"
+                    >
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
                     </router-link>
@@ -78,9 +93,26 @@
                     <div>
                         <div>课程商品</div>
                         <!--<router-link class="write-off-panel__item-number" to="/admall/orders-manage/courses-list?status=WAIT_RECEIVE" v-text="homeInfo.courseCount || 0" />-->
-                        <router-link class="write-off-panel__item-number" :to="{ name: 'CoursesList', query: { status: 'WAIT_RECEIVE' } }" v-text="homeInfo.courseCount || 0" />
+                        <router-link
+                            class="write-off-panel__item-number"
+                            :to="{
+                                name: 'CoursesList',
+                                query: {
+                                    status: 'WAIT_RECEIVE'
+                                }
+                            }"
+                            v-text="homeInfo.courseCount || 0"
+                        />
                     </div>
-                    <router-link class="write-off-panel__item-link" :to="{ name: 'CoursesList', query: { status: 'WAIT_RECEIVE' } }">
+                    <router-link
+                        class="write-off-panel__item-link"
+                        :to="{
+                            name: 'CoursesList',
+                            query: {
+                                status: 'WAIT_RECEIVE'
+                            }
+                        }"
+                    >
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
                     </router-link>
