@@ -40,8 +40,7 @@
                     clearable
                     v-model.trim="form.name"
                     placeholder="请输入领取人/电话"
-                    @keyup.enter.native="search"
-                    @clear="search"
+                    @change="search"
                 />
             </el-form-item>
             <el-form-item label="状态：">

@@ -7,7 +7,7 @@
                     placeholder="输入发票单编号/收票人电话/收票人姓名"
                     style="width: 369px;"
                     clearable
-                    @keyup.enter.native="getList"
+                    @change="getList"
                 />
             </el-form-item>
             <el-form-item label="申请时间：">

@@ -100,7 +100,7 @@
                     placeholder="请输入优惠券名称"
                     prefix-icon="el-icon-search"
                     style="width:160px;margin-right:10px;"
-                    @keyup.enter.native="search"
+                    @change="search"
                 />
                 <el-select
                     v-if="showStatus"

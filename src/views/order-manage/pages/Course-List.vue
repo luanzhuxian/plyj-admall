@@ -6,7 +6,7 @@
                     v-model="form.keywords"
                     placeholder="搜索内容"
                     clearable
-                    @keyup.enter.native="goSearch()"
+                    @change="goSearch"
                 />
             </el-form-item>
             <el-form-item

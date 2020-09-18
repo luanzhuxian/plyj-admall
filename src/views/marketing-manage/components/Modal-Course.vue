@@ -17,8 +17,7 @@
                         clearable
                         prefix-icon="el-icon-search"
                         placeholder="请输入课程名称"
-                        @keyup.enter.native="search"
-                        @clear="search"
+                        @change="search"
                     />
                 </el-form-item>
                 <el-form-item class="search-btn-group">

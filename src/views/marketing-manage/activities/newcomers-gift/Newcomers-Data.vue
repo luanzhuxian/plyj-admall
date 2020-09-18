@@ -25,7 +25,7 @@
             </div>
             <search-box class="mt-24" label-width="85px">
                 <el-form-item label="搜索内容：">
-                    <el-input placeholder="搜索用户昵称/联系电话/分享人" v-model="queryFilter.keyWord" @keyup.enter.native="doQuery" />
+                    <el-input placeholder="搜索用户昵称/联系电话/分享人" v-model="queryFilter.keyWord" @change="doQuery" />
                 </el-form-item>
                 <el-form-item label="注册方式：">
                     <el-select v-model="queryFilter.registerType" @change="handleRegTypeChange">

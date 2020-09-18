@@ -7,7 +7,7 @@
                         v-model.trim="params.keyWord"
                         clearable
                         placeholder="活动名称"
-                        @keyup.enter.native="search"
+                        @change="search"
                     />
                 </el-form-item>
                 <el-form-item

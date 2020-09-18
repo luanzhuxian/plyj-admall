@@ -17,8 +17,7 @@
                         prefix-icon="el-icon-search"
                         placeholder="请输入优惠券名称"
                         :maxlength="50"
-                        @keyup.enter.native="search"
-                        @clear="search"
+                        @change="search"
                         style="width: 160px;"
                     />
                 </el-form-item>

@@ -12,13 +12,13 @@ export const mobileLogin: mobileLoginType = ({ mobile, identifyingCode }) => axi
 export const getLoginInfo = () => axios.get('/apis/v2/privilege/auth/me')
 
 /* 获取权限列表 */
-export const getRolePowerList = () => axios.get('/apis/v1/menu/list/mch/current/role')
+export const getRolePowerList = () => axios.get('/apis/v2/menu/list/mch/current/role')
 
 // 获取机构信息
 export const getAgencyDetail = (enterpriseId: string) => axios.get(`/apis/v2/mall/queryRegisterData?enterpriseId=${ enterpriseId }`)
 
 // 获取所有机构列表
-export const getAgencyList = () => axios.get('/apis/v1/base/baseUserInfo/agency/list')
+export const getAgencyList = () => axios.get('/apis/v2/base/baseUserInfo/agency/list')
 
 // 微信扫码
 export const WxScanLogin = (code: string) => axios.post(`/apis/v2/privilege/auth/open-auth/scan/${ code }`)
