@@ -1,5 +1,5 @@
 // 各个模板 id 对应模板名
-export const tagMap = {
+export const tagMap: DynamicObject = {
     '-1': 'template-c',
     3: 'template-b',
     4: 'template-b',
@@ -12,4 +12,4 @@ export const tagMap = {
     findTemplateTagById (id: string) {
         return this[id]
     }
-} as DynamicObject
+}

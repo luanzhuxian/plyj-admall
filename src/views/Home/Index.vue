@@ -275,7 +275,7 @@ export default class Home extends Vue {
     private functionsPanelTmpl = Object.freeze(functionsPanelTmpl)
     private homeInfo = {}
     // 通知消息
-    private latestNotification = {} as DynamicObject
+    private latestNotification: DynamicObject = {}
     // 资源库送课列表
     private giveResourceList = []
     // 是否展示资源库送客
@@ -519,6 +519,7 @@ export default class Home extends Vue {
 
 <style lang="scss">
 .home {
+    min-width: 1300px;
     display: grid;
     grid-template-columns: minmax(710px, 1fr) minmax(580px, 1fr);
     grid-template-rows: 267px 239px 239px;

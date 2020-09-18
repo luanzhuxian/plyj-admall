@@ -10,7 +10,7 @@ import {
 import { Template } from '../types'
 
 const validatorProducer = (tmplId: string, moduleModels: Template | object) => {
-    const map = {
+    const map: DynamicObject = {
         '-1': TemplateCValidator,
         3: TemplateBValidator,
         4: TemplateBValidator,
@@ -23,7 +23,7 @@ const validatorProducer = (tmplId: string, moduleModels: Template | object) => {
         findValidatorById (id: string) {
             return this[id]
         }
-    } as DynamicObject
+    }
     const Constuctor = map.findValidatorById(tmplId)
     return new Constuctor(tmplId, moduleModels)
 }

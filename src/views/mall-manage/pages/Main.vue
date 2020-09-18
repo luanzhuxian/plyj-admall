@@ -181,7 +181,7 @@ import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import { rebuild } from '../utils/service'
 import { validatorProducer } from '../utils/validate'
 import { tagMap } from '../utils/map'
-import { DraftTableRow } from '../utils/types'
+import { Template, DraftTableRow } from '../utils/types'
 
 @Component({
     components: {
@@ -205,15 +205,19 @@ export default class MallMain extends Vue {
     templatePreviewShow = false
     tmplId = 0
     skinId = 0
-    templateModels: DynamicObject = {}
+    templateModels: Template | object = {}
 
     /* computed */
     get tag (): string {
         return tagMap.findTemplateTagById(this.tmplId)
     }
 
-    created () {
-        this.getDraft()
+    async created () {
+        try {
+            await this.getDraft()
+        } catch (error) {
+            throw error
+        }
     }
 
     /* methods */
@@ -251,8 +255,8 @@ export default class MallMain extends Vue {
 
     // 批量删除
     async batchDelete () {
-        await this.$confirm('确定批量删除模板？')
         try {
+            await this.$confirm('确定批量删除模板？')
             await delTemplateBatch(this.multipleSelection)
             this.$success('批量删除成功')
             this.getDraft()
@@ -263,21 +267,25 @@ export default class MallMain extends Vue {
 
     // 模板改名
     async saveTemplateName (row: DraftTableRow) {
-        if (!row.editName.trim()) {
-            this.$error('名称不能为空')
-            return false
+        try {
+            if (!row.editName.trim()) {
+                this.$error('名称不能为空')
+                return false
+            }
+            if (row.editName.length > 20) {
+                this.$error('名称不能大于20个字符')
+                return false
+            }
+            await updateTemplateName({
+                id: row.id,
+                name: row.editName
+            })
+            this.$success('修改成功')
+            await this.getDraft()
+            row.isEdit = false
+        } catch (error) {
+            throw error
         }
-        if (row.editName.length > 20) {
-            this.$error('名称不能大于20个字符')
-            return false
-        }
-        await updateTemplateName({
-            id: row.id,
-            name: row.editName
-        })
-        this.$success('修改成功')
-        await this.getDraft()
-        row.isEdit = false
     }
 
     // 取消模板改名
@@ -288,24 +296,32 @@ export default class MallMain extends Vue {
 
     // 复制模板
     async copyTemplate (id: string) {
-        const { result = {} } = await checkIsFull()
-        if (!result) {
-            await this.$confirm('草稿箱已满50条，保存该草稿将会刪除草稿箱保存时间最早的一条草稿，是否进行该操作？')
+        try {
+            const { result = {} } = await checkIsFull()
+            if (!result) {
+                await this.$confirm('草稿箱已满50条，保存该草稿将会刪除草稿箱保存时间最早的一条草稿，是否进行该操作？')
+            }
+            await this.$confirm('确定复制该页面及上传内容？')
+            await copyTemplateItem(id)
+            this.$success('复制成功')
+            this.getDraft()
+        } catch (error) {
+            throw error
         }
-        await this.$confirm('确定复制该页面及上传内容？')
-        await copyTemplateItem(id)
-        this.$success('复制成功')
-        this.getDraft()
     }
 
     // 预览模板
     async previewTemplate (id: string) {
-        const { result = {} } = await previewTemplateItem(id)
-        if (result && Object.keys(result).length) {
-            this.tmplId = result.type
-            this.skinId = result.skinStatus || 0
-            this.templateModels = rebuild(this.tmplId, result.moduleModels)
-            this.templatePreviewShow = true
+        try {
+            const { result = {} } = await previewTemplateItem(id)
+            if (result && Object.keys(result).length) {
+                this.tmplId = result.type
+                this.skinId = result.skinStatus || 0
+                this.templateModels = rebuild(this.tmplId, result.moduleModels)
+                this.templatePreviewShow = true
+            }
+        } catch (error) {
+            throw error
         }
     }
 
