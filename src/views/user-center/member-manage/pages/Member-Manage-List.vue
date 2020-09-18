@@ -213,7 +213,7 @@
                     <template slot="empty">
                         <div class="no-data">
                             <pl-svg name="icon-no-data-f423f" fill="#eee" width="136" height="89" />
-                            <p>暂无数据~</p>
+                            <p>{{ userCount ? '暂无数据' : '还没有新注册的用户哦' }}~</p>
                         </div>
                     </template>
                     <el-table-column
@@ -763,7 +763,7 @@ export default class MemberManageList extends Vue {
 .member-manage-list {
     .data {
         font-size: 16px;
-        color: #333333;
+        color: #333;
         .data-list {
             display: flex;
             margin: 20px 0 33px;
@@ -788,7 +788,7 @@ export default class MemberManageList extends Vue {
         width: 260px;
         height: calc(100vh - 80px);
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-        background-color: #F5F5F5;
+        background-color: #f5f5f5;
         overflow: auto;
 
         .tag-list-top {
@@ -861,8 +861,8 @@ export default class MemberManageList extends Vue {
             margin-top: 50px;
             padding: 100px 20px 0;
             text-align: center;
-            color: #4C88D6;
-            background:  transparent url("https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png") center top/65px auto no-repeat;
+            color: #4c88d6;
+            background: transparent url('https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png') center top/65px auto no-repeat;
         }
     }
 
@@ -870,13 +870,13 @@ export default class MemberManageList extends Vue {
         width: calc(100% - 260px);
         min-height: calc(100vh - 110px);
         padding-bottom: 30px;
-        background-color: #ffffff;
+        background-color: #fff;
         .multiple-selection {
             padding-left: 21px;
             > p {
                 display: inline-block;
                 > span {
-                    color: #4F63FF;
+                    color: #4f63ff;
                 }
             }
         }
@@ -902,42 +902,42 @@ export default class MemberManageList extends Vue {
                         width: 18px;
                         height: 18px;
                         margin-right: 6px;
-                        border: 1px solid #F79F1A;
+                        border: 1px solid #f79f1a;
                         border-radius: 5px;
                         font-size: 12px;
                         font-family: Microsoft YaHei UI;
                         font-weight: 600;
                         line-height: 15px;
                         text-align: center;
-                        color: #F79F1A;
+                        color: #f79f1a;
                     }
                     .name {
                         max-width: 81px;
                         margin-right: 6px;
                         @include elps-wrap(1);
                     }
-                    >svg {
+                    > svg {
                         vertical-align: -2px;
                     }
                 }
                 .tag {
                     margin-top: 8px;
                     width: 110px;
-                    color: #999999;
+                    color: #999;
                     @include elps-wrap(1);
                 }
             }
         }
         .operate {
-          > a {
-              padding: 0 13px;
-              border-left: 1px solid;
-              font-size: 14px;
-              color: #4F63FF;
-              &:first-child {
-                  margin-left: -20px!important;
-              }
-          }
+            > a {
+                padding: 0 13px;
+                border-left: 1px solid;
+                font-size: 14px;
+                color: #4f63ff;
+                &:first-child {
+                    margin-left: -20px!important;
+                }
+            }
         }
     }
 
@@ -947,8 +947,9 @@ export default class MemberManageList extends Vue {
     .background-color-grey {
         background-color: #eee!important;
     }
-    #color-333{
+    #color-333 {
         color: #333;
     }
 }
+
 </style>
