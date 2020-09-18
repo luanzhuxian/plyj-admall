@@ -4,11 +4,13 @@ import moment from 'moment'
 import Vue from 'vue'
 import { TemplateModuleItem } from './types'
 
-const objectToString = Object.prototype.toString
-const toTypeString = (value: unknown): string => objectToString.call(value)
-const isPlainObject = <T>(val: unknown): val is T => toTypeString(val) === '[object Object]'
+export const objectToString = Object.prototype.toString
+export const toTypeString = (value: unknown): string => objectToString.call(value)
+export const isPlainObject = <T>(val: unknown): val is T => toTypeString(val) === '[object Object]'
+export const isString = (val: unknown): val is string => typeof val === 'string'
+export const isNumber = (val: unknown): val is number => typeof val === 'number'
 
-export const isNumber = (val: any) => {
+export const isNumberOrString = (val: any) => {
     // isNaN()把''、null按照0来处理，所以先去除，
     if (val === '' || val === null || val === undefined) {
         return false
@@ -50,7 +52,7 @@ export const isEmpty = (data: any[] | DynamicObject) => {
 }
 
 export const getPrice = <T extends object, U extends keyof T> (list: T[]) => (key: U) => {
-    const arr = list.map(item => item[key]).filter(val => isNumber(val))
+    const arr = list.map(item => item[key]).filter(val => isNumberOrString(val))
         .map(val => Number(val))
     return key === 'originalPrice' ? Math.max(...arr) : Math.min(...arr)
 }
