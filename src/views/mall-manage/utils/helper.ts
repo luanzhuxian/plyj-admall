@@ -92,6 +92,17 @@ export const reset = (item: TemplateModuleItem) => {
     }
 }
 
+export const getBtnText = ({ isOpenSale, regularSaleTime = '' }: { isOpenSale: number; regularSaleTime: string }) => {
+    let text = '立即订购'
+    if (isOpenSale === 1) {
+        const saleTime = new Date(regularSaleTime).valueOf()
+        if (saleTime > Date.now()) {
+            text = '即将开售'
+        }
+    }
+    return text
+}
+
 export const sub = (arg1: number, arg2: number) => {
     let r1
     let r2
