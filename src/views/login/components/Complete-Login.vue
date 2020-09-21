@@ -97,12 +97,13 @@ export default class CompleteLogin extends Vue {
         agree = false
         passwordType = 'password'
         confirmPasswordType = 'password'
+        isComplete = false
 
         @Prop(Boolean) codeShow!: boolean;
         @userModule.Getter('codePass') codePass!: boolean
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
-
+        @userModule.Mutation('LOGOUT') LOGOUT!: Function
         @Emit('emitLogin')
         emitLogin () {
             return true
@@ -128,7 +129,7 @@ export default class CompleteLogin extends Vue {
                     return
                 }
                 this.loading = true
-                await completeInfo(this.form)
+                this.isComplete = await completeInfo(this.form)
                 this.emitLogin()
             } catch (e) {
                 this.setCodePass(false)
@@ -136,6 +137,10 @@ export default class CompleteLogin extends Vue {
             } finally {
                 this.loading = false
             }
+        }
+
+        async beforeDestroy () {
+            if (!this.isComplete) await this.LOGOUT()
         }
 }
 </script>
