@@ -125,7 +125,7 @@
 
 <script>
 import NumberCard from '../../../components/NumberCard'
-import Verification from '../../../../../components/order/Verification.vue'
+import Verification from '../../../../../components/order-center/Verification.vue'
 import moment from 'moment/moment'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
 import { getActivityStat, getActivityGiftList, exportActivityGiftList } from '../../../../../apis/marketing-manage/newcomers'

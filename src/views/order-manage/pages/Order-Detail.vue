@@ -557,14 +557,14 @@ import {
     updateCustomForm,
     singleAuditredeemcode
 } from '../../../apis/order'
-import Shipments from '../../../components/order/Shipments.vue'
-import ModifyShip from '../../../components/order/Modify-Ship.vue'
-import ApplyAfter from '../../../components/order/Apply-After.vue'
-import CloseOrder from '../../../components/order/Close-Order.vue'
-import EditCustom from '../../../components/order/Edit-Custom'
-import EditStudent from '../../../components/order/Edit-Student'
-import ModifyConsigneeInformation from '../../../components/order/Modify-Consignee-Information'
-import InvoiceDetails from '../../../components/order/Invoice-Details'
+import Shipments from '../../../components/order-center/Shipments.vue'
+import ModifyShip from '../../../components/order-center/Modify-Ship.vue'
+import ApplyAfter from '../../../components/order-center/Apply-After.vue'
+import CloseOrder from '../../../components/order-center/Close-Order.vue'
+import EditCustom from '../../../components/order-center/Edit-Custom.vue'
+import EditStudent from '../../../components/order-center/Edit-Student.vue'
+import ModifyConsigneeInformation from '../../../components/order-center/Modify-Consignee-Information.vue'
+import InvoiceDetails from '../../../components/order-center/Invoice-Details.vue'
 
 export default {
     name: 'OrderDetail',

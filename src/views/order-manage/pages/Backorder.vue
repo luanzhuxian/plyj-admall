@@ -316,7 +316,7 @@
     </div>
 </template>
 <script>
-import BackorderTurndown from '../../../components/order/Backorder-Turndown'
+import BackorderTurndown from '../../../components/order-center/Backorder-Turndown.vue'
 import {
     getReturnOrdersList,
     returnOrdersListAgree,

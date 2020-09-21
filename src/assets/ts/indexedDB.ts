@@ -4,17 +4,17 @@
  * @param version {Number} 数据库版本
  * @returns {Promise<any>}
  */
-export const requestDB = function (databaseName, version = 1) {
+export const requestDB = function (databaseName: string, version = 1) {
     return new Promise((resolve, reject) => {
         const request = window.indexedDB.open(databaseName, version)
-        request.onsuccess = event => {
+        request.onsuccess = (event: any) => {
             resolve(event.target.result)
             console.warn('indexedDB is connection')
         }
         request.onerror = e => {
             reject(e)
         }
-        request.onupgradeneeded = event => {
+        request.onupgradeneeded = (event: any) => {
             resolve(event.target.result)
             console.warn('indexedDB is upgraded')
         }
@@ -28,7 +28,7 @@ export const requestDB = function (databaseName, version = 1) {
  * @param keyPath {String|Number} 主键
  * @returns {IDBObjectStore}
  */
-export const createStore = function (db, tableName, keyPath) {
+export const createStore = function (db: IDBDatabase, tableName: string, keyPath: string) {
     return db.createObjectStore(tableName, { keyPath })
 }
 
@@ -40,7 +40,7 @@ export const createStore = function (db, tableName, keyPath) {
  * @param tableName {String} 对象仓库名称（表名）
  * @returns {IDBObjectStore}
  */
-export const getDBObjectStore = function (db, tableName) {
+export const getDBObjectStore = function (db: IDBDatabase, tableName: string) {
     return db.transaction([tableName], 'readwrite').objectStore(tableName)
 }
 
@@ -53,7 +53,7 @@ export const getDBObjectStore = function (db, tableName) {
  * @param index 索引所在的属性
  * @returns {IDBObjectStore}
  */
-export const getStore = function (db, storeName, keyPath, name, index) {
+export const getStore = function (db: IDBDatabase, storeName: string, keyPath: string, name: string, index: string) {
     try {
         let citiesStore = null
         if (!db.objectStoreNames.contains(storeName)) {
@@ -88,7 +88,7 @@ export const getStore = function (db, storeName, keyPath, name, index) {
  * 关闭数据库连接
  * @param db {IDBDatabase}
  */
-export const closeDB = function (db) {
+export const closeDB = function (db: IDBDatabase) {
     db.close()
     console.warn('indexedDB is closed')
 }
@@ -98,14 +98,14 @@ export const closeDB = function (db) {
  * @param store {IDBObjectStore}
  * @param data {Object}
  * */
-export const addData = function (store, data) {
+export const addData = function (store: IDBObjectStore, data: object) {
     return new Promise((resolve, reject) => {
         try {
             const request = store.add(data)
             request.onsuccess = () => {
                 resolve()
             }
-            request.onerror = e => {
+            request.onerror = (e: any) => {
                 reject(new Error(e.target.error))
             }
         } catch (e) {
@@ -119,14 +119,14 @@ export const addData = function (store, data) {
  * @param store {IDBObjectStore}
  * @param data {Object}
  * */
-export const update = function (store, data) {
+export const update = function (store: IDBObjectStore, data: object) {
     return new Promise((resolve, reject) => {
         try {
             const request = store.put(data)
             request.onsuccess = () => {
                 resolve()
             }
-            request.onerror = e => {
+            request.onerror = (e: any) => {
                 reject(new Error(e.target.error))
             }
         } catch (e) {
@@ -140,13 +140,13 @@ export const update = function (store, data) {
  * @param store {IDBObjectStore}
  * @param key {string|number} 主键值
  */
-export const getData = function (store, key) {
+export const getData = function (store: IDBObjectStore, key: string) {
     return new Promise((resolve, reject) => {
         const DBRequest = store.get(key)
-        DBRequest.onsuccess = event => {
+        DBRequest.onsuccess = (event: any) => {
             resolve(event.target.result)
         }
-        DBRequest.onerror = event => {
+        DBRequest.onerror = (event: any) => {
             reject(event.target.error)
         }
     })

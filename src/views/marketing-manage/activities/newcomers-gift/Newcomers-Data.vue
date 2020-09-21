@@ -214,7 +214,7 @@
 import moment from 'moment/moment'
 import NumberCard from '../../components/NumberCard.vue'
 import Pagination from '../../../../components/common/Pagination.vue'
-import Verification from '../../../../components/order/Verification.vue'
+import Verification from '../../../../components/order-center/Verification.vue'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import {
     getActivityStat,

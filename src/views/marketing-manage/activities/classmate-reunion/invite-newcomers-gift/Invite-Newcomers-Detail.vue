@@ -277,7 +277,7 @@
 import { getInvitingDetail, getInvitingDetailList, exportInvitingDetailList } from '../../../../../apis/marketing-manage/inviting'
 import moment from 'moment/moment'
 import Share from '../../../../../components/common/Share.vue'
-import Verification from '../../../../../components/order/Verification.vue'
+import Verification from '../../../../../components/order-center/Verification.vue'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
 
 export default {

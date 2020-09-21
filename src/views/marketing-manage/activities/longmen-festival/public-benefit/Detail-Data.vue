@@ -220,7 +220,7 @@ import {
 } from './../../../../../apis/marketing-manage/lonmen-festival/public-benefit'
 import { activityDataList } from '../../../../../apis/order'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
-import verification from '../../../../../components/order/Verification.vue'
+import verification from '../../../../../components/order-center/Verification.vue'
 export default {
     components: {
         verification,

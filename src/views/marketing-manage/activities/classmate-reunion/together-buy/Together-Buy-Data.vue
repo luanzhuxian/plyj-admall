@@ -265,7 +265,7 @@
 </template>
 
 <script>
-import verification from '../../../../../components/order/Verification.vue'
+import verification from '../../../../../components/order-center/Verification.vue'
 import { togetherActivityOrders } from '../../../../../apis/marketing-manage/together'
 import { getActivityData } from '../../../../../apis/marketing-manage/gameplay'
 import { exportActivityData } from '../../../../../apis/marketing-manage/booking'

@@ -182,7 +182,7 @@ import moment from 'moment/moment'
 import ExportDialog from '../../../../order-manage/components/Export-Dialog'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
 import { getLotteryStatisticsList, exportLotteryStatistic, getWinningGift } from '../../../../../apis/marketing-manage/lonmen-festival/lottery'
-import verification from '../../../../../components/order/Verification.vue'
+import verification from '../../../../../components/order-center/Verification.vue'
 import GiftList from '../components/Gift-List'
 
 export default {

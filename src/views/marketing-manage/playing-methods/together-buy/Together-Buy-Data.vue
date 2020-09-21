@@ -284,7 +284,7 @@
 
 <script>
 import Export from '../../activities/classmate-reunion/components/Export'
-import verification from '../../../../components/order/Verification.vue'
+import verification from '../../../../components/order-center/Verification.vue'
 import { getActivityData } from '../../../../apis/marketing-manage/gameplay'
 import { exportActivityData } from '../../../../apis/marketing-manage/booking'
 import { activityDataList, redeemUserList } from '../../../../apis/order'

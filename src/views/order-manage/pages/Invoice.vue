@@ -385,7 +385,7 @@
 </template>
 <script>
 import Pagination from '../../../components/common/Pagination.vue'
-import InvoiceDetails from '../../../components/order/Invoice-Details'
+import InvoiceDetails from '../../../components/order-center/Invoice-Details.vue'
 import {
     getInvoiceList,
     confirmModifyInvoiceStatus,

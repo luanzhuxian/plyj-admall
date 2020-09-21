@@ -490,8 +490,8 @@
 import { getBackorderDetail, returnOrdersListAgree, modifyActualRefund } from '../../../apis/order'
 import { getDataDictionary } from '../../../apis/common'
 import { isMoney } from '../../../assets/ts/validate'
-import InvoiceDetails from '../../../components/order/Invoice-Details'
-import BackorderTurndown from '../../../components/order/Backorder-Turndown'
+import InvoiceDetails from '../../../components/order-center/Invoice-Details.vue'
+import BackorderTurndown from '../../../components/order-center/Backorder-Turndown.vue'
 export default {
     name: 'OrderDetail',
     components: {

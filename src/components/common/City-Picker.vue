@@ -13,7 +13,7 @@
 <script>
 /* eslint-disable */
 import { getCityListByParentId } from '../../apis/address'
-import { requestDB, closeDB, getStore, addData, update, getData } from '../../assets/js/indexedDB'
+import { requestDB, closeDB, getStore, addData, update, getData } from '../../assets/ts/indexedDB'
 let db
 /**
  * 根据父级id从数据库查找城市列表

@@ -126,7 +126,6 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
     }, null, 4)))
 }
 const resError = async (error: any) => {
-    console.log(error)
     close()
     let msg = error.message
     if (msg.indexOf('timeout') > -1) {

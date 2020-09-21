@@ -55,6 +55,8 @@ Vue.config.errorHandler = function (err, vm) {
         if (err.name === 'ResponseError') {
             const error = JSON.parse(err.message)
             vm.$error(error.message)
+        } else {
+            vm.$error(err.message)
         }
         console.error(err)
     }

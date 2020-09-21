@@ -267,7 +267,7 @@
 
 <script>
 import { getActivityData } from '../../../../../apis/marketing-manage/gameplay'
-import verification from '../../../../../components/order/Verification.vue'
+import verification from '../../../../../components/order-center/Verification.vue'
 import { bookingActivityOrders, exportActivityData } from '../../../../../apis/marketing-manage/booking'
 import { redeemUserList } from '../../../../../apis/order'
 import moment from 'moment/moment'

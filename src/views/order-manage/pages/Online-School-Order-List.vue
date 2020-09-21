@@ -243,7 +243,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 import { createObjectUrl } from '../../../assets/ts/upload'
 import moment from 'moment'
 import ExportOrder from './../components/Export-Order'
-import CloseOrder from '../../../components/order/Close-Order.vue'
+import CloseOrder from '../../../components/order-center/Close-Order.vue'
 
 export default {
     name: 'OnlineSchoolOrder',

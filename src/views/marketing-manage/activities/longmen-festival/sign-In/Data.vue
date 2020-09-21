@@ -217,7 +217,7 @@
 
 <script>
 import ExportDialog from '../../../../order-manage/components/Export-Dialog'
-import verification from '../../../../../components/order/Verification.vue'
+import verification from '../../../../../components/order-center/Verification.vue'
 import moment from 'moment/moment'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
 import { activityStatistic, queryActivityList, exportActivityStatistic, queryActivityGiftDetail } from '../../../../../apis/marketing-manage/new-year/year-flavor'
