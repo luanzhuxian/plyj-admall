@@ -38,7 +38,7 @@
                     />
                     <Field
                         title="地址："
-                        :text="(memberDetail.province + memberDetail.region + memberDetail.city + memberDetail.address) || '--'"
+                        :text="memberDetail.addressPath + memberDetail.address || '--'"
                     />
                     <div class="tag-list">
                         <span>标签：</span>
@@ -70,7 +70,7 @@
             <p class="title">
                 备注用户信息
                 <template v-if="!isEdit">
-                    <el-button type="text" @click="isEdit = true">编辑</el-button>
+                    <el-button type="text" @click="edit">编辑</el-button>
                 </template>
                 <template v-else>
                     <el-button type="text" @click="saveAddMemberDetail">保存</el-button>
@@ -94,7 +94,7 @@
                         </div>
                         <div>
                             <span>生日：</span>
-                            <span>{{ memberDetail.birthday || '--' }}</span>
+                            <span>{{ memberDetail.birthday | dateFrom || '--' }}</span>
                         </div>
                         <div>
                             <span>性别：</span>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="fill">
                             <span>所在区域：</span>
-                            <span>{{ (memberDetail.province + memberDetail.city + memberDetail.region + memberDetail.address) || '--' }}</span>
+                            <span>{{ (memberDetail.addressPath + memberDetail.address) || '--' }}</span>
                         </div>
                         <div v-if="memberDetail.type !== 2">
                             <span>行业：</span>
@@ -179,7 +179,7 @@
                         </el-form-item>
                         <el-form-item
                             label="所在区域"
-                            prop="addressPrefix"
+                            prop="addressPath"
                         >
                             <CityPicker
                                 @selected="selectedCity"
@@ -929,6 +929,8 @@ export default class MemberManageDetail extends Vue {
         province: '',
         region: '',
         city: '',
+        town: '',
+        addressPath: '',
         address: '',
         tags: '',
         source: '',
@@ -990,6 +992,8 @@ export default class MemberManageDetail extends Vue {
         wechatNumber: '',
         province: '',
         city: '',
+        town: '',
+        addressPath: '',
         region: '',
         address: '',
         industry: '',
@@ -1002,19 +1006,25 @@ export default class MemberManageDetail extends Vue {
         form.province = val[0].code
         form.city = val[1].code
         form.region = val[2] ? val[2].code : ''
+        form.town = val[3] ? val[3].code : ''
+        form.addressPath = val[0].name +
+            val[1].name +
+            (val[2] ? val[2].name : '') +
+            (val[3] ? val[3].name : '')
+    }
 
-        /* form.town = val[3] ? val[3].code : ''
-        form.addressPrefix = val[0].name +
-        val[1].name +
-        (val[2] ? val[2].name : '') +
-        (val[3] ? val[3].name : '') */
+    edit () {
+        const { name, type, birthday, email, wechatNumber, province, city, region, address, town, company, workPosition } = this.memberDetail
+        this.addMemberDetailForm = { name, type, birthday, email, wechatNumber, province, city, region, address, town, company, workPosition }
+        this.addressCode = [province, city, region, town]
+        this.isEdit = true
     }
 
     // 保存备注用户信息
     async saveAddMemberDetail () {
         try {
             const params = { ...this.addMemberDetailForm }
-            if (params.type === 2) {
+            if (Number(params.type) === 2) {
                 params.industry = ''
                 params.workPosition = ''
                 params.company = ''

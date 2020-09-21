@@ -63,7 +63,7 @@
                     v-model="form.purchasesMaxNumber"
                 />
             </el-form-item>
-            <el-form-item label="最近登陆时间：">
+            <el-form-item label="最近登录时间：">
                 <date-range
                     :init="loginTimeRange"
                     @change="formatTimeRange('loginStartTime', 'loginEndTime')"
