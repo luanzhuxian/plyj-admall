@@ -16,6 +16,11 @@
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" style="width: 20px" alt="">微信注册
             </div>
         </el-button>
+        <div :class="$style.loginOr">
+            <div />
+            <span>或</span>
+            <div />
+        </div>
         <div :class="$style.accountMessage">
             <el-form
                 :model="form"
@@ -241,7 +246,6 @@ export default class Register extends Vue {
     }
     .phone-login{
         width: 400px;
-        height: 680px;
         padding: 40px;
         border-radius: 10px;
         background-color: #ffffff;
@@ -264,6 +268,23 @@ export default class Register extends Vue {
             img{
                 margin-right: 10px;
             }
+        }
+
+        .login-or{
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            div{
+                width: 145px;
+                border-bottom: 1px solid #F5F6FA;
+            }
+            span{
+                padding: 0 8px;
+                font-size: 14px;
+                font-weight: 400;
+                color: #999999;
+            }
+
         }
         .account-message{
             margin-top: 36px;
