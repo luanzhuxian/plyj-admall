@@ -348,8 +348,11 @@
                             />
                             <el-table-column
                                 prop="unitPrice"
-                                label="单价（元）"
-                            />
+                                label="单价（元）">
+                                <template #default="{ row }">
+                                    {{ row.unitPrice / 100 }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="orderStatus"
                                 label="订单状态"
@@ -474,12 +477,18 @@
                             />
                             <el-table-column
                                 prop="unitPrice"
-                                label="单价（元）"
-                            />
+                                label="单价（元）">
+                                <template #default="{ row }">
+                                    {{ row.unitPrice / 100 }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="amount"
-                                label="实付款（元）"
-                            />
+                                label="实付款（元）">
+                                <template #default="{ row }">
+                                    {{ row.amount / 100 }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="userName"
                                 label="分享人"
@@ -605,9 +614,12 @@
                                 label="类型"
                             />
                             <el-table-column
-                                prop="userName"
-                                label="实付款（元）"
-                            />
+                                prop="amount"
+                                label="实付款（元）">
+                                <template #default="{ row }">
+                                    {{ row.amount / 100 }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="amount"
                                 label="支付优惠"
