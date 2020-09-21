@@ -64,7 +64,7 @@ export default class PhoneLogin extends Vue {
 
         rules = {
             mobile: [
-                { required: true, trigger: 'blur', message: '账号不能为空' },
+                { required: true, trigger: 'blur', message: '手机号不能为空' },
                 { validator: testPhone, trigger: 'blur', message: '请输入正确的手机号码' }
             ],
             identifyingCode: [
