@@ -1,10 +1,10 @@
 <template>
     <div :class="$style.phoneLogin">
-        <!--        <div :class="$style.loginType">-->
-        <!--            微信扫码登录/注册-->
-        <!--        </div>-->
+        <div :class="$style.loginType">
+            微信扫码登录/注册
+        </div>
         <div :class="$style.accountMessage">
-            <div id="login-container" />
+            <div id="login-container" style="height: 280px;width: 270px" />
         </div>
         <div :class="$style.loginMthods">
             <el-button @click="$router.push({name:'PhoneLogin'})" type="text">手机号登陆</el-button>
@@ -70,6 +70,7 @@ export default class WxLogin extends Vue {
             /* eslint-disable @typescript-eslint/camelcase */
             /* eslint-disable no-new */
             // location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx7f8e7e4ea457931d&redirect_uri=http://joint.xijun.youpenglai.com&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect'
+            const weChatStyle: any = 'https://mallcdn.youpenglai.com/static/admall-new/weChatLoginStyle/index.css'
             const state = Date.now().toString(16)
             sessionStorage.setItem('login_state', state)
             new window.WxLogin({
@@ -77,10 +78,10 @@ export default class WxLogin extends Vue {
                 id: 'login-container',
                 appid: 'wx7f8e7e4ea457931d',
                 scope: 'snsapi_login',
-                redirect_uri: 'http://joint.xijun.youpenglai.com/wx-login',
+                redirect_uri: 'https://joint.xijun.youpenglai.com/wx-login',
                 state,
                 style: 'black',
-                href: ''
+                href: weChatStyle
             })
         }
 }
@@ -89,7 +90,7 @@ export default class WxLogin extends Vue {
 <style module lang="scss">
     .phone-login{
         width: 360px;
-        height: 400px;
+        height: 420px;
         padding: 40px;
         border-radius: 10px;
         background-color: #ffffff;
@@ -97,8 +98,10 @@ export default class WxLogin extends Vue {
         .login-type{
             display: flex;
             justify-content: center;
+            padding-top: 28px;
+            padding-bottom: 10px;
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 400;
             color: #333333;
         }
         .login-mthods{
