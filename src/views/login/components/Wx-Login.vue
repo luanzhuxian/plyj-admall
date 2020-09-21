@@ -4,7 +4,7 @@
             微信扫码登录/注册
         </div>
         <div :class="$style.accountMessage">
-            <div id="login-container" style="height: 280px;width: 270px" />
+            <div id="login-container" style="height: 280px;width: 270px;overflow: hidden" />
         </div>
         <div :class="$style.loginMthods">
             <el-button @click="$router.push({name:'PhoneLogin'})" type="text">手机号登陆</el-button>
