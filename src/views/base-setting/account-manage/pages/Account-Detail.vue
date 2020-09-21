@@ -444,7 +444,7 @@
 
 <script>
 import moment from 'moment'
-import RoleTree from '../components/Role-Tree.vue'
+import RoleTree from '../../../../components/base-setting/account-manage/Role-Tree.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import { getSingleAccount, getSingleAccountHerlerList, getAccounts, getMenuByUser } from '../../../../apis/account'
 import { changeHelpersAccount, getOrderList, exportOrderDetail } from '../../../../apis/member'

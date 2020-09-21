@@ -554,16 +554,16 @@ import {
 } from '../../../../apis/product-center/goods'
 import { getPingXuan } from '../../../../apis/mall'
 import PlEditor from '../../../../components/common/Pl-Editor.vue'
-import UploadImage from '../../../../components/file/Image-Manager.vue'
-import UploadVideo from '../../../../components/file/Video-Manager.vue'
-import FileSelector from '../../../../components/file/File-Selector.vue'
+import UploadImage from '../../../../components/common/file/Image-Manager.vue'
+import UploadVideo from '../../../../components/common/file/Video-Manager.vue'
+import FileSelector from '../../../../components/common/file/File-Selector.vue'
 import point from '../../../../components/product-center/goods/Point.vue'
 import ShippingTemplate from '../../../../components/product-center/goods/Shipping-Template'
 import AddTags from '../../../../components/product-center/goods/Add-Tags.vue'
 import AddSku from '../../../../components/product-center/goods/Add-Sku.vue'
 import SkuTable from '../../../../components/product-center/goods/Sku-Table.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
-import Draggable from '../../../../components/draggable'
+import Draggable from '../../../../components/common/draggable'
 import MainImageTheme from '../../../../components/product-center/goods/Main-Image-Theme.vue'
 import { mapGetters, mapActions } from 'vuex'
 import { GET_RETURN_ADDRESS } from '../../../../store/mutation-type'
@@ -754,7 +754,7 @@ export default {
             await this.init()
             await this.getTemplateList()
             if (!this.returnAddressList.length) {
-                this[GET_RETURN_ADDRESS]()
+                await this[GET_RETURN_ADDRESS]()
             }
             this.hasPingXuan = await this.getPingXuan()
             if (this.form.showBranding === 4) {
@@ -1280,9 +1280,6 @@ export default {
                 }
             }
             return true
-        },
-        getReturnAddress () {
-            this[GET_RETURN_ADDRESS]()
         },
 
         /**

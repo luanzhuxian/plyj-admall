@@ -20,7 +20,7 @@
 
 <script>
 /* eslint-disable */
-import Sortable from '../draggable/Sortable'
+import Sortable from './draggable/Sortable'
 export default {
   name: 'PlTable',
   inheritAttrs: false,

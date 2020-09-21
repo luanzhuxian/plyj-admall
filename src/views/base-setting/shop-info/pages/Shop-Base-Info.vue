@@ -306,7 +306,7 @@ import {
     setPhone
 } from '../../../../apis/setting'
 import CityPicker from '../../../../components/common/City-Picker.vue'
-import UploadImage from '../../../../components/file/Image-Manager.vue'
+import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import { isPhone, isTelNumber } from '../../../../assets/ts/validate'
 import { mapGetters, mapActions } from 'vuex'
 import { getDataDictionary } from '../../../../apis/common'

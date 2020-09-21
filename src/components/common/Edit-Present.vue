@@ -77,7 +77,7 @@
 
 <script>
 import moment from 'moment'
-import UploadImage from '../file/Image-Manager.vue'
+import UploadImage from './file/Image-Manager.vue'
 import { copyFields } from '../../assets/ts/utils'
 import { checkNumber } from '../../assets/ts/validate'
 

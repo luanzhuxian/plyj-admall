@@ -221,7 +221,7 @@
 </template>
 
 <script>
-import UploadImage from '../../file/Image-Manager.vue'
+import UploadImage from '../../common/file/Image-Manager.vue'
 import { isMoney, isPositiveInteger, isVolume } from '../../../assets/ts/validate'
 import { mapGetters } from 'vuex'
 export default {

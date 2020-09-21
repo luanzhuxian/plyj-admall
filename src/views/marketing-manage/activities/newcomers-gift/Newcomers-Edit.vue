@@ -342,7 +342,7 @@ import {
 } from '../../../../apis/marketing-manage/newcomers'
 import AddPresent from './Add-Present'
 import AddScholarship from './Add-Scholarship'
-import UploadImage from '../../../../components/file/Image-Manager.vue'
+import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 export default {
     name: 'NewcomersEdit',
     components: {

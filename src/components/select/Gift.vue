@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import UploadImage from '../file/Image-Manager.vue'
+import UploadImage from '../common/file/Image-Manager.vue'
 
 export default {
     components: {

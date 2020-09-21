@@ -243,7 +243,7 @@
 import Preview from '../../../../../components/common/Preview'
 import ProductCheckbox from '../components/Product-Checkbox'
 import KnowledgeProduct from '../components/Knowledge-Product'
-import UploadImage from '../../../../../components/file/Image-Manager'
+import UploadImage from '../../../../../components/common/file/Image-Manager'
 import { getTagList } from '../../../../../apis/member'
 import { addPublicBenefit, updatePublicBenefit, getPublicBenefitDetail } from '../../../../../apis/marketing-manage/lonmen-festival/public-benefit'
 import moment from 'moment'

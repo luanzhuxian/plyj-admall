@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import UploadImage from '../../../../components/file/Image-Manager.vue'
+import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import MpWeixinPreview from './Preview'
 import { mpWeixinDetail, addMmpWeixin, updateMmpWeixin } from '../../../../apis/marketing-manage/mp-weixin'
 export default {

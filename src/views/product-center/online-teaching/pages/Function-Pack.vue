@@ -138,7 +138,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 import SchemeLabel from './../../../marketing-manage/components/Scheme-Label.vue'
-import Progress from './../../../base-setting/account-manage/components/Progress.vue'
+import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 import OnlinePack from './../compoonents/Online-Pack.vue'
 
 @Component({

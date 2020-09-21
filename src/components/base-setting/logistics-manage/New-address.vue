@@ -97,11 +97,9 @@
 import {
     createAddress,
     updateAddress
-} from '../../apis/address'
-import CityPicker from '../common/City-Picker.vue'
-import { resetForm } from '../../assets/ts/utils'
-import { GET_RECEIVE_ADDRESS, GET_RETURN_ADDRESS } from '../../store/mutation-type'
-import { mapActions } from 'vuex'
+} from '../../../apis/address'
+import CityPicker from '../../common/City-Picker.vue'
+import { resetForm } from '../../../assets/ts/utils'
 export default {
     name: 'NewAddress',
     components: {
@@ -190,7 +188,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions([GET_RECEIVE_ADDRESS, GET_RETURN_ADDRESS]),
         save () {
             this.$refs.form.validate(async val => {
                 if (val) {

@@ -270,7 +270,7 @@ import {
     downgradeAccount,
     editAccount
 } from '../../../../apis/account'
-import Progress from './../components/Progress.vue'
+import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 
 interface AccountData {
     searchContent: string;

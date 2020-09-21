@@ -94,7 +94,7 @@
 
 <script>
 /* eslint-disable */
-import { compress } from '../../assets/ts/upload'
+import { compress } from '../../../assets/ts/upload'
 let mainCtx = null
 // 临时canvas
 let tempCanvas = null

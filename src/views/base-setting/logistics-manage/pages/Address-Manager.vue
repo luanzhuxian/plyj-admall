@@ -100,7 +100,7 @@ import {
     deleteAddress
 } from '../../../../apis/address'
 import { GET_RECEIVE_ADDRESS, GET_RETURN_ADDRESS } from '../../../../store/mutation-type'
-import NewAddress from '../components/New-address.vue'
+import NewAddress from '../../../../components/base-setting/logistics-manage/New-address.vue'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 const goodModule = namespace('goods')

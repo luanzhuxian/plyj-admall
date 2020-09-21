@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import Draggable from '../../draggable'
+import Draggable from '../draggable'
 
 export default {
     name: 'TreeItem',

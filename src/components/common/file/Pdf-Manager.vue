@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import { uploadPdf } from '../../assets/ts/upload'
-import Draggable from '../../components/draggable'
+import { uploadPdf } from '../../../assets/ts/upload'
+import Draggable from '../draggable'
 export default {
     name: 'PDFManager',
     components: {

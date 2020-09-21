@@ -30,6 +30,6 @@ export const brandingQuery = () => axios.get('/apis/v1/brand/branding/query')
 export const brandingUpdate = data => axios.post('/apis/v1/brand/branding/saveOrUpdate', data)
 
 // 设置公众号
-export const setWechat = data => axios.put('/apis/v1/base/baseMall/wechat', data)
+export const setWechat = data => axios.put('/apis/v2/mall/wechat', data)
 // 设置客服
 export const setPhone = data => axios.post('/apis/v1/service/phone/update', data)

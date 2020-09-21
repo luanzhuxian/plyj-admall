@@ -116,7 +116,7 @@
 import { getLibraryList } from '../../apis/live'
 import { deleteImage } from '../../assets/ts/upload'
 import { uploadLibraryFile } from '../../apis/line-teaching/video-library'
-import VideoManager from '../file/Video-Manager'
+import VideoManager from '../common/file/Video-Manager'
 export default {
     name: 'CheckLiveVideo',
     components: {

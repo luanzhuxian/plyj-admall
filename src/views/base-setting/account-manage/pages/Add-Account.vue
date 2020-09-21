@@ -116,7 +116,7 @@
 </template>
 
 <script lang="ts">
-import RoleTree from '../components/Role-Tree.vue'
+import RoleTree from '../../../../components/base-setting/account-manage/Role-Tree.vue'
 import { addAccount, getSingleAccount, editAccount, getEmployeeDefault } from '../../../../apis/account'
 import { testPhone } from '../../../../assets/ts/validate'
 import { Vue, Component, Watch } from 'vue-property-decorator'

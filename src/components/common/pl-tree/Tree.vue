@@ -39,7 +39,7 @@
 
 <script>
 import TreeItem from './Tree-Item.vue'
-import Draggable from '../../draggable'
+import Draggable from '../draggable'
 export default {
     name: 'Tree',
     components: {

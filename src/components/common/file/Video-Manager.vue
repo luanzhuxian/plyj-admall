@@ -215,10 +215,10 @@
 
 <script>
 /* eslint-disable */
-import { deleteImage, breakpointUpload, resumeBreakpointUpload, createObjectUrl, revokeObjectURL } from '../../assets/ts/upload'
+import { deleteImage, breakpointUpload, resumeBreakpointUpload, createObjectUrl, revokeObjectURL } from '../../../assets/ts/upload'
 import ImageSelector from './File-Selector.vue'
-import Draggable from '../../components/draggable'
-import PreviewVideo from '../common/Preview-Video.vue'
+import Draggable from '../draggable'
+import PreviewVideo from '../Preview-Video.vue'
 export default {
     name: 'VideoManager',
     components: {

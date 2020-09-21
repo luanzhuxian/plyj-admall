@@ -332,7 +332,7 @@ import Panel from '../../../../../components/common/Panel.vue'
 import UserGroup from '../../../../../components/common/User-Group.vue'
 import EditPresent from '../../../../../components/common/Edit-Present.vue'
 import ScholarshipBox from '../../../../../components/common/Scholarship.vue'
-import ImageManager from '../../../../../components/file/Image-Manager.vue'
+import ImageManager from '../../../../../components/common/file/Image-Manager.vue'
 import RadioSelectCoupon from '../../../components/Radio-Select-Coupon.vue'
 import { SectionToChinese } from '../../../../../assets/ts/utils'
 import {

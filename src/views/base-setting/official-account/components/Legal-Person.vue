@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import ImageManager from '../../../../components/file/Image-Manager.vue'
+import ImageManager from '../../../../components/common/file/Image-Manager.vue'
 import DateRange from '../../../../components/common/Date-Range.vue'
 import moment from 'moment'
 import {

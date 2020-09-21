@@ -105,7 +105,7 @@ import {
     sendImageToWeixin,
     wechatPayStep2
 } from '../../../../apis/base/register'
-import ImageManager from '../../../../components/file/Image-Manager.vue'
+import ImageManager from '../../../../components/common/file/Image-Manager.vue'
 import CityPickerWexin from './City-Picker-Wexin.vue'
 export default {
     name: 'WechatPayStep2',

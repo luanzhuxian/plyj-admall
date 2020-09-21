@@ -394,7 +394,7 @@
 
 <script>
 import moment from 'moment'
-import ImageManager from '../../../../../components/file/Image-Manager.vue'
+import ImageManager from '../../../../../components/common/file/Image-Manager.vue'
 import ProductSelector from '../../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import EditPresent from '../../../../../components/common/Edit-Present.vue'
 import ModelCourse from '../../../components/Modal-Course.vue'

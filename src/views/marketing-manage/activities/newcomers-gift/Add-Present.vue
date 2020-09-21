@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import UploadImage from '../../../../components/file/Image-Manager.vue'
+import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import moment from 'moment'
 export default {
     name: 'AddPresent',

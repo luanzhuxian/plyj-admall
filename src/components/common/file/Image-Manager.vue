@@ -143,10 +143,10 @@
 
 <script>
 /* eslint-disable */
-import { compress, upload, deleteImage, createObjectUrl } from '../../assets/ts/upload'
+import { compress, upload, deleteImage, createObjectUrl } from '../../../assets/ts/upload'
 import ImageSelector from './File-Selector.vue'
 import EditImage from './Edit-Image.vue'
-import Draggable from '../../components/draggable'
+import Draggable from '../draggable'
 export default {
     name: 'PlUploadImage',
     components: {
