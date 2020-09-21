@@ -144,11 +144,7 @@
                     </el-button>
                 </div>
                 <div class="tag-list-default" @click="getMemberListByTag('')">
-                    <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-rule-dir-close" />
-                    </svg>
                     <span class="color-333">全部用户({{ userCount }})</span>
-                    <pl-svg :key="1" name="icon-you" width="20" />
                 </div>
                 <div
                     @click.stop="getMemberListByTag(0)"
@@ -171,7 +167,7 @@
                     <template #treeItemLabel="{ data }">
                         {{ data.tagName }}
                     </template>
-                    <template #defaulte="{ data }">
+                    <template #default="{ data }">
                         <div class="tag-ctrl">
                             <el-tooltip
                                 class="tag-ctrl-item"
@@ -642,7 +638,7 @@ export default class MemberManageList extends Vue {
   // 处理批量操作数据
   handleSelectionChange (val) {
       this.multipleSelection = val
-      this.multipleSelectionId = val.map(item => item.userId)
+      this.multipleSelectionId = val.map(item => item.baseUserId)
   }
 
   // 根据标签获取用户列表
@@ -719,7 +715,7 @@ export default class MemberManageList extends Vue {
   // 设置备注
   setRemarkToMember (row) {
       this.isShowRemarkList = true
-      this.currentUserId = row.id
+      this.currentUserId = row.baseUserId
   }
 
   // 获取标签列表
@@ -784,7 +780,7 @@ export default class MemberManageList extends Vue {
     .tag-list {
         position: relative;
         z-index: 1;
-        width: 260px;
+        width: 200px;
         height: calc(100vh - 80px);
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         background-color: #F5F5F5;
@@ -803,25 +799,19 @@ export default class MemberManageList extends Vue {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-left: 20px;
             font-size: 14px;
             line-height: 50px;
             border-bottom: 1px solid #e7e7e7;
             cursor: pointer;
 
-            > .icon {
-                width: 25px;
-                height: 18px;
-            }
-
             > span {
                 flex: 1;
-                padding-left: 8px;
+                padding-left: 16px;
             }
         }
 
         .tag-list-options {
-            padding-left: 8px;
+            padding-left: 16px;
         }
 
         .tag-list-options {
@@ -829,7 +819,7 @@ export default class MemberManageList extends Vue {
             position: relative;
             .tag-ctrl {
                 position: absolute;
-                top: 0;
+                top: -8px;
                 right: 15px;
                 display: inline-flex;
                 justify-content: flex-end;

@@ -118,7 +118,7 @@ export const getWatchDetailList = (params: any) => axios.get('/apis/v1/mall/live
 export const saveRemark = (params: any) => axios.post('/apis/v2/user/remark', params)
 
 // 查看 当前备注列表
-export const getRemarkList = (params: any) => axios.get('/apis/v2/user/remark', params)
+export const getRemarkList = (params: any) => axios.get('/apis/v2/user/remark', { params })
 
 // 新增备注信息
 export const deleteRemark = (params: any) => axios.delete('/apis/v2/user/remark', params)
