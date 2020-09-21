@@ -1,5 +1,5 @@
 // @ts-nocheck
-import axios from '../../assets/ts/axios-config'
+import axios from '../../../assets/ts/axios-config'
 
 // 获取视频库列表
 export const getLibraryList = params => axios.get('/apis/v1/mall/live/lib/list', { params })

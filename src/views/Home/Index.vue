@@ -193,7 +193,7 @@ import {
     getProductOrder,
     getOrderInfo
 } from '../../apis/home'
-import { getWaitWarrantyResource } from '../../apis/line-teaching/repository'
+import { getWaitWarrantyResource } from '../../apis/product-center/line-teaching/repository'
 import { getNotificationList, markReaded } from '../../apis/base/message'
 import { getAuthUrl, setAuthCode } from '../../apis/base/register'
 

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import axios from '../../assets/ts/axios-config'
+import axios from '../../../assets/ts/axios-config'
 // 视频库列表
 export const getLineTeachingInfo = () => axios.get('/apis/v1/mall/live/statistics')
 // 获取视频库存储信息

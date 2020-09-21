@@ -35,10 +35,10 @@
                     <div :class="$style.detail">{{ statisticsInfo.available }}</div>
                     <Progress
                         show-text
-                        text="2000分钟"
+                        :text="`${statisticsInfo.totalMinute}分钟`"
                         color="#4F63FF"
                         percentage-color="#FFFFFF"
-                        :percentage="60"
+                        :percentage="livePercentage"
                     />
                     <div :class="$style.desc">观看总时长=观看人数x平均每人观看时长</div>
                 </div>
@@ -52,24 +52,24 @@
                             <div :class="$style.descTip">?</div>
                         </el-tooltip>
                     </div>
-                    <div :class="$style.detail">{{ statisticsInfo.remainderDatalowSize_G }}G</div>
+                    <div :class="[$style.detail, $style.unit]">{{ statisticsInfo.remainderDatalowSize_G }}</div>
                     <Progress
                         show-text
-                        text="50G"
+                        :text="`${statisticsInfo.dataFlowSize_G}G`"
                         color="#4F63FF"
                         percentage-color="#FFFFFF"
-                        :percentage="60"
+                        :percentage="handPercentage"
                     />
                 </div>
                 <div :class="$style.infoItem">
                     <div :class="$style.title">视频库存储空间</div>
-                    <div :class="$style.detail">{{ statisticsInfo.storageSize_G }}G</div>
+                    <div :class="[$style.detail, $style.unit]">{{ statisticsInfo.storageSize_G }}</div>
                     <Progress
                         show-text
-                        text="3G"
+                        :text="`${statisticsInfo.storageSize_G}G`"
                         color="#4F63FF"
                         percentage-color="#FFFFFF"
-                        :percentage="60"
+                        :percentage="videoSpacePercentage"
                     />
                 </div>
             </div>
@@ -130,6 +130,27 @@
                 <div>资源文件 {{ statisticsInfo.numberOfResources }}</div>
             </OnlinePack>
         </div>
+        <!--显示前往开通直播提示页-->
+        <transition name="fade">
+            <div :class="$style.mask" v-if="showGotoSetMealPage">
+                <div :class="$style.tip">
+                    <span :class="$style.desc">请您先选择购买任一流量套餐，开通您的专属直播房间后，即可正常使用云课堂模块的直播互动、知识课程、视频库等功能！</span>
+                    <div class="mt-20">
+                        <el-button size="medium" @click="$router.push({name: 'Home'})">
+                            取 消
+                        </el-button>
+                        <el-button
+                            type="primary"
+                            size="medium"
+                            @click="gotoSetMealPage"
+                        >
+                            确 定
+                        </el-button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
     </div>
 </template>
 
@@ -141,6 +162,9 @@ import SchemeLabel from './../../../marketing-manage/components/Scheme-Label.vue
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 import OnlinePack from './../compoonents/Online-Pack.vue'
 
+import { getRoomStatus } from './../../../../apis/live'
+import { getLineTeachingInfo } from './../../../../apis/product-center/line-teaching/knowledge-course'
+
 @Component({
     components: {
         SchemeLabel,
@@ -149,9 +173,19 @@ import OnlinePack from './../compoonents/Online-Pack.vue'
     }
 })
 export default class FunctionPack extends Vue {
+    showGotoSetMealPage = false
     statisticsInfo = {
+        // 剩余分钟数
         available: 0,
+        // 总分钟数
+        totalMinute: 1,
+        // 剩余点播流量
         remainderDatalowSize_G: 0,
+        // 总点播流量
+        dataFlowSize_G: 1,
+        // 剩余空间
+        remainderStorageSize_G: 0,
+        // 总空间
         storageSize_G: 0,
         ongoing: 0,
         notStarted: 0,
@@ -161,6 +195,49 @@ export default class FunctionPack extends Vue {
         numberOfgraphic: 0,
         numberOfVideos: 0,
         numberOfResources: 0
+    }
+
+    async activated () {
+        await this.checkIsGoToSetMeal()
+    }
+
+    // 检测是否购买过直播，未购买-直接进入开通直播页面； 购买过-正常请求数据
+    private async checkIsGoToSetMeal () {
+        const { result: { enable } }: any = await getRoomStatus()
+        // 未开通直播, 先购买房间
+        if (enable === 3) {
+            this.showGotoSetMealPage = true
+            return
+        }
+        await this.getLineTeachingInfo()
+    }
+
+    private async gotoSetMealPage () {
+        this.showGotoSetMealPage = false
+        await this.$router.replace({ name: 'SetMeal', params: { isRenew: '0', backRouteName: this.$route.name } })
+    }
+
+    private async getLineTeachingInfo () {
+        const { result } = await getLineTeachingInfo()
+        this.statisticsInfo = result
+    }
+
+    get livePercentage () {
+        const { available, totalMinute } = this.statisticsInfo
+        const num = (totalMinute - available) || 0
+        return num * 100
+    }
+
+    get handPercentage () {
+        const { remainderDatalowSize_G, dataFlowSize_G } = this.statisticsInfo
+        const num = (dataFlowSize_G - remainderDatalowSize_G) || 0
+        return num * 100
+    }
+
+    get videoSpacePercentage () {
+        const { remainderStorageSize_G, storageSize_G } = this.statisticsInfo
+        const num = (storageSize_G - remainderStorageSize_G) || 0
+        return num * 100
     }
 }
 </script>
@@ -179,6 +256,31 @@ export default class FunctionPack extends Vue {
         color: #fff;
         background-color: #999;
         cursor: pointer;
+    }
+    .mask  {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 99999;
+        padding-top: calc(50vh - 100px);
+        background-color:rgba(0, 0, 0, 0.5);
+        .tip {
+            margin: 0 auto;
+            width: 512px;
+            height: 210px;
+            padding: 45px 55px;
+            background-color: #FFF;
+            text-align: center;
+            > .desc {
+                font-size: 16px;
+                line-height: 24px;
+                color: #333;
+                display: inline-block;
+                text-align: left;
+            }
+        }
     }
     > .banner {
         display: flex;
@@ -213,6 +315,12 @@ export default class FunctionPack extends Vue {
                     margin: 16px 0;
                     font-size: 48px;
                     font-weight: 600;
+                }
+                > .unit:after {
+                    display: inline-block;
+                    margin-left: 32px;
+                    font-size: 32px;
+                    content: 'G'
                 }
                 > .desc {
                     margin-top: 6px;

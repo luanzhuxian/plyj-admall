@@ -1,5 +1,5 @@
 // @ts-nocheck
-import axios from '../../assets/ts/axios-config'
+import axios from '../../../assets/ts/axios-config'
 
 // 资源库列表
 export const getRepositoryList = params => axios.get('/apis/v1/mall/cource/agency/page', { params })
