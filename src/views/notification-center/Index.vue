@@ -1,15 +1,15 @@
 <template>
-    <div class="video-library">
+    <div>
         <router-view />
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component
-export default class VideoLibrary extends Vue {
+export default class NotificationCenter extends Vue {
 
 }
 </script>

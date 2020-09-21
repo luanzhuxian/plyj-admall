@@ -34,16 +34,16 @@
                     />
                     <Field
                         title="姓名："
-                        :text="memberDetail.name"
+                        :text="memberDetail.name || '--'"
                     />
                     <Field
                         title="地址："
-                        :text="memberDetail.province + memberDetail.region + memberDetail.city + memberDetail.address"
+                        :text="(memberDetail.province + memberDetail.region + memberDetail.city + memberDetail.address) || '--'"
                     />
                     <div class="tag-list">
                         <span>标签：</span>
                         <span class="tags" v-if="memberDetail.tags && memberDetail.tags.length">
-                            <span v-for="item in memberDetail.tags" :key="item">{{ item }} </span>
+                            <span v-for="item in memberDetail.tags" :key="item">{{ item && item.tagName }} </span>
                         </span>
                         <a @click="showAddTagDialog = true">
                             编辑
@@ -82,47 +82,47 @@
                     <div class="text" v-if="!isEdit">
                         <div>
                             <span>真实姓名：</span>
-                            <span>{{ memberDetail.name }}</span>
+                            <span>{{ memberDetail.name || '--' }}</span>
                         </div>
                         <div>
                             <span>用户身份：</span>
-                            <span>{{ USER_TYPE[memberDetail.type] }}</span>
+                            <span>{{ USER_TYPE[memberDetail.type] || '--' }}</span>
                         </div>
                         <div>
                             <span>手机号码：</span>
-                            <span>{{ memberDetail.mobile }}</span>
+                            <span>{{ memberDetail.mobile || '--' }}</span>
                         </div>
                         <div>
                             <span>生日：</span>
-                            <span>{{ memberDetail.birthday }}</span>
+                            <span>{{ memberDetail.birthday || '--' }}</span>
                         </div>
                         <div>
                             <span>性别：</span>
-                            <span>{{ GENDER[memberDetail.gender] }}</span>
+                            <span>{{ GENDER[memberDetail.gender] || '--' }}</span>
                         </div>
                         <div>
                             <span>微信号：</span>
-                            <span>{{ memberDetail.wechatNumber }}</span>
+                            <span>{{ memberDetail.wechatNumber || '--' }}</span>
                         </div>
                         <div>
                             <span>邮箱：</span>
-                            <span>{{ memberDetail.email }}</span>
+                            <span>{{ memberDetail.email || '--' }}</span>
                         </div>
                         <div class="fill">
                             <span>所在区域：</span>
-                            <span>{{ memberDetail.province + memberDetail.city + memberDetail.region + memberDetail.address }}</span>
+                            <span>{{ (memberDetail.province + memberDetail.city + memberDetail.region + memberDetail.address) || '--' }}</span>
                         </div>
                         <div v-if="memberDetail.type !== 2">
                             <span>行业：</span>
-                            <span>{{ memberDetail.industry }}</span>
+                            <span>{{ memberDetail.industry || '--' }}</span>
                         </div>
                         <div v-if="memberDetail.type !== 2">
                             <span>公司：</span>
-                            <span>{{ memberDetail.company }}</span>
+                            <span>{{ memberDetail.company || '--' }}</span>
                         </div>
                         <div v-if="memberDetail.type !== 2">
                             <span>职位：</span>
-                            <span>{{ memberDetail.workPosition }}</span>
+                            <span>{{ memberDetail.workPosition || '--' }}</span>
                         </div>
                         <div class="fill">
                             <span>备注：</span>
@@ -845,7 +845,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import Pagination from '../../../../components/common/Pagination'
 
@@ -1021,6 +1021,8 @@ export default class MemberManageDetail extends Vue {
             }
             params.mallUserId = this.userId
             await saveMemberInfo(params)
+            this.isEdit = false
+            await this.getMemberDetail()
         } catch (e) {
             throw e
         }

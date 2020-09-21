@@ -19,7 +19,7 @@ import { WxScanLogin } from '../../../apis/login'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')
-    @Component
+@Component
 export default class WxLogin extends Vue {
         loading = false
         code = ''

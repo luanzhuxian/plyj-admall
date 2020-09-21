@@ -276,7 +276,7 @@ import { GET_MRKET_STATU_AUTH } from '../../../../../store/mutation-type'
 import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview.vue'
 import Share from '../../../../../components/common/Share'
 import { bookingActivityPage, duplicateBookingActivity, updateActivityStatus } from '../../../../../apis/marketing-manage/booking'
-import { getSingleGoods } from '../../../../../apis/goods'
+import { getSingleGoods } from '../../../../../apis/product-center/goods'
 export default {
     name: 'NewYearBookingBuyList',
     components: {

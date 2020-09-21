@@ -11,6 +11,6 @@ import { Vue, Component } from 'vue-property-decorator'
 
 @Component
 export default class OnlineTeaching extends Vue {
-    exclude= ['AddSeriesOfCourses']
+    exclude = ['AddSeriesOfCourses']
 }
 </script>

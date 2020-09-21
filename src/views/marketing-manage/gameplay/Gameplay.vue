@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.gameplay">
-        <div :class="$style.banner" />
+        <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心-banner.png" :class="$style.banner">
         <SchemeLabel :class="$style.label" name="基础方案包" content="吸粉、老客带新客，提高下单转化率" />
         <div :class="$style.packageContainer">
             <SchemePack
@@ -104,7 +104,7 @@
                 :count="activitiesInfo.exchangeCodeCount"
                 :tags="['限']"
                 :is-lock="!activitys.redeemCode.status"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png"
                 :route-info="{
                     name: 'RedeemCode',
                     params: {
@@ -374,9 +374,7 @@ export default class Gameplay extends Vue {
     overflow-y: auto;
     background-color: #FFFFFF;
     > .banner {
-        height: 90px;
-        border-radius: 10px;
-        background-color: pink;
+        width: 100%;
     }
     > .label {
         margin: 40px 0 24px 0;

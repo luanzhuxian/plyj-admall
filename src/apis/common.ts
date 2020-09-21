@@ -8,7 +8,7 @@ export const getServerTime = () => axios.post('/apis/v1/order/current/date')
 /**
  * 获取sts
  */
-export const getSTS = () => axios.get('/apis/v1/oss/upload/sts')
+export const getSTS = () => axios.get('/apis/v2/oss/upload/sts')
 
 /**
  * 发送短信验证码

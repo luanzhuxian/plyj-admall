@@ -78,6 +78,7 @@ export default {
             table: [],
             total: 0,
             filterForm: {
+                mallUserId: '',
                 current: 1,
                 size: 10
             }
@@ -86,11 +87,7 @@ export default {
     watch: {
         async show (val) {
             if (val) {
-                this.filterForm = {
-                    mallUserId: this.userId,
-                    current: 1,
-                    size: 10
-                }
+                this.filterForm.mallUserId = this.userId
                 await this.getList()
             }
         }
@@ -102,7 +99,7 @@ export default {
         },
         async getList () {
             try {
-                const { data: { result: { records, total } } } = await getRemarkList(this.filterForm)
+                const { records, total } = await getRemarkList(this.filterForm)
                 this.table = records
                 this.total = total
             } catch (e) {

@@ -306,7 +306,7 @@
 
 <script>
 import { getDataDictionary } from '../../../../apis/common'
-import { getCategoryTreePlatform, getRecommendProduct, getAddRecommend, cancelRecommend, modifyRecommend, createAddRecommend, getCurrentNumber } from '../../../../apis/goods'
+import { getCategoryTreePlatform, getRecommendProduct, getAddRecommend, cancelRecommend, modifyRecommend, createAddRecommend, getCurrentNumber } from '../../../../apis/product-center/goods'
 
 export default {
     name: 'Recommend',

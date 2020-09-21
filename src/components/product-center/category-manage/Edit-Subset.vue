@@ -121,16 +121,11 @@
 
 <script>
 import {
-// addSupCategory,
     updateCategory,
     addSubCategory,
     addCourseCategory,
     editCourseCategory
-// addSubCategory,
-// deleteCategory,
-// setCategoryBatch,
-// sortCategory
-} from '../../../apis/goods'
+} from '../../../apis/product-center/category'
 import { mapGetters } from 'vuex'
 import { copyFields } from '../../../assets/ts/utils'
 import { testCategory } from '../../../assets/ts/validate'

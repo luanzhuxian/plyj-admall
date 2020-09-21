@@ -108,9 +108,6 @@ export const checkIsTagUsed = (id: string) => axios.get(`/apis/v1/mall/user/tag/
 // 向当前用户添加标签
 export const addTagToMember = (userId: string, tags: string[]) => axios.post('/apis/v2/user/tag/r', { userId, tags })
 
-// 获取未设置标签的用户数量以及所有用户的数量
-export const getMemberNum = () => axios.get('/apis/v1/mall/user/tag/mallTagInfo')
-
 // 查看 当前学员观看列表
 export const getWatchDetailList = (params: any) => axios.get('/apis/v1/mall/live/cost/subVideo/view/detail', { params })
 
@@ -118,7 +115,7 @@ export const getWatchDetailList = (params: any) => axios.get('/apis/v1/mall/live
 export const saveRemark = (params: any) => axios.post('/apis/v2/user/remark', params)
 
 // 查看 当前备注列表
-export const getRemarkList = (params: any) => axios.get('/apis/v2/user/remark', params)
+export const getRemarkList = (params: any) => axios.get('/apis/v2/user/remark', { params })
 
 // 新增备注信息
 export const deleteRemark = (params: any) => axios.delete('/apis/v2/user/remark', params)

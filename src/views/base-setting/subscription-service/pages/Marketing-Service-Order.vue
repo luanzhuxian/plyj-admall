@@ -117,7 +117,7 @@ import moment from 'moment'
   @Component({
 
   })
-export default class MarketingServiceOrder extends Vue {
+export default class LiveServiceOrder extends Vue {
   query = {
       searchContent: '',
       payStartTime: '',
@@ -140,7 +140,7 @@ export default class MarketingServiceOrder extends Vue {
 
     async getList () {
         try {
-            const { result } = await getMarketList(this.query)
+            const { data: { result } } = await getMarketList(this.query)
             this.tableData = result.records || []
             this.total = result.total
         } catch (error) {

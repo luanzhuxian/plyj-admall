@@ -257,7 +257,7 @@ export default {
                 if (selected.length > 4) {
                     return this.$warning(`标签数量不能超过${ this.maxSetTagNum }个`)
                 }
-                const userIds = this.isMultiple ? this.currentMember : [this.currentMember.userId]
+                const userIds = this.isMultiple ? this.currentMember : [this.currentMember.id]
                 await addTagToMember(userIds, this.selected)
                 this.close()
             } catch (e) {

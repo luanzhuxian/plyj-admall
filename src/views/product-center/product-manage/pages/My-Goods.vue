@@ -534,7 +534,7 @@ import {
     getIsActivityProduct,
     showProductSales,
     showProduct
-} from '../../../../apis/goods'
+} from '../../../../apis/product-center/goods'
 import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
 import Sort from '../../../../components/product-center/goods/Sort.vue'
 import Share from '../../../../components/common/Share.vue'

@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { getGoods, getCategoryTreePlatform } from '../../../../../apis/goods'
+import { getGoods, getCategoryTreePlatform } from '../../../../../apis/product-center/goods'
 export default {
     name: 'ProductCheckbox',
     props: {

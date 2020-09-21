@@ -58,6 +58,7 @@ export default {
                 })
                 this.$emit('success')
                 this.closeHandler()
+                this.content = ''
             } catch (e) {
                 throw e
             }

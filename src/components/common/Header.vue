@@ -31,7 +31,7 @@
                 tag="div"
                 :class="$style.notice"
                 class="pointer"
-                to="/admall/notification"
+                to="/notification"
             >
                 <pl-svg
                     :class="$style.icon"

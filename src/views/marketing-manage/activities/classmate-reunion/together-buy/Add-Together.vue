@@ -156,7 +156,7 @@
 <script>
 import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview'
 import ProductSelector from '../../../../../components/product-center/goods/Product-Radio.vue'
-import { getSingleGoods } from '../../../../../apis/goods'
+import { getSingleGoods } from '../../../../../apis/product-center/goods'
 import { goPage } from '../../../../../assets/ts/utils'
 import { createTogetherActivity, updateTogetherActivity, togetherActivityDetail } from '../../../../../apis/marketing-manage/together'
 import moment from 'moment/moment'

@@ -36,10 +36,10 @@ export const infoStep3 = data => axios.post('/apis/v1/micro/applyment/step3', da
 export const selectOneRandom = () => axios.get('/apis/v1/agency/AgencyCustomerService/selectOneRandom')
 
 /* 识别营业执照 */
-export const getBusLicenseInfo = fileUrl => axios.post(`/apis/v1/oss/upload/img/busLicense?fileUrl=${ fileUrl }`)
+export const getBusLicenseInfo = fileUrl => axios.post(`/apis/v2/oss/upload/img/busLicense?fileUrl=${ fileUrl }`)
 
 /* 识别身份证 flag:front or back */
-export const idCardSide = (side, url) => axios.post(`/apis/v1/oss/upload/img/idCard?idCardSide=${ side }&fileUrl=${ url }`)
+export const idCardSide = (side, url) => axios.post(`/apis/v2/oss/upload/img/idCard?idCardSide=${ side }&fileUrl=${ url }`)
 
 /* 获取银行种类类别 */
 export const getBankList = () => axios.get('/apis/v1/systemctl/sysbankInfo/first/bank')
@@ -181,4 +181,4 @@ export const checkAuth = () => axios.get('/apis/v1/api/auth/needOrNot')
  * @param entType {string} 主体类目
  * @return {Promise<AxiosResponse<any>>}
  */
-export const getTradeByMainPart = entType => axios.get(`/apis/v2/base/wxpaysettlementinfo/list?entType=${ entType }`)
+export const getTradeByMainPart = entType => axios.get(`/apis/v2/pay/wxpaysettlementinfo/list?entType=${ entType }`)
