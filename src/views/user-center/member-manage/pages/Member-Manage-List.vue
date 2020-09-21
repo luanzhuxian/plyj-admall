@@ -625,7 +625,7 @@ export default class MemberManageList extends Vue {
   // 处理批量操作数据
   handleSelectionChange (val) {
       this.multipleSelection = val
-      this.multipleSelectionId = val.map(item => item.baseUserId)
+      this.multipleSelectionId = val.map(item => item.id)
   }
 
   // 根据标签获取用户列表
@@ -702,7 +702,7 @@ export default class MemberManageList extends Vue {
   // 设置备注
   setRemarkToMember (row) {
       this.isShowRemarkList = true
-      this.currentUserId = row.baseUserId
+      this.currentUserId = row.id
   }
 
   // 获取标签列表
