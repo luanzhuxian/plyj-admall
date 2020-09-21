@@ -1,8 +1,6 @@
 <template>
     <div>
-        <search-box
-            label-width=""
-        >
+        <search-box label-width="80">
             <el-form-item>
                 <el-input
                     v-model="query.searchContent"
@@ -12,9 +10,7 @@
                     @keyup.enter.native="search"
                 />
             </el-form-item>
-            <el-form-item
-                class="mb-0"
-            >
+            <el-form-item>
                 <date-range
                     :clearable="true"
                     disable-after
@@ -26,26 +22,22 @@
                     ref="dateRange"
                 />
             </el-form-item>
-            <el-form-item class="mb-0 right-btn">
+            <el-form-item>
                 <el-button
                     type="primary"
-                    style="width: 98px;"
                     @click="search"
+                    round
                 >
                     查询
                 </el-button>
                 <el-button
-                    type="primary"
-                    plain
-                    style="width: 98px;"
+                    type="text"
                     @click="clear"
                 >
                     清空筛选条件
                 </el-button>
                 <el-button
-                    type="primary"
-                    plain
-                    style="width: 98px;"
+                    type="text"
                     :disabled="!tableData || !tableData.length"
                     @click="exportOrders"
                 >
@@ -100,13 +92,9 @@
                         trigger="click"
                         :content="`支付流水号：${row.serialNo}`"
                     >
-                        <el-button
-                            type="text"
-
-                            slot="reference"
-                        >
+                        <a slot="reference" style="color:#4F63FF;">
                             查看
-                        </el-button>
+                        </a>
                     </el-popover>
                 </template>
             </el-table-column>
@@ -129,7 +117,7 @@ import moment from 'moment'
   @Component({
 
   })
-export default class LiveServiceOrder extends Vue {
+export default class MarketingServiceOrder extends Vue {
   query = {
       searchContent: '',
       payStartTime: '',
@@ -152,7 +140,7 @@ export default class LiveServiceOrder extends Vue {
 
     async getList () {
         try {
-            const { data: { result } } = await getMarketList(this.query)
+            const { result } = await getMarketList(this.query)
             this.tableData = result.records || []
             this.total = result.total
         } catch (error) {

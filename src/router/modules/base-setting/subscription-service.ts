@@ -31,6 +31,14 @@ export default [
                 meta: {
                     title: '营销方案订单'
                 }
+            },
+            {
+                path: 'detail/:id?',
+                name: 'SourceServiceOrderDetail',
+                component: () => import('../../../views/base-setting/subscription-service/pages/Detail.vue'),
+                meta: {
+                    title: '资源库详情'
+                }
             }
         ]
     }

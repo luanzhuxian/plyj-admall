@@ -4,6 +4,7 @@
             :value="activeName"
             :tabs="tabs"
             @tabClick="handleClick"
+            v-if="$route.name !== 'SourceServiceOrderDetail'"
         />
         <router-view />
     </div>
@@ -28,7 +29,7 @@ export default class HelperManage extends Vue {
 
     activeName = ''
     created () {
-        this.activeName = this.$route.name
+        this.activeName = this.$route.name || 'LiveServiceOrder'
     }
 
     handleClick (e) {
