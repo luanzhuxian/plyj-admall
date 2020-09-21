@@ -48,7 +48,7 @@ export const getBankList = () => axios.get('/apis/v1/systemctl/sysbankInfo/first
 export const getSubBankList = (parentCode, parentCodeName, bankNameKeyword) => axios.get(`/apis/v1/systemctl/sysbankInfo/branch/bank?parentCode=${ parentCode }&parentCodeName=${ parentCodeName }&bankNameKeyword=${ bankNameKeyword }`)
 
 /* 获取银行所在地区 */
-export const getProvincesBankList = (parentCode = 0) => axios.get(`/apis/v2/base/location/parent/${ parentCode }`)
+export const getProvincesBankList = (parentCode = 0) => axios.get(`/apis/v2/base/location/wx/parent/${ parentCode }`)
 
 /* 传图片给微信 */
 export const sendImageToWeixin = file => {

@@ -27,9 +27,9 @@
 
 <script lang="ts">
 import { Component, Watch, Vue } from 'vue-property-decorator'
-import MainNavbar from './components/common/Main-Navbar.vue'
-import OnlineTeachingNavbar from './components/common/Online-Teaching-NavBar.vue'
-import Header from './components/common/Header.vue'
+import MainNavbar from './components/common/layout/Main-Navbar.vue'
+import OnlineTeachingNavbar from './components/common/layout/Online-Teaching-NavBar.vue'
+import Header from './components/common/layout/Header.vue'
 import { Getter, Mutation, namespace } from 'vuex-class'
 // import startQiankun from './micro'
 

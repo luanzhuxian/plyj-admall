@@ -62,18 +62,6 @@
                     <el-menu-item index="/user-center/helper-manage">helper管理</el-menu-item>
                 </el-submenu>
 
-                <el-menu-item index="/marketing-manage">
-                    <h2 :class="$style.title">
-                        <pl-svg
-                            name="icon-yxzx-44de2"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
-                        <span>营销中心</span>
-                    </h2>
-                </el-menu-item>
-
                 <el-submenu index="5">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
@@ -125,19 +113,34 @@
                     <el-menu-item index="/base-setting/logistics/postage">物流设置</el-menu-item>
                     <el-menu-item index="/base-setting/subscription-service">我订购的服务</el-menu-item>
                 </el-submenu>
-                <!--<el-menu-item index="8">
+
+                <el-menu-item index="/marketing-manage" :class="$style.marketing">
                     <h2 :class="$style.title">
                         <pl-svg
-                            name="icon-shouye-5b56a"
+                            name="icon-yxzx-44de2"
                             width="15"
                             height="15"
                             :class="$style.icon"
                         />
-                        <span>我订购的服务</span>
+                        <span>营销中心</span>
                     </h2>
-                </el-menu-item>-->
+                </el-menu-item>
+
+                <el-menu-item @click="showGuid = true" :class="$style.guid">
+                    <h2 :class="$style.title" slot="title">
+                        <pl-svg
+                            name="icon-tishi-e4fa1"
+                            width="15"
+                            height="15"
+                            :class="$style.icon"
+                        />
+                        <span>操作引导</span>
+                    </h2>
+                </el-menu-item>
             </el-menu>
         </div>
+
+        <OperationGuide :show.sync="showGuid" />
     </nav>
 </template>
 
@@ -145,9 +148,15 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import { namespace } from 'vuex-class'
+import OperationGuide from './Operation-Guide.vue'
 const userModule = namespace('user')
-@Component
+@Component({
+    components: {
+        OperationGuide
+    }
+})
 export default class MainNavbar extends Vue {
+    showGuid = false
     @userModule.Getter logo!: string
 }
 </script>
@@ -170,8 +179,19 @@ export default class MainNavbar extends Vue {
         margin: 10px auto 30px;
     }
     > .menu-wrap {
+        position: relative;
         height: calc(100vh - 80px);
         overflow: auto;
+    }
+    .marketing {
+        position: absolute;
+        left: 16px;
+        bottom: -182px;
+    }
+    .guid {
+        position: absolute;
+        left: 16px;
+        bottom: -212px;
     }
     .icon {
         vertical-align: -3px;
