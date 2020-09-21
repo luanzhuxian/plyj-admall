@@ -85,16 +85,11 @@
 
 <script>
 import {
-// addSupCategory,
     updateCategory,
     addMainCategory,
-    getCategoryList,
-    editCourseCategory
-// addSubCategory,
-// deleteCategory,
-// setCategoryBatch,
-// sortCategory
-} from '../../../apis/product-center/goods'
+    editCourseCategory,
+    getCategoryList
+} from '../../../apis/product-center/category'
 import { testCategory } from '../../../assets/ts/validate'
 import EditImage from '../../file/Edit-Image.vue'
 import { mapGetters } from 'vuex'

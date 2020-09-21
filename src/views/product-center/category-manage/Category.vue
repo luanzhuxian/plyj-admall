@@ -272,8 +272,7 @@
         updateCourseGoodsCategory,
         courseGoodSort,
         goodSort
-    } from '../../../apis/product-center/goods'
-
+    } from '../../../apis/product-center/category'
     export default {
         name: 'Category',
         components: {

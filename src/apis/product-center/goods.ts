@@ -72,18 +72,6 @@ export const modifyStock = data => axios.post('/apis/v1/product/modifyStock', da
 * */
 export const getGoods = params => axios.get('/apis/v1/product/page', { params })
 
-/*
-* 商户端列表查询商品分类
-* @method getCategoryList
-* @param mallSeq string required
-* @param parentCode string
-* @param categoryName string
-* */
-export const getCategoryList = (mallId, parentCode, categoryName) => axios.get('/apis/v1/product/category/list', { params: { mallId, parentCode, categoryName } })
-
-/* 商户端-根据商品分类查询商品 */
-export const getGoodsByCategory = params => axios.get('/apis/v1/product/category/page/category/products', { params })
-
 /* 删除商品（移动到回收站） */
 export const deleteGoods = productStatus => axios.put(`/apis/v1/product/${ productStatus }`)
 
@@ -99,74 +87,6 @@ export const isJoinActivity = id => axios.get(`/apis/v1/product/isJoinActivity/$
 
 // 设置显示销量
 export const setShowSales = (productIds, showSalesVolume) => axios.post('/apis/v1/product/setShowSales', { showSalesVolume, productIds })
-
-/* 批量更新商品分类 */
-export const categoryGoodsBatch = (categoryCode, data) => axios.put(`/apis/v1/product/productinfo/batch/category?categoryCode=${ categoryCode }`, data)
-
-// 分页查询获取分类
-export const getCategory = params => axios.get('/apis/v1/product/category/page', { params })
-
-/**
- * 添加主分类
- * @param {Object} data
- * @param {number} data.parentCode
- * @param {string} data.categoryName
- * @param {number} data.sort
- * @param {boolen} data.hidden
- * @param {string} data.bannerPic
- * @param {string} data.categoryPic
- */
-export const addMainCategory = data => axios.post('/apis/v1/product/category', data)
-
-/**
- * 添加主分类
- * @param {Object} data
- * @param {number} data.parentCode
- * @param {string} data.categoryName
- * @param {number} data.sort
- * @param {boolean} data.hidden
- * @param {string} data.categoryPic
- */
-
-export const addSubCategory = data => axios.post('/apis/v1/product/category/sub', data)
-
-/**
- * 删除商品分类
- * oldCategoryCode
- * oldSubCategory
- * categoryCode
- * subCategory
- * */
-export const deleteCategory = data => axios.delete('/apis/v1/product/category/delete', { data })
-
-/**
- * 编辑商品分类
- * @param {Object} data
- * @param {number} data.parentCode
- * @param {string} data.categoryName
- * @param {number} data.sort
- * @param {boolean} data.hidden
- * @param {string} data.categoryPic
- * @param {string} data.bannerPic
- * @param {string} sequenceNbr
- *
- */
-export const updateCategory = (sequenceNbr, data) => axios.put(`/apis/v1/product/category/${ sequenceNbr }`, data)
-
-/**
- * 批量设置商品分类
- * @param {Object} data
- * @param {string} data.categoryCode
- * @param {string} data.subCategory
- * @param {string[]} data.productIds
- */
-export const setCategoryBatch = data => axios.post('/apis/v1/product/category/setCategoryBatch', data)
-
-/**
- * 分类排序
- * @param data Array 分类id数组
- */
-export const sortCategory = data => axios.post('/apis/v1/product/category/sort', data)
 
 /**
  * 批量修改单个商品分类
@@ -259,84 +179,3 @@ export const getCategoryTreePlatform = () => axios.get('/apis/v1/product/categor
 export const getCurrentNumber = params => axios.get('/apis/v1/recommend/product/currentNumber', { params })
 // 获取商品主图的主题
 export const getMainImageTheme = () => axios.get('/apis/v1/product/themes/list')
-
-/**
- * 编辑线上课分类（主分类和子分类）
- * @param {object} data
- * @param {string} data.id
- * @param {string} data.categoryName
- * @param {string} data.categoryPic
- * @param {string} data.bannerPic
- * @param {boolean} data.hidden
- * @param {string} data.parentCode
- * @return {Promise<AxiosResponse<any>>}
- */
-export const editCourseCategory = data => axios.post('/apis/v1/course/category/update', data)
-
-/**
- * 创建二级课程分类
- * @param {object} data
- * @param {string} data.categoryName
- * @param {string} data.categoryPic
- * @param {boolean} data.hidden
- * @param {string} data.parentCode
- * @return {Promise<AxiosResponse<any>>}
- */
-export const addCourseCategory = data => axios.post('/apis/v1/course/category', data)
-
-/**
- * 根据分类获取在线课程
- * @param {object} params
- * @param {string} params.categoryId
- * @param {number} params.current
- * @param {number} params.size
- * @return {Promise<AxiosResponse<any>>}
- */
-export const getCourseGoodsByCategory = params => axios.get('/apis/v1/course/category/page', { params })
-
-/**
- * 根据分类获取在线图文资料
- * @param {object} params
- * @param {string} params.categoryId
- * @param {number} params.current
- * @param {number} params.size
- * @return {Promise<AxiosResponse<any>>}
- */
-export const getBooksGoodsByCategory = params => axios.get('/apis/v1/course/category/graphic/page', { params })
-
-/**
- *
- * @param id {string} 老分类
- * @param newCategoryId {string} 新分类
- * @return {Promise<AxiosResponse<any>>}
- */
-export const deleteCourseGoodsByCategory = (id, newCategoryId) => axios.delete(`/apis/v1/course/category/delete/${ id }?newCategoryId=${ newCategoryId }`)
-
-/**
- * 修改课程商品分类
- * @param courseIds {Array} - 课程id
- * @param id {string} - 分类id (最后一级id)
- * @return {Promise<AxiosResponse<any>>}
- */
-export const updateCourseGoodsCategory = (courseIds, id) => axios.post(`/apis/v1/course/category/changeCategory/${ id }`, courseIds)
-
-/**
- * 课程分类排序
- * @param ids {array}
- * @return {Promise<AxiosResponse<any>>}
- */
-export const courseSort = ids => axios.post('/apis/v1/course/category/sort', ids)
-
-/**
- * 课程分类下的商品排序
- * @param ids {Array}
- * @return {Promise<AxiosResponse<any>>}
- */
-export const courseGoodSort = ids => axios.post('/apis/v1/knowledgeCourse/courseSort', ids)
-
-/**
- * 商品分类下的商品排序
- * @param ids {Array}
- * @return {Promise<AxiosResponse<any>>}
- */
-export const goodSort = ids => axios.post('/apis/v1/product/sort', ids)
