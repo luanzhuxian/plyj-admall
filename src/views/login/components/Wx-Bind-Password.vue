@@ -48,7 +48,7 @@ import { Component, Vue, Emit } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
 const userModule = namespace('user')
 
-    @Component
+@Component
 export default class WxBindPassword extends Vue {
         form = {
             account: '',

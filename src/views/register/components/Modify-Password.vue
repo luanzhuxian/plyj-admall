@@ -49,7 +49,7 @@
 import { modifyPassword } from '../../../apis/base/register'
 import { Component, Vue } from 'vue-property-decorator'
 
-    @Component
+@Component
 export default class ModifyPassword extends Vue {
         form = {
             oldPassword: '',

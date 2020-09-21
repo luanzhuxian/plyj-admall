@@ -121,14 +121,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { getMarketList, exportMarketOrder } from '../../../../apis/subscription-service'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import moment from 'moment'
-  @Component({
-
-  })
+@Component
 export default class LiveServiceOrder extends Vue {
   query = {
       searchContent: '',

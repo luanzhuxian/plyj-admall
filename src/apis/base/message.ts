@@ -14,3 +14,11 @@ export const getNotificationList = (params: { toAgencyCode: string; current: num
  * @param {array} ids
  */
 export const markReaded = (ids: string[]) => axios.put('/apis/v1/agency/AgencyNotificationCenter/read', ids)
+
+/* 消息列表数字小标 */
+export const getNotificationSmallMark = (params: DynamicObject) => axios.get('/apis/v1/agency/AgencyNotificationCenter/smallMark', { params })
+
+/**
+ * 查看公告
+ **/
+export const findAnnouncement = (params: DynamicObject) => axios.get('/apis/v1/agency/AgencyNotificationCenter/find', { params })

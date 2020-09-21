@@ -1,6 +1,6 @@
 <template>
     <div>
-        用户管理页面独有的组件，非通用组件
+        <router-view />
     </div>
 </template>
 
@@ -9,7 +9,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 
 @Component
-export default class OrderComponentDemo extends Vue {
+export default class NotificationCenter extends Vue {
 
 }
 </script>

@@ -51,7 +51,7 @@ import { Getter, namespace } from 'vuex-class'
 // import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
 
-    @Component
+@Component
 export default class WxBindPhone extends Vue {
         form = {
             mobile: '',
