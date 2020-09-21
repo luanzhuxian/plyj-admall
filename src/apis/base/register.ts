@@ -54,7 +54,7 @@ export const getProvincesBankList = (parentCode = 0) => axios.get(`/apis/v2/base
 export const sendImageToWeixin = file => {
     const formData = new FormData()
     formData.append('file', file)
-    return axios.post('/apis/v1/micro/uploadImage', formData)
+    return axios.post('/apis/v2/micro/uploadImage', formData)
 }
 
 /* 获取小v商户申请时填写的信息 */

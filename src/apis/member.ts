@@ -54,7 +54,7 @@ export const queryMemberDeposit = (params: any) => axios.get('/apis/v1/agent/use
  * @param params {object}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const exportMemberQuery = (params: any) => axios.post(
+export const exportMemberQuery = (params: any): Promise<Blob> => axios.post(
     '/apis/v1/systemctl/memberManager/member/list/export',
     null,
     {

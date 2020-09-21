@@ -3,17 +3,17 @@ import axios from '../assets/ts/axios-config'
 /**
  * 获取首页信息 会员数 + helper数 + 月访客人数 + 待审核helper + 待审核润笔 + 待提现审核
  */
-export const getHomeInfo = () => axios.get('/apis/v1/base/baseMall/home/count')
+export const getHomeInfo = () => axios.get('/apis/v2/mall/home/count')
 
 /**
  * 获取首页信息 商品订单数量: 虚拟商品 + 课程商品
  */
-export const getProductOrder = () => axios.get('/apis/v2/base/baseMall/home/waitRedeemTotal')
+export const getProductOrder = () => axios.get('/apis/v2/mall/home/waitRedeemTotal')
 
 /**
  * 获取首页信息 订单相关: 支付订单量 + 收益总额 + 待发货订单 + 待退款订单
  */
-export const getOrderInfo = () => axios.get('/apis/v2/base/baseMall/home/waitPerfect')
+export const getOrderInfo = () => axios.get('/apis/v2/mall/home/waitPerfect')
 
 /**
  * 判断是否绑定了手机号

@@ -170,7 +170,7 @@
                     <template #default="{ data }">
                         <div class="tag-ctrl">
                             <el-tooltip
-                                class="tag-ctrl-item"
+                                class="tag-ctrl-item pointer"
                                 effect="dark"
                                 content="编辑"
                                 placement="top-start"
@@ -178,7 +178,7 @@
                                 <pl-svg :key="2" name="icon-edit-511af" @click.stop="editTag(data)" width="12" fill="#598BF8" class="icon" />
                             </el-tooltip>
                             <el-tooltip
-                                class="tag-ctrl-item second-item"
+                                class="tag-ctrl-item second-item pointer"
                                 effect="dark"
                                 content="删除"
                                 placement="top-start"
@@ -203,7 +203,7 @@
                     :data="table"
                     @selection-change="handleSelectionChange"
                     class="table-customer"
-                    style="width: 100%"
+                    max-height="800"
                 >
                     <template slot="empty">
                         <div class="no-data">
@@ -250,6 +250,7 @@
                     <el-table-column
                         prop="mobile"
                         label="手机号(账户)"
+                        width="120"
                     />
                     <el-table-column label="用户类型">
                         <template #default="{ row }">
@@ -282,24 +283,28 @@
                     <el-table-column
                         prop="lastPurchaseTime"
                         label="最近购买时间"
-                        width="170"
+                        width="150"
                     />
                     <el-table-column
                         label="操作"
-                        width="210"
+                        width="80"
+                        header-align="right"
+                        align="right"
                     >
                         <template #default="{ row }">
-                            <div class="operate">
-                                <a @click="$router.push({ name: 'MemberManageDetail', params: { userId: row.id } })">
-                                    详情
-                                </a>
-                                <a @click="setTagToMember(row)">
-                                    设置标签
-                                </a>
-                                <a @click="setRemarkToMember(row)">
-                                    备注
-                                </a>
-                            </div>
+                            <Operating>
+                                <template slot="button-box">
+                                    <a @click="$router.push({ name: 'MemberManageDetail', params: { userId: row.id } })">
+                                        详情
+                                    </a>
+                                    <a @click="setTagToMember(row)">
+                                        设置标签
+                                    </a>
+                                    <a @click="setRemarkToMember(row)">
+                                        备注
+                                    </a>
+                                </template>
+                            </Operating>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -493,7 +498,8 @@ export default class MemberManageList extends Vue {
       // 1 7日内 2 30日内 3自选
       dateRange: 3,
       startTime: '',
-      endTime: ''
+      endTime: '',
+      tagId: ''
   }
 
   exportRules = {
@@ -524,7 +530,7 @@ export default class MemberManageList extends Vue {
   }
 
   // 点击树节点
-  async treeClick ({ id }) {
+  async treeClick ({ id }: { id: string }) {
       await this.getMemberListByTag(id)
   }
 
@@ -727,8 +733,8 @@ export default class MemberManageList extends Vue {
   }
 
   // 删除用户标签
-  async deleteTag (id) {
-      const { data } = await checkIsTagUsed(id)
+  async deleteTag (id: string) {
+      const data = await checkIsTagUsed(id)
       if (data.result) {
           await this.$confirm('删除标签后，该标签下的所有用户将失去该标签属性是否确定删除？')
       }
@@ -767,7 +773,7 @@ export default class MemberManageList extends Vue {
         position: relative;
         z-index: 1;
         width: 200px;
-        height: calc(100vh - 80px);
+        height: 800px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         background-color: #F5F5F5;
         overflow: auto;

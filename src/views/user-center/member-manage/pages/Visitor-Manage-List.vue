@@ -127,17 +127,9 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-
-import Pagination from '../../../../components/common/Pagination'
-
 import { getYouKe, getYouKeCount } from '../../../../apis/member'
 
-@Component({
-    components: {
-        Pagination
-    }
-})
-
+@Component
 export default class VistorManageList extends Vue {
   // 数据
   leave=''
@@ -166,12 +158,12 @@ export default class VistorManageList extends Vue {
 
   // 生命周期函数
   created () {
-      this.routeName = this.$route.name
+      this.routeName = this.$route.name || ''
       this.getYouKe()
       this.getYouKeCount()
   }
 
-  visitTimeRange ({ start, end }) {
+  visitTimeRange ({ start, end }: DynamicObject) {
       this.form.createStartTime = start
       this.form.createEndTime = end
       this.getYouKe()
@@ -197,7 +189,7 @@ export default class VistorManageList extends Vue {
       }
   }
 
-  sizeChange (val) {
+  sizeChange (val: number) {
       this.form.current = 1
       this.form.size = val
       this.getYouKe()
