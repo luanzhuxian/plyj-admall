@@ -94,7 +94,7 @@
                         </div>
                         <div>
                             <span>生日：</span>
-                            <span>{{ memberDetail.birthday | dateFrom || '--' }}</span>
+                            <span>{{ memberDetail.birthday || '--' }}</span>
                         </div>
                         <div>
                             <span>性别：</span>
@@ -233,11 +233,11 @@
             <div class="data-list">
                 <div>
                     近30天自购订单量
-                    <b>{{ memberData.order30DayCount }}</b>
+                    <b>{{ memberData.currentMonthOrder }}</b>
                 </div>
                 <div>
                     累计自购订单量
-                    <b>{{ memberData.selfOrderCount }}</b>
+                    <b>{{ memberData.totalOrder }}</b>
                 </div>
                 <div>
                     支付总额
@@ -245,7 +245,7 @@
                 </div>
                 <div>
                     分享订单量
-                    <b>{{ memberData.shareOrderCount }}</b>
+                    <b>{{ memberData.shareOrder }}</b>
                 </div>
             </div>
             <pl-tabs :value="tabName" :tabs="Tab_List" @tabClick="tabClick" />
@@ -264,7 +264,7 @@
                         </el-form-item>
                         <el-form-item label="产品类型：">
                             <el-select
-                                v-model="orderListForm.orderType"
+                                v-model="orderListForm.goodsType"
                                 @change="searchOrderList"
                                 clearable
                             >
@@ -279,7 +279,7 @@
                         <el-form-item label="支付时间：">
                             <date-range
                                 style="width: 380px;"
-                                :init="[orderListForm.startTime, orderListForm.endTime]"
+                                :init="orderListTimeRange"
                                 @change="formatOrderListTimeRange"
                                 disable-after
                                 clearable
@@ -288,13 +288,16 @@
                         </el-form-item>
                         <el-form-item label="订单状态：">
                             <el-select
-                                v-model="orderListForm.roleType"
+                                v-model="orderListForm.orderStatus"
                                 @change="searchOrderList"
                                 clearable
                             >
-                                <el-option :value="''" label="全部" />
-                                <el-option value="MEMBERSHIP" label="普通会员" />
-                                <el-option value="HELPER" label="Helper" />
+                                <el-option
+                                    v-for="item of ORDER_STATUS"
+                                    :key="item.value"
+                                    :value="item.value"
+                                    :label="item.label"
+                                />
                             </el-select>
                         </el-form-item>
                         <el-form-item>
@@ -328,27 +331,27 @@
                                 </div>
                             </template>
                             <el-table-column
-                                prop="userName"
+                                prop="orderId"
                                 label="订单号"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="goodName"
                                 label="产品名称"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="orderType"
                                 label="产品类型"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="orderNumber"
                                 label="数量"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="unitPrice"
                                 label="单价（元）"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="orderStatus"
                                 label="订单状态"
                             />
                             <el-table-column
@@ -749,9 +752,9 @@
                                 fixed="right"
                                 label="学习进度"
                             >
-                                <template #default="{row}">
+                                <template #default="{ row }">
                                     <div class="operate">
-                                        <a @click="showWatchDetailList = true; courseResourceId = row.id">
+                                        <a @click="watchDetail(row)">
                                             查看
                                         </a>
                                     </div>
@@ -847,20 +850,21 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import Pagination from '../../../../components/common/Pagination'
+import Pagination from '../../../../components/common/Pagination.vue'
 
 import Field from '../../../../components/common/Field.vue'
-import CityPicker from '../../../../components/common/City-Picker'
-import AddTags from '../components/Add-Tags'
-import WatchDetailList from '../components/Watch-Detail-List'
-import AddRemark from '../components/Add-Remark'
+import CityPicker from '../../../../components/common/City-Picker.vue'
+import AddTags from '../components/Add-Tags.vue'
+import WatchDetailList from '../components/Watch-Detail-List.vue'
+import AddRemark from '../components/Add-Remark.vue'
 
 import {
     getMemberDetail,
     saveMemberInfo,
     getOrderList,
     getRemarkList,
-    deleteRemark
+    deleteRemark,
+    getMemberOrderCount
 } from '../../../../apis/member'
 
   @Component({
@@ -889,7 +893,7 @@ export default class MemberManageDetail extends Vue {
 
     // 用户行为数据Tab
     Tab_List = [
-        { name: 'ProductList', label: '购买记录' },
+        { name: 'OrderList', label: '购买记录' },
         { name: 'ShareList', label: '分享记录' },
         { name: 'LiveWatchList', label: '直播观看记录' },
         { name: 'LineLearningList', label: '云课堂学习进度' },
@@ -907,6 +911,33 @@ export default class MemberManageDetail extends Vue {
         { value: '"LIVE_GOODS', label: '直播订单' },
         { value: 'VIDEO_GOODS', label: '录播订单' }
     ]
+
+      ORDER_STATUS= [
+          {
+              label: '全部',
+              value: ''
+          },
+          {
+              label: '待发货',
+              value: 'WAIT_SHIP'
+          },
+          {
+              label: '待收货',
+              value: 'WAIT_RECEIVE'
+          },
+          {
+              label: '待付款',
+              value: 'WAIT_PAY'
+          },
+          {
+              label: '订单完成',
+              value: 'FINISHED'
+          },
+          {
+              label: '订单关闭',
+              value: 'CLOSED'
+          }
+      ]
 
     GENDER = {
         0: '保密',
@@ -954,10 +985,10 @@ export default class MemberManageDetail extends Vue {
 
     // 用户行为数据统计
     memberData = {
-        order30DayCount: 1223,
-        selfOrderCount: 89,
-        totalAmount: 6565,
-        shareOrderCount: 5545
+        currentMonthOrder: 0,
+        totalOrder: 0,
+        totalAmount: 0,
+        shareOrder: 0
     }
 
     // 当前所在的tab页
@@ -968,6 +999,7 @@ export default class MemberManageDetail extends Vue {
         const { userId } = this.$route.params
         this.userId = userId
         await this.getMemberDetail()
+        await this.getMemberOrderCount()
     }
 
     // methods
@@ -980,8 +1012,17 @@ export default class MemberManageDetail extends Vue {
         }
     }
 
-    addressCode = []
-    addMemberDetailForm = {
+    async getMemberOrderCount () {
+        try {
+            const { result } = await getMemberOrderCount(this.userId)
+            this.memberData = result || {}
+        } catch (e) {
+            throw e
+        }
+    }
+
+    addressCode: string[] = []
+    addMemberDetailForm: DynamicObject = {
         mallUserId: '',
         name: '',
         // 1家长，2学生，3其他
@@ -1001,7 +1042,7 @@ export default class MemberManageDetail extends Vue {
         workPosition: ''
     }
 
-    selectedCity (val) {
+    selectedCity (val: Array<any>) {
         const form = this.addMemberDetailForm
         form.province = val[0].code
         form.city = val[1].code
@@ -1038,8 +1079,20 @@ export default class MemberManageDetail extends Vue {
         }
     }
 
-    tabClick (data) {
+    tabClick (data: DynamicObject) {
         this.tabName = data.name
+        if (this.tabName === 'OrderList') {
+            this.getOrderList()
+        }
+        if (this.tabName === 'ShareList') {
+            this.getShareList()
+        }
+        if (this.tabName === 'LiveWatchList') {
+            this.getLiveWatchList()
+        }
+        if (this.tabName === 'LineLearningList') {
+            this.getLineLearningList()
+        }
         if (this.tabName === 'RemarkList') {
             this.getRemarkList()
         }
@@ -1047,28 +1100,31 @@ export default class MemberManageDetail extends Vue {
 
     // 购买记录
     orderListForm = {
+        mallUserId: '',
         current: 1,
         size: 10,
         keyword: '',
-        orderType: '',
-        startTime: '',
-        endTime: '',
-        roleType: ''
+        goodsType: '',
+        orderStatus: '',
+        helper: false,
+        payStartTime: '',
+        payEndTime: ''
     }
 
+    orderListTimeRange = []
     orderList = []
     orderListTotal = 0
-    async formatOrderListTimeRange ({ start, end }) {
+    async formatOrderListTimeRange ({ start, end }: DynamicObject) {
         try {
-            this.orderListForm.startTime = start
-            this.orderListForm.endTime = end
+            this.orderListForm.payStartTime = start
+            this.orderListForm.payEndTime = end
             await this.searchOrderList()
         } catch (e) {
             throw e
         }
     }
 
-    async orderListSizeChange (val) {
+    async orderListSizeChange (val: number) {
         try {
             this.orderListForm.current = 1
             this.orderListForm.size = val
@@ -1080,9 +1136,10 @@ export default class MemberManageDetail extends Vue {
 
     async getOrderList () {
         try {
-            const { data: { result } } = await getOrderList(this.orderListForm)
-            this.orderList = result.records || []
-            this.orderListTotal = result.total || []
+            this.orderListForm.mallUserId = this.userId
+            const { result: { records, total } } = await getOrderList(this.orderListForm)
+            this.orderList = records || []
+            this.orderListTotal = total || 0
         } catch (e) {
             throw e
         }
@@ -1100,14 +1157,17 @@ export default class MemberManageDetail extends Vue {
     async resetOrderList () {
         try {
             this.orderListForm = {
+                mallUserId: '',
                 current: 1,
                 size: 10,
                 keyword: '',
-                orderType: '',
-                startTime: '',
-                endTime: '',
-                roleType: ''
+                goodsType: '',
+                orderStatus: '',
+                helper: false,
+                payStartTime: '',
+                payEndTime: ''
             }
+            this.orderListTimeRange = []
             await this.getOrderList()
         } catch (e) {
             throw e
@@ -1121,27 +1181,30 @@ export default class MemberManageDetail extends Vue {
 
     // 分享记录
     shareListForm = {
+        mallUserId: '',
         current: 1,
         size: 10,
         keyword: '',
-        orderType: '',
-        startTime: '',
-        endTime: ''
+        goodsType: '',
+        orderStatus: '',
+        helper: true,
+        payStartTime: '',
+        payEndTime: ''
     }
 
     shareList = []
     shareListTotal = 0
-    async formatShareListTimeRange ({ start, end }) {
+    async formatShareListTimeRange ({ start, end }: DynamicObject) {
         try {
-            this.shareListForm.startTime = start
-            this.shareListForm.endTime = end
+            this.shareListForm.payStartTime = start
+            this.shareListForm.payEndTime = end
             await this.searchShareList()
         } catch (e) {
             throw e
         }
     }
 
-    async shareListSizeChange (val) {
+    async shareListSizeChange (val: number) {
         try {
             this.orderListForm.current = 1
             this.orderListForm.size = val
@@ -1153,7 +1216,7 @@ export default class MemberManageDetail extends Vue {
 
     async getShareList () {
         try {
-            const { data: { result } } = await getOrderList(this.shareListForm)
+            const { data: { result } }: DynamicObject = await getOrderList(this.shareListForm)
             this.shareList = result.records || []
             this.shareListTotal = result.total || []
         } catch (e) {
@@ -1173,13 +1236,15 @@ export default class MemberManageDetail extends Vue {
     async resetShareList () {
         try {
             this.orderListForm = {
+                mallUserId: '',
                 current: 1,
                 size: 10,
                 keyword: '',
-                orderType: '',
-                startTime: '',
-                endTime: '',
-                roleType: ''
+                goodsType: '',
+                orderStatus: '',
+                helper: true,
+                payStartTime: '',
+                payEndTime: ''
             }
             await this.getShareList()
         } catch (e) {
@@ -1205,7 +1270,7 @@ export default class MemberManageDetail extends Vue {
 
     liveWatchList = []
     liveWatchListTotal = 0
-    async formatLiveWatchListTimeRange ({ start, end }) {
+    async formatLiveWatchListTimeRange ({ start, end }: DynamicObject) {
         try {
             this.liveWatchListForm.startTime = start
             this.liveWatchListForm.endTime = end
@@ -1215,7 +1280,7 @@ export default class MemberManageDetail extends Vue {
         }
     }
 
-    async liveWatchListSizeChange (val) {
+    async liveWatchListSizeChange (val: number) {
         try {
             this.liveWatchListForm.current = 1
             this.liveWatchListForm.size = val
@@ -1227,7 +1292,7 @@ export default class MemberManageDetail extends Vue {
 
     async getLiveWatchList () {
         try {
-            const { data: { result } } = await getOrderList(this.shareListForm)
+            const { data: { result } }: DynamicObject = await getOrderList(this.shareListForm)
             this.liveWatchList = result.records || []
             this.liveWatchListTotal = result.total || []
         } catch (e) {
@@ -1271,8 +1336,7 @@ export default class MemberManageDetail extends Vue {
         current: 1,
         size: 10,
         keyword: '',
-        type: '',
-        classifyId: '',
+        liveType: '',
         startTime: '',
         endTime: ''
     }
@@ -1284,7 +1348,7 @@ export default class MemberManageDetail extends Vue {
     showWatchDetailList = false
     selectedUserId = this.userId
     courseResourceId = ''
-    async formatLineLearningListTimeRange ({ start, end }) {
+    async formatLineLearningListTimeRange ({ start, end }: DynamicObject) {
         try {
             this.lineLearningListForm.startTime = start
             this.lineLearningListForm.endTime = end
@@ -1294,7 +1358,7 @@ export default class MemberManageDetail extends Vue {
         }
     }
 
-    async lineLearningListSizeChange (val) {
+    async lineLearningListSizeChange (val: number) {
         try {
             this.lineLearningListForm.current = 1
             this.lineLearningListForm.size = val
@@ -1306,12 +1370,17 @@ export default class MemberManageDetail extends Vue {
 
     async getLineLearningList () {
         try {
-            const { data: { result } } = await getOrderList(this.shareListForm)
+            const { data: { result } }: DynamicObject = await getOrderList(this.shareListForm)
             this.lineLearningList = result.records || []
             this.lineLearningListTotal = result.total || []
         } catch (e) {
             throw e
         }
+    }
+
+    watchDetail (row: DynamicObject) {
+        this.showWatchDetailList = true
+        this.courseResourceId = row.id
     }
 
     async searchLineLearningList () {
@@ -1330,7 +1399,6 @@ export default class MemberManageDetail extends Vue {
                 size: 10,
                 keyword: '',
                 liveType: '',
-                pattern: '',
                 startTime: '',
                 endTime: ''
             }
@@ -1352,13 +1420,14 @@ export default class MemberManageDetail extends Vue {
     }
 
     remarkListForm = {
+        mallUserId: '',
         current: 1,
         size: 10
     }
 
     remarkList = []
     remarkListTotal = 0
-    async remarkListSizeChange (val) {
+    async remarkListSizeChange (val: number) {
         try {
             this.remarkListForm.current = 1
             this.remarkListForm.size = val
@@ -1371,7 +1440,7 @@ export default class MemberManageDetail extends Vue {
     async getRemarkList () {
         try {
             this.remarkListForm.mallUserId = this.userId
-            const { data: { result } } = await getRemarkList(this.remarkListForm)
+            const { data: { result } }: DynamicObject = await getRemarkList(this.remarkListForm)
             this.remarkList = result.records || []
             this.remarkListTotal = result.total || []
         } catch (e) {
@@ -1379,7 +1448,7 @@ export default class MemberManageDetail extends Vue {
         }
     }
 
-    async deleteRemark (id) {
+    async deleteRemark (id: string) {
         try {
             await deleteRemark({ id })
             this.getRemarkList()

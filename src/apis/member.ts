@@ -20,6 +20,9 @@ export const getHelperList = ({ keyword, ownnerUser, current, size, auditFlag, a
  */
 export const getMemberDetail = (id: any) => axios.get(`/apis/v2/user/${ id }`)
 
+// 统计用户订单数
+export const getMemberOrderCount = (id: any) => axios.get(`/apis/v2/user/order/${ id }`)
+
 export const saveMemberInfo = (params: any) => axios.put('/apis/v2/user', params)
 
 /**
@@ -65,7 +68,7 @@ export const exportMemberQuery = (params: any): Promise<Blob> => axios.post(
 )
 
 // 账户中心查看订单数据
-export const getOrderList = (params: any) => axios.get('/apis/v2/order/agency/employeeOrders', { params })
+export const getOrderList = (params: any) => axios.get('/apis/v2/user/order', { params })
 
 // 账户中心导出数据
 export const exportOrderDetail = (params: any) => axios.get('/apis/v2/order/agency/employeeOrders/export', {
