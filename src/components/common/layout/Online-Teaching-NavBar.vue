@@ -17,22 +17,14 @@
         </div>
         <div :class="$style.menu">
             <div
-                @click="target({ route: 'FunctionPack' })"
-                :class="{
-                    [$style.menuTitle]: true,
-                    [$style.isActive]: activeRoute === 'FunctionPack'
-                }"
-            >云课堂</div>
-            <div
                 @click="target(item)"
                 :class="{
                     [$style.menuItem]: true,
-                    [$style.isActive]: activeRoute === item.route
+                    [$style.isActive]: isActive(item.route)($route.matched)
                 }"
                 v-for="item in menuList"
                 :key="item.route"
-            >{{ item.name }}
-            </div>
+            >{{ item.name }}</div>
         </div>
     </nav>
 </template>
@@ -47,8 +39,11 @@ interface MenuItem {
 
 @Component
 export default class OnlineTeachingNavBar extends Vue {
-    activeRoute = this.$route.name
     menuList: MenuItem[] = [
+        {
+            name: '云课堂',
+            route: 'FunctionPack'
+        },
         {
             name: '互动直播',
             route: 'Live'
@@ -75,8 +70,9 @@ export default class OnlineTeachingNavBar extends Vue {
         }
     ]
 
+    private isActive = (routeName: string) => (matched: any[]) => matched.some((item: any) => item.name === routeName)
+
     private target ({ route: name }: MenuItem) {
-        this.activeRoute = name
         this.$router.push({ name })
     }
 }
@@ -125,30 +121,25 @@ export default class OnlineTeachingNavBar extends Vue {
     > .menu {
         box-sizing: border-box;
         font-size: 14px;
-        > .menu-title {
-            margin-top: 34px;
-            padding: 6px 20px;
-            cursor: pointer;
-            &:hover {
-                color: #4f63ff;
-                background-color: #f5f6fa;
-                &:before {
-                    background-color: #4f63ff;
-                }
-            }
-        }
         > .menu-item {
             padding: 10px 20px;
             cursor: pointer;
-            &:before {
-                display: inline-block;
-                width: 4px;
-                height: 4px;
-                margin-right: 8px;
-                border-radius: 50%;
-                vertical-align: middle;
-                background-color: #e7e7e7;
-                content: '';
+            &:nth-of-type(1) {
+                margin-top: 34px;
+                padding: 6px 20px;
+                cursor: pointer;
+            }
+            &:nth-of-type(n + 2) {
+                &:before {
+                    display: inline-block;
+                    width: 4px;
+                    height: 4px;
+                    margin-right: 8px;
+                    border-radius: 50%;
+                    vertical-align: middle;
+                    background-color: #e7e7e7;
+                    content: '';
+                }
             }
             &:hover {
                 color: #4f63ff;
@@ -162,7 +153,7 @@ export default class OnlineTeachingNavBar extends Vue {
             color: #4f63ff;
             background-color: #f5f6fa;
             &:before {
-                background-color: #4f63ff;
+                background-color: #4f63ff !important;
             }
         }
     }
