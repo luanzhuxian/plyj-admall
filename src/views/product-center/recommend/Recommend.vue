@@ -1,27 +1,27 @@
 <template>
-    <div class="recommend">
-        <div class="wrap">
+    <div class="recommend wrap">
+        <div>
             <el-button
-                size="mini"
                 type="primary"
                 @click="openDialog"
+                round
                 :disabled="isEdit"
             >
                 新增推荐
             </el-button>
             <el-button
-                size="mini"
                 plain
                 @click="recommendBatchSort()"
+                round
                 :disabled="!recommendTable.length"
                 v-if="!isEdit"
             >
                 编辑排序
             </el-button>
             <el-button
-                size="mini"
                 type="primary"
                 @click="editSortNumber"
+                round
                 v-if="isEdit"
             >
                 保存
@@ -75,8 +75,8 @@
                 </span>
                 <el-table-column
                     type="selection"
-                    align="right"
-                    width="80"
+                    width="40"
+                    align="left"
                     :selectable="()=>{ return !isEdit }"
                 />
                 <el-table-column
@@ -148,7 +148,9 @@
                 />
                 <el-table-column
                     label="操作"
-                    align="center"
+                    align="right"
+                    width="100"
+                    header-align="right"
                 >
                     <template slot-scope="{ row }">
                         <el-button
@@ -257,11 +259,11 @@
                         <div class="switch-group" v-if="!row.serialNo">
                             <el-switch
                                 v-model="row.isSelected"
-                                active-color="#4F63FF"
+                                active-color="#598BF8"
                                 inactive-color="#CCCCCC"
                                 @change="resetSwitch(row)"
                             />
-                            <pl-svg width="16" v-if="row.isSelected" :key="2" name="icon-open-recommend" fill="#4F63FF" />
+                            <pl-svg width="16" v-if="row.isSelected" :key="2" name="icon-open-recommend" fill="#598BF8" />
                             <pl-svg width="16" v-else :key="3" name="icon-close-recommend" fill="#999999" />
                         </div>
                         <span v-if="!row.serialNo && row.isSelected">
@@ -305,8 +307,8 @@
 </template>
 
 <script>
-import { getDataDictionary } from '../../../../apis/common'
-import { getCategoryTreePlatform, getRecommendProduct, getAddRecommend, cancelRecommend, modifyRecommend, createAddRecommend, getCurrentNumber } from '../../../../apis/product-center/goods'
+import { getDataDictionary } from '../../../apis/common'
+import { getCategoryTreePlatform, getRecommendProduct, getAddRecommend, cancelRecommend, modifyRecommend, createAddRecommend, getCurrentNumber } from '../../../apis/product-center/goods'
 
 export default {
     name: 'Recommend',
@@ -379,16 +381,16 @@ export default {
         },
         // 获取推荐状态
         async getRecommendCurrent () {
-            const { data } = await getCurrentNumber({ recommendType: this.checkRoute() })
-            if (data.result) {
-                this.recommendNumberInfo = data.result
+            const { result } = await getCurrentNumber({ recommendType: this.checkRoute() })
+            if (result) {
+                this.recommendNumberInfo = result
             }
         },
         // 获取推荐列表
         async getRecommends () {
             try {
                 await this.checkRoute()
-                const { data } = await getRecommendProduct(this.recommendForm)
+                const data = await getRecommendProduct(this.recommendForm)
                 if (data && data.result && data.result.records && data.result.records.length) {
                     for (const item of data.result.records) {
                         item.sort = item.serialNo
@@ -484,9 +486,9 @@ export default {
                 type = 'courseType'
                 this.searchForm.productType = 'ALL_CLASS'
             }
-            const { data } = await getDataDictionary(type)
+            const data = await getDataDictionary(type)
             this.searchType = data.result || []
-            const { data: res } = await getCategoryTreePlatform()
+            const res = await getCategoryTreePlatform()
             if (res && res.result && res.result.length) {
                 res.result.unshift({ categoryName: '全部分类', id: '' })
                 this.categoryList = res.result
@@ -502,7 +504,7 @@ export default {
         async searchProduct () {
             try {
                 await this.checkRoute()
-                const { data } = await getAddRecommend(this.searchForm)
+                const data = await getAddRecommend(this.searchForm)
                 if (data && data.result && data.result.records) {
                     // 如果当前页面没有数据，且页码大于1，则请求上一页
                     if (data.result.records.length === 0 && this.searchForm.current > 1) {
@@ -590,160 +592,155 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .recommend{
-    padding-bottom: 15px;
-  }
-
-  .recommend-table{
-    position: relative;
-
-    .empty{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img{
-        width: 12px;
-        margin-right: 8px;
-      }
+    .recommend{
+        padding-bottom: 15px;
     }
 
-    .batch-text {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 11px;
-      left: 50px;
-      z-index: 11;
-      font-size: 12px;
-
-      .batch-num {
-        font-weight: 400;
-        color: rgba(102, 102, 102, 1);
-        line-height: 17px;
-        margin-right: 10px;
-      }
-    }
-
-    .batch-info {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #666666;
-      position: absolute;
-      top: 17px;
-      left: 50px;
-      z-index: 11;
-      font-size: 12px;
-    }
-
-    .order-detail{
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      img{
-        margin-right: 12px;
-        object-fit: cover;
-      }
-      .detail-title{
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        width: 215px;
-        color: #454553;
-        font-size: 12px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .detail-tags{
-        width: 215px;
-        span{
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          max-width: 100px;
-          height: 18px;
-          margin: 0 10px 4px 0;
-          padding: 0 2px;
-          color: #EC742E;
-          font-size: 10px;
-          border: 1px solid #EC742E;
-        }
-      }
-    }
-
-    .batch {
-      ::v-deep .el-table__header-wrapper {
-        .has-gutter {
-          tr {
-            th {
-              padding-top: 50px;
-            }
-
-            .el-table-column--selection {
-              padding: 0;
-              padding-bottom: 30px;
-            }
-          }
-        }
-      }
-    }
-
-    ::v-deep .el-table th.is-right {
-      text-align: left
-    }
-
-    ::v-deep .el-input-number{
-      width: 70px;
-      .el-input__inner{
-        padding-left: 10px;
-        padding-right: 30px;
-        text-align: left;
-      }
-    }
-  }
-
-  ::v-deep .el-dialog{
-    .el-dialog__body{
-      padding: 0 0 32px 0 !important;
-      .el-form{
-        padding: 12px 32px;
-        border-top: 1px solid #E7E7E7;
-        border-bottom: 1px solid #E7E7E7;
-        .el-form-item{
-          margin-bottom: 0;
-        }
-      }
-      .switch-group{
-        display: inline-flex;
-        flex-direction: column;
-        width: 50px;
-        height: 32px;
-        margin-right: 10px;
+    .recommend-table{
         position: relative;
-        & > img{
-          position: absolute;
-          left: 5px;
-          bottom: 0;
-        }
-      }
-      .text-btn{
-        margin-left: 16px;
-        color: $--color-primary-blue;
-        font-size: 12px;
-        cursor: pointer;
-      }
-      ::v-deep .el-pager{
-        .active , & > li:hover{
-          color: #EC742E;
-        }
-      }
-    }
-  }
 
-  .el-button.is-disabled,.el-button.is-disabled:hover{
-    color: #ffffff;
-    background-color: #CCCCCC;
-    border-color: #CCCCCC;
-  }
+        .empty{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 12px;
+                margin-right: 8px;
+            }
+        }
+
+        .batch-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 11px;
+            left: 50px;
+            z-index: 11;
+            font-size: 12px;
+
+            .batch-num {
+                font-weight: 400;
+                color: rgba(102, 102, 102, 1);
+                line-height: 17px;
+                margin-right: 10px;
+            }
+        }
+
+        .batch-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666666;
+            position: absolute;
+            top: 17px;
+            left: 50px;
+            z-index: 11;
+            font-size: 12px;
+        }
+
+        .order-detail{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            img{
+                margin-right: 12px;
+                object-fit: cover;
+            }
+            .detail-title{
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                width: 215px;
+                color: #454553;
+                font-size: 12px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .detail-tags{
+                width: 215px;
+                span{
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    max-width: 100px;
+                    height: 18px;
+                    margin: 0 10px 4px 0;
+                    padding: 0 2px;
+                    color: #EC742E;
+                    font-size: 10px;
+                    border: 1px solid #EC742E;
+                }
+            }
+        }
+
+        .batch {
+            ::v-deep .el-table__header-wrapper {
+                .has-gutter {
+                    tr {
+                        th {
+                            padding-top: 50px;
+                        }
+
+                        .el-table-column--selection {
+                            padding: 0;
+                            padding-bottom: 30px;
+                        }
+                    }
+                }
+            }
+        }
+
+        ::v-deep .el-input-number{
+            width: 70px;
+            .el-input__inner{
+                padding-left: 10px;
+                padding-right: 30px;
+                text-align: left;
+            }
+        }
+    }
+
+    ::v-deep .el-dialog{
+        .el-dialog__body{
+            padding: 0 0 32px 0 !important;
+            .el-form {
+                padding: 12px 32px;
+                border-bottom: 1px solid #E7E7E7;
+                .el-form-item{
+                    margin-bottom: 0;
+                }
+            }
+            .switch-group{
+                display: inline-flex;
+                flex-direction: column;
+                width: 50px;
+                height: 32px;
+                margin-right: 10px;
+                position: relative;
+                & > img{
+                    position: absolute;
+                    left: 5px;
+                    bottom: 0;
+                }
+            }
+            .text-btn{
+                margin-left: 16px;
+                color: #598BF8;
+                font-size: 12px;
+                cursor: pointer;
+            }
+            ::v-deep .el-pager{
+                .active , & > li:hover{
+                    color: #EC742E;
+                }
+            }
+        }
+    }
+
+    .el-button.is-disabled,.el-button.is-disabled:hover{
+        color: #ffffff;
+        background-color: #CCCCCC;
+        border-color: #CCCCCC;
+    }
 </style>

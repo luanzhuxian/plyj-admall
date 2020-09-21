@@ -449,7 +449,7 @@
 
 <script>
 import { getDataDictionary } from '../../../../apis/common'
-import { getTemplate, getTemplateDetail, getCity, addTemplate, editTemplate, deleteTemplate } from '../../../../apis/goods'
+import { getTemplate, getTemplateDetail, getCity, addTemplate, editTemplate, deleteTemplate } from '../../../../apis/product-center/goods'
 import { testMoney, testWeight, testPositiveInteger } from '../../../../assets/ts/validate'
 
 export default {

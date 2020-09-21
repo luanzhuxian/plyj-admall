@@ -152,7 +152,7 @@
 <script>
 import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview'
 import ProductRadio from '../../../../../components/product-center/goods/Product-Radio.vue'
-import { getSingleGoods } from '../../../../../apis/goods'
+import { getSingleGoods } from '../../../../../apis/product-center/goods'
 import {
     createSecondActivity,
     updateSecondActivity,

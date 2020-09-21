@@ -106,7 +106,7 @@ import {
     updateLabel,
     deleteLabel,
     checkIsLabelUsed
-} from '../../../apis/goods'
+} from '../../../apis/product-center/goods'
 export default {
     name: 'AddTags',
     props: {

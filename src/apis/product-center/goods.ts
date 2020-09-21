@@ -1,5 +1,5 @@
 // @ts-nocheck
-import axios from '../assets/ts/axios-config'
+import axios from '../../assets/ts/axios-config'
 
 /* 指定店铺的树形分类信息 */
 export const getCategoryTree = () => axios.get('/apis/v1/product/category/tree')

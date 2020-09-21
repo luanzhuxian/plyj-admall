@@ -94,7 +94,7 @@ import {
 // deleteCategory,
 // setCategoryBatch,
 // sortCategory
-} from '../../../apis/goods'
+} from '../../../apis/product-center/goods'
 import { testCategory } from '../../../assets/ts/validate'
 import EditImage from '../../file/Edit-Image.vue'
 import { mapGetters } from 'vuex'

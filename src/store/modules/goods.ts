@@ -1,4 +1,4 @@
-import { getCategoryTree, getCourseCategory } from '../../apis/goods'
+import { getCategoryTree, getCourseCategory } from '../../apis/product-center/goods'
 import { getAddress } from '../../apis/address'
 import {
     GET_PRODUCT_CLASSIFY_TREE,

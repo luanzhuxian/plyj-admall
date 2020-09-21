@@ -300,7 +300,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
 import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
 import { togetherActivityPage, togetherActivityDetail, deleteActivityStatus, endActivityStatus } from '../../../../apis/marketing-manage/together'
-import { getSingleGoods } from '../../../../apis/goods'
+import { getSingleGoods } from '../../../../apis/product-center/goods'
 import Share from '../../../../components/common/Share'
 export default {
     name: 'TogetherBuyList',

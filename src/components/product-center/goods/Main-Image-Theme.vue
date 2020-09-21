@@ -158,7 +158,7 @@ import {
   getMainImageTheme
   // updateLabel,
   // deleteLabel
-} from '../../../apis/goods'
+} from '../../../apis/product-center/goods'
 import { loadImage } from '../../../assets/ts/utils'
 import { upload, deleteImage } from '../../../assets/ts/upload'
 export default {

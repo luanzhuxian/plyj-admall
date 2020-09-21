@@ -130,7 +130,7 @@ import {
 // deleteCategory,
 // setCategoryBatch,
 // sortCategory
-} from '../../../apis/goods'
+} from '../../../apis/product-center/goods'
 import { mapGetters } from 'vuex'
 import { copyFields } from '../../../assets/ts/utils'
 import { testCategory } from '../../../assets/ts/validate'

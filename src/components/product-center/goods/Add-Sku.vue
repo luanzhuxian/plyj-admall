@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { createSku } from '../../../apis/goods'
+import { createSku } from '../../../apis/product-center/goods'
 
 export default {
     name: 'AddSku',

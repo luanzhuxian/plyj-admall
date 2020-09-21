@@ -141,7 +141,7 @@
 
 <script>
 import { togetherActivityGoods } from '../../../apis/marketing-manage/together'
-import { getCategoryTreePlatform } from '../../../apis/goods'
+import { getCategoryTreePlatform } from '../../../apis/product-center/goods'
 export default {
     name: 'ProductRadio',
     data () {

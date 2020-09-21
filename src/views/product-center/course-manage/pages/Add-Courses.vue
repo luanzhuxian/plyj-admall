@@ -551,7 +551,7 @@ import {
     modifyGoods
     // updateLabel,
     // deleteLabel
-} from '../../../../apis/goods'
+} from '../../../../apis/product-center/goods'
 import { getPingXuan } from '../../../../apis/mall'
 import PlEditor from '../../../../components/common/Pl-Editor.vue'
 import UploadImage from '../../../../components/file/Image-Manager.vue'
