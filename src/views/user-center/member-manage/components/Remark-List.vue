@@ -99,7 +99,7 @@ export default {
         },
         async getList () {
             try {
-                const { data: { result: { records, total } } } = await getRemarkList(this.filterForm)
+                const { records, total } = await getRemarkList(this.filterForm)
                 this.table = records
                 this.total = total
             } catch (e) {

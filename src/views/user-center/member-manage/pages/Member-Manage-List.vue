@@ -144,13 +144,13 @@
                     </el-button>
                 </div>
                 <div class="tag-list-default" @click="getMemberListByTag('')">
-                    <span class="color-333">全部用户({{ userCount }})</span>
+                    <span class="color-333">全部用户</span>
                 </div>
                 <div
                     @click.stop="getMemberListByTag(0)"
                     :class="{'tag-list-options':true, 'background-color-grey': form.tagId === 0}"
                 >
-                    未设置标签({{ notSetTageUserCount }})
+                    未设置标签
                 </div>
                 <pl-tree
                     class="tag-list-options"
@@ -208,7 +208,7 @@
                     <template slot="empty">
                         <div class="no-data">
                             <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
-                            <p>{{ userCount ? '暂无数据' : '还没有新注册的用户哦' }}~</p>
+                            <p>还没有新注册的用户哦~</p>
                         </div>
                     </template>
                     <el-table-column
@@ -405,8 +405,7 @@ import {
     getTagList,
     deleteTag,
     sortTagList,
-    checkIsTagUsed,
-    getMemberNum
+    checkIsTagUsed
 } from '../../../../apis/member'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import moment from 'moment'
@@ -480,10 +479,6 @@ export default class MemberManageList extends Vue {
   showTagBox = false
   // 当前编辑的标签
   currentTag = {}
-  // 未设置标签的会员列表
-  notSetTageUserCount = 0
-  // 全部用户数量
-  userCount = 0
   // 是否批量设置标签
   isMultiple = true
   showAddTagDialog = false
@@ -611,13 +606,6 @@ export default class MemberManageList extends Vue {
           monthUserCount,
           count
       }
-      await this.getMemberNum()
-  }
-
-  async getMemberNum () {
-      const { notSetTageUserCount, userCount } = await getMemberNum()
-      this.notSetTageUserCount = notSetTageUserCount || 0
-      this.userCount = userCount || 0
   }
 
   async getMemberList () {
@@ -632,7 +620,6 @@ export default class MemberManageList extends Vue {
 
       this.table = records
       this.total = total
-      await this.getMemberNum()
   }
 
   // 处理批量操作数据
@@ -721,7 +708,6 @@ export default class MemberManageList extends Vue {
   // 获取标签列表
   async getTagList () {
       const { result } = await getTagList()
-      await this.getMemberNum()
       this.tagList = result || []
   }
 
