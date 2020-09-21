@@ -14,11 +14,11 @@
         >
             <el-table-column
                 label="课节名称"
-                prop="lessonsTiltle"
+                prop="courseName"
             />
             <el-table-column
                 label="首次观看时间"
-                prop="lessonsTiltle"
+                prop="firstViewingTime"
             />
             <el-table-column
                 label="消耗流量"
@@ -26,18 +26,9 @@
             />
             <el-table-column
                 label="学习进度"
-                prop="dataFlowSizeShow"
+                prop="learnProgress"
             />
         </el-table>
-        <pagination
-            v-model="filterForm.current"
-            :sizes="true"
-            :total="total"
-            @sizeChange="sizeChange"
-            @change="getList"
-            style="margin-top: 12px; padding-bottom: 20px; text-align: center;"
-        />
-
         <div class="mt-20" style="text-align: center;">
             <el-button type="primary" @click="closeHandler">
                 确 定
@@ -66,22 +57,12 @@ export default {
     data () {
         return {
             table: [],
-            total: 0,
-            filterForm: {
-                current: 1,
-                size: 10
-            }
+            total: 0
         }
     },
     watch: {
         async show (val) {
             if (val) {
-                this.filterForm = {
-                    courseResourceId: this.courseId,
-                    userId: this.userId,
-                    current: 1,
-                    size: 10
-                }
                 await this.getList()
             }
         }
@@ -89,7 +70,7 @@ export default {
     methods: {
         async getList () {
             try {
-                const { data: { result: { records, total } } } = await getWatchDetailList(this.filterForm)
+                const { data: { result: { records, total } } } = await getWatchDetailList(this.userId, this.courseId)
                 this.table = records
                 this.total = total
             } catch (e) {

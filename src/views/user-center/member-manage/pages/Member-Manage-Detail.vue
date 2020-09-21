@@ -339,7 +339,7 @@
                                 label="产品名称"
                             />
                             <el-table-column
-                                prop="orderType"
+                                prop="categoryName"
                                 label="产品类型"
                             />
                             <el-table-column
@@ -390,7 +390,7 @@
                         </el-form-item>
                         <el-form-item label="产品类型：">
                             <el-select
-                                v-model="shareListForm.orderType"
+                                v-model="shareListForm.goodsType"
                                 @change="searchShareList"
                                 clearable
                             >
@@ -404,12 +404,12 @@
                         </el-form-item>
                         <el-form-item label="订单类型：">
                             <el-select
-                                v-model="orderListForm.orderType"
+                                v-model="orderListForm.orderStatus"
                                 @change="searchShareList"
                                 clearable
                             >
                                 <el-option
-                                    v-for="item in Order_Type"
+                                    v-for="item in ORDER_STATUS"
                                     :key="item.value"
                                     :value="item.value"
                                     :label="item.label"
@@ -419,7 +419,7 @@
                         <el-form-item label="支付时间：">
                             <date-range
                                 style="width: 380px;"
-                                :init="[shareListForm.startTime, shareListForm.endTime]"
+                                :init="shareListTimeRange"
                                 @change="formatShareListTimeRange"
                                 disable-after
                                 clearable
@@ -437,7 +437,7 @@
                                 @click="changeExportShareList"
                                 type="primary"
                                 plain
-                                v-if="orderList && orderList.length"
+                                v-if="shareList && shareList.length"
                             >
                                 导出数据
                             </el-button>
@@ -446,7 +446,7 @@
                     </SearchBox>
                     <div class="list">
                         <el-table
-                            :data="orderList"
+                            :data="shareList"
                             class="table-customer"
                             style="width: 100%"
                         >
@@ -457,27 +457,27 @@
                                 </div>
                             </template>
                             <el-table-column
-                                prop="userName"
+                                prop="orderId"
                                 label="订单号"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="goodName"
                                 label="产品名称"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="categoryName"
                                 label="产品类型"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="orderNumber"
                                 label="数量"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="unitPrice"
                                 label="单价（元）"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="amount"
                                 label="实付款（元）"
                             />
                             <el-table-column
@@ -485,11 +485,11 @@
                                 label="分享人"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="orderStatus"
                                 label="订单状态"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="payTime"
                                 label="支付时间"
                             />
                             <el-table-column
@@ -533,26 +533,26 @@
                                 clearable
                             >
                                 <el-option :value="''" label="全部" />
-                                <el-option :value="1" label="直播" />
-                                <el-option :value="2" label="录播" />
+                                <el-option :value="'live'" label="直播" />
+                                <el-option :value="'video'" label="录像" />
                             </el-select>
                         </el-form-item>
                         <el-form-item label="形式：">
                             <el-select
-                                v-model="liveWatchListForm.pattern"
+                                v-model="liveWatchListForm.liveMode"
                                 @change="searchLiveWatchList"
                                 clearable
                             >
                                 <el-option :value="''" label="全部" />
-                                <el-option :value="1" label="直播" />
-                                <el-option :value="2" label="录播" />
+                                <el-option :value="'public'" label="公开课" />
+                                <el-option :value="'private'" label="私享课" />
                             </el-select>
                         </el-form-item>
                         <el-form-item label="直播时间：">
                             <date-range
                                 style="width: 380px;"
-                                :init="[liveWatchListForm.startTime, liveWatchListForm.endTime]"
-                                @change="formatShareListTimeRange"
+                                :init="liveWatchTimeRange"
+                                @change="formatLiveWatchListTimeRange"
                                 disable-after
                                 clearable
                                 ref="dateRange"
@@ -589,19 +589,19 @@
                                 </div>
                             </template>
                             <el-table-column
-                                prop="userName"
+                                prop="liveStartTime"
                                 label="直播时间"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="liveName"
                                 label="直播信息"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="liveMode"
                                 label="形式"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="liveType"
                                 label="类型"
                             />
                             <el-table-column
@@ -609,15 +609,15 @@
                                 label="实付款（元）"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="amount"
                                 label="支付优惠"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="sharer"
                                 label="分享人"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="firstViewingTime"
                                 label="首次观看时间"
                             />
                             <el-table-column
@@ -656,7 +656,7 @@
                         </el-form-item>
                         <el-form-item label="类型：">
                             <el-select
-                                v-model="lineLearningListForm.type"
+                                v-model="lineLearningListForm.courseType"
                                 @change="searchLineLearningList"
                                 clearable
                             >
@@ -667,7 +667,7 @@
                         </el-form-item>
                         <el-form-item label="分类：">
                             <el-select
-                                v-model="lineLearningListForm.classifyId"
+                                v-model="lineLearningListForm.courseCategory"
                                 @change="searchLineLearningList"
                                 clearable
                             >
@@ -675,16 +675,6 @@
                                 <el-option :value="1" label="直播" />
                                 <el-option :value="2" label="录播" />
                             </el-select>
-                        </el-form-item>
-                        <el-form-item label="首次观看时间：">
-                            <date-range
-                                style="width: 380px;"
-                                :init="[lineLearningListForm.startTime, lineLearningListForm.endTime]"
-                                @change="formatLineLearningListTimeRange"
-                                disable-after
-                                clearable
-                                ref="dateRange"
-                            />
                         </el-form-item>
                         <el-form-item>
                             <el-button
@@ -717,47 +707,44 @@
                                 </div>
                             </template>
                             <el-table-column
-                                prop="userName"
+                                prop="courseName"
                                 label="课程名称"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="courseType"
                                 label="类型"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="courseCategory"
                                 label="分类"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="learnStatus"
                                 label="学习状态"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="firstViewingTime"
                                 label="首次观看时间"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="dataFlowSizeShow"
                                 label="消耗流量"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="shareName"
                                 label="分享人"
-                            />
-                            <el-table-column
-                                prop="userName"
-                                label="首次观看时间"
                             />
                             <el-table-column
                                 fixed="right"
                                 label="学习进度"
                             >
                                 <template #default="{ row }">
-                                    <div class="operate">
+                                    <div class="operate" v-if="row.courseType === 2">
                                         <a @click="watchDetail(row)">
                                             查看
                                         </a>
                                     </div>
+                                    <span v-else>{{ row.learnProgress }}</span>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -793,15 +780,15 @@
                                 </div>
                             </template>
                             <el-table-column
-                                prop="userName"
+                                prop="content"
                                 label="备注内容"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="createTime"
                                 label="添加时间"
                             />
                             <el-table-column
-                                prop="userName"
+                                prop="createUser"
                                 label="添加人"
                             />
                             <el-table-column
@@ -863,6 +850,8 @@ import {
     saveMemberInfo,
     getOrderList,
     getRemarkList,
+    getLiveWatchList,
+    getLineLearningList,
     deleteRemark,
     getMemberOrderCount
 } from '../../../../apis/member'
@@ -1192,6 +1181,7 @@ export default class MemberManageDetail extends Vue {
         payEndTime: ''
     }
 
+    shareListTimeRange = []
     shareList = []
     shareListTotal = 0
     async formatShareListTimeRange ({ start, end }: DynamicObject) {
@@ -1216,9 +1206,10 @@ export default class MemberManageDetail extends Vue {
 
     async getShareList () {
         try {
-            const { data: { result } }: DynamicObject = await getOrderList(this.shareListForm)
-            this.shareList = result.records || []
-            this.shareListTotal = result.total || []
+            this.shareListForm.mallUserId = this.userId
+            const { result: { records, total } }: DynamicObject = await getOrderList(this.shareListForm)
+            this.shareList = records || []
+            this.shareListTotal = total || 0
         } catch (e) {
             throw e
         }
@@ -1246,6 +1237,7 @@ export default class MemberManageDetail extends Vue {
                 payStartTime: '',
                 payEndTime: ''
             }
+            this.shareListTimeRange = []
             await this.getShareList()
         } catch (e) {
             throw e
@@ -1259,21 +1251,25 @@ export default class MemberManageDetail extends Vue {
 
     // 直播观看记录
     liveWatchListForm = {
+        mallUserId: '',
         current: 1,
         size: 10,
         keyword: '',
+        liveMode: '',
         liveType: '',
-        pattern: '',
-        startTime: '',
-        endTime: ''
+        liveStartTime: '',
+        liveEndTime: '',
+        liveWatchStartTime: '',
+        liveWatchEndTime: ''
     }
 
+    liveWatchTimeRange = []
     liveWatchList = []
     liveWatchListTotal = 0
     async formatLiveWatchListTimeRange ({ start, end }: DynamicObject) {
         try {
-            this.liveWatchListForm.startTime = start
-            this.liveWatchListForm.endTime = end
+            this.liveWatchListForm.liveWatchStartTime = start
+            this.liveWatchListForm.liveWatchEndTime = end
             await this.searchLiveWatchList()
         } catch (e) {
             throw e
@@ -1292,7 +1288,8 @@ export default class MemberManageDetail extends Vue {
 
     async getLiveWatchList () {
         try {
-            const { data: { result } }: DynamicObject = await getOrderList(this.shareListForm)
+            this.liveWatchListForm.mallUserId = this.userId
+            const { data: { result } }: DynamicObject = await getLiveWatchList(this.shareListForm)
             this.liveWatchList = result.records || []
             this.liveWatchListTotal = result.total || []
         } catch (e) {
@@ -1312,14 +1309,18 @@ export default class MemberManageDetail extends Vue {
     async resetLiveWatchList () {
         try {
             this.liveWatchListForm = {
+                mallUserId: '',
                 current: 1,
                 size: 10,
                 keyword: '',
+                liveMode: '',
                 liveType: '',
-                pattern: '',
-                startTime: '',
-                endTime: ''
+                liveStartTime: '',
+                liveEndTime: '',
+                liveWatchStartTime: '',
+                liveWatchEndTime: ''
             }
+            this.liveWatchTimeRange = []
             await this.getLiveWatchList()
         } catch (e) {
             throw e
@@ -1333,12 +1334,12 @@ export default class MemberManageDetail extends Vue {
 
     // 云课堂学习进度
     lineLearningListForm = {
+        mallUserId: '',
         current: 1,
         size: 10,
         keyword: '',
-        liveType: '',
-        startTime: '',
-        endTime: ''
+        courseType: '',
+        courseCategory: ''
     }
 
     lineLearningList = []
@@ -1348,15 +1349,6 @@ export default class MemberManageDetail extends Vue {
     showWatchDetailList = false
     selectedUserId = this.userId
     courseResourceId = ''
-    async formatLineLearningListTimeRange ({ start, end }: DynamicObject) {
-        try {
-            this.lineLearningListForm.startTime = start
-            this.lineLearningListForm.endTime = end
-            await this.searchLineLearningList()
-        } catch (e) {
-            throw e
-        }
-    }
 
     async lineLearningListSizeChange (val: number) {
         try {
@@ -1370,7 +1362,8 @@ export default class MemberManageDetail extends Vue {
 
     async getLineLearningList () {
         try {
-            const { data: { result } }: DynamicObject = await getOrderList(this.shareListForm)
+            this.lineLearningListForm.mallUserId = this.userId
+            const { data: { result } }: DynamicObject = await getLineLearningList(this.shareListForm)
             this.lineLearningList = result.records || []
             this.lineLearningListTotal = result.total || []
         } catch (e) {

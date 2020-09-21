@@ -70,6 +70,11 @@ export const exportMemberQuery = (params: any): Promise<Blob> => axios.post(
 // 账户中心查看订单数据
 export const getOrderList = (params: any) => axios.get('/apis/v2/user/order', { params })
 
+// 账户中心查看订单数据
+export const getLiveWatchList = (params: any) => axios.get('/apis/v2/live/visitor', { params })
+
+// 账户中心查看订单数据
+export const getLineLearningList = (params: any) => axios.get('/apis/v2/course/watch/record', { params })
 // 账户中心导出数据
 export const exportOrderDetail = (params: any) => axios.get('/apis/v2/order/agency/employeeOrders/export', {
     timeout: 0,
@@ -112,7 +117,7 @@ export const checkIsTagUsed = (id: string) => axios.get(`/apis/v1/mall/user/tag/
 export const addTagToMember = (userId: string, tags: string[]) => axios.post('/apis/v2/user/tag/r', { userId, tags })
 
 // 查看 当前学员观看列表
-export const getWatchDetailList = (params: any) => axios.get('/apis/v1/mall/live/cost/subVideo/view/detail', { params })
+export const getWatchDetailList = (userId: string, courseId: string) => axios.get(`/apis/v2/course/watch/record/${ userId }/${ courseId }`)
 
 // 新增备注信息
 export const saveRemark = (params: any) => axios.post('/apis/v2/user/remark', params)
