@@ -3,66 +3,89 @@
 /*fade*/
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .3s ease;
+    transition: opacity .3s ease;
 }
 
 .fade-enter,
 .fade-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 
 .fade-enter-to,
 .fade-leave {
-  opacity: 1;
+    opacity: 1;
 }
 
 /*fade-transform*/
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all .5s;
+    transition: all .5s;
 }
 .fade-transform-enter {
-  opacity: 0;
-  transform: translateX(-30px);
+    opacity: 0;
+    transform: translateX(-30px);
 }
 .fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+    opacity: 0;
+    transform: translateX(30px);
 }
 
 /*fade*/
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {
-  transition: all .5s;
+    transition: all .5s;
 }
 
 .breadcrumb-enter,
 .breadcrumb-leave-active {
-  opacity: 0;
-  transform: translateX(20px);
+    opacity: 0;
+    transform: translateX(20px);
 }
 
 .breadcrumb-move {
-  transition: all .5s;
+    transition: all .5s;
 }
 
 .breadcrumb-leave-active {
-  position: absolute;
+    position: absolute;
+}
+
+// navBar
+.navBar-enter-active,
+.navBar-leave-active {
+    transition: all .4s;
+}
+
+.navBar-enter,
+.navBar-leave-active {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
+.navBar-move {
+    transition: all .4s;
+}
+
+.navBar-leave-active {
+    position: absolute;
 }
 
 
-.slide-right-enter, .slide-right-leave-to {
-  transform: translateX(100%);
+.slide-right-enter,
+.slide-right-leave-to {
+    transform: translateX(100%);
 }
-.slide-right-enter-active, .slide-right-leave-active {
-  transition: transform .2s ease-out;
+.slide-right-enter-active,
+.slide-right-leave-active {
+    transition: transform .2s ease-out;
 }
-.slide-right-enter-to, .slide-right-leave{
-  transform: translateX(0);
+.slide-right-enter-to,
+.slide-right-leave {
+    transform: translateX(0);
 }
 .flip-list-move {
-  transition: transform 1s;
+    transition: transform 1s;
 }
 .flip-list-leave-active {
-  position: absolute;
+    position: absolute;
 }

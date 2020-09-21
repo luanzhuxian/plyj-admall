@@ -41,6 +41,7 @@ export default class Progress extends Vue {
         height: 4px;
         margin-right: 10px;
         border-radius: 20px;
+        overflow: hidden;
         > .bar {
             height: 100%;
             border-radius: 20px;

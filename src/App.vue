@@ -12,7 +12,9 @@
         <div id="login-container" />-->
         <router-view v-if="noMenu.includes(routeName)" />
         <template v-else>
-            <components :is="navBarName" />
+            <transition name="navBar">
+                <components :is="navBarName" />
+            </transition>
             <Header />
             <main class="main-container" :class="$style.main">
                 <keep-alive>
