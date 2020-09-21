@@ -181,4 +181,4 @@ export const checkAuth = () => axios.get('/apis/v1/api/auth/needOrNot')
  * @param entType {string} 主体类目
  * @return {Promise<AxiosResponse<any>>}
  */
-export const getTradeByMainPart = entType => axios.get(`/apis/v2/base/wxpaysettlementinfo/list?entType=${ entType }`)
+export const getTradeByMainPart = entType => axios.get(`/apis/v2/pay/wxpaysettlementinfo/list?entType=${ entType }`)

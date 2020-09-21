@@ -2,7 +2,7 @@ import Register from '../../../views/register/Index.vue'
 export default [
     {
         path: '/register',
-        redirect: '/register',
+        redirect: '/register/account',
         name: 'Register',
         component: Register,
         meta: {
@@ -10,8 +10,8 @@ export default [
         },
         children: [
             {
-                path: '/register',
-                name: 'Register',
+                path: 'account',
+                name: 'RegisterAccount',
                 meta: {
                     title: '注册雅集'
                 }
