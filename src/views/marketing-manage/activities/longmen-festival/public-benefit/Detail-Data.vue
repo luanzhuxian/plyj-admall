@@ -213,7 +213,7 @@
 
 <script>
 import moment from 'moment'
-import ExportDialog from '../../../../order-manage/components/Export-Dialog.vue'
+import ExportDialog from '../../../../../components/common/Export-Dialog.vue'
 import {
     getPublicBenefitStatistics as getStatistics,
     exportPublicBenefit

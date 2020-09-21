@@ -265,7 +265,7 @@
     </div>
 </template>
 <script>
-import EditPresent from '../../../../../components/common/Edit-Present.vue'
+import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
 import ActivityPreview from './components/Activity-Preview.vue'
 import { copyFields } from '../../../../../assets/ts/utils'
 import { saveRoadLearningActivitys, getRoadLearningActivitysDeatil, updateRoadLearningActivitys } from '../../../../../apis/marketing-manage/newcomers'

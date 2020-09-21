@@ -327,7 +327,7 @@ import {
 import { createObjectUrl } from '../../../assets/ts/upload'
 import moment from 'moment'
 import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
-import ExportDialog from './../components/Export-Dialog'
+import ExportDialog from '../../../components/common/Export-Dialog'
 
 export default {
     name: 'Backorder',

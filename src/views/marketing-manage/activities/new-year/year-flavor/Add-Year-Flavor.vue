@@ -305,7 +305,7 @@
 import { getUserTtagList } from '../../../../../apis/marketing-manage/coupon'
 import { materialSchemeList, addSigninActivity, signinActivityDetail, editActivityInfoDataStart, editActivityInfoNotStart } from '../../../../../apis/marketing-manage/new-year/spring-ploughing'
 import Ladder from './components/Ladder.vue'
-import EditPresent from '../../../../../components/common/Edit-Present.vue'
+import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
 import UploadImage from '../../../../../components/common/file/Image-Manager'
 import { checkNumber } from '../../../../../assets/ts/validate'
 // import { resetForm } from '../../../../assets/js/utils'

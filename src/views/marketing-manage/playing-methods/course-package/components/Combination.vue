@@ -396,7 +396,7 @@
 import moment from 'moment'
 import ImageManager from '../../../../../components/common/file/Image-Manager.vue'
 import ProductSelector from '../../../../../components/product-center/goods/Product-Sku-Selector.vue'
-import EditPresent from '../../../../../components/common/Edit-Present.vue'
+import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
 import ModelCourse from '../../../components/Modal-Course.vue'
 import ModelCoupon from '../../../components/Modal-Coupon.vue'
 import { checkNumber } from '../../../../../assets/ts/validate'

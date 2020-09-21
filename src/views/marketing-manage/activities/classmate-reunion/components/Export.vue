@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import ExportDialog from '../../../../order-manage/components/Export-Dialog.vue'
+import ExportDialog from '../../../../../components/common/Export-Dialog.vue'
 
 export default {
     name: 'Export',

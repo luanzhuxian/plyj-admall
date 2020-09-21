@@ -263,7 +263,7 @@ import { courseActivityDataList } from '../../../../../apis/order'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
 import moment from 'moment/moment'
 import verification from '../../../../../components/order-center/Verification.vue'
-import ExportDialog from '../../../../order-manage/components/Export-Dialog.vue'
+import ExportDialog from '../../../../../components/common/Export-Dialog.vue'
 export default {
     components: {
         verification,

@@ -307,7 +307,7 @@
 
 <script>
 import moment from 'moment/moment'
-import ExportDialog from '../../../order-manage/components/Export-Dialog.vue'
+import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import verification from '../../../../components/order-center/Verification.vue'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import {

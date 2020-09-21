@@ -165,7 +165,7 @@
 <script>
 /* eslint-disable */
 import RadioSelectCoupon from '../../../components/Radio-Select-Coupon.vue'
-import EditPresent from '../../../../../components/common/Edit-Present.vue'
+import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
 import { resetForm } from '../../../../../assets/ts/utils'
 import Scholarship from '../../../../../components/common/Scholarship.vue'
 export default {

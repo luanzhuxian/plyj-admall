@@ -179,7 +179,7 @@
 
 <script>
 import moment from 'moment/moment'
-import ExportDialog from '../../../../order-manage/components/Export-Dialog'
+import ExportDialog from '../../../../../components/common/Export-Dialog.vue'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
 import { getLotteryStatisticsList, exportLotteryStatistic, getWinningGift } from '../../../../../apis/marketing-manage/lonmen-festival/lottery'
 import verification from '../../../../../components/order-center/Verification.vue'

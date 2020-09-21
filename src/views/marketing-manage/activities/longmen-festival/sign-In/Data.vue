@@ -216,7 +216,7 @@
 </template>
 
 <script>
-import ExportDialog from '../../../../order-manage/components/Export-Dialog'
+import ExportDialog from '../../../../../components/common/Export-Dialog.vue'
 import verification from '../../../../../components/order-center/Verification.vue'
 import moment from 'moment/moment'
 import { createObjectUrl } from '../../../../../assets/ts/upload'
