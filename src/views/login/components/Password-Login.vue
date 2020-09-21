@@ -31,7 +31,7 @@
                 size="large"
                 style="width: 100%;border-radius: 121px;"
                 type="primary"
-                @click.native.prevent="login('form')"
+                @click.native.prevent="login()"
                 :loading="loading"
             >
                 登录
@@ -82,21 +82,21 @@ export default class PasswordLogin extends Vue {
     }
 
     @Emit('codeShowFoo')
-    codeShowFoo (type: boolean) {
-        return type
+    codeShowFoo (e: object) {
+        return e
     }
 
     mounted (): void {
         this.setCodePass(false)
     }
 
-    async login (formName: string) {
+    async login () {
         // 防止连续敲击回车
         if (this.loading) return
         try {
-            await (this.$refs[formName] as HTMLFormElement).validate()
+            await (this.$refs.form as HTMLFormElement).validate()
             if (!this.codePass) {
-                this.codeShowFoo(true)
+                this.codeShowFoo({ type: true, name: 'PasswordLogin' })
                 return
             }
             this.loading = true

@@ -52,6 +52,7 @@ export default class App extends Vue {
         'WxBindPassword',
         'WxBindPhone',
         'Register',
+        'RegisterAccount',
         'ForgetPassword',
         'ResetPassword',
         'ModifyPassword',
@@ -65,6 +66,7 @@ export default class App extends Vue {
         'WxBindPassword',
         'WxBindPhone',
         'Register',
+        'RegisterAccount',
         'ForgetPassword',
         'ResetPassword',
         'CompleteLogin'

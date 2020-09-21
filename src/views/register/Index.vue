@@ -5,8 +5,8 @@
         </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
-                <Register @codeShowFoo="codeShowFoo" @emitLogin="login" v-if="$route.name === 'Register'" />
-                <ForgetPassword @codeShowFoo="codeShowFoo" v-if="$route.name === 'ForgetPassword'" />
+                <Register ref="Register" @codeShowFoo="codeShowFoo" @emitLogin="login" v-if="$route.name === 'RegisterAccount'" />
+                <ForgetPassword ref="ForgetPassword" @codeShowFoo="codeShowFoo" v-if="$route.name === 'ForgetPassword'" />
                 <ResetPassword @emitLogin="login" v-if="$route.name === 'ResetPassword'" />
                 <ModifyPassword @emitLogin="login" v-if="$route.name === 'ModifyPassword'" />
             </div>
@@ -56,6 +56,10 @@ import ResetPassword from './components/Reset-Password.vue'
 import ModifyPassword from './components/Modify-Password.vue'
 import { namespace } from 'vuex-class'
 
+interface CodeShowFooType {
+    type: boolean;
+    name: string;
+}
 Component.registerHooks([
     'beforeRouteLeave'
 ])
@@ -75,6 +79,7 @@ export default class RegisterIndex extends Vue {
         enterprise = ''
         showDialog = false
         toName = ''
+        refName = ''
         @userModule.Getter('token') tokenFoo!: string
         @userModule.Getter('currentStep') currentStepFoo!: number
         @userModule.Getter('agencyCode') agencyCodeFoo!: string
@@ -88,9 +93,9 @@ export default class RegisterIndex extends Vue {
             console.log(newVal)
         }
 
-        codeShowFoo (e: boolean) {
-            console.log(e)
-            this.codeShow = e
+        codeShowFoo (e: CodeShowFooType) {
+            this.codeShow = e.type
+            this.refName = e.name
         }
 
         async login () {
@@ -145,9 +150,10 @@ export default class RegisterIndex extends Vue {
             }
         }
 
-        success () {
+        async success () {
             this.codeShow = false
             this.setCodePass(true)
+            await (this.$refs[this.refName] as HTMLFormElement).getCode()
         }
 
         close () {

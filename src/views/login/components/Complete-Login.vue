@@ -109,8 +109,8 @@ export default class CompleteLogin extends Vue {
         }
 
         @Emit('codeShowFoo')
-        codeShowFoo (type: boolean) {
-            return type
+        codeShowFoo (e: object) {
+            return e
         }
 
         mounted (): void {
@@ -124,7 +124,7 @@ export default class CompleteLogin extends Vue {
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
                 if (!this.codePass) {
-                    this.codeShowFoo(true)
+                    this.codeShowFoo({ type: true, name: 'CompleteLogin' })
                     return
                 }
                 this.loading = true

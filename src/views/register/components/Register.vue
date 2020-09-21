@@ -125,7 +125,7 @@ export default class Register extends Vue {
         rules = {
             bindPhone: [
                 { required: true, trigger: 'blur', message: '手机号不能为空' },
-                { validator: testPhone, trigger: 'blur' }
+                { validator: testPhone, trigger: 'blur', message: '请输入正确的手机号码' }
             ],
             verifyCode: [
                 { required: true, message: '验证码不能为空', trigger: 'blur' },
@@ -165,8 +165,8 @@ export default class Register extends Vue {
         }
 
         @Emit('codeShowFoo')
-        codeShowFoo (type: boolean) {
-            return type
+        codeShowFoo (e: object) {
+            return e
         }
 
         mounted (): void {
@@ -190,7 +190,7 @@ export default class Register extends Vue {
             })
             if (!validateField) return
             if (!this.codePass) {
-                this.codeShowFoo(true)
+                this.codeShowFoo({ type: true, name: 'Register' })
                 return
             }
             if (this.getCodeing) return

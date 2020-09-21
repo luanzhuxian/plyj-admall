@@ -5,12 +5,12 @@
         </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
-                <phoneLogin @emitLogin="login" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PhoneLogin'" />
-                <passwordLogin @emitLogin="login" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PasswordLogin'" />
-                <wxLogin @emitLogin="login" v-if="$route.name === 'WxLogin'" />
+                <PhoneLogin @emitLogin="login" ref="PhoneLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PhoneLogin'" />
+                <PasswordLogin @emitLogin="login" ref="PasswordLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PasswordLogin'" />
+                <WxLogin @emitLogin="login" v-if="$route.name === 'WxLogin'" />
                 <WxBindPassword @emitLogin="login" v-if="$route.name === 'WxBindPassword'" />
                 <WxBindPhone @emitLogin="login" v-if="$route.name === 'WxBindPhone'" />
-                <CompleteLogin @emitLogin="login" @codeShowFoo="codeShowFoo" v-if="$route.name === 'CompleteLogin'" />
+                <CompleteLogin @emitLogin="login" ref="CompleteLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'CompleteLogin'" />
             </div>
         </div>
         <el-dialog
@@ -52,23 +52,27 @@
 <script lang=ts>
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Vcode from 'vue-puzzle-vcode'
-import phoneLogin from './components/Phone-Login.vue'
-import wxLogin from './components/Wx-Login.vue'
-import passwordLogin from './components/Password-Login.vue'
+import PhoneLogin from './components/Phone-Login.vue'
+import WxLogin from './components/Wx-Login.vue'
+import PasswordLogin from './components/Password-Login.vue'
 import WxBindPassword from './components/Wx-Bind-Password.vue'
 import WxBindPhone from './components/Wx-Bind-Phone.vue'
 import CompleteLogin from './components/Complete-Login.vue'
 import { namespace } from 'vuex-class'
 // import startQiankun from '../../micro'
 const userModule = namespace('user')
+interface CodeShowFooType {
+    type: boolean;
+    name: string;
+}
 Component.registerHooks([
     'beforeRouteLeave'
 ])
 @Component({
     components: {
-        phoneLogin,
-        wxLogin,
-        passwordLogin,
+        PhoneLogin,
+        WxLogin,
+        PasswordLogin,
         WxBindPassword,
         WxBindPhone,
         CompleteLogin,
@@ -81,6 +85,7 @@ export default class Login extends Vue {
     enterprise = ''
     showDialog = false
     toName= ''
+    refName = ''
     @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('currentStep') currentStepFoo!: number
     @userModule.Getter('agencyCode') agencyCodeFoo!: string
@@ -94,9 +99,9 @@ export default class Login extends Vue {
         console.log(newVal)
     }
 
-    codeShowFoo (e: boolean) {
-        console.log(e)
-        this.codeShow = e
+    codeShowFoo (e: CodeShowFooType) {
+        this.codeShow = e.type
+        this.refName = e.name
     }
 
     async login () {
@@ -148,9 +153,14 @@ export default class Login extends Vue {
         // startQiankun()
     }
 
-    success () {
+    async success () {
         this.codeShow = false
         this.setCodePass(true)
+        if (this.refName === 'PasswordLogin') {
+            await (this.$refs[this.refName] as HTMLFormElement).login()
+        } else {
+            await (this.$refs[this.refName] as HTMLFormElement).getCode()
+        }
     }
 
     close () {

@@ -88,8 +88,8 @@ export default class PhoneLogin extends Vue {
         }
 
         @Emit('codeShowFoo')
-        codeShowFoo (type: boolean) {
-            return type
+        codeShowFoo (e: object) {
+            return e
         }
 
         mounted (): void {
@@ -103,7 +103,7 @@ export default class PhoneLogin extends Vue {
             })
             if (!validateField) return
             if (!this.codePass) {
-                this.codeShowFoo(true)
+                this.codeShowFoo({ type: true, name: 'PhoneLogin' })
                 return
             }
             if (this.getCodeing) return
@@ -122,7 +122,7 @@ export default class PhoneLogin extends Vue {
         }
 
         async login () {
-            // 防止连续敲击回车
+        // 防止连续敲击回车
             if (this.loading) return
             try {
                 await (this.$refs.form as HTMLFormElement).validate()

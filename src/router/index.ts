@@ -15,6 +15,7 @@ const NOLOGIN = [
     'WxBindPassword',
     'WxBindPhone',
     'Register',
+    'RegisterAccount',
     'ForgetPassword',
     'ResetPassword'
 ]

@@ -79,8 +79,8 @@ export default class ForgetPassword extends Vue {
         @Getter smsType!: string[]
 
         @Emit('codeShowFoo')
-        codeShowFoo (type: boolean) {
-            return type
+        codeShowFoo (e: object) {
+            return e
         }
 
         mounted (): void {
@@ -96,7 +96,7 @@ export default class ForgetPassword extends Vue {
             })
             if (!validateField) return
             if (!this.codePass) {
-                this.codeShowFoo(true)
+                this.codeShowFoo({ type: true, name: 'ForgetPassword' })
                 return
             }
             this.codeForm.mobile = this.form.mobile
@@ -117,10 +117,6 @@ export default class ForgetPassword extends Vue {
             if (this.loading) return
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
-                if (!this.codePass) {
-                    this.codeShowFoo(true)
-                    return
-                }
                 this.loading = true
                 await forgetPassword(this.form)
                 this.$router.replace({ name: 'ResetPassword', params: { code: `${ this.form.mobile }&${ this.form.verifyCode }` } })
