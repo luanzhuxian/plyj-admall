@@ -12,7 +12,7 @@
         <div id="login-container" />-->
         <router-view v-if="noMenu.includes(routeName)" />
         <template v-else>
-            <components :is="navComponent" />
+            <components :is="navBarName" />
             <Header />
             <main class="main-container" :class="$style.main">
                 <keep-alive>
@@ -28,7 +28,7 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import MainNavbar from './components/common/Main-Navbar.vue'
 import OnlineTeachingNavbar from './components/common/Online-Teaching-NavBar.vue'
 import Header from './components/common/Header.vue'
-import { namespace } from 'vuex-class'
+import { Getter, Mutation, namespace } from 'vuex-class'
 // import startQiankun from './micro'
 
 const userModule = namespace('user')
@@ -76,6 +76,16 @@ export default class App extends Vue {
         console.log(val)
     }
 
+    @Watch('$route', { immediate: true })
+    navBarChange ({ matched }: any) {
+        // MainNavbar OnlineTeachingNavbar
+        const isOnline = matched.some((item: any) => item.name === 'LineTeaching')
+        const navBarName = isOnline ? 'OnlineTeachingNavbar' : 'MainNavbar'
+        this.$store.commit('changeNavBarName', navBarName)
+    }
+
+    @Getter navBarName!: string
+
     @userModule.Getter('currentStep') currentStep!: number
     @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('agencyCode') agencyCode!: string
@@ -83,6 +93,7 @@ export default class App extends Vue {
     @userModule.Action('GET_ALL_MALL_INFO') GET_ALL_MALL_INFO!: Function
     @goodsModule.Action('GET_CLASSIFY_TREE') getClassifyTree!: Function
 
+    @Mutation('changeNavBarName') changeNavBarName!: Function
     @userModule.Mutation('LOGOUT') LOGOUT!: Function
 
     created () {

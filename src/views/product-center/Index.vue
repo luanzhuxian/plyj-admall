@@ -1,12 +1,13 @@
 <template>
     <div :class="$style.productCenter">
-        <router-view />
+        <keep-alive>
+            <router-view />
+        </keep-alive>
     </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import Component from 'vue-class-component'
+<script lang='ts'>
+import { Vue, Component } from 'vue-property-decorator'
 
 @Component
 export default class ProductCenter extends Vue {
@@ -14,8 +15,10 @@ export default class ProductCenter extends Vue {
 }
 </script>
 
-<style module lang="scss">
-    .productCenter {
-        height: 100%;
-    }
+<style lang="scss" module>
+
+.product-center {
+    height: 100%;
+}
+
 </style>

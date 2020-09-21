@@ -37,5 +37,7 @@ export default {
         '1187288967105314816',
         '1071966573238960128'
     ],
+    // 左菜单栏组件名称
+    navBarName: 'MainNavbar',
     defaultLogo: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/img/008ac522-ac48-4e30-86cc-637bed73241a.jpg'
 }
