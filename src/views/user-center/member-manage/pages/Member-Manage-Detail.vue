@@ -1301,9 +1301,9 @@ export default class MemberManageDetail extends Vue {
     async getLiveWatchList () {
         try {
             this.liveWatchListForm.mallUserId = this.userId
-            const { data: { result } }: DynamicObject = await getLiveWatchList(this.shareListForm)
-            this.liveWatchList = result.records || []
-            this.liveWatchListTotal = result.total || []
+            const { result: { records, total } }: DynamicObject = await getLiveWatchList(this.shareListForm)
+            this.liveWatchList = records || []
+            this.liveWatchListTotal = total || []
         } catch (e) {
             throw e
         }
@@ -1375,9 +1375,9 @@ export default class MemberManageDetail extends Vue {
     async getLineLearningList () {
         try {
             this.lineLearningListForm.mallUserId = this.userId
-            const { data: { result } }: DynamicObject = await getLineLearningList(this.shareListForm)
-            this.lineLearningList = result.records || []
-            this.lineLearningListTotal = result.total || []
+            const { result: { records, total } }: DynamicObject = await getLineLearningList(this.shareListForm)
+            this.lineLearningList = records || []
+            this.lineLearningListTotal = total || []
         } catch (e) {
             throw e
         }
@@ -1400,12 +1400,12 @@ export default class MemberManageDetail extends Vue {
     async resetLineLearningList () {
         try {
             this.lineLearningListForm = {
+                mallUserId: '',
                 current: 1,
                 size: 10,
                 keyword: '',
-                liveType: '',
-                startTime: '',
-                endTime: ''
+                courseType: '',
+                courseCategory: ''
             }
             await this.getLineLearningList()
         } catch (e) {
@@ -1445,9 +1445,9 @@ export default class MemberManageDetail extends Vue {
     async getRemarkList () {
         try {
             this.remarkListForm.mallUserId = this.userId
-            const { data: { result } }: DynamicObject = await getRemarkList(this.remarkListForm)
-            this.remarkList = result.records || []
-            this.remarkListTotal = result.total || []
+            const { result: { records, total } }: DynamicObject = await getRemarkList(this.remarkListForm)
+            this.remarkList = records || []
+            this.remarkListTotal = total || []
         } catch (e) {
             throw e
         }
