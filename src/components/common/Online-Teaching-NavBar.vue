@@ -17,10 +17,10 @@
         </div>
         <div :class="$style.menu">
             <div
-                @click="target({ route: 'LineTeaching' })"
+                @click="target({ route: 'FunctionPack' })"
                 :class="{
                     [$style.menuTitle]: true,
-                    [$style.isActive]: activeRoute === 'LineTeaching'
+                    [$style.isActive]: activeRoute === 'FunctionPack'
                 }"
             >云课堂</div>
             <div
@@ -47,7 +47,7 @@ interface MenuItem {
 
 @Component
 export default class OnlineTeachingNavBar extends Vue {
-    activeRoute = 'Live'
+    activeRoute = this.$route.name
     menuList: MenuItem[] = [
         {
             name: '互动直播',

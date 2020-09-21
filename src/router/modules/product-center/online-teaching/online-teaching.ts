@@ -1,3 +1,7 @@
+import { importFiles } from './../../../../assets/ts/utils'
+
+const context = require.context('./', false, /\/((?!online-teaching).)+\.ts$/)
+
 export default [
     {
         path: '/product-center/online-teaching',
@@ -15,7 +19,8 @@ export default [
                 meta: {
                     title: '方案包'
                 }
-            }
+            },
+            ...importFiles(context)
         ]
     }
 ]
