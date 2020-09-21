@@ -7,9 +7,9 @@
             <div id="login-container" style="height: 280px;width: 270px;overflow: hidden" />
         </div>
         <div :class="$style.loginMthods">
-            <el-button @click="$router.push({name:'PhoneLogin'})" type="text">手机号登陆</el-button>
+            <el-button @click="$router.push({name:'PhoneLogin'})" type="text">手机号登录</el-button>
             |
-            <el-button @click="$router.push({name:'PasswordLogin'})" type="text">账号密码登陆</el-button>
+            <el-button @click="$router.push({name:'PasswordLogin'})" type="text">账号密码登录</el-button>
         </div>
     </div>
 </template>
