@@ -204,12 +204,10 @@
                     @selection-change="handleSelectionChange"
                     class="table-customer"
                     max-height="800"
+                    empty-image="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png"
                 >
                     <template slot="empty">
-                        <div class="no-data">
-                            <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
-                            <p>还没有新注册的用户哦~</p>
-                        </div>
+                        <p>还没有新注册的用户哦~</p>
                     </template>
                     <el-table-column
                         type="selection"

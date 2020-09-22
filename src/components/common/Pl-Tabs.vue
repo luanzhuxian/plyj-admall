@@ -24,25 +24,3 @@ export default class PlTabs extends Vue {
   }
 }
 </script>
-
-<style lang='scss'>
-
-.pl-tabs {
-    .el-tabs__item {
-        font-size: 16px;
-        color: #999999;
-        &:hover {
-            color: #333333;
-        }
-    }
-    .is-active {
-        font-weight: 600;
-        color: #333333 !important;
-    }
-    .el-tabs__active-bar {
-        height: 4px;
-        border-radius: 20px;
-    }
-}
-
-</style>
