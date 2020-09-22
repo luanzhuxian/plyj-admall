@@ -233,9 +233,9 @@
                                         </template>
                                     </div>
                                     <div class="tag">
-                                        <template v-if="row.userTags.length">
-                                            <el-tooltip class="item" effect="dark" :content="row.userTags.join('  ')" placement="bottom">
-                                                <span>{{ row.userTags.join('  ') }}</span>
+                                        <template v-if="row.userTags && row.userTags.length">
+                                            <el-tooltip class="item" effect="dark" :content="row.userTags.filter(item => item.tagName).join('  ')" placement="bottom">
+                                                <span v-for="item in row.userTags" :key="item">{{ item && item.tagName }} </span>
                                             </el-tooltip>
                                         </template>
                                     </div>
