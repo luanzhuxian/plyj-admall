@@ -34,7 +34,8 @@ export default class WxLogin extends Vue {
         async mounted () {
             this.weixinLoginCode()
             this.code = sessionStorage.getItem('redirect_code') as string
-
+            console.log('this.code')
+            console.log(this.code)
             if (this.code) {
                 await this.WxScanLogin()
             }
@@ -78,7 +79,7 @@ export default class WxLogin extends Vue {
                 id: 'login-container',
                 appid: 'wx7f8e7e4ea457931d',
                 scope: 'snsapi_login',
-                redirect_uri: 'https://joint.xijun.youpenglai.com/wx-login',
+                redirect_uri: 'http://joint.xijun.youpenglai.com/login/wx-login',
                 state,
                 style: 'black',
                 href: weChatStyle
