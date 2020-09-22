@@ -42,12 +42,12 @@
                 </el-form-item>
                 <el-form-item prop="account">
                     <div :class="$style.phoneCode">
-                        <el-input v-model="form.account" maxlength="50" style="width: 300px" placeholder="账号：6-50位字符包含字母和数字或邮箱" />
+                        <el-input v-model="form.account" maxlength="50" style="width: 300px" placeholder="请输入6-50位数字字母组合的账号" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">
                     <div :class="$style.phoneCode">
-                        <el-input v-model="form.password" :type="passwordType" min="6" max="12" style="width: 300px" placeholder="密码：6-16位字符包含字母和数字" />
+                        <el-input v-model="form.password" :type="passwordType" min="6" max="12" style="width: 300px" placeholder="请输入密码" />
                         <img :class="$style.hidePassword" @click="passwordType = 'text'" v-if="passwordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
                         <img :class="$style.showPassword" @click="passwordType = 'password'" v-else src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
                     </div>
