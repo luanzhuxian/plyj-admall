@@ -78,14 +78,12 @@ export default class CompleteLogin extends Vue {
 
         rules = {
             account: [{ required: true, trigger: 'blur', message: '账号不能为空' },
-                { min: 6, message: '账号不能小于6位', trigger: 'blur' },
-                { max: 50, message: '账号不能大于50位', trigger: 'blur' }
+                { validator: testAccount, trigger: 'blur', message: '请输入6-50位数字字母组合的账号' }
             ],
             password: [
                 { required: true, message: '密码不能为空', trigger: 'blur' },
                 { min: 6, message: '密码不能小于6位', trigger: 'blur' },
-                { max: 12, message: '密码不能大于12位', trigger: 'blur' },
-                { validator: testAccount, trigger: 'blur', message: '请输入6-50位数字字母组合的账号' }
+                { max: 12, message: '密码不能大于12位', trigger: 'blur' }
             ],
             confirmPassword: [
                 { required: true, message: '密码不能为空', trigger: 'blur' },
