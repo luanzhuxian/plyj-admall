@@ -18,7 +18,7 @@
                 <el-form-item prop="verifyCode">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.verifyCode" maxlength="4" style="width: 220px" placeholder="请输入验证码" />
-                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}S</div>
+                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}s</div>
                         <div :class="$style.getCode" v-else @click="getCode">获取验证码</div>
                     </div>
                 </el-form-item>
