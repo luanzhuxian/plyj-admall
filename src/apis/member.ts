@@ -126,4 +126,4 @@ export const saveRemark = (params: any) => axios.post('/apis/v2/user/remark', pa
 export const getRemarkList = (params: any) => axios.get('/apis/v2/user/remark', { params })
 
 // 新增备注信息
-export const deleteRemark = (params: any) => axios.delete('/apis/v2/user/remark', params)
+export const deleteRemark = (params: any) => axios.delete('/apis/v2/user/remark', { params })

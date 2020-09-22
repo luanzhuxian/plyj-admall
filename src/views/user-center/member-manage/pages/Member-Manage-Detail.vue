@@ -127,7 +127,7 @@
                         <div class="fill">
                             <span>备注：</span>
                             <span>{{ memberDetail.remark }}</span>
-                            <el-button type="text" @click="tabName = 'RemarkList'">查看更多</el-button>
+                            <el-button type="text" @click="isShowRemarkList = true">查看更多</el-button>
                         </div>
                     </div>
                     <template v-else>
@@ -840,9 +840,11 @@
             :course-id="courseResourceId"
             :user-id="selectedUserId"
         />
-        <!--添加备注-->
-        <AddRemark :show.sync="showAddRemark"
-                   :user-id="selectedUserId"
+        <!--显示备注信息列表-->
+        <RemarkList
+            :show.sync="isShowRemarkList"
+            :user-id="userId"
+            @close="getMemberDetail"
         />
     </div>
 </template>
@@ -855,7 +857,7 @@ import Field from '../../../../components/common/Field.vue'
 import CityPicker from '../../../../components/common/City-Picker.vue'
 import AddTags from '../components/Add-Tags.vue'
 import WatchDetailList from '../components/Watch-Detail-List.vue'
-import AddRemark from '../components/Add-Remark.vue'
+import RemarkList from '../components/Remark-List.vue'
 
 import {
     getMemberDetail,
@@ -875,7 +877,7 @@ import {
           CityPicker,
           Pagination,
           WatchDetailList,
-          AddRemark
+          RemarkList
       }
   })
 
@@ -991,6 +993,9 @@ export default class MemberManageDetail extends Vue {
         totalAmount: 0,
         shareOrder: 0
     }
+
+    // 显示备注列表
+      isShowRemarkList = false
 
     // 当前所在的tab页
     tabName = this.Tab_List[0].name
@@ -1301,7 +1306,7 @@ export default class MemberManageDetail extends Vue {
     async getLiveWatchList () {
         try {
             this.liveWatchListForm.mallUserId = this.userId
-            const { result: { records, total } }: DynamicObject = await getLiveWatchList(this.shareListForm)
+            const { result: { records, total } }: DynamicObject = await getLiveWatchList(this.liveWatchListForm)
             this.liveWatchList = records || []
             this.liveWatchListTotal = total || 0
         } catch (e) {
@@ -1375,7 +1380,7 @@ export default class MemberManageDetail extends Vue {
     async getLineLearningList () {
         try {
             this.lineLearningListForm.mallUserId = this.userId
-            const { result: { records, total } }: DynamicObject = await getLineLearningList(this.shareListForm)
+            const { result: { records, total } }: DynamicObject = await getLineLearningList(this.lineLearningListForm)
             this.lineLearningList = records || []
             this.lineLearningListTotal = total || 0
         } catch (e) {

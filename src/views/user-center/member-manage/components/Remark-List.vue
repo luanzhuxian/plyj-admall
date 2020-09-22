@@ -23,15 +23,15 @@
         >
             <el-table-column
                 label="备注内容"
-                prop="lessonsTiltle"
+                prop="content"
             />
             <el-table-column
                 label="添加时间"
-                prop="lessonsTiltle"
+                prop="createTime"
             />
             <el-table-column
                 label="添加人"
-                prop="dataFlowSizeShow"
+                prop="createUser"
             />
         </el-table>
         <pagination
@@ -99,7 +99,7 @@ export default {
         },
         async getList () {
             try {
-                const { records, total } = await getRemarkList(this.filterForm)
+                const { result: { records, total } } = await getRemarkList(this.filterForm)
                 this.table = records
                 this.total = total
             } catch (e) {
@@ -125,6 +125,7 @@ export default {
         },
         closeHandler () {
             this.$emit('update:show', false)
+            this.$emit('close')
         }
     }
 }

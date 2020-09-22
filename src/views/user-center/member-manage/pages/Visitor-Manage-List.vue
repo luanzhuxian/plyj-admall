@@ -17,18 +17,13 @@
                 </div>
             </div>
         </div>
-        <el-form
-            :inline="true"
-            class="form-filter"
-            label-width="96px"
-        >
+        <SearchBox>
             <el-form-item label="关键词">
                 <el-input
                     clearable
                     v-model.trim="form.keyword"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     @change="search"
-                    class="filter-inp"
                 />
             </el-form-item>
             <el-form-item
@@ -53,7 +48,7 @@
                             disable-after
                             clearable />
             </el-form-item>
-            <div class="filter-btns">
+            <el-form-item>
                 <el-button
                     type="primary"
                     size="mini"
@@ -68,8 +63,8 @@
                 >
                     清空筛选条件
                 </el-button>
-            </div>
-        </el-form>
+            </el-form-item>
+        </SearchBox>
         <div class=" mb-1" />
         <el-table
             :data="table"

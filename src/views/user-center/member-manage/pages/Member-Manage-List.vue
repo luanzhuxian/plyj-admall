@@ -32,7 +32,7 @@
             <el-form-item label="注册时间：">
                 <date-range
                     :init="timeRange"
-                    @change="formatTimeRange('startTime', 'endTime')"
+                    @change="p => {formatTimeRange(p, 'startTime', 'endTime')}"
                     disable-after
                     clearable
                     ref="dateRange"
@@ -66,7 +66,7 @@
             <el-form-item label="最近登录时间：">
                 <date-range
                     :init="loginTimeRange"
-                    @change="formatTimeRange('loginStartTime', 'loginEndTime')"
+                    @change="p => {formatTimeRange(p, 'loginStartTime', 'loginEndTime')}"
                     disable-after
                     clearable
                     ref="dateRange"
@@ -106,7 +106,7 @@
             <el-form-item label="最近购买时间：">
                 <date-range
                     :init="lastPurchaseTimeRange"
-                    @change="formatTimeRange('lastPurchaseStartTime', 'lastPurchaseEndTime')"
+                    @change="p => {formatTimeRange(p, 'lastPurchaseStartTime', 'lastPurchaseEndTime')}"
                     disable-after
                     clearable
                     ref="dateRange"
@@ -451,8 +451,8 @@ export default class MemberManageList extends Vue {
       lastPurchaseEndTime: '',
       purchasesMinNumber: '',
       purchasesMaxNumber: '',
-      purchasesMinAmount: 0,
-      purchasesMaxAmount: 0,
+      purchasesMinAmount: '',
+      purchasesMaxAmount: '',
       tagId: ''
   }
 
@@ -615,8 +615,8 @@ export default class MemberManageList extends Vue {
 
   async getMemberList () {
       const params = { ...this.form }
-      params.purchasesMinAmount = Number(params.purchasesMinAmount) * 100
-      params.purchasesMaxAmount = Number(params.purchasesMaxAmount) * 100
+      params.purchasesMinAmount = String(Number(params.purchasesMinAmount) * 100)
+      params.purchasesMaxAmount = String(Number(params.purchasesMaxAmount) * 100)
       const { result: { records, total } } = await getMemberList(params)
       this.table = records
       this.total = total
@@ -677,8 +677,8 @@ export default class MemberManageList extends Vue {
           lastPurchaseEndTime: '',
           purchasesMinNumber: '',
           purchasesMaxNumber: '',
-          purchasesMinAmount: 0,
-          purchasesMaxAmount: 0,
+          purchasesMinAmount: '',
+          purchasesMaxAmount: '',
           tagId: ''
       }
       this.timeRange = []
