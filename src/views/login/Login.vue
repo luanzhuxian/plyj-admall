@@ -156,7 +156,7 @@ export default class Login extends Vue {
     async success () {
         this.codeShow = false
         this.setCodePass(true)
-        if (this.refName === 'PasswordLogin') {
+        if (this.refName === 'PasswordLogin' || this.refName === 'CompleteLogin') {
             await (this.$refs[this.refName] as HTMLFormElement).login()
         } else {
             await (this.$refs[this.refName] as HTMLFormElement).getCode()
