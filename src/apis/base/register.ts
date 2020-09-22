@@ -9,7 +9,7 @@ export const register = (data: any) => axios.post('/apis/v2/base/baseUserInfo/ag
 
 // 修改密码
 type modifyPasswordType = (arg: { lastPassword: string; password: string }) => Promise<any>
-export const modifyPassword: modifyPasswordType = ({ lastPassword, password }) => axios.put('/apis/v1/base/baseUserInfo/password/modify', { lastPassword, password })
+export const modifyPassword: modifyPasswordType = ({ lastPassword, password }) => axios.put('/apis/v2/base/baseUserInfo/password/modify', { lastPassword, password })
 
 // 忘记密码
 type forgetPasswordType = (arg: { mobile: string; verifyCode: string }) => Promise<any>
