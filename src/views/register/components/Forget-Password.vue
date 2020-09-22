@@ -32,8 +32,8 @@
             >
                 下一步
             </el-button>
-            <div @click="$router.push({name:'PhoneLogin'})" :class="$style.register">
-                <el-button type="text"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
+            <div :class="$style.register">
+                <el-button @click="$router.push({name:'PhoneLogin'})" type="text"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
             </div>
         </div>
     </div>
