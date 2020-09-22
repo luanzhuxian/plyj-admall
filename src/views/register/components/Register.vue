@@ -86,7 +86,7 @@
 </template>
 
 <script lang="ts">
-import { testPhone } from '../../../assets/ts/validate'
+import { testPhone, testAccount } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import Agreement from '../../../components/register/Agreement.vue'
@@ -139,7 +139,8 @@ export default class Register extends Vue {
 
             account: [{ required: true, trigger: 'blur', message: '账号不能为空' },
                 { min: 6, message: '账号不能小于6位', trigger: 'blur' },
-                { max: 50, message: '账号不能大于50位', trigger: 'blur' }
+                { max: 50, message: '账号不能大于50位', trigger: 'blur' },
+                { validator: testAccount, trigger: 'blur', message: '请输入6-50位数字字母组合的账号' }
             ],
             password: [
                 { required: true, message: '密码不能为空', trigger: 'blur' },
