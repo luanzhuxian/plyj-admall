@@ -165,7 +165,7 @@ export default class ForgetPassword extends Vue {
                 padding-bottom: 8px;
                 box-shadow: 0px 1px 0px #E7E7E7;
                 color: #333333;
-                font-size: 16px;
+                font-size: 14px;
             }
             .unregistered-phone{
                 padding-top: 2px;
