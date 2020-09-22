@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.functionalContainer">
-        <search-box label-width="80">
+        <search-box>
             <el-form-item>
                 <el-input style="width:200px"
                           clearable

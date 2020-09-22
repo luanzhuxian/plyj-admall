@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search-box class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input placeholder="请输入活动奖品" v-model.trim="filterCondition.keyWord" class="mr-40" clearable />
             </el-form-item>

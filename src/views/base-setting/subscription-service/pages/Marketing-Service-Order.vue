@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search-box label-width="80">
+        <search-box>
             <el-form-item>
                 <el-input
                     v-model="query.searchContent"

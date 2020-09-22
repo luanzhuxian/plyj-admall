@@ -46,7 +46,7 @@
                     unit-name="人"
                 />
             </div>
-            <search-box class="mt-24" label-width="85px">
+            <search-box class="mt-24">
                 <el-form-item label="搜索内容：">
                     <el-input placeholder="请输入真实姓名/昵称/联系方式" v-model="filterCondition.keyWord" clearable />
                 </el-form-item>

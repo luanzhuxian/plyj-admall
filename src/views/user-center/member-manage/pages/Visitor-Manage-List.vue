@@ -18,7 +18,7 @@
             </div>
         </div>
         <SearchBox>
-            <el-form-item label="关键词">
+            <el-form-item label="关键词：">
                 <el-input
                     clearable
                     v-model.trim="form.keyword"
@@ -27,7 +27,7 @@
                 />
             </el-form-item>
             <el-form-item
-                label="来源"
+                label="来源："
             >
                 <el-select
                     v-model="form.userSource"
@@ -42,7 +42,7 @@
                     />
                 </el-select>
             </el-form-item>
-            <el-form-item label="首次访问时间">
+            <el-form-item label="首次访问时间：">
                 <date-range :init="[form.createStartTime, form.createEndTime]"
                             @change="visitTimeRange"
                             disable-after

@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <search-box class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input style="width: 280px;" v-model="filter.condition" @change="getList(1)" placeholder="输入关键字" />
             </el-form-item>

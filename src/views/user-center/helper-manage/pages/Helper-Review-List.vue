@@ -8,12 +8,8 @@
                 :name="item.name"
             />
         </el-tabs>
-        <el-form
-            :inline="true"
-            class="form-filter"
-            label-width="80px"
-        >
-            <el-form-item label="关键词">
+        <search-box>
+            <el-form-item label="关键词：">
                 <el-input
                     clearable
                     v-model.trim="form.keyword"
@@ -22,29 +18,29 @@
                     class="filter-inp"
                 />
             </el-form-item>
-            <el-form-item label="申请时间">
+            <el-form-item label="申请时间：">
                 <date-range :init="[form.startTime, form.endTime]"
                             @change="joinTimeRange"
                             disable-after
                             clearable />
             </el-form-item>
-            <div class="filter-btns">
+            <el-form-item>
                 <el-button
                     type="primary"
-                    size="mini"
+                    round
                     @click="search"
                 >
                     查询
                 </el-button>
                 <el-button
                     type="text"
-                    size="mini"
+                    round
                     @click="restForm"
                 >
                     清空筛选条件
                 </el-button>
-            </div>
-        </el-form>
+            </el-form-item>
+        </search-box>
 
         <div class="mt-20" v-if="currentStatus === 'AWAIT'">
             已选择{{ currentSelect.length }}个用户
@@ -459,21 +455,6 @@ export default class HelperReviewList extends Vue {
 </script>
 
 <style lang="scss" scoped>
-    .form-filter{
-        padding: 20px 32px;
-        background: #F5F6FA;
-        border-radius: 10px;
-        .filter-inp{
-            width: 350px;
-        }
-        .filter-btns{
-            padding-left: 80px;
-            button{
-                height: 32px;
-                border-radius: 16px;
-            }
-        }
-    }
     .user-info {
         display: flex;
         .avatar{

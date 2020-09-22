@@ -11,7 +11,7 @@
                 新建活动
             </el-button>
         </div>
-        <search-box inline class="mt-24" label-width="85px">
+        <search-box inline class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable v-model="form.activityName" placeholder="活动名称" @change="getLottery(1)" />
             </el-form-item>

@@ -1,7 +1,7 @@
 
 <template>
     <div class="newcomers-list bg-white">
-        <search-box class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input placeholder="活动名称/活动ID" v-model.trim="form.keyword" clearable @change="search" />
             </el-form-item>

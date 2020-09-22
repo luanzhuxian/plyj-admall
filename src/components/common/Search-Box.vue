@@ -4,7 +4,7 @@
             :class="$style.container"
             inline
             :label-position="labelPosition"
-            :label-width="labelWidth"
+            ref="form"
         >
             <slot />
         </el-form>
@@ -15,8 +15,46 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 @Component
 export default class SearchBox extends Vue {
-  @Prop({ default: 'left' }) labelPosition?: string
-  @Prop({ default: '120px' }) labelWidth?: string
+  @Prop({ default: 'right' }) labelPosition?: string
+  mounted () {
+      // 动态设置label的宽度
+      // 将表单项按“列”存储，一共3列
+      const form = this.$refs.form as HTMLFormElement
+      const formItemColumns: any[] = [[], [], []]
+      const formItem = form.$el.querySelectorAll('.el-form > *')
+      for (let i = 0; i < formItemColumns.length; i++) {
+          let j = 0
+          while (formItem[i + j]) {
+              formItemColumns[i].push(formItem[i + j])
+              j += 3
+          }
+      }
+      for (const col of formItemColumns) {
+          // 找出每一列中label最大宽度
+          const labelWidthList = col.map((item: any) => {
+              item.isFormItem = item.classList.contains('el-form-item')
+              // 只处理 form-item 组件
+              if (item.isFormItem) {
+                  item.formItemLabel = item.querySelector('.el-form-item__label')
+                  if (item.formItemLabel) {
+                      return item.formItemLabel.offsetWidth
+                  }
+              }
+              return 0
+          })
+          const maxLabelWidth = Math.max(...labelWidthList)
+          // 所有的label都用最大宽度
+          for (const item of col) {
+              if (item.formItemLabel) {
+                  // 如果有label，就设置label的宽度
+                  item.formItemLabel.style.width = `${ maxLabelWidth }px`
+              } else if (item.isFormItem) {
+                  // 如果没有label, 但是该元素是FormItem，就设置paddingLeft，从而和当前列的其它项对齐
+                  item.style.paddingLeft = `${ maxLabelWidth }px`
+              }
+          }
+      }
+  }
 }
 </script>
 
@@ -29,7 +67,7 @@ export default class SearchBox extends Vue {
     > .container {
       display: inline-grid;
       grid-template-columns: auto auto auto;
-      grid-gap: 10px;
+      grid-gap: 10px 40px;
     }
   }
 </style>

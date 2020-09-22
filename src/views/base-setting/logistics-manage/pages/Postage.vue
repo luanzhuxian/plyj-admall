@@ -1,6 +1,6 @@
 <template>
     <div class="postage">
-        <search-box @submit.native.prevent label-width="85px">
+        <search-box @submit.native.prevent>
             <el-form-item label="搜索内容：">
                 <el-input
                     v-model="filter.keyword"

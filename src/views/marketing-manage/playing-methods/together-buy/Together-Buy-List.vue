@@ -30,7 +30,7 @@
             @tabClick="data => $router.replace({ name: data.name })"
         />
 
-        <search-box class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="状态：">
                 <el-select
                     v-model="filterForm.status"

@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <search-box class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable style="width: 280px;" v-model="form.condition" @change="search" placeholder="请输入参与人/联系方式" />
             </el-form-item>

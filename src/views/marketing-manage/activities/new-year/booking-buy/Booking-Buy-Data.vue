@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <search-box class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input
                     style="width: 180px;"

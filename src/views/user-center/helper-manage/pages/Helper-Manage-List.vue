@@ -1,6 +1,6 @@
 <template>
     <div class="helper-list">
-        <search-box label-width="110px">
+        <search-box>
             <el-form-item label="关键词：">
                 <el-input
                     clearable
@@ -42,7 +42,7 @@
                             clearable />
             </el-form-item>
             <br>
-            <el-form-item label=" ">
+            <el-form-item>
                 <el-button
                     type="primary"
                     @click="search"

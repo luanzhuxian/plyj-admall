@@ -1,6 +1,6 @@
 <template>
     <div class="invoice wrap">
-        <search-box label-width="85px">
+        <search-box>
             <el-form-item label="搜索内容：">
                 <el-input
                     v-model.trim="form.keywords"

@@ -7,7 +7,7 @@
             ]"
         />
 
-        <search-box inline class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable style="width: 220px;" placeholder="请输入活动名称" v-model="filter.condition" @change="getList(1)" />
             </el-form-item>

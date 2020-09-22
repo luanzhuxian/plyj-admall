@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="marketing-management">
-            <search-box class="mt-24" label-width="85px">
+            <search-box class="mt-24">
                 <el-form-item label="搜索内容：">
                     <el-input
                         v-model="filterForm.keyword"

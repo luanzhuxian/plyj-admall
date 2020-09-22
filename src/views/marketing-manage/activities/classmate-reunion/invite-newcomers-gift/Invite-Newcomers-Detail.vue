@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <search-box class="mt-24" label-width="110px">
+            <search-box class="mt-24">
                 <el-form-item label="搜索内容：">
                     <el-input
                         v-model.trim="params.keyWord"

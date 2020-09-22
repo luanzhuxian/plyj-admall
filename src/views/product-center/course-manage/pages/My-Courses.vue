@@ -1,6 +1,6 @@
 <template>
     <div class="my-courses wrap">
-        <search-box label-width="90px">
+        <search-box>
             <el-form-item label="课程名称：">
                 <el-input
                     v-model="filter.productName"

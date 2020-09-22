@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <search-box class="mt-24" label-width="85px">
+        <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input v-model="form.keyword" @change="search()" placeholder="输入关键字" />
             </el-form-item>
