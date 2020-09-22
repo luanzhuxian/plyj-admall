@@ -52,6 +52,7 @@ export default class OperationGuide extends Vue {
 
     guid (name: string) {
         this.$router.push({ name })
+        this.close()
     }
 }
 </script>
