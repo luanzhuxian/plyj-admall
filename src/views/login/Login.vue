@@ -50,7 +50,7 @@
 </template>
 
 <script lang=ts>
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import Vcode from 'vue-puzzle-vcode'
 import PhoneLogin from './components/Phone-Login.vue'
 import WxLogin from './components/Wx-Login.vue'
@@ -94,10 +94,6 @@ export default class Login extends Vue {
     @userModule.Mutation('LOGOUT') logout!: Function
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
-    @Watch('$route.name')
-    onChangeValue (newVal: string) {
-        console.log(newVal)
-    }
 
     codeShowFoo (e: CodeShowFooType) {
         this.codeShow = e.type
@@ -121,7 +117,7 @@ export default class Login extends Vue {
             this.agencyError = '请选择您要登录的机构'
             return
         }
-        if (this.agencyList.length as number === 1) {
+        if (this.agencyList.length === 1) {
             this.currentAgencyChange(this.agencyList[0].enterpriseId)
         }
         this.agencyError = ''

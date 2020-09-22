@@ -54,7 +54,7 @@
                     ref="dateRange"
                 />
             </el-form-item>
-            <el-form-item label=" ">
+            <el-form-item>
                 <el-button round type="primary" @click="search(1)">
                     查询
                 </el-button>

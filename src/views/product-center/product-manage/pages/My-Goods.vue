@@ -54,14 +54,12 @@
                     ref="dateRange"
                 />
             </el-form-item>
-            <el-form-item label=" ">
+            <el-form-item>
                 <el-button type="primary" @click="search(1)" round>
                     查询
                 </el-button>
             </el-form-item>
         </search-box>
-        <!--<el-form class="wrap border-bottom" label-width="90px" :inline="true">
-    </el-form>-->
         <div class="mt-24" style="display: flex; justify-content: space-between; align-items: center;">
             <div v-if="$route.name !== 'DraftBox'">
                 <el-button round type="primary" @click="$router.push({name: 'AddProduct', params: { productType: 'PHYSICAL_GOODS' } })">

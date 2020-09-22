@@ -17,7 +17,7 @@
                 />
             </el-form-item>
             <br>
-            <el-form-item label=" ">
+            <el-form-item>
                 <el-button
                     round
                     type="primary"
