@@ -1303,7 +1303,7 @@ export default class MemberManageDetail extends Vue {
             this.liveWatchListForm.mallUserId = this.userId
             const { result: { records, total } }: DynamicObject = await getLiveWatchList(this.shareListForm)
             this.liveWatchList = records || []
-            this.liveWatchListTotal = total || []
+            this.liveWatchListTotal = total || 0
         } catch (e) {
             throw e
         }
@@ -1377,7 +1377,7 @@ export default class MemberManageDetail extends Vue {
             this.lineLearningListForm.mallUserId = this.userId
             const { result: { records, total } }: DynamicObject = await getLineLearningList(this.shareListForm)
             this.lineLearningList = records || []
-            this.lineLearningListTotal = total || []
+            this.lineLearningListTotal = total || 0
         } catch (e) {
             throw e
         }
@@ -1447,7 +1447,7 @@ export default class MemberManageDetail extends Vue {
             this.remarkListForm.mallUserId = this.userId
             const { result: { records, total } }: DynamicObject = await getRemarkList(this.remarkListForm)
             this.remarkList = records || []
-            this.remarkListTotal = total || []
+            this.remarkListTotal = total || 0
         } catch (e) {
             throw e
         }
