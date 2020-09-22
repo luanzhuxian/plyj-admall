@@ -54,8 +54,4 @@ declare global {
     interface DynamicObject {
         [propName: string]: any;
     }
-
-    interface HTMLFormElement {
-        validate: <T>() => Promise<T>;
-    }
 }

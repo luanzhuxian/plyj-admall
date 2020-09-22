@@ -13,12 +13,12 @@ export const getNotificationList = (params: { toAgencyCode: string; current: num
  * 标记消息为已读
  * @param {array} ids
  */
-export const markReaded = (ids: string[]) => axios.put('/apis/v1/agency/AgencyNotificationCenter/read', ids)
+export const markReaded = (ids: string[]) => axios.put('/apis/v2/base/notification/read', ids)
 
 /* 消息列表数字小标 */
-export const getNotificationSmallMark = (params: DynamicObject) => axios.get('/apis/v1/agency/AgencyNotificationCenter/smallMark', { params })
+export const getNotificationSmallMark = (params: DynamicObject) => axios.get('/apis/v2/base/notification/smallMark', { params })
 
 /**
  * 查看公告
  **/
-export const findAnnouncement = (params: DynamicObject) => axios.get('/apis/v1/agency/AgencyNotificationCenter/find', { params })
+export const findAnnouncement = (params: DynamicObject) => axios.get('/apis/v2/base/notification/find', { params })

@@ -447,14 +447,14 @@ export default class HelperReviewList extends Vue {
       this.getList()
   }
 
-  handleStatusClick (e) {
+  handleStatusClick (e: any) {
       this.currentStatus = e.name
       this.form.auditStatus = e.name
       this.form.current = 1
       this.getList()
   }
 
-  joinTimeRange ({ start, end }) {
+  joinTimeRange ({ start, end }: any) {
       this.form.startTime = start
       this.form.endTime = end
       this.getList()

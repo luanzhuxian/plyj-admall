@@ -253,403 +253,405 @@
 </template>
 
 <script>
-/* eslint-disable */
-    import { mapGetters } from 'vuex'
-    import EditMain from '../../../components/product-center/category-manage/Edit-Main.vue'
-    import EditSubset from '../../../components/product-center/category-manage/Edit-Subset.vue'
-    import Pagination from '../../../components/common/Pagination.vue'
-    import SelectCategory from '../../../components/product-center/category-manage/Select-Category.vue'
-    import PlTree from '../../../components/common/pl-tree'
-    import {
-        deleteCategory,
-        getGoodsByCategory,
-        setCategoryBatch,
-        sortCategory,
-        courseSort,
-        deleteCourseGoodsByCategory,
-        getCourseGoodsByCategory,
-        getBooksGoodsByCategory,
-        updateCourseGoodsCategory,
-        courseGoodSort,
-        goodSort
-    } from '../../../apis/product-center/category'
-    export default {
-        name: 'Category',
-        components: {
-            PlTree,
-            Pagination,
-            EditMain,
-            EditSubset,
-            SelectCategory
-        },
-        data () {
-            return {
-                productList: [],
-                newCategory: [], // 删除分类时选择的新分类
-                newCategoryError: '', // 删除分类时，移动商品弹框分类选择表单错误信息
-                total: 0,
-                currentCategory: {}, // 当前点击的分类
-                showSubsetBox: false, // 子分类编辑框
-                showMainBox: false, // 主分类编辑框
-                showRemoveCategory: false, // 删除分类时有商品提示框
-                currentSubCategory: null, // 正在编辑的子分类
-                currentMainCategory: null, // 正在编辑的主分类
-                isExpand: false, // 是否展开
-                willRemove: [], // 将要删除的分类id
-                willRemoveCategory: [], // 将要删除的分类
-                goodsType: 1, // 1 商品，2 课程
-                willUpdatePro: {}, // 将要修改分类的商品
-                productsSelected: [], // 批量选择的商品
-                showEditProductCategory: false, // 编辑商品分类选择框显示状态
-                checkedEditProductCategory: [], // 编辑商品分类时选择的分类
-                productCategorySelectError: '', // 编辑商品分类时选择错误信息
-                courseStatusMap: {
-                    1: '出售中',
-                    2: '已下架'
-                },
-                form: {
-                    categoryId: '',
-                    mallId: '',
-                    current: 1,
-                    size: 10
-                }
+import { mapGetters } from 'vuex'
+import EditMain from '../../../components/product-center/category-manage/Edit-Main.vue'
+import EditSubset from '../../../components/product-center/category-manage/Edit-Subset.vue'
+import Pagination from '../../../components/common/Pagination.vue'
+import SelectCategory from '../../../components/product-center/category-manage/Select-Category.vue'
+import PlTree from '../../../components/common/pl-tree'
+import {
+    deleteCategory,
+    getGoodsByCategory,
+    setCategoryBatch,
+    sortCategory,
+    courseSort,
+    deleteCourseGoodsByCategory,
+    getCourseGoodsByCategory,
+    getBooksGoodsByCategory,
+    updateCourseGoodsCategory,
+    courseGoodSort,
+    goodSort
+} from '../../../apis/product-center/category'
+export default {
+    name: 'Category',
+    components: {
+        PlTree,
+        Pagination,
+        EditMain,
+        EditSubset,
+        SelectCategory
+    },
+    data () {
+        return {
+            productList: [],
+            newCategory: [], // 删除分类时选择的新分类
+            newCategoryError: '', // 删除分类时，移动商品弹框分类选择表单错误信息
+            total: 0,
+            currentCategory: {}, // 当前点击的分类
+            showSubsetBox: false, // 子分类编辑框
+            showMainBox: false, // 主分类编辑框
+            showRemoveCategory: false, // 删除分类时有商品提示框
+            currentSubCategory: null, // 正在编辑的子分类
+            currentMainCategory: null, // 正在编辑的主分类
+            isExpand: false, // 是否展开
+            willRemove: [], // 将要删除的分类id
+            willRemoveCategory: [], // 将要删除的分类
+            goodsType: 1, // 1 商品，2 课程
+            willUpdatePro: {}, // 将要修改分类的商品
+            productsSelected: [], // 批量选择的商品
+            showEditProductCategory: false, // 编辑商品分类选择框显示状态
+            checkedEditProductCategory: [], // 编辑商品分类时选择的分类
+            productCategorySelectError: '', // 编辑商品分类时选择错误信息
+            courseStatusMap: {
+                1: '出售中',
+                2: '已下架'
+            },
+            form: {
+                categoryId: '',
+                mallId: '',
+                current: 1,
+                size: 10
             }
-        },
-        computed: {
-            ...mapGetters({
-                mallNumber: 'user/mallNumber',
-                categoryTree: 'goods/categoryTree',
-                courseCategoryTree: 'goods/courseCategoryTree',
-                categoryTreeNoDefault: 'goods/categoryTreeNoDefault',
-                defaultCategory: 'goods/defaultCategory'
-            })
-        },
-        async created () {
-            try {
-                await this.getTree()
-                await this.getDefaultCategory()
-            } catch (e) {
+        }
+    },
+    computed: {
+        ...mapGetters({
+            mallNumber: 'user/mallNumber',
+            categoryTree: 'goods/categoryTree',
+            courseCategoryTree: 'goods/courseCategoryTree',
+            categoryTreeNoDefault: 'goods/categoryTreeNoDefault',
+            defaultCategory: 'goods/defaultCategory'
+        })
+    },
+    async created () {
+        try {
+            await this.getTree()
+            await this.getDefaultCategory()
+        } catch (e) {
 
-            }
-        },
-        methods: {
-            /**
+        }
+    },
+    methods: {
+
+        /**
              * @param type {number} 1 商品分类 2 课程分类 空两者都查
              */
-            async getTree (type = '') {
-                try {
-                    await this.$store.dispatch('goods/GET_CLASSIFY_TREE', type)
-                } catch (e) {
-                    throw e
-                }
-            },
-            /**
+        async getTree (type = '') {
+            try {
+                await this.$store.dispatch('goods/GET_CLASSIFY_TREE', type)
+            } catch (e) {
+                throw e
+            }
+        },
+
+        /**
              * 获取列表
              * @param [page] {number} 分页
              * @return {Promise<void>}
              */
-            async getProductList (page) {
-                this.form.categoryId = this.currentCategory.id
-                if (page) this.form.current = page
-                try {
-                    if (!this.currentCategory.type) {
-                        this.form.mallId = this.mallNumber
-                        const { result } = await getGoodsByCategory(this.form)
-                        this.productList = result.records
-                        this.total = result.total
-                    } else {
-                        delete this.form.mallId
-                        let data = null
-                        if (this.currentCategory.type === 1 || this.currentCategory.type === 2) {
-                            data = await getCourseGoodsByCategory(this.form)
-                        } else if (this.currentCategory.type === 3) {
-                            data = await getBooksGoodsByCategory(this.form)
-                        }
-                        const { result } = data
-                        // 转换数据字段
-                        for (const item of result.records) {
-                            item.productName = item.courseName
-                            item.productMainImage = item.courseImg
-                            item.categoryName = item.category1Name
-                            item.subCategoryName = item.category2Name
-                            item.courseStatus = Number(item.dataStatus)
-                        }
-                        this.productList = result.records
-                        this.total = result.total
-                    }
-                } catch (e) {
-                    throw e
-                }
-            },
-            updateCategory (row) {
-                const { categoryId, subCategoryId, courseType, category1, category2 } = row
-                this.showEditProductCategory = true
-                this.willUpdatePro = row
-                if (courseType) {
-                    // 线上课
-                    this.checkedEditProductCategory = category1 ? [category1, category2] : [category1]
+        async getProductList (page) {
+            this.form.categoryId = this.currentCategory.id
+            if (page) this.form.current = page
+            try {
+                if (!this.currentCategory.type) {
+                    this.form.mallId = this.mallNumber
+                    const { result } = await getGoodsByCategory(this.form)
+                    this.productList = result.records
+                    this.total = result.total
                 } else {
-                    this.checkedEditProductCategory = subCategoryId ? [categoryId, subCategoryId] : [categoryId]
+                    delete this.form.mallId
+                    let data = null
+                    if (this.currentCategory.type === 1 || this.currentCategory.type === 2) {
+                        data = await getCourseGoodsByCategory(this.form)
+                    } else if (this.currentCategory.type === 3) {
+                        data = await getBooksGoodsByCategory(this.form)
+                    }
+                    const { result } = data
+                    // 转换数据字段
+                    for (const item of result.records) {
+                        item.productName = item.courseName
+                        item.productMainImage = item.courseImg
+                        item.categoryName = item.category1Name
+                        item.subCategoryName = item.category2Name
+                        item.courseStatus = Number(item.dataStatus)
+                    }
+                    this.productList = result.records
+                    this.total = result.total
                 }
-            },
-            // 添加子分类按钮点击事件
-            addChild (data) {
-                // 记录子所在主分类
-                this.currentMainCategory = data
-                // 显示弹框
-                this.showSubsetBox = true
-            },
-            // 添加主分类按钮点击事件
-            addMain () {
-                if (this.categoryTree.length >= 30) {
-                    this.$warning('最多可设置30个主分类')
-                    return
-                }
-                this.showMainBox = true
-            },
-            // 点击删除按钮
-            async remove (data) {
-                console.log(data)
-                console.log(data.parentCode)
-                this.willRemoveCategory = data
-                if (data.subcategoryCount) {
-                    this.$alert('该分类下有子分类，请先删除子分类')
-                    return
-                }
-                const parent = [...this.categoryTree, ...this.courseCategoryTree].find(item => item.id === data.parentCode)
-                console.log('parent')
-                console.log(parent)
-                // 记录要删除的分类
-                let willRemove = []
-                if (Number(data.parentCode) !== 0) {
-                    willRemove.push(data.parentCode, data.id)
+            } catch (e) {
+                throw e
+            }
+        },
+        updateCategory (row) {
+            const { categoryId, subCategoryId, courseType, category1, category2 } = row
+            this.showEditProductCategory = true
+            this.willUpdatePro = row
+            if (courseType) {
+                // 线上课
+                this.checkedEditProductCategory = category1 ? [category1, category2] : [category1]
+            } else {
+                this.checkedEditProductCategory = subCategoryId ? [categoryId, subCategoryId] : [categoryId]
+            }
+        },
+        // 添加子分类按钮点击事件
+        addChild (data) {
+            // 记录子所在主分类
+            this.currentMainCategory = data
+            // 显示弹框
+            this.showSubsetBox = true
+        },
+        // 添加主分类按钮点击事件
+        addMain () {
+            if (this.categoryTree.length >= 30) {
+                this.$warning('最多可设置30个主分类')
+                return
+            }
+            this.showMainBox = true
+        },
+        // 点击删除按钮
+        async remove (data) {
+            console.log(data)
+            console.log(data.parentCode)
+            this.willRemoveCategory = data
+            if (data.subcategoryCount) {
+                this.$alert('该分类下有子分类，请先删除子分类')
+                return
+            }
+            const parent = [...this.categoryTree, ...this.courseCategoryTree].find(item => item.id === data.parentCode)
+            console.log('parent')
+            console.log(parent)
+            // 记录要删除的分类
+            const willRemove = []
+            if (Number(data.parentCode) !== 0) {
+                willRemove.push(data.parentCode, data.id)
+            } else {
+                willRemove.push(data.id)
+            }
+            this.willRemove = willRemove
+            const { id, mallId, type } = data
+            const form = {
+                categoryId: id,
+                mallId,
+                current: 1,
+                size: 1
+            }
+            try {
+                let total = 0
+                if (type === 1 || type === 2) {
+                    delete form.mallId;
+                    ({ result: { total } } = await getCourseGoodsByCategory(form))
+                } else if (type === 3) {
+                    ({ result: { total } } = await getBooksGoodsByCategory(form))
                 } else {
-                    willRemove.push(data.id)
+                    ({ result: { total } } = await getGoodsByCategory(form))
                 }
-                this.willRemove = willRemove
-                let { id, mallId, type } = data
-                const form = {
-                    categoryId: id,
-                    mallId,
-                    current: 1,
-                    size: 1
-                }
-                try {
-                    let total = 0
-                    if (type === 1 || type === 2) {
-                        delete form.mallId;
-                        ({ result: { total } } = await getCourseGoodsByCategory(form))
-                    } else if (type === 3) {
-                        ({ result: { total } } = await getBooksGoodsByCategory(form))
+                if (total > 0) {
+                    if (parent && parent.childs.length === 1) {
+                        this.$alert('主分类下必须至少有一个子分类')
                     } else {
-                        ({ result: { total } } = await getGoodsByCategory(form))
+                        this.showRemoveCategory = true
                     }
-                    if (total > 0) {
-                        if (parent && parent.childs.length === 1) {
-                            this.$alert('主分类下必须至少有一个子分类')
-                        } else {
-                            this.showRemoveCategory = true
-                        }
-                    } else {
-                        await this.$confirm('分类删除后不可恢复！确认删除分类吗？')
-                        const form = {
-                            oldCategoryId: data.parentCode,
-                            oldSubCategoryId: data.id,
-                            categoryId: '',
-                            subCategoryId: ''
-                        }
-                        await this.deleteCategory(form)
+                } else {
+                    await this.$confirm('分类删除后不可恢复！确认删除分类吗？')
+                    const form = {
+                        oldCategoryId: data.parentCode,
+                        oldSubCategoryId: data.id,
+                        categoryId: '',
+                        subCategoryId: ''
                     }
-                } catch (e) {
-                    throw e
-                }
-            },
-            // 确定删除分类并移动商品弹框确定按钮
-            async deleteAndRemove () {
-                let [parentCode, id = ''] = this.willRemove
-                if (this.newCategory.length === 0) {
-                    this.newCategoryError = '请选择分类'
-                    return
-                }
-                const form = {
-                    oldCategoryId: parentCode === '0' ? id : parentCode,
-                    oldSubCategoryId: id,
-                    categoryId: this.newCategory[0] || '',
-                    subCategoryId: this.newCategory[1] || ''
-                }
-                try {
                     await this.deleteCategory(form)
-                } catch (e) {
-                    throw e
                 }
-            },
-            // 删除分类
-            async deleteCategory (form) {
-                try {
-                    if (this.willRemoveCategory.type) {
-                        // 删除线上课分类，如果没有选择新分类，则新分类默认是主分类
-                        await deleteCourseGoodsByCategory(form.oldSubCategoryId || form.oldCategoryId, form.subCategoryId || form.categoryId)
-                    } else {
-                        // 删除商品分类
-                        await deleteCategory(form)
-                    }
-                    this.showRemoveCategory = false
-                    await this.getTree(this.willRemoveCategory.type ? 2 : 1) // 分类树
-                } catch (e) {
-                    throw e
-                }
-            },
-            // 默认分类下的商品
-            async getDefaultCategory () {
-                try {
-                    await this.$nextTick()
-                    this.currentCategory = this.defaultCategory || {}
-                    await this.getProductList()
-                } catch (e) {
-                    throw e
-                }
-            },
-            // 点击编辑按钮
-            edit (data) {
-                if (data.parentCode === '0') {
-                    // 编辑的是主分类
-                    this.currentMainCategory = data
-                    this.showMainBox = true
+            } catch (e) {
+                throw e
+            }
+        },
+        // 确定删除分类并移动商品弹框确定按钮
+        async deleteAndRemove () {
+            const [parentCode, id = ''] = this.willRemove
+            if (this.newCategory.length === 0) {
+                this.newCategoryError = '请选择分类'
+                return
+            }
+            const form = {
+                oldCategoryId: parentCode === '0' ? id : parentCode,
+                oldSubCategoryId: id,
+                categoryId: this.newCategory[0] || '',
+                subCategoryId: this.newCategory[1] || ''
+            }
+            try {
+                await this.deleteCategory(form)
+            } catch (e) {
+                throw e
+            }
+        },
+        // 删除分类
+        async deleteCategory (form) {
+            try {
+                if (this.willRemoveCategory.type) {
+                    // 删除线上课分类，如果没有选择新分类，则新分类默认是主分类
+                    await deleteCourseGoodsByCategory(form.oldSubCategoryId || form.oldCategoryId, form.subCategoryId || form.categoryId)
                 } else {
-                    this.currentSubCategory = data
-                    if (data.type) {
-                        // 查找线上课父类
-                        this.currentMainCategory = this.courseCategoryTree.find(item => item.id === data.parentCode)
-                    } else {
-                        this.currentMainCategory = this.categoryTree.find(item => item.id === data.parentCode)
-                    }
-                    this.showSubsetBox = true
+                    // 删除商品分类
+                    await deleteCategory(form)
                 }
-            },
-            // 点击树节点
-            async treeClick (nodeData) {
-                let { parentCode, id } = nodeData
-                this.currentCategory = nodeData
-                if (Number(parentCode) !== 0) {
-                    this.checkedEditProductCategory = [parentCode, id]
+                this.showRemoveCategory = false
+                await this.getTree(this.willRemoveCategory.type ? 2 : 1) // 分类树
+            } catch (e) {
+                throw e
+            }
+        },
+        // 默认分类下的商品
+        async getDefaultCategory () {
+            try {
+                await this.$nextTick()
+                this.currentCategory = this.defaultCategory || {}
+                await this.getProductList()
+            } catch (e) {
+                throw e
+            }
+        },
+        // 点击编辑按钮
+        edit (data) {
+            if (data.parentCode === '0') {
+                // 编辑的是主分类
+                this.currentMainCategory = data
+                this.showMainBox = true
+            } else {
+                this.currentSubCategory = data
+                if (data.type) {
+                    // 查找线上课父类
+                    this.currentMainCategory = this.courseCategoryTree.find(item => item.id === data.parentCode)
                 } else {
-                    this.checkedEditProductCategory = [id]
+                    this.currentMainCategory = this.categoryTree.find(item => item.id === data.parentCode)
                 }
-                try {
-                    this.form.current = 1
-                    await this.getProductList()
-                } catch (e) {
-                    throw e
+                this.showSubsetBox = true
+            }
+        },
+        // 点击树节点
+        async treeClick (nodeData) {
+            const { parentCode, id } = nodeData
+            this.currentCategory = nodeData
+            if (Number(parentCode) !== 0) {
+                this.checkedEditProductCategory = [parentCode, id]
+            } else {
+                this.checkedEditProductCategory = [id]
+            }
+            try {
+                this.form.current = 1
+                await this.getProductList()
+            } catch (e) {
+                throw e
+            }
+        },
+        async pageChange () {
+            try {
+                await this.getProductList()
+            } catch (e) {
+                throw e
+            }
+        },
+        async sizeChange () {
+            try {
+                await this.getProductList(1)
+            } catch (e) {
+                throw e
+            }
+        },
+        expand () {
+            const { tree1, tree2 } = this.$refs
+            tree1.expandOfCollapse()
+            tree2.expandOfCollapse()
+            this.isExpand = this.tree1.isExpand
+        },
+        async treeSort ({ moved: { element } }, list) {
+            const ids = []
+            for (const item of list) {
+                ids.push(item.id)
+            }
+            try {
+                if (element.type) {
+                    await courseSort(ids)
+                } else {
+                    await sortCategory(ids)
                 }
-            },
-            async pageChange () {
-                try {
-                    await this.getProductList()
-                } catch (e) {
-                    throw e
-                }
-            },
-            async sizeChange () {
-                try {
-                    await this.getProductList(1)
-                } catch (e) {
-                    throw e
-                }
-            },
-            expand () {
-                let { tree1, tree2 } = this.$refs
-                tree1.expandOfCollapse()
-                tree2.expandOfCollapse()
-                this.isExpand = this.tree1.isExpand
-            },
-            async treeSort ({ moved: { element } }, list) {
-                let ids = []
-                for (let item of list) {
-                    ids.push(item.id)
-                }
-                try {
-                    if (element.type) {
-                        await courseSort(ids)
-                    } else {
-                        await sortCategory(ids)
-                    }
-                } catch (e) {
-                    throw e
-                } finally {
-                    // 任何时候都去刷新分类
-                    await this.getTree(element.type ? 2 : 1)
-                }
-            },
-            // 编辑商品分类(单个或批量)
-            async editProductCategory () {
-                if (this.checkedEditProductCategory.length === 0) {
-                    this.productCategorySelectError = '请选择分类'
-                    return
-                }
-                const form = {
-                    categoryId: this.checkedEditProductCategory[0],
-                    subCategoryId: this.checkedEditProductCategory[1] || '',
-                    productIds: []
-                }
+            } catch (e) {
+                throw e
+            } finally {
+                // 任何时候都去刷新分类
+                await this.getTree(element.type ? 2 : 1)
+            }
+        },
+        // 编辑商品分类(单个或批量)
+        async editProductCategory () {
+            if (this.checkedEditProductCategory.length === 0) {
+                this.productCategorySelectError = '请选择分类'
+                return
+            }
+            const form = {
+                categoryId: this.checkedEditProductCategory[0],
+                subCategoryId: this.checkedEditProductCategory[1] || '',
+                productIds: []
+            }
 
-                if (this.willUpdatePro.id) {
-                    // 单个
-                    form.productIds.push(this.willUpdatePro.id)
+            if (this.willUpdatePro.id) {
+                // 单个
+                form.productIds.push(this.willUpdatePro.id)
+            } else {
+                // 批量
+                for (const item of this.productsSelected) {
+                    form.productIds.push(item.id)
+                }
+            }
+            try {
+                if (this.currentCategory.type) {
+                    // 线上课分类
+                    await updateCourseGoodsCategory(form.productIds, form.subCategoryId || form.categoryId)
                 } else {
-                    // 批量
-                    for (let item of this.productsSelected) {
-                        form.productIds.push(item.id)
-                    }
+                    await setCategoryBatch(form)
                 }
-                try {
-                    if (this.currentCategory.type) {
-                        // 线上课分类
-                        await updateCourseGoodsCategory(form.productIds, form.subCategoryId || form.categoryId)
-                    } else {
-                        await setCategoryBatch(form)
-                    }
-                    if (this.currentCategory.id) {
-                        await this.getProductList()
-                    } else {
-                        await this.getDefaultCategory()
-                    }
-                    this.showEditProductCategory = false
-                    this.$success('分类修改成功')
-                } catch (e) {
-                    throw e
+                if (this.currentCategory.id) {
+                    await this.getProductList()
+                } else {
+                    await this.getDefaultCategory()
                 }
-            },
-            // 选择变化
-            selectionChange (selection) {
-                this.productsSelected = selection
-            },
-            /**
+                this.showEditProductCategory = false
+                this.$success('分类修改成功')
+            } catch (e) {
+                throw e
+            }
+        },
+        // 选择变化
+        selectionChange (selection) {
+            this.productsSelected = selection
+        },
+
+        /**
              * 拖拽排序完成
              * @param evt {object} 拖拽的事件对象
              * @param node {object} 被拖拽的商品数据
              * @return {Promise<void>}
              */
-            async sortUpdate (evt, node) {
-                const ids = this.productList.map(item => item.id)
-                try {
-                    if (this.currentCategory.type) {
-                        // 课程商品排序
-                        await courseGoodSort(ids)
-                    } else {
-                        // 普通商品排序
-                        await goodSort(ids)
-                    }
-                } catch (e) {
-                    throw e
+        async sortUpdate () {
+            const ids = this.productList.map(item => item.id)
+            try {
+                if (this.currentCategory.type) {
+                    // 课程商品排序
+                    await courseGoodSort(ids)
+                } else {
+                    // 普通商品排序
+                    await goodSort(ids)
                 }
-            },
-            // 分类选择弹框关闭
-            categoryClosed () {
-                this.willUpdatePro = {}
-                this.checkedEditProductCategory = []
+            } catch (e) {
+                throw e
             }
+        },
+        // 分类选择弹框关闭
+        categoryClosed () {
+            this.willUpdatePro = {}
+            this.checkedEditProductCategory = []
         }
     }
+}
 </script>
 
 <style scoped lang="scss">

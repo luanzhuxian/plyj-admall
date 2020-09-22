@@ -365,7 +365,7 @@ export default class HelperManageList extends Vue {
         this.getList()
     }
 
-    joinTimeRange ({ start, end }) {
+    joinTimeRange ({ start, end }: any) {
         this.form.startTime = start
         this.form.endTime = end
         this.getList()

@@ -90,7 +90,7 @@
                     style="width: 116px"
                     @change="search"
                     placeholder="请输入金额"
-                    v-model="form.purchasesMinAmount"
+                    v-model.number="form.purchasesMinAmount"
                 />
                 至
                 <el-input
@@ -99,7 +99,7 @@
                     style="width: 116px"
                     @change="search"
                     placeholder="请输入金额"
-                    v-model="form.purchasesMaxAmount"
+                    v-model.number="form.purchasesMaxAmount"
                 />
             </el-form-item>
 
@@ -396,12 +396,11 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 
-import Pagination from '../../../../components/common/Pagination'
-import ExportDialog from '../../../../components/common/Export-Dialog'
+import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import PlTree from '../../../../components/common/pl-tree'
-import EditMemberTag from '../components/Edit-Member-Tag'
-import AddTags from '../components/Add-Tags'
-import RemarkList from '../components/Remark-List'
+import EditMemberTag from '../components/Edit-Member-Tag.vue'
+import AddTags from '../components/Add-Tags.vue'
+import RemarkList from '../components/Remark-List.vue'
 
 import {
     getMemberData,
@@ -414,11 +413,11 @@ import {
 } from '../../../../apis/member'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import moment from 'moment'
+import { ElForm } from 'admall-element/types/form'
 
 @Component({
     components: {
         PlTree,
-        Pagination,
         EditMemberTag,
         AddTags,
         ExportDialog,
@@ -452,8 +451,8 @@ export default class MemberManageList extends Vue {
       lastPurchaseEndTime: '',
       purchasesMinNumber: '',
       purchasesMaxNumber: '',
-      purchasesMinAmount: '',
-      purchasesMaxAmount: '',
+      purchasesMinAmount: 0,
+      purchasesMaxAmount: 0,
       tagId: ''
   }
 
@@ -461,8 +460,8 @@ export default class MemberManageList extends Vue {
   loginTimeRange = []
   lastPurchaseTimeRange = []
 
-  multipleSelection = []
-  multipleSelectionId =[]
+  multipleSelection: any[] = []
+  multipleSelectionId: any[] =[]
 
   total = 0
   table = []
@@ -492,7 +491,7 @@ export default class MemberManageList extends Vue {
 
   // 导出数据
   showExport = false
-  exportData = {
+  exportData: {[k: string]: number | string} = {
       keyword: '',
       roleType: '',
       // 1 7日内 2 30日内 3自选
@@ -516,7 +515,7 @@ export default class MemberManageList extends Vue {
 
   //  methods
   // 标签排序
-  async treeSort (node, list) {
+  async treeSort (node: DynamicObject, list: DynamicObject[]) {
       const ids = list.map(item => item.id)
 
       try {
@@ -550,25 +549,26 @@ export default class MemberManageList extends Vue {
           // 1 7日内 2 30日内 3自选
           dateRange: 3,
           startTime: '',
-          endTime: ''
-      }
-      this.$refs.exportForm.clearValidate()
+          endTime: '',
+          tagId: ''
+      };
+      (this.$refs.exportForm as ElForm).clearValidate()
       this.showExport = false
   }
 
-  async exportDatechange ({ start, end }) {
+  async exportDatechange ({ start, end }: DynamicObject) {
       this.exportData.startTime = start
       this.exportData.endTime = end
       if (!start || !end) {
           return
       }
-      await this.$nextTick()
-      this.$refs.exportDatePicker.initDate()
+      await this.$nextTick();
+      (this.$refs.exportDatePicker as HTMLFormElement).initDate()
   }
 
-  exportRangeChange (val) {
-      let start = new Date()
-      let end = new Date()
+  exportRangeChange (val: number) {
+      let start: string | Date = new Date()
+      let end: string | Date = new Date()
       const formatType = 'YYYY-MM-DD'
 
       if (val === 1) {
@@ -587,7 +587,7 @@ export default class MemberManageList extends Vue {
   }
 
   async exportList () {
-      await this.$refs.exportForm.validate()
+      await (this.$refs.exportForm as HTMLFormElement).validate()
       const exportData = this.exportData
       const data = {
           keyword: exportData.keyword,
@@ -598,11 +598,10 @@ export default class MemberManageList extends Vue {
       }
       const blob = await exportMemberQuery(data)
       const url = createObjectUrl(blob)
-      let a = document.createElement('a')
+      const a = document.createElement('a')
       a.href = url
       a.download = `会员列表${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
       a.click()
-      a = null
   }
 
   async getMemberData () {
@@ -616,30 +615,25 @@ export default class MemberManageList extends Vue {
 
   async getMemberList () {
       const params = { ...this.form }
-      if (params.purchasesMinAmount.trim()) {
-          params.purchasesMinAmount = Number(params.purchasesMinAmount) * 100
-      }
-      if (params.purchasesMaxAmount.trim()) {
-          params.purchasesMaxAmount = Number(params.purchasesMaxAmount) * 100
-      }
+      params.purchasesMinAmount = Number(params.purchasesMinAmount) * 100
+      params.purchasesMaxAmount = Number(params.purchasesMaxAmount) * 100
       const { result: { records, total } } = await getMemberList(params)
-
       this.table = records
       this.total = total
   }
 
   // 处理批量操作数据
-  handleSelectionChange (val) {
+  handleSelectionChange (val: any[]) {
       this.multipleSelection = val
       this.multipleSelectionId = val.map(item => item.id)
   }
 
   // 根据标签获取用户列表
-  async getMemberListByTag (tagId) {
+  async getMemberListByTag (tagId: string) {
       try {
           this.form.tagId = tagId
-          if (tagId === 0) {
-              this.$refs.tree.$children.forEach(item => {
+          if (Number(tagId) === 0) {
+              (this.$refs.tree as HTMLFormElement).$children.forEach((item: Vue) => {
                   item.$el.classList.remove('tree-node-active')
               })
           }
@@ -650,13 +644,13 @@ export default class MemberManageList extends Vue {
       }
   }
 
-  async formatTimeRange ({ start, end }, startText, endText) {
+  async formatTimeRange ({ start, end }: any, startText: 'lastPurchaseStartTime' | 'loginStartTime' | 'startTime', endText: 'lastPurchaseEndTime' | 'loginEndTime' | 'endTime') {
       this.form[startText] = start
       this.form[endText] = end
       await this.search()
   }
 
-  async sizeChange (val) {
+  async sizeChange (val: number) {
       this.form.current = 1
       this.form.size = val
       await this.search()
@@ -683,13 +677,13 @@ export default class MemberManageList extends Vue {
           lastPurchaseEndTime: '',
           purchasesMinNumber: '',
           purchasesMaxNumber: '',
-          purchasesMinAmount: '',
-          purchasesMaxAmount: '',
+          purchasesMinAmount: 0,
+          purchasesMaxAmount: 0,
           tagId: ''
       }
-      this.timeRange = ['', '']
-      this.loginTimeRange = ['', '']
-      this.lastPurchaseTimeRange = ['', '']
+      this.timeRange = []
+      this.loginTimeRange = []
+      this.lastPurchaseTimeRange = []
       this.form.tagId = tagId
       await this.search()
   }
@@ -699,14 +693,14 @@ export default class MemberManageList extends Vue {
       this.showAddTagDialog = true
   }
 
-  setTagToMember (row) {
+  setTagToMember (row: any) {
       this.isMultiple = false
       this.currentMemberInfo = row
       this.showAddTagDialog = true
   }
 
   // 设置备注
-  setRemarkToMember (row) {
+  setRemarkToMember (row: any) {
       this.isShowRemarkList = true
       this.currentUserId = row.id
   }
@@ -718,7 +712,7 @@ export default class MemberManageList extends Vue {
   }
 
   // 新建/编辑用户标签
-  async editTag (tagInfo) {
+  async editTag (tagInfo: any) {
       if (tagInfo) {
           this.currentTag = { id: tagInfo.id, sort: tagInfo.sort, tagName: tagInfo.tagName }
       } else {
