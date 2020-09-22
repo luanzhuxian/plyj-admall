@@ -256,7 +256,6 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import Pagination from '../../../../components/common/Pagination'
 import {
     getHelperList,
     relieveHelper,
@@ -266,11 +265,7 @@ import {
 } from '../../../../apis/member'
 import { getAccounts } from '../../../../apis/account'
 
-@Component({
-    components: {
-        Pagination
-    }
-})
+@Component
 export default class HelperManageList extends Vue {
     showDialog = false
     form = {
@@ -288,7 +283,7 @@ export default class HelperManageList extends Vue {
 
     table = []
     total = 0
-    statusMap = {
+    statusMap: { [k: string]: any } = {
         HelperWaiting: 'AWAIT',
         HelperPassed: 'PASS',
         HelperRejected: 'REJECT',
@@ -306,15 +301,15 @@ export default class HelperManageList extends Vue {
     routeName = ''
 
     /* 当前正在修改所属账号的数据id */
-    currentUserId = []
+    currentUserId: string[] = []
 
     /* 当前选中的表格数据 */
-    currentSelect = []
+    currentSelect: any[] = []
     ownnerUserId = ''
     currentRoleCode = ''
 
     created () {
-        this.routeName = this.$route.name
+        this.routeName = this.$route.name || ''
         this.form.auditStatus = this.statusMap[this.routeName]
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
@@ -327,12 +322,14 @@ export default class HelperManageList extends Vue {
             ownnerUserId: '',
             current: 1,
             size: 10,
+            auditFlag: true,
+            auditStatus: '',
             loginStartTime: '',
             loginEndTime: '',
             startTime: '',
             endTime: ''
         }
-        this.form.auditStatus = this.statusMap[this.routeName]
+        this.form.auditStatus = this.statusMap[this.routeName] || ''
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
     }
@@ -347,7 +344,7 @@ export default class HelperManageList extends Vue {
         }
     }
 
-    async updateBrokerStatus (id, status) {
+    async updateBrokerStatus (id: string, status: string) {
         try {
             await this.$confirm({ message: `确定${ status === 'PASS' ? '通过' : '拒绝' }该用户的申请吗？` })
             await updateBrokerStatus({ id, status })
@@ -359,7 +356,7 @@ export default class HelperManageList extends Vue {
         }
     }
 
-    loginTimeRange ({ start, end }) {
+    loginTimeRange ({ start, end }: any) {
         this.form.loginStartTime = start
         this.form.loginEndTime = end
         this.getList()
@@ -381,7 +378,7 @@ export default class HelperManageList extends Vue {
         }
     }
 
-    async relieve (id) {
+    async relieve (id: string) {
         const ids = [id]
         try {
             await this.$confirm({ message: '对Helper降级后，降级后该Helper将成为普通会员用户，不再享受Helper的相关权限，确认要解除Helper账号的权限吗？' })
@@ -421,13 +418,13 @@ export default class HelperManageList extends Vue {
         this.showDialog = true
     }
 
-    showDialogBox (id, ownnerUserId) {
+    showDialogBox (id: string, ownnerUserId: string) {
         this.showDialog = true
         this.currentUserId = [id]
         this.ownnerUserId = ownnerUserId
     }
 
-    async changeHelperAccount (data) {
+    async changeHelperAccount (data: any) {
         try {
             await changeHelpersAccount({
                 ownerUserId: data.userId,
@@ -442,11 +439,11 @@ export default class HelperManageList extends Vue {
         }
     }
 
-    selectionChange (list) {
+    selectionChange (list: any[]) {
         this.currentSelect = list
     }
 
-    sizeChange (val) {
+    sizeChange (val: number) {
         this.form.current = 1
         this.form.size = val
         this.getList()

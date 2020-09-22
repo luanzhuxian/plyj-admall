@@ -260,21 +260,14 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import Pagination from '../../../../components/common/Pagination'
 import {
     getHelperList,
     changeHelpersAccount,
     updateBrokerStatus
 } from '../../../../apis/member'
 import { getAccounts } from '../../../../apis/account'
-import DateRange from '../../../../components/common/Date-Range'
 
-@Component({
-    components: {
-        DateRange,
-        Pagination
-    }
-})
+@Component
 export default class HelperReviewList extends Vue {
   showDialog = false
   form = {
@@ -309,10 +302,10 @@ export default class HelperReviewList extends Vue {
   routeName = ''
 
   /* 当前正在修改所属账号的数据id */
-  currentUserId = []
+  currentUserId: string[] = []
 
   /* 当前选中的表格数据 */
-  currentSelect = []
+  currentSelect: any[] = []
   dialogAuditVisible = false
   auditId = ''
 
@@ -323,7 +316,7 @@ export default class HelperReviewList extends Vue {
 
   async created () {
       this.currentStatus = 'AWAIT'
-      this.routeName = this.$route.name
+      this.routeName = this.$route.name || ''
       this.form.auditStatus = this.currentStatus
       this.form.auditFlag = Boolean(this.form.auditStatus)
       try {
@@ -339,6 +332,9 @@ export default class HelperReviewList extends Vue {
           keyword: '',
           ownnerUserId: '',
           current: 1,
+          size: 10,
+          auditFlag: true,
+          auditStatus: '',
           loginStartTime: '',
           loginEndTime: '',
           startTime: '',
@@ -359,7 +355,7 @@ export default class HelperReviewList extends Vue {
       }
   }
 
-  async updateBrokerStatus (id, status) {
+  async updateBrokerStatus (id: string, status: string) {
       try {
           if (status === 'REJECT') {
               this.auditId = id
@@ -385,12 +381,12 @@ export default class HelperReviewList extends Vue {
       }
   }
 
-  showDialogBox (id) {
+  showDialogBox (id: string) {
       this.showDialog = true
       this.currentUserId = [id]
   }
 
-  async changeHelperAccount (data) {
+  async changeHelperAccount (data: any) {
       try {
           await changeHelpersAccount({
               ownerUserId: data.userId,
@@ -405,7 +401,7 @@ export default class HelperReviewList extends Vue {
       }
   }
 
-  selectionChange (list) {
+  selectionChange (list: any[]) {
       this.currentSelect = list
   }
 
@@ -436,7 +432,7 @@ export default class HelperReviewList extends Vue {
       this.getList()
   }
 
-  sizeChange (val) {
+  sizeChange (val: number) {
       this.form.current = 1
       this.form.size = val
       this.getList()

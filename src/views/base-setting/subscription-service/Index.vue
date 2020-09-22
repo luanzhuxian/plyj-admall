@@ -32,7 +32,7 @@ export default class HelperManage extends Vue {
         this.activeName = this.$route.name || 'LiveServiceOrder'
     }
 
-    handleClick (e) {
+    handleClick (e: any) {
         this.$router.push({ name: e.name })
     }
 }

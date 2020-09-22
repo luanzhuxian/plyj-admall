@@ -214,7 +214,7 @@ export default class FunctionPack extends Vue {
 
     private async gotoSetMealPage () {
         this.showGotoSetMealPage = false
-        await this.$router.replace({ name: 'SetMeal', params: { isRenew: '0', backRouteName: this.$route.name } })
+        await this.$router.replace({ name: 'SetMeal', params: { isRenew: '0', backRouteName: this.$route.name || '' } })
     }
 
     private async getLineTeachingInfo () {

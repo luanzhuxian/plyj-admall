@@ -28,10 +28,10 @@ export default class HelperManage extends Vue {
     activeName = ''
 
     created () {
-        this.activeName = this.$route.name
+        this.activeName = this.$route.name || ''
     }
 
-    handleClick (e) {
+    handleClick (e: any) {
         this.$router.push({ name: e.name })
     }
 }

@@ -96,7 +96,7 @@ import { getHelperDetail, updateBrokerStatus } from '../../../../apis/member'
 
 export default class MemberManageDetail extends Vue {
     detail = {
-        data: []
+        data: [] as any[]
     }
 
     statusMap = { AWAIT: '待审核', PASS: '审核通过', REJECT: '审核驳回' }
@@ -120,13 +120,13 @@ export default class MemberManageDetail extends Vue {
                 result.tags = result.tags.join(' | ')
             }
             this.detail = result || {}
-            this.detail.data = [{ name: result.name, mobile: result.mobile, idCard: result.idCard }]
+            this.detail.data = [{ name: result.name, mobile: result.mobile, idCard: result.idCard }] as any[]
         } catch (e) {
             throw e
         }
     }
 
-    async updateBrokerStatus (id, status) {
+    async updateBrokerStatus (id: string, status: string) {
         try {
             if (status === 'REJECT') {
                 this.dialogAuditVisible = true
