@@ -16,7 +16,7 @@
                 <components :is="navBarName" />
             </transition>
             <Header />
-            <main class="main-container" :class="$style.main">
+            <main :class="$style.main">
                 <keep-alive>
                     <router-view />
                 </keep-alive>
@@ -74,11 +74,6 @@ export default class App extends Vue {
 
     navComponent = 'MainNavbar'
     title = '这是一个title'
-
-    @Watch('routeName')
-    onrouteName (val: string) {
-        console.log(val)
-    }
 
     @Watch('$route', { immediate: true })
     navBarChange ({ matched }: any) {
@@ -144,6 +139,7 @@ export default class App extends Vue {
     grid-template-columns: 140px auto;
     grid-template-rows: 60px auto;
     > .main {
+        min-width: 1300px;
         height: calc(100vh - 60px);
         padding: 10px;
         background-color: #f4f5f8;

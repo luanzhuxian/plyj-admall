@@ -2,6 +2,7 @@ export default [
     {
         path: 'wechat',
         name: 'Wechat',
+        redirect: '/base-setting/wechat/bind',
         component: () => import('../../../views/base-setting/official-account/Index.vue'),
         meta: {
             title: '公众号设置'
