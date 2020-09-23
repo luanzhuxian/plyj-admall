@@ -78,8 +78,8 @@
                 </template>
             </p>
             <div class="remark-detail">
-                <SearchBox>
-                    <div class="text" v-if="!isEdit">
+                <SearchBox v-if="!isEdit">
+                    <div class="text">
                         <div>
                             <span>真实姓名：</span>
                             <span>{{ memberDetail.name || '--' }}</span>
@@ -130,8 +130,15 @@
                             <el-button type="text" @click="isShowRemarkList = true">查看更多</el-button>
                         </div>
                     </div>
-                    <template v-else>
-                        <el-form-item label="真实姓名：">
+                </SearchBox>
+                <div class="form-box" v-else>
+                    <el-form
+                        inline
+                        ref="form"
+                        class="container"
+                        :model="addMemberDetailForm"
+                        :rules="rules">
+                        <el-form-item label="真实姓名：" prop="name">
                             <el-input
                                 clearable
                                 placeholder="请输入真实姓名"
@@ -160,7 +167,7 @@
                                 type="date"
                                 placeholder="选择生日日期" />
                         </el-form-item>
-                        <el-form-item label="邮箱：">
+                        <el-form-item label="邮箱：" prop="email">
                             <el-input
                                 clearable
                                 type="email"
@@ -178,7 +185,7 @@
                             />
                         </el-form-item>
                         <el-form-item
-                            label="所在区域"
+                            label="所在区域："
                             prop="addressPath"
                         >
                             <CityPicker
@@ -187,7 +194,7 @@
                             />
                         </el-form-item>
                         <el-form-item
-                            label="详细地址"
+                            label="详细地址："
                             prop="agencyAddress"
                         >
                             <el-input
@@ -200,7 +207,7 @@
                             <el-input
                                 clearable
                                 placeholder="请输入行业"
-                                maxlength="30"
+                                maxlength="20"
                                 v-model="addMemberDetailForm.industry"
                             />
                         </el-form-item>
@@ -221,8 +228,8 @@
                                 v-model="addMemberDetailForm.workPosition"
                             />
                         </el-form-item>
-                    </template>
-                </SearchBox>
+                    </el-form>
+                </div>
             </div>
         </div>
 
@@ -1055,6 +1062,33 @@ export default class MemberManageDetail extends Vue {
         workPosition: ''
     }
 
+    checkSpecialKey (str: string): boolean {
+        const reg = /[^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n]/g
+        for (let i = 0; i < str.length; i++) {
+            if (str.match(reg)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    validateInput (rule: any, value: string, callback: any) {
+        if (!this.checkSpecialKey(value)) {
+            callback(new Error('当前字段不支持表情符号！！'))
+        } else {
+            callback()
+        }
+    }
+
+    rules = {
+        name: [
+            { validator: this.validateInput, trigger: 'blur' }
+        ],
+        email: [
+            { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
+        ]
+    }
+
     selectedCity (val: Array<any>) {
         const form = this.addMemberDetailForm
         form.province = val[0].code
@@ -1585,6 +1619,18 @@ export default class MemberManageDetail extends Vue {
             .no-data{
                 margin: 60px 0;
             }
+        }
+    }
+    .form-box {
+        display: flex;
+        padding: 20px 32px;
+        background-color: #F5F6FA;
+        border-radius: 10px;
+        > .container {
+            display: inline-grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 10px 40px;
+            margin: 0!important;
         }
     }
     .operate {
