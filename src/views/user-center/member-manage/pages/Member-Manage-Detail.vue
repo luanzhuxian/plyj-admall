@@ -240,19 +240,19 @@
             <div class="data-list">
                 <div>
                     近30天自购订单量
-                    <b>{{ memberData.currentMonthOrder }}</b>
+                    <b>{{ memberData.currentMonthOrder || 0 }}</b>
                 </div>
                 <div>
                     累计自购订单量
-                    <b>{{ memberData.totalOrder }}</b>
+                    <b>{{ memberData.totalOrder || 0 }}</b>
                 </div>
                 <div>
                     支付总额
-                    <b>{{ memberData.totalAmount }}</b>
+                    <b>{{ memberData.totalAmount || 0 }}</b>
                 </div>
                 <div>
                     分享订单量
-                    <b>{{ memberData.shareOrder }}</b>
+                    <b>{{ memberData.shareOrder || 0 }}</b>
                 </div>
             </div>
             <pl-tabs :value="tabName" :tabs="Tab_List" @tabClick="tabClick" />
