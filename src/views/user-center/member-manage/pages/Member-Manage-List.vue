@@ -172,7 +172,7 @@
                     @click.stop="getMemberListByTag(0)"
                     :class="{'tag-list-options':true, 'background-color-grey': form.tagId === 0}"
                 >
-                    未设置标签
+                    无标签
                 </div>
                 <pl-tree
                     class="tag-list-options"
