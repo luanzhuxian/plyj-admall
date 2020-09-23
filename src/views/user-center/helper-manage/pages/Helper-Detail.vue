@@ -109,6 +109,15 @@ export default class MemberManageDetail extends Vue {
         await this.getHelperDetail()
     }
 
+    beforeRouteLeave (to: DynamicObject, from: DynamicObject, next: FunctionConstructor) {
+        if (to.name === 'HelperReviewList') {
+            to.query.currentStatus = this.$route.query.currentStatus
+            next()
+        } else {
+            next()
+        }
+    }
+
     // methods
     async getHelperDetail () {
         try {

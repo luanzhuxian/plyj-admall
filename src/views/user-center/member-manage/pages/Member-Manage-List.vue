@@ -112,6 +112,7 @@
                     ref="dateRange"
                 />
             </el-form-item>
+            <br>
             <el-form-item>
                 <el-button
                     round
@@ -775,7 +776,7 @@ export default class MemberManageList extends Vue {
             align-items: center;
             justify-content: space-between;
             height: 61px;
-            padding: 0 6px;
+            padding: 0 16px;
             border-bottom: 1px solid #ddd;
         }
 
@@ -852,6 +853,7 @@ export default class MemberManageList extends Vue {
                 height: 40px;
                 margin-right: 12px;
                 border-radius: 14px;
+                object-fit: cover;
             }
             .info {
                 display: inline-block;

@@ -146,7 +146,7 @@
                             |
                         </template>
                         <a
-                            @click="$router.push({ name: 'HelperDetail', params: { id: row.id, roleCode: 'HELPER', fromRouteName: routeName }, query: { from: 'audit' } })"
+                            @click="$router.push({ name: 'HelperDetail', params: { id: row.id, roleCode: 'HELPER', fromRouteName: routeName }, query: { from: 'audit', currentStatus } })"
                         >
                             详情
                         </a>
@@ -308,10 +308,10 @@ export default class HelperReviewList extends Vue {
   /* 驳回申请理由 */
   rejectReason = ''
   currentRoleCode = ''
-  currentStatus = ''
+  currentStatus: any = ''
 
   async created () {
-      this.currentStatus = 'AWAIT'
+      this.currentStatus = this.$route.query.currentStatus || 'AWAIT'
       this.routeName = this.$route.name || ''
       this.form.auditStatus = this.currentStatus
       this.form.auditFlag = Boolean(this.form.auditStatus)
