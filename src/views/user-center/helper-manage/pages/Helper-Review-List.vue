@@ -113,7 +113,7 @@
             <el-table-column label="审核状态">
                 <template>
                     <span v-if="currentStatus === 'AWAIT'">待审核</span>
-                    <span v-else-if="currentStatus === 'PASS'">正常（已论证）</span>
+                    <span v-else-if="currentStatus === 'PASS'">审核通过</span>
                     <span v-else-if="currentStatus === 'REJECT'">驳回</span>
                 </template>
             </el-table-column>
