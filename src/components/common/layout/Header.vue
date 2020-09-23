@@ -1,7 +1,13 @@
 <template>
     <header :class="$style.header">
         <div :class="$style.left">
-            <el-breadcrumb v-if="$route.matched.length" separator-class="el-icon-arrow-right">
+            <h1 v-if="$route.name === 'Home'" class="fz-16">
+                {{ mallName }}
+            </h1>
+            <el-breadcrumb
+                v-else-if="$route.matched.length"
+                separator-class="el-icon-arrow-right"
+            >
                 <template
                     v-for="(route, i) of $route.matched"
                 >
@@ -14,7 +20,10 @@
                     </el-breadcrumb-item>
                 </template>
             </el-breadcrumb>
-            <el-breadcrumb v-else-if="childRoute" separator-class="el-icon-arrow-right">
+            <el-breadcrumb
+                v-else-if="childRoute"
+                separator-class="el-icon-arrow-right"
+            >
                 <template v-for="(route, i) of childRoute.matched">
                     <el-breadcrumb-item
                         :key="i"
@@ -43,7 +52,7 @@
                                 <button v-clipboard:copy="mallUrl" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</button>
                             </div>
                             <img :src="mallQrcode" alt="">
-                            <div style="text-align: center">手机扫描可直接查看店铺</div>
+                            <div style="text-align: center">微信扫描可直接查看店铺</div>
                         </div>
                     </div>
                 </transition>
@@ -66,44 +75,33 @@
                 <i :class="$style.mark" />
             </router-link>
 
-            <el-dropdown
-                trigger="hover"
-                @command="command"
-            >
-                <div :class="$style.userInfo">
-                    <img
-                        :class="$style.avatar"
-                        src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png"
-                        alt="avatar"
-                    >
-                    <div class="user-info-right">
+            <div :class="$style.user">
+                <img
+                    :class="$style.avatar"
+                    src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png"
+                    alt="avatar"
+                >
+                <span :class="$style.mobile">{{ bindPhone | formatAccount }}</span>
+                <span class="el-icon-arrow-right fz-12" />
+                <div :class="$style.pop">
+                    <div :class="$style.popItem" class="pointer">
+                        切换店铺
+                    </div>
+                    <div :class="$style.popItem">
+                        <div>登录账户</div>
                         <div>
-                            <span v-if="mallName">{{ mallName }}</span>
-                            <span class="phone">
-                                {{ bindPhone | formatAccount }}
-                            </span>
-                            <span class="el-icon-arrow-right fz-12" />
-                        </div>
-                        <div>
-                            <span
-                                :class="$style.auth"
-                                v-if="auditStatus"
-                            >
-                                {{ auditStatus | agencyStatus }}
-                            </span>
-                            <span class="level">企业等级：1</span>
+                            <div>超级管理员</div>
+                            <div>{{ bindPhone | formatAccount }}</div>
                         </div>
                     </div>
-                </div>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="modify">
-                        修改密码
-                    </el-dropdown-item>
-                    <el-dropdown-item command="logout">
+                    <div :class="$style.popItem" class="pointer" @click="logout">
                         退出登录
-                    </el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
+                    </div>
+                    <div :class="$style.popItem" class="pointer" @click="modify">
+                        修改密码
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 </template>
@@ -156,6 +154,18 @@ export default class Header extends Vue {
     onError () {
         this.$warning('复制失败')
     }
+
+    // 退出登录
+    async logout () {
+        await this.$confirm('您确定退出登录吗？')
+        await this.LOGOUT()
+        await this.$router.push({ name: 'PhoneLogin' })
+    }
+
+    // 修改密码
+    modify () {
+        this.$router.push({ name: 'ModifyPassword' })
+    }
 }
 </script>
 
@@ -189,26 +199,46 @@ export default class Header extends Vue {
                 border-radius: 2px;
             }
         }
-        .user-info {
+        .user {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid $--color-gray-5;
+        }
+        .avatar {
+            width: 20px;
+            height: 20px;
+            margin-right: 4px;
+        }
+        .mobile {
+            font-size: 14px;
+        }
+        .pop {
+            position: absolute;
+            right: 0;
+            top: 26px;
+            width: 226px;
+            background-color: #fff;
+            z-index: 10;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
+        }
+        .pop-item {
             display: flex;
             align-items: center;
-            height: 50px;
-            padding: 0 20px;
-            .avatar {
-                width: 20px;
-                height: 20px;
-                margin-right: 4px;
-            }
-            .auth {
-                display: inline-block;
-                height: 16px;
-                margin-right: 12px;
-                padding: 0 7px;
-                font-size: 12px;
-                text-align: center;
-                line-height: 16px;
+            padding: 10px 20px;
+            &:hover {
+                background-color: $--color-primary-blue;
                 color: #fff;
-                background-color: #4F63FF;
+            }
+            > div {
+                margin-right: 34px;
+                display: inline-flex;
+                flex-direction: column;
+                &:nth-last-of-type(1) {
+                    margin-right: 0;
+                }
             }
         }
     }
