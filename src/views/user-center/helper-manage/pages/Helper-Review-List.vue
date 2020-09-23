@@ -111,13 +111,13 @@
                 </template>
             </el-table-column>
             <el-table-column label="审核状态">
-                <template slot-scope="{row}">
-                    <span v-if="row.auditStatus === 'AWAIT'">待审核</span>
-                    <span v-else-if="row.auditStatus === 'PASS'">正常（已论证）</span>
-                    <span v-else-if="row.auditStatus === 'REJECT'">驳回</span>
+                <template>
+                    <span v-if="currentStatus === 'AWAIT'">待审核</span>
+                    <span v-else-if="currentStatus === 'PASS'">正常（已论证）</span>
+                    <span v-else-if="currentStatus === 'REJECT'">驳回</span>
                 </template>
             </el-table-column>
-            <el-table-column label="申请时间" prop="applyTime" />
+            <el-table-column label="申请时间" prop="createTime" />
             <el-table-column v-if="currentStatus !== 'AWAIT'" label="审核时间" prop="auditTime" />
             <el-table-column
                 v-if="currentStatus === 'REJECT'"
