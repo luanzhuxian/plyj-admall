@@ -18,6 +18,7 @@
                     placeholder="请输入备注"
                     v-model="content"
                     maxlength="500"
+                    show-word-limit
                 />
             </el-form-item>
         </el-form>
