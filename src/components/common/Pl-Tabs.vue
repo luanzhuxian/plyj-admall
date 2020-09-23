@@ -1,6 +1,18 @@
 <template>
     <el-tabs class="pl-tabs" :value="value" @tab-click="handleClick">
-        <el-tab-pane v-for="item in tabs" :key="item.name" :label="item.label" :name="item.name" />
+        <el-tab-pane v-for="item in tabs" :key="item.name" :name="item.name">
+            <span slot="label">
+                {{ item.label }}
+                <el-tooltip
+                    v-if="item.content"
+                    effect="dark"
+                    :content="item.content"
+                    placement="top-start"
+                >
+                    <i class="el-icon-info" />
+                </el-tooltip>
+            </span>
+        </el-tab-pane>
     </el-tabs>
 </template>
 

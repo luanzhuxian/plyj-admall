@@ -69,6 +69,13 @@
         <div class="container bg-white mt-20">
             <p class="title">
                 备注用户信息
+                <el-tooltip
+                    effect="dark"
+                    content="机构可备注用户的姓名、电话等基本信息，仅机构员工可见。"
+                    placement="top-start"
+                >
+                    <i class="el-icon-info" />
+                </el-tooltip>
                 <template v-if="!isEdit">
                     <el-button type="text" @click="edit">编辑</el-button>
                 </template>
@@ -921,8 +928,8 @@ export default class MemberManageDetail extends Vue {
 
     // 用户行为数据Tab
     Tab_List = [
-        { name: 'OrderList', label: '购买记录' },
-        { name: 'ShareList', label: '分享记录' },
+        { name: 'OrderList', label: '购买记录', content: '购买记录，是该用户在机构店铺中自行购买课程、商品、直播等的订单记录信息。' },
+        { name: 'ShareList', label: '分享记录', content: '分享订单记录，是该用户将机构店铺中的课程、商品、直播等分享给好友，好友购买成功后与该用户相关的分享订单记录信息。' },
         { name: 'LiveWatchList', label: '直播观看记录' },
         { name: 'LineLearningList', label: '云课堂学习进度' },
         { name: 'RemarkList', label: '备注' }
