@@ -146,7 +146,7 @@
 
 <script>
 import Agreement from '../../../../components/register/Agreement'
-import { retryFalidOrder } from '../../../../apis/live'
+import { retryFalidOrder } from '../../../../product-center/line-teaching/live'
 import { getBaseMarket, getMarketPayCode, getMarketPayStatus } from '../../../../apis/marketing-manage/gameplay'
 import { mapActions } from 'vuex'
 import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
@@ -304,283 +304,289 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .main-form {
+.main-form {
     margin-top: 32px;
 
     ::v-deep .el-form-item__label {
-      padding-left: 30px !important;
+        padding-left: 30px !important;
     }
-  }
-  .pay-content-box {
+}
+.pay-content-box {
     margin: 20px 26px 76px 80px;
     padding-bottom: 76px;
     background-color: #fff;
 
     .content-title {
-      display: flex;
-      align-items: center;
-      margin-bottom: 24px;
-      height: 60px;
-      margin-top: 37px;
-      padding-left: 30px;
-      font-size: 14px;
-      font-weight: bold;
-      border-top: 1px solid #e7e7e7;
-      background-color: #fbfbfb;
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        height: 60px;
+        margin-top: 37px;
+        padding-left: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        border-top: 1px solid #e7e7e7;
+        background-color: #fbfbfb;
     }
 
     .precautions {
-      padding-left: 24px;
-      font-size: 14px;
-      font-weight: 400;
-      color: #ec742e;
+        padding-left: 24px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #ec742e;
     }
 
     .description {
-      font-size: 14px;
-      font-weight: 400;
-      color: #333;
+        font-size: 14px;
+        font-weight: 400;
+        color: #333;
     }
 
     .inter-item {
-      position: relative;
-      width: 300px;
-      height: 156px;
-      padding: 15px 0 20px 24px;
-      margin-right: 34px;
-      margin-bottom: 32px;
-      background-color: #fff;
-      box-shadow: 0 4px 12px rgba(0, 34, 61, .2);
-      cursor: pointer;
+        position: relative;
+        width: 300px;
+        height: 156px;
+        padding: 15px 0 20px 24px;
+        margin-right: 34px;
+        margin-bottom: 32px;
+        background-color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 34, 61, .2);
+        cursor: pointer;
 
-      .inter-item-content {
-        position: absolute;
-        left: 15px;
-        top: 20px;
-        z-index: 1;
+        .inter-item-content {
+            position: absolute;
+            left: 15px;
+            top: 20px;
+            z-index: 1;
 
-        h1 {
-          margin-bottom: 8px;
-          font-size: 16px;
-          color: #333;
-          cursor: pointer;
+            h1 {
+                margin-bottom: 8px;
+                font-size: 16px;
+                color: #333;
+                cursor: pointer;
+            }
+
+            p {
+                color: #999;
+                font-size: 12px;
+                line-height: 16px;
+
+                &.active {
+                    color: #598bf8;
+                }
+
+                &.deactive {
+                    color: #999;
+                }
+
+                &.expired-deactive {
+                    color: #ccc;
+                }
+            }
+
+            .desc {
+                width: 132px;
+                margin-bottom: 18px;
+            }
         }
 
-        p {
-          color: #999;
-          font-size: 12px;
-          line-height: 16px;
-
-          &.active {
-            color: #598bf8;
-          }
-
-          &.deactive {
-            color: #999;
-          }
-
-          &.expired-deactive {
-            color: #ccc;
-          }
+        .inter-item-icon {
+            position: absolute;
+            top: 15px;
+            right: 0;
+            width: 112px;
+            height: 121px;
         }
 
-        .desc {
-          width: 132px;
-          margin-bottom: 18px;
+        .inter-icon {
+            display: inline-block;
+            top: 0;
+            width: 112px;
+            height: 121px;
+            background-size: 100%;
+
+            &:before {
+                display: none;
+            }
         }
-      }
 
-      .inter-item-icon {
-        position: absolute;
-        top: 15px;
-        right: 0;
-        width: 112px;
-        height: 121px;
-      }
-
-      .inter-icon {
-        display: inline-block;
-        top: 0;
-        width: 112px;
-        height: 121px;
-        background-size: 100%;
-
-        &:before {
-          display: none;
+        .icon-course-package {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/course-package.png');
         }
-      }
 
-      .icon-course-package {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/course-package.png');
-      }
+        .icon-seckill {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_couponpng.png');
+        }
 
-      .icon-seckill {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_couponpng.png');
-      }
+        .icon-group-buy {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_assemble.png');
+        }
 
-      .icon-group-buy {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_assemble.png');
-      }
+        .icon-new-year-group-buy {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/973e5a2a-0849-4caa-9c4a-5877abed78c7.png');
+        }
 
-      .icon-new-year-group-buy {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/973e5a2a-0849-4caa-9c4a-5877abed78c7.png');
-      }
+        .icon-pre-buy {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_make ap.png');
+        }
 
-      .icon-pre-buy {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_make ap.png');
-      }
+        .icon-new-year-pre-buy {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/f0769311-f3f4-48a4-9e36-5a1df2079ce0.png');
+        }
 
-      .icon-new-year-pre-buy {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/f0769311-f3f4-48a4-9e36-5a1df2079ce0.png');
-      }
+        .icon-longmen-course-package {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/龙门组合聚会学.png');
+        }
+        .icon-longmen-seckill {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/龙门节秒杀.png');
+        }
 
-      .icon-longmen-course-package {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/龙门组合聚会学.png');
-      }
-      .icon-longmen-seckill {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/龙门节秒杀.png');
-      }
+        /*.icon-longmen-sign {*/
+        /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/longmen-sign.png');*/
+        /*}*/
 
-      /*.icon-longmen-sign {*/
-      /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/longmen-sign.png');*/
-      /*}*/
+        /*.icon-public-benefit {*/
+        /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/public-benefit.png');*/
+        /*}*/
 
-      /*.icon-public-benefit {*/
-      /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/public-benefit.png');*/
-      /*}*/
+        /*.icon-logmen-festival {*/
+        /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/logmen-festival.png');*/
+        /*}*/
 
-      /*.icon-logmen-festival {*/
-      /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/logmen-festival.png');*/
-      /*}*/
-
-      &.bg-longmen-sign {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景签到.png');
-      }
-      &.bg-public-benefit {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景公益.png');
-      }
-      &.bg-logmen-festival {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景抽奖.png');
-      }
-      &.bg-second-buy {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景秒杀.png');
-      }
-      &.bg-together-buy {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景团购.png');
-      }
-      &.bg-booking-buy {
-        background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景预购.png');
-      }
+        &.bg-longmen-sign {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景签到.png');
+        }
+        &.bg-public-benefit {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景公益.png');
+        }
+        &.bg-logmen-festival {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景抽奖.png');
+        }
+        &.bg-second-buy {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景秒杀.png');
+        }
+        &.bg-together-buy {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景团购.png');
+        }
+        &.bg-booking-buy {
+            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景预购.png');
+        }
     }
 
-    .bg-longmen-sign,.bg-public-benefit,.bg-logmen-festival{
-      .inter-item-content{
-        h1,.desc{
-          color: #ffffff;
+    .bg-longmen-sign,
+    .bg-public-benefit,
+    .bg-logmen-festival {
+        .inter-item-content {
+            h1,
+            .desc {
+                color: #fff;
+            }
+            p {
+                &.count {
+                    color: #fde700;
+                }
+                &.expired {
+                    color: #03b1cc;
+                }
+            }
         }
-        p{
-          &.count{
-            color: #FDE700;
-          }
-          &.expired{
-            color: #03B1CC;
-          }
-        }
-      }
     }
 
-    .bg-second-buy,.bg-together-buy,.bg-booking-buy{
-      .inter-item-content{
-        h1,.desc{
-          color: #ffffff;
+    .bg-second-buy,
+    .bg-together-buy,
+    .bg-booking-buy {
+        .inter-item-content {
+            h1,
+            .desc {
+                color: #fff;
+            }
+            p {
+                &.count {
+                    color: #fff;
+                }
+                &.expired {
+                    color: #fff;
+                }
+            }
         }
-        p{
-          &.count{
-            color: #ffffff;
-          }
-          &.expired{
-            color: #ffffff;
-          }
-        }
-      }
     }
 
     .price-box {
-      padding-bottom: 22px;
-      font-size: 36px;
-      font-weight: bold;
-      color: #ec742e;
+        padding-bottom: 22px;
+        font-size: 36px;
+        font-weight: bold;
+        color: #ec742e;
     }
 
     .buy {
-      width: 325px;
-      height: 48px;
-      margin-top: 18px;
-      font-size: 14px;
+        width: 325px;
+        height: 48px;
+        margin-top: 18px;
+        font-size: 14px;
     }
 
     .pay-wechat {
-      width: 164px;
-      height: 56px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 2px solid #598bf8;
-      font-size: 18px;
-      color: #333;
-      font-weight: 400;
+        width: 164px;
+        height: 56px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #598bf8;
+        font-size: 18px;
+        color: #333;
+        font-weight: 400;
 
-      svg {
-        margin-right: 16px;
-      }
+        svg {
+            margin-right: 16px;
+        }
     }
 
     .order-information {
-      width: 633px;
-      padding: 24px 0 12px;
-      background: #f8f8f8;
+        width: 633px;
+        padding: 24px 0 12px;
+        background: #f8f8f8;
 
-      .information-label {
-        display: flex;
-        justify-content: flex-end;
-        font-size: 18px;
-        font-weight: 400;
-        color: #666;
-      }
+        .information-label {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 18px;
+            font-weight: 400;
+            color: #666;
+        }
 
-      .information-description {
-        padding-left: 20px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-      }
+        .information-description {
+            padding-left: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
     }
 
     .pay-code {
-      text-align: center;
+        text-align: center;
 
-      .p18 {
-        font-size: 18px;
-      }
+        .p18 {
+            font-size: 18px;
+        }
 
-      .p20 {
-        font-size: 20px;
-      }
+        .p20 {
+            font-size: 20px;
+        }
 
-      img {
-        width: 200px;
-      }
+        img {
+            width: 200px;
+        }
 
-      .button {
-        margin-top: 20px;
-      }
+        .button {
+            margin-top: 20px;
+        }
 
-      .prcie {
-        margin-top: 5px;
-        color: #ec742e;
-        font-weight: bold;
-      }
+        .prcie {
+            margin-top: 5px;
+            color: #ec742e;
+            font-weight: bold;
+        }
     }
-  }
+}
 
 </style>

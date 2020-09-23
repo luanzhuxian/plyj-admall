@@ -50,23 +50,37 @@
     position: absolute;
 }
 
-// navBar
-.navBar-enter-active,
-.navBar-leave-active {
+// fade-left
+.fade-left-enter-active,
+.fade-left-leave-active {
     transition: all .4s;
 }
-
-.navBar-enter,
-.navBar-leave-active {
+.fade-left-enter,
+.fade-left-leave-active {
     opacity: 0;
     transform: translateX(-40px);
 }
-
-.navBar-move {
+.fade-left-move {
     transition: all .4s;
 }
+.fade-left-leave-active {
+    position: absolute;
+}
 
-.navBar-leave-active {
+// fade-right
+.fade-right-enter-active,
+.fade-right-leave-active {
+    transition: all .4s;
+}
+.fade-right-enter,
+.fade-right-leave-active {
+    opacity: 0;
+    transform: translateX(50px);
+}
+.fade-right-move {
+    transition: all .4s;
+}
+.fade-right-leave-active {
     position: absolute;
 }
 

@@ -162,7 +162,7 @@ import SchemeLabel from './../../../marketing-manage/components/Scheme-Label.vue
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 import OnlinePack from './../compoonents/Online-Pack.vue'
 
-import { getRoomStatus } from './../../../../apis/live'
+import { getRoomStatus } from './../../../../apis/product-center/line-teaching/live'
 import { getLineTeachingInfo } from './../../../../apis/product-center/line-teaching/knowledge-course'
 
 @Component({
@@ -257,7 +257,7 @@ export default class FunctionPack extends Vue {
         background-color: #999;
         cursor: pointer;
     }
-    .mask  {
+    .mask {
         position: fixed;
         top: 0;
         right: 0;
@@ -265,13 +265,13 @@ export default class FunctionPack extends Vue {
         left: 0;
         z-index: 99999;
         padding-top: calc(50vh - 100px);
-        background-color:rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, .5);
         .tip {
             margin: 0 auto;
             width: 512px;
             height: 210px;
             padding: 45px 55px;
-            background-color: #FFF;
+            background-color: #fff;
             text-align: center;
             > .desc {
                 font-size: 16px;
@@ -320,7 +320,7 @@ export default class FunctionPack extends Vue {
                     display: inline-block;
                     margin-left: 32px;
                     font-size: 32px;
-                    content: 'G'
+                    content: 'G';
                 }
                 > .desc {
                     margin-top: 6px;
