@@ -9,7 +9,7 @@
             />
         </el-tabs>
         <search-box>
-            <el-form-item label="关键词：">
+            <el-form-item label="关键字：">
                 <el-input
                     clearable
                     v-model.trim="form.keyword"
@@ -100,7 +100,7 @@
             </el-table-column>
             <el-table-column
                 prop="mobile"
-                label="手机（账户）"
+                label="手机号（账户）"
             />
             <el-table-column
                 label="所属账号"

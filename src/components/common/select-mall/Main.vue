@@ -106,7 +106,8 @@ export default class SelectMall extends Vue {
     createMall () {
         this.$emit('confirm', {
             roleCode: 'ENTERPRISE_ADMIN',
-            agencyCode: this.enterpriseAdminId
+            agencyCode: this.enterpriseAdminId,
+            mallId: ''
         })
         this.show = false
     }

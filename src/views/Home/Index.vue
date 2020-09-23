@@ -335,9 +335,7 @@ export default class Home extends Vue {
 
     async created () {
         try {
-            if (this.agencyList.length && this.agencyList[0].enterpriseName) {
-                await this.getHomeInfo()
-            }
+            await this.getHomeInfo()
         } catch (e) {
             throw e
         }

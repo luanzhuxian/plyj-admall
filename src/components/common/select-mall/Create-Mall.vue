@@ -197,7 +197,7 @@ export default class CreateMall extends Vue {
         ]
         delete this.mallInfoForm.contactWay
         await this.createMall(this.mallInfoForm)
-        this.createdMallShow = false
+        this.close()
         let countdown = 3
         let success = this.$success(`保存成功！${ countdown }秒后刷新`)
         setInterval(() => {
@@ -216,6 +216,8 @@ export default class CreateMall extends Vue {
         this.mallInfoForm.contactWay = val
     }
 
+    // 1057573777392603136
+    // 1348853
     // 切换联系方式
     contactWayTypeChange (val: string) {
         this.mallInfoFormRules.contactWay.splice(1, 1, {

@@ -92,7 +92,7 @@
                         <div :class="$style.popItem">
                             <div>登录账户</div>
                             <div>
-                                <div>超级管理员</div>
+                                <div>{{ roleMap[currentRoleCode] }}</div>
                                 <div>{{ bindPhone | formatAccount }}</div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        <CreateMall :created-mall-show="showCreateMall" />
+        <CreateMall :created-mall-show.sync="showCreateMall" />
     </header>
 </template>
 
@@ -134,7 +134,9 @@ export default class Header extends Vue {
     @userModule.Getter('bindPhone') bindPhone!: string
     @userModule.Getter('auditStatus') auditStatus!: string
     @userModule.Getter('mallUrl') mallUrl!: string
+    @userModule.Getter('currentRoleCode') currentRoleCode!: string
     @Getter('childRoute') childRoute!: any
+    @Getter('roleMap') roleMap!: any
 
     @userModule.Mutation('LOGOUT') LOGOUT!: Function
     @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
@@ -189,8 +191,12 @@ export default class Header extends Vue {
 
     async selectMallBtn () {
         await this.getAgencyList(true)
-        const { changed } = await this.selectMall()
-        console.log(changed)
+        const { changed, mallId } = await this.selectMall()
+        if (!mallId) {
+            // 创建店铺
+            this.showCreateMall = true
+            return
+        }
         if (changed) {
             location.reload()
         }

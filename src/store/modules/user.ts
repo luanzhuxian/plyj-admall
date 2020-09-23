@@ -181,18 +181,14 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
         // 缓存当前机构
         [types.SET_CURRENT_AGENCY]: (state, payload) => {
-            if (payload.agencyCode) {
-                state.agencyCode = payload.agencyCode
-                Cookie.set('agencyCode', payload.agencyCode, {
-                    expires: CalcCookieTime(state.loginInfo.expire)
-                })
-            }
-            if (payload.mallId) {
-                state.mallId = payload.mallId
-                Cookie.set('mallId', payload.mallId, {
-                    expires: CalcCookieTime(state.loginInfo.expire)
-                })
-            }
+            state.agencyCode = payload.agencyCode || ''
+            Cookie.set('agencyCode', payload.agencyCode, {
+                expires: CalcCookieTime(state.loginInfo.expire)
+            })
+            state.mallId = payload.mallId || ''
+            Cookie.set('mallId', payload.mallId, {
+                expires: CalcCookieTime(state.loginInfo.expire)
+            })
         },
         [types.V_MERCHANT_STATUS]: (state, payload) => {
             if (payload) {
