@@ -150,10 +150,10 @@
                             <el-radio-group class="mr-20" v-model="addMemberDetailForm.type">
                                 <el-radio :label="1">家长</el-radio>
                                 <el-radio :label="2">学生</el-radio>
-                                <el-radio :label="3">其他</el-radio>
+                                <el-radio :label="3">{{ addMemberDetailForm.type === 3? '' : '其他' }}</el-radio>
                             </el-radio-group>
                         </el-form-item>
-                        <el-form-item v-show="addMemberDetailForm.type === 3">
+                        <el-form-item style="margin-left: -70px;" v-show="addMemberDetailForm.type === 3">
                             <el-input
                                 clearable
                                 placeholder="请输入用户身份"
