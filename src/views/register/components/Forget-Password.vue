@@ -118,7 +118,8 @@ export default class ForgetPassword extends Vue {
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
                 this.loading = true
-                await forgetPassword(this.form)
+                const data = await forgetPassword(this.form)
+                if (!data) return this.$error('操作失败')
                 this.$router.replace({ name: 'ResetPassword', params: { code: `${ this.form.mobile }&${ this.form.verifyCode }` } })
             } catch (e) {
                 // this.refreshSafeCode()

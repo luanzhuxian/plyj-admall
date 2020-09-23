@@ -44,6 +44,7 @@
                 完善资料，进入雅集
             </el-button>
         </div>
+        <Agreement :show.sync="showAgreement" type="1" />
     </div>
 </template>
 
