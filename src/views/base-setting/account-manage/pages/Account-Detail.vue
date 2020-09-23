@@ -1,321 +1,311 @@
 <template>
     <div class="account-single">
         <el-row class="mt-20">
-            <el-col
-                :offset="4"
-                :span="16"
-            >
-                <el-card class="box-card">
-                    <div
-                        slot="header"
-                        class="clearfix"
-                    />
-                    <div class="title font-18 font-weight-bold pb-20 edit-box">
-                        <span>{{ single.roleName }} </span>
-                        <el-button type="primary" plain v-if="selfEdit || canEdit" :disabled="!single.lockStatus" @click="edit">
-                            编辑
-                        </el-button>
-                    </div>
-                    <el-form label-position="left">
-                        <el-form-item
-                            class="mb-1"
-                            label-width="80px"
+            <el-card class="box-card">
+                <div
+                    slot="header"
+                    class="clearfix"
+                />
+                <div class="title font-18 font-weight-bold pb-20 edit-box">
+                    <span>{{ single.roleName }} </span>
+                    <el-button type="primary" plain v-if="selfEdit || canEdit" :disabled="!single.lockStatus" @click="edit">
+                        编辑
+                    </el-button>
+                </div>
+                <el-form label-position="left">
+                    <el-form-item
+                        class="mb-1"
+                        label-width="80px"
+                    >
+                        <img
+                            class="rounded-circle"
+                            style="width: 62px;height: 62px;border-radius: 50%;"
+                            :src="single.avatarUrl"
+                            slot="label"
                         >
-                            <img
-                                class="rounded-circle"
-                                style="width: 62px;height: 62px;border-radius: 50%;"
-                                :src="single.avatarUrl"
-                                slot="label"
-                            >
-                            <div class="pl-0_25">
-                                <div class="font-18 font-weight-bold">
-                                    {{ single.realName }} <span style="font-weight: 400">({{ single.lockStatus? '开启':'禁用' }})</span>
-                                </div>
-                                <div class="font-16">
-                                    {{ single.position }}
-                                </div>
-                            </div>
-                        </el-form-item>
-                        <!--            <el-form-item class="mb-10">-->
-                        <!--              <div-->
-                        <!--                slot="label"-->
-                        <!--                class="font-16"-->
-                        <!--              >-->
-                        <!--                身份证号:-->
-                        <!--              </div>-->
-                        <!--              <div class="font-16">-->
-                        <!--                {{ single.idCard }}-->
-                        <!--              </div>-->
-                        <!--            </el-form-item>-->
-                        <el-form-item class="mb-10">
-                            <div
-                                slot="label"
-                                class="font-16"
-                            >
-                                昵称:
-                            </div>
-                            <div class="font-16">
-                                {{ single.nickName }}
-                            </div>
-                        </el-form-item>
-                        <el-form-item class="mb-10">
-                            <div
-                                slot="label"
-                                class="font-16"
-                            >
-                                职位:
+                        <div class="pl-0_25">
+                            <div class="font-18 font-weight-bold">
+                                {{ single.realName }} <span style="font-weight: 400">({{ single.lockStatus? '开启':'禁用' }})</span>
                             </div>
                             <div class="font-16">
                                 {{ single.position }}
                             </div>
-                        </el-form-item>
-                        <el-form-item class="mb-10">
-                            <div
-                                slot="label"
-                                class="font-16"
-                            >
-                                联系方式:
-                            </div>
-                            <div class="font-16">
-                                {{ single.mobile }}
-                            </div>
-                        </el-form-item>
-                        <el-form-item class="mb-10">
-                            <div
-                                slot="label"
-                                class="font-16"
-                            >
-                                创建时间:
-                            </div>
-                            <div class="font-16">
-                                {{ single.createTime }}
-                            </div>
-                        </el-form-item>
-                        <el-form-item class="mb-10">
-                            <div
-                                slot="label"
-                                class="font-16"
-                            >
-                                管理权限:
-                            </div>
-                            <div class="font-16">
-                                <el-button type="text" @click="viewTree" v-if="selfEdit || canEdit">
-                                    查看
-                                </el-button>
-                            </div>
-                        </el-form-item>
-                    </el-form>
-                </el-card>
-            </el-col>
+                        </div>
+                    </el-form-item>
+                    <!--            <el-form-item class="mb-10">-->
+                    <!--              <div-->
+                    <!--                slot="label"-->
+                    <!--                class="font-16"-->
+                    <!--              >-->
+                    <!--                身份证号:-->
+                    <!--              </div>-->
+                    <!--              <div class="font-16">-->
+                    <!--                {{ single.idCard }}-->
+                    <!--              </div>-->
+                    <!--            </el-form-item>-->
+                    <el-form-item class="mb-10">
+                        <div
+                            slot="label"
+                            class="font-16"
+                        >
+                            昵称:
+                        </div>
+                        <div class="font-16">
+                            {{ single.nickName }}
+                        </div>
+                    </el-form-item>
+                    <el-form-item class="mb-10">
+                        <div
+                            slot="label"
+                            class="font-16"
+                        >
+                            职位:
+                        </div>
+                        <div class="font-16">
+                            {{ single.position }}
+                        </div>
+                    </el-form-item>
+                    <el-form-item class="mb-10">
+                        <div
+                            slot="label"
+                            class="font-16"
+                        >
+                            联系方式:
+                        </div>
+                        <div class="font-16">
+                            {{ single.mobile }}
+                        </div>
+                    </el-form-item>
+                    <el-form-item class="mb-10">
+                        <div
+                            slot="label"
+                            class="font-16"
+                        >
+                            创建时间:
+                        </div>
+                        <div class="font-16">
+                            {{ single.createTime }}
+                        </div>
+                    </el-form-item>
+                    <el-form-item class="mb-10">
+                        <div
+                            slot="label"
+                            class="font-16"
+                        >
+                            管理权限:
+                        </div>
+                        <div class="font-16">
+                            <el-button type="text" @click="viewTree" v-if="selfEdit || canEdit">
+                                查看
+                            </el-button>
+                        </div>
+                    </el-form-item>
+                </el-form>
+            </el-card>
         </el-row>
         <el-row class="mt-20">
-            <el-col
-                :offset="4"
-                :span="16"
-            >
-                <el-card class="box-card">
-                    <!-- <div class="title font-18 font-weight-bold border-bottom pb-20">
+            <el-card class="box-card">
+                <!-- <div class="title font-18 font-weight-bold border-bottom pb-20">
             <span>发展Helper</span>
             <span class="text-info font-weight-normal"> ( {{ total }} 人)</span>
           </div> -->
-                    <el-tabs v-model="activeTab" @tab-click="getActiveTabList">
-                        <el-tab-pane :label="`发展Helper ( ${total} ) 人`" name="Helper">
-                            <el-table :data="helpers">
-                                <el-table-column
-                                    prop="userId"
-                                    label="ID"
-                                    width="170"
-                                />
-                                <el-table-column label="头像">
-                                    <template #default="{ row }">
-                                        <img
-                                            class="rounded-circle"
-                                            style="height:62px;"
-                                            :src="row.avatarUrl"
-                                            alt=""
-                                        >
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="realName"
-                                    label="真实姓名"
-                                />
-                                <el-table-column
-                                    prop="createTime"
-                                    label="时间"
-                                    width="160"
-                                />
-                                <el-table-column
-                                    width="190"
-                                >
-                                    <template slot-scope="{row}">
-                                        <el-button size="mini" @click="showChangeBelongBox(row.userId,row.ownnerUserId)">
-                                            更改所属账号
-                                        </el-button>
-                                        <el-button @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: 'HelperList' }, query: { from: 'HelperList' } })">
-                                            查看
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                            <Pagination v-show="total" :total="total" :size="listForm.size" v-model="listForm.current" @change="getHelperList" />
-                        </el-tab-pane>
-                        <el-tab-pane :label="`订单总量 ( ${orderTotal} ) 单`" name="Order">
-                            <el-form class="wrap border-bottom order-form" label-width="82px" :inline="true">
-                                <el-form-item class="mb-10 ipt">
-                                    <el-input
-                                        v-model="orderForm.condition"
-                                        placeholder="请输入订单号,商品名称,helper"
-                                        clearable
-                                        @change="e => { orderForm.current = 1; getOrderList(e) }"
-                                    />
-                                </el-form-item>
-                                <el-form-item class="mb-10" label-width="89px" label="订单来源：">
-                                    <el-select style="width: 140px;" v-model="orderForm.orderSource" @change="e => { orderForm.current = 1; getOrderList(e) }" clearable>
-                                        <el-option v-for="item of orderResource" :value="item.value" :key="item.value" :label="item.label" />
-                                    </el-select>
-                                </el-form-item>
-                                <el-form-item class="mb-10" label-width="87px" label="订单类型：">
-                                    <el-select style="width: 140px;" v-model="orderForm.orderType" @change="e => { orderForm.current = 1; getOrderList(e) }" clearable>
-                                        <el-option v-for="item of orderStatus" :value="item.value" :key="item.value" :label="item.label" />
-                                    </el-select>
-                                </el-form-item>
-                                <el-form-item label="下单时间：" class="mb-10">
-                                    <date-range
-                                        @change="e => { orderForm.current = 1; orderDateChange(e) }"
-                                        disable-after
-                                        clearable
-                                        ref="dateRange"
-                                    />
-                                </el-form-item>
-                                <el-form-item class="mr-10 mb-10">
-                                    <el-button type="primary" style="width:98px;" @click="getOrderList">
-                                        查询
-                                    </el-button>
-                                    <el-button
-                                        class="button"
-                                        type="primary"
-                                        plain
-                                        @click="changeExport"
+                <el-tabs v-model="activeTab" @tab-click="getActiveTabList">
+                    <el-tab-pane :label="`发展Helper ( ${total} ) 人`" name="Helper">
+                        <el-table :data="helpers">
+                            <el-table-column
+                                prop="userId"
+                                label="ID"
+                                width="170"
+                            />
+                            <el-table-column label="头像">
+                                <template #default="{ row }">
+                                    <img
+                                        class="rounded-circle"
+                                        style="height:62px;"
+                                        :src="row.avatarUrl"
+                                        alt=""
                                     >
-                                        导出数据
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="realName"
+                                label="真实姓名"
+                            />
+                            <el-table-column
+                                prop="createTime"
+                                label="时间"
+                                width="160"
+                            />
+                            <el-table-column
+                                width="190"
+                            >
+                                <template slot-scope="{row}">
+                                    <el-button size="mini" @click="showChangeBelongBox(row.userId,row.ownnerUserId)">
+                                        更改所属账号
                                     </el-button>
-                                </el-form-item>
-                            </el-form>
-                            <el-table @row-click="orderRowClick" ref="table" :data="orders">
-                                <el-table-column
-                                    width="1"
-                                    class-name="expand-row"
-                                    type="expand"
-                                >
-                                    <template slot-scope="{ row }">
-                                        <el-table
-                                            :show-header="false"
-                                            :data="row.products"
-                                            :border="false"
-                                            :cell-style="{ border: 'none' }"
-                                        >
-                                            <el-table-column width="180" />
-                                            <el-table-column width="100" prop="productName" />
-                                            <el-table-column
-                                                prop="count"
-                                                width="80"
-                                            />
-                                            <el-table-column
-                                                prop="price"
-                                            >
-                                                <template slot-scope="item">
-                                                    <span>{{ item.row.price }}</span>
-                                                </template>
-                                            </el-table-column>
-                                        </el-table>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="orderId"
-                                    label="订单编号"
-                                    width="180"
+                                    <el-button @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: 'HelperList' }, query: { from: 'HelperList' } })">
+                                        查看
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <Pagination v-show="total" :total="total" :size="listForm.size" v-model="listForm.current" @change="getHelperList" />
+                    </el-tab-pane>
+                    <el-tab-pane :label="`订单总量 ( ${orderTotal} ) 单`" name="Order">
+                        <el-form class="wrap border-bottom order-form" label-width="82px" :inline="true">
+                            <el-form-item class="mb-10 ipt">
+                                <el-input
+                                    v-model="orderForm.condition"
+                                    placeholder="请输入订单号,商品名称,helper"
+                                    clearable
+                                    @change="e => { orderForm.current = 1; getOrderList(e) }"
                                 />
-                                <el-table-column
-                                    label="商品名称"
-                                    width="100"
+                            </el-form-item>
+                            <el-form-item class="mb-10" label-width="89px" label="订单来源：">
+                                <el-select style="width: 140px;" v-model="orderForm.orderSource" @change="e => { orderForm.current = 1; getOrderList(e) }" clearable>
+                                    <el-option v-for="item of orderResource" :value="item.value" :key="item.value" :label="item.label" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item class="mb-10" label-width="87px" label="订单类型：">
+                                <el-select style="width: 140px;" v-model="orderForm.orderType" @change="e => { orderForm.current = 1; getOrderList(e) }" clearable>
+                                    <el-option v-for="item of orderStatus" :value="item.value" :key="item.value" :label="item.label" />
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="下单时间：" class="mb-10">
+                                <date-range
+                                    @change="e => { orderForm.current = 1; orderDateChange(e) }"
+                                    disable-after
+                                    clearable
+                                    ref="dateRange"
+                                />
+                            </el-form-item>
+                            <el-form-item class="mr-10 mb-10">
+                                <el-button type="primary" style="width:98px;" @click="getOrderList">
+                                    查询
+                                </el-button>
+                                <el-button
+                                    class="button"
+                                    type="primary"
+                                    plain
+                                    @click="changeExport"
                                 >
-                                    <template slot-scope="{ row }">
-                                        <div class="discount" v-if="row.isCoupon">
-                                            <span>优惠</span>
-                                            <div class="discount-mongolia" />
-                                        </div>
-                                        <div class="discount" v-if="row.activeProduct > 1">
-                                            <span class="discount-text">{{ activeStatusText[row.activeProduct] }}</span>
-                                        </div>
-                                        <span
-                                            v-text="row.goodsName"
+                                    导出数据
+                                </el-button>
+                            </el-form-item>
+                        </el-form>
+                        <el-table @row-click="orderRowClick" ref="table" :data="orders">
+                            <el-table-column
+                                width="1"
+                                class-name="expand-row"
+                                type="expand"
+                            >
+                                <template slot-scope="{ row }">
+                                    <el-table
+                                        :show-header="false"
+                                        :data="row.products"
+                                        :border="false"
+                                        :cell-style="{ border: 'none' }"
+                                    >
+                                        <el-table-column width="180" />
+                                        <el-table-column width="100" prop="productName" />
+                                        <el-table-column
+                                            prop="count"
+                                            width="80"
                                         />
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="goodsNum"
-                                    label="数量"
-                                    width="80"
-                                />
-                                <el-table-column
-                                    label="单价(元)"
-                                    width="80"
-                                >
-                                    <template #default="{row}">
-                                        {{ row.goodsPrice/100 }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                    prop="helperName"
-                                    label="Helper"
-                                    width="80"
-                                />
-                                <el-table-column
-                                    label="实付款(元)"
-                                    width="90"
-                                >
-                                    <template #default="{row}">
-                                        {{ row.amount/100 }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                    label="获得润笔"
-                                    width="80"
-                                >
-                                    <template #default="{row}">
-                                        {{ row.rebate / 100 }}
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                    label="订单状态"
-                                    width="80"
-                                >
-                                    <template #default="{ row }">
-                                        <span v-if="row.orderStatus === 'WAIT_RECEIVE' && (row.orderType === 'VIRTUAL_GOODS' || row.orderType === 'FORMAL_CLASS' || row.orderType === 'EXPERIENCE_CLASS')">
-                                            待使用
-                                        </span>
-                                        <span v-else>
-                                            {{ orderStatusText[row.orderStatus] }}
-                                        </span>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column
-                                    label="订单来源"
-                                    prop="orderSourceText"
-                                />
-                                <el-table-column
-                                    prop="createTime"
-                                    label="下单时间"
-                                    width="100"
-                                    align="center"
-                                />
-                            </el-table>
-                            <Pagination v-show="orderTotal" :total="orderTotal" v-model="orderForm.current" :size="orderForm.size" @change="getOrderList" />
-                        </el-tab-pane>
-                    </el-tabs>
-                </el-card>
-            </el-col>
+                                        <el-table-column
+                                            prop="price"
+                                        >
+                                            <template slot-scope="item">
+                                                <span>{{ item.row.price }}</span>
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="orderId"
+                                label="订单编号"
+                                width="180"
+                            />
+                            <el-table-column
+                                label="商品名称"
+                                width="100"
+                            >
+                                <template slot-scope="{ row }">
+                                    <div class="discount" v-if="row.isCoupon">
+                                        <span>优惠</span>
+                                        <div class="discount-mongolia" />
+                                    </div>
+                                    <div class="discount" v-if="row.activeProduct > 1">
+                                        <span class="discount-text">{{ activeStatusText[row.activeProduct] }}</span>
+                                    </div>
+                                    <span
+                                        v-text="row.goodsName"
+                                    />
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="goodsNum"
+                                label="数量"
+                                width="80"
+                            />
+                            <el-table-column
+                                label="单价(元)"
+                                width="80"
+                            >
+                                <template #default="{row}">
+                                    {{ row.goodsPrice/100 }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="helperName"
+                                label="Helper"
+                                width="80"
+                            />
+                            <el-table-column
+                                label="实付款(元)"
+                                width="90"
+                            >
+                                <template #default="{row}">
+                                    {{ row.amount/100 }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                label="获得润笔"
+                                width="80"
+                            >
+                                <template #default="{row}">
+                                    {{ row.rebate / 100 }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                label="订单状态"
+                                width="80"
+                            >
+                                <template #default="{ row }">
+                                    <span v-if="row.orderStatus === 'WAIT_RECEIVE' && (row.orderType === 'VIRTUAL_GOODS' || row.orderType === 'FORMAL_CLASS' || row.orderType === 'EXPERIENCE_CLASS')">
+                                        待使用
+                                    </span>
+                                    <span v-else>
+                                        {{ orderStatusText[row.orderStatus] }}
+                                    </span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                label="订单来源"
+                                prop="orderSourceText"
+                            />
+                            <el-table-column
+                                prop="createTime"
+                                label="下单时间"
+                                width="100"
+                                align="center"
+                            />
+                        </el-table>
+                        <Pagination v-show="orderTotal" :total="orderTotal" v-model="orderForm.current" :size="orderForm.size" @change="getOrderList" />
+                    </el-tab-pane>
+                </el-tabs>
+            </el-card>
         </el-row>
 
         <role-tree

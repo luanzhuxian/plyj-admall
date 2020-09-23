@@ -5,7 +5,7 @@ export default [
         name: 'AccountManage',
         component: () => import('../../../views/base-setting/account-manage/Index.vue'),
         meta: {
-            title: ''
+            title: '账号管理'
         },
         children: [
             {

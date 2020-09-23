@@ -202,48 +202,23 @@
                 </el-table-column>
                 <el-table-column
                     label="操作"
-                    align="center"
-                    header-align="center"
+                    align="right"
+                    header-align="right"
                     width="100"
                 >
                     <template slot-scope="{ row }">
-                        <Operating>
-                            <template slot="button-box">
-                                <!-- <a
-                                    v-if="!canEdit(row) && row.lockStatus"
-                                    @click="downgradeAccount(row)"
-                                >
-                                    降级
-                                </a> -->
-                                <a
-                                    v-if="isEdit"
-                                    @click="toSave"
-                                >
-                                    保存
-                                </a>
-                                <a
-                                    @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))"
-                                >
-                                    查看
-                                </a>
-                                <div :class="$style.switchBox">
-                                    <el-switch
-                                        :disabled="canEdit(row)"
-                                        v-model="row.lockStatus"
-                                        @change="switchChange(row)"
-                                        active-color="#4F63FF"
-                                        :active-value="1"
-                                        :inactive-value="0"
-                                    />
-                                    <span v-if="row.lockStatus" style="color: #4F63FF">
-                                        启用
-                                    </span>
-                                    <span v-else style="color: #ccc">
-                                        关闭
-                                    </span>
-                                </div>
-                            </template>
-                        </Operating>
+                        <!-- <a v-if="!canEdit(row) && row.lockStatus" @click="downgradeAccount(row)">
+                            降级
+                        </a> -->
+                        <a v-if="isEdit" @click="toSave" style="color: #4F63FF">
+                            保存
+                        </a>
+                        <a style="color: #4F63FF" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
+                            详情
+                        </a>
+                        <a style="color: #4F63FF" @click="switchChange(row)" v-if="row.lockStatus !== 2">
+                            {{ row.lockStatus ? '禁用' : '启用' }}
+                        </a>
                     </template>
                 </el-table-column>
             </el-table>
