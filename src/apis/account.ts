@@ -33,10 +33,10 @@ export const downgradeAccount = (params: any) => axios.put('/apis/v2/systemctl/a
 export const editAccount = (data: any) => axios.post('/apis/v2/systemctl/account/edit', data)
 
 // 查看这个账户权限
-export const getMenuByUser = ({ roleCode, userId }: any) => axios.patch(`/apis/v1/menu/user/${ roleCode }/${ userId }`)
+export const getMenuByUser = ({ roleCode, userId }: any) => axios.patch(`/apis/v2/menu/user/${ roleCode }/${ userId }`)
 
 // 新增子账户获取默认权限
-export const getEmployeeDefault = () => axios.get('/apis/v1/menu/list/all?roleCode=EMPLOYEE')
+export const getEmployeeDefault = () => axios.get('/apis/v2/menu/list/all?roleCode=EMPLOYEE')
 
 // 添加一个账户
 export const validatedOpen = (data: any) => axios.post('/apis/v2/systemctl/account/validated', data)

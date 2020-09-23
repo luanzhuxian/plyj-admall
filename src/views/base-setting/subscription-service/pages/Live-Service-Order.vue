@@ -59,9 +59,7 @@
                 </el-button>
             </el-form-item>
         </search-box>
-        <el-table
-            :data="tableData"
-        >
+        <el-table :data="tableData">
             <el-table-column prop="id" label="订单编号" />
             <el-table-column prop="name" label="方案套餐" />
             <el-table-column prop="name" width="200" label="方案内容">

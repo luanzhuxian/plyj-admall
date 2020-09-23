@@ -140,7 +140,7 @@ export default class LiveServiceOrder extends Vue {
 
     async getList () {
         try {
-            const { data: { result } } = await getMarketList(this.query)
+            const { result } = await getMarketList(this.query)
             this.tableData = result.records || []
             this.total = result.total
         } catch (error) {

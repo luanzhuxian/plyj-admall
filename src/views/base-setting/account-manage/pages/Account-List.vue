@@ -90,12 +90,11 @@
                     end-label=""
                 />
             </el-form-item>
-            <el-form-item>
+            <el-form-item label=" ">
                 <el-button
                     round
                     type="primary"
                     @click="search"
-                    style="width:98px"
                 >
                     查询
                 </el-button>
@@ -210,12 +209,12 @@
                     <template slot-scope="{ row }">
                         <Operating>
                             <template slot="button-box">
-                                <a
+                                <!-- <a
                                     v-if="!canEdit(row) && row.lockStatus"
                                     @click="downgradeAccount(row)"
                                 >
                                     降级
-                                </a>
+                                </a> -->
                                 <a
                                     v-if="isEdit"
                                     @click="toSave"
@@ -264,7 +263,6 @@ import { namespace } from 'vuex-class'
 import {
     AccountInfo,
     getAccounts,
-    getNotActiveAccounts,
     deleteAccount,
     enableAccount,
     downgradeAccount,
@@ -309,7 +307,7 @@ export default class AccountList extends Vue {
     tabs = [
         { label: '已启用', name: '1' },
         { label: '已禁用', name: '0' },
-        { label: '待激活', name: '3' }
+        { label: '待激活', name: '2' }
     ]
 
     roleOptions = [
@@ -359,11 +357,11 @@ export default class AccountList extends Vue {
     }
 
     get maxCount () {
-        return this.employeeModel.maxCount + this.adminModel.maxCount
+        return Number(this.employeeModel.maxCount) + Number(this.adminModel.maxCount)
     }
 
     get currentCount () {
-        return this.employeeModel.currentCount + this.adminModel.currentCount
+        return Number(this.employeeModel.currentCount) + Number(this.adminModel.currentCount)
     }
 
     private async getAccountInfo () {
@@ -396,32 +394,17 @@ export default class AccountList extends Vue {
             roleCode
         } = this.filter
 
-        let result
-        // 未激活
-        if (status === '3') {
-            const { result: res } = await getNotActiveAccounts({
-                current,
-                size,
-                searchContent,
-                startTime,
-                endTime,
-                roleCode
-            })
-            result = res
-        } else {
-            const { result: res } = await getAccounts({
-                current,
-                size,
-                status,
-                searchContent,
-                startTime,
-                endTime,
-                roleCode
-            })
-            result = res
-        }
-        this.table = result.records
-        this.total = result.total
+        const { result: res } = await getAccounts({
+            current,
+            size,
+            status,
+            searchContent,
+            startTime,
+            endTime,
+            roleCode
+        })
+        this.table = res.records
+        this.total = res.total
     }
 
     private async tabClick (data: any) {

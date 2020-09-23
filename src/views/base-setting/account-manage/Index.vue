@@ -1,8 +1,9 @@
 <template>
     <div :class="$style.accountContainer">
-        <keep-alive>
+        <keep-alive v-if="$route.name !== 'AccountDetail'">
             <router-view />
         </keep-alive>
+        <router-view v-else />
     </div>
 </template>
 

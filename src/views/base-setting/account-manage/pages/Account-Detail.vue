@@ -449,17 +449,16 @@ import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import { getSingleAccount, getSingleAccountHerlerList, getAccounts, getMenuByUser } from '../../../../apis/account'
 import { changeHelpersAccount, getOrderList, exportOrderDetail } from '../../../../apis/member'
 import { createObjectUrl } from '../../../../assets/ts/upload'
-import { mapGetters } from 'vuex'
-export default {
-    name: 'AccountDetail',
+import { Vue, Component } from 'vue-property-decorator'
+@Component({
     components: {
         RoleTree,
         ExportDialog
-    },
-    data () {
-        return {
-            showExport: false,
-            exportData: {
+    }
+})
+export default class AccountList extends Vue {
+            showExport = false
+            exportData = {
                 userId: '',
                 orderSource: '',
                 orderType: '',
@@ -468,32 +467,36 @@ export default {
                 dateRange: 3,
                 startTime: '',
                 endTime: ''
-            },
-            exportRules: {
+            }
+
+            exportRules = {
                 startTime: [
                     { required: true, message: '请选择时间', trigger: 'blur' }
                 ]
-            },
-            activeTab: 'Helper',
-            table: [],
-            routeFrom: '',
-            total: 0,
-            single: {},
-            helpers: [],
-            orderResource: [
+            }
+
+            activeTab = 'Helper'
+            table = []
+            routeFrom = ''
+            total = 0
+            single = {}
+            helpers = []
+            orderResource = [
                 { value: 3, label: 'helper自购订单' },
                 { value: 4, label: 'helper分享订单' },
                 { value: 5, label: '自购订单' },
                 { value: 6, label: '分享订单' }
-            ],
-            orderResourceText:
+            ]
+
+            orderResourceText =
         {
             3: 'helper自购订单',
             4: 'helper分享订单',
             5: '自购订单',
             6: '分享订单'
-        },
-            orderStatus: [
+        }
+
+            orderStatus = [
                 { value: 'VIRTUAL_GOODS', label: '虚拟订单' },
                 { value: 'PHYSICAL_GOODS', label: '实体订单' },
                 { value: 'FORMAL_CLASS', label: '正式课订单' },
@@ -502,8 +505,9 @@ export default {
                 { value: 'SERIES_OF_COURSE', label: '系列课程' },
                 { value: 'LIVE_GOODS', label: '直播订单' },
                 { value: 'VIDEO_GOODS', label: '录播订单' }
-            ],
-            activeStatusText: {
+            ]
+
+            activeStatusText = {
                 1: '普通订单',
                 2: '团购订单',
                 3: '秒杀订单',
@@ -511,17 +515,19 @@ export default {
                 5: '优惠券订单',
                 6: '组合课订单',
                 7: '公益订单'
-            },
-            orderStatusText: {
+            }
+
+            orderStatusText = {
                 WAIT_SHIP: '待发货',
                 WAIT_RECEIVE: '待收货',
                 WAIT_PAY: '待付款',
                 FINISHED: '订单完成',
                 CLOSED: '订单关闭'
-            },
-            orders: [],
-            orderTotal: 0,
-            orderForm: {
+            }
+
+            orders = []
+            orderTotal = 0
+            orderForm = {
                 current: 1,
                 size: 10,
                 startTime: '',
@@ -530,222 +536,234 @@ export default {
                 orderType: '',
                 condition: '',
                 userId: ''
-            },
-            detailForm: {
+            }
+
+            detailForm = {
                 roleCode: '',
                 userId: ''
-            },
-            listForm: {
+            }
+
+            listForm = {
                 userId: '',
                 current: 1,
                 size: 10
-            },
-            powerNum: 0,
-            visible: false,
-            treeList: [],
-            treeEdit: false,
+            }
+
+            powerNum = 0
+            visible = false
+            treeList = []
+            treeEdit = false
             // 账户属于列表
-            accountList: '',
-            showChangeDialog: false,
+            accountList = ''
+            showChangeDialog = false
 
             /* 当前正在修改所属账号的数据id */
-            currentUserId: [],
+            currentUserId = []
 
             /* 当前选中的表格数据 */
-            currentSelect: [],
-            ownnerUserId: '',
+            currentSelect = []
+            ownnerUserId = ''
 
             /* 查询所属账号表单 */
-            searchAccountsForm: {
+            searchAccountsForm = {
                 current: 1,
                 size: 200,
                 searchContent: ''
-            },
-            selfEdit: false,
-            canEdit: false
-        }
-    },
-    computed: {
-        ...mapGetters({
-            currentRoleCode: 'user/currentRoleCode'
-        })
-    },
-    async created () {
-        await this.getAccountList()
-        const query = this.$route.query
-        this.orderForm.userId = query.userId
-        this.detailForm.userId = query.userId
-        this.detailForm.roleCode = query.roleCode
-        this.listForm.userId = this.detailForm.userId
-        this.selfEdit = query.selfEdit
-        this.canEdit = query.canEdit
-        this.getData()
-        this.getHelperList()
-        this.getOrderList()
-        this.getMenuByUserFun()
-    },
-    methods: {
-    // 点击tab获取每个tab最新数据列表
-        getActiveTabList ({ name }) {
-            this[`get${ name }List`]()
-        },
-        async getData () {
-            const res = await getSingleAccount(this.detailForm)
-            this.single = res.result
-            // this.treeList = this.single.menuTree
-            // let num = 0
-            // for (const items of this.single.menuTree[0].children) {
-            //   num += items.children.length
-            // }
-            // this.powerNum = num
-        },
-        async getHelperList () {
-            const helpers = await getSingleAccountHerlerList(this.listForm)
-            this.total = helpers.result.total
-            this.helpers = helpers.result.records
-        },
-        orderDateChange ({ start, end }) {
-            this.orderForm.startTime = start
-            this.orderForm.endTime = end
-            if (start === null) this.orderForm.startTime = ''
-            if (end === null) this.orderForm.endTime = ''
-            this.getOrderList()
-        },
-        orderRowClick ({ orderId: id }) {
-            this.$router.push({ name: 'OrderDetail', params: { id } })
-        },
-        async getOrderList () {
-            try {
-                const { result } = await getOrderList(this.orderForm)
-                this.orderTotal = result.total
-                this.orders = result.records
-            } catch (e) {
-                throw e
-            }
-        },
-        changeExport () {
-            this.exportData = {
-                ...this.exportData,
-                ...this.orderForm
-            }
-            this.showExport = true
-        },
-        exportClose () {
-            this.exportData = {
-                userId: '',
-                orderSource: '',
-                orderType: '',
-                condition: '',
-                // 1 7日内 2 30日内 3自选
-                dateRange: 3,
-                startTime: '',
-                endTime: ''
-            }
-            this.$refs.exportForm.clearValidate()
-            this.showExport = false
-        },
-        async exportDatechange ({ start, end }) {
-            this.exportData.startTime = start
-            this.exportData.endTime = end
-            if (!start || !end) {
-                return
-            }
-            await this.$nextTick()
-            this.$refs.exportDatePicker.initDate()
-        },
-        exportRangeChange (val) {
-            let start = new Date()
-            let end = new Date()
-            const formatType = 'YYYY-MM-DD'
-
-            if (val === 1) {
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            } else if (val === 2) {
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            } else {
-                start = this.orderForm.startTime || ''
-                end = this.orderForm.endTime || ''
             }
 
-            this.exportDatechange({
-                start: start && `${ moment(start).format(formatType) } 00:00:00`,
-                end: end && `${ moment(end).format(formatType) } 23:59:59`
-            })
-        },
-        async exportList () {
-            try {
-                await this.$refs.exportForm.validate()
-                const data = {
-                    ...this.exportData
-                }
-                delete data.dateRange
-                const giftList = await exportOrderDetail(data)
-                const url = createObjectUrl(giftList)
-                const aElement = document.createElement('a')
-                aElement.href = url
-                aElement.download = '订单详情.xls'
-                aElement.click()
-                aElement.remove()
-            } catch (e) {
-                throw e
-            }
-        },
-        // 展开更多
-        toggleRowExpansion (row) {
-            row.expanded = !row.expanded
-            this.$refs.table.toggleRowExpansion(row, row.expanded)
-        },
-        viewTree () {
-            this.treeEdit = false
-            this.visible = !this.visible
-        },
-        showChangeBelongBox (id, ownnerUserId) {
-            this.showChangeDialog = true
-            this.currentUserId = [id]
-            this.ownnerUserId = ownnerUserId
-        },
-        async getAccountList () {
-            try {
-                const res = await getAccounts(this.searchAccountsForm)
-                this.accountList = res.result.records
-            } catch (e) {
-                throw e
-            }
-        },
-        async changeHelperAccount (data) {
-            try {
-                await changeHelpersAccount({
-                    ownnerUserId: data.userId,
-                    ownneName: data.realName,
-                    userId: this.currentUserId
-                })
-                this.showChangeDialog = false
-                this.$success('变更成功！')
-                this.listForm.current = 1
+            selfEdit = false
+            canEdit = false
+            async created () {
+                await this.getAccountList()
+                const query = this.$route.query
+                this.orderForm.userId = query.userId
+                this.detailForm.userId = query.userId
+                this.detailForm.roleCode = query.roleCode
+                this.listForm.userId = this.detailForm.userId
+                this.selfEdit = query.selfEdit
+                this.canEdit = query.canEdit
+                this.getData()
                 this.getHelperList()
-            } catch (e) {
-                throw e
+                this.getOrderList()
+                this.getMenuByUserFun()
             }
-        },
-        edit () {
-            const params = {}
-            params.userId = this.detailForm.userId
-            params.roleCode = this.detailForm.roleCode
-            params.selfEdit = this.selfEdit
-            params.canEdit = this.canEdit
-            this.$router.push({ name: 'EditAccount', query: params })
-        },
-        async getMenuByUserFun () {
-            const data = {
-                roleCode: this.detailForm.roleCode,
-                userId: this.detailForm.userId
-            }
-            const res = await getMenuByUser(data)
-            this.treeList = res.result
-        }
-    }
-}
 
+            // 点击tab获取每个tab最新数据列表
+            getActiveTabList ({ name }) {
+                this[`get${ name }List`]()
+            }
+
+            async getData () {
+                const res = await getSingleAccount(this.detailForm)
+                this.single = res.result
+                // this.treeList = this.single.menuTree
+                // let num = 0
+                // for (const items of this.single.menuTree[0].children) {
+                //   num += items.children.length
+                // }
+                // this.powerNum = num
+            }
+
+            async getHelperList () {
+                const helpers = await getSingleAccountHerlerList(this.listForm)
+                this.total = helpers.result.total
+                this.helpers = helpers.result.records
+            }
+
+            orderDateChange ({ start, end }) {
+                this.orderForm.startTime = start
+                this.orderForm.endTime = end
+                if (start === null) this.orderForm.startTime = ''
+                if (end === null) this.orderForm.endTime = ''
+                this.getOrderList()
+            }
+
+            orderRowClick ({ orderId: id }) {
+                this.$router.push({ name: 'OrderDetail', params: { id } })
+            }
+
+            async getOrderList () {
+                try {
+                    const { result } = await getOrderList(this.orderForm)
+                    this.orderTotal = result.total
+                    this.orders = result.records
+                } catch (e) {
+                    throw e
+                }
+            }
+
+            changeExport () {
+                this.exportData = {
+                    ...this.exportData,
+                    ...this.orderForm
+                }
+                this.showExport = true
+            }
+
+            exportClose () {
+                this.exportData = {
+                    userId: '',
+                    orderSource: '',
+                    orderType: '',
+                    condition: '',
+                    // 1 7日内 2 30日内 3自选
+                    dateRange: 3,
+                    startTime: '',
+                    endTime: ''
+                }
+                this.$refs.exportForm.clearValidate()
+                this.showExport = false
+            }
+
+            async exportDatechange ({ start, end }) {
+                this.exportData.startTime = start
+                this.exportData.endTime = end
+                if (!start || !end) {
+                    return
+                }
+                await this.$nextTick()
+                this.$refs.exportDatePicker.initDate()
+            }
+
+            exportRangeChange (val) {
+                let start = new Date()
+                let end = new Date()
+                const formatType = 'YYYY-MM-DD'
+
+                if (val === 1) {
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+                } else if (val === 2) {
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+                } else {
+                    start = this.orderForm.startTime || ''
+                    end = this.orderForm.endTime || ''
+                }
+
+                this.exportDatechange({
+                    start: start && `${ moment(start).format(formatType) } 00:00:00`,
+                    end: end && `${ moment(end).format(formatType) } 23:59:59`
+                })
+            }
+
+            async exportList () {
+                try {
+                    await this.$refs.exportForm.validate()
+                    const data = {
+                        ...this.exportData
+                    }
+                    delete data.dateRange
+                    const giftList = await exportOrderDetail(data)
+                    const url = createObjectUrl(giftList)
+                    const aElement = document.createElement('a')
+                    aElement.href = url
+                    aElement.download = '订单详情.xls'
+                    aElement.click()
+                    aElement.remove()
+                } catch (e) {
+                    throw e
+                }
+            }
+
+            // 展开更多
+            toggleRowExpansion (row) {
+                row.expanded = !row.expanded
+                this.$refs.table.toggleRowExpansion(row, row.expanded)
+            }
+
+            viewTree () {
+                this.treeEdit = false
+                this.visible = !this.visible
+            }
+
+            showChangeBelongBox (id, ownnerUserId) {
+                this.showChangeDialog = true
+                this.currentUserId = [id]
+                this.ownnerUserId = ownnerUserId
+            }
+
+            async getAccountList () {
+                try {
+                    const res = await getAccounts(this.searchAccountsForm)
+                    this.accountList = res.result.records
+                } catch (e) {
+                    throw e
+                }
+            }
+
+            async changeHelperAccount (data) {
+                try {
+                    await changeHelpersAccount({
+                        ownnerUserId: data.userId,
+                        ownneName: data.realName,
+                        userId: this.currentUserId
+                    })
+                    this.showChangeDialog = false
+                    this.$success('变更成功！')
+                    this.listForm.current = 1
+                    this.getHelperList()
+                } catch (e) {
+                    throw e
+                }
+            }
+
+            edit () {
+                const params = {}
+                params.userId = this.detailForm.userId
+                params.roleCode = this.detailForm.roleCode
+                params.selfEdit = this.selfEdit
+                params.canEdit = this.canEdit
+                this.$router.push({ name: 'EditAccount', query: params })
+            }
+
+            async getMenuByUserFun () {
+                const data = {
+                    roleCode: this.detailForm.roleCode,
+                    userId: this.detailForm.userId
+                }
+                const res = await getMenuByUser(data)
+                this.treeList = res.result
+            }
+}
 </script>
 
 <style scoped lang="scss">
