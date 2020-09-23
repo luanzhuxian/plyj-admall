@@ -1,6 +1,7 @@
 <template>
     <div class="wrap">
         <pl-tabs
+            v-show="showTabRouteName.includes($route.name)"
             :value="$route.name"
             :tabs="tabs"
             @tabClick="handleClick"
@@ -24,6 +25,8 @@ export default class MemberManage extends Vue {
             label: '游客管理'
         }
     ]
+
+    showTabRouteName = ['MemberManageList', 'VistorManageList']
 
     handleClick ({ name }: { name: string }) {
         this.$router.push({ name })
