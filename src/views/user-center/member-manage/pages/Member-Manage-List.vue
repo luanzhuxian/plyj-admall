@@ -355,7 +355,7 @@
             <!-- 导出 -->
             <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
                 <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
-                    <el-form-item label="搜索关键词" prop="keyword">
+                    <el-form-item label="搜索关键字" prop="keyword">
                         <el-input
                             v-model.trim="exportData.keyword"
                             placeholder="昵称/手机号"

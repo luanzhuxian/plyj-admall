@@ -18,7 +18,7 @@
             </div>
         </div>
         <SearchBox>
-            <el-form-item label="关键词：">
+            <el-form-item label="关键字：">
                 <el-input
                     clearable
                     style="width: 250px;"

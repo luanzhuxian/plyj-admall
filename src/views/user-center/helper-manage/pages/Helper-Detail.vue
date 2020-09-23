@@ -20,7 +20,7 @@
                 </div>
                 <ul class="info-list">
                     <li>
-                        <div class="info-list-li"><div class="label">手机：</div>{{ detail.mobile }}</div>
+                        <div class="info-list-li"><div class="label">手机号：</div>{{ detail.mobile }}</div>
                         <div class="label">姓名：</div>{{ detail.name }}</li>
                     <li>
                         <div class="info-list-li"><div class="label">地址：</div>{{ detail.address }}</div>
