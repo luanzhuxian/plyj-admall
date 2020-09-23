@@ -56,7 +56,7 @@ export default class ForgetPassword extends Vue {
 
         codeForm = {
             mobile: '',
-            smsType: 'AGENT_USER_LOGIN' as SmsType
+            smsType: 'AGENCY_MOBILE_PASSWD_REST' as SmsType
         }
 
         rules = {
