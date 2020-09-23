@@ -88,6 +88,7 @@ export default class App extends Vue {
     @userModule.Getter('agencyCode') agencyCode!: string
     @userModule.Action('SET_LOGININFO') SET_LOGININFO!: Function
     @userModule.Action('GET_ALL_MALL_INFO') GET_ALL_MALL_INFO!: Function
+    @userModule.Action('GET_AGENCY_LIST') GET_AGENCY_LIST!: Function
     @goodsModule.Action('GET_CLASSIFY_TREE') getClassifyTree!: Function
 
     @Mutation('changeNavBarName') changeNavBarName!: Function
@@ -117,6 +118,7 @@ export default class App extends Vue {
         try {
             this.SET_LOGININFO()
             // 刷新登录信息缓存时效
+            await this.GET_AGENCY_LIST()
             await this.GET_ALL_MALL_INFO()
             // this.loaded = true
             await this.getClassifyTree()

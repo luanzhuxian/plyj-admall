@@ -216,6 +216,8 @@ export default class CreateMall extends Vue {
         this.mallInfoForm.contactWay = val
     }
 
+    // 1057573777392603136
+    // 1348853
     // 切换联系方式
     contactWayTypeChange (val: string) {
         this.mallInfoFormRules.contactWay.splice(1, 1, {
