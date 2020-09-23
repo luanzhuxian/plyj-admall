@@ -497,4 +497,7 @@ export default class HelperReviewList extends Vue {
         border-radius: 5px;
         border: 1px solid #F79F1A;
     }
+    .filter-inp {
+        width: 250px;
+    }
 </style>
