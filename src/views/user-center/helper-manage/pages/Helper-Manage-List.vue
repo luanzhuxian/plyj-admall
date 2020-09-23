@@ -21,7 +21,7 @@
                     style="width: 350px"
                 >
                     <el-option
-                        v-for="(item, index) of accountList"
+                        v-for="(item, index) of ownedAccountList"
                         :key="index"
                         :label="item.name"
                         :value="item.baseUserId"
@@ -201,14 +201,14 @@
                 <el-form-item>
                     <el-input
                         clearable
-                        @change="getAccountList"
-                        v-model="searchAccountsForm.keyword"
+                        @change="getOwnedAccountList"
+                        v-model="searchOwnedAccountForm.keyword"
                         placeholder="请输入真实姓名或手机号"
                     />
                 </el-form-item>
                 <el-form-item>
                     <el-button
-                        @click="getAccountList"
+                        @click="getOwnedAccountList"
                         type="primary"
                     >
                         查询
@@ -216,7 +216,7 @@
                 </el-form-item>
             </el-form>
 
-            <el-table :data="accountList">
+            <el-table :data="ownedAccountList">
                 <el-table-column
                     prop="name"
                     label="真实姓名"
@@ -263,7 +263,7 @@ import {
     changeHelpersAccount,
     updateBrokerStatus
 } from '../../../../apis/member'
-import { getAccounts } from '../../../../apis/account'
+import { getOwnedAccountList } from '../../../../apis/account'
 
 @Component
 export default class HelperManageList extends Vue {
@@ -291,13 +291,13 @@ export default class HelperManageList extends Vue {
     }
 
     /* 查询所属账号表单 */
-    searchAccountsForm = {
+    searchOwnedAccountForm = {
         current: 1,
         size: 200,
         keyword: ''
     }
 
-    accountList = []
+    ownedAccountList = []
     routeName = ''
 
     /* 当前正在修改所属账号的数据id */
@@ -313,7 +313,7 @@ export default class HelperManageList extends Vue {
         this.form.auditStatus = this.statusMap[this.routeName]
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
-        this.getAccountList()
+        this.getOwnedAccountList()
     }
 
     restForm () {
@@ -368,11 +368,10 @@ export default class HelperManageList extends Vue {
         this.getList()
     }
 
-    async getAccountList () {
+    async getOwnedAccountList () {
         try {
-            const { result } = await getAccounts(this.searchAccountsForm)
-            // console.log(result)
-            this.accountList = result.records
+            const { result } = await getOwnedAccountList(this.searchOwnedAccountForm)
+            this.ownedAccountList = result.records
         } catch (e) {
             throw e
         }

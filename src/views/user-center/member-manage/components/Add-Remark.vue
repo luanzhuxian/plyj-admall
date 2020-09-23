@@ -53,6 +53,10 @@ export default {
         },
         async save () {
             try {
+                if (!this.content.trim()) {
+                    await this.$warning('请输入备注内容')
+                    return
+                }
                 await saveRemark({
                     content: this.content,
                     mallUserId: this.userId

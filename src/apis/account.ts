@@ -9,6 +9,9 @@ export const addAccount = (data: any) => axios.post('/apis/v2/systemctl/account/
 // 获取启用，禁用账户列表
 export const getAccounts = (params: any) => axios.get('/apis/v2/systemctl/account/roleUser/list', { params })
 
+// 获取启用，禁用账户列表
+export const getOwnedAccountList = (params: any) => axios.get('/apis/v2/helper/owner', { params })
+
 // 获取待激活账户列表
 export const getNotActiveAccounts = (params: any) => axios.get('/apis/v2/systemctl/account/roleUser/list/acting', { params })
 
