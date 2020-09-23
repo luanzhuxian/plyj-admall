@@ -3,11 +3,14 @@ import {
     login,
     mobileLogin,
     getLoginInfo,
-    getRolePowerList,
+    // getRolePowerList,
     getAgencyDetail,
     getAgencyList
 } from '../../apis/login'
-
+import {
+    mallInfoData,
+    saveMallInfo
+} from '../../apis/home'
 import {
     register,
     getWechatPaytStatus,
@@ -18,6 +21,7 @@ import * as types from '../mutation-type'
 import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
 import setSentry from '../../assets/ts/set-sentry'
+import selectMall from '../../components/common/select-mall'
 
 const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
 const agencyCode = Cookie.get('agencyCode') || ''
@@ -95,7 +99,6 @@ const user: Module<DynamicObject, DynamicObject> = {
             const {
                 currentStep = 1,
                 entPersonSaveModel = {},
-                enterpriseId,
                 enterpriseSaveModel = {},
                 mallSaveModel = {},
                 inviteCode,
@@ -108,7 +111,6 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.currentRoleCode = currentRoleCode || ''
             // 注册第二步数据
             state.entPersonSaveModel = entPersonSaveModel
-            state.agencyCode = enterpriseId
             // 注册第一步数据
             state.enterpriseSaveModel = enterpriseSaveModel
             state.mallSaveModel = mallSaveModel
@@ -116,10 +118,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.auditStatus = auditStatus
             // TODO: 由于新流程不能无法保存成功性，暂且都按老流程处理，需要的时候，放开注释即可
             state.REG_TYPE = Number(enterpriseSaveModel.regType) || 1
-            // state.REG_TYPE = 1
-            Cookie.set('mallId', mallSaveModel.id || '', {
-                expires: CalcCookieTime(state.loginInfo.expire)
-            })
+            state.mallId = mallSaveModel.id
         },
         // 退出
         [types.LOGOUT] (state) {
@@ -133,6 +132,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.menuList = []
             state.subAccount = []
             state.agencyCode = ''
+            state.mallId = ''
             state.currentRoleCode = ''
             state.agencyList = []
             Cookie.remove('token')
@@ -142,39 +142,39 @@ const user: Module<DynamicObject, DynamicObject> = {
             sessionStorage.removeItem('currentStep')
         },
         // 缓存权限列表
-        [types.SET_POWER_LIST]: (state, payload) => {
-            if (!payload) {
-                return
-            }
-            const regType = state.REG_TYPE
-            const menus = payload[0] ? payload[0].children || [] : []
-            const container = new Set()
-            const getMenuName = (menuList: Array<any>) => {
-                for (const item of menuList) {
-                    // 删除老流程菜单
-                    if (regType === 2 && item.routePath === 'WechatBind') {
-                        menuList.splice(menuList.indexOf(item), 1)
-                        getMenuName(menuList)
-                        break
-                    }
-                    // 删除新流程菜单
-                    if (regType === 1 && item.routePath === 'BindWechat') {
-                        menuList.splice(menuList.indexOf(item), 1)
-                        getMenuName(menuList)
-                        break
-                    }
-                    if (item.routePath) {
-                        container.add(item.routePath)
-                    }
-                    if (item.children.length) {
-                        getMenuName(item.children)
-                    }
-                }
-            }
-            getMenuName(menus)
-            state.routeNames = [...container]
-            state.menuList = [{ children: menus }]
-        },
+        // [types.SET_POWER_LIST]: (state, payload) => {
+        //     if (!payload) {
+        //         return
+        //     }
+        //     const regType = state.REG_TYPE
+        //     const menus = payload[0] ? payload[0].children || [] : []
+        //     const container = new Set()
+        //     const getMenuName = (menuList: Array<any>) => {
+        //         for (const item of menuList) {
+        //             // 删除老流程菜单
+        //             if (regType === 2 && item.routePath === 'WechatBind') {
+        //                 menuList.splice(menuList.indexOf(item), 1)
+        //                 getMenuName(menuList)
+        //                 break
+        //             }
+        //             // 删除新流程菜单
+        //             if (regType === 1 && item.routePath === 'BindWechat') {
+        //                 menuList.splice(menuList.indexOf(item), 1)
+        //                 getMenuName(menuList)
+        //                 break
+        //             }
+        //             if (item.routePath) {
+        //                 container.add(item.routePath)
+        //             }
+        //             if (item.children.length) {
+        //                 getMenuName(item.children)
+        //             }
+        //         }
+        //     }
+        //     getMenuName(menus)
+        //     state.routeNames = [...container]
+        //     state.menuList = [{ children: menus }]
+        // },
         // 缓存机构列表
         [types.GET_AGENCY_LIST]: (state, payload) => {
             state.agencyList = payload
@@ -217,33 +217,20 @@ const user: Module<DynamicObject, DynamicObject> = {
         }
     },
     actions: {
-        async login ({ commit, dispatch }, form) {
+        async login ({ commit }, form) {
             try {
                 const data = await login(form)
                 commit(types.SET_LOGININFO, data.result)
-                await dispatch(types.GET_AGENCY_LIST)
                 return data.res
             } catch (e) {
                 commit(types.LOGOUT)
                 throw e
             }
         },
-        async mobileLogin ({ commit, dispatch }, form) {
+        async mobileLogin ({ commit }, form) {
             try {
                 const data = await mobileLogin(form)
                 commit(types.SET_LOGININFO, data.result)
-                await dispatch(types.GET_AGENCY_LIST)
-                return data.result
-            } catch (e) {
-                commit(types.LOGOUT)
-                throw e
-            }
-        },
-        async wxLogin ({ commit, dispatch }, form) {
-            try {
-                const data = await mobileLogin(form)
-                commit(types.SET_LOGININFO, data.result)
-                await dispatch(types.GET_AGENCY_LIST)
                 return data.result
             } catch (e) {
                 commit(types.LOGOUT)
@@ -251,35 +238,63 @@ const user: Module<DynamicObject, DynamicObject> = {
             }
         },
 
-        async register ({ commit, dispatch, state }, payload) {
+        async register ({ commit }, payload) {
             try {
                 const data = await register(payload)
                 commit(types.SET_LOGININFO, data.result)
-                await dispatch(types.GET_AGENCY_LIST)
-                // agencyCode 存到cookie中
-                commit(types.SET_CURRENT_AGENCY, { agencyCode: state.agencyList[state.agencyList.length - 1].enterpriseId })
-                await dispatch(types.AGENCY_USER_INFO)
                 return data.result
             } catch (e) {
                 throw e
             }
         },
-        // 获取所有机构列表
+
+        /**
+         * 创建商城
+         * @params data {Object} 数据
+         */
+        async createMall ({ commit }, data: mallInfoData) {
+            const { result: { id, enterpriseId } } = await saveMallInfo(data)
+            commit(types.SET_CURRENT_AGENCY, {
+                mallId: id,
+                agencyCode: enterpriseId
+            })
+        },
+
+        // 切换商城, 在 GET_AGENCY_LIST 之后调用
+        async selectMall  ({ commit, state, rootState }) {
+            const { mallId, agencyCode } = await selectMall(state.agencyList, rootState.roleMap)
+            if (mallId !== state.mallId) {
+                commit(types.SET_CURRENT_AGENCY, {
+                    mallId, agencyCode
+                })
+                return { mallId, agencyCode, changed: true }
+            }
+            commit(types.SET_CURRENT_AGENCY, {
+                mallId, agencyCode
+            })
+            return { mallId, agencyCode, changed: false }
+        },
+
+        /**
+         * 获取所有机构列表，并选择一个商城
+         * @param commit
+         */
         async [types.GET_AGENCY_LIST] ({ commit }) {
             try {
                 const data = await getAgencyList()
                 commit(types.GET_AGENCY_LIST, data.result)
                 return data.result
             } catch (e) {
-                commit(types.LOGOUT)
                 throw e
             }
         },
+
+        // 获取机构和商城详情
         async [types.AGENCY_USER_INFO] ({ commit }) {
             try {
-                const AgencyDetail = await getAgencyDetail(Cookie.get('agencyCode'))
-                commit(types.AGENCY_USER_INFO, AgencyDetail.result)
-                return AgencyDetail.result
+                const { result: AgencyDetail } = await getAgencyDetail()
+                commit(types.AGENCY_USER_INFO, AgencyDetail)
+                return AgencyDetail
             } catch (e) {
                 commit(types.LOGOUT)
                 throw e
@@ -295,16 +310,16 @@ const user: Module<DynamicObject, DynamicObject> = {
                 throw e
             }
         },
-        async [types.SET_POWER_LIST] ({ commit }) {
-            try {
-                const data = await getRolePowerList()
-                commit(types.SET_POWER_LIST, data.result)
-                return data.result
-            } catch (e) {
-                commit(types.LOGOUT)
-                throw e
-            }
-        },
+        // async [types.SET_POWER_LIST] ({ commit }) {
+        //     try {
+        //         const data = await getRolePowerList()
+        //         commit(types.SET_POWER_LIST, data.result)
+        //         return data.result
+        //     } catch (e) {
+        //         commit(types.LOGOUT)
+        //         throw e
+        //     }
+        // },
         async [types.V_MERCHANT_STATUS] ({ commit }) {
             try {
                 const data = await getVstatus()
@@ -342,22 +357,23 @@ const user: Module<DynamicObject, DynamicObject> = {
             }
         },
         // 获取所有商城数据
-        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, state, getters }) {
+        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, getters }) {
             // 日志系统getters暂时删除
             try {
                 await dispatch(types.AGENCY_USER_INFO)
-                await dispatch(types.SET_POWER_LIST)
-                if (state.REG_TYPE === 2) {
-                    // 新流程
-                    await dispatch(types.WECHAT_PAY_STATUS)
-                } else {
-                    // 老流程
-                    await Promise.all([dispatch(types.V_MERCHANT_STATUS), dispatch(types.UPGRADE_STATUS)])
-                }
+                await dispatch(types.WECHAT_PAY_STATUS)
+                // await dispatch(types.SET_POWER_LIST)
+                // if (state.REG_TYPE === 2) {
+                //     // 新流程
+                //     await dispatch(types.WECHAT_PAY_STATUS)
+                // } else {
+                //     // 老流程
+                //     await Promise.all([dispatch(types.V_MERCHANT_STATUS), dispatch(types.UPGRADE_STATUS)])
+                // }
                 commit(types.HAS_GET_ALL_MALL_INFO, true)
-                // 日志系统
                 commit(types.GET_ALL_MALL_INFO, getters)
             } catch (e) {
+                commit('LOGOUT')
                 throw e
             }
         }

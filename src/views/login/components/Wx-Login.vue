@@ -23,9 +23,7 @@ const userModule = namespace('user')
 export default class WxLogin extends Vue {
         loading = false
         code = ''
-        @userModule.Action('wxLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @userModule.Mutation('SET_LOGININFO') setLoginInfo: any
-        @userModule.Action('GET_AGENCY_LIST') getAgencyList: any
         @Emit('emitLogin')
         emitLogin () {
             return true
@@ -34,8 +32,6 @@ export default class WxLogin extends Vue {
         async mounted () {
             this.weixinLoginCode()
             this.code = sessionStorage.getItem('redirect_code') as string
-            console.log('this.code')
-            console.log(this.code)
             if (this.code) {
                 await this.WxScanLogin()
             }
@@ -46,7 +42,6 @@ export default class WxLogin extends Vue {
                 const data = await WxScanLogin(this.code)
                 if (data.code === 2000) {
                     await this.setLoginInfo(data.result)
-                    await this.getAgencyList()
                     this.emitLogin()
                 }
                 this.clearCode()

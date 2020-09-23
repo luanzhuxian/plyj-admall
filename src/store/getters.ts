@@ -5,5 +5,6 @@ export default {
     forbiddenPay: (state: any) => state.theMallForbiddenPay.includes(state.user.mallId),
     defaultLogo: (state: any) => state.defaultLogo,
     // 左菜单栏组件名称
-    navBarName: (state: any) => state.navBarName
+    navBarName: (state: any) => state.navBarName,
+    roleMap: (state: any) => state.roleMap
 }

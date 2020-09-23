@@ -178,7 +178,7 @@
             </Panel>
         </div>
 
-        <CreateMall />
+        <CreateMall :created-mall-show.sync="createdMallShow" />
     </div>
 </template>
 
@@ -187,7 +187,7 @@ import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { AGENCY_USER_INFO } from '../../store/mutation-type'
 import Panel from '../../components/common/Panel.vue'
-import CreateMall from './components/Create-Mall.vue'
+import CreateMall from '../../components/common/select-mall/Create-Mall.vue'
 import {
     getHomeInfo,
     getProductOrder,
@@ -313,6 +313,7 @@ export default class Home extends Vue {
     // 是否展示资源库送客
     private showGiveResource = false
     private showPhoneTips = false
+    private createdMallShow = false
     private countdown = '获取验证码'
     private form = {
         // 绑定的手机号
@@ -325,6 +326,7 @@ export default class Home extends Vue {
     @user.Getter agencyCode!: string
     @user.Getter auditStatus!: string
     @user.Getter mallNumber!: string
+    @user.Getter currentStep!: number
     @user.Getter regType!: number
     @user.Getter agencyList!: any
     @user.Getter vMerchantStatus!: DynamicObject
@@ -348,6 +350,9 @@ export default class Home extends Vue {
             // } else {
             //     this.checkStatus()
             // }
+            if (this.currentStep === 1) {
+                this.createdMallShow = true
+            }
             await this.newCheckStatus()
         } catch (e) {
             throw e

@@ -86,7 +86,7 @@
 
                 <transition name="fade">
                     <div v-show="showPop" :class="$style.pop">
-                        <div :class="$style.popItem" class="pointer">
+                        <div :class="$style.popItem" class="pointer" @click="selectMallBtn">
                             切换店铺
                         </div>
                         <div :class="$style.popItem">
@@ -106,6 +106,8 @@
                 </transition>
             </div>
         </div>
+
+        <CreateMall :created-mall-show="showCreateMall" />
     </header>
 </template>
 
@@ -114,13 +116,19 @@ import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 import { namespace, Getter } from 'vuex-class'
 import { generateQrcode } from '../../../assets/ts/utils'
+import CreateMall from '../select-mall/Create-Mall.vue'
 const userModule = namespace('user')
 
-@Component
+@Component({
+    components: {
+        CreateMall
+    }
+})
 export default class Header extends Vue {
-    mallQrcode = ''
-    showMallUrl = false
-    showPop = false
+    private mallQrcode = ''
+    private showMallUrl = false
+    private showPop = false
+    private showCreateMall = false
     // computed
     @userModule.Getter('mallName') mallName!: string
     @userModule.Getter('bindPhone') bindPhone!: string
@@ -129,6 +137,8 @@ export default class Header extends Vue {
     @Getter('childRoute') childRoute!: any
 
     @userModule.Mutation('LOGOUT') LOGOUT!: Function
+    @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
+    @userModule.Action('selectMall') selectMall!: Function
 
     async command (command: string) {
         if (command === 'logout') {
@@ -146,6 +156,12 @@ export default class Header extends Vue {
                 text: val
             })
         }
+    }
+
+    @Watch('$route')
+    async onRouteChange () {
+        this.showPop = false
+        this.showMallUrl = false
     }
 
     // methods
@@ -169,6 +185,15 @@ export default class Header extends Vue {
     // 修改密码
     modify () {
         this.$router.push({ name: 'ModifyPassword' })
+    }
+
+    async selectMallBtn () {
+        await this.getAgencyList(true)
+        const { changed } = await this.selectMall()
+        console.log(changed)
+        if (changed) {
+            location.reload()
+        }
     }
 }
 </script>

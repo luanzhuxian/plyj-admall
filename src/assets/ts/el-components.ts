@@ -138,21 +138,21 @@ Vue.prototype.$prompt = async (config: string | object) => {
 
 Vue.prototype.$notify = Notification
 Vue.prototype.$success = (msg: string) => {
-  const vm = Message.success({
+  return Message.success({
     dangerouslyUseHTMLString: true,
     message: msg,
     duration: 3000
   })
 }
 Vue.prototype.$error = (msg: string) => {
-  const vm = Message.error({
+  return Message.error({
     dangerouslyUseHTMLString: true,
     message: msg,
     duration: 3000
   })
 }
 Vue.prototype.$warning = (msg: string) => {
-  const vm = Message.warning({
+  return Message.warning({
     dangerouslyUseHTMLString: true,
     message: msg,
     duration: 3000

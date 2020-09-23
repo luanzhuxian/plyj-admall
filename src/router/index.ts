@@ -72,6 +72,10 @@ const importRoutes = importFiles(context)
 const routes = [
     {
         path: '/',
+        redirect: '/home'
+    },
+    {
+        path: '/home',
         name: 'Home',
         component: () => import('../views/Home/Index.vue'),
         meta: {
@@ -90,6 +94,7 @@ export const router = new Router({
     routes
 })
 export const beforeResolve = async (to, from, next) => {
+    console.log(to.name, 111)
     if (to.query.code) {
         sessionStorage.setItem('redirect_state', to.query.state)
         sessionStorage.setItem('redirect_code', to.query.code)
@@ -102,7 +107,6 @@ export const beforeResolve = async (to, from, next) => {
         return next(to.path)
     }
     NProgress.start()
-
     // 部分路由没有title，此时就找离它最近的父级title
     // try {
     //     document.title = [...to.matched].reverse().find(item => item.meta.title).meta.title
@@ -116,13 +120,9 @@ export const beforeResolve = async (to, from, next) => {
     }
     // 已登录，访问不需要登录的页面
     if (token && NOLOGIN.includes(to.name)) {
-        next({ path: '/' })
+        next({ name: 'Home' })
         return
     }
-    // if (currentStep === 1 && to.name !== 'Register') {
-    //     next({ path: '/register' })
-    //     return
-    // }
     next()
 }
 

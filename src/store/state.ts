@@ -14,6 +14,12 @@ export default {
             value: 'VIRTUAL_GOODS'
         }
     ],
+    // 角色映射值
+    roleMap: {
+        ENTERPRISE_ADMIN: '企业管理员',
+        ADMIN: '高级管理员',
+        EMPLOYEE: '子账号'
+    },
     orderStatus: {
         NEW: '待提交',
         WAIT_PAY: '待支付',

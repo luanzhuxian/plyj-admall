@@ -11,44 +11,12 @@
                 <ModifyPassword @emitLogin="login" v-if="$route.name === 'ModifyPassword'" />
             </div>
         </div>
-        <el-dialog
-            title="请选择您要登录的机构"
-            :visible.sync="showDialog"
-            :close-on-click-modal="false"
-            width="25%"
-            @close="closeDialog"
-        >
-            <el-form>
-                <el-form-item :error="agencyError">
-                    <el-select
-                        v-model="enterprise"
-                        @change="currentAgencyChange"
-                        style="width: 100%"
-                    >
-                        <el-option
-                            v-for="item of agencyList"
-                            :key="item.enterpriseId"
-                            :label="item.enterpriseName"
-                            :value="item.enterpriseId"
-                        />
-                    </el-select>
-                </el-form-item>
-                <el-form-item>
-                    <el-button
-                        type="primary"
-                        @click="selectAgency"
-                    >
-                        确 定
-                    </el-button>
-                </el-form-item>
-            </el-form>
-        </el-dialog>
         <Vcode :show="codeShow" @success="success" @close="close" />
     </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import Vcode from 'vue-puzzle-vcode'
 import Register from './components/Register.vue'
 import ForgetPassword from './components/Forget-Password.vue'
@@ -84,14 +52,11 @@ export default class RegisterIndex extends Vue {
         @userModule.Getter('currentStep') currentStepFoo!: number
         @userModule.Getter('agencyCode') agencyCodeFoo!: string
         @userModule.Getter('agencyList') agencyList: any
-        @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
         @userModule.Mutation('LOGOUT') logout!: Function
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
-        @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
-        @Watch('$route.name')
-        onChangeValue (newVal: string) {
-            console.log(newVal)
-        }
+        @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo!: Function
+        @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
+        @userModule.Action('selectMall') selectMall!: Function
 
         codeShowFoo (e: CodeShowFooType) {
             this.codeShow = e.type
@@ -100,53 +65,12 @@ export default class RegisterIndex extends Vue {
 
         async login () {
             try {
-                if (this.agencyList.length > 1) {
-                    this.showDialog = true
-                    return
-                }
-                if (!this.agencyList.length) {
-                    this.$router.replace({ name: 'Home' })
-                    return
-                }
-                await this.selectAgency()
-            } catch (e) {
-                throw e
-            }
-        }
-
-        async selectAgency () {
-            if (this.agencyList.length > 1 && !this.enterprise) {
-                this.agencyError = '请选择您要登录的机构'
-                return
-            }
-            if (this.agencyList.length as number === 1) {
-                this.currentAgencyChange(this.agencyList[0].enterpriseId)
-            }
-            this.agencyError = ''
-            try {
+                await this.getAgencyList()
+                await this.selectMall()
                 await this.getAllMallInfo()
-                this.step()
+                await this.$router.replace({ name: 'Home' })
             } catch (e) {
                 throw e
-            }
-        }
-
-        // 选中机构
-        currentAgencyChange (val: object) {
-            // 把选择的机构缓存起来
-            this.setCurrentAgency({ agencyCode: val })
-        }
-
-        closeDialog () {
-            this.logout()
-        }
-
-        step () {
-            const currentStep: number = Number(sessionStorage.getItem('currentStep')) || 0
-            if (!currentStep) {
-                this.$router.replace({ name: 'Home' })
-            } else {
-                this.$router.replace({ name: 'Register' })
             }
         }
 
@@ -154,11 +78,6 @@ export default class RegisterIndex extends Vue {
             this.codeShow = false
             this.setCodePass(true)
             await (this.$refs[this.refName] as HTMLFormElement).getCode()
-        }
-
-        close () {
-            this.codeShow = false
-            this.setCodePass(false)
         }
 
         clearCode () {

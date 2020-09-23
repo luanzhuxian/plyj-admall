@@ -1,10 +1,9 @@
-import Register from '../../../views/register/Index.vue'
 export default [
     {
         path: '/register',
         redirect: '/register/account',
         name: 'Register',
-        component: Register,
+        component: () => import('../../../views/register/Index.vue'),
         meta: {
             title: '注册雅集'
         },

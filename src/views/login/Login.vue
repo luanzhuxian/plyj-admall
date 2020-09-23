@@ -13,38 +13,6 @@
                 <CompleteLogin @emitLogin="login" ref="CompleteLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'CompleteLogin'" />
             </div>
         </div>
-        <el-dialog
-            title="请选择您要登录的机构"
-            :visible.sync="showDialog"
-            :close-on-click-modal="false"
-            width="25%"
-            @close="closeDialog"
-        >
-            <el-form>
-                <el-form-item :error="agencyError">
-                    <el-select
-                        v-model="enterprise"
-                        @change="currentAgencyChange"
-                        style="width: 100%"
-                    >
-                        <el-option
-                            v-for="item of agencyList"
-                            :key="item.enterpriseId"
-                            :label="item.enterpriseName"
-                            :value="item.enterpriseId"
-                        />
-                    </el-select>
-                </el-form-item>
-                <el-form-item>
-                    <el-button
-                        type="primary"
-                        @click="selectAgency"
-                    >
-                        确 定
-                    </el-button>
-                </el-form-item>
-            </el-form>
-        </el-dialog>
         <Vcode :show="codeShow" @success="success" @close="close" />
     </div>
 </template>
@@ -58,8 +26,7 @@ import PasswordLogin from './components/Password-Login.vue'
 import WxBindPassword from './components/Wx-Bind-Password.vue'
 import WxBindPhone from './components/Wx-Bind-Phone.vue'
 import CompleteLogin from './components/Complete-Login.vue'
-import { namespace } from 'vuex-class'
-// import startQiankun from '../../micro'
+import { namespace, Getter } from 'vuex-class'
 const userModule = namespace('user')
 interface CodeShowFooType {
     type: boolean;
@@ -90,10 +57,12 @@ export default class Login extends Vue {
     @userModule.Getter('currentStep') currentStepFoo!: number
     @userModule.Getter('agencyCode') agencyCodeFoo!: string
     @userModule.Getter('agencyList') agencyList: any
-    @userModule.Mutation('SET_CURRENT_AGENCY') setCurrentAgency: any
     @userModule.Mutation('LOGOUT') logout!: Function
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
-    @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo: any
+    @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo!: Function
+    @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
+    @userModule.Action('selectMall') selectMall!: Function
+    @Getter('roleMap') roleMap!: DynamicObject
 
     codeShowFoo (e: CodeShowFooType) {
         this.codeShow = e.type
@@ -102,51 +71,13 @@ export default class Login extends Vue {
 
     async login () {
         try {
-            if (this.agencyList.length > 1) {
-                this.showDialog = true
-                return
-            }
-            await this.selectAgency()
-        } catch (e) {
-            throw e
-        }
-    }
-
-    async selectAgency () {
-        if (this.agencyList.length > 1 && !this.enterprise) {
-            this.agencyError = '请选择您要登录的机构'
-            return
-        }
-        if (this.agencyList.length === 1) {
-            this.currentAgencyChange(this.agencyList[0].enterpriseId)
-        }
-        this.agencyError = ''
-        try {
+            await this.getAgencyList()
+            await this.selectMall()
             await this.getAllMallInfo()
-            this.step()
+            this.$router.replace({ name: 'Home' })
         } catch (e) {
             throw e
         }
-    }
-
-    // 选中机构
-    currentAgencyChange (val: object) {
-        // 把选择的机构缓存起来
-        this.setCurrentAgency({ agencyCode: val })
-    }
-
-    closeDialog () {
-        this.logout()
-    }
-
-    step () {
-        const currentStep: number = Number(sessionStorage.getItem('currentStep')) || 0
-        if (currentStep === 1) {
-            this.$router.replace({ name: 'Register' })
-        } else {
-            this.$router.replace({ name: 'Home' })
-        }
-        // startQiankun()
     }
 
     async success () {

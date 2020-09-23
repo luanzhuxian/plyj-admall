@@ -11,15 +11,13 @@
         <button @click="weixinLogin">微信登录</button>
         <div id="login-container" />-->
         <router-view v-if="noMenu.includes(routeName)" />
-        <template v-else>
-            <transition name="fade-left">
+        <template v-else-if="allLoaded">
+            <transition name="navBar">
                 <components :is="navBarName" />
             </transition>
             <Header />
             <main :class="$style.main">
-                <keep-alive>
-                    <router-view />
-                </keep-alive>
+                <router-view />
             </main>
         </template>
     </div>
@@ -31,7 +29,6 @@ import MainNavbar from './components/common/layout/Main-Navbar.vue'
 import OnlineTeachingNavbar from './components/common/layout/Online-Teaching-NavBar.vue'
 import Header from './components/common/layout/Header.vue'
 import { Getter, Mutation, namespace } from 'vuex-class'
-// import startQiankun from './micro'
 
 const userModule = namespace('user')
 const goodsModule = namespace('goods')
@@ -87,6 +84,7 @@ export default class App extends Vue {
 
     @userModule.Getter('currentStep') currentStep!: number
     @userModule.Getter('token') tokenFoo!: string
+    @userModule.Getter('allLoaded') allLoaded!: boolean
     @userModule.Getter('agencyCode') agencyCode!: string
     @userModule.Action('SET_LOGININFO') SET_LOGININFO!: Function
     @userModule.Action('GET_ALL_MALL_INFO') GET_ALL_MALL_INFO!: Function
@@ -120,10 +118,6 @@ export default class App extends Vue {
             this.SET_LOGININFO()
             // 刷新登录信息缓存时效
             await this.GET_ALL_MALL_INFO()
-            if (this.currentStep === 1) {
-                this.$router.replace({ name: 'Register' })
-                return
-            }
             // this.loaded = true
             await this.getClassifyTree()
             // startQiankun()

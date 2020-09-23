@@ -15,7 +15,7 @@ export const getLoginInfo = () => axios.get('/apis/v2/privilege/auth/me')
 export const getRolePowerList = () => axios.get('/apis/v2/menu/list/mch/current/role')
 
 // 获取机构信息
-export const getAgencyDetail = (enterpriseId: string) => axios.get(`/apis/v2/mall/queryRegisterData?enterpriseId=${ enterpriseId }`)
+export const getAgencyDetail = () => axios.get('/apis/v2/mall/queryRegisterData')
 
 // 获取所有机构列表
 export const getAgencyList = () => axios.get('/apis/v2/base/baseUserInfo/agency/list')

@@ -3,8 +3,9 @@
         title="请您创建一家店铺"
         :visible="createdMallShow"
         :close-on-click-modal="false"
-        :show-close="false"
+        :close-on-press-escape="false"
         width="540px"
+        @close="close"
     >
         <el-form ref="mallInfoForm" :model="mallInfoForm" :rules="mallInfoFormRules" style="padding: 0 54px;" label-width="95px" label-position="left">
             <el-form-item label="店铺名称：" prop="mallName">
@@ -58,16 +59,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 import {
-    saveMallInfo,
     getMainCategories,
     getConsultantList,
     mallInfoData,
     contactWayType
 } from '../../../apis/home'
 import { isLandlinePhone, isPhone, testName } from '../../../assets/ts/validate'
-import CityPicker from '../../../components/common/City-Picker.vue'
+import CityPicker from '../City-Picker.vue'
 import { namespace } from 'vuex-class'
 const testServicePhoneModels = (contactWayType: string): Function => function (rule: any, value: any, callback: Function) {
     if (contactWayType === 'MOBILE') {
@@ -104,7 +104,6 @@ export default class CreateMall extends Vue {
         contactWayType: 'MOBILE'
     }
 
-    private createdMallShow = false
     // 商城信息
     private mallInfoForm: mallInfoData = {
         mallName: '',
@@ -134,14 +133,21 @@ export default class CreateMall extends Vue {
         ]
     }
 
-    @user.Getter currentStep!: number
-    @user.Action('AGENCY_USER_INFO') updateAgencyUserInfo!: Function
+    @Prop({ type: Boolean, default: false }) createdMallShow!: boolean
 
-    async mounted () {
-        if (this.currentStep === 1) {
-            this.createdMallShow = true
+    @Watch('createdMallShow')
+    async onChange (val: boolean) {
+        if (val) {
             await this.getMainCategories()
         }
+    }
+
+    @user.Getter currentStep!: number
+    @user.Action('createMall') createMall!: Function
+
+    close () {
+        this.$emit('update:createdMallShow', false)
+        this.$emit('close', false)
     }
 
     // 获取主营类目
@@ -190,10 +196,19 @@ export default class CreateMall extends Vue {
             }
         ]
         delete this.mallInfoForm.contactWay
-        await saveMallInfo(this.mallInfoForm)
-        await this.updateAgencyUserInfo()
+        await this.createMall(this.mallInfoForm)
         this.createdMallShow = false
-        this.$success('保存成功')
+        let countdown = 3
+        let success = this.$success(`保存成功！${ countdown }秒后刷新`)
+        setInterval(() => {
+            countdown--
+            if (countdown <= 0) {
+                location.reload()
+                return
+            }
+            success.close()
+            success = this.$success(`保存成功！${ countdown }秒后刷新`)
+        }, 1000)
     }
 
     // 输入联系方式
