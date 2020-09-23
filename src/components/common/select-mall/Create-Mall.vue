@@ -197,7 +197,7 @@ export default class CreateMall extends Vue {
         ]
         delete this.mallInfoForm.contactWay
         await this.createMall(this.mallInfoForm)
-        this.createdMallShow = false
+        this.close()
         let countdown = 3
         let success = this.$success(`保存成功！${ countdown }秒后刷新`)
         setInterval(() => {

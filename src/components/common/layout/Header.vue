@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        <CreateMall :created-mall-show="showCreateMall" />
+        <CreateMall :created-mall-show.sync="showCreateMall" />
     </header>
 </template>
 
@@ -189,8 +189,12 @@ export default class Header extends Vue {
 
     async selectMallBtn () {
         await this.getAgencyList(true)
-        const { changed } = await this.selectMall()
-        console.log(changed)
+        const { changed, mallId } = await this.selectMall()
+        if (!mallId) {
+            // 创建店铺
+            this.showCreateMall = true
+            return
+        }
         if (changed) {
             location.reload()
         }
