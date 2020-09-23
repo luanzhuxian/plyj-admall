@@ -361,8 +361,19 @@
                                 </template>
                             </el-table-column>
                             <el-table-column
+                                prop="amount"
+                                label="实付款（元）">
+                                <template #default="{ row }">
+                                    {{ row.amount / 100 }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
                                 prop="orderStatus"
                                 label="订单状态"
+                            />
+                            <el-table-column
+                                prop="payTime"
+                                label="支付时间"
                             />
                             <el-table-column
                                 fixed="right"
