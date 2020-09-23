@@ -43,7 +43,7 @@
                     <div class="tag-list">
                         <span>标签：</span>
                         <span class="tags" v-if="memberDetail.tags && memberDetail.tags.length">
-                            <span v-for="item in memberDetail.tags" :key="item">{{ item && item.tagName }} </span>
+                            <span v-for="item in memberDetail.tags" :key="item.id">{{ item && item.tagName }} </span>
                         </span>
                         <a @click="showAddTagDialog = true">
                             编辑
@@ -56,7 +56,7 @@
                     <div class="record">
                         <span>记录：</span>
                         <div class="list" v-if="memberDetail.record && memberDetail.record.length">
-                            <p v-for="item in memberDetail.record" :key="item">
+                            <p v-for="item in memberDetail.record" :key="item.id">
                                 {{ item }}
                             </p>
                         </div>
@@ -840,6 +840,11 @@
             :course-id="courseResourceId"
             :user-id="selectedUserId"
         />
+        <!--添加备注-->
+        <AddRemark :show.sync="showAddRemark"
+                   :user-id="userId"
+                   @success="getRemarkList"
+        />
         <!--显示备注信息列表-->
         <RemarkList
             :show.sync="isShowRemarkList"
@@ -857,6 +862,7 @@ import Field from '../../../../components/common/Field.vue'
 import CityPicker from '../../../../components/common/City-Picker.vue'
 import AddTags from '../components/Add-Tags.vue'
 import WatchDetailList from '../components/Watch-Detail-List.vue'
+import AddRemark from '../components/Add-Remark.vue'
 import RemarkList from '../components/Remark-List.vue'
 
 import {
@@ -877,7 +883,8 @@ import {
           CityPicker,
           Pagination,
           WatchDetailList,
-          RemarkList
+          RemarkList,
+          AddRemark
       }
   })
 
@@ -1461,7 +1468,8 @@ export default class MemberManageDetail extends Vue {
     async deleteRemark (id: string) {
         try {
             await deleteRemark({ id })
-            this.getRemarkList()
+            await this.getRemarkList()
+            await this.getMemberDetail()
         } catch (e) {
             throw e
         }
@@ -1578,6 +1586,9 @@ export default class MemberManageDetail extends Vue {
                 margin: 60px 0;
             }
         }
+    }
+    .operate {
+        color: #458bff !important;
     }
     .mb-10 {
         margin-bottom: 10px!important;

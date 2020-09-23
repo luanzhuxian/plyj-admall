@@ -234,7 +234,7 @@
                                     <div class="tag">
                                         <template v-if="row.userTags && row.userTags.length">
                                             <el-tooltip class="item" effect="dark" :content="row.userTags.filter(item => item.tagName).join('  ')" placement="bottom">
-                                                <span v-for="item in row.userTags" :key="item">{{ item && item.tagName }} </span>
+                                                <span v-for="item in row.userTags" :key="item.id">{{ item && item.tagName }} </span>
                                             </el-tooltip>
                                         </template>
                                     </div>
@@ -353,7 +353,7 @@
                         <el-select v-model="exportData.tagId" clearable>
                             <el-option value="" label="全部" />
                             <el-option :value="0" label="未设置标签" />
-                            <el-option v-for="(item,index) in tagList" :label="item.tagName" :value="item.id" :key="index" />
+                            <el-option v-for="item in tagList" :label="item.tagName" :value="item.id" :key="item.id" />
                         </el-select>
                     </el-form-item>
                     <el-form-item label="加入时间" prop="startTime">
