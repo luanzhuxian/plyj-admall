@@ -127,7 +127,7 @@
                         <div class="fill">
                             <span>备注：</span>
                             <span>{{ memberDetail.remark }}</span>
-                            <el-button type="text" @click="isShowRemarkList = true">查看更多</el-button>
+                            <el-button type="text" v-if="memberDetail.remark" @click="isShowRemarkList = true">查看更多</el-button>
                         </div>
                     </div>
                 </SearchBox>
