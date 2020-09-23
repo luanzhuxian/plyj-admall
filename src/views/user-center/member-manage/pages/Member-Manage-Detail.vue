@@ -868,7 +868,7 @@
         <!--添加备注-->
         <AddRemark :show.sync="showAddRemark"
                    :user-id="userId"
-                   @success="getRemarkList"
+                   @success="addRemarkSuccess"
         />
         <!--显示备注信息列表-->
         <RemarkList
@@ -1487,6 +1487,15 @@ export default class MemberManageDetail extends Vue {
     showAddRemark = false
     addRemark () {
         this.showAddRemark = true
+    }
+
+    async addRemarkSuccess () {
+        try {
+            await this.getRemarkList()
+            await this.getMemberDetail()
+        } catch (e) {
+            throw e
+        }
     }
 
     remarkListForm = {
