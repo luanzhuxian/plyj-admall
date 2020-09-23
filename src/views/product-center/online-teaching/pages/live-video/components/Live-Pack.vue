@@ -4,9 +4,37 @@
             <div :class="$style.roomNum">房间号 {{ data.roomId }}</div>
             <div :class="$style.roomPassword">
                 <span>密码 *****</span>
-                <span>眼睛 </span>
+                <el-popover
+                    placement="left"
+                    trigger="click"
+                    :popper-class="$style.liveInfo"
+                    @show="getRoomInfo"
+                >
+                    <ul :class="$style.roomInfo">
+                        <li :class="$style.infoItem">
+                            <label>房间名称</label>
+                            <span>{{ row.roomName }}</span>
+                        </li>
+                        <li :class="$style.infoItem">
+                            <label>房间号</label>
+                            <span>{{ row.roomId }}</span>
+                        </li>
+                        <li :class="$style.infoItem">
+                            <label>密码</label>
+                            <span>{{ row.password }}</span>
+                        </li>
+                        <li :class="$style.infoItem">
+                            <label>推流地址</label>
+                            <span>{{ row.url }}</span>
+                            <el-button v-clipboard:copy="row.url" v-clipboard:success="copyUrl" type="text" size="mini">
+                                复制地址
+                            </el-button>
+                        </li>
+                    </ul>
+                    <pl-svg style="cursor: pointer; margin-left: 18px; vertical-align: revert" slot="reference" name="icon-eye-open" width="14" />
+                </el-popover>
             </div>
-            <div :class="$style.streamAddress">推流地址 http://454454</div>
+            <div :class="$style.streamAddress">推流地址 rtmp://...</div>
             <div :class="$style.liveStatus" :style="{ '--color': data.liveStatus === 'LIVING' ? '#4F63FF' : '#F79F1A' }">直播中</div>
         </div>
         <div :class="$style.content">
@@ -39,17 +67,37 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
+import { getRoomInfoById } from './../../../../../../apis/product-center/line-teaching/live'
+
 export interface LiveData {
     id: string;
     roomId: number | string;
     name: string;
+    roomName: string;
     roomToken: number;
     liveStatus: ('LIVING' | 'READY_START');
 }
 
 @Component
 export default class LivePack extends Vue {
-    @Prop(Object) readonly data: LiveData | undefined
+    @Prop(Object) readonly data!: LiveData
+
+    row = {
+        roomName: this.data.roomName,
+        roomId: this.data.roomId,
+        password: '',
+        url: ''
+    }
+
+    private async getRoomInfo () {
+        const { result }: any = await getRoomInfoById(this.data.roomId)
+        this.row.password = result.password
+        this.row.url = result.url
+    }
+
+    private copyUrl () {
+        this.$success('复制成功')
+    }
 }
 </script>
 
@@ -134,6 +182,31 @@ export default class LivePack extends Vue {
                         content: '|';
                         cursor: auto;
                     }
+                }
+            }
+        }
+    }
+}
+.live-info {
+    .room-info {
+        > .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+            > label {
+                display: inline-block;
+                width: 68px;
+            }
+            &:nth-last-of-type(1) {
+                margin: -7px 0 0 0;
+                > span {
+                    display: inline-block;
+                    width: 120px;
+                    margin-right: 35px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
             }
         }

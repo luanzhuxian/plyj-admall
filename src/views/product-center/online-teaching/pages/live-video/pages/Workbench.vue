@@ -159,7 +159,7 @@
             <template #liveWord>
                 <el-form-item v-if="currentLive.roomToken" :error="roomTokenError" label="直播间口令：">
                     <el-input style="width: 125px; margin-right: 50px" disabled :value="currentLive.roomToken" />
-                    <el-button type="primary" v-clipboard:copy="currentLive.roomToken" v-clipboard:success="$success('复制成功')">
+                    <el-button type="primary" v-clipboard:copy="currentLive.roomToken" v-clipboard:success="() => $success('复制成功')">
                         复制
                     </el-button>
                     <el-button class="ml-10" @click="updateRoomToken">
