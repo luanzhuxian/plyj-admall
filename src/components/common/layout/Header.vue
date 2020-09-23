@@ -75,7 +75,7 @@
                 <i :class="$style.mark" />
             </router-link>
 
-            <div :class="$style.user">
+            <div :class="$style.user" @mouseenter="showPop = true" @mouseleave="showPop = false">
                 <img
                     :class="$style.avatar"
                     src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png"
@@ -83,24 +83,27 @@
                 >
                 <span :class="$style.mobile">{{ bindPhone | formatAccount }}</span>
                 <span class="el-icon-arrow-right fz-12" />
-                <div :class="$style.pop">
-                    <div :class="$style.popItem" class="pointer">
-                        切换店铺
-                    </div>
-                    <div :class="$style.popItem">
-                        <div>登录账户</div>
-                        <div>
-                            <div>超级管理员</div>
-                            <div>{{ bindPhone | formatAccount }}</div>
+
+                <transition name="fade">
+                    <div v-show="showPop" :class="$style.pop">
+                        <div :class="$style.popItem" class="pointer">
+                            切换店铺
+                        </div>
+                        <div :class="$style.popItem">
+                            <div>登录账户</div>
+                            <div>
+                                <div>超级管理员</div>
+                                <div>{{ bindPhone | formatAccount }}</div>
+                            </div>
+                        </div>
+                        <div :class="$style.popItem" class="pointer" @click="logout">
+                            退出登录
+                        </div>
+                        <div :class="$style.popItem" class="pointer" @click="modify">
+                            修改密码
                         </div>
                     </div>
-                    <div :class="$style.popItem" class="pointer" @click="logout">
-                        退出登录
-                    </div>
-                    <div :class="$style.popItem" class="pointer" @click="modify">
-                        修改密码
-                    </div>
-                </div>
+                </transition>
             </div>
         </div>
     </header>
@@ -117,6 +120,7 @@ const userModule = namespace('user')
 export default class Header extends Vue {
     mallQrcode = ''
     showMallUrl = false
+    showPop = false
     // computed
     @userModule.Getter('mallName') mallName!: string
     @userModule.Getter('bindPhone') bindPhone!: string
