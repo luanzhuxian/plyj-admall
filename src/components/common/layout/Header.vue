@@ -92,7 +92,7 @@
                         <div :class="$style.popItem">
                             <div>登录账户</div>
                             <div>
-                                <div>超级管理员</div>
+                                <div>{{ roleMap[currentRoleCode] }}</div>
                                 <div>{{ bindPhone | formatAccount }}</div>
                             </div>
                         </div>
@@ -134,7 +134,9 @@ export default class Header extends Vue {
     @userModule.Getter('bindPhone') bindPhone!: string
     @userModule.Getter('auditStatus') auditStatus!: string
     @userModule.Getter('mallUrl') mallUrl!: string
+    @userModule.Getter('currentRoleCode') currentRoleCode!: string
     @Getter('childRoute') childRoute!: any
+    @Getter('roleMap') roleMap!: any
 
     @userModule.Mutation('LOGOUT') LOGOUT!: Function
     @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function

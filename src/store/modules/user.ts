@@ -276,7 +276,6 @@ const user: Module<DynamicObject, DynamicObject> = {
          * @param commit
          */
         async [types.GET_AGENCY_LIST] ({ commit }) {
-            console.log('红火火恍恍惚惚')
             try {
                 const data = await getAgencyList()
                 commit(types.GET_AGENCY_LIST, data.result)
