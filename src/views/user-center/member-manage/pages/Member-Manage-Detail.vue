@@ -258,7 +258,7 @@
                                 clearable
                                 style="width: 300px;"
                                 @change="searchOrderList"
-                                placeholder="请输入用户昵称/真实姓名/手机号"
+                                placeholder="请输入订单号/产品名称"
                                 v-model="orderListForm.keyword"
                             />
                         </el-form-item>
@@ -387,7 +387,7 @@
                                 clearable
                                 style="width: 300px;"
                                 @change="searchShareList"
-                                placeholder="请输入订单号/商品名称/分享人"
+                                placeholder="请输入订单号/产品名称/分享人"
                                 v-model="shareListForm.keyword"
                             />
                         </el-form-item>
@@ -405,7 +405,7 @@
                                 />
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="订单类型：">
+                        <el-form-item label="订单状态：">
                             <el-select
                                 v-model="orderListForm.orderStatus"
                                 @change="searchShareList"
