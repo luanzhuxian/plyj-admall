@@ -4,7 +4,7 @@
             <router-view />
         </keep-alive>
     </div>
-</template>asd
+</template>
 
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator'

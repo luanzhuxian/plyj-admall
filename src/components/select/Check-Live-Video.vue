@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { getLibraryList } from '../../apis/live'
+import { getLibraryList } from '../../product-center/line-teaching/live'
 import { deleteImage } from '../../assets/ts/upload'
 import { uploadLibraryFile } from '../../apis/line-teaching/video-library'
 import VideoManager from '../common/file/Video-Manager'
