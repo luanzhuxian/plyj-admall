@@ -58,7 +58,7 @@
                 @selection-change="setSelectionChange"
             >
                 <span slot="empty" class="empty">
-                    <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" />
+                    <PlSvg name="icon-empty" width="16" style="margin-right: 4px;" />
                     {{ emptyText }}
                 </span>
                 <el-table-column
@@ -72,7 +72,7 @@
                     <template slot-scope="{ row }">
                         <template v-if="!row.isEdit">
                             <span v-text="row.templateName" />
-                            <pl-svg name="icon-bianji1" width="18" height="16" fill="#598bf8" @click="row.isEdit = true" />
+                            <PlSvg name="icon-bianji1" width="18" height="16" fill="#598bf8" @click="row.isEdit = true" />
                         </template>
                         <template v-if="row.isEdit">
                             <el-input v-model="row.editName" />
@@ -176,7 +176,7 @@ import {
     delTemplateBatch,
     checkIsFull,
     updateTemplateStatus
-} from '../../../apis/mall-manage'
+} from '../../../apis/mall'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import { rebuild } from '../utils/service'
 import { validatorProducer } from '../utils/validate'

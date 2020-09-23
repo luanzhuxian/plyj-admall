@@ -72,7 +72,7 @@
                                     [$style.subRight]: true,
                                     [$style.disabled]: item.goodsInfo.activityInfo.status !== 1
                                 }">
-                                <pl-svg name="icon-qiang" :width="(i === 0 && data.values.length % 2 === 1) ? 19 : 15" />
+                                <PlSvg name="icon-qiang" :width="(i === 0 && data.values.length % 2 === 1) ? 19 : 15" />
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div :class="$style.subRight">
-                            <pl-svg name="icon-qiang" :width="i === 0 ? 19 : 15" />
+                            <PlSvg name="icon-qiang" :width="i === 0 ? 19 : 15" />
                         </div>
                     </div>
                 </div>

@@ -1,51 +1,51 @@
 <template>
-    <div class="live-wrapper" v-if="isLiveShow">
-        <div class="live-head">
+    <div :class="$style.liveWrapper" v-if="isLiveShow">
+        <div :class="$style.liveHead">
             <PlSvg name="icon-live-red-f0ae2" width="18" height="20" />
             <b>互动直播</b>
-            <div class="live-head__more">
+            <div :class="$style.liveHeadMore">
                 查看全部
                 <i class="el-icon-arrow-right" />
             </div>
         </div>
-        <div class="live-head__sub">
+        <div :class="$style.liveHeadSub">
             <span>{{ `直播中 ${data.nowCount || 0}` }}</span>
             <span>{{ `即将开始 ${data.futrueCount || 0}` }}</span>
             <span>{{ `往期直播 ${data.pastCount || 0}` }}</span>
         </div>
-        <div class="live">
-            <div class="img-wrapper">
+        <div :class="$style.live">
+            <div :class="$style.imgWrapper">
                 <img :src="(isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-small'">
-                <div class="label" v-if="isNoticeShow">
+                <div :class="$style.label" v-if="isNoticeShow">
                     预告
                 </div>
                 <PlSvg name="icon-bofang" width="32" />
             </div>
-            <div class="info">
-                <div class="top" v-text="live.name" />
-                <div class="bottom" v-if="live.statue !== 0">
-                    <div class="bottom-left">
+            <div :class="$style.info">
+                <div :class="$style.top" v-text="live.name" />
+                <div :class="$style.bottom" v-if="live.statue !== 0">
+                    <div :class="$style.bottomLeft">
                         <PlSvg name="icon-clock" width="13" />
                     </div>
-                    <div class="bottom-right">
+                    <div :class="$style.bottomRight">
                         <span v-if="isNoticeShow">距开始仅剩</span>
-                        <span v-if="live.statue === 4" class="highlight">正在直播</span>
-                        <span v-if="live.statue === 0" class="highlight">已结束</span>
-                        <countdown
+                        <span v-if="live.statue === 4" :class="$style.highlight">正在直播</span>
+                        <span v-if="live.statue === 0" :class="$style.highlight">已结束</span>
+                        <Countdown
                             v-if="isNoticeShow"
                             :duration="duration"
                             format="DD天HH:mm:ss"
                             @finish="done"
                         />
-                        <span v-if="live.statue === 4" class="highlight">
+                        <span v-if="live.statue === 4" :class="$style.highlight">
                             {{ `${live.visitTimes}人观看` }}
                         </span>
-                        <span v-if="live.statue === 0" class="highlight">
+                        <span v-if="live.statue === 0" :class="$style.highlight">
                             直播已结束，去看回放
                         </span>
                     </div>
                 </div>
-                <div class="lock" v-if="live.roomToken">
+                <div :class="$style.lock" v-if="live.roomToken">
                     <PlSvg name="icon-lock-plain-fc397" width="15" />
                     观看需验证口令
                 </div>
@@ -54,71 +54,77 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import moment from 'moment'
 import Countdown from '../../components/Countdown.vue'
+import { LiveStatus } from '../../../utils/types'
 
-export default {
-    name: 'Live',
-    components: {
-        Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return {}
-            }
+@Component({
+    components: { Countdown }
+})
+export default class Live extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { liveModel: [] }
         }
-    },
-    data () {
-        return {}
-    },
-    computed: {
-        liveModel () {
-            const { data } = this
+    }) readonly data!: {
+        futrueCount: number;
+        nowCount: number;
+        pastCount: number;
+        liveModel: DynamicObject[];
+    }
 
-            if (!data.liveModel || !data.liveModel.length) {
-                return []
-            }
-            return data.liveModel.filter(item => item.statue === 0 || item.statue === 4 || (item.statue === 2 && item.hasNotice))
-        },
-        isLiveShow () {
-            return !!this.liveModel.length
-        },
-        live () {
-            return this.isLiveShow ? this.liveModel[0] : {}
-        },
-        isNoticeShow () {
-            return this.live && this.live.statue === 2 && this.live.hasNotice
-        },
-        duration () {
-            const { liveStartTime, hasNotice } = this.live
-            let ts
-            if (hasNotice && liveStartTime) {
-                ts = moment(liveStartTime).valueOf()
-            }
-            const duration = Date.now().valueOf() - ts
-            return Math.abs(duration)
+    /* computed */
+    get liveModel () {
+        const { data } = this
+
+        if (!data.liveModel || !data.liveModel.length) {
+            return []
         }
-    },
-    methods: {
-        done () {
-            if (this.live.statue === 2) {
-                this.live.statue = 4
-                this.data.nowCount += 1
-                this.data.futrueCount -= 1
-            } else if (this.live.statue === 4) {
-                this.live.statue = 0
-                this.data.nowCount -= 1
-                this.data.pastCount += 1
-            }
+        return data.liveModel.filter(item => item.statue === LiveStatus.Finished || item.statue === LiveStatus.Started || (item.statue === LiveStatus.NotStarted && item.hasNotice))
+    }
+
+    get isLiveShow () {
+        return !!this.liveModel.length
+    }
+
+    get live () {
+        return this.isLiveShow ? this.liveModel[0] : {}
+    }
+
+    get isNoticeShow () {
+        return this.live && this.live.statue === LiveStatus.NotStarted && this.live.hasNotice
+    }
+
+    get duration () {
+        const { liveStartTime, hasNotice } = this.live
+        let ts = 0
+        if (hasNotice && liveStartTime) {
+            ts = moment(liveStartTime).valueOf()
+        }
+        const duration = Date.now().valueOf() - ts
+        return Math.abs(duration)
+    }
+
+    /* methods */
+    done () {
+        if (this.live.statue === LiveStatus.NotStarted) {
+            this.live.statue = LiveStatus.Started
+            this.data.nowCount += 1
+            this.data.futrueCount -= 1
+        } else if (this.live.statue === LiveStatus.Started) {
+            this.live.statue = LiveStatus.Finished
+            this.data.nowCount -= 1
+            this.data.pastCount += 1
         }
     }
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .live-wrapper {
     padding: 10px 8px 10px;
     background-color: #fff;
@@ -134,7 +140,7 @@ export default {
         font-size: 16px;
         color: #333;
     }
-    &__sub {
+    &-sub {
         margin-bottom: 16px;
         > span {
             font-size: 11px;
@@ -150,7 +156,7 @@ export default {
             }
         }
     }
-    &__more {
+    &-more {
         display: flex;
         align-items: center;
         margin-left: auto;

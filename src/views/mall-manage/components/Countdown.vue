@@ -14,14 +14,14 @@ const MINUTE = 60 * SECOND
 const HOUR = 60 * MINUTE
 const DAY = 24 * HOUR
 
-type ParseTime = {
+type ParsedTime = {
     days: number;
     hours: number;
     minutes: number;
     seconds: number;
 }
 
-const parseTime: (time: number) => ParseTime = (time: number) => {
+const parseTime: (time: number) => ParsedTime = (time: number) => {
     const days = Math.floor(time / DAY)
     const hours = Math.floor((time % DAY) / HOUR)
     const minutes = Math.floor((time % HOUR) / MINUTE)
@@ -35,7 +35,7 @@ const parseTime: (time: number) => ParseTime = (time: number) => {
     }
 }
 
-const parseFormat = (format: string, parsedTime: ParseTime) => {
+const parseFormat = (format: string, parsedTime: ParsedTime) => {
     const { days } = parsedTime
     let { hours, minutes, seconds } = parsedTime
 

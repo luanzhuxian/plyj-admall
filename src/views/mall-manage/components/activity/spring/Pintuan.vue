@@ -1,8 +1,8 @@
 <template>
-    <div class="pintuan">
-        <div class="pintuan-top">
-            <div class="pintuan-top__side" />
-            <div class="pintuan-top__content">
+    <div :class="$style.pintuan">
+        <div :class="$style.pintuanTop">
+            <div :class="$style.pintuanTopSide" />
+            <div :class="$style.pintuanTopContent">
                 <h3>新春团购大联欢</h3>
                 <p v-if="Number(data.otherValue)">
                     {{ `还有${data.otherValue}个团 点击查看>` }}
@@ -12,17 +12,17 @@
                 </p>
             </div>
         </div>
-        <ul class="pintuan-list" v-if="data.values.length">
+        <ul :class="$style.pintuanList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <li
                     v-if="item.goodsInfo && item.goodsInfo.activityInfo"
-                    class="pintuan-list-item"
+                    :class="$style.pintuanListItem"
                     :key="i"
                 >
-                    <div class="label">
+                    <div :class="$style.label">
                         众志成团
                     </div>
-                    <div class="ribbon">
+                    <div :class="$style.ribbon">
                         <span v-if="item.goodsInfo.activityInfo.status === 0">
                             {{ `${item.goodsInfo.pageviews}人关注` }}
                         </span>
@@ -30,77 +30,77 @@
                             {{ `${item.goodsInfo.activityInfo.number}人参团` }}
                         </span>
                     </div>
-                    <div class="count-down-wrapper" v-if="item.goodsInfo.activityInfo.preActivity && item.goodsInfo.activityInfo.preActivity !== 0">
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 0">距开始：</span>
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 1">距结束：</span>
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 2">已成功</span>
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 3">已结束</span>
-                        <countdown
+                    <div :class="$style.countdownWrapper" v-if="item.goodsInfo.activityInfo.preActivity && item.goodsInfo.activityInfo.preActivity !== 0">
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 0">距开始：</span>
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 1">距结束：</span>
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 2">已成功</span>
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 3">已结束</span>
+                        <Countdown
                             v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)"
                             :duration="getDuration(item.goodsInfo.activityInfo)"
                             format="DD天HH:mm:ss"
                             @finish="() => reset(item)"
                         />
                     </div>
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <img :src="item.goodsInfo.productMainImage">
                     </div>
-                    <div class="info">
-                        <div class="main">
+                    <div :class="$style.info">
+                        <div :class="$style.main">
                             {{ item.goodsInfo.productName }}
                         </div>
-                        <div class="sub-1">
-                            <div class="sub-1-left">
+                        <div :class="$style.sub1">
+                            <div :class="$style.sub1Left">
                                 <span v-if="item.goodsInfo.activityInfo.prizePool">
                                     成团瓜分
                                 </span>
                                 <span v-else>新春有礼</span>
                             </div>
-                            <div class="sub-1-right" v-if="item.goodsInfo.activityInfo.prizePool">
+                            <div :class="$style.sub1Right" v-if="item.goodsInfo.activityInfo.prizePool">
                                 {{ `${item.goodsInfo.activityInfo.prizePool}元` }}
                             </div>
                         </div>
-                        <div class="sub-2">
+                        <div :class="$style.sub2">
                             <PlSvg name="icon-tuangoujia" width="40" height="20" fill="#FF4B00" />
-                            <span class="sub-2-price">{{ item.goodsInfo.activityInfo.activityPrice }}</span>
+                            <span :class="$style.sub2Price">{{ item.goodsInfo.activityInfo.activityPrice }}</span>
                         </div>
                     </div>
                 </li>
             </template>
         </ul>
-        <ul class="pintuan-list" v-else>
+        <ul :class="$style.pintuanList" v-else>
             <li
                 v-for="(item, i) of 3"
                 :key="i"
-                class="pintuan-list-item"
+                :class="$style.pintuanListItem"
             >
-                <div class="label">
+                <div :class="$style.label">
                     众志成团
                 </div>
-                <div class="ribbon">
+                <div :class="$style.ribbon">
                     9999人参团
                 </div>
-                <div class="count-down-wrapper">
+                <div :class="$style.countdownWrapper">
                     距结束：2天23:59:59
                 </div>
-                <div class="img-wrapper">
+                <div :class="$style.imgWrapper">
                     <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
                 </div>
-                <div class="info">
-                    <div class="main">
+                <div :class="$style.info">
+                    <div :class="$style.main">
                         神奇的逻辑思维游戏畅销书
                     </div>
-                    <div class="sub-1">
-                        <div class="sub-1-left">
+                    <div :class="$style.sub1">
+                        <div :class="$style.sub1Left">
                             成团瓜分
                         </div>
-                        <div class="sub-1-right">
+                        <div :class="$style.sub1Right">
                             99999元
                         </div>
                     </div>
-                    <div class="sub-2">
+                    <div :class="$style.sub2">
                         <PlSvg name="icon-tuangoujia" width="40" height="20" fill="#FF4B00" />
-                        <span class="sub-2-price">10000</span>
+                        <span :class="$style.sub2Price">10000</span>
                     </div>
                 </div>
             </li>
@@ -108,43 +108,40 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import Countdown from '../../components/Countdown.vue'
-import { getDuration, reset } from '../../utils/helper'
+import { getDuration, reset } from '../../../utils/helper'
 
-export default {
-    name: 'Pintuan',
-    components: {
-        Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component({
+    components: { Countdown }
+})
+export default class Pintuan extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {}
-    },
-    methods: {
-        getDuration,
-        reset
-    }
+    }) readonly data!: TemplateModule
+
+    /* methods */
+    getDuration = getDuration
+    reset = reset
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .pintuan {
     &-top {
-        &__side {
+        &-side {
             border: 32px solid;
             border-bottom: 16px solid;
             border-top: none;
             border-color: transparent transparent #fe834f transparent;
         }
-        &__content {
+        &-content {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -209,7 +206,7 @@ export default {
             color: #724e12;
             @include elps();
         }
-        .count-down-wrapper {
+        .countdown-wrapper {
             position: absolute;
             top: -16px;
             right: 0;
@@ -226,9 +223,6 @@ export default {
             font-family: San Francisco Display;
             font-weight: bold;
             @include elps();
-            ::v-deep .count-down {
-                font-size: 13px;
-            }
         }
         .img-wrapper {
             width: 150px;

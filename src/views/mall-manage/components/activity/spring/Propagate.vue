@@ -1,17 +1,17 @@
 <template>
-    <div class="propagate">
-        <div class="label">
+    <div :class="$style.propagate">
+        <div :class="$style.label">
             <span>了解我们</span>
         </div>
-        <div class="info">
-            <div class="name" v-text="data.values[0].mallName" />
+        <div :class="$style.info">
+            <div :class="$style.name" v-text="data.values[0].mallName" />
             <p
-                class="intro"
+                :class="$style.intro"
                 v-if="data.values[0].mallDesc"
                 v-text="data.values[0].mallDesc"
             />
         </div>
-        <div class="img-wrapper">
+        <div :class="$style.imgWrapper">
             <img
                 v-if="data.values[0].mallLogo"
                 :src="data.values[0].mallLogo + '?x-oss-process=style/thum-small'"
@@ -20,23 +20,22 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Propagate',
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+
+@Component
+export default class Propagate extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {}
-    }
+    }) readonly data!: object
 }
 </script>
-<style lang="scss" scoped>
+
+<style lang="scss" module>
 .propagate {
   box-sizing: border-box;
   position: relative;

@@ -1,103 +1,109 @@
 <template>
-    <div class="live" v-if="isLiveShow">
-        <div class="cover">
-            <span class="status" v-if="isNoticeShow">距开始</span>
-            <span class="status" v-if="live.statue === 4">正在直播</span>
-            <!-- <span class="status" v-if="live.statue === 0">已结束</span> -->
-            <countdown
+    <div :class="$style.live" v-if="isLiveShow">
+        <div :class="$style.cover">
+            <span :class="$style.status" v-if="isNoticeShow">距开始</span>
+            <span :class="$style.status" v-if="live.statue === 4">正在直播</span>
+            <!-- <span :class="$style.status" v-if="live.statue === 0">已结束</span> -->
+            <Countdown
                 v-if="isNoticeShow"
                 :duration="duration"
                 @finish="done"
             >
                 <template #default="{time}">
-                    <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                    <span class="colon">天</span>
-                    <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                    <span class="colon">:</span>
-                    <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                    <span class="colon">:</span>
-                    <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                    <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                    <span :class="$style.colon">天</span>
+                    <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                    <span :class="$style.colon">:</span>
+                    <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                    <span :class="$style.colon">:</span>
+                    <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                 </template>
-            </countdown>
+            </Countdown>
             <span v-if="live.statue === 4">
                 {{ `${live.visitTimes}人观看` }}
             </span>
         </div>
-        <div class="img-wrapper">
+        <div :class="$style.imgWrapper">
             <img :src="(isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-small'">
             <PlSvg name="icon-bofang" width="50" height="50" />
-            <div class="info">
-                <div class="status">
+            <div :class="$style.info">
+                <div :class="$style.status">
                     <span v-if="isNoticeShow">预告</span>
                     <span v-if="live.statue === 4">直播中</span>
                 </div>
-                <span class="name" v-text="live.name" />
+                <span :class="$style.name" v-text="live.name" />
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import moment from 'moment'
 import Countdown from '../../components/Countdown.vue'
+import { LiveStatus } from '../../../utils/types'
 
-export default {
-    name: 'Live',
-    components: {
-        Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return {}
-            }
+@Component({
+    components: { Countdown }
+})
+export default class Live extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { liveModel: [] }
         }
-    },
-    data () {
-        return {}
-    },
-    computed: {
-        liveModel () {
-            const { data } = this
+    }) readonly data!: {
+        futrueCount: number;
+        nowCount: number;
+        pastCount: number;
+        liveModel: DynamicObject[];
+    }
 
-            if (!data.liveModel || !data.liveModel.length) {
-                return []
-            }
-            return data.liveModel.filter(item => item.statue === 0 || item.statue === 4 || (item.statue === 2 && item.hasNotice))
-        },
-        isLiveShow () {
-            return !!this.liveModel.length
-        },
-        live () {
-            return this.isLiveShow ? this.liveModel[0] : {}
-        },
-        isNoticeShow () {
-            return this.live && this.live.statue === 2 && this.live.hasNotice
-        },
-        duration () {
-            const { liveStartTime, hasNotice, statue } = this.live
-            let ts
-            if (statue === 2 && hasNotice && liveStartTime) {
-                ts = moment(liveStartTime).valueOf()
-            }
-            const duration = Date.now().valueOf() - ts
-            return Math.abs(duration)
+    /* computed */
+    get liveModel () {
+        const { data } = this
+
+        if (!data.liveModel || !data.liveModel.length) {
+            return []
         }
-    },
-    methods: {
-        done () {
-            if (this.live.statue === 2) {
-                this.live.statue = 4
-            } else if (this.live.statue === 4) {
-                this.live.statue = 0
-            }
+        return data.liveModel.filter(item => item.statue === 0 || item.statue === 4 || (item.statue === 2 && item.hasNotice))
+    }
+
+    get isLiveShow () {
+        return !!this.liveModel.length
+    }
+
+    get live () {
+        return this.isLiveShow ? this.liveModel[0] : {}
+    }
+
+    get isNoticeShow () {
+        return this.live && this.live.statue === 2 && this.live.hasNotice
+    }
+
+    get duration () {
+        const { liveStartTime, hasNotice, statue } = this.live
+        let ts = 0
+        if (statue === 2 && hasNotice && liveStartTime) {
+            ts = moment(liveStartTime).valueOf()
+        }
+        const duration = Date.now().valueOf() - ts
+        return Math.abs(duration)
+    }
+
+    /* methods */
+    done () {
+        if (this.live.statue === LiveStatus.NotStarted) {
+            this.live.statue = LiveStatus.Started
+        } else if (this.live.statue === LiveStatus.Started) {
+            this.live.statue = LiveStatus.Finished
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .live {
     position: relative;
     padding: 10px;
@@ -194,14 +200,14 @@ export default {
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    ::v-deep .count-down > .time > span {
-        padding: 0 4px;
-        font-size: 12px;
-        font-family: Microsoft YaHei;
-        font-weight: bold;
-        line-height: 24px;
-        color: #fff;
-    }
+    // ::v-deep .countdown > .time > span {
+    //     padding: 0 4px;
+    //     font-size: 12px;
+    //     font-family: Microsoft YaHei;
+    //     font-weight: bold;
+    //     line-height: 24px;
+    //     color: #fff;
+    // }
 }
 
 </style>

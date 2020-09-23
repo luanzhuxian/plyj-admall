@@ -23,39 +23,32 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Panel',
-    props: {
-        customClass: {
-            type: String,
-            default: ''
-        },
-        title: {
-            type: [Object, String],
-            default: ''
-        },
-        button: {
-            type: String,
-            default: '查看更多'
-        },
-        hideButton: Boolean
-    },
-    data () {
-        return {}
-    },
-    computed: {
-        isSvg () {
-            const { title } = this
-            return typeof title === 'object'
-        }
-    },
-    methods: {
-        handleClick () {
-            this.$emit('click')
-        }
+<script lang="ts">
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
+
+@Component
+export default class Panel extends Vue {
+    /* props */
+    @Prop(String) readonly customClass!: string
+    @Prop([Object, String]) readonly title!: object | string
+    @Prop(Boolean) readonly hideButton!: boolean
+
+    @Prop({
+        type: String,
+        default: '查看更多'
+    }) readonly button!: string
+
+    /* computed */
+    get isSvg () {
+        const { title } = this
+        return typeof title === 'object'
     }
 
+    /* methods */
+    @Emit('click')
+    handleClick (data: any) {
+        return data
+    }
 }
 </script>
 

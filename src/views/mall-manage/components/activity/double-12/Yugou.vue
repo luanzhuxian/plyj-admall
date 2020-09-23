@@ -1,46 +1,46 @@
 <template>
-    <div class="yugou">
-        <div class="background">
-            <div class="nav-bar">
-                <div class="nav-link">
+    <div :class="$style.yugou">
+        <div :class="$style.background">
+            <div :class="$style.navBar">
+                <div :class="$style.navLink">
                     <span>查看更多</span>
                     <i class="el-icon-arrow-right" />
                 </div>
             </div>
         </div>
-        <ul class="yugou-list" v-if="data.values.length">
+        <ul :class="$style.yugouList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <li
                     v-if="item.goodsInfo && item.goodsInfo.activityInfo"
-                    class="yugou-list-item"
+                    :class="$style.yugouList"
                     :key="i"
                 >
-                    <div class="time">
-                        <div class="time-left">
+                    <div :class="$style.time">
+                        <div :class="$style.timeLeft">
                             <span v-if="item.goodsInfo.activityInfo.status === 0">距开始</span>
                             <span v-if="item.goodsInfo.activityInfo.status === 1">距结束</span>
                             <span v-if="item.goodsInfo.activityInfo.status === 2">已结束</span>
                         </div>
-                        <div class="time-right" v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)">
-                            <countdown
+                        <div :class="$style.timeRight" v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)">
+                            <Countdown
                                 :duration="getDuration(item.goodsInfo.activityInfo)"
                                 format="DD天HH:mm:ss"
                                 @finish="() => item.goodsInfo.activityInfo.status += 1"
                             />
                         </div>
                     </div>
-                    <div class="yugou-list-item-wrapper">
-                        <div class="img-wrapper">
+                    <div :class="$style.yugouListItemWrapper">
+                        <div :class="$style.imgWrapper">
                             <img v-imgError :src="item.goodsInfo.productMainImage">
                         </div>
-                        <div class="info">
-                            <div class="main">
+                        <div :class="$style.info">
+                            <div :class="$style.main">
                                 {{ item.goodsInfo.productName }}
                             </div>
-                            <div class="sub-1">
+                            <div :class="$style.sub1">
                                 {{ `预售到手价：${getTotalPrice(item)}元` }}
                             </div>
-                            <div class="sub-2">
+                            <div :class="$style.sub2">
                                 <span>{{ `预交定金￥${item.goodsInfo.activityInfo.price}` }}</span>
                                 <span v-if="item.goodsInfo.activityInfo.multiple && item.goodsInfo.activityInfo.multipleNumber > 1 && item.goodsInfo.activityInfo.activityPrice">{{ `抵￥${item.goodsInfo.activityInfo.activityPrice}` }}</span>
                             </div>
@@ -49,28 +49,28 @@
                 </li>
             </template>
         </ul>
-        <ul class="yugou-list" v-else>
-            <li class="yugou-list-item" v-for="(item, i) of 3" :key="i">
-                <div class="time">
-                    <div class="time-left">
+        <ul :class="$style.yugouList" v-else>
+            <li :class="$style.yugouListItem" v-for="(item, i) of 3" :key="i">
+                <div :class="$style.time">
+                    <div :class="$style.timeLeft">
                         距结束
                     </div>
-                    <div class="time-right">
+                    <div :class="$style.timeRight">
                         02天23:59:59
                     </div>
                 </div>
-                <div class="yugou-list-item-wrapper">
-                    <div class="img-wrapper">
+                <div :class="$style.yugouListItemWrapper">
+                    <div :class="$style.imgWrapper">
                         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg" alt="">
                     </div>
-                    <div class="info">
-                        <div class="main">
+                    <div :class="$style.info">
+                        <div :class="$style.main">
                             非常好用的蜡笔张三三老师 带您体验课
                         </div>
-                        <div class="sub-1">
+                        <div :class="$style.sub1">
                             预售到手价：2000元
                         </div>
-                        <div class="sub-2">
+                        <div :class="$style.sub2">
                             预交定金￥100抵￥200
                         </div>
                     </div>
@@ -80,34 +80,30 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import Countdown from '../../components/Countdown.vue'
-import { getDuration, getTotalPrice } from '../../utils/helper'
+import { getDuration, getTotalPrice } from '../../../utils/helper'
 
-export default {
-    name: 'Yugou',
-    components: {
-        Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component({
+    components: { Countdown }
+})
+export default class Yugou extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {}
-    },
-    methods: {
-        getDuration,
-        getTotalPrice
-    }
+    }) readonly data!: TemplateModule
+
+    getDuration = getDuration
+    getTotalPrice = getTotalPrice
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
   .yugou {
     background: rgba(213, 55, 150, 1);
     border-radius: 10px;

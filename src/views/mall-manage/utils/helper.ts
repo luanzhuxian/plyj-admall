@@ -2,7 +2,7 @@
 
 import moment from 'moment'
 import Vue from 'vue'
-import { TemplateModuleItem } from './types'
+import { TemplateModuleItem, ActivityStatus } from './types'
 
 export const objectToString = Object.prototype.toString
 export const toTypeString = (value: unknown): string => objectToString.call(value)
@@ -67,9 +67,9 @@ export const getTime = ({ activityStartTime, activityEndTime, startTime, endTime
     const startTs = moment(activityStartTime || startTime).valueOf()
     const endTs = moment(activityEndTime || endTime).valueOf()
     let ts = 0
-    if (status === 0) {
+    if (status === ActivityStatus.NotStarted) {
         ts = startTs
-    } else if (status === 1) {
+    } else if (status === ActivityStatus.Started) {
         ts = endTs
     }
     return ts
@@ -81,13 +81,13 @@ export const getDuration = (activity: { activityStartTime?: string; activityEndT
 }
 
 export const reset = (item: TemplateModuleItem) => {
-    if (isPlainObject<DynamicObject>(item.goodsInfo)) {
+    if (isPlainObject<DynamicObject>(item.goodsInfo) && !(item.goodsInfo instanceof Array)) {
         if (!Reflect.has(item.goodsInfo, 'activityInfo')) return false
 
-        if (item.goodsInfo.activityInfo.status === 0) {
-            item.goodsInfo.activityInfo.status = 1
-        } else if (item.goodsInfo.activityInfo.status === 1) {
-            item.goodsInfo.activityInfo.status = 3
+        if (item.goodsInfo.activityInfo.status === ActivityStatus.NotStarted) {
+            item.goodsInfo.activityInfo.status = ActivityStatus.Started
+        } else if (item.goodsInfo.activityInfo.status === ActivityStatus.Started) {
+            item.goodsInfo.activityInfo.status = ActivityStatus.Finished
         }
     }
 }
@@ -131,12 +131,9 @@ export const multiply = (...args: number[]) => args.reduce((acc, current) => {
 })
 
 export const getTotalPrice = (item: TemplateModuleItem) => {
-    // if (!(item.goodsInfo instanceof Object)) return false
+    if (isPlainObject<DynamicObject>(item.goodsInfo) && !(item.goodsInfo instanceof Array)) {
+        if (!item.goodsInfo.productSkuModels || !item.goodsInfo.productSkuModels.length) return false
 
-    // const goodsInfo: DynamicObject = item.goodsInfo
-
-    if (isPlainObject<DynamicObject>(item.goodsInfo)) {
-        if (!item.goodsInfo || !item.goodsInfo.productSkuModels || !item.goodsInfo.productSkuModels.length) return ''
         const prodPrice = getPrice<DynamicObject, string>(item.goodsInfo.productSkuModels)('price')
 
         if (item.goodsInfo.activityInfo.activityPrice >= prodPrice) {
@@ -149,7 +146,6 @@ export const getTotalPrice = (item: TemplateModuleItem) => {
 
 export const findBrothersComponents = (ctx: Vue, componentName: string, exceptMe = true) => {
     const list = ctx.$parent.$children.filter(item => item.$options.name === componentName)
-    // TODO:
     // @ts-ignore
     const index = list.findIndex(item => item._uid === ctx._uid)
     if (exceptMe && index !== -1) {

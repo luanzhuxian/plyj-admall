@@ -83,7 +83,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { TemplateModule } from '../../utils/types'
+import { LiveStatus } from '../../utils/types'
 
 @Component
 export default class Live extends Vue {
@@ -93,11 +93,11 @@ export default class Live extends Vue {
         default () {
             return { values: [] }
         }
-    }) readonly data!: TemplateModule
+    }) readonly data!: object
 
     /* methods */
     isNoticeShow (live: { statue: number; hasNotice: boolean }) {
-        return live.statue === 2 && live.hasNotice
+        return live.statue === LiveStatus.NotStarted && live.hasNotice
     }
 
     getTime (time: string) {

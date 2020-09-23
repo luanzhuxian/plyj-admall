@@ -1,55 +1,61 @@
 <template>
-    <div class="miaosha">
-        <div class="wrapper" v-if="data.values.length">
-            <ul class="miaosha-time">
+    <div :class="$style.miaosha">
+        <div :class="$style.wrapper" v-if="data.values.length">
+            <ul :class="$style.miaoshaTime">
                 <div>
                     <PlSvg name="icon-miaoshazhuanchang" width="39" height="40" />
                 </div>
                 <li
-                    class="miaosha-time-item"
-                    :class="{ current: currentIndex === 0 }"
+                    :class="{
+                        [$style.miaoshaTimeItem]: true,
+                        [$style.current]: currentIndex === 0
+                    }"
                     v-if="data.values[0]"
-                    @click.stop="currentModule === 'MIAO_SHA' ? currentIndex = 0 : $parent.onClick('MIAO_SHA')"
+                    @click.stop="currentModule === 'MiaoSha' ? currentIndex = 0 : $parent.onClick('MiaoSha')"
                 >
-                    <div class="wrapper" v-if="data.values[0].range && data.values[0].range.length">
-                        <div class="status">
+                    <div :class="$style.wrapper" v-if="data.values[0].range && data.values[0].range.length">
+                        <div :class="$style.status">
                             <span>
                                 {{ getTimeStatus(data.values[0].range) }}
                             </span>
                         </div>
-                        <div class="time">
+                        <div :class="$style.time">
                             {{ getDate(data.values[0].range[0], 'HH:mm') }}
                         </div>
                     </div>
                 </li>
-                <span class="border" v-if="data.values[1]" />
+                <span :class="$style.border" v-if="data.values[1]" />
                 <li
-                    class="miaosha-time-item"
-                    :class="{ current: currentIndex === 1 }"
+                    :class="{
+                        [$style.miaoshaTimeItem]: true,
+                        [$style.current]: currentIndex === 1
+                    }"
                     v-if="data.values[1]"
-                    @click.stop="currentModule === 'MIAO_SHA' ? currentIndex = 1 : $parent.onClick('MIAO_SHA')"
+                    @click.stop="currentModule === 'MiaoSha' ? currentIndex = 1 : $parent.onClick('MiaoSha')"
                 >
-                    <div class="wrapper" v-if="data.values[1].range && data.values[1].range.length">
-                        <div class="status">
+                    <div :class="$style.wrapper" v-if="data.values[1].range && data.values[1].range.length">
+                        <div :class="$style.status">
                             {{ getTimeStatus(data.values[1].range) }}
                         </div>
-                        <div class="time">
+                        <div :class="$style.time">
                             {{ getDate(data.values[1].range[0], 'HH:mm') }}
                         </div>
                     </div>
                 </li>
-                <span class="border" v-if="data.values[2]" />
+                <span :class="$style.border" v-if="data.values[2]" />
                 <li
-                    class="miaosha-time-item"
-                    :class="{ current: currentIndex === 2 }"
+                    :class="{
+                        [$style.miaoshaTimeItem]: true,
+                        [$style.current]: currentIndex === 2
+                    }"
                     v-if="data.values[2]"
-                    @click.stop="currentModule === 'MIAO_SHA' ? currentIndex = 2 : $parent.onClick('MIAO_SHA')"
+                    @click.stop="currentModule === 'MiaoSha' ? currentIndex = 2 : $parent.onClick('MiaoSha')"
                 >
-                    <div class="wrapper" v-if="data.values[2].range && data.values[2].range.length">
-                        <div class="status">
+                    <div :class="$style.wrapper" v-if="data.values[2].range && data.values[2].range.length">
+                        <div :class="$style.status">
                             {{ getTimeStatus(data.values[2].range) }}
                         </div>
-                        <div class="time">
+                        <div :class="$style.time">
                             {{ getDate(data.values[2].range[0], 'HH:mm') }}
                         </div>
                     </div>
@@ -60,70 +66,73 @@
             </ul>
             <div v-for="(item, index) of data.values" :key="index">
                 <ul
-                    class="miaosha-list"
+                    :class="$style.miaoshaList"
                     v-if="item.goodsInfo.length"
                     v-show="index === currentIndex"
                 >
                     <template v-for="(prod, i) of item.goodsInfo">
                         <li
-                            class="miaosha-list-item"
+                            :class="$style.miaoshaListItem"
                             v-if="prod.activityInfo"
                             :key="i"
                         >
-                            <div class="img-wrapper">
+                            <div :class="$style.imgWrapper">
                                 <img :src="prod.productMainImage">
-                                <div class="count-down-wrapper">
-                                    <span class="text" v-if="prod.activityInfo.status === 0">距开始</span>
-                                    <span class="text" v-if="prod.activityInfo.status === 1">距结束</span>
-                                    <span class="text" v-if="prod.activityInfo.status === 2">已结束</span>
+                                <div :class="$style.countdownWrapper">
+                                    <span :class="$style.text" v-if="prod.activityInfo.status === 0">距开始</span>
+                                    <span :class="$style.text" v-if="prod.activityInfo.status === 1">距结束</span>
+                                    <span :class="$style.text" v-if="prod.activityInfo.status === 2">已结束</span>
                                     <countdown
                                         v-if="~[0, 1].indexOf(prod.activityInfo.status)"
                                         :duration="getDuration(prod.activityInfo)"
                                         @finish="() => prod.activityInfo.status += 1"
                                     >
                                         <template #default="{time}">
-                                            <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                                            <span class="colon">天</span>
-                                            <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                                            <span class="colon">:</span>
-                                            <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                                            <span class="colon">:</span>
-                                            <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                                            <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                                            <span :class="$style.colon">天</span>
+                                            <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                                            <span :class="$style.colon">:</span>
+                                            <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                                            <span :class="$style.colon">:</span>
+                                            <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                                         </template>
                                     </countdown>
                                 </div>
                             </div>
-                            <div class="info">
-                                <div class="main">
+                            <div :class="$style.info">
+                                <div :class="$style.main">
                                     {{ prod.productName }}
                                 </div>
-                                <div class="current">
+                                <div :class="$style.current">
                                     <PlSvg name="icon-miaoshajia" width="30" height="19" />
-                                    <span class="price">
+                                    <span :class="$style.price">
                                         {{ prod.activityInfo.activityPrice }}
                                     </span>
                                 </div>
-                                <div class="sub">
-                                    <div class="sub-left">
-                                        <div class="original">
+                                <div :class="$style.sub">
+                                    <div :class="$style.subLeft">
+                                        <div :class="$style.original">
                                             <span v-if="prod.productSkuModels && prod.productSkuModels.length && getPrice(prod.productSkuModels)('originalPrice')">
-                                                原价:<span class="price">{{ getPrice(prod.productSkuModels)('originalPrice') }}</span>
+                                                原价:<span :class="$style.price">{{ getPrice(prod.productSkuModels)('originalPrice') }}</span>
                                             </span>
                                         </div>
-                                        <div class="progress">
-                                            <div class="progress-inner" :style="{ width: `${(Number(prod.activityInfo.number) - Number(prod.activityInfo.activityStock)) / Number(prod.activityInfo.number) * 100}%` }" />
+                                        <div :class="$style.progress">
+                                            <div :class="$style.progressInner" :style="{ width: `${(Number(prod.activityInfo.number) - Number(prod.activityInfo.activityStock)) / Number(prod.activityInfo.number) * 100}%` }" />
                                         </div>
-                                        <div class="saled" v-if="prod.activityInfo.status === 0">
+                                        <div :class="$style.saled" v-if="prod.activityInfo.status === 0">
                                             {{ `${prod.pageviews}人已关注` }}
                                         </div>
-                                        <div class="saled" v-if="prod.activityInfo.status > 0 && prod.activityInfo.activityStock > 0">
+                                        <div :class="$style.saled" v-if="prod.activityInfo.status > 0 && prod.activityInfo.activityStock > 0">
                                             {{ `已抢${Number(prod.activityInfo.number) - Number(prod.activityInfo.activityStock)}件` }}
                                         </div>
-                                        <div class="saled" v-if="prod.activityInfo.status > 0 && prod.activityInfo.activityStock === 0" style="color: #999999;">
+                                        <div :class="$style.saled" v-if="prod.activityInfo.status > 0 && prod.activityInfo.activityStock === 0" style="color: #999999;">
                                             已抢完
                                         </div>
                                     </div>
-                                    <div class="sub-right" :class="{ disabled: prod.activityInfo.status !== 1 }">
+                                    <div :class="{
+                                        [$style.subRight]: true,
+                                        [$style.disabled]: prod.activityInfo.status !== 1
+                                    }">
                                         <PlSvg
                                             v-if="~[0, 1].indexOf(prod.activityInfo.status)"
                                             name="icon-qiang"
@@ -143,40 +152,39 @@
                 </ul>
             </div>
         </div>
-        <div class="wrapper" v-else>
-            <ul class="miaosha-time">
+        <div :class="$style.wrapper" v-else>
+            <ul :class="$style.miaoshaTime">
                 <div>
                     <PlSvg name="icon-miaoshazhuanchang" width="39" height="40" />
                 </div>
-                <!-- <span class="border" /> -->
-                <li class="miaosha-time-item">
-                    <div class="wrapper">
-                        <div class="status">
+                <li :class="$style.miaoshaTimeItem">
+                    <div :class="$style.wrapper">
+                        <div :class="$style.status">
                             已开抢
                         </div>
-                        <div class="time">
+                        <div :class="$style.time">
                             14:00
                         </div>
                     </div>
                 </li>
-                <span class="border" />
-                <li class="miaosha-time-item current">
-                    <div class="wrapper">
-                        <div class="status">
+                <span :class="$style.border" />
+                <li :class="[$style.miaosha-time-item, $style.current]">
+                    <div :class="$style.wrapper">
+                        <div :class="$style.status">
                             进行中
                         </div>
-                        <div class="time">
+                        <div :class="$style.time">
                             15:00
                         </div>
                     </div>
                 </li>
-                <span class="border" />
-                <li class="miaosha-time-item">
-                    <div class="wrapper">
-                        <div class="status">
+                <span :class="$style.border" />
+                <li :class="$style.miaoshaTimeItem">
+                    <div :class="$style.wrapper">
+                        <div :class="$style.status">
                             即将开抢
                         </div>
-                        <div class="time">
+                        <div :class="$style.time">
                             16:00
                         </div>
                     </div>
@@ -185,40 +193,40 @@
                     <PlSvg name="icon-jinruzhuanchang" width="52" height="54" style="margin: 0 -18px;" />
                 </div>
             </ul>
-            <ul class="miaosha-list">
-                <li class="miaosha-list-item" v-for="(item, i) of 3" :key="i">
-                    <div class="img-wrapper">
-                        <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg" alt="">
-                        <div class="count-down-wrapper">
-                            <span class="text">距开始</span>
-                            <i class="block">02</i>天
-                            <i class="block">23</i>:
-                            <i class="block">59</i>:
-                            <i class="block">59</i>
+            <ul :class="$style.miaoshaList">
+                <li :class="$style.miaoshaListItem" v-for="(item, i) of 3" :key="i">
+                    <div :class="$style.imgWrapper">
+                        <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/:class/mod$style.-popular-3.jpg" alt="">
+                        <div :class="$style.countdownWrapper">
+                            <span :class="$style.text">距开始</span>
+                            <i :class="$style.block">02</i>天
+                            <i :class="$style.block">23</i>:
+                            <i :class="$style.block">59</i>:
+                            <i :class="$style.block">59</i>
                         </div>
                     </div>
-                    <div class="info">
-                        <div class="main">
+                    <div :class="$style.info">
+                        <div :class="$style.main">
                             神奇的逻辑思维游戏畅销书
                         </div>
-                        <div class="current">
+                        <div :class="$style.current">
                             <PlSvg name="icon-miaoshajia" width="30" height="19" />
-                            <span class="price">10000</span>
+                            <span :class="$style.price">10000</span>
                         </div>
-                        <div class="sub">
-                            <div class="sub-left">
-                                <div class="original">
+                        <div :class="$style.sub">
+                            <div :class="$style.subLeft">
+                                <div :class="$style.original">
                                     原价:
-                                    <span class="price">15000</span>
+                                    <span :class="$style.price">15000</span>
                                 </div>
-                                <div class="progress">
-                                    <div class="progress-inner" :style="{ width: '50%' }" />
+                                <div :class="$style.progress">
+                                    <div :class="$style.progress-inner" :style="{ width: '50%' }" />
                                 </div>
-                                <div class="saled">
+                                <div :class="$style.saled">
                                     已抢40件
                                 </div>
                             </div>
-                            <div class="sub-right">
+                            <div :class="$style.subRight">
                                 <PlSvg name="icon-qiang" width="19" />
                             </div>
                         </div>
@@ -229,52 +237,49 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import moment from 'moment'
 import Countdown from '../../components/Countdown.vue'
-import { getPrice, getDate, getDuration } from '../../utils/helper'
+import { getPrice, getDate, getDuration } from '../../../utils/helper'
 
-export default {
-    name: 'Miaosha',
-    components: {
-        Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
-        },
-        currentModule: {
-            type: String,
-            default: ''
+@Component({
+    components: { Countdown }
+})
+export default class Miaosha extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            currentIndex: 0 // 选中的秒杀场次索引
-        }
-    },
-    methods: {
-        getPrice,
-        getDate,
-        getDuration,
-        getTimeStatus ([start, end]) {
-            let msg = ''
-            const timestamp = this.timestamp || Date.now()
-            const startTs = moment(start).valueOf()
-            const endTs = moment(end).valueOf()
-            if (timestamp < startTs) msg = '未开始'
-            if (timestamp >= startTs && timestamp < endTs) msg = '进行中'
-            if (timestamp >= endTs) msg = '已结束'
-            return msg
-        }
+    }) readonly data!: TemplateModule
+
+    @Prop(String) currentModule!: string
+
+    /* data */
+    // 选中的秒杀场次索引
+    currentIndex = 0
+
+    /* methods */
+    getPrice = getPrice
+    getDate = getDate
+    getDuration = getDuration
+    getTimeStatus ([start, end]: string[]) {
+        let msg = ''
+        const timestamp = Date.now()
+        const startTs = moment(start).valueOf()
+        const endTs = moment(end).valueOf()
+        if (timestamp < startTs) msg = '未开始'
+        if (timestamp >= startTs && timestamp < endTs) msg = '进行中'
+        if (timestamp >= endTs) msg = '已结束'
+        return msg
     }
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
   .miaosha {
     img {
       width: 100%;
@@ -351,7 +356,7 @@ export default {
           margin-right: 8px;
           width: 140px;
           height: 94px;
-          .count-down-wrapper {
+          .countdown-wrapper {
             display: flex;
             justify-content: space-around;
             align-items: center;

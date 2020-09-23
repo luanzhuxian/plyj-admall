@@ -1,48 +1,44 @@
 <template>
-    <div class="activity">
+    <div :class="$style.activity">
         <div
-            class="item large"
+            :class="[$style.item, $style.large]"
             :style="{
                 background,
                 boxShadow
             }"
         >
-            <div class="info">
-                <div class="sub">
+            <div :class="$style.info">
+                <div :class="$style.sub">
                     翻开记忆的味道
                 </div>
                 <PlSvg name="icon-nianwei" width="132" height="27" />
-                <div class="btn">
+                <div :class="$style.btn">
                     立即参加
                 </div>
             </div>
-            <div class="img-wrapper">
+            <div :class="$style.imgWrapper">
                 <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/61795ee4-ca67-49c5-b5c2-d3f8769e98dc.png" alt="">
             </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Activity',
-    props: {
-        background: {
-            type: String,
-            default: '#FFF'
-        },
-        boxShadow: {
-            type: String,
-            default: ''
-        }
-    },
-    data () {
-        return {}
-    }
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+
+@Component
+export default class Activity extends Vue {
+    /* props */
+    @Prop({
+        type: String,
+        default: '#FFF'
+    }) readonly background!: string
+
+    @Prop(String) boxShadow!: string
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
   .activity {
     display: flex;
     justify-content: space-between;

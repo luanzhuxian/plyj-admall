@@ -34,7 +34,7 @@ import moment from 'moment'
 @Component
 export default class ModalTimeSetting extends Vue {
     /* props */
-    @Prop(Boolean) readonly show!: boolean
+    @Prop(Boolean) show!: boolean
 
     /* data */
     isShow = false

@@ -1,51 +1,48 @@
 <template>
-    <panel custom-class="package-panel" :title="panelTitle">
-        <ul
-            v-if="data.values.length"
-            class="package-list"
-        >
+    <Panel :custom-class="packagePanel" :title="panelTitle">
+        <ul v-if="data.values.length" :class="$style.packageList" class="package-list">
             <template v-for="(item, i) of data.values">
-                <swiper :options="getOptions(item.combinationDetailList[0].productModelList)" :key="i" v-if="item.combinationDetailList && item.combinationDetailList.length">
+                <Swiper :options="getOptions(item.combinationDetailList[0].productModelList)" :key="i" v-if="item.combinationDetailList && item.combinationDetailList.length">
                     <template v-for="(combination, j) of item.combinationDetailList">
-                        <swiper-slide :key="'combination-' + j">
-                            <li class="package-list-item">
-                                <div class="title">
+                        <SwiperSlide :key="'combination-' + j">
+                            <li :class="$style.packageListItem">
+                                <div :class="$style.title">
                                     {{ combination.name }}
                                 </div>
-                                <div class="img-wrapper">
+                                <div :class="$style.imgWrapper">
                                     <img :src="combination.imageUrl + '?x-oss-process=style/thum-middle'" alt="">
-                                    <div class="count-down-wrapper">
+                                    <div :class="$style.countdownWrapper">
                                         <span v-if="combination.status === 0">距开始</span>
                                         <span v-if="combination.status === 1">距结束</span>
                                         <span v-if="combination.status === 2">已结束</span>
-                                        <countdown
-                                            class="countdown"
+                                        <Countdown
+                                            :class="$style.countdown"
                                             v-if="~[0, 1].indexOf(combination.status)"
                                             :duration="getDuration(combination)"
                                             @finish="combination.status += 1"
                                         >
                                             <template #default="{time}">
-                                                <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                                                <span class="colon">天</span>
-                                                <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                                                <span class="colon">:</span>
-                                                <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                                                <span class="colon">:</span>
-                                                <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                                                <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                                                <span :class="$style.colon">天</span>
+                                                <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                                                <span :class="$style.colon">:</span>
+                                                <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                                                <span :class="$style.colon">:</span>
+                                                <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                                             </template>
-                                        </countdown>
+                                        </Countdown>
                                     </div>
                                 </div>
-                                <div class="price">
-                                    <div class="origin">
-                                        <span class="left">
+                                <div :class="$style.price">
+                                    <div :class="$style.origin">
+                                        <span :class="$style.left">
                                             {{ `原价：￥${combination.totalPrice}` }}
                                         </span>
-                                        <span class="right">
+                                        <span :class="$style.right">
                                             {{ `${combination.salesVolume}人已买` }}
                                         </span>
                                     </div>
-                                    <div class="current">
+                                    <div :class="$style.current">
                                         <template v-if="combination.status === 2">
                                             已结束
                                         </template>
@@ -61,92 +58,94 @@
                                     </div>
                                 </div>
                             </li>
-                        </swiper-slide>
-                        <swiper-slide v-for="(prod, k) of combination.productModelList" :key="'prod-' + k">
-                            <li class="package-list-prod-wrapper">
-                                <div class="package-list-prod">
-                                    <div class="img-wrapper">
+                        </SwiperSlide>
+                        <SwiperSlide v-for="(prod, k) of combination.productModelList" :key="'prod-' + k">
+                            <li :class="$style.packageListProdWrapper" class="package-list-prod-wrapper">
+                                <div :class="$style.packageListProd">
+                                    <div :class="$style.imgWrapper">
                                         <img :src="prod.productImage + '?x-oss-process=style/thum-middle'" alt="">
-                                        <div class="name">
+                                        <div :class="$style.name">
                                             {{ prod.productName }}
                                         </div>
                                     </div>
-                                    <div class="origin">
+                                    <div :class="$style.origin">
                                         {{ `原价：￥${(prod.originPrice * 1000 * prod.count) / 1000}` }}
                                     </div>
-                                    <div class="current">
+                                    <div :class="$style.current">
                                         {{ `组合价：￥${(prod.price * 1000 * prod.count) / 1000}` }}
                                     </div>
                                 </div>
                             </li>
-                        </swiper-slide>
+                        </SwiperSlide>
                     </template>
                 </swiper>
             </template>
         </ul>
 
-        <ul class="package-list" v-else>
+        <ul :class="$style.package-list" v-else>
             <swiper :options="getOptions([1, 2, 3])" v-for="(item, i) of 2" :key="i">
-                <swiper-slide>
-                    <li class="package-list-item">
-                        <div class="title">
+                <SwiperSlide>
+                    <li :class="$style.packageListItem">
+                        <div :class="$style.title">
                             组合聚惠学
                         </div>
-                        <div class="img-wrapper">
+                        <div :class="$style.imgWrapper">
                             <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
-                            <div class="count-down-wrapper">
-                                <span class="text">距结束</span>
-                                <i class="block">02</i>天
-                                <i class="block">23</i>:
-                                <i class="block">59</i>:
-                                <i class="block">59</i>
+                            <div :class="$style.countdownWrapper">
+                                <span :class="$style.text">距结束</span>
+                                <i :class="$style.block">02</i>天
+                                <i :class="$style.block">23</i>:
+                                <i :class="$style.block">59</i>:
+                                <i :class="$style.block">59</i>
                             </div>
                         </div>
-                        <div class="price">
-                            <div class="origin">
-                                <span class="left">
+                        <div :class="$style.price">
+                            <div :class="$style.origin">
+                                <span :class="$style.left">
                                     原价:￥99999
                                 </span>
-                                <span class="right">
+                                <span :class="$style.right">
                                     999人已买
                                 </span>
                             </div>
-                            <div class="current">
+                            <div :class="$style.current">
                                 组合到手:￥9999
                             </div>
                         </div>
                     </li>
-                </swiper-slide>
-                <swiper-slide v-for="(prod, j) of 3" :key="j">
-                    <li class="package-list-prod-wrapper">
-                        <div class="package-list-prod">
-                            <div class="img-wrapper">
+                </SwiperSlide>
+                <SwiperSlide v-for="(prod, j) of 3" :key="j">
+                    <li :class="$style.packageListProdWrapper">
+                        <div :class="$style.packageListProd">
+                            <div :class="$style.imgWrapper">
                                 <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
-                                <div class="name">
+                                <div :class="$style.name">
                                     少儿英语三节名师特...
                                 </div>
                             </div>
-                            <div class="origin">
+                            <div :class="$style.origin">
                                 原价：￥33333
                             </div>
-                            <div class="current">
+                            <div :class="$style.current">
                                 组合价：￥3333
                             </div>
                         </div>
                     </li>
-                </swiper-slide>
-            </swiper>
+                </SwiperSlide>
+            </Swiper>
         </ul>
-    </panel>
+    </Panel>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import Panel from './Panel.vue'
 import Countdown from '../../components/Countdown.vue'
-import { getDuration } from '../../utils/helper'
+import { getDuration } from '../../../utils/helper'
 
-const map = {
+const map: { [key: number]: number } = {
     0: 1,
     1: 2,
     2: 2.09,
@@ -156,75 +155,77 @@ const map = {
     6: 2.19
 }
 
-export default {
-    name: 'Package',
+@Component({
     components: {
         swiper,
         swiperSlide,
         Countdown,
         Panel
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+    }
+})
+export default class Package extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            panelTitle: {
-                name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zhjhx.png',
-                width: 184,
-                height: 27
-            }
+    }) readonly data!: TemplateModule
+
+    /* data */
+    panelTitle = {
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zhjhx.png',
+        width: 184,
+        height: 27
+    }
+
+    /* methods */
+    getDuration = getDuration
+    getOptions (list = []) {
+        const length = (list && list.length) || 0
+        const swiperOption = {
+            slidesPerView: map[length],
+            spaceBetween: 0,
+            grabCursor: true
         }
-    },
-    methods: {
-        getDuration,
-        getOptions (list = []) {
-            const length = (list && list.length) || 0
-            const swiperOption = {
-                slidesPerView: map[length],
-                spaceBetween: 0,
-                grabCursor: true
-            }
-            return swiperOption
-        }
+        return swiperOption
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.package-list {
+    .swiper-container {
+        margin-top: 16px;
+        &:nth-of-type(1) {
+            margin: 0;
+        }
+        > .swiper-wrapper > .swiper-slide {
+            display: flex;
+            align-items: center;
+            width: auto !important;
+            height: 254px !important;
+            &:nth-of-type(1) {
+                width: auto !important;
+            }
+            &:nth-of-type(2) > .package-list-prod-wrapper {
+                padding-left: 10px;
+            }
+            &:nth-last-of-type(1) > .package-list-prod-wrapper {
+                padding-right: 10px;
+                border-right: 2px solid #222;
+            }
+        }
+    }
+}
+</style>
+
+<style lang="scss" module>
 .package-panel {
     padding-right: 0;
 }
 .package {
     &-list {
-        .swiper-container {
-            margin-top: 16px;
-            &:nth-of-type(1) {
-                margin: 0;
-            }
-            > .swiper-wrapper > .swiper-slide {
-                display: flex;
-                align-items: center;
-                width: auto !important;
-                height: 254px !important;
-                &:nth-of-type(1) {
-                    width: auto !important;
-                }
-                &:nth-of-type(2) > .package-list-prod-wrapper {
-                    padding-left: 10px;
-                }
-                &:nth-last-of-type(1) > .package-list-prod-wrapper {
-                    padding-right: 10px;
-                    border-right: 2px solid #222;
-                }
-            }
-        }
-
         &-item {
             position: relative;
             box-sizing: border-box;
@@ -268,7 +269,7 @@ export default {
                     object-fit: cover;
                 }
             }
-            .count-down-wrapper {
+            .countdown-wrapper {
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
@@ -315,8 +316,6 @@ export default {
             .current {
                 margin: 9px auto 0;
                 padding: 0 10px;
-                // max-width: fit-content;
-                // max-width: 100%;
                 height: 30px;
                 line-height: 26px;
                 background: #f08b12;

@@ -4,7 +4,7 @@ import axios from '@/assets/ts/axios-config'
 // export const categoryGoodsBatch = (categoryCode: string, data: DynamicObject) => axios.put(`/apis/v1/product/productinfo/batch/category?categoryCode=${ categoryCode }`, data)
 
 // 分页查询获取分类
-// export const getCategory = (params: DynamicObject) => axios.get('/apis/v1/product/category/page', { params })
+export const getCategory = (params: DynamicObject) => axios.get('/apis/v1/product/category/page', { params })
 
 /**
  * 删除商品分类

@@ -1,75 +1,80 @@
 <template>
-    <div class="coupon">
-        <div class="bg">
-            <ul class="coupon-list" :class="{ large: data.values.length === 1 }" v-if="data.values.length">
+    <div :class="$style.coupon">
+        <div :class="$style.bg">
+            <ul
+                :class="{
+                    [$style.couponList]: true,
+                    [$style.large]: data.values.length === 1
+                }"
+                v-if="data.values.length"
+            >
                 <template v-for="(item, i) of data.values">
                     <li
                         v-if="item.goodsInfo"
-                        class="coupon-list-item"
+                        :class="$style.couponListItem"
                         :key="i"
                     >
-                        <div class="coupon-list-item__top">
-                            <div class="price" v-text="item.goodsInfo.amount" />
-                            <p class="sub">
+                        <div :class="$style.couponListItemTop">
+                            <div :class="$style.price" v-text="item.goodsInfo.amount" />
+                            <p :class="$style.sub">
                                 {{ `满${item.goodsInfo.useLimitAmount}减${item.goodsInfo.amount}` }}
                             </p>
                         </div>
-                        <div class="coupon-list-item__bottom">
+                        <div :class="$style.couponListItemBottom">
                             {{ `有效期至${getDate(item.goodsInfo.useEndTime, 'MM月DD日')}` }}
                         </div>
                     </li>
                 </template>
             </ul>
-            <ul class="coupon-list" v-else>
-                <li class="coupon-list-item" v-for="(item, i) of list" :key="i">
-                    <div class="coupon-list-item__top">
-                        <div class="price" v-text="item.price" />
+            <ul :class="$style.couponList" v-else>
+                <li :class="$style.couponListItem" v-for="(item, i) of list" :key="i">
+                    <div :class="$style.couponListItemTop">
+                        <div :class="$style.price" v-text="item.price" />
                         <p v-text="item.rule" />
                     </div>
-                    <div class="coupon-list-item__bottom" v-text="item.expire" />
+                    <div :class="$style.couponListItemBottom" v-text="item.expire" />
                 </li>
             </ul>
         </div>
-        <div class="button">
+        <div :class="$style.button">
             您有优惠券可领取
-            <i class="el-icon-arrow-right" />
+            <i class="el-icon-arrow-right" style="font-size: 18px; font-weight: bold;" />
         </div>
     </div>
 </template>
 
-<script>
-import { getDate } from '../../utils/helper'
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
+import { getDate } from '../../../utils/helper'
 
-export default {
-    name: 'Coupon',
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component
+export default class Coupon extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            list: [{
-                price: 9999,
-                rule: '无门槛',
-                expire: '有效期至6月24日'
-            }, {
-                price: 9999,
-                rule: '满5000减300',
-                expire: '有效期至6月24日'
-            }]
-        }
-    },
-    methods: {
-        getDate
-    }
+    }) readonly data!: TemplateModule
+
+    /* data */
+    list = Object.freeze([{
+        price: 9999,
+        rule: '无门槛',
+        expire: '有效期至6月24日'
+    }, {
+        price: 9999,
+        rule: '满5000减300',
+        expire: '有效期至6月24日'
+    }])
+
+    /* methods */
+    getDate = getDate
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .coupon {
     .bg {
         box-sizing: border-box;
@@ -91,10 +96,6 @@ export default {
         font-size: 22px;
         font-weight: bold;
         color: #00237a;
-    }
-    .el-icon-arrow-right {
-        font-size: 18px;
-        font-weight: bold;
     }
     &-list {
         display: flex;
@@ -124,7 +125,7 @@ export default {
             font-weight: 400;
             line-height: 13px;
             color: #b4e1f2;
-            &__top {
+            &-top {
                 flex: 1;
                 height: 0;
                 padding: 12px 30px 0 7px;
@@ -143,7 +144,7 @@ export default {
                     @include elps();
                 }
             }
-            &__bottom {
+            &-bottom {
                 height: 22px;
                 line-height: 22px;
                 text-align: center;

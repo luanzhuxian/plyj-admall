@@ -1,14 +1,14 @@
 <template>
-    <panel custom-class="pintuan-panel" :title="panelTitle">
-        <ul class="pintuan-list" v-if="data.values.length">
+    <Panel :custom-class="$style.pintuanPanel" :title="panelTitle">
+        <ul :class="$style.pintuanList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <li
                     v-if="item.goodsInfo && item.goodsInfo.activityInfo"
-                    class="pintuan-list-item"
+                    :class="$style.pintuanListItem"
                     :key="i"
                 >
                     <label>众志成团</label>
-                    <div class="ribbon">
+                    <div :class="$style.ribbon">
                         <span v-if="item.goodsInfo.activityInfo.status === 0">
                             {{ `${item.goodsInfo.pageviews}人关注` }}
                         </span>
@@ -16,34 +16,34 @@
                             {{ `${item.goodsInfo.activityInfo.number}人参团` }}
                         </span>
                     </div>
-                    <div class="count-down-wrapper">
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 0">距开始：</span>
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 1">距结束：</span>
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 2">已成功</span>
-                        <span class="text" v-if="item.goodsInfo.activityInfo.status === 3">已结束</span>
-                        <countdown
+                    <div :class="$style.countdownWrapper">
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 0">距开始：</span>
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 1">距结束：</span>
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 2">已成功</span>
+                        <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 3">已结束</span>
+                        <Countdown
                             v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)"
                             :duration="getDuration(item.goodsInfo.activityInfo)"
                             format="DD天HH:mm:ss"
                             @finish="() => reset(item)"
                         />
                     </div>
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <img :src="item.goodsInfo.productMainImage + '?x-oss-process=style/thum-middle'">
                     </div>
-                    <div class="info">
-                        <div class="main">
+                    <div :class="$style.info">
+                        <div :class="$style.main">
                             {{ item.goodsInfo.productName }}
                         </div>
-                        <div class="sub" v-if="item.goodsInfo.activityInfo.prizePool">
-                            <div class="sub-left">
+                        <div :class="$style.sub" v-if="item.goodsInfo.activityInfo.prizePool">
+                            <div :class="$style.sub-left">
                                 成团瓜分
                             </div>
-                            <div class="sub-right">
+                            <div :class="$style.subRight">
                                 {{ item.goodsInfo.activityInfo.prizePool }}
                             </div>
                         </div>
-                        <div class="price">
+                        <div :class="$style.price">
                             <PlSvg type="img" name="https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/tgj.png" width="40" />
                             <b>{{ item.goodsInfo.activityInfo.activityPrice }}</b>
                         </div>
@@ -51,82 +51,82 @@
                 </li>
             </template>
         </ul>
-        <ul class="pintuan-list" v-else>
+        <ul :class="$style.pintuanList" v-else>
             <li
                 v-for="(item, i) of 3"
                 :key="i"
-                class="pintuan-list-item"
+                :class="$style.pintuanListItem"
             >
                 <label>
                     众志成团
                 </label>
-                <div class="ribbon">
+                <div :class="$style.ribbon">
                     9999人参团
                 </div>
-                <div class="count-down-wrapper">
+                <div :class="$style.countdownWrapper">
                     距结束：2天23:59:59
                 </div>
-                <div class="img-wrapper">
+                <div :class="$style.imgWrapper">
                     <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
                 </div>
-                <div class="info">
-                    <div class="main">
+                <div :class="$style.info">
+                    <div :class="$style.main">
                         神奇的逻辑思维游戏畅销书
                     </div>
-                    <div class="sub">
-                        <div class="sub-left">
+                    <div :class="$style.sub">
+                        <div :class="$style.subLeft">
                             成团瓜分
                         </div>
-                        <div class="sub-right">
+                        <div :class="$style.subRight">
                             99999
                         </div>
                     </div>
-                    <div class="price">
+                    <div :class="$style.price">
                         <PlSvg type="img" name="https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/tgj.png" width="40" />
                         <b>99999</b>
                     </div>
                 </div>
             </li>
         </ul>
-    </panel>
+    </Panel>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
 import Countdown from '../../components/Countdown.vue'
-import { getDuration, reset } from '../../utils/helper'
+import { getDuration, reset } from '../../../utils/helper'
 
-export default {
-    name: 'Pintuan',
+@Component({
     components: {
         Panel,
         Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
-        }
-    },
-    data () {
-        return {
-            panelTitle: {
-                name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zzct.png',
-                width: 163,
-                height: 27
-            }
-        }
-    },
-    methods: {
-        getDuration,
-        reset
     }
+})
+export default class Pintuan extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
+        }
+    }) readonly data!: TemplateModule
+
+    /* data */
+    panelTitle = {
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zzct.png',
+        width: 163,
+        height: 27
+    }
+
+    /* methods */
+    getDuration = getDuration
+    reset = reset
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .pintuan {
     &-list-item {
         position: relative;
@@ -171,7 +171,7 @@ export default {
             color: #00237a;
             @include elps();
         }
-        .count-down-wrapper {
+        .countdown-wrapper {
             position: absolute;
             top: -12px;
             right: -4px;

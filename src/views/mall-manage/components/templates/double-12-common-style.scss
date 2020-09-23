@@ -1,0 +1,101 @@
+
+.template-activity {
+    display: flex;
+    flex-direction: column;
+    width: 375px;
+    min-height: 667px;
+    background-color: #f4f5f9;
+    box-shadow: 0 0 6px #d4d4d4;
+    .active {
+        border: 2px solid #fff !important;
+    }
+    .module {
+        position: relative;
+        border: 2px solid transparent;
+    }
+    .btn-top {
+        width: 260px;
+        height: 39px;
+        background: url('http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/button-top.png') no-repeat center center;
+        background-size: 100% auto;
+        border-radius: 35px;
+        box-shadow: 18px 6px 25px #800f0f;
+        margin: 0 auto 14px;
+    }
+    .btn-middle {
+        width: 260px;
+        height: 39px;
+        background: url('http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/button-middle.png') no-repeat center center;
+        background-size: 100% auto;
+        border-radius: 35px;
+        margin: 8px auto 0;
+    }
+    .btn-bottom {
+        width: 260px;
+        height: 39px;
+        background: url('http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/button-bottom.png') no-repeat center center;
+        background-size: 100% auto;
+        border-radius: 35px;
+        margin: 0 auto 16px;
+    }
+
+    .container {
+        position: relative;
+        background: #d20001;
+        flex: 1;
+        &-background {
+            height: 282px;
+            background: url('http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/main-bg.jpg') no-repeat center top;
+            background-size: 100% auto;
+        }
+        &-content {
+            position: relative;
+            top: -123px;
+            margin-bottom: -99px;
+        }
+        // 直播
+        .module-broadcast {
+            padding: 8px 24px;
+        }
+        // 活动
+        // .module-activity {
+        //   display: flex;
+        //   justify-content: space-between;
+        //   padding: 8px 12px;
+        //   .small {
+        //     width: 170px;
+        //     height: 88px;
+        //     &.road {
+        //       background: url("http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/road-small.png") no-repeat center center;
+        //       background-size: 100% auto;
+        //     }
+        //     &.invitation {
+        //       background: url("http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/invitation-small.png") no-repeat center center;
+        //       background-size: 100% auto;
+        //     }
+        //   }
+        //   .large {
+        //     width: 100%;
+        //     height: 88px;
+        //     &.road {
+        //       background: url("http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/road-large.png") no-repeat center center;
+        //       background-size: 100% auto;
+        //     }
+        //     &.invitation {
+        //       background: url("http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/invitation-large.png") no-repeat center center;
+        //       background-size: 100% auto;
+        //     }
+        //   }
+        // }
+        .module-live,
+        .module-miaosha,
+        .module-pintuan,
+        .module-maisong,
+        .module-coupon,
+        .module-yugou,
+        .module-fengqiang,
+        .module-recommend {
+            padding: 8px 12px;
+        }
+    }
+}

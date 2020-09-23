@@ -1,67 +1,65 @@
 <template>
-    <panel custom-class="activity-panel" :title="panelTitle" hide-button>
-        <ul class="activity-list">
+    <Panel :custom-class="$style.activityPanel" :title="panelTitle" hide-button>
+        <ul :class="$style.activityList">
             <li v-if="isSignShow">
-                <div class="img-wrapper">
-                    <img class="first" :src="'https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/activity-present.png' + '?x-oss-process=style/thum-middle'">
+                <div :class="$style.imgWrapper">
+                    <img :class="$style.first" :src="'https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/activity-present.png' + '?x-oss-process=style/thum-middle'">
                 </div>
                 <p>粽粽有礼 端午安康</p>
                 <PlSvg type="img" name="https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/jinru-yellow.png" width="58" height="39" />
             </li>
             <li v-if="isPlayShow">
-                <div class="img-wrapper">
-                    <img class="second" :src="'https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/activity-play.png' + '?x-oss-process=style/thum-middle'">
+                <div :class="$style.imgWrapper">
+                    <img :class="$style.second" :src="'https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/activity-play.png' + '?x-oss-process=style/thum-middle'">
                 </div>
                 <p>龙门抽大奖 有粽你就来</p>
                 <PlSvg type="img" name="https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/jinru-yellow.png" width="58" height="39" />
             </li>
         </ul>
-    </panel>
+    </Panel>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import Panel from './Panel.vue'
 
-export default {
-    name: 'Activity',
-    components: {
-        Panel
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component({
+    components: { Panel }
+})
+export default class Activity extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            panelTitle: {
-                name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/rmhd.png',
-                width: 163,
-                height: 27
-            }
+    }) readonly data!: { values: { haveSigninActivity: boolean; haveLuckDrawActivity: boolean }[] }
+
+    /* data */
+    panelTitle = {
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/rmhd.png',
+        width: 163,
+        height: 27
+    }
+
+    /* computed */
+    get isSignShow () {
+        if (!this.data.values.length) {
+            return false
         }
-    },
-    computed: {
-        isSignShow () {
-            if (!this.data.values.length) {
-                return false
-            }
-            return this.data.values[0].haveSigninActivity
-        },
-        isPlayShow () {
-            if (!this.data.values.length) {
-                return false
-            }
-            return this.data.values[0].haveLuckDrawActivity
+        return this.data.values[0].haveSigninActivity
+    }
+
+    get isPlayShow () {
+        if (!this.data.values.length) {
+            return false
         }
+        return this.data.values[0].haveLuckDrawActivity
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .activity-panel {
     padding: 14px 16px 8px;
     background-color: #01237a;

@@ -1,62 +1,65 @@
 <template>
-    <div class="miaosha">
-        <div class="background" />
-        <ul class="miaosha-list" v-if="data.values.length">
-            <li class="miaosha-list-item" v-if="data.values[0].goodsInfo && data.values[0].goodsInfo.activityInfo">
-                <div class="img-wrapper">
+    <div :class="$style.miaosha">
+        <div :class="$style.background" />
+        <ul :class="$style.miaoshaList" v-if="data.values.length">
+            <li :class="$style.miaoshaListItem" v-if="data.values[0].goodsInfo && data.values[0].goodsInfo.activityInfo">
+                <div :class="$style.imgWrapper">
                     <img v-imgError :src="data.values[0].goodsInfo.productMainImage">
-                    <div class="count-down-wrapper">
-                        <span class="text" v-if="data.values[0].goodsInfo.activityInfo.status === 0">距开始</span>
-                        <span class="text" v-if="data.values[0].goodsInfo.activityInfo.status === 1">距结束</span>
-                        <span class="text" v-if="data.values[0].goodsInfo.activityInfo.status === 2">已结束</span>
-                        <countdown
+                    <div :class="$style.countdownWrapper">
+                        <span :class="$style.text" v-if="data.values[0].goodsInfo.activityInfo.status === 0">距开始</span>
+                        <span :class="$style.text" v-if="data.values[0].goodsInfo.activityInfo.status === 1">距结束</span>
+                        <span :class="$style.text" v-if="data.values[0].goodsInfo.activityInfo.status === 2">已结束</span>
+                        <Countdown
                             v-if="~[0, 1].indexOf(data.values[0].goodsInfo.activityInfo.status)"
                             :duration="getDuration(data.values[0].goodsInfo.activityInfo)"
                             @finish="() => data.values[0].goodsInfo.activityInfo.status += 1"
                         >
                             <template #default="{time}">
-                                <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                                <span class="colon">天</span>
-                                <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                                <span class="colon">:</span>
-                                <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                                <span class="colon">:</span>
-                                <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                                <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                                <span :class="$style.colon">天</span>
+                                <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                                <span :class="$style.colon">:</span>
+                                <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                                <span :class="$style.colon">:</span>
+                                <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                             </template>
-                        </countdown>
+                        </Countdown>
                     </div>
                 </div>
-                <div class="info">
-                    <div class="main">
+                <div :class="$style.info">
+                    <div :class="$style.main">
                         {{ data.values[0].goodsInfo.productName }}
                     </div>
-                    <div class="current">
+                    <div :class="$style.current">
                         <PlSvg name="icon-miaoshajia" width="30" height="19" />
-                        <span class="price">
+                        <span :class="$style.price">
                             {{ data.values[0].goodsInfo.activityInfo.activityPrice }}
                         </span>
                     </div>
-                    <div class="sub">
-                        <div class="sub-left">
-                            <div class="original">
+                    <div :class="$style.sub">
+                        <div :class="$style.subLeft">
+                            <div :class="$style.original">
                                 <span v-if="data.values[0].goodsInfo.productSkuModels && data.values[0].goodsInfo.productSkuModels.length && getPrice(data.values[0].goodsInfo.productSkuModels)('originalPrice')">
-                                    原价:<span class="price">{{ getPrice(data.values[0].goodsInfo.productSkuModels)('originalPrice') }}</span>
+                                    原价:<span :class="$style.price">{{ getPrice(data.values[0].goodsInfo.productSkuModels)('originalPrice') }}</span>
                                 </span>
                             </div>
-                            <div class="progress">
-                                <div class="progress-inner" :style="{ width: `${(Number(data.values[0].goodsInfo.activityInfo.number) - Number(data.values[0].goodsInfo.activityInfo.activityStock)) / Number(data.values[0].goodsInfo.activityInfo.number) * 100}%` }" />
+                            <div :class="$style.progress">
+                                <div :class="$style.progressInner" :style="{ width: `${(Number(data.values[0].goodsInfo.activityInfo.number) - Number(data.values[0].goodsInfo.activityInfo.activityStock)) / Number(data.values[0].goodsInfo.activityInfo.number) * 100}%` }" />
                             </div>
-                            <div class="saled" v-if="data.values[0].goodsInfo.activityInfo.status === 0">
+                            <div :class="$style.saled" v-if="data.values[0].goodsInfo.activityInfo.status === 0">
                                 {{ `${data.values[0].goodsInfo.pageviews}人已关注` }}
                             </div>
-                            <div class="saled" v-if="data.values[0].goodsInfo.activityInfo.status > 0 && data.values[0].goodsInfo.activityInfo.activityStock > 0">
+                            <div :class="$style.saled" v-if="data.values[0].goodsInfo.activityInfo.status > 0 && data.values[0].goodsInfo.activityInfo.activityStock > 0">
                                 {{ `已抢${Number(data.values[0].goodsInfo.activityInfo.number) - Number(data.values[0].goodsInfo.activityInfo.activityStock)}件` }}
                             </div>
-                            <div class="saled" v-if="data.values[0].goodsInfo.activityInfo.status > 0 && data.values[0].goodsInfo.activityInfo.activityStock === 0" style="color: #999999;">
+                            <div :class="$style.saled" v-if="data.values[0].goodsInfo.activityInfo.status > 0 && data.values[0].goodsInfo.activityInfo.activityStock === 0" style="color: #999999;">
                                 已抢完
                             </div>
                         </div>
-                        <div class="sub-right" :class="{ disabled: data.values[0].goodsInfo.activityInfo.status !== 1 }">
+                        <div :class="{
+                            [$style.subRight]: true,
+                            [$style.disabled]: data.values[0].goodsInfo.activityInfo.status !== 1
+                        }">
                             <PlSvg
                                 v-if="~[0, 1].indexOf(data.values[0].goodsInfo.activityInfo.status)"
                                 name="icon-qiang"
@@ -73,40 +76,40 @@
                 </div>
             </li>
         </ul>
-        <ul class="miaosha-list" v-else>
-            <li class="miaosha-list-item">
-                <div class="img-wrapper">
+        <ul :class="$style.miaoshaList" v-else>
+            <li :class="$style.miaoshaListItem">
+                <div :class="$style.imgWrapper">
                     <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg" alt="">
-                    <div class="count-down-wrapper">
-                        <span class="text">距开始</span>
-                        <i class="block">02</i>天
-                        <i class="block">23</i>:
-                        <i class="block">59</i>:
-                        <i class="block">59</i>
+                    <div :class="$style.countdownWrapper">
+                        <span :class="$style.text">距开始</span>
+                        <i :class="$style.block">02</i>天
+                        <i :class="$style.block">23</i>:
+                        <i :class="$style.block">59</i>:
+                        <i :class="$style.block">59</i>
                     </div>
                 </div>
-                <div class="info">
-                    <div class="main">
+                <div :class="$style.info">
+                    <div :class="$style.main">
                         神奇的逻辑思维游戏畅销书
                     </div>
-                    <div class="current">
+                    <div :class="$style.current">
                         <PlSvg name="icon-miaoshajia" width="30" height="19" />
-                        <span class="price">10000</span>
+                        <span :class="$style.price">10000</span>
                     </div>
-                    <div class="sub">
-                        <div class="sub-left">
-                            <div class="original">
+                    <div :class="$style.sub">
+                        <div :class="$style.subLeft">
+                            <div :class="$style.original">
                                 原价:
-                                <span class="price">15000</span>
+                                <span :class="$style.price">15000</span>
                             </div>
-                            <div class="progress">
-                                <div class="progress-inner" :style="{ width: '50%' }" />
+                            <div :class="$style.progress">
+                                <div :class="$style.progressInner" :style="{ width: '50%' }" />
                             </div>
-                            <div class="saled">
+                            <div :class="$style.saled">
                                 已抢40件
                             </div>
                         </div>
-                        <div class="sub-right">
+                        <div :class="$style.subRight">
                             <PlSvg name="icon-qiang" width="19" />
                         </div>
                     </div>
@@ -116,34 +119,31 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import Countdown from '../../components/Countdown.vue'
-import { getPrice, getDuration } from '../../utils/helper'
+import { getPrice, getDuration } from '../../../utils/helper'
 
-export default {
-    name: 'Miaosha',
-    components: {
-        Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component({
+    components: { Countdown }
+})
+export default class Miaosha extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {}
-    },
-    methods: {
-        getPrice,
-        getDuration
-    }
+    }) readonly data!: TemplateModule
+
+    /* methods */
+    getPrice = getPrice
+    getDuration = getDuration
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
   .miaosha {
     background: linear-gradient(180deg, #F2BAA7 0%, #E45750 12%, #E45750 100%);
     border-radius: 10px;
@@ -182,7 +182,7 @@ export default {
         margin-right: 8px;
         width: 140px;
         height: 94px;
-        .count-down-wrapper {
+        .countdown-wrapper {
           display: flex;
           justify-content: space-around;
           align-items: center;

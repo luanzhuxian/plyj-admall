@@ -1,30 +1,30 @@
 <template>
-    <panel custom-class="charity-panel" :title="panelTitle" button="更多公益活动">
-        <div class="charity">
+    <Panel :custom-class="$style.charityPanel" :title="panelTitle" button="更多公益活动">
+        <div :class="$style.charity">
             <template v-if="!isStarted">
-                <div class="charity-countdown">
+                <div :class="$style.charityCountdown">
                     距活动开始仅剩：
-                    <countdown :duration="duration" @finish="() => isStarted = true">
+                    <Countdown :duration="duration" @finish="() => isStarted = true">
                         <template #default="{time}">
-                            <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                            <span class="colon">天</span>
-                            <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                            <span class="colon">:</span>
-                            <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                            <span class="colon">:</span>
-                            <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                            <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                            <span :class="$style.colon">天</span>
+                            <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                            <span :class="$style.colon">:</span>
+                            <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                            <span :class="$style.colon">:</span>
+                            <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                         </template>
-                    </countdown>
+                    </Countdown>
                 </div>
             </template>
             <template v-else>
-                <p class="charity-join">
+                <p :class="$style.charityJoin">
                     已加入<b>{{ statistics.orderNo || 0 }}</b>人
                 </p>
-                <p class="charity-text">
+                <p :class="$style.charityText">
                     累计公益金
                 </p>
-                <div class="charity-total">
+                <div :class="$style.charityTotal">
                     <b v-for="(number, index) of integer" :key="'integer-' + index">{{ number }}</b>
                     <template v-if="Number(decimal)">
                         <i>.</i>
@@ -32,82 +32,94 @@
                     </template>
                 </div>
             </template>
-            <div class="charity-product" v-for="(item, index) of productList" :key="index">
+            <div :class="$style.charityProduct" v-for="(item, index) of productList" :key="index">
                 <label>{{ item.productTypeDesc }}</label>
-                <div class="img-wrapper">
+                <div :class="$style.imgWrapper">
                     <img :src="item.productImage + '?x-oss-process=style/thum-middle'">
                 </div>
-                <div class="info">
+                <div :class="$style.info">
                     <h4>{{ item.productName }}</h4>
-                    <p class="price">
+                    <p :class="$style.price">
                         <label>公益价</label>
                         <span>
                             {{ item.activityPrice }}元
                         </span>
                     </p>
-                    <p class="rule">
+                    <p :class="$style.rule">
                         {{ `购买将捐赠${item.donationAmount}元公益金` }}
                     </p>
-                    <div class="button">
+                    <div :class="$style.button">
                         立即购买
                     </div>
                 </div>
             </div>
         </div>
-    </panel>
+    </Panel>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import Panel from './Panel.vue'
 import Countdown from '../../components/Countdown.vue'
 
-export default {
-    name: 'Charity',
+type Activity = {
+    productModels: [];
+    courseModels: [];
+    statisticsDetail: { donationAmount: number; orderNo: number };
+    startTime: string;
+    systemTime: string;
+}
+
+@Component({
     components: {
         Panel,
         Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+    }
+})
+export default class Charity extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            panelTitle: {
-                name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/ngyzxd.png',
-                width: 184,
-                height: 27
-            },
-            isStarted: false,
-            duration: 0
+    }) readonly data!: { values: Activity[] }
+
+    /* data */
+    panelTitle = {
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/ngyzxd.png',
+        width: 184,
+        height: 27
+    }
+
+    isStarted = false
+    duration = 0
+
+    /* computed */
+    get productList () {
+        const { data } = this
+        if (!data.values.length) {
+            return []
         }
-    },
-    computed: {
-        productList () {
-            const { data } = this
-            if (!data.values.length) {
-                return []
-            }
-            const { productModels = [], courseModels = [] } = data.values[0]
-            return [...productModels, ...courseModels].slice(0, 1)
-        },
-        statistics () {
-            const { data } = this
-            return data.values.length ? data.values[0].statisticsDetail : {}
-        },
-        integer () {
-            const { donationAmount = 0 } = this.statistics
-            return parseInt(donationAmount).toString()
-        },
-        decimal () {
-            const { donationAmount = 0 } = this.statistics
-            return donationAmount ? donationAmount.toString().split('.')[1] : '0'
-        }
-    },
+        const { productModels = [], courseModels = [] } = data.values[0]
+        return [...productModels, ...courseModels].slice(0, 1)
+    }
+
+    get statistics () {
+        const { data } = this
+        return data.values.length ? data.values[0].statisticsDetail : { donationAmount: 0, orderNo: 0 }
+    }
+
+    get integer () {
+        const { donationAmount = 0 } = this.statistics
+        return parseInt(String(donationAmount)).toString()
+    }
+
+    get decimal () {
+        const { donationAmount = 0 } = this.statistics
+        return donationAmount ? donationAmount.toString().split('.')[1] : '0'
+    }
+
     created () {
         if (this.data.values.length) {
             const activity = this.data.values[0]
@@ -120,7 +132,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .charity-panel {
     padding-top: 30px;
 }

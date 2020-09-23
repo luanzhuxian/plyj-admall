@@ -1,44 +1,44 @@
 <template>
-    <div class="maisong">
-        <div class="background" />
-        <div class="inner">
-            <div class="maisong-title" v-if="data.otherValue">
+    <div :class="$style.maisong">
+        <div :class="$style.background" />
+        <div :class="$style.inner">
+            <div :class="$style.maisongTitle" v-if="data.otherValue">
                 {{ data.otherValue }}
             </div>
-            <ul class="maisong-list" v-if="data.values.length">
+            <ul :class="$style.maisongList" v-if="data.values.length">
                 <li
-                    class="maisong-list-item"
                     :class="{
-                        'small': data.values.length === 3,
-                        'middle': data.values.length === 2,
-                        'large': data.values.length === 1
+                        [$style.maisongListItem]: true,
+                        [$style.small]: data.values.length === 3,
+                        [$style.middle]: data.values.length === 2,
+                        [$style.large]: data.values.length === 1
                     }"
                     v-for="(item, i) of data.values"
                     :key="i"
                 >
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <img v-imgError :src="item.image ? item.image : 'https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg'">
                     </div>
-                    <div class="info">
+                    <div :class="$style.info">
                         <PlSvg width="16" name="icon-gift-1" v-if="i === 0" />
                         <PlSvg width="16" name="icon-gift-2" v-if="i === 1" />
                         <PlSvg width="16" name="icon-gift-3" v-if="i === 2" />
-                        <div class="sub">
+                        <div :class="$style.sub">
                             {{ item.name }}
                         </div>
                     </div>
                 </li>
             </ul>
-            <ul class="maisong-list" v-else>
-                <li class="maisong-list-item" v-for="(item, i) of 3" :key="i">
-                    <div class="img-wrapper">
-                        <img v-imgError src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg" alt="">
+            <ul :class="$style.maisongList" v-else>
+                <li :class="$style.maisongListItem" v-for="(item, i) of 3" :key="i">
+                    <div :class="$style.imgWrapper">
+                        <img v-imgError src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/:class/mod$style.-popular-3.jpg" alt="">
                     </div>
-                    <div class="info">
+                    <div :class="$style.info">
                         <PlSvg width="16" name="icon-gift-1" v-if="i === 0" />
                         <PlSvg width="16" name="icon-gift-2" v-if="i === 1" />
                         <PlSvg width="16" name="icon-gift-3" v-if="i === 2" />
-                        <div class="sub">
+                        <div :class="$style.sub">
                             下单即送
                         </div>
                     </div>
@@ -48,24 +48,23 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Maisong',
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
+
+@Component
+export default class Maisong extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {}
-    }
+    }) readonly data!: TemplateModule
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
   .maisong {
     background: linear-gradient( 180deg, rgba(249, 217, 205, 1) 0%, rgba(243, 178, 119, 1) 11%, rgba(241, 163, 91, 1) 100%);
     border-radius: 10px;

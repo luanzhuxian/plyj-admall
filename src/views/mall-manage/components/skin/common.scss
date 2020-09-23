@@ -1,0 +1,465 @@
+/*  common */
+.skin-common {
+    .container > .module.active {
+        border-color: #fff !important;
+    }
+    .module-banner {
+        background: transparent !important;
+        .wrapper {
+            padding: 0 12px !important;
+            background: transparent !important;
+        }
+    }
+    .module-teachers,
+    .module-popular,
+    .module-class {
+        padding: 0 12px 7px !important;
+    }
+    .module-recommend {
+        padding: 0 12px !important;
+        background: transparent !important;
+    }
+}
+
+/*  mixin */
+@mixin container ($padding-top, $background-image, $background-color: transparent) {
+    padding-top: $padding-top;
+    background-image: url($background-image) !important;
+    background-repeat: no-repeat !important;
+    background-position: center top !important;
+    background-size: 100% auto !important;
+    background-color: $background-color !important;
+    @content;
+}
+@mixin search ($background-color: transparent) {
+    @content;
+    background-color: $background-color !important;
+    ::v-deep .el-input {
+        width: 282px !important;
+        .el-input__icon {
+            left: 92px !important;
+        }
+    }
+}
+@mixin copyright ($height, $color, $background-image: null, $background-color: transparent) {
+    height: $height !important;
+    color: $color !important;
+    background-image: url($background-image) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 100% !important;
+    background-color: $background-color !important;
+    @content;
+}
+
+// 圣诞皮肤
+.skin-xmas {
+    @extend .skin-common;
+    background-color: #c81819 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas/7a2048fd-b958-48af-8861-34c672b5fe84.png';
+        @include container(29px, $background-image);
+        .skin-title {
+            margin: 0 -12px;
+        }
+    }
+    .module-search {
+        background: transparent !important;
+        &::before {
+            position: absolute;
+            top: -11px;
+            left: 3px;
+            content: '';
+            width: 40px;
+            height: 48px;
+            background: url('https://mallcdn.youpenglai.com/static/admall/skin/xmas/7393611f-65e9-4aa7-ad55-5dedc1241183.png') no-repeat center;
+            background-size: 100%;
+            z-index: 1;
+        }
+    }
+    .module-copyright {
+        @include copyright(60px, #fff);
+        position: relative;
+        &::before {
+            position: absolute;
+            top: 14px;
+            left: 50px;
+            content: '';
+            width: 30px;
+            height: 40px;
+            background: url('https://mallcdn.youpenglai.com/static/admall/skin/xmas/7da66cb2-96f6-4bef-9e1d-0038a3003283.png') no-repeat center;
+            background-size: 100%;
+        }
+        &::after {
+            position: absolute;
+            top: 14px;
+            right: 50px;
+            content: '';
+            width: 22px;
+            height: 35px;
+            background: url('https://mallcdn.youpenglai.com/static/admall/skin/xmas/7da66cb2-96f6-4bef-9e1d-0038a3003283.png') no-repeat center;
+            background-size: 100%;
+        }
+    }
+}
+
+// 元旦皮肤
+.skin-yuan-dan {
+    @extend .skin-common;
+    background-color: #e4d1a3 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/yuan-dan/84792abd-69ab-4de4-9e3f-0b00c3123e9c.png';
+        @include container(32px, $background-image);
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/yuan-dan/cbfbc6a1-6e57-4cf8-82d9-54bb17d600ba.png';
+        @include copyright(150px, #f2e2ba, $background-image);
+    }
+}
+
+// 新年皮肤
+.skin-new-year {
+    @extend .skin-common;
+    background-color: #ae1a10 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/new-year/32724153-3431-4331-9589-b3018075aed6.png';
+        @include container(32px, $background-image);
+        .skin-title {
+            margin: 0 -12px;
+        }
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/new-year/9c269eae-f95d-4651-9e37-1efbba2a3534.png';
+        @include copyright(75px, #fff, $background-image);
+    }
+}
+
+// 小年皮肤
+.skin-xiao-nian {
+    @extend .skin-common;
+    background-color: #ff8401 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/xiao-nian/558e1a1d-37a9-428e-9b4a-74b3d9edb9be.png';
+        @include container(45px, $background-image);
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        @include copyright(45px, #f2e2ba, #ff8401);
+    }
+}
+
+// 元宵
+.skin-yuan-xiao {
+    @extend .skin-common;
+    background-color: #d6922d !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/yuan-xiao/b0c4d8b7-ccec-4d96-a571-10c365ff95ea.png';
+        @include container(45px, $background-image);
+        .module-title {
+            padding: 0 12px 13px !important;
+            background: #dfab5f !important;
+            &.module {
+                border-top-color: #d6922d;
+            }
+        }
+        .skin-title {
+            margin: 0 -12px 7px;
+        }
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        @include copyright(45px, #f2e2ba);
+    }
+}
+
+// 妇女节
+.skin-women-day {
+    @extend .skin-common;
+    background-color: #f6dde0 !important;
+    > .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/women-day/bg.jpg';
+        @include container(37px, $background-image);
+        > .module.active {
+            border-color: #ea615f !important;
+        }
+        .module-title {
+            padding: 0 12px 13px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 0 0 5px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 6.5px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #ea615f);
+    }
+}
+
+// 年年翻
+.skin-nian-nian-fan {
+    @extend .skin-common;
+    background-color: #f2c757 !important;
+    > .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/nian-nian-fan/bg.jpg';
+        @include container(32px, $background-image);
+        > .module.active {
+            border-color: #f35815 !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 3px 0 12px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 12px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #f35815);
+    }
+}
+
+// 地球日
+.skin-earth-day {
+    @extend .skin-common;
+    background-color: #ade6bc !important;
+    > .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/earth-day/bg.jpg';
+        @include container(32px, $background-image);
+        > .module.active {
+            border-color: #19b47b !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 3px 0 10px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 12px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #19b47b);
+    }
+}
+
+// 劳动节
+.skin-labour-day {
+    @extend .skin-common;
+    background-color: #c3472e !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/labour-day/bg.jpg';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #efc573 !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 12px 0 15px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 0;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #efc573);
+    }
+}
+
+// 母亲节
+.skin-mothers-day {
+    @extend .skin-common;
+    background-color: #ffe3e0 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/mothers-day/bg.jpg';
+        @include container(37px, $background-image);
+        > .module.active {
+            border-color: #ea615f !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 3px 0 10px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 12px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #ea615f);
+    }
+}
+
+// 儿童节
+.skin-children-day {
+    @extend .skin-common;
+    background-color: #99dcfc !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/children-day/bg.jpg';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #fd7803 !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 0 0 9px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 12px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #fd7803);
+    }
+}
+
+// 父亲节
+.skin-fathers-day {
+    @extend .skin-common;
+    background-color: #a3cbfb !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/fathers-day/bg.jpg';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #1764c7 !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 7px 0 15px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 12px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #1764c7);
+    }
+}
+
+// 端午节
+.skin-dragon-boat {
+    @extend .skin-common;
+    background-color: #7dcaae !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/dragon-boat/bg.jpg';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #1b8864 !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 0 0 6px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 12px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #1b8864);
+    }
+}
+
+// 共战疫
+.skin-campaign {
+    @extend .skin-common;
+    background-color: #d1e5fe !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/cmapagin/847981f6-e571-4dcd-a105-ee1a6a8ccddc.png';
+        @include container(76px, $background-image);
+        .module-title {
+            padding: 0 12px 13px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 0 -12px 10px;
+        }
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        @include copyright(45px, #fff);
+    }
+}

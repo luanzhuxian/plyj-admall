@@ -1,101 +1,101 @@
 <template>
-    <panel custom-class="yugou-panel" :title="panelTitle">
-        <ul class="yugou-list" v-if="data.values.length">
+    <Panel :custom-class="$style.yugouPanel" :title="panelTitle">
+        <ul :class="$style.yugouList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <li
                     v-if="item.goodsInfo && item.goodsInfo.activityInfo"
-                    class="yugou-list-item"
+                    :class="$style.yugouListItem"
                     :key="i"
                 >
-                    <div class="count-down-wrapper">
+                    <div :class="$style.countdownWrapper">
                         <span v-if="item.goodsInfo.activityInfo.status === 0">距开始：</span>
                         <span v-if="item.goodsInfo.activityInfo.status === 1">距结束：</span>
                         <span v-if="item.goodsInfo.activityInfo.status === 2">已结束</span>
-                        <countdown
+                        <Countdown
                             v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)"
                             :duration="getDuration(item.goodsInfo.activityInfo)"
                             format="DD天HH:mm:ss"
                             @finish="() => item.goodsInfo.activityInfo.status += 1"
                         />
                     </div>
-                    <div class="info">
-                        <div class="main">
+                    <div :class="$style.info">
+                        <div :class="$style.main">
                             {{ item.goodsInfo.productName }}
                         </div>
-                        <div class="sub">
+                        <div :class="$style.sub">
                             <span>{{ `预交定金￥${item.goodsInfo.activityInfo.price}` }}</span>
                             <span v-if="item.goodsInfo.activityInfo.multiple && item.goodsInfo.activityInfo.multipleNumber > 1 && item.goodsInfo.activityInfo.activityPrice">{{ `抵￥${item.goodsInfo.activityInfo.activityPrice}` }}</span>
                         </div>
-                        <div class="price">
+                        <div :class="$style.price">
                             {{ `预售到手价：${getTotalPrice(item)}元` }}
                         </div>
                     </div>
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <img :src="item.goodsInfo.productMainImage + '?x-oss-process=style/thum-middle'">
                     </div>
                 </li>
             </template>
         </ul>
-        <ul class="yugou-list" v-else>
-            <li class="yugou-list-item" v-for="(item, i) of 2" :key="i">
-                <div class="count-down-wrapper">
+        <ul :class="$style.yugouList" v-else>
+            <li :class="$style.yugouListItem" v-for="(item, i) of 2" :key="i">
+                <div :class="$style.countdownWrapper">
                     距结束：2天23:59:59
                 </div>
-                <div class="info">
-                    <div class="main">
+                <div :class="$style.info">
+                    <div :class="$style.main">
                         非常好用的蜡笔张三三老师 带您体验课
                     </div>
-                    <div class="sub">
+                    <div :class="$style.sub">
                         预交定金￥100抵￥200
                     </div>
-                    <div class="price">
+                    <div :class="$style.price">
                         预售到手价：2000元
                     </div>
                 </div>
-                <div class="img-wrapper">
+                <div :class="$style.imgWrapper">
                     <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
                 </div>
             </li>
         </ul>
-    </panel>
+    </Panel>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
 import Countdown from '../../components/Countdown.vue'
-import { getDuration, getTotalPrice } from '../../utils/helper'
+import { getDuration, getTotalPrice } from '../../../utils/helper'
 
-export default {
-    name: 'Yugou',
+@Component({
     components: {
         Panel,
         Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
-        }
-    },
-    data () {
-        return {
-            panelTitle: {
-                name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/ygxfb.png',
-                width: 184,
-                height: 27
-            }
-        }
-    },
-    methods: {
-        getDuration,
-        getTotalPrice
     }
+})
+export default class Yugou extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
+        }
+    }) readonly data!: TemplateModule
+
+    /* data */
+    panelTitle = {
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/ygxfb.png',
+        width: 184,
+        height: 27
+    }
+
+    /* methods */
+    getDuration = getDuration
+    getTotalPrice = getTotalPrice
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .yugou {
     &-list-item {
         position: relative;
@@ -107,7 +107,7 @@ export default {
         &:nth-of-type(1) {
             margin: 0;
         }
-        .count-down-wrapper {
+        .countdown-wrapper {
             position: absolute;
             top: -10px;
             left: 9px;

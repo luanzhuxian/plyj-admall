@@ -12,7 +12,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { getLiveInfo, getNianweiInfo } from '../../apis/mall-manage'
+import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
 
 const mall = namespace('mall')
 

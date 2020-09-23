@@ -1,65 +1,65 @@
 <template>
-    <div class="coupon">
-        <div class="bg">
-            <div class="coupon-title">
+    <div :class="$style.coupon">
+        <div :class="$style.bg">
+            <div :class="$style.couponTitle">
                 购物先领券 就要划算
             </div>
-            <div class="coupon-subtitle">
+            <div :class="$style.couponSubtitle">
                 {{ data.otherValue > 0 ? `${data.otherValue}人已领券 快来领取` : '快来领取' }}
             </div>
-            <div class="coupon-button">
+            <div :class="$style.couponButton">
                 <PlSvg name="icon-envelope-mini" width="16" height="16" style="margin-right: 5px;" />
                 <span>优惠券中心</span>
-                <span class="btn">
+                <span :class="$style.btn">
                     <span>领取更多</span>
                     <i class="el-icon-arrow-right" />
                 </span>
             </div>
-            <ul class="coupon-list" v-if="data.values.length">
+            <ul :class="$style.couponList" v-if="data.values.length">
                 <template v-for="(item, i) of data.values">
                     <li
                         v-if="item.goodsInfo"
-                        class="coupon-list-item"
+                        :class="$style.couponListItem"
                         :key="i"
                     >
-                        <div class="left">
-                            <span class="number">{{ item.goodsInfo.amount }}</span>
+                        <div :class="$style.left">
+                            <span :class="$style.number">{{ item.goodsInfo.amount }}</span>
                         </div>
-                        <div class="middle">
-                            <b class="main">
+                        <div :class="$style.middle">
+                            <b :class="$style.main">
                                 <span v-if="item.goodsInfo.couponType === 1">满减券</span>
                                 <span v-if="item.goodsInfo.couponType === 2">品类券</span>
                             </b>
-                            <p class="sub">
+                            <p :class="$style.sub">
                                 {{ `满${item.goodsInfo.useLimitAmount}减${item.goodsInfo.amount}` }}
                             </p>
-                            <p class="date">
+                            <p :class="$style.date">
                                 {{ `(有效期至${getDate(item.goodsInfo.useEndTime, 'YYYY.MM.DD')})` }}
                             </p>
                         </div>
-                        <div class="right">
+                        <div :class="$style.right">
                             免费领取
                         </div>
                     </li>
                 </template>
             </ul>
-            <ul class="coupon-list" v-else>
-                <li class="coupon-list-item" v-for="(item, i) of 3" :key="i">
-                    <div class="left">
-                        <span class="number">30</span>
+            <ul :class="$style.couponList" v-else>
+                <li :class="$style.couponListItem" v-for="(item, i) of 3" :key="i">
+                    <div :class="$style.left">
+                        <span :class="$style.number">30</span>
                     </div>
-                    <div class="middle">
-                        <b class="main">
+                    <div :class="$style.middle">
+                        <b :class="$style.main">
                             满减券
                         </b>
-                        <p class="sub">
+                        <p :class="$style.sub">
                             无门槛
                         </p>
-                        <p class="date">
+                        <p :class="$style.date">
                             (有效期至2019.12.12)
                         </p>
                     </div>
-                    <div class="right">
+                    <div :class="$style.right">
                         免费领取
                     </div>
                 </li>
@@ -68,29 +68,27 @@
     </div>
 </template>
 
-<script>
-import { getDate } from '../../utils/helper'
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
+import { getDate } from '../../../utils/helper'
 
-export default {
-    name: 'Coupon',
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component
+export default class Coupon extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {}
-    },
-    methods: {
-        getDate
-    }
+    }) readonly data!: TemplateModule
+
+    /* methods */
+    getDate = getDate
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
   .coupon {
     background: #EF5B3F;
     box-shadow: 0px 8px 12px rgba(121, 30, 5, 0.2);

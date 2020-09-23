@@ -1,66 +1,66 @@
 <template>
-    <div class="pintuan">
-        <div class="background">
-            <div class="nav-bar">
-                <div class="nav-link">
+    <div :class="$style.pintuan">
+        <div :class="$style.background">
+            <div :class="$style.navBar">
+                <div :class="$style.navLink">
                     <span>查看更多</span>
                     <i class="el-icon-arrow-right" />
                 </div>
             </div>
         </div>
-        <ul class="pintuan-list" v-if="data.values.length">
+        <ul :class="$style.pintuanList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <li
                     v-if="item.goodsInfo && item.goodsInfo.activityInfo"
-                    class="pintuan-list-item"
                     :class="{
-                        large: i === 0 || data.values.length % 2 === 0,
-                        small: i !== 0 && data.values.length % 2 === 1
+                        [$style.pintuanListItem]: true,
+                        [$style.large]: i === 0 || data.values.length % 2 === 0,
+                        [$style.small]: i !== 0 && data.values.length % 2 === 1
                     }"
                     :key="i"
                 >
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <img v-imgError :src="item.goodsInfo.productMainImage">
-                        <div class="count-down-wrapper" v-if="item.goodsInfo.activityInfo.preActivity && item.goodsInfo.activityInfo.preActivity !== 0">
-                            <span class="text" v-if="item.goodsInfo.activityInfo.status === 0">距开始</span>
-                            <span class="text" v-if="item.goodsInfo.activityInfo.status === 1">距结束</span>
-                            <span class="text" v-if="item.goodsInfo.activityInfo.status === 2">已成功</span>
-                            <span class="text" v-if="item.goodsInfo.activityInfo.status === 3">已结束</span>
-                            <countdown
+                        <div :class="$style.countdownWrapper" v-if="item.goodsInfo.activityInfo.preActivity && item.goodsInfo.activityInfo.preActivity !== 0">
+                            <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 0">距开始</span>
+                            <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 1">距结束</span>
+                            <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 2">已成功</span>
+                            <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 3">已结束</span>
+                            <Countdown
                                 v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)"
                                 :duration="getDuration(item.goodsInfo.activityInfo)"
                                 @finish="() => reset(item)"
                             >
                                 <template #default="{time}">
-                                    <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                                    <span class="colon">天</span>
-                                    <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                                    <span class="colon">:</span>
-                                    <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                                    <span class="colon">:</span>
-                                    <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                                    <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                                    <span :class="$style.colon">天</span>
+                                    <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                                    <span :class="$style.colon">:</span>
+                                    <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                                    <span :class="$style.colon">:</span>
+                                    <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                                 </template>
-                            </countdown>
+                            </Countdown>
                         </div>
                     </div>
-                    <div class="info">
-                        <div class="main">
+                    <div :class="$style.info">
+                        <div :class="$style.main">
                             {{ item.goodsInfo.productName }}
                         </div>
-                        <div class="time">
-                            <div class="time-left">
+                        <div :class="$style.time">
+                            <div :class="$style.timeLeft">
                                 <span v-if="item.goodsInfo.activityInfo.prizePool">
                                     成团瓜分
                                 </span>
                                 <span v-else>双十二有礼</span>
                             </div>
-                            <div class="time-right" v-if="item.goodsInfo.activityInfo.prizePool">
+                            <div :class="$style.timeRight" v-if="item.goodsInfo.activityInfo.prizePool">
                                 {{ `${item.goodsInfo.activityInfo.prizePool}元` }}
                             </div>
                         </div>
-                        <div class="sub">
-                            <div class="sub-left">
-                                <div class="sub-left-main">
+                        <div :class="$style.sub">
+                            <div :class="$style.subLeft">
+                                <div :class="$style.subLeftMain">
                                     <span v-if="item.goodsInfo.activityInfo.status === 0">
                                         {{ `${item.goodsInfo.pageviews}人已关注` }}
                                     </span>
@@ -68,12 +68,15 @@
                                         {{ `已有${item.goodsInfo.activityInfo.number || 0}人参与` }}
                                     </span>
                                 </div>
-                                <div class="sub-left-sub">
+                                <div :class="$style.subLeftSub">
                                     <PlSvg name="icon-tuangoujia" width="40" height="20" />
-                                    <span class="price">{{ item.goodsInfo.activityInfo.activityPrice }}</span>
+                                    <span :class="$style.price">{{ item.goodsInfo.activityInfo.activityPrice }}</span>
                                 </div>
                             </div>
-                            <div class="sub-right" :class="{ disabled: item.goodsInfo.activityInfo.status !== 1 }">
+                            <div :class="{
+                                [$style.subRight]: true,
+                                [$style.disabled]: item.goodsInfo.activityInfo.status !== 1
+                            }">
                                 <PlSvg
                                     v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)"
                                     name="icon-qiang"
@@ -91,49 +94,49 @@
                 </li>
             </template>
         </ul>
-        <ul class="pintuan-list" v-else>
+        <ul :class="$style.pintuanList" v-else>
             <li
                 v-for="(item, i) of 3"
                 :key="i"
-                class="pintuan-list-item"
                 :class="{
-                    large: i === 0,
-                    small: i > 0
+                    [$style.pintuanListItem]: true,
+                    [$style.large]: i === 0,
+                    [$style.small]: i > 0
                 }"
             >
-                <div class="img-wrapper">
+                <div :class="$style.imgWrapper">
                     <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg" alt="">
-                    <div class="count-down-wrapper">
-                        <span class="text">距开始</span>
-                        <i class="block">02</i>天
-                        <i class="block">23</i>:
-                        <i class="block">59</i>:
-                        <i class="block">59</i>
+                    <div :class="$style.countdownWrapper">
+                        <span :class="$style.text">距开始</span>
+                        <i :class="$style.block">02</i>天
+                        <i :class="$style.block">23</i>:
+                        <i :class="$style.block">59</i>:
+                        <i :class="$style.block">59</i>
                     </div>
                 </div>
-                <div class="info">
-                    <div class="main">
+                <div :class="$style.info">
+                    <div :class="$style.main">
                         神奇的逻辑思维游戏畅销书
                     </div>
-                    <div class="time">
-                        <div class="time-left">
+                    <div :class="$style.time">
+                        <div :class="$style.timeLeft">
                             成团瓜分
                         </div>
-                        <div class="time-right">
+                        <div :class="$style.timeRight">
                             99999元
                         </div>
                     </div>
-                    <div class="sub">
-                        <div class="sub-left">
-                            <div class="sub-left-main">
+                    <div :class="$style.sub">
+                        <div :class="$style.subLeft">
+                            <div :class="$style.subLeftMain">
                                 已有1222人参与
                             </div>
-                            <div class="sub-left-sub">
+                            <div :class="$style.subLeftSub">
                                 <PlSvg name="icon-tuangoujia" width="40" height="20" />
-                                <span class="price">10000</span>
+                                <span :class="$style.price">10000</span>
                             </div>
                         </div>
-                        <div class="sub-right">
+                        <div :class="$style.subRight">
                             <PlSvg name="icon-qiang" width="19" />
                         </div>
                     </div>
@@ -143,34 +146,31 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import Countdown from '../../components/Countdown.vue'
-import { getDuration, reset } from '../../utils/helper'
+import { getDuration, reset } from '../../../utils/helper'
 
-export default {
-    name: 'Pintuan',
-    components: {
-        Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component({
+    components: { Countdown }
+})
+export default class Pintuan extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {}
-    },
-    methods: {
-        getDuration,
-        reset
-    }
+    }) readonly data!: TemplateModule
+
+    /* methods */
+    getDuration = getDuration
+    reset = reset
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .pintuan {
     background: rgba(226, 134, 67, 1);
     border-radius: 10px;
@@ -291,7 +291,7 @@ export default {
         .img-wrapper {
             position: relative;
             overflow: hidden;
-            .count-down-wrapper {
+            .countdown-wrapper {
                 display: flex;
                 justify-content: space-around;
                 align-items: center;

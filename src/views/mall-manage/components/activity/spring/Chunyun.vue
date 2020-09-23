@@ -1,31 +1,31 @@
 <template>
-    <div class="chunyun">
-        <div class="chunyun-bg">
-            <div class="count-down-wrapper" v-if="data.values.length">
+    <div :class="$style.chunyun" class="chunyun">
+        <div :class="$style.chunyunBg">
+            <div :class="$style.countdownWrapper" v-if="data.values.length">
                 <span v-if="data.values[0].status === 0">距活动开始：</span>
                 <span v-if="data.values[0].status === 1">距活动结束：</span>
                 <span v-if="data.values[0].status === 2">活动已结束</span>
-                <countdown
+                <Countdown
                     v-if="~[0, 1].indexOf(data.values[0].status)"
                     :duration="getDuration(data.values[0])"
                     @refesh="data.values[0].status += 1"
                 >
                     <template #default="{time}">
-                        <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                        <span class="colon">天</span>
-                        <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                        <span class="colon">:</span>
-                        <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                        <span class="colon">:</span>
-                        <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                        <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                        <span :class="$style.colon">天</span>
+                        <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                        <span :class="$style.colon">:</span>
+                        <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                        <span :class="$style.colon">:</span>
+                        <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                     </template>
-                </countdown>
+                </Countdown>
             </div>
-            <div class="count-down-wrapper" v-else>
+            <div :class="$style.countdownWrapper" v-else>
                 <span>距活动开始：</span>
-                <span class="num">02</span>天<span class="num">23</span>:<span class="num">59</span>:<span class="num">59</span>
+                <span :class="$style.num">02</span>天<span :class="$style.num">23</span>:<span :class="$style.num">59</span>:<span :class="$style.num">59</span>
             </div>
-            <p class="link">
+            <p :class="$style.link">
                 查看计划礼包 >
             </p>
             <PlSvg
@@ -37,75 +37,75 @@
         </div>
         <ul
             v-if="data.values.length && data.values[0].combinationDetailList && data.values[0].combinationDetailList.length"
+            :class="[$style.chunyunList, $style[size], size]"
             class="chunyun-list"
-            :class="[size]"
         >
             <template v-if="data.values[0].status === 0">
-                <swiper :options="getOptions(data.values[0].combinationDetailList, map1)">
-                    <swiper-slide v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
-                        <li class="chunyun-list-item">
-                            <div class="title">
+                <Swiper :options="getOptions(data.values[0].combinationDetailList, map1)">
+                    <SwiperSlide v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
+                        <li :class="$style.chunyunListItem">
+                            <div :class="$style.title">
                                 {{ item.name }}
                             </div>
-                            <div class="img-wrapper">
+                            <div :class="$style.imgWrapper">
                                 <img :src="item.imageUrl" alt="">
                             </div>
-                            <div class="price">
-                                <div class="origin">
+                            <div :class="$style.price">
+                                <div :class="$style.origin">
                                     {{ `原价：￥${item.totalPrice}` }}
                                 </div>
-                                <div class="current">
+                                <div :class="$style.current">
                                     {{ `组合价：￥${item.discountTotalPrice}` }}
                                 </div>
                             </div>
-                            <div class="cornner top-left" />
-                            <div class="cornner top-right" />
-                            <div class="cornner bottom-right" />
-                            <div class="cornner bottom-left" />
+                            <div :class="[$style.cornner, $style.topLeft]" />
+                            <div :class="[$style.cornner, $style.topRight]" />
+                            <div :class="[$style.cornner, $style.bottomRight]" />
+                            <div :class="[$style.cornner, $style.bottomLeft]" />
                         </li>
-                    </swiper-slide>
-                </swiper>
+                    </SwiperSlide>
+                </Swiper>
             </template>
             <template v-if="data.values[0].status === 1">
-                <swiper :options="getOptions(item.productModelList, map2)" v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
-                    <swiper-slide>
-                        <li class="chunyun-list-item">
-                            <div class="title">
+                <Swiper :options="getOptions(item.productModelList, map2)" v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
+                    <SwiperSlide>
+                        <li :class="$style.chunyunListItem">
+                            <div :class="$style.title">
                                 {{ item.name }}
                             </div>
-                            <div class="img-wrapper">
+                            <div :class="$style.imgWrapper">
                                 <img :src="item.imageUrl" alt="">
                             </div>
-                            <div class="count-down-wrapper">
+                            <div :class="$style.countdownWrapper">
                                 <span v-if="item.status === 0">距开始</span>
                                 <span v-if="item.status === 1">距结束</span>
                                 <span v-if="item.status === 2">已结束</span>
-                                <countdown
+                                <Countdown
                                     v-if="~[0, 1].indexOf(item.status)"
                                     :duration="getDuration(item)"
                                     @finish="item.status += 1"
                                 >
                                     <template #default="{time}">
-                                        <i class="block">{{ String(time.days).padStart(2, '0') }}</i>
-                                        <span class="colon">天</span>
-                                        <i class="block">{{ String(time.hours).padStart(2, '0') }}</i>
-                                        <span class="colon">:</span>
-                                        <i class="block">{{ String(time.minutes).padStart(2, '0') }}</i>
-                                        <span class="colon">:</span>
-                                        <i class="block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                                        <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                                        <span :class="$style.colon">天</span>
+                                        <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                                        <span :class="$style.colon">:</span>
+                                        <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                                        <span :class="$style.colon">:</span>
+                                        <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                                     </template>
-                                </countdown>
+                                </Countdown>
                             </div>
-                            <div class="price">
-                                <div class="origin">
-                                    <span class="left">
+                            <div :class="$style.price">
+                                <div :class="$style.origin">
+                                    <span :class="$style.left">
                                         {{ `原价：￥${item.totalPrice}` }}
                                     </span>
-                                    <span class="right">
+                                    <span :class="$style.right">
                                         {{ `${item.salesVolume}人已买` }}
                                     </span>
                                 </div>
-                                <div class="current">
+                                <div :class="$style.current">
                                     <template v-if="item.status === 2">
                                         已结束
                                     </template>
@@ -120,141 +120,170 @@
                                     </template>
                                 </div>
                             </div>
-                            <div class="cornner top-left" />
-                            <div class="cornner top-right" />
-                            <div class="cornner bottom-right" />
-                            <div class="cornner bottom-left" />
+                            <div :class="[$style.cornner, $style.topLeft]" />
+                            <div :class="[$style.cornner, $style.topRight]" />
+                            <div :class="[$style.cornner, $style.bottomRight]" />
+                            <div :class="[$style.cornner, $style.bottomLeft]" />
                         </li>
-                    </swiper-slide>
-                    <swiper-slide v-for="(prod, j) of item.productModelList" :key="j">
-                        <li class="chunyun-list-prod-wrapper">
-                            <div class="chunyun-list-prod">
-                                <div class="img-wrapper">
+                    </SwiperSlide>
+                    <SwiperSlide v-for="(prod, j) of item.productModelList" :key="j">
+                        <li :class="$style.chunyunListProdWrapper" class="chunyun-list-prod-wrapper">
+                            <div :class="$style.chunyunListProd">
+                                <div :class="$style.imgWrapper">
                                     <img :src="prod.productImage" alt="">
                                 </div>
-                                <div class="name">
+                                <div :class="$style.name">
                                     {{ prod.productName }}
                                 </div>
-                                <div class="origin">
+                                <div :class="$style.origin">
                                     {{ `原价：￥${(prod.originPrice * 1000 * prod.count) / 1000}` }}
                                 </div>
-                                <div class="current">
+                                <div :class="$style.current">
                                     {{ `组合价：￥${(prod.price * 1000 * prod.count) / 1000}` }}
                                 </div>
                             </div>
                         </li>
-                    </swiper-slide>
-                </swiper>
+                    </SwiperSlide>
+                </Swiper>
             </template>
         </ul>
 
-        <ul class="chunyun-list" v-else>
-            <li class="chunyun-list-item">
-                <div class="title">
+        <ul :class="$style.chunyunList" v-else>
+            <li :class="$style.chunyunListItem">
+                <div :class="$style.title">
                     新春开学季度第一弹
                 </div>
-                <div class="img-wrapper">
+                <div :class="$style.imgWrapper">
                     <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
                 </div>
-                <div class="origin">
+                <div :class="$style.origin">
                     原价：￥1999
                 </div>
-                <div class="current">
+                <div :class="$style.current">
                     点击购买 组合到手999元
                 </div>
-                <div class="cornner top-left" />
-                <div class="cornner top-right" />
-                <div class="cornner bottom-right" />
-                <div class="cornner bottom-left" />
+                <div :class="[$style.cornner, $style.topLeft]" />
+                <div :class="[$style.cornner, $style.topRight]" />
+                <div :class="[$style.cornner, $style.bottomRight]" />
+                <div :class="[$style.cornner, $style.bottomLeft]" />
             </li>
         </ul>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import Countdown from '../../components/Countdown.vue'
-import { getDuration } from '../../utils/helper'
+import { getDuration } from '../../../utils/helper'
 
-export default {
-    name: 'Chunyun',
+@Component({
     components: {
         swiper,
         swiperSlide,
         Countdown
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+    }
+})
+export default class Chunyun extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            map1: {
-                0: 1,
-                1: 1,
-                2: 1.2,
-                3: 1.2,
-                4: 1.2,
-                5: 1.2,
-                6: 1.2
-            },
-            map2: {
-                0: 1,
-                1: 2,
-                2: 2.14,
-                3: 2.2,
-                4: 2.25,
-                5: 2.26,
-                6: 2.28
-            },
-            map: {
-                第一季: 'diyiji-e90f7',
-                第二季: 'dierji-76655',
-                第三季: 'disanji-38880',
-                第四季: 'disiji-7ad77',
-                第五季: 'diwuji-24755'
-            }
+    }) readonly data!: { values: { status: number; combinationDetailList: object[] }[] }
+
+    /* data */
+    map1 = Object.freeze({
+        0: 1,
+        1: 1,
+        2: 1.2,
+        3: 1.2,
+        4: 1.2,
+        5: 1.2,
+        6: 1.2
+    })
+
+    map2 = Object.freeze({
+        0: 1,
+        1: 2,
+        2: 2.14,
+        3: 2.2,
+        4: 2.25,
+        5: 2.26,
+        6: 2.28
+    })
+
+    map = Object.freeze({
+        第一季: 'diyiji-e90f7',
+        第二季: 'dierji-76655',
+        第三季: 'disanji-38880',
+        第四季: 'disiji-7ad77',
+        第五季: 'diwuji-24755'
+    })
+
+    /* computed */
+    get size () {
+        const { data } = this
+        let result
+        if (data.values[0].status === 0) {
+            if (data.values[0].combinationDetailList.length === 1) result = 'large'
+            if (data.values[0].combinationDetailList.length > 1) result = 'medium'
         }
-    },
-    computed: {
-        size () {
-            const { data } = this
-            let result
-            if (data.values[0].status === 0) {
-                if (data.values[0].combinationDetailList.length === 1) result = 'large'
-                if (data.values[0].combinationDetailList.length > 1) result = 'medium'
-            }
-            if (data.values[0].status === 1) result = 'small'
-            return result
+        if (data.values[0].status === 1) result = 'small'
+        return result
+    }
+
+    /* methods */
+    getDuration = getDuration
+    getOptions (list: object[], map: { [key: number]: number }) {
+        const length = (list && list.length) || 0
+        const swiperOption = {
+            slidesPerView: map[length],
+            spaceBetween: 0,
+            grabCursor: true
         }
-    },
-    methods: {
-        getDuration,
-        getOptions (list, map) {
-            const length = (list && list.length) || 0
-            const swiperOption = {
-                slidesPerView: map[length],
-                spaceBetween: 0,
-                grabCursor: true
-            }
-            return swiperOption
-        }
+        return swiperOption
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .chunyun {
-    ::v-deep .count-down > .time > span {
-        padding: 0 4px;
-        font-size: 12px;
-        line-height: 20px;
-        color: #96e3a9;
+    &-list.small {
+        .swiper-container {
+            margin-top: 16px;
+            &:nth-of-type(1) {
+                margin: 0;
+            }
+            > .swiper-wrapper > .swiper-slide {
+                display: flex;
+                align-items: center;
+                width: auto !important;
+                height: 254px !important;
+                &:nth-of-type(1) {
+                    width: auto !important;
+                }
+                &:nth-of-type(2) > .chunyun-list-prod-wrapper {
+                    padding-left: 10px;
+                }
+                &:nth-last-of-type(1) > .chunyun-list-prod-wrapper {
+                    padding-right: 10px;
+                }
+            }
+        }
     }
+}
+
+</style>
+<style lang="scss" module>
+.chunyun {
+    // .countdown > .time > span {
+    //     padding: 0 4px;
+    //     font-size: 12px;
+    //     line-height: 20px;
+    //     color: #96e3a9;
+    // }
     img {
         width: 100%;
         height: 100%;
@@ -265,7 +294,7 @@ export default {
         background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/c6bd4a18-d557-4dbd-9270-edab7a0f30b1.png') no-repeat center top;
         background-size: 100% auto;
         height: 341px;
-        .count-down-wrapper {
+        .countdown-wrapper {
             position: absolute;
             top: 145px;
             left: 50%;
@@ -322,27 +351,6 @@ export default {
         }
         &.small {
             padding: 0 0 24px 16px;
-            .swiper-container {
-                margin-top: 16px;
-                &:nth-of-type(1) {
-                    margin: 0;
-                }
-                > .swiper-wrapper > .swiper-slide {
-                    display: flex;
-                    align-items: center;
-                    width: auto !important;
-                    height: 254px !important;
-                    &:nth-of-type(1) {
-                        width: auto !important;
-                    }
-                    &:nth-of-type(2) > .chunyun-list-prod-wrapper {
-                        padding-left: 10px;
-                    }
-                    &:nth-last-of-type(1) > .chunyun-list-prod-wrapper {
-                        padding-right: 10px;
-                    }
-                }
-            }
             .chunyun-list-item {
                 padding: 10px 8px;
                 width: 172px;
@@ -358,7 +366,7 @@ export default {
                     margin-top: 10px;
                     height: 104px;
                 }
-                .count-down-wrapper {
+                .countdown-wrapper {
                     display: flex;
                     justify-content: space-around;
                     align-items: center;

@@ -1,31 +1,31 @@
 <template>
     <div
-        class="fengqiang"
         :class="{
-            'bg-1': tmplId === 5,
-            'bg-2': tmplId === 6,
-            'bg-3': tmplId === 7
+            [$style.fengqiang]: true,
+            [$style.bg1]: tmplId === 5,
+            [$style.bg2]: tmplId === 6,
+            [$style.bg3]: tmplId === 7
         }"
     >
-        <div class="background" />
-        <ul class="fengqiang-list" v-if="data.values.length">
+        <div :class="$style.background" />
+        <ul :class="$style.fengqiangList" v-if="data.values.length">
             <li
-                class="fengqiang-list-item"
                 :class="{
-                    large: data.values.length % 2 === 1,
-                    small: data.values.length % 2 === 0
+                    [$style.fengqiangListItem]: true,
+                    [$style.large]: data.values.length % 2 === 1,
+                    [$style.snall]: data.values.length % 2 === 0
                 }"
                 v-for="(item, i) of data.values"
                 :key="i"
             >
-                <div class="img-wrapper">
+                <div :class="$style.imgWrapper">
                     <img :src="item.goodsInfo.productMainImage">
                 </div>
-                <div class="item-info" v-if="tmplId === 5 || tmplId === 7">
+                <div :class="$style.itemInfo" v-if="tmplId === 5 || tmplId === 7">
                     <h4>{{ item.goodsInfo.productName }}</h4>
-                    <div class="info-text">
+                    <div :class="$style.infoText">
                         <PlSvg name="icon-fengqiangjia" width="39" height="24" style="margin-right: 4px;" />
-                        <span class="price" v-if="item.goodsInfo && item.goodsInfo.productSkuModels && item.goodsInfo.productSkuModels.length">
+                        <span :class="$style.price" v-if="item.goodsInfo && item.goodsInfo.productSkuModels && item.goodsInfo.productSkuModels.length">
                             {{ getPrice(item.goodsInfo.productSkuModels)('price') }}
                         </span>
                         <span v-if="item.goodsInfo.salesVolume < 10">
@@ -34,51 +34,51 @@
                         <span v-else>
                             {{ `${item.goodsInfo.salesVolume >= 999 ? '999+' : item.goodsInfo.salesVolume}` }}人付款
                         </span>
-                        <div class="btn-highlight">
+                        <div :class="$style.btnHighlight">
                             <PlSvg name="icon-mashangqiang" width="59" height="23" />
                         </div>
                     </div>
                 </div>
-                <div class="item-info" v-if="tmplId === 6">
+                <div :class="$style.itemInfo" v-if="tmplId === 6">
                     <h4>{{ item.goodsInfo.productName }}</h4>
-                    <div class="info-text">
-                        <span class="price" v-if="item.goodsInfo && item.goodsInfo.productSkuModels && item.goodsInfo.productSkuModels.length">
+                    <div :class="$style.infoText">
+                        <span :class="$style.price" v-if="item.goodsInfo && item.goodsInfo.productSkuModels && item.goodsInfo.productSkuModels.length">
                             {{ getPrice(item.goodsInfo.productSkuModels)('price') }}
                         </span>
-                        <span class="tag" v-if="coupon.useLimitAmount && coupon.amount">
+                        <span :class="$style.tag" v-if="coupon.useLimitAmount && coupon.amount">
                             {{ `满${coupon.useLimitAmount}减${coupon.amount}` }}
                         </span>
-                        <div class="btn">
+                        <div :class="$style.btn">
                             马上抢！
                         </div>
                     </div>
                 </div>
             </li>
         </ul>
-        <ul class="fengqiang-list" v-else>
-            <li class="fengqiang-list-item" v-for="(item, i) of defaultData['POPULAR']" :key="i">
-                <div class="img-wrapper">
+        <ul :class="$style.fengqiangList" v-else>
+            <li :class="$style.fengqiangListItem" v-for="(item, i) of defaultData" :key="i">
+                <div :class="$style.imgWrapper">
                     <img :src="item.img">
                 </div>
-                <div class="item-info" v-if="tmplId === 5 || tmplId === 7">
+                <div :class="$style.itemInfo" v-if="tmplId === 5 || tmplId === 7">
                     <h4>{{ item.name }}</h4>
-                    <div class="info-text">
+                    <div :class="$style.infoText">
                         <PlSvg name="icon-fengqiangjia" width="39" height="24" style="margin-right: 4px;" />
-                        <span class="price">{{ item.price }}</span>
+                        <span :class="$style.price">{{ item.price }}</span>
                         <span>33人付款</span>
-                        <div class="btn-highlight">
+                        <div :class="$style.btnHighlight">
                             <PlSvg name="icon-mashangqiang" width="59" height="23" />
                         </div>
                     </div>
                 </div>
-                <div class="item-info" v-if="tmplId === 6">
+                <div :class="$style.itemInfo" v-if="tmplId === 6">
                     <h4>{{ item.name }}</h4>
-                    <div class="info-text">
-                        <span class="price">1000</span>
-                        <span class="tag">
+                    <div :class="$style.infoText">
+                        <span :class="$style.price">1000</span>
+                        <span :class="$style.tag">
                             满5000减500
                         </span>
-                        <div class="btn">
+                        <div :class="$style.btn">
                             马上抢！
                         </div>
                     </div>
@@ -88,48 +88,49 @@
     </div>
 </template>
 
-<script>
-import defaultData from '../../utils/default-data/basic'
-import { getPrice } from '../../utils/helper'
-import { getMaxCoupon } from '../../../../apis/mall'
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
+import defaultData from '../../../utils/template-default-data/basic'
+import { getPrice } from '../../../utils/helper'
+import { getMaxCoupon } from '../../../../../apis/mall'
 
-export default {
-    name: 'Fengqiang',
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
-        },
-        tmplId: {
-            type: Number,
-            default: 0
+@Component
+export default class Fengqiang extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            defaultData,
-            coupon: {}
-        }
-    },
+    }) readonly data!: TemplateModule
+
+    @Prop({
+        type: Number,
+        default: 0
+    }) readonly tmplId!: number
+
+    /* data */
+    coupon = {}
+    defaultData = Object.freeze(defaultData.Popular)
+
     async created () {
         if (this.tmplId === 6) {
             try {
-                const { data: { result } } = await getMaxCoupon()
+                const { result } = await getMaxCoupon()
                 this.coupon = result
             } catch (error) {
                 throw error
             }
         }
-    },
-    methods: {
-        getPrice
     }
+
+    /* methods */
+    getPrice = getPrice
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
   .fengqiang {
     background: linear-gradient(180deg, rgba(242, 183, 164, 1) 0%, rgba(228, 89, 83, 1) 12%, rgba(228, 87, 80, 1) 100%);
     border-radius: 10px;

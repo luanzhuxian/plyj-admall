@@ -1,17 +1,17 @@
 <template>
-    <panel custom-class="live-panel" :title="panelTitle">
-        <ul class="live-list">
+    <Panel :custom-class="$style.livePanel" :title="panelTitle">
+        <ul :class="$style.liveList">
             <template v-for="(live, index) of liveModel.slice(0, 3)">
-                <li class="first" :key="index" v-if="~(liveModel.length > 2 ? [0] : [0, 1]).indexOf(index)">
+                <li :class="$style.first" :key="index" v-if="~(liveModel.length > 2 ? [0] : [0, 1]).indexOf(index)">
                     <label>
                         <span v-if="live.isNoticeShow">即将开始</span>
                         <span v-if="live.statue === 4">直播中</span>
                         <span v-if="live.statue === 0">看回放</span>
                     </label>
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <img :src="(live.isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-middle'">
                     </div>
-                    <div class="live-info">
+                    <div :class="$style.liveInfo">
                         <h4 v-text="live.name" />
                         <p>
                             <template v-if="live.isNoticeShow">
@@ -28,16 +28,16 @@
                         </p>
                     </div>
                 </li>
-                <li class="others" :key="index" v-else>
+                <li :class="$style.others" :key="index" v-else>
                     <label>
                         <span v-if="live.isNoticeShow">即将开始</span>
                         <span v-if="live.statue === 4">直播中</span>
                         <span v-if="live.statue === 0">看回放</span>
                     </label>
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <img :src="(live.isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-small'">
                     </div>
-                    <div class="live-info">
+                    <div :class="$style.liveInfo">
                         <h4 v-text="live.name" />
                         <p v-if="live.isNoticeShow">
                             {{ `直播时间 ${getTime(live.liveStartTime)}` }}
@@ -52,48 +52,61 @@
                 </li>
             </template>
         </ul>
-    </panel>
+    </Panel>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { LiveStatus } from '../../../utils/types'
 import moment from 'moment'
 import Panel from './Panel.vue'
 
-export default {
-    name: 'Live',
-    components: {
-        Panel
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return {}
-            }
+@Component({
+    components: { Panel }
+})
+export default class Live extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { liveModel: [] }
         }
-    },
-    data () {
-        return {
-            panelTitle: {
-                name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zbfys.png',
-                width: 184,
-                height: 27
-            }
-        }
-    },
-    computed: {
-        liveModel () {
-            const { data } = this
+    }) readonly data!: {
+        futrueCount: number;
+        nowCount: number;
+        pastCount: number;
+        liveModel: DynamicObject[];
+    }
 
-            if (!data.liveModel || !data.liveModel.length) {
-                return []
-            }
-            return data.liveModel.filter(item => item.statue === 0 || item.statue === 4 || (item.statue === 2 && item.hasNotice))
-        },
-        isLiveShow () {
-            return !!this.liveModel.length
+    /* data */
+    panelTitle = {
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zbfys.png',
+        width: 184,
+        height: 27
+    }
+
+    /* computed */
+    get liveModel () {
+        const { data } = this
+
+        if (!data.liveModel || !data.liveModel.length) {
+            return []
         }
-    },
+        return data.liveModel.filter(item => item.statue === LiveStatus.Finished || item.statue === LiveStatus.Started || (item.statue === LiveStatus.NotStarted && item.hasNotice))
+    }
+
+    get isLiveShow () {
+        return !!this.liveModel.length
+    }
+
+    get live () {
+        return this.isLiveShow ? this.liveModel[0] : {}
+    }
+
+    get isNoticeShow () {
+        return this.live && this.live.statue === LiveStatus.NotStarted && this.live.hasNotice
+    }
+
     created () {
         for (const live of this.liveModel) {
             const { liveStartTime, hasNotice } = live
@@ -101,27 +114,27 @@ export default {
             if (hasNotice && liveStartTime) {
                 this.$set(live, 'ts', moment(liveStartTime).valueOf())
             }
-            this.$set(live, 'isNoticeShow', live.statue === 2 && live.hasNotice)
         }
-    },
-    methods: {
-        done () {
-            if (this.live.statue === 2) {
-                this.live.statue = 4
-            } else if (this.live.statue === 4) {
-                this.live.statue = 0
-            }
-        },
-        getTime (time) {
-            if (!time) return ''
-            const index = time.lastIndexOf(':')
-            return time.slice(0, index)
+    }
+
+    /* methods */
+    done () {
+        if (this.live.statue === LiveStatus.NotStarted) {
+            this.live.statue = LiveStatus.Started
+        } else if (this.live.statue === LiveStatus.Started) {
+            this.live.statue = LiveStatus.Finished
         }
+    }
+
+    getTime (time: string) {
+        if (!time) return ''
+        const index = time.lastIndexOf(':')
+        return time.slice(0, index)
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .live-list {
     display: flex;
     flex-wrap: wrap;

@@ -36,7 +36,7 @@ export const reset = (modules: TemplateModule | undefined, name: string) => {
             }
         }
     }
-    if (~['Popular', 'FengQiang'].indexOf(name)) {
+    if (~['Popular', 'Fengqiang'].indexOf(name)) {
         modules.goodsSource = (modules.goodsSource && modules.goodsSource !== '') ? modules.goodsSource : 2
         modules.productValues = modules.goodsSource === 2 ? modules.values : []
         modules.categoryValues = modules.goodsSource === 1 ? modules.values : []
@@ -84,7 +84,7 @@ export const reset = (modules: TemplateModule | undefined, name: string) => {
             modules.show = 0
         }
     }
-    if (~['Live', 'Course', 'Series', 'ImageText'].indexOf(name)) {
+    if (~['Live', 'OnlineCourse', 'SeriesCourse', 'ImageText'].indexOf(name)) {
         // modules.styleType: 1 默认显示1个 2 显示多个
         modules.values = modules.styleType === 1 ? modules.values.slice(0, 1) : modules.values
         modules.defaultValues = modules.styleType === 1 ? modules.values : []
@@ -101,13 +101,13 @@ export const reset = (modules: TemplateModule | undefined, name: string) => {
     }
 
     // 主会场
-    if (~['Coupon', 'PinTuan', 'YuGou', 'MiaoSha', 'Package', 'Distribution'].indexOf(name)) {
+    if (~['Coupon', 'Pintuan', 'Yugou', 'Miaosha', 'Package', 'Distribution'].indexOf(name)) {
         modules.goodsSource = 2
     }
-    if (name === 'MaiSong') {
+    if (name === 'Maisong') {
         modules.otherValue = (modules.otherValue && modules.otherValue !== '') ? modules.otherValue : '12.12当日下单 享多重好礼'
     }
-    if (name === 'MiaoSha') {
+    if (name === 'Miaosha') {
         for (const item of modules.values) {
             if (!item.goodsInfo) item.goodsInfo = []
             item.range = item.valueName.split(',')
@@ -131,8 +131,8 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel = {} as TemplateB
         templateModel.Banner = reset(findModuleById(1), 'Banner')
         templateModel.Live = reset(findModuleById(20), 'Live')
-        templateModel.Course = reset(findModuleById(21), 'Course')
-        templateModel.Series = reset(findModuleById(22), 'Series')
+        templateModel.OnlineCourse = reset(findModuleById(21), 'OnlineCourse')
+        templateModel.SeriesCourse = reset(findModuleById(22), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(23), 'ImageText')
         templateModel.Popular = reset(findModuleById(2), 'Popular')
         templateModel.Appointment = reset(findModuleById(5), 'Appointment')
@@ -145,8 +145,8 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Banner = reset(modules[0], 'Banner')
         templateModel.Adv = reset(modules[1], 'Adv')
         templateModel.Live = reset(findModuleById(20), 'Live')
-        templateModel.Course = reset(findModuleById(21), 'Course')
-        templateModel.Series = reset(findModuleById(22), 'Series')
+        templateModel.OnlineCourse = reset(findModuleById(21), 'OnlineCourse')
+        templateModel.SeriesCourse = reset(findModuleById(22), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(23), 'ImageText')
         templateModel.Popular = reset(findModuleById(2), 'Popular')
         templateModel.Appointment = reset(findModuleById(5), 'Appointment')
@@ -158,8 +158,8 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel = {} as TemplateC
         templateModel.Propagate = reset(findModuleById(6), 'Propagate')
         templateModel.Live = reset(findModuleById(20), 'Live')
-        templateModel.Course = reset(findModuleById(21), 'Course')
-        templateModel.Series = reset(findModuleById(22), 'Series')
+        templateModel.OnlineCourse = reset(findModuleById(21), 'OnlineCourse')
+        templateModel.SeriesCourse = reset(findModuleById(22), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(23), 'ImageText')
         templateModel.Appointment = reset(findModuleById(5), 'Appointment')
         templateModel.Popular = reset(findModuleById(2), 'Popular')
@@ -173,14 +173,14 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Coupon = reset(findModuleById(9), 'Coupon')
         templateModel.Activity = reset(findModuleById(15), 'Activity')
         templateModel.Live = reset(findModuleById(20), 'Live')
-        templateModel.Course = reset(findModuleById(21), 'Course')
-        templateModel.Series = reset(findModuleById(22), 'Series')
+        templateModel.OnlineCourse = reset(findModuleById(21), 'OnlineCourse')
+        templateModel.SeriesCourse = reset(findModuleById(22), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(23), 'ImageText')
         templateModel.Appointment = reset(findModuleById(5), 'Appointment')
-        templateModel.MiaoSha = reset(findModuleById(10), 'MiaoSha')
+        templateModel.Miaosha = reset(findModuleById(10), 'Miaosha')
         templateModel.Package = reset(findModuleById(16), 'Package')
-        templateModel.PinTuan = reset(findModuleById(8), 'PinTuan')
-        templateModel.YuGou = reset(findModuleById(11), 'YuGou')
+        templateModel.Pintuan = reset(findModuleById(8), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(11), 'Yugou')
         templateModel.Propagate = reset(findModuleById(6), 'Propagate')
         templateModel.Popular = reset(findModuleById(2), 'Popular')
         templateModel.Class = reset(findModuleById(3), 'Class')
@@ -190,48 +190,48 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
     // 主会场
     if (tmplId === 5) {
         templateModel = {} as TemplateFengQiang
-        templateModel.MiaoSha = reset(modules[0], 'MiaoSha')
-        templateModel.PinTuan = reset(modules[1], 'PinTuan')
-        templateModel.MaiSong = reset(modules[2], 'MaiSong')
+        templateModel.Miaosha = reset(modules[0], 'Miaosha')
+        templateModel.Pintuan = reset(modules[1], 'Pintuan')
+        templateModel.Maisong = reset(modules[2], 'Maisong')
         templateModel.Coupon = reset(modules[3], 'Coupon')
-        templateModel.YuGou = reset(modules[4], 'YuGou')
-        templateModel.FengQiang = reset(modules[5], 'FengQiang')
+        templateModel.Yugou = reset(modules[4], 'Yugou')
+        templateModel.Fengqiang = reset(modules[5], 'Fengqiang')
         templateModel.Recommend = reset(modules[6], 'Recommend')
     }
     if (tmplId === 6) {
         templateModel = {} as TemplateBaoFa
         templateModel.Coupon = reset(modules[0], 'Coupon')
-        templateModel.MaiSong = reset(modules[1], 'MaiSong')
-        templateModel.MiaoSha = reset(modules[2], 'MiaoSha')
-        templateModel.PinTuan = reset(modules[3], 'PinTuan')
-        templateModel.FengQiang = reset(modules[4], 'FengQiang')
+        templateModel.Maisong = reset(modules[1], 'Maisong')
+        templateModel.Miaosha = reset(modules[2], 'Miaosha')
+        templateModel.Pintuan = reset(modules[3], 'Pintuan')
+        templateModel.Fengqiang = reset(modules[4], 'Fengqiang')
     }
     if (tmplId === 7) {
         templateModel = {} as TemplateFanChang
-        templateModel.MaiSong = reset(modules[0], 'MaiSong')
-        templateModel.MiaoSha = reset(modules[1], 'MiaoSha')
-        templateModel.PinTuan = reset(modules[2], 'PinTuan')
-        templateModel.FengQiang = reset(modules[3], 'FengQiang')
+        templateModel.Maisong = reset(modules[0], 'Maisong')
+        templateModel.Miaosha = reset(modules[1], 'Miaosha')
+        templateModel.Pintuan = reset(modules[2], 'Pintuan')
+        templateModel.Fengqiang = reset(modules[3], 'Fengqiang')
         templateModel.Recommend = reset(modules[4], 'Recommend')
     }
     if (tmplId === 8) {
         templateModel = {} as TemplateXinChun
         templateModel.Propagate = reset(modules[0], 'Propagate')
         templateModel.Coupon = reset(modules[1], 'Coupon')
-        templateModel.ChunYun = reset(modules[2], 'ChunYun')
-        templateModel.PinTuan = reset(modules[3], 'PinTuan')
-        templateModel.YuGou = reset(modules[4], 'YuGou')
-        templateModel.FengQiang = reset(modules[5], 'FengQiang')
+        templateModel.Chunyun = reset(modules[2], 'Chunyun')
+        templateModel.Pintuan = reset(modules[3], 'Pintuan')
+        templateModel.Yugou = reset(modules[4], 'Yugou')
+        templateModel.Fengqiang = reset(modules[5], 'Fengqiang')
     }
     if (tmplId === 10) {
         templateModel = {} as TemplateDragonGate
         templateModel.Coupon = reset(findModuleById(9), 'Coupon')
         templateModel.Charity = reset(findModuleById(17), 'Charity')
         templateModel.Activity = reset(findModuleById(19), 'Activity')
-        templateModel.MiaoSha = reset(findModuleById(10), 'MiaoSha')
+        templateModel.Miaosha = reset(findModuleById(10), 'Miaosha')
         templateModel.Distribution = reset(findModuleById(18), 'Distribution')
-        templateModel.PinTuan = reset(findModuleById(8), 'PinTuan')
-        templateModel.YuGou = reset(findModuleById(11), 'YuGou')
+        templateModel.Pintuan = reset(findModuleById(8), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(11), 'Yugou')
         templateModel.Package = reset(findModuleById(16), 'Package')
         templateModel.Recommend = reset(findModuleById(4), 'Recommend')
     }

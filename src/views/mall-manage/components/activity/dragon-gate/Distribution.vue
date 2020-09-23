@@ -1,85 +1,83 @@
 <template>
-    <panel custom-class="distribution-panel" :title="panelTitle">
-        <ul class="distribution-list" v-if="data.values.length">
+    <Panel :custom-class="$style.distributionPanel" :title="panelTitle">
+        <ul :class="$style.distributionList" v-if="data.values.length">
             <template v-for="(item, index) of data.values">
                 <li
                     v-if="item.goodsInfo"
-                    class="distribution-list-item"
+                    :class="$style.distributionListItem"
                     :key="index"
                 >
-                    <div class="img-wrapper">
+                    <div :class="$style.imgWrapper">
                         <label>{{ item.definiteType }}</label>
                         <img :src="item.goodsInfo.productMainImage + '?x-oss-process=style/thum-middle'">
                     </div>
-                    <div class="info">
-                        <div class="main">
+                    <div :class="$style.info">
+                        <div :class="$style.main">
                             {{ item.goodsInfo.productName }}
                         </div>
-                        <div class="sub">
+                        <div :class="$style.sub">
                             {{ `分享购买成功后获得润笔 ¥${item.goodsInfo.rebate}` }}
                         </div>
-                        <div class="bottom">
-                            <b class="price">{{ item.goodsInfo.price }}</b>
-                            <del class="original">{{ item.goodsInfo.originPrice }}</del>
+                        <div :class="$style.bottom">
+                            <b :class="$style.price">{{ item.goodsInfo.price }}</b>
+                            <del :class="$style.original">{{ item.goodsInfo.originPrice }}</del>
                             <PlSvg type="img" name="https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/fenxiang-yellow.png" width="60" height="29" />
                         </div>
                     </div>
                 </li>
             </template>
         </ul>
-        <ul class="distribution-list" v-else>
-            <li class="distribution-list-item" v-for="(item, i) of 3" :key="i">
-                <div class="img-wrapper">
+        <ul :class="$style.distributionList" v-else>
+            <li :class="$style.distributionListItem" v-for="(item, i) of 3" :key="i">
+                <div :class="$style.imgWrapper">
                     <label>知识课程</label>
                     <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/default.png" alt="">
                 </div>
-                <div class="info">
-                    <div class="main">
+                <div :class="$style.info">
+                    <div :class="$style.main">
                         神奇的逻辑思维游戏畅销书
                     </div>
-                    <div class="sub">
+                    <div :class="$style.sub">
                         分享购买成功后获得润笔 ¥500
                     </div>
-                    <div class="bottom">
-                        <b class="price">10000</b>
-                        <del class="original">19999</del>
+                    <div :class="$style.bottom">
+                        <b :class="$style.price">10000</b>
+                        <del :class="$style.original">19999</del>
                         <PlSvg type="img" name="https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/fenxiang-yellow.png" width="60" height="29" />
                     </div>
                 </div>
             </li>
         </ul>
-    </panel>
+    </Panel>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
 
-export default {
-    name: 'Distribution',
-    components: {
-        Panel
-    },
-    props: {
-        data: {
-            type: Object,
-            default () {
-                return { values: [] }
-            }
+@Component({
+    components: { Panel }
+})
+export default class Distribution extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
         }
-    },
-    data () {
-        return {
-            panelTitle: {
-                name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/qmlfx.png',
-                width: 184,
-                height: 27
-            }
-        }
+    }) readonly data!: TemplateModule
+
+    /* data */
+    panelTitle = {
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/qmlfx.png',
+        width: 184,
+        height: 27
     }
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .distribution-panel {
     padding-top: 30px;
     background: #01237a;
