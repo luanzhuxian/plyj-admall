@@ -139,7 +139,7 @@ export default class CreateMall extends Vue {
 
     async mounted () {
         if (this.currentStep === 1) {
-            this.createdMallShow = false
+            this.createdMallShow = true
             await this.getMainCategories()
         }
     }
