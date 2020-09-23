@@ -387,7 +387,7 @@ export default {
         if (this.mallSaveModel.logoUrl) {
             this.logoList.push(this.mallSaveModel.logoUrl)
         }
-        this.form.servicePhoneModels = JSON.parse(JSON.stringify(this.mallSaveModel.servicePhoneModels))
+        this.form.servicePhoneModels = JSON.parse(JSON.stringify(this.mallSaveModel.servicePhoneModels || []))
         this.createQrCode()
     },
     computed: {
@@ -409,7 +409,7 @@ export default {
         }),
         async createQrCode () {
             if (this.mallSaveModel.mallUrl) {
-                this.shopCode = await generateQrcode(500, `${ this.url }`, 25, '', 10)
+                this.shopCode = await generateQrcode({ text: `${ this.url }` })
             }
         },
         async copy () {
