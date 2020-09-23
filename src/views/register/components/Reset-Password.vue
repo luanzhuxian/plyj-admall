@@ -13,15 +13,15 @@
                 <el-form-item prop="password">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.password" :type="passwordType" min="6" max="12" style="width: 300px" placeholder="请输入密码" />
-                        <img :class="$style.hidePassword" @click="passwordType = 'text'" v-if="passwordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
-                        <img :class="$style.showPassword" @click="passwordType = 'password'" v-else src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
+                        <img :class="$style.hidePassword" @click="passwordType = 'text'" v-show="passwordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
+                        <img :class="$style.showPassword" @click="passwordType = 'password'" v-show="passwordType === 'text'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
                     </div>
                 </el-form-item>
                 <el-form-item prop="confirmPassword">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.confirmPassword" :type="confirmPasswordType" min="6" max="12" style="width: 300px" placeholder="再次输入密码" />
-                        <img :class="$style.hidePassword" @click="confirmPasswordType = 'text'" v-if="confirmPasswordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
-                        <img :class="$style.showPassword" @click="confirmPasswordType = 'password'" v-else src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
+                        <img :class="$style.hidePassword" @click="confirmPasswordType = 'text'" v-show="confirmPasswordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
+                        <img :class="$style.showPassword" @click="confirmPasswordType = 'password'" v-show="confirmPasswordType === 'text'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
                     </div>
                 </el-form-item>
             </el-form>

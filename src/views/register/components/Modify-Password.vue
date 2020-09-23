@@ -14,21 +14,21 @@
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.oldPassword" :type="oldPasswordType" min="6" max="12" style="width: 300px" placeholder="请输入你的当前密码" />
                         <img :class="$style.hidePassword" @click="oldPasswordType = 'text'" v-show="oldPasswordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
-                        <img :class="$style.showPassword" @click="oldPasswordType = 'password'" v-show="oldPasswordType !== 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
+                        <img :class="$style.showPassword" @click="oldPasswordType = 'password'" v-show="oldPasswordType === 'text'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.password" :type="passwordType" min="6" max="12" style="width: 300px" placeholder="设置你的新密码" />
                         <img :class="$style.hidePassword" @click="passwordType = 'text'" v-show="passwordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
-                        <img :class="$style.showPassword" @click="passwordType = 'password'" v-show="passwordType !== 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
+                        <img :class="$style.showPassword" @click="passwordType = 'password'" v-show="passwordType === 'text'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
                     </div>
                 </el-form-item>
                 <el-form-item prop="confirmPassword">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.confirmPassword" :type="confirmPasswordType" min="6" max="12" style="width: 300px" placeholder="请再次设置你的新密码" />
                         <img :class="$style.hidePassword" @click="confirmPasswordType = 'text'" v-show="confirmPasswordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
-                        <img :class="$style.showPassword" @click="confirmPasswordType = 'password'" v-show="confirmPasswordType !== 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
+                        <img :class="$style.showPassword" @click="confirmPasswordType = 'password'" v-show="confirmPasswordType === 'text'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
                     </div>
                 </el-form-item>
             </el-form>
@@ -99,7 +99,8 @@ export default class ModifyPassword extends Vue {
                     lastPassword: this.form.oldPassword,
                     password: this.form.password
                 }
-                await modifyPassword(form)
+                const data = await modifyPassword(form)
+                if (!data) return this.$error('操作失败')
                 this.$router.replace({ name: 'Home' })
             } catch (e) {
                 throw e
