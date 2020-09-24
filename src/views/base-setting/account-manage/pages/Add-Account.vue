@@ -12,10 +12,14 @@
                 label-width="158px"
                 label-position="right"
             >
+                <el-form-item label="手机号（账号）:" v-if="query.userId">
+                    {{ ruleForm.mobile }}
+                </el-form-item>
                 <el-form-item
                     prop="mobile"
                     :error="error"
                     label="手机号（账号）:"
+                    v-else
                 >
                     <el-input
                         class="w250"
@@ -233,7 +237,7 @@ export default class AddAccount extends Vue {
     }
 
     async submit () {
-        if (this.query.canEdit || this.query.selfEdit) {
+        if (this.query.userId) {
             delete this.ruleForm.mobile
             if (this.query.canEdit && this.ruleForm.accountRole === 'EMPLOYEE') {
                 this.ruleForm.menuCode = []
