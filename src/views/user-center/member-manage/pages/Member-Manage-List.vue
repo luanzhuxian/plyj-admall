@@ -656,8 +656,8 @@ export default class MemberManageList extends Vue {
   async getMemberListByTag (tagId: string) {
       try {
           this.form.tagId = tagId
-          if (Number(tagId) === 0) {
-              (this.$refs.tree as HTMLFormElement).$children.forEach((item: Vue) => {
+          if (!tagId) {
+              (this.$refs.tree as HTMLFormElement).$children[0].$children.forEach((item: Vue) => {
                   item.$el.classList.remove('tree-node-active')
               })
           }
