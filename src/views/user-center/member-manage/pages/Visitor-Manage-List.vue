@@ -35,6 +35,7 @@
                     clearable
                     @change="search"
                 >
+                    <el-option :value="''" label="全部" />
                     <el-option
                         v-for="(item, index) of sourceList"
                         :key="index"
@@ -135,7 +136,7 @@ export default class VistorManageList extends Vue {
       size: 10,
       createStartTime: '',
       createEndTime: '',
-      userSource: '微信H5'
+      userSource: ''
   }
 
   sourceList = [
