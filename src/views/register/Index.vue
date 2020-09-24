@@ -100,31 +100,17 @@ export default class RegisterIndex extends Vue {
 </script>
 
 <style module lang="scss">
-    .login{
-        width: 100vw;
-        height: 100vh;
-        /*display: flex;*/
-        /*flex-direction: row;*/
-        /*align-items: center;*/
+    .login {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         background-color: #ffffff;
-        .login-top{
-            width: 100vw;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            padding-left: 18%;
-        }
-        .login-body{
-            width: 100vw;
-            height: calc(100vh - 80px);
-            background: #F5F6FA;
+        .login-body {
             display: flex;
             justify-content: center;
-            position: relative;
-            .login-bg{
-                position: absolute;
-                top: 21%;
-            }
+            width: 100vw;
+            padding: 72px 0;
+            background-color: #F5F6FA;
         }
     }
 </style>
