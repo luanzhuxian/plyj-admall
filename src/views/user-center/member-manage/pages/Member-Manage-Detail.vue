@@ -1132,7 +1132,7 @@ export default class MemberManageDetail extends Vue {
     // 保存备注用户信息
     async saveAddMemberDetail () {
         try {
-            await this.$refs.form.validate()
+            await (this.$refs.form as HTMLFormElement).validate()
             const params = { ...this.addMemberDetailForm }
             if (Number(params.type) === 2) {
                 params.industry = ''

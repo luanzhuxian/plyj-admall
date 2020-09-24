@@ -42,10 +42,10 @@ export const getBusLicenseInfo = fileUrl => axios.post(`/apis/v2/oss/upload/img/
 export const idCardSide = (side, url) => axios.post(`/apis/v2/oss/upload/img/idCard?idCardSide=${ side }&fileUrl=${ url }`)
 
 /* 获取银行种类类别 */
-export const getBankList = () => axios.get('/apis/v1/systemctl/sysbankInfo/first/bank')
+export const getBankList = () => axios.get('/apis/v2/systemctl/sysbankInfo/first/bank')
 
 /* 查询分行 */
-export const getSubBankList = (parentCode, parentCodeName, bankNameKeyword) => axios.get(`/apis/v1/systemctl/sysbankInfo/branch/bank?parentCode=${ parentCode }&parentCodeName=${ parentCodeName }&bankNameKeyword=${ bankNameKeyword }`)
+export const getSubBankList = (parentCode, parentCodeName, bankNameKeyword) => axios.get(`/apis/v2/systemctl/sysbankInfo/branch/bank?parentCode=${ parentCode }&parentCodeName=${ parentCodeName }&bankNameKeyword=${ bankNameKeyword }`)
 
 /* 获取银行所在地区 */
 export const getProvincesBankList = (parentCode = 0) => axios.get(`/apis/v2/base/location/wx/parent/${ parentCode }`)

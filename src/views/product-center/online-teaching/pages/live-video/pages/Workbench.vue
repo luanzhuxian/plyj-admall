@@ -233,7 +233,8 @@ export default class Workbench extends Vue {
         roomId: '',
         name: '',
         roomToken: 111,
-        liveStatus: 'LIVING'
+        liveStatus: 'LIVING',
+        roomName: ''
     }
 
     surplus = {
