@@ -162,7 +162,7 @@
                 <template slot-scope="{ row }">
                     <div class="action">
                         <a
-                            @click="showDialogBox(row.mallUserId, row.ownnerUserId)"
+                            @click="showDialogBox(row)"
                         >
                             更改所属账号
                         </a>
@@ -197,6 +197,16 @@
             title="选择所属账号"
             width="40%"
         >
+            <div class="current-account-info">
+                <p>
+                    <b>Helper用户</b>
+                    <span>{{ currentUserInfo.userName }}({{ currentUserInfo.mobile }})</span>
+                </p>
+                <p>
+                    <b>当前所属账号</b>
+                    <span>{{ currentUserInfo.ownedUser? currentUserInfo.ownedUser : '--' }}</span>
+                </p>
+            </div>
             <el-form :inline="true">
                 <el-form-item>
                     <el-input
@@ -229,10 +239,14 @@
                     prop="roleName"
                     label="角色"
                 />
+                <el-table-column
+                    prop="helperNumber"
+                    label="管理Helper数量"
+                />
                 <el-table-column label="操作" align="center">
                     <template slot-scope="{row}">
                         <el-button
-                            v-if="row.userId ===ownnerUserId"
+                            v-if="row.baseUserId === ownnerUserId"
                             disabled="disabled"
                             type="primary"
                             size="mini"
@@ -301,6 +315,7 @@ export default class HelperManageList extends Vue {
     routeName = ''
 
     /* 当前正在修改所属账号的数据id */
+    currentUserInfo: DynamicObject = {}
     currentUserId: string[] = []
 
     /* 当前选中的表格数据 */
@@ -417,16 +432,17 @@ export default class HelperManageList extends Vue {
         this.showDialog = true
     }
 
-    showDialogBox (id: string, ownnerUserId: string) {
+    showDialogBox (row: DynamicObject) {
         this.showDialog = true
-        this.currentUserId = [id]
-        this.ownnerUserId = ownnerUserId
+        this.currentUserInfo = row
+        this.currentUserId = [row.mallUserId]
+        this.ownnerUserId = row.ownnerUserId
     }
 
     async changeHelperAccount (data: any) {
         try {
             await changeHelpersAccount({
-                ownerUserId: data.userId,
+                ownerUserId: data.baseUserId,
                 userId: this.currentUserId
             })
             this.showDialog = false
@@ -497,5 +513,17 @@ export default class HelperManageList extends Vue {
         color: #F79F1A;
         border-radius: 5px;
         border: 1px solid #F79F1A;
+    }
+    .current-account-info {
+        display: grid;
+        margin-top: 14px;
+        margin-bottom: 30px;
+        padding: 0 29px;
+        border-radius: 20px;
+        grid-template-columns: repeat(2, 48%);
+        grid-row-gap: 24px;
+        line-height: 72px;
+        background-color: #F5F6FA;
+        font-size: 16px;
     }
 </style>
