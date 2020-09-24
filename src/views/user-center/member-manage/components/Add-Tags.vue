@@ -157,7 +157,10 @@ export default {
         currentMember: {
             // 获取已选中标签的id列表
             handler (member) {
-                if (this.isMultiple) return
+                if (this.isMultiple) {
+                    this.selected = []
+                    return
+                }
                 const tags = member.tags || []
                 this.selected = tags.map(item => item.id)
             },
