@@ -101,7 +101,11 @@
                     prop="statusName"
                     label="状态"
                 />
-                <el-table-column label="操作" align="center">
+                <el-table-column
+                    label="操作"
+                    align="center"
+                    width="300"
+                >
                     <template slot-scope="{ row }">
                         <el-button
                             v-if="row.status !== 1"
@@ -125,43 +129,29 @@
                             v-if="row.status === 0 || row.status === 2"
                             type="text"
                             size="mini"
-                            @click="putOn(row)"
+                            @click="putOnSell(row)"
                         >
                             上架
                         </el-button>
-                        <el-button
-                            v-if="row.status !== 1"
-                            type="text"
-                            size="mini"
-                            @click="setTime(row)"
-                        >
-                            设置
-                        </el-button>
-                        <div v-show="false">
-                            <el-button
-                                v-if="row.status !== 1"
-                                size="mini"
-                                @click="copyTemplate(row.id)"
-                            >
-                                复制
-                            </el-button>
-                            <el-button
-                                v-if="row.status !== 1"
-                                class="ml-0"
-                                type="primary"
-                                plain
-                                size="mini"
-                                @click="delTemplate(row.id)"
-                            >
-                                删除
-                            </el-button>
-                        </div>
+                        <Operating v-if="row.status !== 1" :class="$style.more">
+                            <template slot="button-box">
+                                <button @click="setOnSellTime(row)">
+                                    设置
+                                </button>
+                                <button @click="copyTemplate(row.id)">
+                                    复制
+                                </button>
+                                <button @click="delTemplate(row.id)">
+                                    删除
+                                </button>
+                            </template>
+                        </Operating>
                     </template>
                 </el-table-column>
             </el-table>
         </section>
         <pagination :total="total" :size="searchForm.size" v-model="searchForm.current" @change="getDraft" />
-        <modal-time-setting ref="modal" />
+        <ModalTimeSetting ref="modal" />
     </div>
 </template>
 
@@ -326,7 +316,7 @@ export default class MallMain extends Vue {
     }
 
     // 上架模板
-    async putOn ({ id, type }: {id: string; type: number}) {
+    async putOnSell ({ id, type }: {id: string; type: number}) {
         try {
             const { result = {} } = await previewTemplateItem(id)
             const moduleModels = rebuild(result.type, result.moduleModels)
@@ -360,7 +350,7 @@ export default class MallMain extends Vue {
     }
 
     // 设置上架时间
-    async setTime ({ id, type }: {id: string; type: number}) {
+    async setOnSellTime ({ id, type }: {id: string; type: number}) {
         try {
             const { result = {} } = await previewTemplateItem(id)
             const moduleModels = rebuild(result.type, result.moduleModels)
@@ -514,6 +504,9 @@ export default class MallMain extends Vue {
         line-height: 17px;
         margin-right: 10px;
     }
+}
+.more {
+    margin-left: 10px;
 }
 
 </style>

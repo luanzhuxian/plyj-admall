@@ -1,6 +1,6 @@
 <template>
     <div class="wrap mall-manage">
-        <pl-tabs
+        <PlTabs
             :tabs="tabs"
             :value="currentTab"
             @tabClick="tabClick"

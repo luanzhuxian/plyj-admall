@@ -32,52 +32,53 @@ export default class Operating extends Vue {
 </script>
 
 <style lang="scss" module>
-  .operating {
-    .arrow {
-      transform: rotate(0deg);
-      transition: transform .3s ease;
-        font-size: 16px;
-      &.show {
-        transform: rotate(180deg);
-      }
-    }
-  }
-  .popver {
-    text-align: center;
-    padding: 12px 0 !important;
-  }
-    .more-ctrl {
-      display: flex;
-      text-align: center;
-      flex-direction: column;
-      justify-content: center;
-    //   width: max-content;
-      > a, button {
-        width: 100%;
-        text-align: left;
-        padding: 12px 20px;
-        font-size: 12px;
-        background: none;
-        border: none;
-        &:hover {
-          background-color: #f8f8f8;
-          color: #458bff;
+    .operating {
+        display: inline-block;
+        .arrow {
+            transform: rotate(0deg);
+            transition: transform .3s ease;
+            font-size: 16px;
+            &.show {
+            transform: rotate(180deg);
+            }
         }
-      }
+    }
+    .popver {
+        text-align: center;
+        padding: 12px 0 !important;
+    }
+    .more-ctrl {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        //   width: max-content;
+        > a, button {
+            width: 100%;
+            text-align: left;
+            padding: 12px 20px;
+            font-size: 12px;
+            background: none;
+            border: none;
+            &:hover {
+            background-color: #f8f8f8;
+            color: #4F63FF;
+            }
+        }
     }
     .icon-gengduo {
-      margin: 0 5px;
-      display: inline-block;
-      cursor: pointer;
+        margin: 0 5px;
+        display: inline-block;
+        cursor: pointer;
     }
     .operating-more{
-      font-size: 12px;
-      color: #458bff !important;
-      cursor: pointer;
+        font-size: 14px;
+        color: #4F63FF !important;
+        cursor: pointer;
     }
-  :global {
-      .el-popover {
-          min-width: auto !important;
-      }
-  }
+    :global {
+        .el-popover {
+            min-width: auto !important;
+        }
+    }
 </style>
