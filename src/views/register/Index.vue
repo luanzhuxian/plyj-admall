@@ -118,6 +118,7 @@ export default class RegisterIndex extends Vue {
             background: #F5F6FA;
             display: flex;
             justify-content: center;
+            position: relative;
             .login-bg{
                 position: absolute;
                 top: 21%;
