@@ -31,4 +31,4 @@ export const togetherActivityData = params => axios.get('/apis/v2/order/activity
 export const togetherActivityOrders = params => axios.get('/apis/v1/group/buy/queryOrderPage', { params })
 
 // 用户分组标签
-export const getUserTagList = () => axios.get('/apis/v1/mall/user/tag/list')
+export const getUserTagList = () => axios.get('/apis/v2/user/tag')

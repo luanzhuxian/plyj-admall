@@ -58,8 +58,8 @@
 
 <script>
 /* eslint-disable no-underscore-dangle */
-import { uploadPdf } from '../../../assets/ts/upload'
-import Draggable from '../draggable'
+import { uploadPdf } from '../../assets/js/upload'
+import Draggable from '../../components/draggable'
 export default {
     name: 'PDFManager',
     components: {
@@ -153,50 +153,50 @@ export default {
 
 <style module lang="scss">
 .pdfManager {
-  background-color: #fff;
-  .select-btn {
-    padding: 6px 20px;
-    color: $--color-primary-blue;
-    border: 1px solid $--color-primary-blue;
     background-color: #fff;
-    cursor: pointer;
-  }
-  .file-list {
-    margin-top: 12px;
-    width: max-content;
-    > .item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #606266;
-      padding: 0 5px;
-      font-size: 12px;
-      line-height: 25px;
-      border-radius: 4px;
-      cursor: pointer;
-      > .remove {
-        display: none;
-      }
-      &:hover {
-        background-color: #e7e7e7;
-        color: $--color-primary-blue;
-        > .remove {
-          display: inline-block;
-        }
-        > .success {
-          display: none;
-        }
-      }
-      > svg {
-        vertical-align: -2px;
-      }
+    .select-btn {
+        padding: 6px 20px;
+        color: #598bf8;
+        border: 1px solid #598bf8;
+        background-color: #fff;
+        cursor: pointer;
     }
-    .name {
-      display: inline-block;
-      margin-left: 10px;
-      margin-right: 20px;
+    .file-list {
+        margin-top: 12px;
+        width: max-content;
+        > .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #606266;
+            padding: 0 5px;
+            font-size: 12px;
+            line-height: 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            > .remove {
+                display: none;
+            }
+            &:hover {
+                background-color: #e7e7e7;
+                color: #598bf8;
+                > .remove {
+                    display: inline-block;
+                }
+                > .success {
+                    display: none;
+                }
+            }
+            > svg {
+                vertical-align: -2px;
+            }
+        }
+        .name {
+            display: inline-block;
+            margin-left: 10px;
+            margin-right: 20px;
+        }
     }
-  }
 }
 
 </style>
