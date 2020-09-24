@@ -48,9 +48,6 @@ Component.registerHooks([
 })
 export default class Login extends Vue {
     codeShow = false
-    agencyError = ''
-    enterprise = ''
-    showDialog = false
     toName= ''
     refName = ''
     @userModule.Getter('token') tokenFoo!: string
@@ -130,6 +127,7 @@ export default class Login extends Vue {
         .login-body{
             width: 100vw;
             height: calc(100vh - 80px);
+            position: relative;
             background: url("https://mallcdn.youpenglai.com/static/admall-new/3.0.0/new-login-bg.jpg");
             background-size: cover;
             .login-bg{
