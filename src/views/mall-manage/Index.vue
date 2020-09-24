@@ -57,8 +57,8 @@ export default class MallManage extends Vue {
 
 <style lang="scss">
 .mall-manage {
-    min-width: 1300px;
-    min-height: calc(100vh - 110px);
+    // min-width: 1300px;
+    // min-height: calc(100vh - 110px);
 }
 
 </style>

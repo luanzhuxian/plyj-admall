@@ -1,12 +1,12 @@
 <template>
-    <div class="banner">
-        <Swiper
-            class="swiper"
+    <div class="banner" :class="$style.banner">
+        <swiper
+            :class="$style.swiper"
             v-if="data.values.filter(item => item.image).length"
             :options="swiperOption"
         >
-            <SwiperSlide
-                class="swiper-banner"
+            <swiperSlide
+                :class="$style.swiperBanner"
                 v-for="(banner, i) in data.values.filter(item => item.image)"
                 :key="i"
             >
@@ -17,20 +17,20 @@
                     width="100%"
                     height="100%"
                 >
-            </SwiperSlide>
+            </swiperSlide>
             <div class="swiper-pagination" slot="pagination" />
-        </Swiper>
-        <Swiper class="swiper" v-else :options="swiperOption">
-            <SwiperSlide>
+        </swiper>
+        <swiper :class="$style.swiper" v-else :options="swiperOption">
+            <swiperSlide>
                 <img
                     v-imgError
                     :src="defaultImg"
                     width="100%"
                     height="100%"
                 >
-            </SwiperSlide>
+            </swiperSlide>
             <div v-show="data.values.length > 1" class="swiper-pagination" slot="pagination" />
-        </Swiper>
+        </swiper>
     </div>
 </template>
 
@@ -84,14 +84,6 @@ export default class Banner extends Vue {
 
 <style lang="scss">
 .banner {
-    .swiper {
-        height: 235px;
-        border-radius: 10px;
-        overflow: hidden;
-        .swiper-banner {
-            background: #fff;
-        }
-    }
     .swiper-pagination {
         display: flex;
         align-items: center;
@@ -117,17 +109,15 @@ export default class Banner extends Vue {
             }
         }
     }
-    .temp-swiper {
-        background: #f9f9f9;
-        height: 150px;
-        padding-top: 30px;
-        border-radius: 4px;
-        text-align: center;
-        .swiper-tip {
-            font-size: 12px;
-            text-align: center;
-            color: #999;
-        }
+}
+</style>
+<style module lang="scss">
+.swiper {
+    height: 235px;
+    border-radius: 10px;
+    overflow: hidden;
+    &-banner {
+        background: #fff;
     }
 }
 

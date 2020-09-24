@@ -60,7 +60,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Panel from './Panel.vue'
-import Countdown from '../../components/Countdown.vue'
+import Countdown from '../../Countdown.vue'
 
 type Activity = {
     productModels: [];

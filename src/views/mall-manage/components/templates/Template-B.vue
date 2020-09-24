@@ -1,5 +1,5 @@
 <template>
-    <div class="template-b" :class="[$style.homeTemplateB, $style[skinClassNameMap[skinId]]]">
+    <div class="template-b" :class="[$style.templateB, $style[skinClassNameMap[skinId]]]">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png" style="width: 100%;">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/header.png" style="width: 100%;">
         <div :class="$style.container">
@@ -230,7 +230,7 @@ import Class from '../home/Class.vue'
 import Recommend from '../home/Recommend.vue'
 import Appointment from '../home/Appointment.vue'
 import Propagate from '../home/Propagate-Small.vue'
-import ModuleWrapper from '../components/Module-Wrapper.vue'
+import ModuleWrapper from '../Module-Wrapper.vue'
 import SkinTitle from '../skin/Skin-Title.vue'
 import { skinClassNameMap, navBarMap } from '../../utils/map'
 import { TemplateB as TemplateBType } from '../../utils/types'
@@ -376,105 +376,104 @@ export default class TemplateB extends Vue {
     min-height: 667px;
     background-color: #f4f5f9;
     box-shadow: 0 0 6px #d4d4d4;
+}
 
-    .container {
+.container {
+    position: relative;
+    background: #f4f5f9;
+    flex: 1;
+}
+
+.module {
+    position: relative;
+    border: 2px solid transparent;
+    &.active {
+        border: 2px solid #f2b036;
+    }
+}
+
+.module-banner {
+    background: #ededed;
+    .wrapper {
+        padding: 12px;
+        background: #fff;
+        border-radius: 10px 10px 0 0;
+        overflow: hidden;
+    }
+}
+
+.module-popular {
+    padding: 7px 12px;
+    .title {
         position: relative;
-        background: #f4f5f9;
-        flex: 1;
-
-        .module {
-            position: relative;
-            border: 2px solid transparent;
-            &.active {
-                border: 2px solid #f2b036;
-            }
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 10px;
+        &::after {
+            content: 'HOT';
+            position: absolute;
+            top: 0;
+            left: 68px;
+            display: inline-flex;
+            padding: 0 4px;
+            color: #fff;
+            font-size: 12px;
+            background: linear-gradient(60deg, #fe7700 35%, rgba(255, 255, 255, .5), #fe7700 75%);
+            background-size: 200%;
+            border-radius: 12px;
+            animation: bgc-move 2s ease infinite;
         }
-
-        .module-banner {
-            background: #ededed;
-            .wrapper {
-                padding: 12px;
-                background: #fff;
-                border-radius: 10px 10px 0 0;
-                overflow: hidden;
-            }
+    }
+    @keyframes bgc-move {
+        0% {
+            background-position: 150% 0;
         }
-
-        .module-popular {
-            padding: 7px 12px;
-            .title {
-                position: relative;
-                color: #333;
-                font-size: 18px;
-                margin-bottom: 10px;
-                &::after {
-                    content: 'HOT';
-                    position: absolute;
-                    top: 0;
-                    left: 68px;
-                    display: inline-flex;
-                    padding: 0 4px;
-                    color: #fff;
-                    font-size: 12px;
-                    background: linear-gradient(60deg, #fe7700 35%, rgba(255, 255, 255, .5), #fe7700 75%);
-                    background-size: 200%;
-                    border-radius: 12px;
-                    animation: bgc-move 2s ease infinite;
-                }
-            }
-            @keyframes bgc-move {
-                0% {
-                    background-position: 150% 0;
-                }
-                100% {
-                    background-position: -50% 0;
-                }
-            }
-        }
-
-        .module-class {
-            padding: 7px 12px;
-            .title {
-                color: #333;
-                font-size: 18px;
-                margin-bottom: 10px;
-            }
-        }
-
-        .module-recommend {
-            padding: 0 12px;
-            background: linear-gradient(225deg, rgba(223, 228, 243, 1) 0%, rgba(236, 234, 247, 1) 100%);
-            .title {
-                padding: 20px 0 17px;
-                text-align: center;
-                color: #f2b036;
-                font-size: 18px;
-                font-weight: bolder;
-                letter-spacing: 7px;
-            }
-        }
-
-        .module-copyright {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60px;
-            color: #999;
-            font-size: 13px;
-            font-weight: 600;
-            background-color: #eae9f7;
-        }
-
-        .module-live,
-        .module-online-course,
-        .module-series-course,
-        .module-image-text,
-        .module-adv,
-        .module-appointment,
-        .module-propagate {
-            padding: 5px 12px;
+        100% {
+            background-position: -50% 0;
         }
     }
 }
 
+.module-class {
+    padding: 7px 12px;
+    .title {
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+}
+
+.module-recommend {
+    padding: 0 12px;
+    background: linear-gradient(225deg, rgba(223, 228, 243, 1) 0%, rgba(236, 234, 247, 1) 100%);
+    .title {
+        padding: 20px 0 17px;
+        text-align: center;
+        color: #f2b036;
+        font-size: 18px;
+        font-weight: bolder;
+        letter-spacing: 7px;
+    }
+}
+
+.module-copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    color: #999;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: #eae9f7;
+}
+
+.module-live,
+.module-online-course,
+.module-series-course,
+.module-image-text,
+.module-adv,
+.module-appointment,
+.module-propagate {
+    padding: 5px 12px;
+}
 </style>

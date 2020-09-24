@@ -2,9 +2,9 @@
     <Panel :custom-class="packagePanel" :title="panelTitle">
         <ul v-if="data.values.length" :class="$style.packageList" class="package-list">
             <template v-for="(item, i) of data.values">
-                <Swiper :options="getOptions(item.combinationDetailList[0].productModelList)" :key="i" v-if="item.combinationDetailList && item.combinationDetailList.length">
+                <swiper :options="getOptions(item.combinationDetailList[0].productModelList)" :key="i" v-if="item.combinationDetailList && item.combinationDetailList.length">
                     <template v-for="(combination, j) of item.combinationDetailList">
-                        <SwiperSlide :key="'combination-' + j">
+                        <swiperSlide :key="'combination-' + j">
                             <li :class="$style.packageListItem">
                                 <div :class="$style.title">
                                     {{ combination.name }}
@@ -58,8 +58,8 @@
                                     </div>
                                 </div>
                             </li>
-                        </SwiperSlide>
-                        <SwiperSlide v-for="(prod, k) of combination.productModelList" :key="'prod-' + k">
+                        </swiperSlide>
+                        <swiperSlide v-for="(prod, k) of combination.productModelList" :key="'prod-' + k">
                             <li :class="$style.packageListProdWrapper" class="package-list-prod-wrapper">
                                 <div :class="$style.packageListProd">
                                     <div :class="$style.imgWrapper">
@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                             </li>
-                        </SwiperSlide>
+                        </swiperSlide>
                     </template>
                 </swiper>
             </template>
@@ -84,7 +84,7 @@
 
         <ul :class="$style.package-list" v-else>
             <swiper :options="getOptions([1, 2, 3])" v-for="(item, i) of 2" :key="i">
-                <SwiperSlide>
+                <swiperSlide>
                     <li :class="$style.packageListItem">
                         <div :class="$style.title">
                             组合聚惠学
@@ -113,8 +113,8 @@
                             </div>
                         </div>
                     </li>
-                </SwiperSlide>
-                <SwiperSlide v-for="(prod, j) of 3" :key="j">
+                </swiperSlide>
+                <swiperSlide v-for="(prod, j) of 3" :key="j">
                     <li :class="$style.packageListProdWrapper">
                         <div :class="$style.packageListProd">
                             <div :class="$style.imgWrapper">
@@ -131,8 +131,8 @@
                             </div>
                         </div>
                     </li>
-                </SwiperSlide>
-            </Swiper>
+                </swiperSlide>
+            </swiper>
         </ul>
     </Panel>
 </template>
@@ -142,7 +142,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import Panel from './Panel.vue'
-import Countdown from '../../components/Countdown.vue'
+import Countdown from '../../Countdown.vue'
 import { getDuration } from '../../../utils/helper'
 
 const map: { [key: number]: number } = {

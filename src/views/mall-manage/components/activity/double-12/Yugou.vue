@@ -83,7 +83,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
-import Countdown from '../../components/Countdown.vue'
+import Countdown from '../../Countdown.vue'
 import { getDuration, getTotalPrice } from '../../../utils/helper'
 
 @Component({

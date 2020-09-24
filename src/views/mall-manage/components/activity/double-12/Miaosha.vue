@@ -241,7 +241,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import moment from 'moment'
-import Countdown from '../../components/Countdown.vue'
+import Countdown from '../../Countdown.vue'
 import { getPrice, getDate, getDuration } from '../../../utils/helper'
 
 @Component({

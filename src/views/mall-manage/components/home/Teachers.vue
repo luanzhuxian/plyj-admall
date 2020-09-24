@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.teachers">
-        <Swiper v-if="data.values.length" :options="swiperOption">
-            <SwiperSlide v-for="(item, i) of data.values" :key="i">
+        <swiper v-if="data.values.length" :options="swiperOption">
+            <swiperSlide v-for="(item, i) of data.values" :key="i">
                 <li :class="$style.listItem">
                     <div :class="$style.imgWrapper">
                         <img v-imgError :src="item.image ? item.image : 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/162bff67-ab61-427b-8470-be7674f6058d.png'" alt="">
@@ -14,8 +14,8 @@
                         </p>
                     </div>
                 </li>
-            </SwiperSlide>
-        </Swiper>
+            </swiperSlide>
+        </swiper>
 
         <ul :class="$style.list" v-else>
             <li :class="$style.listItem" v-for="(item, i) of 3" :key="i">

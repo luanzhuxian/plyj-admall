@@ -164,7 +164,7 @@ import Yugou from '../activity/dragon-gate/Yugou.vue'
 import Package from '../activity/dragon-gate/Package.vue'
 import Recommend from '../home/Recommend.vue'
 import Panel from '../activity/dragon-gate/Panel.vue'
-import ModuleWrapper from '../components/Module-Wrapper.vue'
+import ModuleWrapper from '../Module-Wrapper.vue'
 import { TemplateDragonGate as TemplateDragonGateType } from '../../utils/types'
 
 const mall = namespace('mall')
@@ -277,87 +277,86 @@ export default class TemplateDragonGate extends Vue {
     background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/main-bg.png') repeat center;
     background-size: 100%;
     box-shadow: 0 0 6px #d4d4d4;
+}
+.background {
+    background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/main-top.png') no-repeat center top;
+    background-size: 100% auto;
+    flex: 1;
+}
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 260px 0 0;
+}
 
-    .background {
-        background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/main-top.png') no-repeat center top;
-        background-size: 100% auto;
-        flex: 1;
+.module {
+    position: relative;
+    border: 2px solid transparent;
+    &.active {
+        border: 2px solid #fff;
     }
-    .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 260px 0 0;
+    &:nth-child(1) {
+        padding-top: 0 !important;
     }
+}
 
-    .module {
-        position: relative;
-        border: 2px solid transparent;
-        &.active {
-            border: 2px solid #fff;
-        }
-        &:nth-child(1) {
-            padding-top: 0 !important;
-        }
-    }
-
-    .btn-top {
-        position: relative;
-        box-sizing: border-box;
-        margin: 0 auto 8px;
-        padding: 6px;
-        width: 329px;
-        height: 50px;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 8px 12px rgba(121, 30, 5, .2);
-        &-bg {
-            background: linear-gradient(180deg, rgba(255, 193, 74, 1) 0%, rgba(255, 113, 56, 1) 100%);
-            border-radius: 5px;
-            font-size: 20px;
-            font-family: Microsoft YaHei;
-            font-weight: bold;
-            line-height: 38px;
-            color: #fff;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-        > svg {
-            position: absolute;
-            top: 28px;
-            right: -25px;
-            transform: translateY(-50%);
-        }
-    }
-
-    .module-coupon {
-        padding-bottom: 20px;
-    }
-    .module-live,
-    .module-charity,
-    .module-activity,
-    .module-miaosha,
-    .module-distribution,
-    .module-pintuan,
-    .module-yugou,
-    .module-package,
-    .module-recomend {
-        padding: 20px 12px;
-    }
-
-    .module-copyright {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 70px;
+.btn-top {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0 auto 8px;
+    padding: 6px;
+    width: 329px;
+    height: 50px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 12px rgba(121, 30, 5, .2);
+    &-bg {
+        background: linear-gradient(180deg, rgba(255, 193, 74, 1) 0%, rgba(255, 113, 56, 1) 100%);
+        border-radius: 5px;
+        font-size: 20px;
+        font-family: Microsoft YaHei;
+        font-weight: bold;
+        line-height: 38px;
         color: #fff;
-        font-size: 13px;
-        font-weight: 600;
+        letter-spacing: 2px;
+        text-align: center;
     }
-    .panel {
-        padding-top: 32px;
+    > svg {
+        position: absolute;
+        top: 28px;
+        right: -25px;
+        transform: translateY(-50%);
     }
+}
+
+.module-coupon {
+    padding-bottom: 20px;
+}
+.module-live,
+.module-charity,
+.module-activity,
+.module-miaosha,
+.module-distribution,
+.module-pintuan,
+.module-yugou,
+.module-package,
+.module-recomend {
+    padding: 20px 12px;
+}
+
+.module-copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+.panel {
+    padding-top: 32px;
 }
 
 </style>

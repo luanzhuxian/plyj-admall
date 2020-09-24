@@ -59,5 +59,5 @@ export default class SkinTitle extends Vue {
 </script>
 
 <style lang="scss" module>
-
+.skin-title {}
 </style>

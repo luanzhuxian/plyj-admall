@@ -57,7 +57,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import moment from 'moment'
-import Countdown from '../../components/Countdown.vue'
+import Countdown from '../../Countdown.vue'
 import { LiveStatus } from '../../../utils/types'
 
 @Component({
@@ -256,7 +256,7 @@ export default class Live extends Vue {
     }
     .lock {
         display: flex;
-        align-items: end;
+        align-items: flex-end;
         margin-top: 7px;
         padding: 0 9px;
         font-size: 12px;

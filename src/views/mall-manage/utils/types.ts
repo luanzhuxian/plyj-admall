@@ -205,6 +205,16 @@ export enum ProductStatus {
     Draft
 }
 
+// 模板状态
+export enum TemplateStatus {
+    // 下架
+    OffShelf,
+    // 上架
+    OnShelf,
+    // 草稿箱
+    Draft
+}
+
 // 弹窗的类型
 export enum ModalType {
     // 分类

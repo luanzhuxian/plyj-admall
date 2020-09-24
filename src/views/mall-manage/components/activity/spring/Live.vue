@@ -40,7 +40,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import moment from 'moment'
-import Countdown from '../../components/Countdown.vue'
+import Countdown from '../../Countdown.vue'
 import { LiveStatus } from '../../../utils/types'
 
 @Component({

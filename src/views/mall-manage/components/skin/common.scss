@@ -34,7 +34,7 @@
 @mixin search ($background-color: transparent) {
     @content;
     background-color: $background-color !important;
-    ::v-deep .el-input {
+    .el-input {
         width: 282px !important;
         .el-input__icon {
             left: 92px !important;
@@ -44,11 +44,13 @@
 @mixin copyright ($height, $color, $background-image: null, $background-color: transparent) {
     height: $height !important;
     color: $color !important;
-    background-image: url($background-image) !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: 100% !important;
-    background-color: $background-color !important;
+    @if $background-image {
+        background-image: url($background-image) !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+        background-size: 100% !important;
+        background-color: $background-color !important;
+    }
     @content;
 }
 

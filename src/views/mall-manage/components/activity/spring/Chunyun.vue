@@ -41,8 +41,8 @@
             class="chunyun-list"
         >
             <template v-if="data.values[0].status === 0">
-                <Swiper :options="getOptions(data.values[0].combinationDetailList, map1)">
-                    <SwiperSlide v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
+                <swiper :options="getOptions(data.values[0].combinationDetailList, map1)">
+                    <swiperSlide v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
                         <li :class="$style.chunyunListItem">
                             <div :class="$style.title">
                                 {{ item.name }}
@@ -63,12 +63,12 @@
                             <div :class="[$style.cornner, $style.bottomRight]" />
                             <div :class="[$style.cornner, $style.bottomLeft]" />
                         </li>
-                    </SwiperSlide>
-                </Swiper>
+                    </swiperSlide>
+                </swiper>
             </template>
             <template v-if="data.values[0].status === 1">
-                <Swiper :options="getOptions(item.productModelList, map2)" v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
-                    <SwiperSlide>
+                <swiper :options="getOptions(item.productModelList, map2)" v-for="(item, i) of data.values[0].combinationDetailList" :key="i">
+                    <swiperSlide>
                         <li :class="$style.chunyunListItem">
                             <div :class="$style.title">
                                 {{ item.name }}
@@ -125,8 +125,8 @@
                             <div :class="[$style.cornner, $style.bottomRight]" />
                             <div :class="[$style.cornner, $style.bottomLeft]" />
                         </li>
-                    </SwiperSlide>
-                    <SwiperSlide v-for="(prod, j) of item.productModelList" :key="j">
+                    </swiperSlide>
+                    <swiperSlide v-for="(prod, j) of item.productModelList" :key="j">
                         <li :class="$style.chunyunListProdWrapper" class="chunyun-list-prod-wrapper">
                             <div :class="$style.chunyunListProd">
                                 <div :class="$style.imgWrapper">
@@ -143,8 +143,8 @@
                                 </div>
                             </div>
                         </li>
-                    </SwiperSlide>
-                </Swiper>
+                    </swiperSlide>
+                </swiper>
             </template>
         </ul>
 
@@ -174,7 +174,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import Countdown from '../../components/Countdown.vue'
+import Countdown from '../../Countdown.vue'
 import { getDuration } from '../../../utils/helper'
 
 @Component({

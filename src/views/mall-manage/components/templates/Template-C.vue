@@ -1,5 +1,5 @@
 <template>
-    <div class="template-c" :class="[$style.homeTemplateC, $style[skinClassNameMap[skinId]]]">
+    <div class="template-c" :class="[$style.templateC, $style[skinClassNameMap[skinId]]]">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png" style="width: 100%;">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/header.png" style="width: 100%;">
         <div :class="$style.container">
@@ -220,7 +220,7 @@ import Recommend from '../home/Recommend.vue'
 import Appointment from '../home/Appointment.vue'
 import Propagate from '../home/Propagate.vue'
 import Teachers from '../home/Teachers.vue'
-import ModuleWrapper from '../components/Module-Wrapper.vue'
+import ModuleWrapper from '../Module-Wrapper.vue'
 import SkinTitle from '../skin/Skin-Title.vue'
 import { skinClassNameMap, navBarMap } from '../../utils/map'
 import { TemplateC as TemplateCType } from '../../utils/types'
@@ -361,89 +361,90 @@ export default class TemplateHome extends Vue {
     min-height: 667px;
     background-color: #ededed;
     box-shadow: 0 0 6px #d4d4d4;
-    .container {
-        position: relative;
-        flex: 1;
+}
 
-        .active {
-            border: 2px solid #f2b036 !important;
-        }
+.container {
+    position: relative;
+    flex: 1;
+}
 
-        .module {
-            position: relative;
-            border: 2px solid transparent;
-            .title {
-                display: flex;
-                align-items: center;
-                color: #333;
-                font-size: 20px;
-                font-family: Microsoft YaHei;
-                font-weight: bold;
-                margin-bottom: 10px;
-                &::before {
-                    display: inline-block;
-                    content: '';
-                    width: 3px;
-                    height: 19px;
-                    background: #fe7700;
-                    margin-right: 7px;
-                }
-            }
-        }
+.active {
+    border: 2px solid #f2b036 !important;
+}
 
-        .module-popular {
-            .title {
-                &::after {
-                    content: 'HOT';
-                    position: absolute;
-                    top: 6px;
-                    left: 95px;
-                    display: inline-flex;
-                    padding: 0 4px;
-                    color: #fff;
-                    font-size: 12px;
-                    background: linear-gradient(60deg, #fe7700 35%, rgba(255, 255, 255, .5), #fe7700 75%);
-                    background-size: 200%;
-                    border-radius: 12px;
-                    animation: bgc-move 2s ease infinite;
-                }
-            }
-            @keyframes bgc-move {
-                0% {
-                    background-position: 150% 0;
-                }
-                100% {
-                    background-position: -50% 0;
-                }
-            }
-        }
-
-        .module-copyright {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60px;
-            color: #999;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .module-popular,
-        .module-teachers,
-        .module-class,
-        .module-recommend {
-            padding: 10px 10px;
-        }
-
-        .module-live,
-        .module-online-course,
-        .module-series-course,
-        .module-image-text,
-        .module-appointment,
-        .module-propagate {
-            padding: 5px 10px;
+.module {
+    position: relative;
+    border: 2px solid transparent;
+    .title {
+        display: flex;
+        align-items: center;
+        color: #333;
+        font-size: 20px;
+        font-family: Microsoft YaHei;
+        font-weight: bold;
+        margin-bottom: 10px;
+        &::before {
+            display: inline-block;
+            content: '';
+            width: 3px;
+            height: 19px;
+            background: #fe7700;
+            margin-right: 7px;
         }
     }
+}
+
+.module-popular {
+    .title {
+        &::after {
+            content: 'HOT';
+            position: absolute;
+            top: 6px;
+            left: 95px;
+            display: inline-flex;
+            padding: 0 4px;
+            color: #fff;
+            font-size: 12px;
+            background: linear-gradient(60deg, #fe7700 35%, rgba(255, 255, 255, .5), #fe7700 75%);
+            background-size: 200%;
+            border-radius: 12px;
+            animation: bgc-move 2s ease infinite;
+        }
+    }
+    @keyframes bgc-move {
+        0% {
+            background-position: 150% 0;
+        }
+        100% {
+            background-position: -50% 0;
+        }
+    }
+}
+
+.module-copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    color: #999;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.module-popular,
+.module-teachers,
+.module-class,
+.module-recommend {
+    padding: 10px 10px;
+}
+
+.module-live,
+.module-online-course,
+.module-series-course,
+.module-image-text,
+.module-appointment,
+.module-propagate {
+    padding: 5px 10px;
 }
 
 </style>

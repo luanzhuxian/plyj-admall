@@ -147,9 +147,10 @@ export default class App extends Vue {
         grid-column-start: 2;
         box-sizing: border-box;
         overflow: auto;
-        > div {
-            height: 100%;
-        }
+        // > div {
+        //     height: 100%;
+        //     overflow: auto;
+        // }
     }
 }
 

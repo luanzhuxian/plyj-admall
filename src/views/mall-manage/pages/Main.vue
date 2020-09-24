@@ -47,7 +47,7 @@
                 <div :class="$style.batchNum">
                     已选择{{ multipleSelection.length }}条
                 </div>
-                <el-button size="mini" @click="batchDelete()">
+                <el-button type="text" @click="deleteTemplates">
                     批量删除
                 </el-button>
             </div>
@@ -55,7 +55,8 @@
                 ref="table"
                 class="batch"
                 :data="table"
-                @selection-change="setSelectionChange"
+                @filter-change="onFilterChange"
+                @selection-change="onSelectionChange"
             >
                 <span slot="empty" class="empty">
                     <PlSvg name="icon-empty" width="16" style="margin-right: 4px;" />
@@ -67,7 +68,7 @@
                 />
                 <el-table-column
                     label="标题"
-                    width="300"
+                    width="250"
                 >
                     <template slot-scope="{ row }">
                         <template v-if="!row.isEdit">
@@ -76,17 +77,19 @@
                         </template>
                         <template v-if="row.isEdit">
                             <el-input v-model="row.editName" />
-                            <el-button type="text" size="mini" @click="saveTemplateName(row)">保存</el-button>
-                            <el-button type="text" size="mini" @click="cancelTemplateName(row)">取消</el-button>
+                            <el-button type="text" size="mini" @click="rename(row)">保存</el-button>
+                            <el-button type="text" size="mini" @click="cancelRename(row)">取消</el-button>
                         </template>
                     </template>
                 </el-table-column>
                 <el-table-column
                     label="页面类型"
                     align="center"
+                    column-key="type"
+                    :filters="typeFilters"
                 >
                     <template slot-scope="{ row }">
-                        {{ ~[-1, 3, 4, 9].indexOf(row.type) ? '首页' : ~[5, 6, 7, 8, 10].indexOf(row.type) ? '主会场' : '' }}
+                        {{ getTemplateType(row.type) }}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -100,6 +103,8 @@
                 <el-table-column
                     prop="statusName"
                     label="状态"
+                    column-key="status"
+                    :filters="statusFilters"
                 />
                 <el-table-column
                     label="操作"
@@ -110,7 +115,6 @@
                         <el-button
                             v-if="row.status !== 1"
                             type="text"
-                            size="mini"
                             @click="$router.push({
                                 name: 'Decoration',
                                 query: { from: 'draft', id: row.id }
@@ -120,7 +124,6 @@
                         </el-button>
                         <el-button
                             type="text"
-                            size="mini"
                             @click="previewTemplate(row.id)"
                         >
                             预览
@@ -128,20 +131,19 @@
                         <el-button
                             v-if="row.status === 0 || row.status === 2"
                             type="text"
-                            size="mini"
-                            @click="putOnSell(row)"
+                            @click="putOnShelf(row)"
                         >
                             上架
                         </el-button>
                         <Operating v-if="row.status !== 1" :class="$style.more">
                             <template slot="button-box">
-                                <button @click="setOnSellTime(row)">
+                                <button @click="setOnShelfTime(row)">
                                     设置
                                 </button>
                                 <button @click="copyTemplate(row.id)">
                                     复制
                                 </button>
-                                <button @click="delTemplate(row.id)">
+                                <button @click="deleteTemplate(row.id)">
                                     删除
                                 </button>
                             </template>
@@ -150,7 +152,25 @@
                 </el-table-column>
             </el-table>
         </section>
-        <pagination :total="total" :size="searchForm.size" v-model="searchForm.current" @change="getDraft" />
+        <Pagination
+            v-model="searchForm.current"
+            :size="searchForm.size"
+            :total="total"
+            sizes
+            @sizeChange="onSizeChange"
+            @change="getDraft"
+        />
+        <TemplatePreview :show.sync="templatePreviewShow">
+            <Render
+                :tmpl-id="tmplId"
+                :skin-id="skinId"
+                :data="templateModels"
+                is-preview
+                :is-empty-show="false"
+                :is-clickable="false"
+                :render="(h, props) => h(tag, { props })"
+            />
+        </TemplatePreview>
         <ModalTimeSetting ref="modal" />
     </div>
 </template>
@@ -167,15 +187,35 @@ import {
     checkIsFull,
     updateTemplateStatus
 } from '../../../apis/mall'
+import TemplateB from '../components/templates/Template-B.vue'
+import TemplateC from '../components/templates/Template-C.vue'
+import TemplateD from '../components/templates/Template-D.vue'
+import TemplateFengqiang from '../components/templates/Template-Fengqiang.vue'
+import TemplateBaofa from '../components/templates/Template-Baofa.vue'
+import TemplateFanchang from '../components/templates/Template-Fanchang.vue'
+import TemplateXinchun from '../components/templates/Template-Xinchun.vue'
+import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
+import TemplatePreview from '../components/Template-Preview.vue'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
+import Render from '../components/Render'
 import { rebuild } from '../utils/service'
 import { validatorProducer } from '../utils/validate'
 import { tagMap } from '../utils/map'
-import { Template, DraftTableRow } from '../utils/types'
+import { Template, DraftTableRow, TemplateStatus, TemplateIds } from '../utils/types'
 
 @Component({
     components: {
-        ModalTimeSetting
+        TemplateB,
+        TemplateC,
+        TemplateD,
+        TemplateFengqiang,
+        TemplateBaofa,
+        TemplateFanchang,
+        TemplateXinchun,
+        TemplateDragonGate,
+        TemplatePreview,
+        ModalTimeSetting,
+        Render
     }
 })
 export default class MallMain extends Vue {
@@ -186,7 +226,7 @@ export default class MallMain extends Vue {
         status: '',
         type: '',
         current: 1,
-        size: 4
+        size: 10
     }
 
     table = []
@@ -196,6 +236,21 @@ export default class MallMain extends Vue {
     tmplId = 0
     skinId = 0
     templateModels: Template | object = {}
+    typeFilters = [{
+        text: '首页',
+        value: 1
+    }, {
+        text: '主会场',
+        value: 2
+    }]
+
+    statusFilters = [{
+        text: '已下架',
+        value: 0
+    }, {
+        text: '草稿',
+        value: 2
+    }]
 
     /* computed */
     get tag (): string {
@@ -213,8 +268,11 @@ export default class MallMain extends Vue {
     /* methods */
 
     // 获取模板列表
-    async getDraft () {
+    async getDraft (params?: object) {
         try {
+            if (params) {
+                this.searchForm = Object.assign({}, this.searchForm, params)
+            }
             const { result = {} } = await getTemplateList(this.searchForm)
             if (result && result.records && result.records.length) {
                 for (const item of result.records) {
@@ -232,8 +290,80 @@ export default class MallMain extends Vue {
         }
     }
 
+    getTemplateType (id: number) {
+        if ([
+            TemplateIds.TemplateC,
+            TemplateIds.TemplateB,
+            TemplateIds.TemplateB2,
+            TemplateIds.TemplateD
+        ].includes(id)) {
+            return '首页'
+        }
+        if ([
+            TemplateIds.TemplateFengQiang,
+            TemplateIds.TemplateBaoFa,
+            TemplateIds.TemplateFanChang,
+            TemplateIds.TemplateXinChun,
+            TemplateIds.TemplateDragonGate
+        ].includes(id)) {
+            return '主会场'
+        }
+        return ''
+    }
+
+    async onSizeChange (val: number) {
+        this.searchForm.current = 1
+        this.searchForm.size = val
+        try {
+            await this.getDraft()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    // 按条件查询
+    async onFilterChange (filters: { [key: string]: string[] }) {
+        try {
+            const find = (arr: any[]) => (val: any) => arr.includes(val)
+
+            const columnKey = Reflect.ownKeys(filters)[0]
+            if (typeof columnKey === 'string') {
+                const values = filters[columnKey]
+
+                // 模板类型筛选
+                if (columnKey === 'type') {
+                    const filterByType = find(values)
+                    if (filterByType(1) && filterByType(2)) {
+                        this.getDraft({ type: '', current: 1 })
+                    } else if (filterByType(1)) {
+                        this.getDraft({ type: 1, current: 1 })
+                    } else if (filterByType(2)) {
+                        this.getDraft({ type: 2, current: 1 })
+                    } else {
+                        this.getDraft({ type: '', current: 1 })
+                    }
+                }
+                // 模板状态筛选
+                if (columnKey === 'status') {
+                    const filterByStatus = find(values)
+                    if (filterByStatus(TemplateStatus.OffShelf) && filterByStatus(TemplateStatus.Draft)) {
+                        this.getDraft({ status: '', current: 1 })
+                    } else if (filterByStatus(TemplateStatus.OffShelf)) {
+                        this.getDraft({ status: TemplateStatus.OffShelf, current: 1 })
+                    } else if (filterByStatus(TemplateStatus.Draft)) {
+                        this.getDraft({ status: TemplateStatus.Draft, current: 1 })
+                    } else {
+                        this.getDraft({ status: '', current: 1 })
+                    }
+                }
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+
     // 多选过滤出id来批量操作
-    setSelectionChange (val: DraftTableRow[]) {
+    onSelectionChange (val: DraftTableRow[]) {
         const array = []
         if (val && val.length) {
             for (const item of val) {
@@ -243,20 +373,8 @@ export default class MallMain extends Vue {
         this.multipleSelection = array
     }
 
-    // 批量删除
-    async batchDelete () {
-        try {
-            await this.$confirm('确定批量删除模板？')
-            await delTemplateBatch(this.multipleSelection)
-            this.$success('批量删除成功')
-            this.getDraft()
-        } catch (e) {
-            this.$error('批量删除失败')
-        }
-    }
-
     // 模板改名
-    async saveTemplateName (row: DraftTableRow) {
+    async rename (row: DraftTableRow) {
         try {
             if (!row.editName.trim()) {
                 this.$error('名称不能为空')
@@ -279,7 +397,7 @@ export default class MallMain extends Vue {
     }
 
     // 取消模板改名
-    cancelTemplateName (row: DraftTableRow) {
+    cancelRename (row: DraftTableRow) {
         row.editName = row.templateName
         row.isEdit = false
     }
@@ -316,7 +434,7 @@ export default class MallMain extends Vue {
     }
 
     // 上架模板
-    async putOnSell ({ id, type }: {id: string; type: number}) {
+    async putOnShelf ({ id, type }: {id: string; type: number}) {
         try {
             const { result = {} } = await previewTemplateItem(id)
             const moduleModels = rebuild(result.type, result.moduleModels)
@@ -335,7 +453,7 @@ export default class MallMain extends Vue {
     }
 
     // 删除模板
-    async delTemplate (id: string) {
+    async deleteTemplate (id: string) {
         try {
             await this.$confirm({
                 title: '确定要删除页面？',
@@ -349,8 +467,20 @@ export default class MallMain extends Vue {
         }
     }
 
+    // 批量删除
+    async deleteTemplates () {
+        try {
+            await this.$confirm('确定批量删除模板？')
+            await delTemplateBatch(this.multipleSelection)
+            this.$success('批量删除成功')
+            this.getDraft()
+        } catch (e) {
+            this.$error('批量删除失败')
+        }
+    }
+
     // 设置上架时间
-    async setOnSellTime ({ id, type }: {id: string; type: number}) {
+    async setOnShelfTime ({ id, type }: {id: string; type: number}) {
         try {
             const { result = {} } = await previewTemplateItem(id)
             const moduleModels = rebuild(result.type, result.moduleModels)
@@ -411,7 +541,6 @@ export default class MallMain extends Vue {
             .el-button--text {
                 padding: 0;
                 min-width: auto;
-                font-size: 14px;
             }
         }
     }
@@ -495,13 +624,12 @@ export default class MallMain extends Vue {
         top: 11px;
         left: 79px;
         z-index: 11;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     &-num {
         font-weight: 400;
-        color: rgba(102, 102, 102, 1);
-        line-height: 17px;
+        line-height: 32px;
         margin-right: 10px;
     }
 }

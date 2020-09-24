@@ -15,8 +15,8 @@
                 <PlSvg name="icon-yuyueli" width="47" height="26" :fill="styleType === 1 ? '' : '#FFF'" />
             </div>
             <div :class="$style.middle">
-                <Swiper :options="swiperOption">
-                    <SwiperSlide
+                <swiper :options="swiperOption">
+                    <swiperSlide
                         :class="$style.swiperNoSwiping"
                         v-for="(item, index) of data.values.filter(item => item.value)"
                         :key="index"
@@ -24,8 +24,8 @@
                         <p :class="$style.text">
                             {{ item.value }}
                         </p>
-                    </SwiperSlide>
-                </Swiper>
+                    </swiperSlide>
+                </swiper>
             </div>
             <div :class="$style.right">
                 <span>立即预约</span>
@@ -80,7 +80,7 @@ export default class Appointment extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss">
 .appointment {
     .swiper-container {
         height: var(--height);

@@ -1,5 +1,5 @@
 <template>
-    <div class="template-d" :class="[$style.homeTemplateD, $style[skinClassNameMap[skinId]]]">
+    <div class="template-d" :class="[$style.templateD, $style[skinClassNameMap[skinId]]]">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png" style="width: 100%;">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/header.png" style="width: 100%;">
         <div :class="$style.container">
@@ -352,7 +352,7 @@ import Package from '../home/activity/Package.vue'
 import Popular from '../home/Popular.vue'
 import Class from '../home/Class.vue'
 import Recommend from '../home/Recommend.vue'
-import ModuleWrapper from '../components/Module-Wrapper.vue'
+import ModuleWrapper from '../Module-Wrapper.vue'
 import SkinTitle from '../skin/Skin-Title.vue'
 import { skinClassNameMap, navBarMap } from '../../utils/map'
 import { TemplateD as TemplateDType } from '../../utils/types'
@@ -523,78 +523,76 @@ export default class TemplateD extends Vue {
     min-height: 667px;
     background-color: #f4f5f9;
     box-shadow: 0 0 6px #d4d4d4;
-
-    .container {
-        position: relative;
-        background: #f4f5f9;
-        flex: 1;
-
-        .module {
-            position: relative;
-            border: 2px solid transparent;
-            &.active {
-                border: 2px solid #f2b036;
-            }
-            .title {
-                display: flex;
-                align-items: center;
-                color: #333;
-                font-size: 20px;
-                font-family: Microsoft YaHei;
-                font-weight: bold;
-                margin-bottom: 10px;
-                &::before {
-                    display: inline-block;
-                    content: '';
-                    width: 3px;
-                    height: 19px;
-                    background: #fe7700;
-                    margin-right: 7px;
-                }
-            }
-        }
-
-        .module-banner {
-            background: #ededed;
-            .wrapper {
-                padding: 12px;
-                background: #fff;
-                border-radius: 10px 10px 0 0;
-                overflow: hidden;
-            }
-        }
-
-        .module-copyright {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60px;
-            color: #999;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .module-package,
-        .module-miaosha,
-        .module-pintuan,
-        .module-yugou,
-        .module-popular,
-        .module-class,
-        .module-recommend {
-            padding: 10px 12px;
-        }
-
-        .module-activity,
-        .module-coupon,
-        .module-live,
-        .module-online-course,
-        .module-series-course,
-        .module-image-text,
-        .module-appointment,
-        .module-propagate {
-            padding: 5px 12px;
+}
+.container {
+    position: relative;
+    background: #f4f5f9;
+    flex: 1;
+}
+.module {
+    position: relative;
+    border: 2px solid transparent;
+    &.active {
+        border: 2px solid #f2b036;
+    }
+    .title {
+        display: flex;
+        align-items: center;
+        color: #333;
+        font-size: 20px;
+        font-family: Microsoft YaHei;
+        font-weight: bold;
+        margin-bottom: 10px;
+        &::before {
+            display: inline-block;
+            content: '';
+            width: 3px;
+            height: 19px;
+            background: #fe7700;
+            margin-right: 7px;
         }
     }
+}
+
+.module-banner {
+    background: #ededed;
+    .wrapper {
+        padding: 12px;
+        background: #fff;
+        border-radius: 10px 10px 0 0;
+        overflow: hidden;
+    }
+}
+
+.module-copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    color: #999;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.module-package,
+.module-miaosha,
+.module-pintuan,
+.module-yugou,
+.module-popular,
+.module-class,
+.module-recommend {
+    padding: 10px 12px;
+}
+
+.module-activity,
+.module-coupon,
+.module-live,
+.module-online-course,
+.module-series-course,
+.module-image-text,
+.module-appointment,
+.module-propagate {
+    padding: 5px 12px;
 }
 
 </style>

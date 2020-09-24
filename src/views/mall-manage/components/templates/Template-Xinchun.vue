@@ -141,7 +141,7 @@ import Chunyun from '../activity/spring/Chunyun.vue'
 import Pintuan from '../activity/spring/Pintuan.vue'
 import Yugou from '../activity/spring/Yugou.vue'
 import Recommend from '../home/Recommend.vue'
-import ModuleWrapper from '../components/Module-Wrapper.vue'
+import ModuleWrapper from '../Module-Wrapper.vue'
 import { TemplateXinChun } from '../../utils/types'
 
 const mall = namespace('mall')
@@ -221,115 +221,115 @@ export default class TemplateXinchun extends Vue {
     min-height: 667px;
     background-color: #f2d04a;
     box-shadow: 0 0 6px #d4d4d4;
-    .background {
-        background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/df2dd58e-5cad-42af-9965-19cffcadf064.png') no-repeat center top;
-        background-size: 100% auto;
-        flex: 1;
-    }
-    .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 350px 0 0;
-    }
+}
+.background {
+    background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/df2dd58e-5cad-42af-9965-19cffcadf064.png') no-repeat center top;
+    background-size: 100% auto;
+    flex: 1;
+}
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 350px 0 0;
+}
 
-    .module {
-        position: relative;
-        border: 2px solid transparent;
-        &.active {
-            border: 2px solid #fff;
-        }
-        &:nth-of-type(1) {
-            padding-top: 0 !important;
-        }
+.module {
+    position: relative;
+    border: 2px solid transparent;
+    &.active {
+        border: 2px solid #fff;
     }
+    &:nth-of-type(1) {
+        padding-top: 0 !important;
+    }
+}
 
-    .btn-top {
-        position: relative;
-        box-sizing: border-box;
-        margin: 0 auto 8px;
-        padding: 6px;
-        width: 329px;
-        height: 50px;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 8px 12px rgba(121, 30, 5, .2);
-        &-bg {
-            background: linear-gradient(180deg, rgba(255, 193, 74, 1) 0%, rgba(255, 113, 56, 1) 100%);
-            border-radius: 5px;
-            font-size: 20px;
-            font-family: Microsoft YaHei;
-            font-weight: bold;
-            line-height: 38px;
-            color: #fff;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-        > svg {
-            position: absolute;
-            top: 28px;
-            right: -25px;
-            transform: translateY(-50%);
-        }
-    }
-
-    .module-live {
-        padding: 20px 12px 8px;
-    }
-    .module-propagate,
-    .module-coupon {
-        padding: 8px 12px;
-    }
-    .module-chunyun,
-    .module-pintuan,
-    .module-yugou {
-        padding: 16px 0 0;
-    }
-
-    .module-fengqiang {
-        padding: 8px 12px;
-        background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/9f67ef6c-6a54-4e6b-ac11-090b8853a1ba.png') no-repeat right top;
-        background-size: 100px auto;
-        .title {
-            padding: 4px 0 16px;
-            text-align: center;
-            color: #9d8218;
-            font-size: 20px;
-            font-weight: bolder;
-            letter-spacing: 2px;
-        }
-        .price-wrapper {
-            flex: 1;
-            width: 0;
-            @include elps();
-            > img {
-                width: 40px;
-                height: 13.5px;
-            }
-        }
-        .price {
-            margin-left: 5px;
-            font-size: 22px;
-            font-family: Helvetica;
-            font-weight: bold;
-            color: #fe3c5e;
-            &:before {
-                content: '¥';
-                font-size: 11px;
-            }
-        }
-    }
-
-    .module-copyright {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 70px;
+.btn-top {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0 auto 8px;
+    padding: 6px;
+    width: 329px;
+    height: 50px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 12px rgba(121, 30, 5, .2);
+    &-bg {
+        background: linear-gradient(180deg, rgba(255, 193, 74, 1) 0%, rgba(255, 113, 56, 1) 100%);
+        border-radius: 5px;
+        font-size: 20px;
+        font-family: Microsoft YaHei;
+        font-weight: bold;
+        line-height: 38px;
         color: #fff;
-        font-size: 13px;
-        font-weight: 600;
+        letter-spacing: 2px;
+        text-align: center;
     }
+    > svg {
+        position: absolute;
+        top: 28px;
+        right: -25px;
+        transform: translateY(-50%);
+    }
+}
+
+.module-live {
+    padding: 20px 12px 8px;
+}
+.module-propagate,
+.module-coupon {
+    padding: 8px 12px;
+}
+.module-chunyun,
+.module-pintuan,
+.module-yugou {
+    padding: 16px 0 0;
+}
+
+.module-fengqiang {
+    padding: 8px 12px;
+    background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/9f67ef6c-6a54-4e6b-ac11-090b8853a1ba.png') no-repeat right top;
+    background-size: 100px auto;
+    .title {
+        padding: 4px 0 16px;
+        text-align: center;
+        color: #9d8218;
+        font-size: 20px;
+        font-weight: bolder;
+        letter-spacing: 2px;
+    }
+    .price-wrapper {
+        flex: 1;
+        width: 0;
+        @include elps();
+        > img {
+            width: 40px;
+            height: 13.5px;
+        }
+    }
+    .price {
+        margin-left: 5px;
+        font-size: 22px;
+        font-family: Helvetica;
+        font-weight: bold;
+        color: #fe3c5e;
+        &:before {
+            content: '¥';
+            font-size: 11px;
+        }
+    }
+}
+
+.module-copyright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 </style>
