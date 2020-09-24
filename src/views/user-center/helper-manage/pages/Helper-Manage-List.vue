@@ -270,7 +270,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 import {
     getHelperList,
     relieveHelper,
@@ -330,6 +330,13 @@ export default class HelperManageList extends Vue {
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
         this.getOwnedAccountList()
+    }
+
+    @Watch('showDialog')
+    onChangeValue (newVal: string) {
+        if (!newVal) {
+            this.restForm()
+        }
     }
 
     restForm () {
