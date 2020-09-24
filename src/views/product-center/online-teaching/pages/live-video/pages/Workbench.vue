@@ -41,7 +41,7 @@
                             <span>点击预约直播房间</span>
                         </div>
                     </div>
-                    <div :class="$style.livePrevious">
+                    <div :class="$style.livePrevious" @click="$router.push({ name: 'LiveNowList' })">
                         <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/摄像头.png" alt="">
                         <div :class="$style.previousInfo">
                             <div>查看直播</div>
@@ -232,9 +232,9 @@ export default class Workbench extends Vue {
         id: '',
         roomId: '',
         name: '',
+        roomName: '',
         roomToken: 111,
-        liveStatus: 'LIVING',
-        roomName: ''
+        liveStatus: 'LIVING'
     }
 
     surplus = {

@@ -15,7 +15,7 @@
             <router-view />
         </div>
         <div :class="$style.mainApp" v-else-if="allLoaded">
-            <transition name="navBar">
+            <transition name="fade-left">
                 <components :is="navBarName" />
             </transition>
             <Header />
