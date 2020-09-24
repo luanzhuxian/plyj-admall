@@ -118,7 +118,6 @@ export default class Login extends Vue {
                 position: absolute;
                 right: 17%;
                 top: 21%;
-                margin-right: 10px;
             }
         }
     }
