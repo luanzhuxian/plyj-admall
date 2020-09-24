@@ -837,8 +837,17 @@
                             </template>
                             <el-table-column
                                 prop="content"
-                                label="备注内容"
-                            />
+                                label="备注内容">
+                                <template #default="{row}">
+                                    <el-tooltip
+                                        effect="dark"
+                                        :content="row.content"
+                                        placement="top-start"
+                                    >
+                                        <span class="show-first-line">{{ row.content }}</span>
+                                    </el-tooltip>
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="createTime"
                                 label="添加时间"
@@ -1701,6 +1710,9 @@ export default class MemberManageDetail extends Vue {
             grid-gap: 10px 40px;
             margin: 0!important;
         }
+    }
+    .show-first-line {
+        @include elps-wrap(1);
     }
     .operate {
         color: #458bff !important;

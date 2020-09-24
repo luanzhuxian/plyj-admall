@@ -214,7 +214,7 @@
                         clearable
                         @change="getOwnedAccountList"
                         v-model="searchOwnedAccountForm.keyword"
-                        placeholder="请输入真实姓名或手机号"
+                        placeholder="请输入真实姓名/手机号"
                     />
                 </el-form-item>
                 <el-form-item>
@@ -234,7 +234,7 @@
                 />
                 <el-table-column
                     prop="mobile"
-                    label="手机号（登录账户）"
+                    label="手机号（账户）"
                 />
                 <el-table-column
                     prop="roleName"
@@ -519,12 +519,14 @@ export default class HelperManageList extends Vue {
         display: grid;
         margin-top: 14px;
         margin-bottom: 30px;
-        padding: 0 29px;
+        padding: 26px 29px;
         border-radius: 20px;
         grid-template-columns: repeat(2, 48%);
         grid-row-gap: 24px;
-        height: 72px;
         background-color: #F5F6FA;
         font-size: 16px;
+        > p > b {
+            margin-right: 10px;
+        }
     }
 </style>

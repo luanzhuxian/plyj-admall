@@ -22,9 +22,18 @@
             ref="table"
         >
             <el-table-column
-                label="备注内容"
                 prop="content"
-            />
+                label="备注内容">
+                <template #default="{row}">
+                    <el-tooltip
+                        effect="dark"
+                        :content="row.content"
+                        placement="top-start"
+                    >
+                        <span class="show-first-line">{{ row.content }}</span>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
             <el-table-column
                 label="添加时间"
                 prop="createTime"
@@ -143,5 +152,8 @@ export default {
     white-space: nowrap;
     text-align: center;
     color: #ec742e;
+  }
+  .show-first-line {
+      @include elps-wrap(1);
   }
 </style>
