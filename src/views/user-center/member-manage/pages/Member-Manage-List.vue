@@ -318,7 +318,11 @@
                         <template #default="{ row }">
                             <Operating>
                                 <template slot="button-box">
-                                    <a @click="$router.push({ name: 'MemberManageDetail', params: { userId: row.id } })">
+                                    <a @click="$router.push({
+                                        name: 'MemberManageDetail',
+                                        params: { userId: row.id },
+                                        query:{isHelper: row.roleCode === 'HELPER'? '1' : '0' }
+                                    })">
                                         详情
                                     </a>
                                     <a @click="setTagToMember(row)">

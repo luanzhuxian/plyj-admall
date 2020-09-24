@@ -523,7 +523,7 @@ export default class HelperManageList extends Vue {
         border-radius: 20px;
         grid-template-columns: repeat(2, 48%);
         grid-row-gap: 24px;
-        line-height: 72px;
+        height: 72px;
         background-color: #F5F6FA;
         font-size: 16px;
     }

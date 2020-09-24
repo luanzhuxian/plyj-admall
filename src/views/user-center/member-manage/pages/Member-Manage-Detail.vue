@@ -11,7 +11,14 @@
                 >
                 <div class="intro">
                     <div class="detail">
-                        <span class="user-type" v-if="memberDetail.type">{{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}</span>
+                        <span class="user-type" v-if="memberDetail.type">
+                            <template v-if="memberDetail.type !== 3">
+                                {{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}
+                            </template>
+                            <template v-else>
+                                {{ memberDetail.other && memberDetail.other.split('')[0] }}
+                            </template>
+                        </span>
                         <span
                             slot="right-top"
                             class="name"
@@ -379,6 +386,11 @@
                                 label="实付款（元）">
                                 <template #default="{ row }">
                                     {{ row.amount / 100 }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column v-if="isHelper" label="润笔金额（元）">
+                                <template #default="{ row }">
+                                    {{ row.rebateAmount / 100 }}
                                 </template>
                             </el-table-column>
                             <el-table-column
@@ -981,6 +993,8 @@ export default class MemberManageDetail extends Vue {
 
     // 请求用户数据参数
     userId = ''
+    // 当前用户是否helper
+    isHelper = false
 
     // 用户数据
     memberDetail = {
@@ -1031,7 +1045,9 @@ export default class MemberManageDetail extends Vue {
     // 生命周期函数
     async created () {
         const { userId } = this.$route.params
+        const { isHelper } = this.$route.query
         this.userId = userId
+        this.isHelper = isHelper === '1'
         await this.getMemberDetail()
         await this.getMemberOrderCount()
     }
@@ -1575,7 +1591,7 @@ export default class MemberManageDetail extends Vue {
                         border-radius: 5px;
                         font-size: 12px;
                         font-family: Microsoft YaHei UI;
-                        line-height: 15px;
+                        line-height: 18px;
                         text-align: center;
                         color: #F79F1A;
                     }
