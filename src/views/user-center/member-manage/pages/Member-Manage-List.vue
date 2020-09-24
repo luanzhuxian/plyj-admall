@@ -70,6 +70,7 @@
                     clearable
                     size="small"
                     style="width: 116px"
+                    type="number"
                     @change="search"
                     placeholder="请输入次数"
                     v-model="form.purchasesMinNumber"
@@ -79,6 +80,7 @@
                     clearable
                     size="small"
                     style="width: 116px"
+                    type="number"
                     @change="search"
                     placeholder="请输入次数"
                     v-model="form.purchasesMaxNumber"
@@ -110,6 +112,7 @@
                     size="small"
                     style="width: 116px"
                     @change="search"
+                    type="number"
                     placeholder="请输入金额"
                     v-model.number="form.purchasesMinAmount"
                 />
@@ -118,6 +121,7 @@
                     clearable
                     size="small"
                     style="width: 116px"
+                    type="number"
                     @change="search"
                     placeholder="请输入金额"
                     v-model.number="form.purchasesMaxAmount"
@@ -676,7 +680,47 @@ export default class MemberManageList extends Vue {
       await this.search()
   }
 
+  checkPurchasesNumber () {
+      let minNumber: number = Number(this.form.purchasesMinNumber) || 0
+      this.form.purchasesMinNumber = String(minNumber || '')
+      if (minNumber && (!Number.isInteger(minNumber) || minNumber < 0)) {
+          return this.$warning('当前输入框只支持输入正整数')
+      }
+      let maxNumber: number = Number(this.form.purchasesMaxNumber) || 0
+      this.form.purchasesMaxNumber = String(maxNumber || '')
+      if (maxNumber && (!Number.isInteger(maxNumber) || maxNumber < 0)) {
+          return this.$warning('当前输入框只支持输入正整数')
+      }
+      if (minNumber && maxNumber && minNumber > maxNumber) {
+          [minNumber, maxNumber] = [maxNumber, minNumber]
+          this.form.purchasesMinNumber = String(minNumber)
+          this.form.purchasesMaxNumber = String(maxNumber)
+      }
+      return false
+  }
+
+  checkPurchasesAmount () {
+      let minNumber: number = Number(this.form.purchasesMinAmount) || 0
+      this.form.purchasesMinAmount = String(minNumber || '')
+      if (minNumber && minNumber < 0) {
+          return this.$warning('当前输入框只支持输入正数')
+      }
+      let maxNumber: number = Number(this.form.purchasesMaxAmount) || 0
+      this.form.purchasesMinAmount = String(maxNumber || '')
+      if (maxNumber && maxNumber < 0) {
+          return this.$warning('当前输入框只支持输入正数')
+      }
+      if (minNumber && maxNumber && minNumber > maxNumber) {
+          [minNumber, maxNumber] = [maxNumber, minNumber]
+          this.form.purchasesMinAmount = String(minNumber)
+          this.form.purchasesMaxAmount = String(maxNumber)
+      }
+      return false
+  }
+
   async search () {
+      if (this.checkPurchasesNumber()) return
+      if (this.checkPurchasesAmount()) return
       this.form.current = 1
       await this.getMemberList()
   }
