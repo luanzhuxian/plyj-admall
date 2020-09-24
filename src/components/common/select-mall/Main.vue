@@ -29,7 +29,7 @@
             </template>
 
             <!-- 光有账号，没商城 -->
-            <div v-if="enterpriseAdminId" :class="$style.mallItem" @click="createMall">
+            <div v-if="enterpriseAdminId === 0" :class="$style.mallItem" @click="createMall">
                 <i :class="$style.add" class="el-icon-plus" />
                 <div>
                     <div class="fz-16 font-weight-bold">我要开店</div>
@@ -61,10 +61,10 @@ export default class SelectMall extends Vue {
     }
 
     // computed
-    // 找出企业管理员账号，如果有，则可以创建店铺
+    // 找出企业管理员账号，如果有，且这个账号名下没有店铺，则可以创建店铺
     get enterpriseAdminId () {
         const ADMIN = this.agencyList.find(item => item.roleCode === 'ENTERPRISE_ADMIN')
-        return ADMIN ? ADMIN.enterpriseId : null
+        return ADMIN ? ADMIN.mallIds.length : -1
     }
 
     // 将解构数据列表重置为商城数据列表
