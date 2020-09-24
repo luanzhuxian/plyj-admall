@@ -198,7 +198,7 @@ export default class Header extends Vue {
             return
         }
         if (changed) {
-            location.reload()
+            location.replace('/')
         }
     }
 }

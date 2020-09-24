@@ -1,5 +1,5 @@
 <template>
-    <div id="main-app" :class="$style.mainApp">
+    <div id="app">
         <!--<section v-show="$route.name">
             <h1 v-text="title" />
             <button @click="alert">alert</button>
@@ -10,8 +10,11 @@
 
         <button @click="weixinLogin">微信登录</button>
         <div id="login-container" />-->
-        <router-view v-if="noMenu.includes(routeName)" />
-        <template v-else-if="allLoaded">
+        <div v-if="noMenu.includes(routeName)">
+            <Header2 />
+            <router-view />
+        </div>
+        <div :class="$style.mainApp" v-else-if="allLoaded">
             <transition name="navBar">
                 <components :is="navBarName" />
             </transition>
@@ -19,7 +22,7 @@
             <main :class="$style.main">
                 <router-view />
             </main>
-        </template>
+        </div>
     </div>
 </template>
 
@@ -28,6 +31,7 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import MainNavbar from './components/common/layout/Main-Navbar.vue'
 import OnlineTeachingNavbar from './components/common/layout/Online-Teaching-NavBar.vue'
 import Header from './components/common/layout/Header.vue'
+import Header2 from './components/common/layout/Header2.vue'
 import { Getter, Mutation, namespace } from 'vuex-class'
 
 const userModule = namespace('user')
@@ -37,7 +41,8 @@ const goodsModule = namespace('goods')
     components: {
         OnlineTeachingNavbar,
         MainNavbar,
-        Header
+        Header,
+        Header2
     }
 })
 export default class App extends Vue {

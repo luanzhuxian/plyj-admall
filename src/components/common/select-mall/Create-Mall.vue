@@ -203,7 +203,7 @@ export default class CreateMall extends Vue {
         setInterval(() => {
             countdown--
             if (countdown <= 0) {
-                location.reload()
+                location.replace('/')
                 return
             }
             success.close()

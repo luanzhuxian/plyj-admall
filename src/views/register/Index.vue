@@ -1,8 +1,5 @@
 <template>
     <div :class="$style.login">
-        <div :class="$style.loginTop">
-            <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png">
-        </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
                 <Register ref="Register" @codeShowFoo="codeShowFoo" @emitLogin="login" v-if="$route.name === 'RegisterAccount'" />

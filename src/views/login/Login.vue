@@ -1,16 +1,13 @@
 <template>
     <div :class="$style.login">
-        <div :class="$style.loginTop">
-            <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png">
-        </div>
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
                 <PhoneLogin @emitLogin="login" ref="PhoneLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PhoneLogin'" />
-                <PasswordLogin @emitLogin="login" ref="PasswordLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PasswordLogin'" />
-                <WxLogin @emitLogin="login" v-if="$route.name === 'WxLogin'" />
-                <WxBindPassword @emitLogin="login" v-if="$route.name === 'WxBindPassword'" />
-                <WxBindPhone @emitLogin="login" v-if="$route.name === 'WxBindPhone'" />
-                <CompleteLogin @emitLogin="login" ref="CompleteLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'CompleteLogin'" />
+                <PasswordLogin @emitLogin="login" ref="PasswordLogin" @codeShowFoo="codeShowFoo" v-else-if="$route.name === 'PasswordLogin'" />
+                <WxLogin @emitLogin="login" v-else-if="$route.name === 'WxLogin'" />
+                <WxBindPassword @emitLogin="login" v-else-if="$route.name === 'WxBindPassword'" />
+                <WxBindPhone @emitLogin="login" v-else-if="$route.name === 'WxBindPhone'" />
+                <CompleteLogin @emitLogin="login" ref="CompleteLogin" @codeShowFoo="codeShowFoo" v-else-if="$route.name === 'CompleteLogin'" />
             </div>
         </div>
         <Vcode :show="codeShow" @success="success" @close="close" />
@@ -116,14 +113,7 @@ export default class Login extends Vue {
         /*display: flex;*/
         /*flex-direction: row;*/
         /*align-items: center;*/
-        background-color: #ffffff;
-        .login-top{
-            width: 100vw;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            padding-left: 18%;
-        }
+        background-color: #fff;
         .login-body{
             width: 100vw;
             height: calc(100vh - 80px);
