@@ -38,10 +38,11 @@
                 label="添加时间"
                 prop="createTime"
             />
-            <el-table-column
-                label="添加人"
-                prop="createUser"
-            />
+            <el-table-column label="添加人">
+                <template #default="{row}">
+                    {{ row.createUser }} （{{ row.roleName }}）
+                </template>
+            </el-table-column>
         </el-table>
         <pagination
             v-model="filterForm.current"

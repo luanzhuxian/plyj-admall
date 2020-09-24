@@ -854,8 +854,11 @@
                             />
                             <el-table-column
                                 prop="createUser"
-                                label="添加人"
-                            />
+                                label="添加人">
+                                <template #default="{row}">
+                                    {{ row.createUser }} （{{ row.roleName }}）
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 fixed="right"
                                 label="操作"
