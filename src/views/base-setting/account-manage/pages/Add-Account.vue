@@ -6,25 +6,27 @@
             </div>
 
             <el-form
-                class="demo-ruleForm"
                 ref="ruleForm"
                 :model="ruleForm"
                 :rules="rules"
                 label-width="158px"
                 label-position="right"
             >
-                <el-form-item label="账号角色：">
-                    <el-radio-group v-model="ruleForm.accountRole" @change="handleRadioChange">
-                        <el-radio
-                            label="ADMIN"
-                            :disabled="currentRoleCode!=='ENTERPRISE_ADMIN' || query.selfEdit"
-                        >
-                            高级管理员
-                        </el-radio>
-                        <el-radio label="EMPLOYEE" :disabled="query.selfEdit">
-                            子账号
-                        </el-radio>
-                    </el-radio-group>
+                <el-form-item
+                    prop="mobile"
+                    :error="error"
+                    label="手机号（账号）:"
+                >
+                    <el-input
+                        class="w250"
+                        clearable
+                        :disabled="query.selfEdit || query.canEdit"
+                        v-model.trim="ruleForm.mobile"
+                        placeholder="请输入手机号或账号"
+                        maxlength="11"
+                        show-word-limit
+                    />
+                    <span class="inp-tips">所有员工手机号即为员工账号，请谨慎填写</span>
                 </el-form-item>
                 <el-form-item
                     :error="error"
@@ -44,40 +46,44 @@
                         &nbsp;关闭
                     </span>
                 </el-form-item>
-                <el-form-item
-                    prop="mobile"
-                    :error="error"
-                    label="手机号（账号）:"
-                >
-                    <el-input
-                        class="w180"
-                        clearable
-                        :disabled="query.selfEdit || query.canEdit"
-                        v-model.trim="ruleForm.mobile"
-                        placeholder="请输入手机号"
-                    />
-                </el-form-item>
                 <el-form-item prop="realName" label="真实姓名：">
                     <el-input
-                        class="w180"
+                        class="w250"
                         v-model.trim="ruleForm.realName"
-                        placeholder="请输入真实姓名"
+                        placeholder="请输入员工真实姓名"
+                        maxlength="16"
+                        show-word-limit
                     />
                 </el-form-item>
                 <!-- <el-form-item prop="nickName" label="昵称：">
                     <el-input
-                        class="w180"
+                        class="w250"
                         v-model="ruleForm.nickName"
                         placeholder="请输入昵称"
                     />
                 </el-form-item> -->
                 <el-form-item prop="position" label="职位：">
                     <el-input
-                        class="w180"
+                        class="w250"
                         autocomplete="off"
                         v-model="ruleForm.position"
-                        placeholder="请输入所属职位"
+                        placeholder="请输入职位信息"
+                        maxlength="16"
+                        show-word-limit
                     />
+                </el-form-item>
+                <el-form-item label="选择角色：">
+                    <el-radio-group v-model="ruleForm.accountRole" @change="handleRadioChange">
+                        <el-radio
+                            label="ADMIN"
+                            :disabled="currentRoleCode!=='ENTERPRISE_ADMIN' || query.selfEdit"
+                        >
+                            高级管理员
+                        </el-radio>
+                        <el-radio label="EMPLOYEE" :disabled="query.selfEdit">
+                            子账号
+                        </el-radio>
+                    </el-radio-group>
                 </el-form-item>
                 <el-form-item label="权限范围：">
                     <el-button v-if="ruleForm.accountRole !== 'ADMIN'" type="text" @click="editPermission">
@@ -143,15 +149,15 @@ export default class AddAccount extends Vue {
     rules = {
         realName: [
             { required: false, message: '请输入真实姓名', trigger: 'blur' },
-            { min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur' }
+            { min: 1, max: 16, message: '请输入至多16字的员工真实姓名', trigger: 'blur' }
         ],
         mobile: [
             { required: true, message: '请填写手机号', trigger: 'blur' },
-            { validator: testPhone, message: '手机号不正确', trigger: 'blur' }
+            { validator: testPhone, message: '请输入11位的手机号作为员工账号', trigger: 'blur' }
         ],
         nickName: [
             { required: false, message: '请输入昵称', trigger: 'blur' },
-            { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+            { min: 1, max: 16, message: '长度在 1 到 20 个字符', trigger: 'blur' }
         ]
     }
 
@@ -185,18 +191,9 @@ export default class AddAccount extends Vue {
     created () {
         this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
         this.query = this.$route.query
-        if (this.query.selfEdit === 'false') {
-            this.query.selfEdit = false
-        }
-        if (this.query.selfEdit === 'true') {
-            this.query.selfEdit = true
-        }
-        if (this.query.canEdit === 'true') {
-            this.query.canEdit = true
-        }
-        if (this.query.canEdit === 'false') {
-            this.query.canEdit = false
-        }
+        console.log(this.$route.query)
+        this.query.selfEdit = Boolean(this.query.selfEdit)
+        this.query.canEdit = Boolean(this.query.canEdit)
         this.detailForm.userId = this.query.userId
         this.detailForm.roleCode = this.query.roleCode
         if (this.query.userId) {
@@ -350,11 +347,8 @@ export default class AddAccount extends Vue {
     .account-new {
         position: relative;
         height: 100%;
-        .w180{
-            width: 180px;
-        }
-        .el-form {
-            width: 500px;
+        .w250{
+            width: 250px;
         }
         > .title {
             margin-bottom: 40px;
@@ -369,6 +363,11 @@ export default class AddAccount extends Vue {
             padding: 16px 0;
             text-align: center;
             background-color: #fff;
+        }
+        .inp-tips{
+            color: #999;
+            font-size: 12px;
+            margin-left: 20px;
         }
     }
     .permission-label-box{

@@ -30,7 +30,7 @@
                     <div :class="$style.account">
                         <div :class="$style.number">
                             账号：{{ enterpriseAdminModel.mobile }}
-                            <!-- <span :class="$style.tip">当前账号</span> -->
+                            <span :class="$style.tip">当前账号</span>
                         </div>
                         <div :class="$style.name">姓名：{{ enterpriseAdminModel.name }}</div>
                     </div>
@@ -212,6 +212,9 @@
                         </a> -->
                         <a v-if="isEdit" @click="toSave" style="color: #4F63FF">
                             保存
+                        </a>
+                        <a v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="$router.push({name: 'EditAccount', query: { userId: row.userId, roleCode: row.roleCode, selfEdit: userId === row.userId, canEdit: (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN')}})" style="color: #4F63FF">
+                            编辑
                         </a>
                         <a style="color: #4F63FF" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
                             详情
@@ -531,7 +534,7 @@ export default class AccountList extends Vue {
                         margin-right: 76px;
                         > .tip {
                             margin-left: 12px;
-                            padding: 3px 5px;
+                            padding: 1px 5px;
                             border: 1px solid #4f63ff;
                             border-radius: 2px;
                             font-size: 12px;
