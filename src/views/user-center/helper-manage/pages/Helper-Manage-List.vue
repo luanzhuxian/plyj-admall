@@ -198,7 +198,7 @@
             title="选择所属账号"
             width="40%"
         >
-            <div class="current-account-info">
+            <div class="current-account-info" v-if="currentUserId.length === 1">
                 <p>
                     <b>Helper用户</b>
                     <span>{{ currentUserInfo.userName }}({{ currentUserInfo.mobile }})</span>
@@ -429,6 +429,7 @@ export default class HelperManageList extends Vue {
 
     async belongBatched () {
         this.currentUserId = []
+        this.currentUserInfo = {}
         for (const item of this.currentSelect) {
             this.currentUserId.push(item.mallUserId)
         }
