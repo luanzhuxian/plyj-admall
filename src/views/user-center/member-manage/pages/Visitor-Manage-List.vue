@@ -23,7 +23,7 @@
                     clearable
                     style="width: 250px;"
                     v-model.trim="form.keyword"
-                    placeholder="请输入用户昵称/真实姓名/手机号"
+                    placeholder="请输入用户昵称/真实姓名"
                     @change="search"
                 />
             </el-form-item>
