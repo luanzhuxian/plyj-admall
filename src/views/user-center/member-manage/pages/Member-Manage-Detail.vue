@@ -101,7 +101,10 @@
                         </div>
                         <div>
                             <span>生日：</span>
-                            <span>{{ memberDetail.birthday || '--' }}</span>
+                            <span>
+                                <template v-if="memberDetail.birthday">{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</template>
+                                <template v-else>--</template>
+                            </span>
                         </div>
                         <div>
                             <span>性别：</span>
