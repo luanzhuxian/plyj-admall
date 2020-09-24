@@ -108,12 +108,6 @@ export default class Login extends Vue {
 
 <style module lang="scss">
     .login{
-        width: 100vw;
-        height: calc(100vh - 80px);
-        /*display: flex;*/
-        /*flex-direction: row;*/
-        /*align-items: center;*/
-        background-color: #fff;
         .login-body{
             width: 100vw;
             height: calc(100vh - 80px);
