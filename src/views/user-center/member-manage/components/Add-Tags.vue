@@ -131,7 +131,7 @@ export default {
     data () {
         return {
             showAddInput: false,
-            maxSetTagNum: 4,
+            maxSetTagNum: 50,
             // 标签最小长度
             minTagNameLength: 2,
             // 标签最大长度
@@ -195,7 +195,7 @@ export default {
                 if (this.inputAdd.length < this.minTagNameLength) return this.$warning('用户标签名称为2到8个字')
                 const { data } = await updateTag({ tagName: this.inputAdd })
                 // 在添加标签中新建标签，用户选中时，自动选中
-                if (this.selected.length < 4) {
+                if (this.selected.length < this.maxSetTagNum) {
                     const id = data && data.result && data.result.id
                     this.selected.push(id)
                 }
@@ -254,7 +254,7 @@ export default {
                 for (const id of this.selected) {
                     selected.push(this.tagList.find(item => item.id === id))
                 }
-                if (selected.length > 4) {
+                if (selected.length > this.maxSetTagNum) {
                     return this.$warning(`标签数量不能超过${ this.maxSetTagNum }个`)
                 }
                 const userIds = this.isMultiple ? this.currentMember : [this.currentMember.id]
