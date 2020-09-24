@@ -184,7 +184,7 @@
 
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
+import { namespace } from 'vuex-class'
 
 import SelectStudents from './../components/Select-Students.vue'
 import SendLive from './../components/Send-Live.vue'
@@ -204,6 +204,7 @@ import {
     getChanneStatistics,
     getAllRoomsOfDetail
 } from './../../../../../../apis/product-center/line-teaching/live'
+const userModule = namespace('user')
 
 @Component({
     components: {
@@ -216,7 +217,7 @@ import {
     }
 })
 export default class Workbench extends Vue {
-    @Getter('mallUrl') mallUrl!: string
+    @userModule.Getter('mallUrl') mallUrl!: string
 
     useRooms = 0
     maxRooms = 1
