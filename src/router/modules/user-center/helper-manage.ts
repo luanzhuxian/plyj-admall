@@ -20,7 +20,7 @@ export default [
                 name: 'HelperReviewList',
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Review-List.vue'),
                 meta: {
-                    title: 'helper审核'
+                    title: 'Helper审核'
                 }
             },
             // helper详情
@@ -29,7 +29,16 @@ export default [
                 name: 'HelperDetail',
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Detail.vue'),
                 meta: {
-                    title: 'helper详情'
+                    title: 'Helper详情'
+                }
+            },
+            // helper推广详情
+            {
+                path: 'helper-promote-detail/:id?',
+                name: 'HelperPromoteDetail',
+                component: () => import('../../../views/user-center/helper-manage/pages/Helper-Promote-Detail.vue'),
+                meta: {
+                    title: 'Helper推广详情'
                 }
             }
         ]
