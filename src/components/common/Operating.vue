@@ -39,7 +39,7 @@ export default class Operating extends Vue {
             transition: transform .3s ease;
             font-size: 16px;
             &.show {
-            transform: rotate(180deg);
+                transform: rotate(180deg);
             }
         }
     }
@@ -60,10 +60,6 @@ export default class Operating extends Vue {
             font-size: 12px;
             background: none;
             border: none;
-            &:hover {
-            background-color: #f8f8f8;
-            color: #4F63FF;
-            }
         }
     }
     .icon-gengduo {
@@ -71,10 +67,18 @@ export default class Operating extends Vue {
         display: inline-block;
         cursor: pointer;
     }
-    .operating-more{
+    .operating-more {
         font-size: 14px;
-        color: #4F63FF !important;
+        color: #4F63FF;
         cursor: pointer;
+        &:hover,
+        &:focus {
+            background-color: #f8f8f8;
+            color: mix(#FFFFFF, #4F63FF, 20%);
+        }
+        &:active {
+            color: mix(#FFFFFF, #4F63FF, 10%);
+        }
     }
     :global {
         .el-popover {
