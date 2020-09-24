@@ -25,7 +25,7 @@ export default class HelperManage extends Vue {
       label: 'Helper审核'
   }]
 
-    activeName = ''
+    activeName = 'HelperManageList'
 
     @Watch('$route.name')
     onChangeValue (newVal: string) {
