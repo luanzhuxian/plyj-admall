@@ -256,7 +256,7 @@ export default {
             },
             total: 0,
             guideStatus: 0,
-            receiveLimitType: ['所有注册用户', 'helper可用', '普通会员', '部分用户']
+            receiveLimitType: ['所有注册用户', 'Helper可用', '普通会员', '部分用户']
         }
     },
     async created () {

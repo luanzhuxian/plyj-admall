@@ -135,9 +135,13 @@
                             <span>{{ memberDetail.workPosition || '--' }}</span>
                         </div>
                         <div class="fill">
-                            <span>备注：</span>
-                            <span>{{ memberDetail.remark }}</span>
-                            <el-button type="text" v-if="memberDetail.remark" @click="isShowRemarkList = true">查看更多</el-button>
+                            备注：
+                            <div>
+                                <el-tooltip popper-class="item" effect="dark" :content="memberDetail.remark" placement="bottom">
+                                    <span class="remark">{{ memberDetail.remark }} </span>
+                                </el-tooltip>
+                            </div>
+                            <el-button class="btn" type="text" v-if="memberDetail.remark" @click="more">查看更多</el-button>
                         </div>
                     </div>
                 </SearchBox>
@@ -799,7 +803,7 @@
                 </template>
                 <!--备注-->
                 <template v-if="tabName === 'RemarkList'">
-                    <div class="list">
+                    <div class="list" id="remark-list">
                         <el-button
                             @click="addRemark"
                             style="width: 98px;"
@@ -873,12 +877,6 @@
                    :user-id="userId"
                    @success="addRemarkSuccess"
         />
-        <!--显示备注信息列表-->
-        <RemarkList
-            :show.sync="isShowRemarkList"
-            :user-id="userId"
-            @close="getMemberDetail"
-        />
     </div>
 </template>
 
@@ -891,7 +889,6 @@ import CityPicker from '../../../../components/common/City-Picker.vue'
 import AddTags from '../components/Add-Tags.vue'
 import WatchDetailList from '../components/Watch-Detail-List.vue'
 import AddRemark from '../components/Add-Remark.vue'
-import RemarkList from '../components/Remark-List.vue'
 
 import {
     getMemberDetail,
@@ -911,7 +908,6 @@ import {
           CityPicker,
           Pagination,
           WatchDetailList,
-          RemarkList,
           AddRemark
       }
   })
@@ -1029,9 +1025,6 @@ export default class MemberManageDetail extends Vue {
         shareOrder: 0
     }
 
-    // 显示备注列表
-      isShowRemarkList = false
-
     // 当前所在的tab页
     tabName = this.Tab_List[0].name
 
@@ -1146,6 +1139,16 @@ export default class MemberManageDetail extends Vue {
         } catch (e) {
             throw e
         }
+    }
+
+    async more () {
+        this.tabName = 'RemarkList'
+        await this.$nextTick(() => {
+            const itemWrap: HTMLFormElement | null = document.querySelector('#remark-list')
+            if (itemWrap) {
+                itemWrap.scrollTo(0, itemWrap.scrollHeight + 400)
+            }
+        })
     }
 
     tabClick (data: DynamicObject) {
@@ -1630,6 +1633,25 @@ export default class MemberManageDetail extends Vue {
                 grid-row-gap: 33px;
                 .fill {
                     grid-column: 1 / 3;
+                    position: relative;
+                    > div {
+                        position: absolute;
+                        left: 40px;
+                        top: 0;
+                        overflow: hidden;
+                    }
+                    .item {
+                        width: 500px!important;
+                    }
+                    .remark {
+                        width: 30%;
+                        @include elps-wrap(1);
+                    }
+                    .btn {
+                        position: absolute;
+                        left: 140px;
+                        top: -8px;
+                    }
                 }
             }
         }

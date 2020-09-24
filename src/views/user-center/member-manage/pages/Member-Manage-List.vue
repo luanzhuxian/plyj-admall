@@ -8,7 +8,7 @@
                     今日新增会员
                     <el-tooltip
                         effect="dark"
-                        content="今日新增会员，是指当日新注册的会员数量，即当日绑定手机号的会员数量；会员包括普通会员和helper。"
+                        content="今日新增会员，是指当日新注册的会员数量，即当日绑定手机号的会员数量；会员包括普通会员和Helper。"
                         placement="top-start"
                     >
                         <i class="el-icon-info" />
@@ -19,7 +19,7 @@
                     近30天新增会员
                     <el-tooltip
                         effect="dark"
-                        content="近30天新增会员，是指从昨日开始结算，30天内新注册会员的数量；会员包括普通会员和helper。"
+                        content="近30天新增会员，是指从昨日开始结算，30天内新注册会员的数量；会员包括普通会员和Helper。"
                         placement="top-start"
                     >
                         <i class="el-icon-info" />
@@ -30,7 +30,7 @@
                     累计会员总量
                     <el-tooltip
                         effect="dark"
-                        content="累计会员总量，是指店铺中所有已注册会员的合计数量；会员包括普通会员和helper。"
+                        content="累计会员总量，是指店铺中所有已注册会员的合计数量；会员包括普通会员和Helper。"
                         placement="top-start"
                     >
                         <i class="el-icon-info" />

@@ -137,7 +137,7 @@
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.memberYesterdayAdds || 0}人` }}</div>
                 </div>
                 <div class="operation-panel__item" :to="{ name: '' }">
-                    <div class="operation-panel__item-name">helper数</div>
+                    <div class="operation-panel__item-name">Helper数</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.helperTotal || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.helperYesterdayAdd || 0}人` }}</div>
                 </div>

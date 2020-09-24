@@ -90,7 +90,7 @@
                 />
                 <el-table-column
                     prop="payDiscounts"
-                    label="参与helper人数"
+                    label="参与Helper人数"
                 />
                 <el-table-column
                     prop="payDiscounts"
@@ -195,7 +195,7 @@ export default {
                 const url = createObjectUrl(dataList)
                 const aElement = document.createElement('a')
                 aElement.href = url
-                aElement.download = `helper活动商品数据${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+                aElement.download = `Helper活动商品数据${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
                 aElement.click()
                 aElement.remove()
             } catch (e) {
