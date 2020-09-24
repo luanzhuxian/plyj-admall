@@ -345,6 +345,11 @@ export default class HelperManageList extends Vue {
             startTime: '',
             endTime: ''
         }
+        this.searchOwnedAccountForm = {
+            current: 1,
+            size: 200,
+            keyword: ''
+        }
         this.form.auditStatus = this.statusMap[this.routeName] || ''
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
