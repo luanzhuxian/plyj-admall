@@ -24,8 +24,9 @@
                         v-for="(item, index) of ownedAccountList"
                         :key="index"
                         :label="item.name"
-                        :value="item.baseUserId"
-                    />
+                        :value="item.baseUserId">
+                        {{ item.mobile + ' ' + item.name }} （{{ item.roleName }}）
+                    </el-option>
                 </el-select>
             </el-form-item>
             <br>
