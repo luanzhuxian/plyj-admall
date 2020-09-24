@@ -204,7 +204,7 @@
                     label="操作"
                     align="right"
                     header-align="right"
-                    width="100"
+                    width="200"
                 >
                     <template slot-scope="{ row }">
                         <!-- <a v-if="!canEdit(row) && row.lockStatus" @click="downgradeAccount(row)">
@@ -218,6 +218,9 @@
                         </a>
                         <a style="color: #4F63FF" @click="switchChange(row)" v-if="row.lockStatus !== 2">
                             {{ row.lockStatus ? '禁用' : '启用' }}
+                        </a>
+                        <a style="color: #4F63FF" @click="deleteAccount(row)" v-if="row.lockStatus === 0 || row.lockStatus === 2">
+                            移除
                         </a>
                     </template>
                 </el-table-column>
@@ -238,7 +241,7 @@ import { namespace } from 'vuex-class'
 import {
     AccountInfo,
     getAccounts,
-    deleteAccount,
+    // deleteAccount,
     enableAccount,
     downgradeAccount,
     editAccount
@@ -409,7 +412,10 @@ export default class AccountList extends Vue {
 
     private async deleteAccount (row: any) {
         await this.$confirm('删除后将无法恢复！')
-        await deleteAccount(row)
+        // await deleteAccount(row)
+        const params = JSON.parse(JSON.stringify(row))
+        params.lockStatus = 3
+        await enableAccount(params)
         this.$success('删除成功')
         this.filter.current = 1
         await this.getAccounts()
@@ -459,10 +465,9 @@ export default class AccountList extends Vue {
     private async switchChange (row: any) {
         const { roleCode, userId, lockStatus } = row
         const params = { roleCode, userId, lockStatus }
-        if (row.lockStatus) {
+        if (row.lockStatus === 0) {
             const res = await enableAccount(params)
             if (!res.result) {
-                row.lockStatus = 0
                 this.$alert({
                     title: '名额已满',
                     message: `当前${ row.roleName }名额已满，如若设置请先禁用其他管理员。`,
@@ -472,8 +477,8 @@ export default class AccountList extends Vue {
             }
             this.$success('启用成功')
             row.lockStatusText = '已启用'
-        } else {
             row.lockStatus = 1
+        } else if (row.lockStatus === 1) {
             await this.$confirm('确认禁用此账户吗？')
             await enableAccount(params)
             this.$success('禁用成功')
