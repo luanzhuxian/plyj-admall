@@ -204,7 +204,7 @@ export default class VistorManageList extends Vue {
           size: 10,
           createStartTime: '',
           createEndTime: '',
-          userSource: '微信H5'
+          userSource: ''
       }
       this.getYouKe()
   }
