@@ -5,7 +5,8 @@ import {
     getLoginInfo,
     // getRolePowerList,
     getAgencyDetail,
-    getAgencyList
+    getAgencyList,
+    getAccountInfo
 } from '../../apis/login'
 import {
     mallInfoData,
@@ -13,9 +14,9 @@ import {
 } from '../../apis/home'
 import {
     register,
-    getWechatPaytStatus,
-    getUpgradeStatus,
-    getVstatus
+    getWechatPaytStatus
+    // getUpgradeStatus,
+    // getVstatus
 } from '../../apis/base/register'
 import * as types from '../mutation-type'
 import { resetForm } from '../../assets/ts/utils'
@@ -38,6 +39,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         REG_TYPE: 1,
         // 数据是否加载完毕
         allLoaded: false,
+        // 登录信息
         loginInfo: {
             // refresh_token: '',
             // refresh_token_expire: 0,
@@ -46,6 +48,21 @@ const user: Module<DynamicObject, DynamicObject> = {
             SESSION_ID: '',
             userId: '',
             token: ''
+        },
+        // 账户信息
+        accountInfo: {
+            account: '',
+            createTime: '',
+            email: '',
+            id: '',
+            lockStatus: 1,
+            mobile: '',
+            name: '',
+            operator: '',
+            unionId: '',
+            updateTime: '',
+            wxHeadImgUrl: '',
+            wxNickName: ''
         },
         // 注册步骤
         currentStep,
@@ -135,11 +152,15 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.mallId = ''
             state.currentRoleCode = ''
             state.agencyList = []
+            state.allLoaded = false
             Cookie.remove('token')
             Cookie.remove('refresh_token')
             Cookie.remove('agencyCode')
             Cookie.remove('mallId')
             sessionStorage.removeItem('currentStep')
+            sessionStorage.removeItem('MAIN_NAVBAR_SELECTED')
+            sessionStorage.removeItem('MAIN_NAVBAR_OPENED')
+            sessionStorage.removeItem('MAIN_NAVBAR_CLOSED')
         },
         // 缓存权限列表
         // [types.SET_POWER_LIST]: (state, payload) => {
@@ -179,6 +200,10 @@ const user: Module<DynamicObject, DynamicObject> = {
         [types.GET_AGENCY_LIST]: (state, payload) => {
             state.agencyList = payload
         },
+        // 缓存机构列表
+        [types.GET_ACCOUNT_INFO]: (state, payload) => {
+            state.accountInfo = payload
+        },
         // 缓存当前机构
         [types.SET_CURRENT_AGENCY]: (state, payload) => {
             state.agencyCode = payload.agencyCode || ''
@@ -190,16 +215,18 @@ const user: Module<DynamicObject, DynamicObject> = {
                 expires: CalcCookieTime(state.loginInfo.expire)
             })
         },
-        [types.V_MERCHANT_STATUS]: (state, payload) => {
-            if (payload) {
-                state.vMerchantStatus = payload
-            }
-        },
-        [types.UPGRADE_STATUS]: (state, payload) => {
-            if (payload) {
-                state.upgradeStatus = payload
-            }
-        },
+        // TODO: 已弃用
+        // [types.V_MERCHANT_STATUS]: (state, payload) => {
+        //     if (payload) {
+        //         state.vMerchantStatus = payload
+        //     }
+        // },
+        // TODO: 已弃用
+        // [types.UPGRADE_STATUS]: (state, payload) => {
+        //     if (payload) {
+        //         state.upgradeStatus = payload
+        //     }
+        // },
         [types.WECHAT_PAY_STATUS]: (state, payload) => {
             if (payload) {
                 state.wechatPayStatus = payload
@@ -240,6 +267,7 @@ const user: Module<DynamicObject, DynamicObject> = {
                 commit(types.SET_LOGININFO, data.result)
                 return data.result
             } catch (e) {
+                commit(types.LOGOUT)
                 throw e
             }
         },
@@ -285,6 +313,20 @@ const user: Module<DynamicObject, DynamicObject> = {
             }
         },
 
+        /**
+         * 获取账户信息
+         * @param commit
+         */
+        async [types.GET_ACCOUNT_INFO] ({ commit }) {
+            try {
+                const { result } = await getAccountInfo()
+                commit(types.GET_ACCOUNT_INFO, result)
+                return result
+            } catch (e) {
+                throw e
+            }
+        },
+
         // 获取机构和商城详情
         async [types.AGENCY_USER_INFO] ({ commit }) {
             try {
@@ -292,7 +334,6 @@ const user: Module<DynamicObject, DynamicObject> = {
                 commit(types.AGENCY_USER_INFO, AgencyDetail)
                 return AgencyDetail
             } catch (e) {
-                commit(types.LOGOUT)
                 throw e
             }
         },
@@ -316,28 +357,30 @@ const user: Module<DynamicObject, DynamicObject> = {
         //         throw e
         //     }
         // },
-        async [types.V_MERCHANT_STATUS] ({ commit }) {
-            try {
-                const data = await getVstatus()
-                commit(types.V_MERCHANT_STATUS, data.result)
-                return data.result
-            } catch (e) {
-                throw e
-            }
-        },
-        async [types.UPGRADE_STATUS] ({ commit }) {
-            try {
-                const data = await getUpgradeStatus()
-                if (data.result.applymentState === 'SUBMITING') {
-                    // SUBMITING相当于没升级过
-                    data.result.applymentState = ''
-                }
-                commit(types.UPGRADE_STATUS, data.result)
-                return data.result
-            } catch (e) {
-                throw e
-            }
-        },
+        // TODO: 已弃用
+        // async [types.V_MERCHANT_STATUS] ({ commit }) {
+        //     try {
+        //         const data = await getVstatus()
+        //         commit(types.V_MERCHANT_STATUS, data.result)
+        //         return data.result
+        //     } catch (e) {
+        //         throw e
+        //     }
+        // },
+        // TODO: 已弃用
+        // async [types.UPGRADE_STATUS] ({ commit }) {
+        //     try {
+        //         const data = await getUpgradeStatus()
+        //         if (data.result.applymentState === 'SUBMITING') {
+        //             // SUBMITING相当于没升级过
+        //             data.result.applymentState = ''
+        //         }
+        //         commit(types.UPGRADE_STATUS, data.result)
+        //         return data.result
+        //     } catch (e) {
+        //         throw e
+        //     }
+        // },
         // 微信支付申请状态
         async [types.WECHAT_PAY_STATUS] ({ commit }) {
             try {
@@ -357,6 +400,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             // 日志系统getters暂时删除
             try {
                 await dispatch(types.AGENCY_USER_INFO)
+                await dispatch(types.GET_ACCOUNT_INFO)
                 await dispatch(types.WECHAT_PAY_STATUS)
                 // await dispatch(types.SET_POWER_LIST)
                 // if (state.REG_TYPE === 2) {
@@ -369,7 +413,6 @@ const user: Module<DynamicObject, DynamicObject> = {
                 commit(types.HAS_GET_ALL_MALL_INFO, true)
                 commit(types.GET_ALL_MALL_INFO, getters)
             } catch (e) {
-                commit('LOGOUT')
                 throw e
             }
         }
@@ -379,6 +422,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         token: state => state.token || null,
         // 当前登录人的id
         userId: state => state.loginInfo.userId || null,
+        accountInfo: state => state.accountInfo,
         currentStep: state => state.currentStep,
         allLoaded: state => state.allLoaded,
         // currentStep: state => 6, // 注册步骤

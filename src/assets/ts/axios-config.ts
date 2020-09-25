@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
 import Cookie from './storage-cookie'
 import store from '../../store'
 import { router } from '../../router'
-import { Loading } from 'admall-element'
+// import { Loading } from 'admall-element'
 
 interface ResData {
     message: string;
@@ -23,19 +23,19 @@ const SUCCESS_CODE = 2000
 // const EXCEPTION_CODE = 5000
 const TOKEN_TIME_OUT = 4002
 
-let reqCount = 0
-let loadingInstance: any = null
-const close = function () {
-    reqCount--
-    if (reqCount === 0) {
-        loadingInstance.close()
-    }
-}
+// let reqCount = 0
+// let loadingInstance: any = null
+// const close = function () {
+//     reqCount--
+//     if (reqCount === 0) {
+//         loadingInstance.close()
+//     }
+// }
 // 存到全局，临时关闭全局 loading
-const LoadingConfig = {
-    background: 'transparent',
-    text: '拼命加载中...'
-}
+// const LoadingConfig = {
+//     background: 'transparent',
+//     text: '拼命加载中...'
+// }
 
 class ResponseError extends Error {
     constructor (message: string) {
@@ -58,10 +58,10 @@ const parseBlobError = (blob: Blob): Promise<{ message?: string; code: number }>
 })
 
 const reqHandler = (config: AxiosRequestConfig) => {
-    if (reqCount === 0) {
-        loadingInstance = Loading.service(LoadingConfig)
-    }
-    reqCount++
+    // if (reqCount === 0) {
+    // loadingInstance = Loading.service(LoadingConfig)
+    // }
+    // reqCount++
     // 比对cookie中的mallId和内存中的mallId是否一致
     const cookieMallId = Cookie.get('mallId')
     const memoryMallId = store.state.user.mallId

@@ -58,7 +58,8 @@ export default class App extends Vue {
         'ForgetPassword',
         'ResetPassword',
         'ModifyPassword',
-        'CompleteLogin'
+        'CompleteLogin',
+        'AccountSet'
     ]
 
     NOLOGIN: Array<string> = [

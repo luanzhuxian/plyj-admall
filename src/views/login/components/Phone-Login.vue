@@ -43,7 +43,6 @@
 </template>
 
 <script lang="ts">
-import { getAccountInfo } from '../../../apis/login'
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
@@ -80,6 +79,7 @@ export default class PhoneLogin extends Vue {
         @userModule.Getter('codePass') codePass!: boolean
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
+        @userModule.Action('GET_ACCOUNT_INFO') getAccountInfo!: Function
         @Getter smsType!: string[]
 
         @Emit('emitLogin')
@@ -128,7 +128,7 @@ export default class PhoneLogin extends Vue {
                 await (this.$refs.form as HTMLFormElement).validate()
                 this.loading = true
                 await this.LOGIN(this.form)
-                const { result }: any = await getAccountInfo()
+                const result = await this.getAccountInfo()
                 if (!result.account) {
                     await this.$router.push({ name: 'CompleteLogin' })
                     return

@@ -1,0 +1,16 @@
+.el-form-item {
+  &.is-error {
+    .el-input-group__append {
+      border-color: $--color-red-1;
+    }
+  }
+}
+.el-input__inner {
+  &:focus + .el-input-group__append {
+    border-color: $--color-primary-blue;
+  }
+}
+.el-input-group__append {
+  background-color: #fff !important;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}

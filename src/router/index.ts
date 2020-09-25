@@ -94,7 +94,6 @@ export const router = new Router({
     routes
 })
 export const beforeResolve = async (to, from, next) => {
-    console.log(to.name, 111)
     if (to.query.code) {
         sessionStorage.setItem('redirect_state', to.query.state)
         sessionStorage.setItem('redirect_code', to.query.code)

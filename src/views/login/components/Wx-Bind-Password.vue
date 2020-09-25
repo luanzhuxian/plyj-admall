@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { WxBind } from '../../../apis/login'
+import { WxBind } from '../../../apis/account-set'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
 const userModule = namespace('user')

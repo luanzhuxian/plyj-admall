@@ -70,6 +70,7 @@ export default class Login extends Vue {
             await this.getAllMallInfo()
             this.$router.replace({ name: 'Home' })
         } catch (e) {
+            this.logout()
             throw e
         }
     }
@@ -107,17 +108,17 @@ export default class Login extends Vue {
 </script>
 
 <style module lang="scss">
-    .login{
+    .login {
         .login-body{
-            width: 100vw;
             height: calc(100vh - 80px);
             position: relative;
             background: url("https://mallcdn.youpenglai.com/static/admall-new/3.0.0/new-login-bg.jpg");
             background-size: cover;
-            .login-bg{
+            .login-bg {
                 position: absolute;
                 right: 17%;
                 top: 21%;
+                margin-right: 10px;
             }
         }
     }

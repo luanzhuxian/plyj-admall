@@ -15,19 +15,6 @@ export const getProductOrder = () => axios.get('/apis/v2/mall/home/waitRedeemTot
  */
 export const getOrderInfo = () => axios.get('/apis/v2/mall/home/waitPerfect')
 
-/**
- * 判断是否绑定了手机号
- */
-export const isBindMobile = () => axios.get('/apis/v1/base/baseUserInfo/isBindMobile')
-
-/**
- * 绑定管理员手机号
- * @param {object} data
- * @property {string} data.mobile 绑定的手机号
- * @property {string} data.verifyCode 验证码
- */
-export const modifyMobile = (data: { mobile: string; verifyCode: string }) => axios.put('/apis/v1/base/baseUserInfo/modifyMobile', data)
-
 // 保存商城信息
 export type contactWayType = {
     contactUserName?: string;

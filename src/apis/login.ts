@@ -23,9 +23,6 @@ export const getAgencyList = () => axios.get('/apis/v2/base/baseUserInfo/agency/
 // 微信扫码
 export const WxScanLogin = (code: string) => axios.post(`/apis/v2/privilege/auth/open-auth/scan/${ code }`)
 
-// 微信绑定
-export const WxBind = (code: string) => axios.post(`/apis/v2/privilege/auth/bing/wx/${ code }`)
-
 // 是否C端升级账号
 export const getAccountInfo = () => axios.get('/apis/v2/base/baseUserInfo/account/info')
 
