@@ -121,7 +121,7 @@
             <el-table-column v-if="currentStatus !== 'AWAIT'" label="审核时间" prop="auditTime" />
             <el-table-column
                 v-if="currentStatus === 'REJECT'"
-                prop="reviewContent"
+                prop="agentWriteBack"
                 label="驳回理由"
             />
             <el-table-column
