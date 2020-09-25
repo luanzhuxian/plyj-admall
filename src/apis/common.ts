@@ -22,4 +22,4 @@ export const getVerifyCodeFunc: VerifyCodeFunType = ({ smsType = '', mobile = ''
  * 获取数据字典
  * @param type
  */
-export const getDataDictionary = (type: string) => axios.get(`/apis/v1/systemctl/sysdictionary/detail/list/${ type }`)
+export const getDataDictionary = (type: string) => axios.get(`/apis/v2/systemctl/sysdictionary/detail/list/${ type }`)
