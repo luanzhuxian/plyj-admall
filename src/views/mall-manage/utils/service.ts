@@ -1,7 +1,7 @@
 // import moment from 'moment'
 // import { isCreditNumber } from '../../../assets/ts/validate'
 import {
-    Template,
+    TemplateCrosses,
     TemplateB,
     TemplateC,
     TemplateD,
@@ -123,7 +123,7 @@ export const reset = (modules: TemplateModule | undefined, name: string) => {
  * @param {number} tmplId 模块id
  * @return {object} 模板对象，包含多个模块
  */
-export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | object => {
+export const rebuild = (tmplId: number, modules: TemplateModule[]): TemplateCrosses | object => {
     const findModuleById = findModule(modules)
     let templateModel
 

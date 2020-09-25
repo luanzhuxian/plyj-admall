@@ -9,8 +9,25 @@ type Merge<O1 extends object, O2 extends object> = Compute<O1 & Omit<O2, keyof O
 
 export type TemplateHomeMix = Partial<Merge<Merge<TemplateB, TemplateC>, TemplateD>>
 
-export type Template = TemplateB | TemplateC | TemplateD | TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateXinChun | TemplateDragonGate
+export type TemplateCrosses = TemplateB | TemplateC | TemplateD | TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateXinChun | TemplateDragonGate
 
+export type TemplateSkinModel = Merge<Template, SkinModel>
+// 模板
+export interface Template {
+    activityType: number;
+    createTime: string;
+    current: boolean;
+    currentTime: string;
+    id: string;
+    skinStatus: number;
+    status: number;
+    templateName: string;
+    type: number;
+    upShelf: string;
+    moduleModels: TemplateModule[];
+}
+
+// 模块
 export interface TemplateModule {
     goodsSource: string | number;
     id: string;
@@ -33,6 +50,7 @@ export interface TemplateModule {
     backupValues?: TemplateModuleItem[];
 }
 
+// 模块values列表
 export interface TemplateModuleItem {
     goodsInfo: string | DynamicObject | DynamicObject[];
     // goodsInfo: string | DynamicObject;

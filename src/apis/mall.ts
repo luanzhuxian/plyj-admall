@@ -89,10 +89,10 @@ export const getServerTime = () => axios.get('/apis/v1/mall/template/current/tim
 /**
  * 查询品宣
  * @param {object} data
- * @param {string} data.keyword 查询关键字
- * @param {number} data.size
- * @param {number} data.current
- * @param {string} data.type
+ * @property {string} data.keyword 查询关键字
+ * @property {number} data.size
+ * @property {number} data.current
+ * @property {string} data.type
  */
 export const getPintuan = (params: {
     keyword: string;
@@ -104,10 +104,10 @@ export const getPintuan = (params: {
 /**
  * 查询预购
  * @param {object} data
- * @param {string} data.keyword 查询关键字
- * @param {number} data.size
- * @param {number} data.current
- * @param {string} data.type
+ * @property {string} data.keyword 查询关键字
+ * @property {number} data.size
+ * @property {number} data.current
+ * @property {string} data.type
  */
 export const getYugou = (params: {
     keyword: string;
@@ -119,12 +119,12 @@ export const getYugou = (params: {
 /**
  * 查询秒杀
  * @param {object} data
- * @param {string} data.keyword 查询关键字
- * @param {number} data.size
- * @param {number} data.current
- * @param {string} data.type
- * @param {string} data.startTime
- * @param {string} data.endTime
+ * @property {string} data.keyword 查询关键字
+ * @property {number} data.size
+ * @property {number} data.current
+ * @property {string} data.type
+ * @property {string} data.startTime
+ * @property {string} data.endTime
  */
 export const getMiaosha = (params: {
     keyword: string;
@@ -138,10 +138,10 @@ export const getMiaosha = (params: {
 /**
  * 查询优惠券
  * @param {object} data
- * @param {string} data.keyword 查询关键字
- * @param {number} data.size
- * @param {number} data.current
- * @param {string} data.type
+ * @property {string} data.keyword 查询关键字
+ * @property {number} data.size
+ * @property {number} data.current
+ * @property {string} data.type
  */
 export const getCoupon = (params: {
     keyword: string;
@@ -153,9 +153,9 @@ export const getCoupon = (params: {
 /**
  * 查询营销活动商品
  * @param {object} data
- * @param {string} data.keyWords 查询关键字
- * @param {number} data.size
- * @param {number} data.current
+ * @property {string} data.keyWords 查询关键字
+ * @property {number} data.size
+ * @property {number} data.current
  */
 export const getDistribution = (params: {
     keyWords: string;
@@ -166,16 +166,16 @@ export const getDistribution = (params: {
 /**
  * 查询线上课程信息
  * @param {object} data
- * @param {number} data.courseType 1 单课 2 系列课
+ * @property {number} data.courseType 1 单课 2 系列课
  */
 export const getCourseInfo = (params: { courseType: number }) => axios.get('/apis/v1/knowledgeCourse/findTemplateVideo', { params })
 
 /**
  * 查询图文资料信息列表
  * @param {object} data
- * @param {string} data.searchParam 查询关键字
- * @param {number} data.size
- * @param {number} data.current
+ * @property {string} data.searchproperty 查询关键字
+ * @property {number} data.size
+ * @property {number} data.current
  */
 export const getImageTextList = (params?: {
     searchParam: string;
@@ -187,3 +187,31 @@ export const getImageTextList = (params?: {
  * 获取品宣信息
  */
 export const getPingXuan = () => axios.get('/apis/v1/brand/branding/query')
+
+/**
+ * 获取店铺模板列表
+ */
+export const getDefaultTemplateList = () => axios.get('/apis/v1/mall/template/system/template')
+
+/** *********** 换肤 ************ **/
+/**
+ * 换肤
+ * @param {number} skinId 皮肤id
+ * @param {object} params
+ * @property {object} params.type 1 首页
+ */
+export const updateSkinStatus = (skinId: number, params: { type: number}) => axios.get(`/apis/v1/mall/template/updateSkinStatus/${ skinId }`, { params })
+
+/**
+ * 皮肤下架
+ * @param {object} params
+ * @property {object} params.type 1 首页
+ */
+export const cancelSkinStatus = (params: { type: number}) => axios.get('/apis/v1/mall/template/cancelSkinStatus', { params })
+
+/**
+ * 查询当前皮肤
+ * @param {object} params
+ * @property {object} params.type 1 首页
+ */
+export const getSkinStatus = (params: { type: number}) => axios.get('/apis/v1/mall/template/getSkinStatus', { params })

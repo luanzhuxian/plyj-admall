@@ -7,9 +7,9 @@ import {
     TemplateXinChunValidator,
     TemplateDragonGateValidator
 } from './template-validator'
-import { Template } from '../types'
+import { TemplateCrosses } from '../types'
 
-const validatorProducer = (tmplId: string, moduleModels: Template | object) => {
+const validatorProducer = (tmplId: string, moduleModels: TemplateCrosses | object) => {
     const map: DynamicObject = {
         '-1': TemplateCValidator,
         3: TemplateBValidator,

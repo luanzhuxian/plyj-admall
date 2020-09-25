@@ -117,7 +117,7 @@ export default class TemplateItem extends Vue {
       position: absolute;
       top: 0;
       left: 0;
-      .el-button {
+      > button {
         width: 120px;
         height: 30px;
         margin-bottom: 10px;

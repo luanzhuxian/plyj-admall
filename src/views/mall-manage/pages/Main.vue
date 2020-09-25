@@ -201,7 +201,7 @@ import Render from '../components/Render'
 import { rebuild } from '../utils/service'
 import { validatorProducer } from '../utils/validate'
 import { tagMap } from '../utils/map'
-import { Template, DraftTableRow, TemplateStatus, TemplateIds } from '../utils/types'
+import { TemplateCrosses, DraftTableRow, TemplateStatus, TemplateIds } from '../utils/types'
 
 @Component({
     components: {
@@ -235,7 +235,7 @@ export default class MallMain extends Vue {
     templatePreviewShow = false
     tmplId = 0
     skinId = 0
-    templateModels: Template | object = {}
+    templateModels: TemplateCrosses | object = {}
     typeFilters = [{
         text: '首页',
         value: 1

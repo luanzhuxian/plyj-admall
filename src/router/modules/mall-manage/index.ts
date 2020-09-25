@@ -18,10 +18,35 @@ export default [
             }, {
                 path: 'themes',
                 name: 'MallThemes',
-                component: () => import('../../../views/mall-manage/pages/Themes.vue'),
+                redirect: { name: 'TemplateHome' },
+                component: () => import('../../../views/mall-manage/pages/Themes-Container.vue'),
                 meta: {
                     title: '店铺主题'
-                }
+                },
+                children: [
+                    {
+                        path: 'template-home',
+                        name: 'TemplateHome',
+                        component: () => import('../../../views/mall-manage/pages/Themes.vue'),
+                        meta: {
+                            title: '首页模板'
+                        }
+                    }, {
+                        path: 'template-activity',
+                        name: 'TemplateActivity',
+                        component: () => import('../../../views/mall-manage/pages/Themes.vue'),
+                        meta: {
+                            title: '主会场模板'
+                        }
+                    }, {
+                        path: 'skin',
+                        name: 'Skin',
+                        component: () => import('../../../views/mall-manage/pages/Themes.vue'),
+                        meta: {
+                            title: '皮肤主题'
+                        }
+                    }
+                ]
             }
         ]
     }
