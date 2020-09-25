@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
         <pl-tabs
-            v-if="$route.name !== 'HelperDetail'"
+            v-show="showTabRouterNameList.includes(activeName)"
             :value="activeName"
             :tabs="tabs"
             @tabClick="handleClick"
@@ -26,6 +26,8 @@ export default class HelperManage extends Vue {
   }]
 
     activeName = 'HelperManageList'
+
+    showTabRouterNameList = ['HelperManageList', 'HelperReviewList']
 
     @Watch('$route.name')
     onChangeValue (newVal: string) {
