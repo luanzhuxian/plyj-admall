@@ -308,7 +308,6 @@ import Ladder from './components/Ladder.vue'
 import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
 import UploadImage from '../../../../../components/common/file/Image-Manager'
 import { checkNumber } from '../../../../../assets/ts/validate'
-// import { resetForm } from '../../../../assets/js/utils'
 class LadderData {
     // 礼品名称
   giftName = ''

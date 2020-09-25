@@ -58,7 +58,7 @@
 
 <script>
 /* eslint-disable no-underscore-dangle */
-import { uploadPdf } from '../../assets/js/upload'
+import { uploadPdf } from '../../assets/ts/upload'
 import Draggable from '../../components/draggable'
 export default {
     name: 'PDFManager',

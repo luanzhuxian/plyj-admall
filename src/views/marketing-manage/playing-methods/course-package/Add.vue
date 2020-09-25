@@ -131,7 +131,6 @@
 import moment from 'moment'
 import Combination from './components/Combination.vue'
 import { getTagList } from '../../../../apis/member'
-// import { resetForm } from '../../../assets/js/utils'
 import {
     addSpringPloughing,
     getSpringPloughingDetail,

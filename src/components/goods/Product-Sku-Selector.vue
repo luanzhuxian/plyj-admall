@@ -153,8 +153,8 @@
 </template>
 
 <script>
-import { getCategoryTreePlatform, getGoods } from '../../apis/goods'
-import { resetForm } from '../../assets/js/utils'
+import { getCategoryTreePlatform, getGoods } from '../../apis/product-center/goods'
+import { resetForm } from '../../assets/ts/utils'
 export default {
   name: 'ProductSelector',
   data () {
