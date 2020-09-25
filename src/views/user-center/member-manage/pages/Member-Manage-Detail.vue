@@ -1173,7 +1173,11 @@ export default class MemberManageDetail extends Vue {
         await this.$nextTick(() => {
             const itemWrap: HTMLFormElement | null = document.querySelector('#remark-list')
             if (itemWrap) {
-                itemWrap.scrollTo(0, itemWrap.scrollHeight + 400)
+                itemWrap.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'nearest'
+                })
             }
         })
     }
@@ -1678,12 +1682,12 @@ export default class MemberManageDetail extends Vue {
                         width: 500px!important;
                     }
                     .remark {
-                        width: 30%;
+                        width: 70%;
                         @include elps-wrap(1);
                     }
                     .btn {
                         position: absolute;
-                        left: 140px;
+                        left: 290px;
                         top: -8px;
                     }
                 }
