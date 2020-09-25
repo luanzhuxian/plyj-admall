@@ -721,16 +721,13 @@
                                 <el-option :value="2" label="系列课" />
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="分类：">
-                            <el-select
-                                v-model="lineLearningListForm.courseCategory"
-                                @change="searchLineLearningList"
-                                clearable
-                            >
-                                <el-option :value="''" label="全部" />
-                                <el-option :value="1" label="直播" />
-                                <el-option :value="2" label="录播" />
-                            </el-select>
+                        <el-form-item label="分类：" v-show="lineLearningListForm.courseType">
+                            <SelectCategory
+                                v-model="classification"
+                                :category-type="lineLearningListForm.courseType"
+                                @change="changeClassification"
+                                show-add
+                            />
                         </el-form-item>
                         <el-form-item>
                             <el-button
@@ -913,6 +910,7 @@ import CityPicker from '../../../../components/common/City-Picker.vue'
 import AddTags from '../components/Add-Tags.vue'
 import WatchDetailList from '../components/Watch-Detail-List.vue'
 import AddRemark from '../components/Add-Remark.vue'
+import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
 
 import {
     getMemberDetail,
@@ -932,7 +930,8 @@ import {
           CityPicker,
           Pagination,
           WatchDetailList,
-          AddRemark
+          AddRemark,
+          SelectCategory
       }
   })
 
@@ -1487,8 +1486,15 @@ export default class MemberManageDetail extends Vue {
         this.courseResourceId = row.id
     }
 
+    classification =[]
+    changeClassification (val: DynamicObject) {
+        this.lineLearningListForm.courseCategory = val[0]
+        this.searchLineLearningList()
+    }
+
     async searchLineLearningList () {
         try {
+            if (!this.lineLearningListForm.courseType) this.lineLearningListForm.courseCategory = ''
             this.lineLearningListForm.current = 1
             await this.getLineLearningList()
         } catch (e) {
