@@ -1,10 +1,10 @@
 <template>
-    <div class="template-d" :class="[$style.templateD, $style[skinClassNameMap[skinId]]]">
+    <div :class="[$style.templateD, $style[skinClassNameMap[skinId]]]">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png" style="width: 100%;">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/header.png" style="width: 100%;">
         <div :class="$style.container">
             <!-- 搜索栏 -->
-            <div class="module-search" :class="$style.moduleSearch">
+            <div :class="$style.moduleSearch">
                 <el-input prefix-icon="el-icon-search" placeholder="搜索商品" />
             </div>
             <!-- BANNER -->
@@ -480,39 +480,6 @@ export default class TemplateD extends Vue {
 }
 </script>
 
-<style lang="scss">
-.template-d {
-    .module-search {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        padding-top: 6px;
-        width: 100%;
-        height: 44px;
-        background-color: #ededed;
-        .el-input {
-            width: 350px;
-            input {
-                border: none;
-                border-radius: 20px;
-                &::placeholder {
-                    color: #bcbcbc;
-                    font-size: 14px;
-                    font-weight: bolder;
-                    text-align: center;
-                }
-            }
-            .el-input__icon {
-                position: relative;
-                left: 124px;
-                height: 30px;
-                font-size: 14px;
-                font-weight: bolder;
-            }
-        }
-    }
-}
-</style>
 <style module lang="scss">
 @import '../skin/common.scss';
 
@@ -550,6 +517,36 @@ export default class TemplateD extends Vue {
             height: 19px;
             background: #fe7700;
             margin-right: 7px;
+        }
+    }
+}
+
+.module-search {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+    width: 100%;
+    height: 44px;
+    background-color: #ededed;
+    > div {
+        width: 350px;
+        > input {
+            border: none;
+            border-radius: 20px;
+            &::placeholder {
+                color: #bcbcbc;
+                font-size: 14px;
+                font-weight: bolder;
+                text-align: center;
+            }
+        }
+        > span > i {
+            position: relative;
+            left: 124px;
+            height: 30px;
+            font-size: 14px;
+            font-weight: bolder;
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="template-activity template-fanchang" :class="[$style.templateActivity, $style.TemplateFanchang]">
+    <div :class="[$style.templateActivity, $style.TemplateFanchang]">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -10,7 +10,7 @@
         >
         <div :class="$style.container">
             <!-- 搜索栏-->
-            <div class="module-search" :class="$style.moduleSearch">
+            <div :class="$style.moduleSearch">
                 <el-input prefix-icon="el-icon-search" placeholder="搜索商品" />
             </div>
             <div :class="$style.containerBackground" />
@@ -32,7 +32,7 @@
                     }"
                     @click="onClick('Maisong')"
                 >
-                    <Maisong :data="Maisong" />
+                    <Maisong :data="Maisong" :tmpl-id="tmplId" />
                 </div>
                 <!-- 秒杀 -->
                 <div
@@ -139,23 +139,23 @@ export default class TemplateFanchang extends Vue {
     /* computed */
     @mall.Getter liveInfo!: { liveModel: { statue: number; hasNotice: boolean }[] }
 
-    Miaosha () {
+    get Miaosha () {
         return this.data.Miaosha || {}
     }
 
-    Pintuan () {
+    get Pintuan () {
         return this.data.Pintuan || {}
     }
 
-    Maisong () {
+    get Maisong () {
         return this.data.Maisong || {}
     }
 
-    Fengqiang () {
+    get Fengqiang () {
         return this.data.Fengqiang || {}
     }
 
-    Recommend () {
+    get Recommend () {
         return this.data.Recommend || {}
     }
 
@@ -167,54 +167,6 @@ export default class TemplateFanchang extends Vue {
 }
 </script>
 
-<style lang="scss">
-.template-activity {
-    .module-search {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        padding-top: 6px;
-        width: 100%;
-        height: 44px;
-        .el-input {
-            width: 350px;
-            height: 30px;
-            input {
-                border: none;
-                border-radius: 15px;
-                background: #6a0000;
-                opacity: .5;
-                &::placeholder {
-                    color: #fff;
-                    font-size: 14px;
-                    font-weight: bold;
-                    text-align: center;
-                }
-            }
-            .el-input__icon {
-                position: relative;
-                left: 124px;
-                height: 30px;
-                font-size: 14px;
-                font-weight: bolder;
-                color: #fff;
-                opacity: .5;
-            }
-        }
-    }
-}
-.template-fanchang {
-    .module-maisong {
-        .background {
-            background: url('http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/bg-gift-2.jpg') no-repeat center top !important;
-            background-size: 100% auto !important;
-        }
-    }
-}
-</style>
 <style moodule lang="scss">
 @import './double-12-common-style.scss';
 

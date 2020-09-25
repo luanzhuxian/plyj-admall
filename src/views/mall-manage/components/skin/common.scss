@@ -34,12 +34,18 @@
 @mixin search ($background-color: transparent) {
     @content;
     background-color: $background-color !important;
-    .el-input {
+    > div {
         width: 282px !important;
-        .el-input__icon {
+        > span > i {
             left: 92px !important;
         }
     }
+    // .el-input {
+    //     width: 282px !important;
+    //     .el-input__icon {
+    //         left: 92px !important;
+    //     }
+    // }
 }
 @mixin copyright ($height, $color, $background-image: null, $background-color: transparent) {
     height: $height !important;

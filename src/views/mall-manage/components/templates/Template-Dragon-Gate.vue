@@ -215,43 +215,43 @@ export default class TemplateDragonGate extends Vue {
     @mall.Getter liveInfo!: { liveModel: { statue: number; hasNotice: boolean }[] }
     @mall.Getter hasNwEvent!: boolean
 
-    Coupon () {
+    get Coupon () {
         return this.data.Coupon || {}
     }
 
-    Charity () {
+    get Charity () {
         return this.data.Charity || {}
     }
 
-    Activity () {
+    get Activity () {
         return this.data.Activity || {}
     }
 
-    Miaosha () {
+    get Miaosha () {
         return this.data.Miaosha || {}
     }
 
-    Distribution () {
+    get Distribution () {
         return this.data.Distribution || {}
     }
 
-    Pintuan () {
+    get Pintuan () {
         return this.data.Pintuan || {}
     }
 
-    Yugou () {
+    get Yugou () {
         return this.data.Yugou || {}
     }
 
-    Package () {
+    get Package () {
         return this.data.Package || {}
     }
 
-    Recommend () {
+    get Recommend () {
         return this.data.Recommend || {}
     }
 
-    isLiveShow () {
+    get isLiveShow () {
         const { liveInfo } = this
         if (!liveInfo.liveModel || !liveInfo.liveModel.length) {
             return false

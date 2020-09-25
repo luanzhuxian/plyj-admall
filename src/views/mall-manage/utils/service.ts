@@ -10,7 +10,8 @@ import {
     TemplateBaoFa,
     TemplateXinChun,
     TemplateDragonGate,
-    TemplateModule
+    TemplateModule,
+    TemplateIds
 } from '../utils/types'
 
 // 找到指定模块
@@ -127,7 +128,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
     let templateModel
 
     // 首页
-    if (tmplId === 3) {
+    if (tmplId === TemplateIds.TemplateB) {
         templateModel = {} as TemplateB
         templateModel.Banner = reset(findModuleById(1), 'Banner')
         templateModel.Live = reset(findModuleById(20), 'Live')
@@ -140,7 +141,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Class = reset(findModuleById(3), 'Class')
         templateModel.Recommend = reset(findModuleById(4), 'Recommend')
     }
-    if (tmplId === 4) {
+    if (tmplId === TemplateIds.TemplateB2) {
         templateModel = {} as TemplateB
         templateModel.Banner = reset(modules[0], 'Banner')
         templateModel.Adv = reset(modules[1], 'Adv')
@@ -154,7 +155,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Class = reset(findModuleById(3), 'Class')
         templateModel.Recommend = reset(findModuleById(4), 'Recommend')
     }
-    if (tmplId === -1) {
+    if (tmplId === TemplateIds.TemplateC) {
         templateModel = {} as TemplateC
         templateModel.Propagate = reset(findModuleById(6), 'Propagate')
         templateModel.Live = reset(findModuleById(20), 'Live')
@@ -167,7 +168,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Class = reset(findModuleById(3), 'Class')
         templateModel.Recommend = reset(findModuleById(4), 'Recommend')
     }
-    if (tmplId === 9) {
+    if (tmplId === TemplateIds.TemplateD) {
         templateModel = {} as TemplateD
         templateModel.Banner = reset(findModuleById(1), 'Banner')
         templateModel.Coupon = reset(findModuleById(9), 'Coupon')
@@ -188,7 +189,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
     }
 
     // 主会场
-    if (tmplId === 5) {
+    if (tmplId === TemplateIds.TemplateFengQiang) {
         templateModel = {} as TemplateFengQiang
         templateModel.Miaosha = reset(modules[0], 'Miaosha')
         templateModel.Pintuan = reset(modules[1], 'Pintuan')
@@ -198,7 +199,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Fengqiang = reset(modules[5], 'Fengqiang')
         templateModel.Recommend = reset(modules[6], 'Recommend')
     }
-    if (tmplId === 6) {
+    if (tmplId === TemplateIds.TemplateBaoFa) {
         templateModel = {} as TemplateBaoFa
         templateModel.Coupon = reset(modules[0], 'Coupon')
         templateModel.Maisong = reset(modules[1], 'Maisong')
@@ -206,7 +207,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Pintuan = reset(modules[3], 'Pintuan')
         templateModel.Fengqiang = reset(modules[4], 'Fengqiang')
     }
-    if (tmplId === 7) {
+    if (tmplId === TemplateIds.TemplateFanChang) {
         templateModel = {} as TemplateFanChang
         templateModel.Maisong = reset(modules[0], 'Maisong')
         templateModel.Miaosha = reset(modules[1], 'Miaosha')
@@ -214,7 +215,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Fengqiang = reset(modules[3], 'Fengqiang')
         templateModel.Recommend = reset(modules[4], 'Recommend')
     }
-    if (tmplId === 8) {
+    if (tmplId === TemplateIds.TemplateXinChun) {
         templateModel = {} as TemplateXinChun
         templateModel.Propagate = reset(modules[0], 'Propagate')
         templateModel.Coupon = reset(modules[1], 'Coupon')
@@ -223,7 +224,7 @@ export const rebuild = (tmplId: number, modules: TemplateModule[]): Template | o
         templateModel.Yugou = reset(modules[4], 'Yugou')
         templateModel.Fengqiang = reset(modules[5], 'Fengqiang')
     }
-    if (tmplId === 10) {
+    if (tmplId === TemplateIds.TemplateDragonGate) {
         templateModel = {} as TemplateDragonGate
         templateModel.Coupon = reset(findModuleById(9), 'Coupon')
         templateModel.Charity = reset(findModuleById(17), 'Charity')

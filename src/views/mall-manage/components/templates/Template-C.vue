@@ -1,5 +1,5 @@
 <template>
-    <div class="template-c" :class="[$style.templateC, $style[skinClassNameMap[skinId]]]">
+    <div :class="[$style.templateC, $style[skinClassNameMap[skinId]]]">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png" style="width: 100%;">
         <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/header.png" style="width: 100%;">
         <div :class="$style.container">
@@ -318,39 +318,6 @@ export default class TemplateHome extends Vue {
 }
 </script>
 
-<style lang="scss">
-.template-c {
-    .module-search {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        padding-top: 6px;
-        width: 100%;
-        height: 44px;
-        background-color: #ededed;
-        .el-input {
-            width: 350px;
-            input {
-                border: none;
-                border-radius: 20px;
-                &::placeholder {
-                    color: #bcbcbc;
-                    font-size: 14px;
-                    font-weight: bolder;
-                    text-align: center;
-                }
-            }
-            .el-input__icon {
-                position: relative;
-                left: 124px;
-                height: 30px;
-                font-size: 14px;
-                font-weight: bolder;
-            }
-        }
-    }
-}
-</style>
 <style module lang="scss">
 @import '../skin/common.scss';
 
@@ -390,6 +357,36 @@ export default class TemplateHome extends Vue {
             height: 19px;
             background: #fe7700;
             margin-right: 7px;
+        }
+    }
+}
+
+.module-search {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+    width: 100%;
+    height: 44px;
+    background-color: #ededed;
+    > div {
+        width: 350px;
+        > input {
+            border: none;
+            border-radius: 20px;
+            &::placeholder {
+                color: #bcbcbc;
+                font-size: 14px;
+                font-weight: bolder;
+                text-align: center;
+            }
+        }
+        > span > i {
+            position: relative;
+            left: 124px;
+            height: 30px;
+            font-size: 14px;
+            font-weight: bolder;
         }
     }
 }

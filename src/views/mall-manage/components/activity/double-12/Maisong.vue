@@ -1,6 +1,10 @@
 <template>
     <div :class="$style.maisong">
-        <div :class="$style.background" />
+        <div :class="{
+            [$style.background]: true,
+            [$style.bg1]: tmplId === 5 || tmplId === 6,
+            [$style.bg2]: tmplId === 7
+        }" />
         <div :class="$style.inner">
             <div :class="$style.maisongTitle" v-if="data.otherValue">
                 {{ data.otherValue }}
@@ -61,6 +65,8 @@ export default class Maisong extends Vue {
             return { values: [] }
         }
     }) readonly data!: TemplateModule
+
+    @Prop(Number) tmplId!: number
 }
 </script>
 
@@ -75,9 +81,15 @@ export default class Maisong extends Vue {
       object-fit: cover;
     }
     .background {
-      height: 226px;
-      background: url("http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/bg-gift-1.jpg") no-repeat center top;
-      background-size: 100% auto;
+        height: 226px;
+        &.bg-1 {
+            background: url("http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/bg-gift-1.jpg") no-repeat center top;
+            background-size: 100% auto;
+        }
+        &.bg-2 {
+            background: url("http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/activity/bg-gift-2.jpg") no-repeat center top;
+            background-size: 100% auto;
+        }
     }
     .inner {
       position: relative;
