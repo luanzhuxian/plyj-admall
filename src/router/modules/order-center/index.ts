@@ -9,7 +9,7 @@ export default [
         },
         children: [
             {
-                path: 'order-list',
+                path: 'order-list/:id?',
                 name: 'OrderList',
                 component: () => import('../../../views/order-manage/pages/Goods-List.vue'),
                 meta: {

@@ -146,7 +146,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import OperationGuide from './Operation-Guide.vue'
 const userModule = namespace('user')
@@ -160,6 +160,10 @@ export default class MainNavbar extends Vue {
     defaultActive = ''
     defaultOpeneds: string[] = []
     @userModule.Getter logo!: string
+    @Watch('$route')
+    onRouteChange (route: any) {
+        console.log(route)
+    }
 
     mounted () {
         this.init()
