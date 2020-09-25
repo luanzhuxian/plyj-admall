@@ -4,6 +4,9 @@ export default [
         name: 'OrderManage',
         component: () => import('../../../views/order-manage/Index.vue'),
         redirect: '/orders-manage/order-list',
+        meta: {
+            title: '订单中心'
+        },
         children: [
             {
                 path: 'order-list',

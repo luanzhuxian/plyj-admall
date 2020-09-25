@@ -43,7 +43,7 @@ declare global {
             redirect_uri: string;
             state: string;
             style: string;
-            href: '';
+            href: string;
         }) => void;
     }
     // 短信类型

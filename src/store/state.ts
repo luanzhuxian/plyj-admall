@@ -1,4 +1,15 @@
+const { VUE_APP_MODEL } = process.env
+const bindWechatInfo = VUE_APP_MODEL === 'development' || VUE_APP_MODEL === 'local' ? {
+    appId: 'wx7f8e7e4ea457931d',
+    redirectUrl: 'http://joint.xijun.youpenglai.com'
+} : {
+    appId: '',
+    redirectUrl: 'https://admall.youpenglai.com'
+}
 export default {
+    bindWechatInfo,
+    // 微信绑定二维码样式文件
+    weChatStyle: 'https://mallcdn.youpenglai.com/static/admall-new/weChatLoginStyle/index.css',
     childRoute: null,
     productType: [
         {

@@ -1,6 +1,5 @@
 <template>
     <div class="message-container">
-        <top-back v-if="auditStatus==='AUTHENTICATE'" />
         <div
             class="px-1 pb-1"
             v-if="notificationList.length>0"
@@ -67,7 +66,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['auditStatus'])
+        ...mapGetters({
+            auditStatus: 'user/auditStatus'
+        })
     },
     async created () {
         await this.getList()

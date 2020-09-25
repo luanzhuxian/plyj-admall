@@ -39,14 +39,14 @@
                         <div :class="$style.wechat">
                             <img width="24" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">
                             <span class="ml-10" v-text="accountInfo.wxNickName" />
-                            <el-button type="text">解绑微信</el-button>
+                            <el-button type="text" @click="unBind">解绑微信</el-button>
                         </div>
                     </div>
                     <div v-else>
                         <div>绑定后通过第三方帐号快速扫码登录</div>
                         <div :class="$style.wechat">
                             <img width="24" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">
-                            <el-button type="text">绑定微信</el-button>
+                            <el-button type="text" @click="bingWechat">绑定微信</el-button>
                         </div>
                     </div>
                 </el-form-item>
@@ -123,6 +123,15 @@
             <el-button v-if="updateMobileStep === 1" :class="$style.saveBtn" type="primary" round @click="next" :loading="loading">下一步</el-button>
             <el-button v-else-if="updateMobileStep === 2" :class="$style.saveBtn" type="primary" round @click="save('mobile')" :loading="loading">保存</el-button>
         </el-dialog>
+
+        <!-- 绑定微信 -->
+        <el-dialog
+            title="绑定微信"
+            width="480px"
+            :visible.sync="bindWechat"
+        >
+            <div :id="$style.bindWechatContainer" :class="$style.bindWechatContainer" />
+        </el-dialog>
     </div>
 </template>
 
@@ -131,8 +140,8 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import ImageManage from '../../components/common/file/Image-Manager.vue'
-import { namespace } from 'vuex-class'
-import { updateAvatarOrName, updateMobile } from '../../apis/account-set'
+import { namespace, State } from 'vuex-class'
+import { updateAvatarOrName, updateMobile, WxBind, WxUnBind } from '../../apis/account-set'
 import { getVerifyCodeFunc, checkMobileCode } from '../../apis/common'
 import SendCode from "./../../components/common/Send-Code.vue";
 import { testName, testPhone } from '../../assets/ts/validate'
@@ -147,6 +156,7 @@ export default class AccountSet extends Vue {
     private updateName = false
     private updateMobile = false
     private updateMobileStep = 1
+    private bindWechat = false
     private getCodeText1 = '获取验证码'
     private getCodeText2 = '获取验证码'
     private loading = false
@@ -184,6 +194,27 @@ export default class AccountSet extends Vue {
     @userModule.Getter('accountInfo') accountInfo!: DynamicObject
     @userModule.Action('GET_ACCOUNT_INFO') getAccountInfo!: Function
     @userModule.Action('AGENCY_USER_INFO') getAgencyUserInfo!: Function
+    @State('bindWechatInfo') bindWechatInfo!: DynamicObject
+    @State('weChatStyle') weChatStyle!: string
+
+    async mounted () {
+        const wechatCode = sessionStorage.getItem('redirect_code')
+        if (wechatCode) {
+            WxBind(wechatCode)
+                .then(() => {
+                    sessionStorage.removeItem('redirect_code')
+                    sessionStorage.removeItem('redirect_state')
+                    this.$alert('绑定微信成功！')
+                    this.getAccountInfo()
+                })
+                .catch(err => {
+                    this.$alert({
+                        title: '绑定失败',
+                        message: JSON.parse(err.message).message
+                    })
+                })
+        }
+    }
 
     // 修改头像
     async avatarChange (imgs: string[]) {
@@ -210,7 +241,6 @@ export default class AccountSet extends Vue {
      * @param field {string} 保存的字段名称
      */
     async save (field: string) {
-        console.log(field)
         try {
             this.loading = true
             let result = false
@@ -270,6 +300,34 @@ export default class AccountSet extends Vue {
         }
     }
 
+    // 绑定微信
+    async bingWechat () {
+        const { appId, redirectUrl } = this.bindWechatInfo
+        const state = Date.now().toString(16)
+        sessionStorage.setItem('login_state', state)
+        this.bindWechat = true
+        await this.$nextTick()
+        new window.WxLogin({
+            self_redirect: false,
+            id: (this as any).$style.bindWechatContainer,
+            appid: appId,
+            scope: 'snsapi_login',
+            redirect_uri: `${ redirectUrl }/account-set`,
+            state,
+            style: 'black',
+            href: this.weChatStyle
+        })
+    }
+
+    // 解绑微信
+    async unBind () {
+        await this.$confirm({
+            title: '您确认解绑微信吗？',
+            message: '解绑后，您可以重新绑定微信号'
+        })
+        await WxUnBind()
+    }
+
     // 修改密码
     modify () {
         this.$router.push({ name: 'ModifyPassword' })
@@ -322,6 +380,11 @@ export default class AccountSet extends Vue {
                 color: $--color-primary-blue !important;
             }
         }
+    }
+    .bind-wechat-container {
+        height: 260px !important;
+        text-align: center;
+        overflow: hidden;
     }
 </style>
 
