@@ -77,7 +77,7 @@ export default {
     methods: {
         async getTagList () {
             try {
-                const { data: { result } } = await getTagList()
+                const { result } = await getTagList()
                 this.userGroup = result || []
                 // 如果冲突，以龙门节为准
                 this.$emit('init', [...this.userGroup])
@@ -99,28 +99,30 @@ export default {
 </script>
 
 <style module lang="scss">
-  .userGroup {
+.userGroup {
     width: max-content;
     margin-top: 12px;
     box-shadow: 0 0 4px rgba(0, 0, 0, .2);
     > .group {
-      display: inline-grid;
-      grid-template-columns: auto auto auto;
-      flex-wrap: wrap;
-      padding: 16px;
-      > label, li {
-        display: inline-flex;
-        align-items: center;
-        height: 24px !important;
-      }
-      > li {
-        margin-left: 10px;
-      }
+        display: inline-grid;
+        grid-template-columns: auto auto auto;
+        flex-wrap: wrap;
+        padding: 16px;
+        > label,
+        li {
+            display: inline-flex;
+            align-items: center;
+            height: 24px !important;
+        }
+        > li {
+            margin-left: 10px;
+        }
     }
     > .title {
-      padding: 0 16px;
-      line-height: 36px;
-      background-color: #F8F8F8;
+        padding: 0 16px;
+        line-height: 36px;
+        background-color: #f8f8f8;
     }
-  }
+}
+
 </style>

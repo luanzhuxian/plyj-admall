@@ -214,7 +214,7 @@
 </template>
 
 <script>
-import { deleteImage, breakpointUpload, resumeBreakpointUpload, createObjectUrl, revokeObjectURL } from '../../assets/js/upload'
+import { deleteImage, breakpointUpload, resumeBreakpointUpload, createObjectUrl, revokeObjectURL } from '../../assets/ts/upload'
 import ImageSelector from './File-Selector.vue'
 import Draggable from '../../components/draggable'
 import PreviewVideo from '../common/Preview-Video.vue'
@@ -578,127 +578,135 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .error-message {
+.error-message {
     position: absolute;
     left: 0;
     bottom: 0;
     color: red;
     line-height: 30px;
-  }
-  .success {
+}
+.success {
     position: absolute;
     left: 0;
     bottom: 0;
     color: greenyellow;
     line-height: 30px;
-  }
-  .pl-image-upload {
+}
+.pl-image-upload {
     position: relative;
     display: flex;
     .image-list {
-      display: inline-flex;
-      justify-content: flex-start;
-      width: 100%;
-      > .image-item {
-        position: relative;
         display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 20px;
-        margin-right: 20px;
-        overflow: hidden;
-        font-size: 0 !important;
-        &:nth-last-of-type(1) {
-          margin-right: 0 !important;
-          margin-bottom: 0 !important;
-        }
-        > .image-item-content {
-          position: relative;
-          width: var(--width);
-          height: var(--height);
-          overflow: hidden;
-          border-radius: var(--border-radius);
-          > img {
-            width: var(--width);
-            height: var(--height);
-            object-fit: cover;
-          }
-          > .icon-bofang {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-          }
-          &:hover {
-            .edit-box {
-              display: inline-flex;
+        justify-content: flex-start;
+        width: 100%;
+        > .image-item {
+            position: relative;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            overflow: hidden;
+            font-size: 0 !important;
+            &:nth-last-of-type(1) {
+                margin-right: 0 !important;
+                margin-bottom: 0 !important;
             }
-          }
+            > .image-item-content {
+                position: relative;
+                width: var(--width);
+                height: var(--height);
+                overflow: hidden;
+                border-radius: var(--border-radius);
+                > img {
+                    width: var(--width);
+                    height: var(--height);
+                    object-fit: cover;
+                }
+                > .icon-bofang {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    cursor: pointer;
+                }
+                &:hover {
+                    .edit-box {
+                        display: inline-flex;
+                    }
+                }
+            }
+            > .image-item-bottom {
+                width: 100%;
+                height: max-content;
+            }
+            .edit-box {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                display: none;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                height: 26px;
+                padding: 10px 0;
+                color: #fff;
+                cursor: pointer;
+                background-color: rgba(0,0,0,.6) ;
+            }
         }
-        > .image-item-bottom {
-          width: 100%;
-          height: max-content;
-        }
-        .edit-box {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          display: none;
-          justify-content: space-around;
-          align-items: center;
-          width: 100%;
-          height: 26px;
-          padding: 10px 0;
-          color: #fff;
-          cursor: pointer;
-          background-color: rgba(0,0,0,0.6) ;
-        }
-      }
     }
-  }
-  .table {
+}
+.table {
     width: 966px;
     &.hasCustomProps {
-      > .row, .head {
-        grid-template-columns: 40px 1fr 150px 110px repeat(var(--count), 180px);
-      }
+        > .row,
+        .head {
+            grid-template-columns: 40px 1fr 150px 110px repeat(var(--count), 180px);
+        }
     }
-    > .row, .head {
-      display: grid;
-      grid-template-columns: 40px 1fr 170px 110px;
-      grid-column-gap: 12px;
-      align-items: center;
-      padding: 0 20px;
+    > .row,
+    .head {
+        display: grid;
+        grid-template-columns: 40px 1fr 170px 110px;
+        grid-column-gap: 12px;
+        align-items: center;
+        padding: 0 20px;
     }
     > .row {
-      grid-template-rows: 72px;
-      border-top: 1px solid #e7e7e7;
-      transition: background-size .1s linear;
-      background: linear-gradient(90deg, rgba(77, 173, 225, .2), rgba(77, 173, 225, .2)) no-repeat left center;
-      background-size: var(--progress);
-      &:nth-of-type(2n-1) {
-        background: linear-gradient(90deg, rgba(77, 173, 225, .1), rgba(77, 173, 225, .1)) no-repeat left center;
+        grid-template-rows: 72px;
+        border-top: 1px solid #e7e7e7;
+        transition: background-size .1s linear;
+        background: linear-gradient(90deg, rgba(77, 173, 225, .2), rgba(77, 173, 225, .2)) no-repeat left center;
         background-size: var(--progress);
-      }
+        &:nth-of-type(2n-1) {
+            background: linear-gradient(90deg, rgba(77, 173, 225, .1), rgba(77, 173, 225, .1)) no-repeat left center;
+            background-size: var(--progress);
+        }
     }
     > .head {
-      font-weight: bold;
-      grid-template-rows: 48px;
+        font-weight: bold;
+        grid-template-rows: 48px;
     }
     .cell {
-      font-size: 12px;
+        font-size: 12px;
     }
-  }
-  .retry {
+}
+.retry {
     animation: flickering 1s ease-in-out infinite;
-  }
-  @keyframes flickering {
-    0% { opacity: 1 }
-    50% { opacity: 0 }
-    100% { opacity: 1 }
-  }
-  .iconbofang {
+}
+@keyframes flickering {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.iconbofang {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -706,18 +714,19 @@ export default {
     font-size: 28px;
     cursor: pointer;
     transform: translate(-50%, -50%);
-  }
-  ::v-deep {
+}
+::v-deep {
     .el-dialog {
-      width: max-content !important;
+        width: max-content !important;
     }
     .el-dialog__header {
-      display: flex;
-      justify-content: flex-start;
+        display: flex;
+        justify-content: flex-start;
     }
     .el-dialog__body {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
-  }
+}
+
 </style>

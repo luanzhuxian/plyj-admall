@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { getVideoLibraryList } from '../../apis/line-teaching/knowledge-course'
+import { getVideoLibraryList } from '../../apis/product-center/line-teaching/knowledge-course'
 export default {
     name: 'SelectVideoCourse',
     props: {
@@ -340,27 +340,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .select-video {
+.select-video {
     ::v-deep {
-      .el-table__row--level-1 {
-        .el-table__indent {
-          padding-left: 4px !important;
+        .el-table__row--level-1 {
+            .el-table__indent {
+                padding-left: 4px !important;
+            }
         }
-      }
-      .el-table__expand-column {
-        display: inline-flex;
-        margin-left: -1px;
-        opacity: 0;
-        > .cell {
-          width: 0 !important;
-          font-size: 0 !important;
-          padding: 0 !important;
-          margin: 0 !important;
+        .el-table__expand-column {
+            display: inline-flex;
+            margin-left: -1px;
+            opacity: 0;
+            > .cell {
+                width: 0 !important;
+                font-size: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
         }
-      }
-      .el-table__expanded-cell {
-        margin-left: 0 !important;
-      }
+        .el-table__expanded-cell {
+            margin-left: 0 !important;
+        }
     }
-  }
+}
+
 </style>

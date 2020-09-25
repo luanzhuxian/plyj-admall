@@ -1,5 +1,5 @@
 // @ts-nocheck
-import axios from 'axios'
+import axios from '../../../assets/ts/axios-config'
 
 /**
  * 频道流量及观看量统计
