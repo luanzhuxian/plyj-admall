@@ -1,5 +1,13 @@
 <template>
     <div class="postage">
+        <el-button
+            type="primary"
+            @click="addTemplate"
+            round
+            style="margin: 10px 0 20px"
+        >
+            添加模板+
+        </el-button>
         <search-box @submit.native.prevent>
             <el-form-item label="搜索内容：">
                 <el-input
@@ -8,7 +16,7 @@
                     clearable
                 />
             </el-form-item>
-            <el-form-item class="mr-20">
+            <el-form-item>
                 <el-button
                     type="primary"
                     @click="getTemplateList"
@@ -16,14 +24,12 @@
                 >
                     查询
                 </el-button>
-            </el-form-item>
-            <el-form-item>
                 <el-button
-                    type="primary"
-                    @click="addTemplate"
+                    type="text"
+                    @click="resetFilter"
                     round
                 >
-                    新增模板
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -515,6 +521,14 @@ export default {
         this.getCityList()
     },
     methods: {
+        resetFilter () {
+            this.filter = {
+                keyword: '',
+                current: 1,
+                size: 10
+            }
+            this.getTemplateList()
+        },
         async getTemplateList () {
             const res = await getTemplate({
                 keyword: this.filter.keyword,
