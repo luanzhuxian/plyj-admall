@@ -11,7 +11,7 @@ export default {
                     if (el.src === img) {
                         return
                     }
-                    el.src = img
+                    el.src = value || img
                 }
             }
         }

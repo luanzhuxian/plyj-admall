@@ -20,7 +20,9 @@
             </transition>
             <Header />
             <main :class="$style.main">
-                <router-view />
+                <keep-alive>
+                    <router-view />
+                </keep-alive>
             </main>
         </div>
     </div>

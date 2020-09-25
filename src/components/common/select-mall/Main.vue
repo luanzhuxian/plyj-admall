@@ -17,7 +17,12 @@
                     v-if="mall.mallId"
                 >
                     <!-- 有商城 -->
-                    <img :class="$style.mallLogo" :src="mall.mallLogoUrl" alt="logo">
+                    <img
+                        v-imgError="'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo-d.png'"
+                        :class="$style.mallLogo"
+                        :src="mall.mallLogoUrl"
+                        alt="logo"
+                    >
                     <div>
                         <div :class="$style.mallName" v-text="mall.mallName" class="fz-16 font-weight-bold" />
                         <div>

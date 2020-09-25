@@ -323,19 +323,15 @@ export default {
             defaultCategory: 'goods/defaultCategory'
         })
     },
-    async created () {
-        try {
-            await this.getTree()
-            await this.getDefaultCategory()
-        } catch (e) {
-
-        }
+    async activated () {
+        await this.getTree()
+        await this.getDefaultCategory()
     },
     methods: {
 
         /**
-             * @param type {number} 1 商品分类 2 课程分类 空两者都查
-             */
+         * @param type {number} 1 商品分类 2 课程分类 空两者都查
+         */
         async getTree (type = '') {
             try {
                 await this.$store.dispatch('goods/GET_CLASSIFY_TREE', type)
@@ -345,10 +341,10 @@ export default {
         },
 
         /**
-             * 获取列表
-             * @param [page] {number} 分页
-             * @return {Promise<void>}
-             */
+         * 获取列表
+         * @param [page] {number} 分页
+         * @return {Promise<void>}
+         */
         async getProductList (page) {
             this.form.categoryId = this.currentCategory.id
             if (page) this.form.current = page

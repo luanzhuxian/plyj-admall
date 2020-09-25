@@ -2,7 +2,7 @@
     <nav :class="$style.mainNavbar">
         <img
             :class="$style.logo"
-            v-imgError
+            v-imgError="'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo-white.png'"
             :src="logo || 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo-white.png'"
             alt="logo"
         >

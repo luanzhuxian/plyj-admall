@@ -53,6 +53,7 @@
             </div>
         </el-form>
 
+        <!-- 修改姓名 -->
         <el-dialog
             title="修改姓名"
             width="480px"
@@ -70,6 +71,7 @@
             <el-button :class="$style.saveBtn" type="primary" round @click="save('name')">保存</el-button>
         </el-dialog>
 
+        <!-- 修改手机 -->
         <el-dialog
             title="更换手机号"
             width="480px"
@@ -182,10 +184,6 @@ export default class AccountSet extends Vue {
     @userModule.Getter('accountInfo') accountInfo!: DynamicObject
     @userModule.Action('GET_ACCOUNT_INFO') getAccountInfo!: Function
     @userModule.Action('AGENCY_USER_INFO') getAgencyUserInfo!: Function
-
-    mounted () {
-        this.accountInfo.wxNickName = '撒旦给'
-    }
 
     // 修改头像
     async avatarChange (imgs: string[]) {
