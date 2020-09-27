@@ -1,6 +1,6 @@
-import { importFiles } from './../../../../assets/ts/utils'
+import { importFiles } from '../../../../assets/ts/utils'
 
-const context = require.context('./', false, /\/((?!onliine-teaching).)+\.ts$/)
+const context = require.context('./', false, /\/((?!online-teaching).)+\.ts$/)
 
 export default [
     {
