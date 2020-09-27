@@ -52,18 +52,14 @@ export default class TemplateItem extends Vue {
         }
     }) readonly data!: TemplateModel | SkinModel
 
-    /* computed */
-    get currentSkinId () {
-        // @ts-ignore
-        return this.$parent.currentSkinId
-    }
+    @Prop(Number) current!: number
 
     get isActive () {
         if (isSkin(this.data)) {
-            return this.data.skinId === this.currentSkinId
+            return this.data.skinId === this.current
         }
         if (isTemplate(this.data)) {
-            return this.data.current
+            return this.data.type === this.current
         }
         return false
     }

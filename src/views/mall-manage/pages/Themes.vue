@@ -16,6 +16,7 @@
                     v-for="(item, index) of templateList"
                     :key="index"
                     :data="item"
+                    :current="currentHomeType"
                     @use="toNextPage(item)"
                     @preview="previewTemplate(item)"
                 />
@@ -31,6 +32,7 @@
                         v-for="(item, index) of dragonGateTemplateList"
                         :key="index"
                         :data="item"
+                        :current="currentActivityType"
                         @use="compose(toNextPage, check)(item)"
                         @preview="compose(previewTemplate, check)(item)"
                     />
@@ -44,6 +46,7 @@
                         v-for="(item, index) of xinchunTemplateList"
                         :key="index"
                         :data="item"
+                        :current="currentActivityType"
                         @use="compose(toNextPage, check)(item)"
                         @preview="compose(previewTemplate, check)(item)"
                     />
@@ -57,6 +60,7 @@
                         v-for="(item, index) of activityTemplateList"
                         :key="index"
                         :data="item"
+                        :current="currentActivityType"
                         @use="compose(toNextPage, check)(item)"
                         @preview="compose(previewTemplate, check)(item)"
                     />
@@ -69,6 +73,7 @@
                     v-for="(item, index) of skinList"
                     :key="index"
                     :data="item"
+                    :current="currentSkinId"
                 >
                     <template #buttons>
                         <el-button plain @click="previewTemplate(item)">
@@ -114,6 +119,7 @@
 /* eslint-disable prefer-spread */
 
 import { Vue, Component } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import {
     getDefaultTemplateList,
     updateSkinStatus,
@@ -137,6 +143,8 @@ import { rebuild } from '../utils/service'
 import { tagMap } from '../utils/map'
 import { isString } from '../utils/helper'
 import { Template, TemplateTypes, TemplateSkinModel } from '../utils/types'
+
+const mall = namespace('mall')
 
 const models = [
     {
@@ -353,6 +361,9 @@ export default class MallThemes extends Vue {
     modalText = ''
 
     /* computed */
+    @mall.Getter('currentHomeType') currentHomeType!: number // 当前首页模板类型
+    @mall.Getter('currentActivityType') currentActivityType!: number // 当前主会场模板类型
+
     get tag () {
         return tagMap[this.previewTmplType]
     }

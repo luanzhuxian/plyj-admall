@@ -298,16 +298,7 @@ export default class MallMain extends Vue {
 
     async created () {
         try {
-            const requests = [
-                this.getCurrentTemplate(1),
-                this.getCurrentTemplate(2),
-                this.getDraft()
-            ]
-
-            await Promise.all(requests.map(p => p.catch(e => {
-                console.error(e)
-                return { result: null }
-            })))
+            await this.getDraft()
         } catch (error) {
             throw error
         }

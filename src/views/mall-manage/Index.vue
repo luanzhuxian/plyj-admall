@@ -42,7 +42,9 @@ export default class MallManage extends Vue {
 
         const requests = [
             getLiveInfo(),
-            getNianweiInfo()
+            getNianweiInfo(),
+            this.getCurrentTemplate(1),
+            this.getCurrentTemplate(2)
         ]
         const [{ result: live = {} }, { result: nianwei = [] }] = await Promise.all(requests.map(p => p.catch(e => {
             console.error(e)
@@ -52,6 +54,9 @@ export default class MallManage extends Vue {
         this.setLiveInfo(live)
         this.setNwEvent(nianwei.length ? nianwei[0] : {})
     }
+
+    /* methods */
+    @mall.Action('getCurrentTemplate') getCurrentTemplate!: (type: number) => Promise<void>
 
     handleTabClick (tab: { name: string; label: string }) {
         this.currentTab = tab.name

@@ -15,8 +15,9 @@ const mall: Module<DynamicObject, DynamicObject> = {
         liveInfo: state => state.liveInfo,
         hasNwEvent: state => state.hasNwEvent,
         currentHome: state => state.currentHome,
-        // currentHomeId: state => state.currentHomeId,
-        currentActivity: state => state.currentActivity
+        currentActivity: state => state.currentActivity,
+        currentHomeType: state => state.currentHome.type,
+        currentActivityType: state => state.currentActivity.type
     },
     mutations: {
         setLiveInfo: (state, payload) => {
@@ -26,12 +27,9 @@ const mall: Module<DynamicObject, DynamicObject> = {
             state.hasNwEvent = !!payload.permissionStatus
         },
         setCurrentHome: (state, payload) => {
-            // state.currentHome = rebuild(payload.type, payload.moduleModels)
             state.currentHome = payload
-            // state.currentHomeId = payload.id
         },
         setCurrentActivity: (state, payload) => {
-            // state.currentActivity = rebuild(payload.type, payload.moduleModels)
             state.currentActivity = payload
         }
     },
