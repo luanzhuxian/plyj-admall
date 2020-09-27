@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { getVideoLibraryList } from '../../apis/product-center/line-teaching/knowledge-course'
+import { getVideoLibraryList } from '../../apis/product-center/online-teaching/knowledge-course'
 export default {
     name: 'SelectVideoCourse',
     props: {

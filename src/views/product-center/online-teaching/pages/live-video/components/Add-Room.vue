@@ -29,7 +29,7 @@
 
 <script>
 import { checkLength } from './../../../../../../assets/ts/validate'
-import { createRoom, updateRoom } from './../../../../../../apis/product-center/line-teaching/live'
+import { createRoom, updateRoom } from './../../../../../../apis/product-center/online-teaching/live'
 export default {
     name: 'AddRoom',
     props: {

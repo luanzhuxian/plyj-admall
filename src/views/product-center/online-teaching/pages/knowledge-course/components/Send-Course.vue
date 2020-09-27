@@ -132,8 +132,8 @@
 <script>
 import { testPhone } from './../../../../../../assets/ts/validate'
 import { getTagList } from './../../../../../../apis/member'
-import { getUserByPhone, getAllUserListByTagId } from './../../../../../../apis/product-center/line-teaching/live'
-import { getSendCourseUsersInfo, submitSendCourseUsersList } from './../../../../../../apis/product-center/line-teaching/knowledge-course'
+import { getUserByPhone, getAllUserListByTagId } from './../../../../../../apis/product-center/online-teaching/live'
+import { getSendCourseUsersInfo, submitSendCourseUsersList } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 
 export default {
     name: 'SendCourse',

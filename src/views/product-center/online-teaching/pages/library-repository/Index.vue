@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { getWaitWarrantyResource } from './../../../../../apis/product-center/line-teaching/repository'
+import { getWaitWarrantyResource } from './../../../../../apis/product-center/online-teaching/library-repository'
 import ResourceWarranty from './components/Resource-Warranty'
 export default {
     name: 'Library',

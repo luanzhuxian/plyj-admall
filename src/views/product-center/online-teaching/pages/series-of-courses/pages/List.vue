@@ -210,8 +210,8 @@
 </template>
 
 <script>
-import { getSeriesCourseList, getCourseDetail, updateCourseStatus } from './../../../../../../apis/product-center/line-teaching/series-of-courses'
-import { showCourse, showCourseSales } from './../../../../../../apis/product-center/line-teaching/knowledge-course'
+import { getSeriesCourseList, getCourseDetail, updateCourseStatus } from './../../../../../../apis/product-center/online-teaching/series-of-courses'
+import { showCourse, showCourseSales } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import CourseList from './../components/Course-list'
 import VideoCoursePreview from './../components/Video-Course-Preview'
 import Share from './../../../../../../components/common/Share'

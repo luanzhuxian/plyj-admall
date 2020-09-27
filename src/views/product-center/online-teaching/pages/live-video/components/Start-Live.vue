@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { getRoomInfoById } from './../../../../../../apis/product-center/line-teaching/live'
+import { getRoomInfoById } from './../../../../../../apis/product-center/online-teaching/live'
 export default {
     name: 'StartLive',
     components: {

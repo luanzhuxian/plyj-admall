@@ -192,7 +192,7 @@ import {
     exportWatchDetail,
     getActiveCompleteInfo,
     cancelGive
-} from './../../../../../../apis/product-center/line-teaching/live'
+} from './../../../../../../apis/product-center/online-teaching/live'
 import { createObjectUrl } from './../../../../../../assets/ts/upload'
 import SendLive from './../components/Send-Live.vue'
 import SelectStudents from './../components/Select-Students.vue'

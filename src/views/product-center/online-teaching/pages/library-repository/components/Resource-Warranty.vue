@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getRoomStatus } from './../../../../../../apis/product-center/line-teaching/live'
+import { getRoomStatus } from './../../../../../../apis/product-center/online-teaching/live'
 export default {
     name: 'ResourceWarranty',
     props: {

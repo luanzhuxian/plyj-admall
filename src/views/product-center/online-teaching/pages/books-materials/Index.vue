@@ -1,5 +1,5 @@
 <template>
-    <div class="line-teaching">
+    <div class="online-teaching">
         <router-view />
     </div>
 </template>

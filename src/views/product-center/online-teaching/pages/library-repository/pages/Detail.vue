@@ -213,7 +213,7 @@
 
 <script>
 import VideoPreview from './../../../../../../components/common/Preview-Video'
-import { getRepositoryDetail } from './../../../../../../apis/product-center/line-teaching/repository'
+import { getRepositoryDetail } from './../../../../../../apis/product-center/online-teaching/library-repository'
 export default {
     name: 'VideoRepositoryDetail',
     components: {

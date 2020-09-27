@@ -203,7 +203,7 @@ import {
     getFlowHasUsed,
     getChanneStatistics,
     getAllRoomsOfDetail
-} from './../../../../../../apis/product-center/line-teaching/live'
+} from './../../../../../../apis/product-center/online-teaching/live'
 const userModule = namespace('user')
 
 @Component({

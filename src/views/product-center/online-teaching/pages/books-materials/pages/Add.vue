@@ -300,7 +300,7 @@ import UserGroup from './../../../../../../components/common/User-Group.vue'
 import MainImageTheme from './../../../../../../components/goods/Main-Image-Theme.vue'
 import BooksMaterialsPreview from './../components/Books-Materials-Preview'
 import { isMoney } from '../../../../../../assets/ts/validate'
-import { addBooksMaterials, getBooksDetail, modifyBooksMaterials } from './../../../../../../apis/product-center/line-teaching/books-materials'
+import { addBooksMaterials, getBooksDetail, modifyBooksMaterials } from './../../../../../../apis/product-center/online-teaching/books-materials'
 import moment from 'moment'
 export default {
     name: 'BooksMaterialsAdd',

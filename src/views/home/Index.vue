@@ -137,7 +137,7 @@
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.memberYesterdayAdds || 0}人` }}</div>
                 </div>
                 <div class="operation-panel__item" :to="{ name: '' }">
-                    <div class="operation-panel__item-name">Helper数</div>
+                    <div class="operation-panel__item-name">helper数</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.helperTotal || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.helperYesterdayAdd || 0}人` }}</div>
                 </div>
@@ -193,7 +193,7 @@ import {
     getProductOrder,
     getOrderInfo
 } from '../../apis/home'
-import { getWaitWarrantyResource } from '../../apis/product-center/line-teaching/repository'
+import { getWaitWarrantyResource } from '../../apis/product-center/online-teaching/library-repository'
 import { getNotificationList, markReaded } from '../../apis/base/message'
 import { getAuthUrl, setAuthCode } from '../../apis/base/register'
 
@@ -566,10 +566,10 @@ export default class Home extends Vue {
         cursor: pointer;
         &:hover,
         &:focus {
-            color: mix(#FFFFFF, #4F63FF, 20%);
+            color: mix(#fff, #4f63ff, 20%);
         }
         &:active {
-            color: mix(#FFFFFF, #4F63FF, 10%);
+            color: mix(#fff, #4f63ff, 10%);
         }
     }
 
@@ -578,7 +578,7 @@ export default class Home extends Vue {
     .operation-panel,
     .to-do-panel {
         padding: 0 36px;
-        border: 1px solid #E7E7E7;
+        border: 1px solid #e7e7e7;
     }
 
     .operation-panel,
@@ -605,14 +605,14 @@ export default class Home extends Vue {
                 font-size: 14px;
                 font-family: Microsoft YaHei;
                 line-height: 19px;
-                color: #333333;
+                color: #333;
             }
             &-desc {
                 margin-top: 4px;
                 font-size: 12px;
                 font-family: Microsoft YaHei;
                 line-height: 16px;
-                color: #999999;
+                color: #999;
             }
         }
         > .pl-cell-group > .pl-panel__content {
@@ -636,7 +636,7 @@ export default class Home extends Vue {
             font-size: 14px;
             font-family: Microsoft YaHei UI;
             line-height: 19px;
-            color: #333333;
+            color: #333;
             &-number {
                 display: block;
                 font-size: 48px;
@@ -644,7 +644,7 @@ export default class Home extends Vue {
                 font-weight: 600;
                 line-height: 64px;
                 &:hover {
-                    color: #4F63FF;
+                    color: #4f63ff;
                 }
             }
             &-link {
@@ -654,7 +654,7 @@ export default class Home extends Vue {
                 align-items: center;
                 margin-left: 40px;
                 margin-bottom: 13px;
-                color: #4F63FF;
+                color: #4f63ff;
                 @extend .home-link;
                 > svg {
                     margin-bottom: 5px;
@@ -674,7 +674,7 @@ export default class Home extends Vue {
             font-size: 16px;
             font-family: Microsoft YaHei UI;
             line-height: 21px;
-            color: #333333;
+            color: #333;
             &-total {
                 font-size: 48px;
                 font-weight: 600;
@@ -683,11 +683,11 @@ export default class Home extends Vue {
             &-yesterday {
                 margin-top: 8px;
                 font-size: 16px;
-                color: #999999;
+                color: #999;
             }
             &:hover {
                 .to-do-panel__item-total {
-                    color: #4F63FF;
+                    color: #4f63ff;
                 }
             }
         }
@@ -699,12 +699,12 @@ export default class Home extends Vue {
             font-size: 16px;
             font-family: Microsoft YaHei;
             font-weight: 600;
-            color: #333333;
+            color: #333;
         }
         &__value {
             font-size: 14px;
             font-family: Microsoft YaHei;
-            color: #4F63FF;
+            color: #4f63ff;
             &-text {
                 @extend .home-link;
             }
@@ -727,8 +727,8 @@ export default class Home extends Vue {
         margin-right: 20px;
     }
     &__content {
-        color: #4F63FF;
-        cursor: pointer
+        color: #4f63ff;
+        cursor: pointer;
     }
     &__btn {
         font-size: 16px;
@@ -736,9 +736,8 @@ export default class Home extends Vue {
     &__more {
         > .notification-bar__btn {
             margin-left: 32px;
-            color: #4F63FF;
+            color: #4f63ff;
         }
-
     }
 }
 

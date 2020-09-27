@@ -177,7 +177,7 @@ import Panel from '../../../../components/common/Panel.vue'
 import Agreement from '../../../../components/register/Agreement'
 import Bought from './../compoonents/Bought.vue'
 import { mapGetters } from 'vuex'
-import { getVideoLibInfo } from './../../../../apis/product-center/line-teaching/knowledge-course'
+import { getVideoLibInfo } from './../../../../apis/product-center/online-teaching/knowledge-course'
 import {
     getSurplusMinute,
     getPayCode,
@@ -185,7 +185,7 @@ import {
     getRoomStatus,
     getOrderDetail,
     retryFalidOrder
-} from './../../../../apis/product-center/line-teaching/live'
+} from './../../../../apis/product-center/online-teaching/live'
 export default {
     name: 'PayAndOrder',
     components: {

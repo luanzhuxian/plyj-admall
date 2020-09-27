@@ -206,7 +206,7 @@ import {
     updateVideoStatus,
     showCourseSales,
     showCourse
-} from './../../../../../../apis/product-center/line-teaching/knowledge-course'
+} from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import { mapGetters } from 'vuex'
 import Share from './../../../../../../components/common/Share.vue'
 import VideoCoursePreview from './../components/Video-Course-Preview'

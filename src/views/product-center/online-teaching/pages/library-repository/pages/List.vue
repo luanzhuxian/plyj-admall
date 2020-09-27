@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.lineTeachingVideoLibrary" class="pb-20 bg-white">
+    <div :class="$style.onlineTeachingVideoLibrary" class="pb-20 bg-white">
         <div :class="$style.content">
             <search-box>
                 <el-form-item label="搜索内容：">
@@ -137,7 +137,7 @@
 
 <script>
 import { getDataDictionary } from './../../../../../../apis/common'
-import { getRepositoryList } from './../../../../../../apis/product-center/line-teaching/repository'
+import { getRepositoryList } from './../../../../../../apis/product-center/online-teaching/library-repository'
 import VideoPreview from './../../../../../../components/common/Preview-Video'
 
 export default {
@@ -218,7 +218,7 @@ export default {
 
 <style module lang='scss'>
 
-.line-teaching-video-library {
+.online-teaching-video-library {
     > .content {
         > .search {
             display: flex;

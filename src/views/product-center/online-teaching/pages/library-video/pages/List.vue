@@ -279,8 +279,8 @@
 import VideoPreview from './../../../../../../components/common/Preview-Video'
 import VideoManager from './../../../../../../components/file/Video-Manager.vue'
 import { deleteImage, downloadFile } from '../../../../../../assets/ts/upload'
-import { getLibraryList, deleteLibraryFile, uploadLibraryFile, getRemainingSpaceSize } from './../../../../../../apis/product-center/line-teaching/video-library'
-import { getVideoLibInfo } from './../../../../../../apis/product-center/line-teaching/knowledge-course'
+import { getLibraryList, deleteLibraryFile, uploadLibraryFile, getRemainingSpaceSize } from './../../../../../../apis/product-center/online-teaching/library-video'
+import { getVideoLibInfo } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 export default {
     name: 'VideoLibraryList',
     components: {

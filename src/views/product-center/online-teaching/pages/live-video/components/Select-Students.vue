@@ -132,7 +132,7 @@
 <script>
 import { testPhone } from './../../../../../../assets/ts/validate'
 import { getTagList } from './../../../../../../apis/member'
-import { getUserByPhone, getLiveSelectStudentInfo, submitLiveSelectStudentList, getAllUserListByTagId } from './../../../../../../apis/product-center/line-teaching/live'
+import { getUserByPhone, getLiveSelectStudentInfo, submitLiveSelectStudentList, getAllUserListByTagId } from './../../../../../../apis/product-center/online-teaching/live'
 
 export default {
     name: 'SendLive',

@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import { getCourseDetail } from './../../../../../../apis/product-center/line-teaching/series-of-courses'
+import { getCourseDetail } from './../../../../../../apis/product-center/online-teaching/series-of-courses'
 export default {
     name: 'CourseList',
     props: {

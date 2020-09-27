@@ -64,7 +64,7 @@
 <script>
 import moment from 'moment'
 import { createObjectUrl } from '../../../../../../assets/ts/upload'
-import { exportBooksMaterials } from './../../../../../../apis/product-center/line-teaching/books-materials'
+import { exportBooksMaterials } from './../../../../../../apis/product-center/online-teaching/books-materials'
 
 export default {
     name: 'ExportOrder',

@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { getWatchStudentList } from './../../../../../../apis/product-center/line-teaching/series-of-courses'
+import { getWatchStudentList } from './../../../../../../apis/product-center/online-teaching/series-of-courses'
 export default {
     name: 'WatchStudentList',
     props: {

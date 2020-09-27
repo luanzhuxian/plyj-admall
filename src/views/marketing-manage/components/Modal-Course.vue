@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { getVideoList } from '../../../apis/product-center/line-teaching/knowledge-course'
+import { getVideoList } from '../../../apis/product-center/online-teaching/knowledge-course'
 
 export default {
     name: 'Modal',

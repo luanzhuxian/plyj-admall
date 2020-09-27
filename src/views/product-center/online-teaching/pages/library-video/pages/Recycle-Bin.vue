@@ -76,7 +76,7 @@
 
 <script>
 import { deleteImage } from '../../../../../../assets/ts/upload'
-import { getDeleteInfo, getRecycleBinData, deleteRecycleBin, deleteLibraryFile, getVideoLibInfo } from './../../../../../../apis/product-center/line-teaching/video-library'
+import { getDeleteInfo, getRecycleBinData, deleteRecycleBin, deleteLibraryFile, getVideoLibInfo } from './../../../../../../apis/product-center/online-teaching/library-video'
 export default {
     name: 'RecycleBin',
     data () {

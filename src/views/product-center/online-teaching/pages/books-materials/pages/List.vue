@@ -236,7 +236,7 @@ import SelectCategory from './../../../../../../components/category/Select-Categ
 import Share from './../../../../../../components/common/Share'
 import SendBooks from './../components/Send-Books.vue'
 import BooksMaterialsPreview from './../components/Books-Materials-Preview'
-import { getBooksList, showSalesBooksMaterials, showBooksMaterials, updateStatusBooksMaterials } from './../../../../../../apis/product-center/line-teaching/books-materials'
+import { getBooksList, showSalesBooksMaterials, showBooksMaterials, updateStatusBooksMaterials } from './../../../../../../apis/product-center/online-teaching/books-materials'
 import { mapGetters } from 'vuex'
 import { resetForm } from '../../../../../../assets/ts/utils'
 export default {

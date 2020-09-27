@@ -113,9 +113,9 @@
 </template>
 
 <script>
-import { getLibraryList } from '../../apis/product-center/line-teaching/live'
+import { getLibraryList } from '../../apis/product-center/online-teaching/live'
 import { deleteImage } from '../../assets/ts/upload'
-import { uploadLibraryFile } from '../../apis/product-center/line-teaching/video-library'
+import { uploadLibraryFile } from '../../apis/product-center/online-teaching/library-video'
 import VideoManager from '../common/file/Video-Manager'
 export default {
     name: 'CheckLiveVideo',

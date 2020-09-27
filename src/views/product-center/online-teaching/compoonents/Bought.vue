@@ -66,7 +66,7 @@ import Agreement from '../../../../components/register/Agreement'
 import {
     checkCard,
     confirmUse
-} from './../../../../apis/product-center/line-teaching/live'
+} from './../../../../apis/product-center/online-teaching/live'
 import Field from '../../../../components/common/Field.vue'
 export default {
     name: 'Bought',

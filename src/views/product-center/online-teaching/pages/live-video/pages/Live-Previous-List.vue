@@ -237,7 +237,7 @@ import {
     getActiveCompleteInfo,
     addPlayBack,
     showLive
-} from './../../../../../../apis/product-center/line-teaching/live'
+} from './../../../../../../apis/product-center/online-teaching/live'
 import { copyFields, resetForm } from './../../../../../../assets/ts/utils'
 export default {
     name: 'LivePrevious',

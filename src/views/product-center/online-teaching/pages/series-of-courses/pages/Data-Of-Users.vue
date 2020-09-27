@@ -190,8 +190,8 @@
 <script>
 import moment from 'moment'
 import ExportData from './../components/Export-Data'
-import { getSingleCourseListDetail, exportSingleCourseDetailDataList } from './../../../../../../apis/product-center/line-teaching/series-of-courses'
-import { submitSendCourseUsersList } from './../../../../../../apis/product-center/line-teaching/knowledge-course'
+import { getSingleCourseListDetail, exportSingleCourseDetailDataList } from './../../../../../../apis/product-center/online-teaching/series-of-courses'
+import { submitSendCourseUsersList } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import { getTagList } from './../../../../../../apis/member'
 import { createObjectUrl } from '../../../../../../assets/ts/upload'
 import WatchDetailList from './../components/Watch-Detail-List'
