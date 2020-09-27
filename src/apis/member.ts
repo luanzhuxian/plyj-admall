@@ -129,12 +129,5 @@ export const getRemarkList = (params: any) => axios.get('/apis/v2/user/remark', 
 
 // 新增备注信息
 export const deleteRemark = (params: any) => axios.delete('/apis/v2/user/remark', { params })
-
-// 查看 当前helper自购订单
-export const getHelperOrderList = (params: any) => axios.get('/apis/v2/course/watch/record', { params })
-
-// 查看 当前helper分享订单
-export const getHelperShareList = (params: any) => axios.get('/apis/v2/course/watch/record', { params })
-
 // 查看 当前helper提现记录
 export const getWithdrawalRecords = (params: any) => axios.get('/v2/helper/account', { params })
