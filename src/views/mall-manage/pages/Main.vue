@@ -16,14 +16,15 @@
                     <el-button type="text" @click="previewCurrent(currentHome)">
                         预览
                     </el-button>
-                    <el-button type="text">
+                    <el-button type="text" @click="$router.push({
+                        name: 'MallDecoration',
+                        query: { from: 'CURRENT', type: 1 }
+                    })">
                         编辑
                     </el-button>
                     <el-button type="text" @click="$router.push({
                         name: 'MallThemes',
-                        query: {
-                            currentTab: 'SKIN'
-                        }
+                        query: { currentTab: 'SKIN' }
                     })">
                         换肤
                     </el-button>
@@ -44,7 +45,10 @@
                     <el-button type="text" @click="previewCurrent(currentActivity)">
                         预览
                     </el-button>
-                    <el-button type="text">
+                    <el-button type="text" @click="$router.push({
+                        name: 'MallDecoration',
+                        query: { from: 'CURRENT', type: 2 }
+                    })">
                         编辑
                     </el-button>
                     <el-button type="text" @click="takeOffCurrentActivityTemplate">
@@ -129,8 +133,8 @@
                             v-if="row.status !== 1"
                             type="text"
                             @click="$router.push({
-                                name: 'Decoration',
-                                query: { from: 'draft', id: row.id }
+                                name: 'MallDecoration',
+                                query: { from: 'DRAFT', id: row.id }
                             })"
                         >
                             编辑

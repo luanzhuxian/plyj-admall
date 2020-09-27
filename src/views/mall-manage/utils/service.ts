@@ -1,5 +1,5 @@
-// import moment from 'moment'
-// import { isCreditNumber } from '../../../assets/ts/validate'
+import moment from 'moment'
+
 import {
     TemplateCrosses,
     TemplateB,
@@ -11,7 +11,7 @@ import {
     TemplateXinChun,
     TemplateDragonGate,
     TemplateModule,
-    TemplateTypes
+    TemplateTypes, TemplateModuleItem
 } from '../utils/types'
 
 // 找到指定模块
@@ -25,7 +25,7 @@ const findModule = function (modules: TemplateModule[]) {
  * rebuild过程中对各个模块做处理
  * @param {object} modules 模板对象，包含多个模块
  * @param {string} name 模块名称
- * @return {object} 模板对象
+ * @return {object} 模块列表
  */
 export const reset = (modules: TemplateModule | undefined, name: string) => {
     if (!modules) return
@@ -121,7 +121,7 @@ export const reset = (modules: TemplateModule | undefined, name: string) => {
  * 将模板数据，从数组重组为对象
  * @param {array} modules 模板数组，包含多个模块
  * @param {number} tmplType 模板类型
- * @return {object} 模板对象，包含多个模块
+ * @return {object} 模块列表
  */
 export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCrosses | object => {
     const findModuleById = findModule(modules)
@@ -237,4 +237,74 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Recommend = reset(findModuleById(4), 'Recommend')
     }
     return templateModel || {}
+}
+
+/**
+ * 整理数据为最初拿到的格式
+ * @param {array} modules 模板数组，包含多个模块
+ * @param {number} tmplType 模板类型
+ * @return {object} 模块列表
+ */
+export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number): TemplateModule[] => {
+    const moduleModels = JSON.parse(JSON.stringify(modules))
+
+    for (const name of ['Popular', 'Class', 'Fengqiang']) {
+        if (name in moduleModels) {
+            // goodsSource: 1 分类来源, 2 商品来源
+            moduleModels[name].otherValue = moduleModels[name].goodsSource === 1 ? moduleModels[name].otherValue : ''
+            moduleModels[name].otherInfo = moduleModels[name].goodsSource === 1 ? moduleModels[name].otherInfo : ''
+            moduleModels[name].number = moduleModels[name].goodsSource === 1 ? moduleModels[name].number : ''
+            moduleModels[name].values = moduleModels[name].goodsSource === 1 ? [] : moduleModels[name].productValues
+            Reflect.deleteProperty(moduleModels[name], 'productValues')
+            Reflect.deleteProperty(moduleModels[name], 'categoryValues')
+        }
+    }
+    if ('Appointment' in moduleModels) {
+        moduleModels.Appointment.values = moduleModels.Appointment.values.filter((item: TemplateModuleItem) => item.value)
+    }
+    if (moduleModels.Propagate) {
+        moduleModels.Propagate.values = []
+    }
+    for (const name of ['Live', 'OnlineCourse', 'SeriesCourse', 'ImageText']) {
+        if (moduleModels[name]) {
+            moduleModels[name].number = moduleModels[name].styleType === 1 ? '' : moduleModels[name].number
+            moduleModels[name].values = moduleModels[name].styleType === 1 ? moduleModels[name].defaultValues : moduleModels[name].backupValues
+            Reflect.deleteProperty(moduleModels[name], 'defaultValues')
+            Reflect.deleteProperty(moduleModels[name], 'backupValues')
+        }
+    }
+    if (moduleModels.Live) {
+        moduleModels.Live.values = []
+        Reflect.deleteProperty(moduleModels.Live, 'nowCount')
+        Reflect.deleteProperty(moduleModels.Live, 'futrueCount')
+        Reflect.deleteProperty(moduleModels.Live, 'pastCount')
+    }
+
+    if (moduleModels.Miaosha) {
+        for (const item of moduleModels.Miaosha.values) {
+            if (item.goodsInfo.length) {
+                const arr = item.goodsInfo.map((prod: DynamicObject) => prod.activityInfo.id)
+                item.value = arr.join(',')
+            }
+            if (item.range && item.range.length) {
+                item.range[0] = moment(item.range[0]).format('YYYY-MM-DD HH:mm:ss')
+                item.range[1] = moment(item.range[1]).format('YYYY-MM-DD HH:mm:ss')
+                item.valueName = item.range.join(',')
+            }
+            Reflect.deleteProperty(item, 'range')
+        }
+    }
+    if (moduleModels.Chunyun) {
+        moduleModels.Chunyun.values = []
+    }
+    if (moduleModels.Package && moduleModels.Package.values.length) {
+        moduleModels.Package.values = moduleModels.Package.values.map(({ id }: { id: string }) => ({ value: id }))
+    }
+
+    // 龙门节主会场
+    if (tmplType === TemplateTypes.TemplateDragonGate) {
+        moduleModels.Charity.values = []
+        moduleModels.Activity.values = []
+    }
+    return Object.values(moduleModels) || []
 }

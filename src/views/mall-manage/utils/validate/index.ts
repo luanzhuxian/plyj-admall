@@ -9,7 +9,7 @@ import {
 } from './template-validator'
 import { TemplateCrosses } from '../types'
 
-const validatorProducer = (tmplType: string, moduleModels: TemplateCrosses | object) => {
+const validatorProducer = (tmplType: number, moduleModels: TemplateCrosses | object) => {
     const map: DynamicObject = {
         '-1': TemplateCValidator,
         3: TemplateBValidator,

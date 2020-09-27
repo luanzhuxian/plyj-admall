@@ -74,7 +74,7 @@ export default class EditorPropagate extends Vue {
     }) data!: TemplateModule
 
     /* computed */
-    isRadioDisable () {
+    get isRadioDisable () {
         return !this.data.values || !this.data.values.length || !this.data.values[0].mallBrandingRequestModels || this.data.values[0].mallBrandingRequestModels.length === 0
     }
 

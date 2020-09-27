@@ -97,6 +97,7 @@ import { findBrothersComponents, isPlainObject } from '../utils/helper'
 })
 export default class EditorMiaosha extends Vue {
     /* props */
+    @Prop(Boolean) show!: boolean
     // 禁止编辑模块标题
     @Prop(Boolean) disabled!: boolean
     // 商品列表是否可以删光

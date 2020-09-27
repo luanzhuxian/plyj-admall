@@ -9,7 +9,8 @@ const mall: Module<DynamicObject, DynamicObject> = {
         // 是否展示年味活动
         hasNwEvent: false,
         currentHome: {},
-        currentActivity: {}
+        currentActivity: {},
+        loaded: false
     },
     getters: {
         liveInfo: state => state.liveInfo,
@@ -17,7 +18,8 @@ const mall: Module<DynamicObject, DynamicObject> = {
         currentHome: state => state.currentHome,
         currentActivity: state => state.currentActivity,
         currentHomeType: state => state.currentHome.type,
-        currentActivityType: state => state.currentActivity.type
+        currentActivityType: state => state.currentActivity.type,
+        currentTemplateLoaded: state => state.loaded
     },
     mutations: {
         setLiveInfo: (state, payload) => {
@@ -31,6 +33,9 @@ const mall: Module<DynamicObject, DynamicObject> = {
         },
         setCurrentActivity: (state, payload) => {
             state.currentActivity = payload
+        },
+        setLoaded: state => {
+            state.loaded = true
         }
     },
     actions: {
@@ -40,10 +45,12 @@ const mall: Module<DynamicObject, DynamicObject> = {
                 // 当前首页
                 if (type === 1) {
                     commit('setCurrentHome', result)
+                    commit('setLoaded')
                 }
                 // 当前主会场
                 if (type === 2) {
                     commit('setCurrentActivity', result)
+                    commit('setLoaded')
                 }
                 // return result
             } catch (error) {

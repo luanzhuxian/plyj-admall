@@ -139,9 +139,23 @@ export default class Countdown extends Vue {
     }
 
     @Watch('duration', { immediate: true, deep: true })
-    onChange (newVal: number) {
-        this.reset(newVal)
+    reset (duration: number) {
+        if (!duration) {
+            return false
+        }
+        if (!this.raf) {
+            this.raf = new Raf()
+        }
+        this.pause()
+        this.remain = +this.duration
+
+        if (this.autoStart) {
+            this.start()
+        }
     }
+    // onChange (newVal: number) {
+    //     this.reset(newVal)
+    // }
 
     activated () {
         if (this.isKeepAlivePaused) {
@@ -205,21 +219,6 @@ export default class Countdown extends Vue {
         this.isCounting = false
         if (this.raf) {
             this.raf.clear(this.rafId)
-        }
-    }
-
-    reset (duration: number) {
-        if (!duration) {
-            return false
-        }
-        if (!this.raf) {
-            this.raf = new Raf()
-        }
-        this.pause()
-        this.remain = +this.duration
-
-        if (this.autoStart) {
-            this.start()
         }
     }
 }

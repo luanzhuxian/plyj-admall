@@ -188,7 +188,7 @@ export default class EditorAdv extends Vue {
     /* watch */
     @Watch('data', { immediate: true, deep: true })
     onChange (val: TemplateModule) {
-        if (!val) return
+        if (!val || !val.values) return
 
         const list = val.values.filter(item => item.value).map(item => item.value)
         for (const option of this.defaultOptions) {
@@ -198,7 +198,7 @@ export default class EditorAdv extends Vue {
 
     /* methods */
     onSelectChange (index: number) {
-        console.log(index)
+        console.log(`select ${ index }`)
     }
 
     selectImage (index: number) {
