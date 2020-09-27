@@ -16,7 +16,6 @@ export default [
                     title: '列表'
                 }
             },
-            // 详情
             {
                 path: '/product-center/online-teaching/library-repository/detail/:id',
                 name: 'VideoRepositoryDetail',

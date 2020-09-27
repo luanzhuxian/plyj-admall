@@ -13,7 +13,7 @@
                 </el-button>
                 <el-button
                     round
-                    @click="$router.push({ name: 'LineTeachingOrder' })"
+                    @click="$router.push({ name: 'SubscriptionService' })"
                 >
                     订单记录
                 </el-button>

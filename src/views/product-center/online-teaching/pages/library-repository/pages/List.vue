@@ -55,7 +55,7 @@
                     >
                         查询
                     </el-button>
-                    <el-button round @click="$router.push({name: 'LineTeachingOrderOfRepository'})">
+                    <el-button round @click="$router.push({name: 'SubscriptionServiceOfRepository'})">
                         订单记录
                     </el-button>
                 </el-form-item>
