@@ -53,14 +53,14 @@
             <el-form-item>
                 <el-button
                     type="primary"
-                    size="mini"
+                    round
                     @click="search"
                 >
                     查询
                 </el-button>
                 <el-button
                     type="text"
-                    size="mini"
+                    round
                     @click="resetForm"
                 >
                     清空筛选条件

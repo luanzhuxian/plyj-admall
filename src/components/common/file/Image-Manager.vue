@@ -325,7 +325,6 @@ export default {
                     }
                     // TODO: 老的注册流程取消后删除此事件，不要再用了，用change事件中的blobList代替
                     this.$emit('imageChange', blob)
-                    console.log(123123)
                     const { url } = await upload(blob)
                     this.$set(this.fileList, i, blob)
                     blob.progress = 1

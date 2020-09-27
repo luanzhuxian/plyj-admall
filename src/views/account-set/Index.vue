@@ -145,6 +145,7 @@ import { updateAvatarOrName, updateMobile, WxBind, WxUnBind } from '../../apis/a
 import { getVerifyCodeFunc, checkMobileCode } from '../../apis/common'
 import SendCode from "./../../components/common/Send-Code.vue";
 import { testName, testPhone } from '../../assets/ts/validate'
+import {Watch} from "vue-property-decorator";
 const userModule = namespace('user')
 @Component({
     components: {
@@ -196,7 +197,11 @@ export default class AccountSet extends Vue {
     @userModule.Action('AGENCY_USER_INFO') getAgencyUserInfo!: Function
     @State('bindWechatInfo') bindWechatInfo!: DynamicObject
     @State('weChatStyle') weChatStyle!: string
-
+    @Watch('accountInfo')
+    onAccountInfoChange (val: DynamicObject) {
+        const avatar = val.headImgUrl
+        this.avatar = avatar ? [avatar] : []
+    }
     async mounted () {
         const wechatCode = sessionStorage.getItem('redirect_code')
         if (wechatCode) {

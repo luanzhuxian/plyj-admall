@@ -62,7 +62,8 @@ const user: Module<DynamicObject, DynamicObject> = {
             unionId: '',
             updateTime: '',
             wxHeadImgUrl: '',
-            wxNickName: ''
+            wxNickName: '',
+            headImgUrl: ''
         },
         // 注册步骤
         currentStep,
@@ -202,6 +203,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
         // 缓存机构列表
         [types.GET_ACCOUNT_INFO]: (state, payload) => {
+            console.log(payload)
             state.accountInfo = payload
         },
         // 缓存当前机构
