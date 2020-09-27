@@ -76,7 +76,7 @@ export const getOrderList = (params: any) => axios.get('/apis/v2/user/order', { 
 export const getLiveWatchList = (params: any) => axios.get('/apis/v2/live/visitor', { params })
 
 // 账户中心查看订单数据
-export const getLineLearningList = (params: any) => axios.get('/apis/v2/course/watch/record', { params })
+export const getLineLearningList = (params: any) => axios.post('/apis/v2/course/watch/record', params)
 // 账户中心导出数据
 export const exportOrderDetail = (params: any) => axios.get('/apis/v2/order/agency/employeeOrders/export', {
     timeout: 0,
