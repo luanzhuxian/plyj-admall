@@ -41,7 +41,7 @@
                     />
                     <Field
                         title="地址："
-                        :text="helperDetail.addressPath + helperDetail.address || '--'"
+                        :text="helperDetail.address || '--'"
                     />
                     <Field
                         title="来源："

@@ -7,10 +7,10 @@
         @close="closeHandler"
         :close-on-click-modal="false"
     >
-        <div class="current-account-info" v-if="currentUserInfo.mallUserId">
+        <div class="current-account-info" v-if="currentUserInfo.mallUserId || currentUserInfo.id">
             <p>
                 <b>Helper用户</b>
-                <span>{{ currentUserInfo.userName }}({{ currentUserInfo.mobile }})</span>
+                <span>{{ currentUserInfo.userName || currentUserInfo.name }}({{ currentUserInfo.mobile }})</span>
             </p>
             <p>
                 <b>当前所属账号</b>
