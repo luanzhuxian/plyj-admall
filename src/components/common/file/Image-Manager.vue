@@ -142,7 +142,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { compress, upload, deleteImage, createObjectUrl } from '../../../assets/ts/upload'
 import ImageSelector from './File-Selector.vue'
 import EditImage from './Edit-Image.vue'
@@ -175,6 +174,7 @@ export default {
         event: 'change'
     },
     props: {
+
         /*
          * 用来显示已上传的图片，如果你需要此组件内置的图片列表，那么你必须传入此参数
          * 格式：['src1', 'src2']

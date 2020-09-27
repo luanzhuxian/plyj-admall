@@ -489,7 +489,7 @@ export default {
             receiveAddressList: 'goods/receiveAddressList'
         })
     },
-    async activated () {
+    async created () {
         if (this.$route.params.id) this.form.keywords = this.$route.params.id
         this.form.orderStatus = this.$route.query.status || ''
         this.goodsTypes = this.$route.query.productType || ''

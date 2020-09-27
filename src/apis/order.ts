@@ -192,7 +192,7 @@ export const batchAuditredeemcode = ({ orderId }) => axios.post('/apis/v2/redeem
 export const singleAuditredeemcode = ({ redeemId }) => axios.post('/apis/v2/redeem/single/audit', null, { params: { redeemId } })
 
 // 核销人员查询
-export const redeemUserList = () => axios.get('/apis/v1/base/baseUserInfo/redeemUserList')
+export const redeemUserList = () => axios.get('/apis/v2/base/baseUserInfo/redeemUserList')
 
 // 查询网校订单列表
 export const getNetSchoolOrderList = params => axios.get('/apis/v1/knowledgeCourse/findOrderList', { params })
