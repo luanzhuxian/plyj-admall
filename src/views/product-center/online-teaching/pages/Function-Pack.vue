@@ -13,7 +13,7 @@
                 </el-button>
                 <el-button
                     round
-                    @click="$router.push({ name: 'LineTeachingOrder' })"
+                    @click="$router.push({ name: 'SubscriptionService' })"
                 >
                     订单记录
                 </el-button>
@@ -162,8 +162,8 @@ import SchemeLabel from './../../../marketing-manage/components/Scheme-Label.vue
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 import OnlinePack from './../compoonents/Online-Pack.vue'
 
-import { getRoomStatus } from './../../../../apis/product-center/line-teaching/live'
-import { getLineTeachingInfo } from './../../../../apis/product-center/line-teaching/knowledge-course'
+import { getRoomStatus } from './../../../../apis/product-center/online-teaching/live'
+import { getLineTeachingInfo } from './../../../../apis/product-center/online-teaching/knowledge-course'
 
 @Component({
     components: {

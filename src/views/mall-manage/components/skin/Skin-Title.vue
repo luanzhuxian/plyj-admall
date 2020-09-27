@@ -13,7 +13,6 @@
         <title-children-day v-if="skinId === 11" :data="data" />
         <title-fathers-day v-if="skinId === 12" :data="data" />
         <title-dragon-boat v-if="skinId === 13" :data="data" />
-        <title-campaign v-if="skinId === 99" :data="data" />
     </div>
 </template>
 
@@ -32,7 +31,6 @@ import TitleMothersDay from './Title-Mothers-Day.vue'
 import TitleChildrenDay from './Title-Children-Day.vue'
 import TitleFathersDay from './Title-Fathers-Day.vue'
 import TitleDragonBoat from './Title-Dragon-Boat.vue'
-import TitleCampaign from './Title-Campaign.vue'
 
 @Component({
     components: {
@@ -48,8 +46,7 @@ import TitleCampaign from './Title-Campaign.vue'
         TitleMothersDay,
         TitleChildrenDay,
         TitleFathersDay,
-        TitleDragonBoat,
-        TitleCampaign
+        TitleDragonBoat
     }
 })
 export default class SkinTitle extends Vue {

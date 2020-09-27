@@ -20,7 +20,7 @@
                 @click="onClick('Banner')"
             >
                 <div :class="$style.wrapper">
-                    <Banner :data="Banner" :tmpl-id="tmplId" />
+                    <Banner :data="Banner" :tmpl-type="tmplType" />
                 </div>
             </div>
             <!-- 优惠券 -->
@@ -388,7 +388,7 @@ export default class TemplateD extends Vue {
         }
     }) readonly data!: TemplateDType
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
     @Prop(Number) skinId!: number
     @Prop({
         type: Boolean,

@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { getWatchDetailList } from './../../../../../../apis/product-center/line-teaching/series-of-courses'
+import { getWatchDetailList } from './../../../../../../apis/product-center/online-teaching/series-of-courses'
 export default {
     name: 'WatchDetailList',
     props: {

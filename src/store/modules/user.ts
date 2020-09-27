@@ -62,7 +62,8 @@ const user: Module<DynamicObject, DynamicObject> = {
             unionId: '',
             updateTime: '',
             wxHeadImgUrl: '',
-            wxNickName: ''
+            wxNickName: '',
+            headImgUrl: ''
         },
         // 注册步骤
         currentStep,
@@ -158,9 +159,6 @@ const user: Module<DynamicObject, DynamicObject> = {
             Cookie.remove('agencyCode')
             Cookie.remove('mallId')
             sessionStorage.removeItem('currentStep')
-            sessionStorage.removeItem('MAIN_NAVBAR_SELECTED')
-            sessionStorage.removeItem('MAIN_NAVBAR_OPENED')
-            sessionStorage.removeItem('MAIN_NAVBAR_CLOSED')
         },
         // 缓存权限列表
         // [types.SET_POWER_LIST]: (state, payload) => {

@@ -51,7 +51,7 @@ import 'v-charts/lib/style.css'
 import {
     getHistoryData
     // getCountInTwoMinute
-} from './../../../../../../apis/product-center/line-teaching/live'
+} from './../../../../../../apis/product-center/online-teaching/live'
 import moment from 'moment'
 import VCharts from 'v-charts'
 const VeLine = VCharts.VeLine

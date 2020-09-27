@@ -1,89 +1,103 @@
 <template>
     <div :class="$style.mallThemes">
-        <PlSvg name="icon-ygxfb-e36c1" height="80" />
-        <!--  首页  -->
-        <div :class="$style.mallThemesList" v-show="type === 'home'">
-            <TemplateItem
-                v-for="(item, index) of templateList"
-                :key="index"
-                :data="item"
-                @use="toNextPage(item)"
-                @preview="previewTemplate(item)"
+        <el-tabs :value="currentTab" type="card" @tab-click="handleTabClick">
+            <el-tab-pane
+                v-for="item in tabs"
+                :key="item.name"
+                :label="item.label"
+                :name="item.name"
             />
-        </div>
+        </el-tabs>
 
-        <!--  主会场  -->
-        <div v-show="type === 'activity'">
-            <div :class="$style.mallThemesTitle" v-if="dragonGateTemplateList.length">
-                龙门节主会场（仅在主会场按钮下显示）
-            </div>
-            <div :class="$style.mallThemesList" v-if="dragonGateTemplateList.length">
+        <div :class="$style.mallThemesContainer">
+            <!--  首页  -->
+            <div :class="$style.mallThemesList" v-show="currentTab === 'HOME'">
                 <TemplateItem
-                    v-for="(item, index) of dragonGateTemplateList"
+                    v-for="(item, index) of templateList"
                     :key="index"
                     :data="item"
-                    @use="compose(toNextPage, check)(item)"
-                    @preview="compose(previewTemplate, check)(item)"
+                    :current="currentHomeType"
+                    @use="toNextPage(item)"
+                    @preview="previewTemplate(item)"
                 />
             </div>
 
-            <div :class="$style.mallThemesTitle" v-if="xinchunTemplateList.length">
-                新春主会场（仅在主会场按钮下显示）
-            </div>
-            <div :class="$style.mallThemesList" v-if="xinchunTemplateList.length">
-                <TemplateItem
-                    v-for="(item, index) of xinchunTemplateList"
-                    :key="index"
-                    :data="item"
-                    @use="compose(toNextPage, check)(item)"
-                    @preview="compose(previewTemplate, check)(item)"
-                />
+            <!--  主会场  -->
+            <div v-show="currentTab === 'ACTIVITY'">
+                <div :class="$style.mallThemesTitle" v-if="dragonGateTemplateList.length">
+                    龙门节主会场（仅在主会场按钮下显示）
+                </div>
+                <div :class="$style.mallThemesList" v-if="dragonGateTemplateList.length">
+                    <TemplateItem
+                        v-for="(item, index) of dragonGateTemplateList"
+                        :key="index"
+                        :data="item"
+                        :current="currentActivityType"
+                        @use="compose(toNextPage, check)(item)"
+                        @preview="compose(previewTemplate, check)(item)"
+                    />
+                </div>
+
+                <div :class="$style.mallThemesTitle" v-if="xinchunTemplateList.length">
+                    新春主会场（仅在主会场按钮下显示）
+                </div>
+                <div :class="$style.mallThemesList" v-if="xinchunTemplateList.length">
+                    <TemplateItem
+                        v-for="(item, index) of xinchunTemplateList"
+                        :key="index"
+                        :data="item"
+                        :current="currentActivityType"
+                        @use="compose(toNextPage, check)(item)"
+                        @preview="compose(previewTemplate, check)(item)"
+                    />
+                </div>
+
+                <div :class="$style.mallThemesTitle" v-if="activityTemplateList.length">
+                    双十二主会场（仅在主会场按钮下显示）
+                </div>
+                <div :class="$style.mallThemesList" v-if="activityTemplateList.length">
+                    <TemplateItem
+                        v-for="(item, index) of activityTemplateList"
+                        :key="index"
+                        :data="item"
+                        :current="currentActivityType"
+                        @use="compose(toNextPage, check)(item)"
+                        @preview="compose(previewTemplate, check)(item)"
+                    />
+                </div>
             </div>
 
-            <div :class="$style.mallThemesTitle" v-if="activityTemplateList.length">
-                双十二主会场（仅在主会场按钮下显示）
-            </div>
-            <div :class="$style.mallThemesList" v-if="activityTemplateList.length">
+            <!--  皮肤  -->
+            <div :class="$style.mallThemesList" v-show="currentTab === 'SKIN'">
                 <TemplateItem
-                    v-for="(item, index) of activityTemplateList"
+                    v-for="(item, index) of skinList"
                     :key="index"
                     :data="item"
-                    @use="compose(toNextPage, check)(item)"
-                    @preview="compose(previewTemplate, check)(item)"
-                />
+                    :current="currentSkinId"
+                >
+                    <template #buttons>
+                        <el-button plain @click="previewTemplate(item)">
+                            预览皮肤
+                        </el-button>
+                        <el-button plain @click="cancelSkin" v-if="item.skinId === currentSkinId">
+                            取消换肤
+                        </el-button>
+                        <el-button plain @click="asyncCompose(updateSkin, checkIsExpired)(item)" v-else>
+                            立即换肤
+                        </el-button>
+                    </template>
+                </TemplateItem>
             </div>
-        </div>
-
-        <!--  皮肤  -->
-        <div :class="$style.mallThemesList" v-show="type === 'skin'">
-            <TemplateItem
-                v-for="(item, index) of skinList"
-                :key="index"
-                :data="item"
-            >
-                <template #buttons>
-                    <el-button plain @click="previewTemplate(item)">
-                        预览皮肤
-                    </el-button>
-                    <el-button plain @click="cancelSkin" v-if="item.skinId === currentSkinId">
-                        取消换肤
-                    </el-button>
-                    <el-button plain @click="asyncCompose(updateSkin, checkIsExpired)(item)" v-else>
-                        立即换肤
-                    </el-button>
-                </template>
-            </TemplateItem>
         </div>
 
         <!--  预览  -->
-        <TemplatePreview :show.sync="templatePreviewShow">
+        <TemplatePreview :show.sync="showPreview">
             <Render
-                :tmpl-id="tmplId"
-                :skin-id="skinId"
-                :data="templateModels"
+                :tmpl-type="previewTmplType"
+                :skin-id="previewSkinId"
+                :data="previewData"
                 is-preview
                 is-empty-show
-                is-campaign-hide
                 :is-clickable="false"
                 :render="(h, props) => h(tag, { props })"
             />
@@ -104,7 +118,8 @@
 <script lang="ts">
 /* eslint-disable prefer-spread */
 
-import { Vue, Component, Watch } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import {
     getDefaultTemplateList,
     updateSkinStatus,
@@ -126,7 +141,10 @@ import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
 import { rebuild } from '../utils/service'
 import { tagMap } from '../utils/map'
-import { Template, TemplateIds, TemplateSkinModel } from '../utils/types'
+import { isString } from '../utils/helper'
+import { Template, TemplateTypes, TemplateSkinModel } from '../utils/types'
+
+const mall = namespace('mall')
 
 const models = [
     {
@@ -315,63 +333,72 @@ const skinModles = [
 })
 export default class MallThemes extends Vue {
     /* data */
+    tabs = [
+        { label: '首页模板', name: 'HOME' },
+        { label: '主会场模板', name: 'ACTIVITY' },
+        { label: '皮肤主题', name: 'SKIN' }
+    ]
+
+    currentTab = 'HOME'
     templateList: Template[] = []
     activityTemplateList: Template[] = []
     xinchunTemplateList: Template[] = []
     dragonGateTemplateList: Template[] = []
     skinList: TemplateSkinModel[] = []
-    templateModels = {}
-    templatePreviewShow = false
-    tmplId = 0 // 预览模板id
-    skinId = 0 // 预览皮肤id
     currentSkinId = 0 // 当前使用皮肤
+
+    // 预览
+    showPreview = false
+    previewData = {}
+    previewTmplType = 0 // 预览模板id
+    previewSkinId = 0 // 预览皮肤id
+
+    // 使用权限
+    showAlertModal = false // 提醒弹窗
     isD12Available = false // 双十二权限
     isXinchunAvailable = false // 新春权限
     isDragonGateAvailable = false // 龙门节权限
-    showAlertModal = false
     modalText = ''
-    type = ''
 
     /* computed */
-    get tag () {
-        return tagMap[this.tmplId]
-    }
+    @mall.Getter('currentHomeType') currentHomeType!: number // 当前首页模板类型
+    @mall.Getter('currentActivityType') currentActivityType!: number // 当前主会场模板类型
 
-    /* watch */
-    @Watch('$route.path', { immediate: true })
-    async onChange (val: string) {
-        if (!val) return
-        const map: DynamicObject = {
-            '/mall-manage/themes/template-home': 'home',
-            '/mall-manage/themes/template-activity': 'activity',
-            '/mall-manage/themes/skin': 'skin'
-        }
-        this.type = map[val]
-        if (this.type && !this.templateList.length) {
-            this.getDefaultTemplate()
-        }
+    get tag () {
+        return tagMap[this.previewTmplType]
     }
 
     async created () {
         try {
-            // 获取当前皮肤
-            getSkinStatus({ type: 1 }).then(({ result }) => {
-                this.currentSkinId = result
-            })
-            // 获取主会场模板使用权限
-            getActivityAuth().then(({ result }) => {
-                // lockStatus: 1 '开启', 2: '过期', 3: '未开启活动'
-                const [d12 = {}, xinChun = {}, dragonGate = {}] = result
-                this.isD12Available = d12.lockStatus === 1
-                this.isXinchunAvailable = xinChun.lockStatus === 1
-                this.isDragonGateAvailable = dragonGate.lockStatus === 1
-            })
+            const { currentTab } = this.$route.query
+            if (currentTab && isString(currentTab) && ['HOME', 'ACTIVITY', 'SKIN'].includes(currentTab)) {
+                this.currentTab = currentTab
+            }
+
+            const requests = [
+                this.getDefaultTemplate(),
+                this.getActivityAuth(),
+                this.getSkinStatus()
+            ]
+
+            await Promise.all(requests.map(p => p.catch(e => {
+                console.error(e)
+                return { result: null }
+            })))
         } catch (error) {
             throw error
         }
     }
 
     /* methods */
+    async handleTabClick (tab: { name: '' }) {
+        try {
+            this.currentTab = tab.name
+        } catch (error) {
+            throw error
+        }
+    }
+
     async getDefaultTemplate () {
         try {
             const data = await getDefaultTemplateList()
@@ -381,23 +408,28 @@ export default class MallThemes extends Vue {
                     const model = models.find(m => m.type === item.type)
                     Object.assign(item, model)
                 }
+
                 // 首页模版
                 this.templateList = result.filter(item => ~[
-                    TemplateIds.TemplateB,
-                    TemplateIds.TemplateB2,
-                    TemplateIds.TemplateC,
-                    TemplateIds.TemplateD
+                    TemplateTypes.TemplateB,
+                    TemplateTypes.TemplateB2,
+                    TemplateTypes.TemplateC,
+                    TemplateTypes.TemplateD
                 ].indexOf(item.type))
+
                 // 双12主会场模版
                 this.activityTemplateList = result.filter(item => ~[
-                    TemplateIds.TemplateFengQiang,
-                    TemplateIds.TemplateBaoFa,
-                    TemplateIds.TemplateFanChang
+                    TemplateTypes.TemplateFengQiang,
+                    TemplateTypes.TemplateBaoFa,
+                    TemplateTypes.TemplateFanChang
                 ].indexOf(item.type))
+
                 // 新春主会场模版
-                this.xinchunTemplateList = result.filter(item => item.type === TemplateIds.TemplateXinChun)
+                this.xinchunTemplateList = result.filter(item => item.type === TemplateTypes.TemplateXinChun)
+
                 // 龙门节主会场模版
-                this.dragonGateTemplateList = result.filter(item => item.type === TemplateIds.TemplateDragonGate)
+                this.dragonGateTemplateList = result.filter(item => item.type === TemplateTypes.TemplateDragonGate)
+
                 // 皮肤
                 this.skinList = skinModles
                     .map(model => {
@@ -414,15 +446,39 @@ export default class MallThemes extends Vue {
         }
     }
 
+    // 获取主会场模板使用权限
+    // lockStatus: 1 '开启', 2: '过期', 3: '未开启活动'
+    async getActivityAuth () {
+        try {
+            const { result } = await getActivityAuth()
+            const [d12 = {}, xinChun = {}, dragonGate = {}] = result
+            this.isD12Available = d12.lockStatus === 1
+            this.isXinchunAvailable = xinChun.lockStatus === 1
+            this.isDragonGateAvailable = dragonGate.lockStatus === 1
+        } catch (error) {
+            throw error
+        }
+    }
+
+    // 获取当前皮肤
+    async getSkinStatus () {
+        try {
+            const { result } = await getSkinStatus({ type: 1 })
+            this.currentSkinId = result
+        } catch (error) {
+            throw error
+        }
+    }
+
     // 预览
     previewTemplate (item: Template | TemplateSkinModel) {
         if (!item) return false
         if ('skinId' in item) {
-            this.skinId = item.skinId
+            this.previewSkinId = item.skinId
         }
-        this.tmplId = item.type
-        this.templateModels = rebuild(this.tmplId, item.moduleModels)
-        this.templatePreviewShow = true
+        this.previewTmplType = item.type
+        this.previewData = rebuild(item.type, item.moduleModels)
+        this.showPreview = true
     }
 
     toNextPage ({ type }: { type: number }) {
@@ -432,7 +488,7 @@ export default class MallThemes extends Vue {
 
     // 检查是否有模板使用权限
     check (item: Template) {
-        if (~[TemplateIds.TemplateFengQiang, TemplateIds.TemplateBaoFa, TemplateIds.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
+        if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
             this.modalText = '双十二'
             this.showAlertModal = true
             return false
@@ -535,16 +591,17 @@ export default class MallThemes extends Vue {
 <style module lang="scss">
 .mall-themes {
     min-height: calc(100vh - 160px);
-    padding: 60px 100px;
-    background-color: #fff;
+    &-container {
+        margin-top: 30px;
+    }
     &-title {
         font-size: 18px;
         font-weight: bolder;
-        margin-bottom: 30px;
     }
     &-list {
         display: flex;
         flex-wrap: wrap;
+        margin-top: 50px;
     }
 }
 

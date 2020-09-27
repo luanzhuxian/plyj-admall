@@ -391,8 +391,8 @@ import VideoCoursePreview from './../components/Video-Course-Preview'
 
 import { SectionToChinese } from '../../../../../../assets/ts/utils'
 import { checkLength, isMoney } from '../../../../../../assets/ts/validate'
-import { addVideoCourse, getVideoDetail } from './../../../../../../apis/product-center/line-teaching/knowledge-course'
-import { getResourceInfoById } from './../../../../../../apis/product-center/line-teaching/video-library'
+import { addVideoCourse, getVideoDetail } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
+import { getResourceInfoById } from './../../../../../../apis/product-center/online-teaching/library-video'
 import moment from 'moment'
 import SelectCategory from './../../../../../../components/category/Select-Category.vue'
 

@@ -4,7 +4,8 @@ export default [
         name: 'Recommend',
         component: () => import('../../../views/product-center/recommend/Recommend.vue'),
         meta: {
-            title: '推荐榜单'
+            title: '推荐榜单',
+            index: '2-6'
         },
         children: [
             {

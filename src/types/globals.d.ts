@@ -54,4 +54,21 @@ declare global {
     interface DynamicObject {
         [propName: string]: any;
     }
+
+    // 路由属性
+    interface Route {
+        meta?: {
+            title?: string;
+            index?: string;
+        };
+        name: string;
+        path: string;
+        redirect: string;
+        regex: RegExp;
+        parent: Route;
+        matched: Route[];
+        params: DynamicObject;
+        query: DynamicObject;
+        fullPath: string;
+    }
 }

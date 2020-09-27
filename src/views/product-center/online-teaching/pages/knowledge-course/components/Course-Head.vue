@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { getStatistics } from './../../../../../../apis/product-center/line-teaching/knowledge-course'
+import { getStatistics } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import NoticeOfCourseDataChange from './Notice-Of-Course-Data-Change'
 export default {
     name: 'KnowledgeCourseHead',

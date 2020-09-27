@@ -5,7 +5,8 @@ export default [
         redirect: '/user-center/helper-manage/helper-manage-list',
         component: () => import('../../../views/user-center/helper-manage/Index.vue'),
         meta: {
-            title: 'Helper管理'
+            title: 'Helper管理',
+            index: '3-2'
         },
         children: [
             // Helper管理列表

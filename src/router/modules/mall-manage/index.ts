@@ -5,7 +5,8 @@ export default [
         redirect: '/mall-manage/main',
         component: () => import('../../../views/mall-manage/Index.vue'),
         meta: {
-            title: '店铺管理'
+            title: '店铺管理',
+            index: '5'
         },
         children: [
             {
@@ -13,40 +14,17 @@ export default [
                 name: 'MallMain',
                 component: () => import('../../../views/mall-manage/pages/Main.vue'),
                 meta: {
-                    title: '我的店铺'
+                    title: '我的店铺',
+                    index: '5-1'
                 }
             }, {
                 path: 'themes',
                 name: 'MallThemes',
-                redirect: { name: 'TemplateHome' },
-                component: () => import('../../../views/mall-manage/pages/Themes-Container.vue'),
+                component: () => import('../../../views/mall-manage/pages/Themes.vue'),
                 meta: {
-                    title: '店铺主题'
-                },
-                children: [
-                    {
-                        path: 'template-home',
-                        name: 'TemplateHome',
-                        component: () => import('../../../views/mall-manage/pages/Themes.vue'),
-                        meta: {
-                            title: '首页模板'
-                        }
-                    }, {
-                        path: 'template-activity',
-                        name: 'TemplateActivity',
-                        component: () => import('../../../views/mall-manage/pages/Themes.vue'),
-                        meta: {
-                            title: '主会场模板'
-                        }
-                    }, {
-                        path: 'skin',
-                        name: 'Skin',
-                        component: () => import('../../../views/mall-manage/pages/Themes.vue'),
-                        meta: {
-                            title: '皮肤主题'
-                        }
-                    }
-                ]
+                    title: '店铺主题',
+                    index: '5-2'
+                }
             }
         ]
     }

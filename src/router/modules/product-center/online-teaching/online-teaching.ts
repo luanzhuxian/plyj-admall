@@ -1,6 +1,6 @@
-import { importFiles } from './../../../../assets/ts/utils'
+import { importFiles } from '../../../../assets/ts/utils'
 
-const context = require.context('./', false, /\/((?!onliine-teaching).)+\.ts$/)
+const context = require.context('./', false, /\/((?!online-teaching).)+\.ts$/)
 
 export default [
     {
@@ -10,6 +10,7 @@ export default [
         redirect: '/product-center/online-teaching/function-pack',
         meta: {
             title: '云课堂',
+            index: '2-1',
             requiresAuth: true
         },
         children: [

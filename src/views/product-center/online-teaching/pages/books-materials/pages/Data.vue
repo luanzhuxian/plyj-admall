@@ -140,7 +140,7 @@
 </template>
 <script>
 import ExportOrder from './../components/Export-Order'
-import { getBooksMaterialsData, giveBooksMaterials } from './../../../../../../apis/product-center/line-teaching/books-materials'
+import { getBooksMaterialsData, giveBooksMaterials } from './../../../../../../apis/product-center/online-teaching/books-materials'
 import { resetForm } from '../../../../../../assets/ts/utils'
 export default {
     name: 'BooksMaterialsData',

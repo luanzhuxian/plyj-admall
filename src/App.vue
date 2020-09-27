@@ -117,7 +117,9 @@ export default class App extends Vue {
 
     async step () {
         // 没有token return
-        if (!this.tokenFoo && this.NOLOGIN.includes(this.routeName as string)) return
+        if (!this.tokenFoo && this.NOLOGIN.includes(this.routeName as string)) {
+            return
+        }
         // 没有选中机构
         if (!this.agencyCode && !this.NOLOGIN.includes(this.routeName as string)) {
             this.LOGOUT()

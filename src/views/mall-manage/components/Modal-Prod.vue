@@ -70,7 +70,7 @@ import {
     getImageTextList
 } from '../../../apis/mall'
 // import { getSpringPloughingList } from '../../../apis/marketing-manage/new-year/spring-ploughing'
-import { getVideoList } from '../../../apis/product-center/line-teaching/knowledge-course'
+import { getVideoList } from '../../../apis/product-center/online-teaching/knowledge-course'
 import {
     activityTableOptionsProducer,
     couponTableOptions,

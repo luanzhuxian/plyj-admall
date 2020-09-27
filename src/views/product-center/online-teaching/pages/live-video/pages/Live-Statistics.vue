@@ -111,7 +111,7 @@ import {
     getChanneStatistics,
     getRoomStatistics,
     getFlowHasUsed
-} from './../../../../../../apis/product-center/line-teaching/live'
+} from './../../../../../../apis/product-center/online-teaching/live'
 export default {
     name: 'LiveStatistics',
     components: {

@@ -4,7 +4,8 @@ export default [
         name: 'Comment',
         component: () => import('../../../views/product-center/comment-manage/Comment.vue'),
         meta: {
-            title: '商品评价'
+            title: '商品评价',
+            index: '2-5'
         }
     }
 ]

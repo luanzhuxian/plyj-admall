@@ -20,13 +20,13 @@
                 @click="onClick('Banner')"
             >
                 <div :class="$style.wrapper">
-                    <Banner :data="Banner" :tmpl-id="tmplId" />
+                    <Banner :data="Banner" :tmpl-type="tmplType" />
                 </div>
             </div>
             <!-- 广告 -->
             <ModuleWrapper
                 ref="Adv"
-                v-if="tmplId === 4"
+                v-if="tmplType === 4"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleAdv]: true,
@@ -261,7 +261,7 @@ export default class TemplateB extends Vue {
         }
     }) readonly data!: TemplateBType
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
     @Prop(Number) skinId!: number
     @Prop({
         type: Boolean,

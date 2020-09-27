@@ -219,7 +219,7 @@
 <script>
 import Panel from './../../../../../../components/common/Panel.vue'
 import VideoPreview from '././../../../../../../components/common/Preview-Video'
-import { getActiveCompleteInfo, getVideoMesById, getRoomInfoById } from './../../../../../../apis/product-center/line-teaching/live'
+import { getActiveCompleteInfo, getVideoMesById, getRoomInfoById } from './../../../../../../apis/product-center/online-teaching/live'
 import { getUserTagList } from './../../../../../../apis/marketing-manage/together'
 export default {
     name: 'Detail',

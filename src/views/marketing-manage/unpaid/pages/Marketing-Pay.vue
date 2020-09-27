@@ -146,7 +146,7 @@
 
 <script>
 import Agreement from '../../../../components/register/Agreement'
-import { retryFalidOrder } from '../../../../product-center/line-teaching/live'
+import { retryFalidOrder } from '../../../../product-center/online-teaching/live'
 import { getBaseMarket, getMarketPayCode, getMarketPayStatus } from '../../../../apis/marketing-manage/gameplay'
 import { mapActions } from 'vuex'
 import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'

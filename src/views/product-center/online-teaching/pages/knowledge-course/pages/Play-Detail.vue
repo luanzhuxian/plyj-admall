@@ -203,7 +203,7 @@
 <script>
 import moment from 'moment'
 import ExportDialog from './../../../../../order-manage/components/Export-Dialog'
-import { getPlayDetail, exportDataList, submitSendCourseUsersList } from './../../../../../../apis/product-center/line-teaching/knowledge-course'
+import { getPlayDetail, exportDataList, submitSendCourseUsersList } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import { getTagList } from './../../../../../../apis/member'
 import { createObjectUrl } from './../../../../../../assets/ts/upload'
 export default {

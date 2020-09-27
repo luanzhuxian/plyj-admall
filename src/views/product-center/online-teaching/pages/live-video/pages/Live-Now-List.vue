@@ -218,7 +218,7 @@ import {
     deleteLive,
     updateRoomToken,
     getActiveCompleteInfo
-} from './../../../../../../apis/product-center/line-teaching/live'
+} from './../../../../../../apis/product-center/online-teaching/live'
 import { copyFields, resetForm } from './../../../../../../assets/ts/utils'
 import moment from 'moment'
 export default {

@@ -41,7 +41,7 @@
                     />
                     <Field
                         title="地址："
-                        :text="helperDetail.addressPath + helperDetail.address || '--'"
+                        :text="helperDetail.address || '--'"
                     />
                     <Field
                         title="来源："
@@ -419,9 +419,8 @@ import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
 import {
     getHelperDetail,
     getHelperStatistics,
-    getHelperOrderList,
-    getHelperShareList,
-    getWithdrawalRecords
+    getWithdrawalRecords,
+    getOrderList
 } from '../../../../apis/member'
 
   @Component({
@@ -558,7 +557,10 @@ export default class HelperPromoteDetail extends Vue {
         keyword: '',
         startTime: '',
         endTime: '',
-        orderStatus: ''
+        orderStatus: '',
+        helper: false,
+        payStartTime: '',
+        payEndTime: ''
     }
 
     orderListTimeRange = []
@@ -593,7 +595,10 @@ export default class HelperPromoteDetail extends Vue {
                 keyword: '',
                 startTime: '',
                 endTime: '',
-                orderStatus: ''
+                orderStatus: '',
+                helper: false,
+                payStartTime: '',
+                payEndTime: ''
             }
             this.orderListTimeRange = []
             await this.getOrderList()
@@ -605,7 +610,7 @@ export default class HelperPromoteDetail extends Vue {
     async getOrderList () {
         try {
             this.orderListForm.mallUserId = this.userId
-            const { result: { records, total } } = await getHelperOrderList(this.orderListForm)
+            const { result: { records, total } } = await getOrderList(this.orderListForm)
             this.orderList = records || []
             this.orderListTotal = total || 0
         } catch (e) {
@@ -630,7 +635,11 @@ export default class HelperPromoteDetail extends Vue {
         keyword: '',
         startTime: '',
         endTime: '',
-        orderStatus: ''
+        orderStatus: '',
+        goodsType: '',
+        helper: true,
+        payStartTime: '',
+        payEndTime: ''
     }
 
     shareListTimeRange = []
@@ -665,7 +674,11 @@ export default class HelperPromoteDetail extends Vue {
                 keyword: '',
                 startTime: '',
                 endTime: '',
-                orderStatus: ''
+                orderStatus: '',
+                goodsType: '',
+                helper: true,
+                payStartTime: '',
+                payEndTime: ''
             }
             this.shareListTimeRange = []
             await this.getShareList()
@@ -677,7 +690,7 @@ export default class HelperPromoteDetail extends Vue {
     async getShareList () {
         try {
             this.shareListForm.mallUserId = this.userId
-            const { result: { records, total } } = await getHelperShareList(this.orderListForm)
+            const { result: { records, total } } = await getOrderList(this.orderListForm)
             this.shareList = records || []
             this.shareListTotal = total || 0
         } catch (e) {

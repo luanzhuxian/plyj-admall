@@ -5,7 +5,8 @@ export default [
         component: () => import('../../../views/user-center/member-manage/Index.vue'),
         redirect: '/user-center/member-manage/member-manage-list',
         meta: {
-            title: '用户管理'
+            title: '用户管理',
+            index: '3-1'
         },
         children: [
             // 会员管理列表

@@ -2,8 +2,8 @@
     <div :class="$style.maisong">
         <div :class="{
             [$style.background]: true,
-            [$style.bg1]: tmplId === 5 || tmplId === 6,
-            [$style.bg2]: tmplId === 7
+            [$style.bg1]: tmplType === 5 || tmplType === 6,
+            [$style.bg2]: tmplType === 7
         }" />
         <div :class="$style.inner">
             <div :class="$style.maisongTitle" v-if="data.otherValue">
@@ -66,7 +66,7 @@ export default class Maisong extends Vue {
         }
     }) readonly data!: TemplateModule
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
 }
 </script>
 

@@ -5,7 +5,8 @@ export default [
         redirect: '/base-setting/wechat/bind',
         component: () => import('../../../views/base-setting/official-account/Index.vue'),
         meta: {
-            title: '公众号设置'
+            title: '公众号设置',
+            index: '6-3'
         },
         children: [
             {

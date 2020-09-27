@@ -67,7 +67,7 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-import { getRoomInfoById } from './../../../../../../apis/product-center/line-teaching/live'
+import { getRoomInfoById } from './../../../../../../apis/product-center/online-teaching/live'
 
 export interface LiveData {
     id: string;

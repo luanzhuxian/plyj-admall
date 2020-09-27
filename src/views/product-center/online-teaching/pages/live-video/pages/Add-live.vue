@@ -396,7 +396,7 @@ import {
     getRoomStatus,
     getActiveCompleteInfo,
     getFreeRooms as getRoomsInfo // 获取可以创建直播活动的直播房间
-} from './../../../../../../apis/product-center/line-teaching/live'
+} from './../../../../../../apis/product-center/online-teaching/live'
 import { getTagList } from './../../../../../../apis/member'
 import { copyFields } from './../../../../../../assets/ts/utils'
 import { mapGetters } from 'vuex'

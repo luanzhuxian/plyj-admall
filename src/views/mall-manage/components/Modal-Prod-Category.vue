@@ -94,7 +94,7 @@ import CustomTable from './Custom-Table.vue'
 import { modalTitleMap } from '../utils/map'
 import { getGoods } from '../../../apis/product-center/goods'
 import { getCategory } from '../../../apis/product-center/category'
-import { getVideoList } from '../../../apis/product-center/line-teaching/knowledge-course'
+import { getVideoList } from '../../../apis/product-center/online-teaching/knowledge-course'
 import {
     productTableOptions,
     courseTableOptions,

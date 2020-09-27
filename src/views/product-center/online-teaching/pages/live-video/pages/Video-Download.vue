@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import { getDownloadList, mergeDownloadFile, deleteDownloadFile, getAllRooms } from './../../../../../../apis/product-center/line-teaching/live'
+import { getDownloadList, mergeDownloadFile, deleteDownloadFile, getAllRooms } from './../../../../../../apis/product-center/online-teaching/live'
 export default {
     name: 'VideoDownload',
     data () {

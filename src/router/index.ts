@@ -79,7 +79,8 @@ const routes = [
         name: 'Home',
         component: () => import('../views/home/Index.vue'),
         meta: {
-            title: '首页'
+            title: '首页',
+            index: '1'
         }
     },
     ...importRoutes

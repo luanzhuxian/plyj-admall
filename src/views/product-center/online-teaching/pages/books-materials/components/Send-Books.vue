@@ -132,8 +132,8 @@
 <script>
 import { testPhone } from '../../../../../../assets/ts/validate'
 import { getTagList } from './../../../../../../apis/member'
-import { getUserByPhone, getAllUserListByTagId } from './../../../../../../apis/product-center/line-teaching/live'
-import { giveBooksMaterials, getGiveBooksMaterialsUser } from './../../../../../../apis/product-center/line-teaching/books-materials'
+import { getUserByPhone, getAllUserListByTagId } from './../../../../../../apis/product-center/online-teaching/live'
+import { giveBooksMaterials, getGiveBooksMaterialsUser } from './../../../../../../apis/product-center/online-teaching/books-materials'
 export default {
     name: 'SendBooks',
     components: {},

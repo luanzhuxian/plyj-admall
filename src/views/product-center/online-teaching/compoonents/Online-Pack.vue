@@ -44,8 +44,8 @@ export default class OnlinePack extends Vue {
         default: () => []
     }) readonly tags: string[] | undefined
 
-    private target () {
-        return 123
+    private target (e: Event) {
+        this.$emit('click', e)
     }
 }
 

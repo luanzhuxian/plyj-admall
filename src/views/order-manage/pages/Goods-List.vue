@@ -358,7 +358,6 @@ import {
     redeemUserList
 } from '../../../apis/order'
 import moment from 'moment'
-import { GET_RECEIVE_ADDRESS } from '../../../store/mutation-type'
 import { mapActions, mapGetters } from 'vuex'
 import { createObjectUrl } from '../../../assets/ts/upload'
 import Shipments from '../../../components/order-center/Shipments.vue'
@@ -489,7 +488,7 @@ export default {
             receiveAddressList: 'goods/receiveAddressList'
         })
     },
-    async activated () {
+    async created () {
         if (this.$route.params.id) this.form.keywords = this.$route.params.id
         this.form.orderStatus = this.$route.query.status || ''
         this.goodsTypes = this.$route.query.productType || ''
@@ -500,7 +499,7 @@ export default {
             throw e
         }
         if (!this.receiveAddressList.length) {
-            await this[GET_RECEIVE_ADDRESS]()
+            await this.GET_RECEIVE_ADDRESS()
         }
         if (this.$route.params.verify === 'true') {
             this.dialogVerificationVisible = true
@@ -519,7 +518,7 @@ export default {
     // },
     methods: {
         ...mapActions({
-            [GET_RECEIVE_ADDRESS]: 'goods/GET_RECEIVE_ADDRESS'
+            GET_RECEIVE_ADDRESS: 'goods/GET_RECEIVE_ADDRESS'
         }),
         canApplyRefund (row) {
             const comon = row.orderStatus !== 'WAIT_PAY' && row.orderStatus !== 'CLOSED' && !row.redeemCodeOperatorUserName.length && row.supportAfterSales === 1 && row.aftersaleStatus === 'NO_AFTER_SALES' && row.skuSource < 2

@@ -4,6 +4,9 @@ export default [
         name: 'ShopInfo',
         redirect: '/base-setting/shop-info/set',
         component: () => import('../../../views/base-setting/shop-info/Index.vue'),
+        meta: {
+            index: '6-2'
+        },
         children: [
             {
                 path: 'set',

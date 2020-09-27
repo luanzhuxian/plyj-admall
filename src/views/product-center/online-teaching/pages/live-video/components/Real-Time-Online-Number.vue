@@ -33,7 +33,7 @@
 
 <script>
 import 'v-charts/lib/style.css'
-import { getCountInTwoMinute } from './../../../../../../apis/product-center/line-teaching/live'
+import { getCountInTwoMinute } from './../../../../../../apis/product-center/online-teaching/live'
 import VCharts from 'v-charts'
 const VeLine = VCharts.VeLine
 export default {

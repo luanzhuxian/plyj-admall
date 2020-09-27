@@ -5,7 +5,8 @@ export default [
         name: 'CoursesManage',
         component: () => import('../../../views/product-center/course-manage/Index.vue'),
         meta: {
-            title: '我的课程'
+            title: '我的课程',
+            index: '2-3'
         },
         children: [
             {

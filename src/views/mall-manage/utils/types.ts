@@ -265,8 +265,8 @@ export enum ModalType {
     ImageTextModal = 23
 }
 
-// 模板id
-export enum TemplateIds {
+// 模板类型
+export enum TemplateTypes {
     // 新春首页模板
     TemplateC = -1,
     // 普通首页模板

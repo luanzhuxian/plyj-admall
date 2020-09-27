@@ -119,7 +119,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
-import { TemplateModule, TemplateIds, ModuleIds } from '../utils/types'
+import { TemplateModule, TemplateTypes, ModuleIds } from '../utils/types'
 import Draggable from '../../../components/common/draggable'
 import { updateModule } from '../../../apis/mall'
 import { findBrothersComponents } from '../utils/helper'
@@ -197,9 +197,9 @@ export default class EditorModule extends Vue {
     editorMap = Object.freeze(editorMap)
 
     /* computed */
-    get tmplId () {
+    get tmplType () {
         // @ts-ignore
-        return this.$parent.tmplId
+        return this.$parent.tmplType
     }
 
     get moduleType () {
@@ -222,12 +222,12 @@ export default class EditorModule extends Vue {
 
     get max () {
         if (!this.moduleType) return 0
-        return this.tmplId === TemplateIds.TemplateDragonGate ? 6 : editorMap[this.moduleType].max
+        return this.tmplType === TemplateTypes.TemplateDragonGate ? 6 : editorMap[this.moduleType].max
     }
 
     get min () {
         if (!this.moduleType) return 0
-        return ~[TemplateIds.TemplateD, TemplateIds.TemplateDragonGate].indexOf(this.tmplId) ? 1 : editorMap[this.moduleType].min
+        return ~[TemplateTypes.TemplateD, TemplateTypes.TemplateDragonGate].indexOf(this.tmplType) ? 1 : editorMap[this.moduleType].min
     }
 
     /* methods */
