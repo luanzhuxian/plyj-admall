@@ -674,7 +674,11 @@ export default class HelperPromoteDetail extends Vue {
                 keyword: '',
                 startTime: '',
                 endTime: '',
-                orderStatus: ''
+                orderStatus: '',
+                goodsType: '',
+                helper: true,
+                payStartTime: '',
+                payEndTime: ''
             }
             this.shareListTimeRange = []
             await this.getShareList()

@@ -29,6 +29,7 @@
                             <pl-svg v-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
                         </template>
                     </div>
+                    <div class="role-type">{{ isHelper?'Helper会员':'普通会员' }}</div>
                     <div
                         class="member-type"
                         v-text="ROLE[memberDetail.roleCode]"
@@ -105,6 +106,10 @@
                         <div>
                             <span>手机号码：</span>
                             <span>{{ memberDetail.mobile || '--' }}</span>
+                        </div>
+                        <div v-if="memberDetail.birthday">
+                            <span>年龄：</span>
+                            <span>{{ moment(memberDetail.birthday).diff(moment(), 'year') }}</span>
                         </div>
                         <div>
                             <span>生日：</span>
@@ -902,6 +907,7 @@
 </template>
 
 <script lang="ts">
+import moment from 'moment'
 import { Vue, Component } from 'vue-property-decorator'
 import Pagination from '../../../../components/common/Pagination.vue'
 
@@ -936,6 +942,7 @@ import {
   })
 
 export default class MemberManageDetail extends Vue {
+    moment = moment
     // 角色
     ROLE = {
         MEMBERSHIP: '普通会员',
@@ -1622,6 +1629,13 @@ export default class MemberManageDetail extends Vue {
                         margin: 0 6px;
                         @include elps-wrap(1);
                     }
+                }
+                .role-type {
+                    margin-top: 10px;
+                    margin-left: 16px;
+                    font-size: 12px;
+                    line-height: 16px;
+                    color: #6FD79F;
                 }
                 .member-type {
                     margin-left: 24px;
