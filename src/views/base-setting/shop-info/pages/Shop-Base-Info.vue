@@ -1,14 +1,17 @@
 <template>
     <div>
-        <el-card class="base-info">
+        <div class="base-info">
+            <div class="base-info-title">基础信息</div>
             <el-form
                 ref="form"
-                label-width="150px"
+                :inline="true"
+                label-width="100px"
                 label-position="left"
+                class="base-info-form"
             >
                 <el-form-item
                     label="店铺名称"
-                    style="width: 80%"
+                    style="width:30%"
                 >
                     <span
                         class="text"
@@ -19,7 +22,7 @@
                         clearable
                         v-show="addMallName"
                         v-model.trim="form.mallName"
-                        style="width: 80%"
+                        style="width: 200px"
                     />
                     <el-button
                         type="text"
@@ -50,19 +53,62 @@
                         修改
                     </el-button>
                 </el-form-item>
-
+                <el-form-item label="企业管理员" style="width:30%">13687573423 李明丽</el-form-item>
+                <el-form-item style="width:30%">
+                    <el-button round @click="showShopCode = true">访问店铺</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="base-info">
+            <div class="base-info-title">企业信息</div>
+            <el-form
+                ref="form"
+                :inline="true"
+                class="base-info-form"
+            >
+                <el-form-item label="企业名称:" style="width: 100%">
+                    张三的机构教育科技有限公司
+                </el-form-item>
+                <el-form-item label="企业法人姓名：" style="width:30%">
+                    万少松
+                </el-form-item>
+                <el-form-item label="手机号：" style="width:30%">
+                    18966790240
+                </el-form-item>
+                <el-form-item label="证件类型：" style="width:30%">
+                    身份证
+                </el-form-item>
+                <br>
+                <el-form-item label="微信支付管理员：" style="width:30%">
+                    上海朋来教育科技有限公司
+                </el-form-item>
+                <el-form-item label="微信支付商户号：" style="width:30%">
+                    1511875211
+                </el-form-item>
+                <el-form-item label="微信支付预留手机号：" style="width:30%">
+                    151****2111
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="base-info">
+            <div class="base-info-title">店铺介绍</div>
+            <el-form
+                ref="form"
+                label-width="100px"
+                label-position="left"
+                class="base-info-form"
+            >
                 <el-form-item
                     label="店铺地区"
-                    style="width: 80%"
                 >
                     <CityPicker
                         :default-value="defaultCity"
                         @selected="citySelected"
+                        style="width: 400px"
                     />
                 </el-form-item>
                 <el-form-item
                     label="详细地址"
-                    style="width: 80%"
                 >
                     <span
                         class="text"
@@ -73,7 +119,7 @@
                         clearable
                         v-if="addAddress"
                         v-model.trim="form.address"
-                        style="width: 80%"
+                        style="width: 200px"
                     />
                     <el-button
                         type="text"
@@ -104,10 +150,8 @@
                         修改
                     </el-button>
                 </el-form-item>
-
                 <el-form-item
                     label="客服电话"
-                    style="width: 80%"
                 >
                     <div
                         v-for="(item, i) of form.servicePhoneModels"
@@ -198,10 +242,21 @@
                         </el-button>
                     </div>
                 </el-form-item>
-
                 <el-form-item
-                    label="店铺介绍"
-                    style="width: 80%"
+                    label="店铺LOGO"
+                >
+                    <UploadImage
+                        v-model="logoList"
+                        :need-edit="true"
+                        :width="300"
+                        :height="300"
+                        @remove="removeLogo"
+                        :count="1"
+                    />
+                    <div style="color: #999; font-size: 12px">（店铺logo建议上传尺寸为300*300的图片，图片大小不超过2M ）</div>
+                </el-form-item>
+                <el-form-item
+                    label="店铺描述"
                 >
                     <span
                         class="text"
@@ -214,7 +269,7 @@
                         :rows="10"
                         v-if="addMallDesc"
                         v-model.trim="form.mallDesc"
-                        style="width: 80%"
+                        style="width: 200px"
                     />
                     <el-button
                         type="text"
@@ -244,25 +299,20 @@
                     >
                         修改
                     </el-button>
+                    <div style="color: #999; font-size: 12px">（分享校园链接给好友，将以校园介绍作为宣传语 ）</div>
                 </el-form-item>
-
-                <el-form-item
-                    label="店铺LOGO"
-                    style="width: 80%"
-                >
-                    <UploadImage
-                        v-model="logoList"
-                        :need-edit="true"
-                        :width="300"
-                        :height="300"
-                        @remove="removeLogo"
-                        :count="1"
-                    />
-                </el-form-item>
-
+            </el-form>
+        </div>
+        <el-dialog title="访问店铺" :visible="showShopCode" @close="showShopCode = false">
+            <el-form
+                ref="form"
+                :inline="true"
+                label-width="100px"
+                label-position="left"
+                class="base-info-form"
+            >
                 <el-form-item
                     label="店铺网址"
-                    style="width: 80%"
                 >
                     <span
                         class="text"
@@ -273,7 +323,7 @@
                         clearable
                         v-if="addMallUrl"
                         v-model.trim="form.mallUrl"
-                        style="width: 80%"
+                        style="width: 200px"
                     />
                     <el-button
                         type="text"
@@ -282,10 +332,8 @@
                         复制
                     </el-button>
                 </el-form-item>
-
                 <el-form-item
                     label="店铺二维码"
-                    style="width: 90%"
                 >
                     <div>
                         <div class="code-box">
@@ -297,9 +345,9 @@
                     </div>
                 </el-form-item>
             </el-form>
-        </el-card>
+        </el-dialog>
     </div>
-</template>`
+</template>
 <script>
 import {
     setWechat,
@@ -360,7 +408,8 @@ export default {
             mallDesc: { validator: new RegExp('^(.|\\s){1,200}$'), message: '店铺介绍长度不能超过200个字符' },
             address: { validator: new RegExp('^.{1,50}$'), message: '地址长度不能超过50个字符' }
         },
-        shopCode: ''
+        shopCode: '',
+        showShopCode: false
     }),
     watch: {
         logoList (val) {
@@ -588,9 +637,17 @@ export default {
 
 <style lang="scss" scoped>
     .base-info {
-        width: 90%;
-        min-width: 900px;
-        margin: 20px auto 0;
+        background: #fff;
+        margin-bottom: 10px;
+        padding: 40px 40px 20px;
+        .base-info-title{
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .base-info-form{
+            padding-left: 80px;
+        }
         .el-button--text {
             color: $--color-primary-blue;
             text-decoration: underline;
@@ -599,11 +656,9 @@ export default {
             margin-right: 10px;
         }
         .text {
-            display: inline-block;
             font-size: 14px;
             font-weight: bold;
-            margin-right: 30px;
-            vertical-align: -2px;
+            margin-right: 10px;
         }
         .code-box{
             display: inline-flex;
