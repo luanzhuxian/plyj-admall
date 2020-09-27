@@ -14,3 +14,20 @@
   background-color: #fff !important;
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
+// loading
+.el-loading-mask {
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  width: max-content !important;
+  height: max-content !important;
+  .el-loading-spinner {
+    margin: auto !important;
+    width: max-content !important;
+    height: max-content !important;
+  }
+  .el-loading-text {
+    width: max-content !important;
+  }
+}
