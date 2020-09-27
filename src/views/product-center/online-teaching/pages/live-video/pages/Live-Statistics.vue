@@ -64,7 +64,6 @@
                 <template #default="{ row }">
                     <el-button
                         type="text"
-                        size="mini"
                         @click="editRoom(row)"
                     >
                         编辑

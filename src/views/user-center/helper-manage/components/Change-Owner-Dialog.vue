@@ -58,15 +58,13 @@
                     <el-button
                         v-if="row.baseUserId === currentUserInfo.mallUserId"
                         disabled="disabled"
-                        type="primary"
-                        size="mini"
+                        type="text"
                     >
                         已选择
                     </el-button>
                     <el-button
                         v-else
-                        type="primary"
-                        size="mini"
+                        type="text"
                         @click="changeHelperAccount(row)"
                     >
                         选择

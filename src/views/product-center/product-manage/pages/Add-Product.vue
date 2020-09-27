@@ -482,13 +482,13 @@
                 </el-form-item>
             </el-form>
             <div class="btn-box">
-                <el-button :loading="loading" size="mini" plain style="width: 90px;margin-left: 20px" @click="saveAndOnline">
+                <el-button :loading="loading" round plain style="width: 90px;margin-left: 20px" @click="saveAndOnline">
                     保存
                 </el-button>
-                <el-button :loading="loading" size="mini" type="primary" plain @click="saveAndAdd">
+                <el-button :loading="loading" round type="primary" plain @click="saveAndAdd">
                     保存并新增
                 </el-button>
-                <el-button :loading="loading" size="mini" type="primary" plain @click="saveAndOnline('online')">
+                <el-button :loading="loading" round type="primary" plain @click="saveAndOnline('online')">
                     保存并上架
                 </el-button>
                 <div class="btn-description">
