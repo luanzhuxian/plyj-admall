@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { TemplateModule } from '../../utils/types'
+import { TemplateModule, TemplateTypes } from '../../utils/types'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import defaultData from '../../utils/template-default-data/basic'
 
@@ -58,7 +58,7 @@ export default class Banner extends Vue {
     @Prop({
         type: Number,
         default: 0
-    }) readonly tmplId!: number
+    }) readonly tmplType!: number
 
     /* data */
     swiperOption = {
@@ -76,7 +76,7 @@ export default class Banner extends Vue {
     get defaultImg () {
         const { Banner } = defaultData
         const banner = 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/d12-banner.png'
-        const src = this.tmplId === 4 ? Banner : banner
+        const src = this.tmplType === TemplateTypes.TemplateB2 ? Banner : banner
         return src
     }
 }

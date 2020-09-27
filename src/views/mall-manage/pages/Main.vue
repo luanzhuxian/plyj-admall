@@ -1,42 +1,53 @@
 <template>
     <div class="mall-main">
-        <section :class="$style.template">
-            <div :class="$style.templateItem">
+        <section :class="$style.template" v-if="showCurrentHome || showCurrentActivity">
+            <div :class="$style.templateItem" v-if="showCurrentHome">
                 <img :class="$style.templateIcon" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/home-blue.png" alt="店铺首页">
                 <div :class="$style.templateInfo">
                     <div :class="$style.templateInfoTop">
-                        <b :class="$style.templateName">教育机构风格</b>
-                        <span :class="[$style.templateLabel, $style.blue]">店铺首页</span>
+                        <b :class="$style.templateName">{{ currentHome.templateName }}</b>
+                        <span :class="[$style.label, $style.blue]">店铺首页</span>
                     </div>
                     <div :class="$style.templateDate">
-                        创建时间 2019.5.21 19:00:23
+                        {{ `创建时间 ${currentHome.createTime}` }}
                     </div>
                 </div>
                 <div :class="$style.templateButtons">
+                    <el-button type="text" @click="previewCurrent(currentHome)">
+                        预览
+                    </el-button>
                     <el-button type="text">
                         编辑
                     </el-button>
-                    <el-button type="text">
+                    <el-button type="text" @click="$router.push({
+                        name: 'MallThemes',
+                        query: {
+                            currentTab: 'SKIN'
+                        }
+                    })">
                         换肤
                     </el-button>
                 </div>
             </div>
-            <div :class="$style.templateItem">
+            <div :class="$style.templateItem" v-if="showCurrentActivity">
                 <img :class="$style.templateIcon" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/main-red.png" alt="主会场">
                 <div :class="$style.templateInfo">
                     <div :class="$style.templateInfoTop">
-                        <b :class="$style.templateName">新春主会场</b>
-                        <span :class="[$style.templateLabel, $style.red]">主会场</span>
+                        <b :class="$style.templateName">{{ currentActivity.templateName }}</b>
+                        <span :class="[$style.label, $style.red]">主会场</span>
                     </div>
                     <div :class="$style.templateDate">
-                        创建时间 2019.5.21 19:00:23
+                        {{ `创建时间 ${currentActivity.createTime}` }}
                     </div>
                 </div>
                 <div :class="$style.templateButtons">
+                    <el-button type="text" @click="previewCurrent(currentActivity)">
+                        预览
+                    </el-button>
                     <el-button type="text">
                         编辑
                     </el-button>
-                    <el-button type="text">
+                    <el-button type="text" @click="takeOffCurrentActivityTemplate">
                         下架
                     </el-button>
                 </div>
@@ -53,12 +64,12 @@
             </div>
             <el-table
                 ref="table"
-                class="batch"
+                :class="$style.batch"
                 :data="table"
                 @filter-change="onFilterChange"
                 @selection-change="onSelectionChange"
             >
-                <span slot="empty" class="empty">
+                <span slot="empty">
                     <PlSvg name="icon-empty" width="16" style="margin-right: 4px;" />
                     {{ emptyText }}
                 </span>
@@ -68,11 +79,13 @@
                 />
                 <el-table-column
                     label="标题"
-                    width="250"
+                    width="300"
                 >
                     <template slot-scope="{ row }">
                         <template v-if="!row.isEdit">
                             <span v-text="row.templateName" />
+                            <span :class="[$style.label, $style.blue]" v-if="row.id === currentHomeId">当前首页</span>
+                            <span :class="[$style.label, $style.red]" v-if="row.id === currentActivityId">当前主会场</span>
                             <PlSvg name="icon-bianji1" width="18" height="16" fill="#598bf8" @click="row.isEdit = true" />
                         </template>
                         <template v-if="row.isEdit">
@@ -109,7 +122,7 @@
                 <el-table-column
                     label="操作"
                     align="center"
-                    width="300"
+                    width="250"
                 >
                     <template slot-scope="{ row }">
                         <el-button
@@ -160,11 +173,11 @@
             @sizeChange="onSizeChange"
             @change="getDraft"
         />
-        <TemplatePreview :show.sync="templatePreviewShow">
+        <TemplatePreview :show.sync="showPreview">
             <Render
-                :tmpl-id="tmplId"
-                :skin-id="skinId"
-                :data="templateModels"
+                :tmpl-type="previewTmplType"
+                :skin-id="previewSkinId"
+                :data="previewData"
                 is-preview
                 :is-empty-show="false"
                 :is-clickable="false"
@@ -177,6 +190,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import {
     getTemplateList,
     updateTemplateName,
@@ -185,7 +199,8 @@ import {
     delTemplateItem,
     delTemplateBatch,
     checkIsFull,
-    updateTemplateStatus
+    updateTemplateStatus,
+    takeOffCurrentTemplate
 } from '../../../apis/mall'
 import TemplateB from '../components/templates/Template-B.vue'
 import TemplateC from '../components/templates/Template-C.vue'
@@ -201,7 +216,9 @@ import Render from '../components/Render'
 import { rebuild } from '../utils/service'
 import { validatorProducer } from '../utils/validate'
 import { tagMap } from '../utils/map'
-import { TemplateCrosses, DraftTableRow, TemplateStatus, TemplateIds } from '../utils/types'
+import { Template, DraftTableRow, TemplateStatus, TemplateTypes } from '../utils/types'
+
+const mall = namespace('mall')
 
 @Component({
     components: {
@@ -220,7 +237,6 @@ import { TemplateCrosses, DraftTableRow, TemplateStatus, TemplateIds } from '../
 })
 export default class MallMain extends Vue {
     /* data */
-    emptyText = '暂无模板'
     searchForm = {
         keyword: '',
         status: '',
@@ -232,10 +248,14 @@ export default class MallMain extends Vue {
     table = []
     total = 0
     multipleSelection: string[] = []
-    templatePreviewShow = false
-    tmplId = 0
-    skinId = 0
-    templateModels: TemplateCrosses | object = {}
+    emptyText = '暂无模板'
+
+    // 预览
+    showPreview = false
+    previewData = {}
+    previewTmplType = 0 // 预览模板id
+    previewSkinId = 0 // 预览皮肤id
+
     typeFilters = [{
         text: '首页',
         value: 1
@@ -253,19 +273,48 @@ export default class MallMain extends Vue {
     }]
 
     /* computed */
-    get tag (): string {
-        return tagMap.findTemplateTagById(this.tmplId)
+    @mall.Getter('currentHome') currentHome!: Template
+    @mall.Getter('currentActivity') currentActivity!: Template
+
+    get currentHomeId () {
+        return this.currentHome ? this.currentHome.id : ''
+    }
+
+    get currentActivityId () {
+        return this.currentActivity ? this.currentActivity.id : ''
+    }
+
+    get showCurrentHome () {
+        return !!this.currentHomeId
+    }
+
+    get showCurrentActivity () {
+        return !!this.currentActivityId
+    }
+
+    get tag () {
+        return tagMap.findTemplateTagById(this.previewTmplType)
     }
 
     async created () {
         try {
-            await this.getDraft()
+            const requests = [
+                this.getCurrentTemplate(1),
+                this.getCurrentTemplate(2),
+                this.getDraft()
+            ]
+
+            await Promise.all(requests.map(p => p.catch(e => {
+                console.error(e)
+                return { result: null }
+            })))
         } catch (error) {
             throw error
         }
     }
 
     /* methods */
+    @mall.Action('getCurrentTemplate') getCurrentTemplate!: (type: number) => Promise<void>
 
     // 获取模板列表
     async getDraft (params?: object) {
@@ -290,21 +339,35 @@ export default class MallMain extends Vue {
         }
     }
 
+    // 刷新当前使用模板
+    async refreshCurrentTemplate (id: string) {
+        try {
+            if (id === this.currentHomeId) {
+                await this.getCurrentTemplate(1)
+            }
+            if (id === this.currentActivityId) {
+                await this.getCurrentTemplate(2)
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+
     getTemplateType (id: number) {
         if ([
-            TemplateIds.TemplateC,
-            TemplateIds.TemplateB,
-            TemplateIds.TemplateB2,
-            TemplateIds.TemplateD
+            TemplateTypes.TemplateC,
+            TemplateTypes.TemplateB,
+            TemplateTypes.TemplateB2,
+            TemplateTypes.TemplateD
         ].includes(id)) {
             return '首页'
         }
         if ([
-            TemplateIds.TemplateFengQiang,
-            TemplateIds.TemplateBaoFa,
-            TemplateIds.TemplateFanChang,
-            TemplateIds.TemplateXinChun,
-            TemplateIds.TemplateDragonGate
+            TemplateTypes.TemplateFengQiang,
+            TemplateTypes.TemplateBaoFa,
+            TemplateTypes.TemplateFanChang,
+            TemplateTypes.TemplateXinChun,
+            TemplateTypes.TemplateDragonGate
         ].includes(id)) {
             return '主会场'
         }
@@ -334,26 +397,26 @@ export default class MallMain extends Vue {
                 if (columnKey === 'type') {
                     const filterByType = find(values)
                     if (filterByType(1) && filterByType(2)) {
-                        this.getDraft({ type: '', current: 1 })
+                        await this.getDraft({ type: '', current: 1 })
                     } else if (filterByType(1)) {
-                        this.getDraft({ type: 1, current: 1 })
+                        await this.getDraft({ type: 1, current: 1 })
                     } else if (filterByType(2)) {
-                        this.getDraft({ type: 2, current: 1 })
+                        await this.getDraft({ type: 2, current: 1 })
                     } else {
-                        this.getDraft({ type: '', current: 1 })
+                        await this.getDraft({ type: '', current: 1 })
                     }
                 }
                 // 模板状态筛选
                 if (columnKey === 'status') {
                     const filterByStatus = find(values)
                     if (filterByStatus(TemplateStatus.OffShelf) && filterByStatus(TemplateStatus.Draft)) {
-                        this.getDraft({ status: '', current: 1 })
+                        await this.getDraft({ status: '', current: 1 })
                     } else if (filterByStatus(TemplateStatus.OffShelf)) {
-                        this.getDraft({ status: TemplateStatus.OffShelf, current: 1 })
+                        await this.getDraft({ status: TemplateStatus.OffShelf, current: 1 })
                     } else if (filterByStatus(TemplateStatus.Draft)) {
-                        this.getDraft({ status: TemplateStatus.Draft, current: 1 })
+                        await this.getDraft({ status: TemplateStatus.Draft, current: 1 })
                     } else {
-                        this.getDraft({ status: '', current: 1 })
+                        await this.getDraft({ status: '', current: 1 })
                     }
                 }
             }
@@ -389,8 +452,9 @@ export default class MallMain extends Vue {
                 name: row.editName
             })
             this.$success('修改成功')
-            await this.getDraft()
             row.isEdit = false
+            await this.getDraft()
+            await this.refreshCurrentTemplate(row.id)
         } catch (error) {
             throw error
         }
@@ -412,24 +476,34 @@ export default class MallMain extends Vue {
             await this.$confirm('确定复制该页面及上传内容？')
             await copyTemplateItem(id)
             this.$success('复制成功')
-            this.getDraft()
+            await this.getDraft()
         } catch (error) {
             throw error
         }
+    }
+
+    // 预览当前首页/主会场
+    async previewCurrent (template: Template) {
+        const result = JSON.parse(JSON.stringify(template))
+        this.preview(result)
     }
 
     // 预览模板
     async previewTemplate (id: string) {
         try {
             const { result = {} } = await previewTemplateItem(id)
-            if (result && Object.keys(result).length) {
-                this.tmplId = result.type
-                this.skinId = result.skinStatus || 0
-                this.templateModels = rebuild(this.tmplId, result.moduleModels)
-                this.templatePreviewShow = true
-            }
+            this.preview(result)
         } catch (error) {
             throw error
+        }
+    }
+
+    preview (data: Template) {
+        if (data && data.type && data.moduleModels) {
+            this.previewTmplType = data.type
+            this.previewSkinId = data.skinStatus || 0
+            this.previewData = rebuild(data.type, data.moduleModels)
+            this.showPreview = true
         }
     }
 
@@ -443,7 +517,8 @@ export default class MallMain extends Vue {
             if (pass === true) {
                 await updateTemplateStatus({ id, type, status: 1 })
                 this.$success('上架成功')
-                this.getDraft()
+                await this.getDraft()
+                await this.refreshCurrentTemplate(id)
             } else {
                 this.$warning(errMsg)
             }
@@ -461,7 +536,7 @@ export default class MallMain extends Vue {
             })
             await delTemplateItem(id)
             this.$success('删除成功')
-            this.getDraft()
+            await this.getDraft()
         } catch (error) {
             throw error
         }
@@ -473,7 +548,7 @@ export default class MallMain extends Vue {
             await this.$confirm('确定批量删除模板？')
             await delTemplateBatch(this.multipleSelection)
             this.$success('批量删除成功')
-            this.getDraft()
+            await this.getDraft()
         } catch (e) {
             this.$error('批量删除失败')
         }
@@ -492,10 +567,29 @@ export default class MallMain extends Vue {
                 if (typeof result === 'string') {
                     await updateTemplateStatus({ id, type, status: 1, upShelf: result })
                     this.$success('设置成功')
-                    this.getDraft()
+                    await this.getDraft()
                 }
             } else {
                 this.$warning(errMsg)
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+
+    // 下架当前模板
+    async takeOffCurrentActivityTemplate () {
+        try {
+            await this.$confirm({
+                title: '确定下架当前主会场吗？',
+                message: '下架后商城将不在显示主会场及相关的活动内容'
+            })
+            const { result, message } = await takeOffCurrentTemplate({ id: this.currentActivityId, type: 2 })
+            if (result) {
+                this.$success('下架成功')
+                await this.getCurrentTemplate(2)
+            } else {
+                this.$warning(message)
             }
         } catch (error) {
             throw error
@@ -585,22 +679,6 @@ export default class MallMain extends Vue {
         letter-spacing: 1px;
         @include elps-wrap(1);
     }
-    &-label {
-        margin-left: 10px;
-        width: 58px;
-        height: 22px;
-        line-height: 20px;
-        text-align: center;
-        border-radius: 2px;
-        &.blue {
-            border: 1px solid #4F63FF;
-            color: #4F63FF;
-        }
-        &.red {
-            border: 1px solid #FA6E68;
-            color: #FA6E68;
-        }
-    }
     &-date {
         margin-top: 5px;
         @include elps-wrap(1);
@@ -612,6 +690,26 @@ export default class MallMain extends Vue {
             padding: 0;
             min-width: auto;
         }
+    }
+}
+
+.label {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 10px;
+    padding: 0 5px;
+    min-width: 58px;
+    height: 22px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 2px;
+    &.blue {
+        border: 1px solid #4F63FF;
+        color: #4F63FF;
+    }
+    &.red {
+        border: 1px solid #FA6E68;
+        color: #FA6E68;
     }
 }
 

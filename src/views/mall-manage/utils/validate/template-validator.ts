@@ -33,12 +33,12 @@ import {
 // 首页
 class HomeValidator <T extends TemplateB | TemplateC | TemplateD> {
     errList: ErrorMsg[]
-    tmplId: number
+    tmplType: number
     moduleModels: T
 
-    constructor (tmplId: number, moduleModels: T) {
+    constructor (tmplType: number, moduleModels: T) {
         this.errList = []
-        this.tmplId = tmplId
+        this.tmplType = tmplType
         this.moduleModels = moduleModels
     }
 
@@ -157,12 +157,12 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> {
 // 主会场
 class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateXinChun | TemplateDragonGate> {
     errList: ErrorMsg[]
-    tmplId: number
+    tmplType: number
     moduleModels: T
 
-    constructor (tmplId: number, moduleModels: T) {
+    constructor (tmplType: number, moduleModels: T) {
         this.errList = []
-        this.tmplId = tmplId
+        this.tmplType = tmplType
         this.moduleModels = moduleModels
     }
 
@@ -230,13 +230,13 @@ class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | Templa
 
 // 基础首页模板
 class TemplateBValidator extends HomeValidator<TemplateB> {
-    constructor (tmplId: number, moduleModels: TemplateB) {
-        super(tmplId, moduleModels)
+    constructor (tmplType: number, moduleModels: TemplateB) {
+        super(tmplType, moduleModels)
     }
 
     async validate () {
         await this.checkBanner()
-        if (this.tmplId === 4) {
+        if (this.tmplType === 4) {
             await this.checkAdv()
         }
         await this.checkProduct('Popular')
@@ -254,8 +254,8 @@ class TemplateBValidator extends HomeValidator<TemplateB> {
 
 // 新春首页模板
 class TemplateCValidator extends HomeValidator<TemplateC> {
-    constructor (tmplId: number, moduleModels: TemplateC) {
-        super(tmplId, moduleModels)
+    constructor (tmplType: number, moduleModels: TemplateC) {
+        super(tmplType, moduleModels)
     }
 
     async validate () {
@@ -276,8 +276,8 @@ class TemplateCValidator extends HomeValidator<TemplateC> {
 
 // 活动首页模板
 class TemplateDValidator extends HomeValidator<TemplateD> {
-    constructor (tmplId: number, moduleModels: TemplateD) {
-        super(tmplId, moduleModels)
+    constructor (tmplType: number, moduleModels: TemplateD) {
+        super(tmplType, moduleModels)
     }
 
     async validate () {
@@ -302,8 +302,8 @@ class TemplateDValidator extends HomeValidator<TemplateD> {
 
 // 双十二主会场疯抢、返场模板
 class TemplateFengQiangValidator extends ActivityValidator<TemplateFengQiang> {
-    constructor (tmplId: number, moduleModels: TemplateFengQiang) {
-        super(tmplId, moduleModels)
+    constructor (tmplType: number, moduleModels: TemplateFengQiang) {
+        super(tmplType, moduleModels)
     }
 
     async validate () {
@@ -322,8 +322,8 @@ class TemplateFengQiangValidator extends ActivityValidator<TemplateFengQiang> {
 
 // 双十二主会场爆发模板
 class TemplateBaoFaValidator extends ActivityValidator<TemplateBaoFa> {
-    constructor (tmplId: number, moduleModels: TemplateBaoFa) {
-        super(tmplId, moduleModels)
+    constructor (tmplType: number, moduleModels: TemplateBaoFa) {
+        super(tmplType, moduleModels)
     }
 
     async validate () {
@@ -342,8 +342,8 @@ class TemplateBaoFaValidator extends ActivityValidator<TemplateBaoFa> {
 
 // 新春主会场模板
 class TemplateXinChunValidator extends ActivityValidator<TemplateXinChun> {
-    constructor (tmplId: number, moduleModels: TemplateXinChun) {
-        super(tmplId, moduleModels)
+    constructor (tmplType: number, moduleModels: TemplateXinChun) {
+        super(tmplType, moduleModels)
     }
 
     async validate () {
@@ -360,8 +360,8 @@ class TemplateXinChunValidator extends ActivityValidator<TemplateXinChun> {
 
 // 龙门节主会场模板
 class TemplateDragonGateValidator extends ActivityValidator<TemplateDragonGate> {
-    constructor (tmplId: number, moduleModels: TemplateDragonGate) {
-        super(tmplId, moduleModels)
+    constructor (tmplType: number, moduleModels: TemplateDragonGate) {
+        super(tmplType, moduleModels)
     }
 
     async validate () {

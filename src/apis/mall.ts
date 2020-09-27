@@ -2,6 +2,40 @@ import axios from '../assets/ts/axios-config'
 import { Template } from '../views/mall-manage/utils/types'
 
 /**
+ * 获取当前模板信息
+ * @param {object} params
+ * @property {number} params.type 1 首页 2 主会场
+ */
+export const getCurrentTemplate = (params: { type: number }) => axios.get('/apis/v1/mall/template/system/current', { params })
+
+/**
+ * 根据id查询模板信息
+ * @param {string} id
+ */
+export const getTemplateById = (id: string) => axios.get(`/apis/v1/mall/template/${ id }`)
+
+/**
+ * 创建或者修改模板
+ * @param {object} data 模板数据
+ */
+export const updateCurrentTemplate = (data: Template) => axios.post('/apis/v1/mall/template', data)
+
+/**
+ * 更改模板状态：上下架 / 定时上架
+ * @param {object} data
+ * @property {string} data.id 模板id
+ * @property {number} data.type 1 首页 2 主会场
+ * @property {number} data.status 0下架 1上架 2草稿
+ * @property {string} data.upShelf 定时上架时间
+ */
+export const updateTemplateStatus = (data: {
+    id: string;
+    type: number;
+    status: number;
+    upShelf?: string;
+}) => axios.post('/apis/v1/mall/template/update', data)
+
+/**
  * 查询直播信息
  */
 export const getLiveInfo = () => axios.get('/apis/v1/mall/live/activity/current/home')
@@ -61,20 +95,18 @@ export const delTemplateBatch = (ids: string[]) => axios.post('/apis/v1/mall/tem
 export const checkIsFull = () => axios.get('/apis/v1/mall/template/max/count')
 
 /**
- * 更改模板状态：上下架 / 定时上架
- * @param {object} data
- * @property {string} data.id
- * @property {number} data.type 模板id
- * @property {number} data.status 0下架 1上架 2草稿
- * @property {string} data.upShelf 定时上架时间
- */
-export const updateTemplateStatus = (data: { id: string; type: number; status: number; upShelf?: string }) => axios.post('/apis/v1/mall/template/update', data)
-
-/**
  * 更新模板模块数据
  * @param {Object} data 模板模块数据
  */
 export const updateModule = (data: Template) => axios.post('/apis/v1/mall/template/package', data)
+
+/**
+ * 下架当前模板
+ * @param {object} data
+ * @property {string} data.id
+ * @property {number} data.type 1 首页 2 主会场
+ */
+export const takeOffCurrentTemplate = ({ id, type }: { id: string; type: number }) => axios.get(`/apis/v1/mall/template/takeOff/${ id }?type=${ type }`)
 
 /**
  * 查询最大额度优惠券信息

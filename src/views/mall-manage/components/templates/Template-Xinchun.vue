@@ -168,7 +168,7 @@ export default class TemplateXinchun extends Vue {
         }
     }) readonly data!: TemplateXinChun
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
     @Prop({
         type: Boolean,
         default: true

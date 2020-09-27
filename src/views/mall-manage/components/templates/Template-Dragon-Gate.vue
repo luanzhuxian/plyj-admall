@@ -194,7 +194,7 @@ export default class TemplateDragonGate extends Vue {
         }
     }) readonly data!: TemplateDragonGateType
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
     @Prop({
         type: Boolean,
         default: true
@@ -268,7 +268,7 @@ export default class TemplateDragonGate extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 .template-dragon-gate {
     display: flex;
     flex-direction: column;

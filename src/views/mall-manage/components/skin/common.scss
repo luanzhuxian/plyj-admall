@@ -445,29 +445,3 @@
         @include copyright(45px, #1b8864);
     }
 }
-
-// 共战疫
-.skin-campaign {
-    @extend .skin-common;
-    background-color: #d1e5fe !important;
-    .container {
-        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/cmapagin/847981f6-e571-4dcd-a105-ee1a6a8ccddc.png';
-        @include container(76px, $background-image);
-        .module-title {
-            padding: 0 12px 13px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
-        .skin-title {
-            margin: 0 -12px 10px;
-        }
-    }
-    .module-search {
-        @include search();
-    }
-    .module-copyright {
-        @include copyright(45px, #fff);
-    }
-}

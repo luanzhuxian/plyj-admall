@@ -9,7 +9,7 @@ import {
 } from './template-validator'
 import { TemplateCrosses } from '../types'
 
-const validatorProducer = (tmplId: string, moduleModels: TemplateCrosses | object) => {
+const validatorProducer = (tmplType: string, moduleModels: TemplateCrosses | object) => {
     const map: DynamicObject = {
         '-1': TemplateCValidator,
         3: TemplateBValidator,
@@ -20,12 +20,12 @@ const validatorProducer = (tmplId: string, moduleModels: TemplateCrosses | objec
         8: TemplateXinChunValidator,
         9: TemplateDValidator,
         10: TemplateDragonGateValidator,
-        findValidatorById (id: string) {
+        findValidatorByType (id: string) {
             return this[id]
         }
     }
-    const Constuctor = map.findValidatorById(tmplId)
-    return new Constuctor(tmplId, moduleModels)
+    const Constuctor = map.findValidatorByType(tmplType)
+    return new Constuctor(tmplType, moduleModels)
 }
 
 export {

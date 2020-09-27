@@ -46,7 +46,7 @@
                     }"
                     @click="onClick('Maisong')"
                 >
-                    <Maisong :data="Maisong" :tmpl-id="tmplId" />
+                    <Maisong :data="Maisong" :tmpl-type="tmplType" />
                 </div>
                 <!-- 秒杀 -->
                 <div
@@ -95,7 +95,7 @@
                     }"
                     @click="onClick('Fengqiang')"
                 >
-                    <Fengqiang :data="Fengqiang" :tmpl-id="tmplId" />
+                    <Fengqiang :data="Fengqiang" :tmpl-type="tmplType" />
                 </div>
             </div>
         </div>
@@ -138,7 +138,7 @@ export default class TemplateBaofa extends Vue {
         }
     }) readonly data!: TemplateBaoFa
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
     @Prop({
         type: Boolean,
         default: true

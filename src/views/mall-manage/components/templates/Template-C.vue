@@ -250,7 +250,7 @@ export default class TemplateHome extends Vue {
         }
     }) readonly data!: TemplateCType
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
     @Prop(Number) skinId!: number
     @Prop({
         type: Boolean,

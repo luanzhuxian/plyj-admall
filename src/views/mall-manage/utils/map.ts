@@ -1,4 +1,4 @@
-import { TemplateIds } from './types'
+import { TemplateTypes } from './types'
 
 // 各个模板 id 对应模板名
 export const tagMap: DynamicObject = {
@@ -67,7 +67,6 @@ export const skinClassNameMap = {
     11: 'skinChildrenDay',
     12: 'skinFathersDay',
     13: 'skinDragonBoat',
-    99: 'skinCampaign',
     has (id: number | string) {
         return Reflect.has(this, id)
     }
@@ -118,9 +117,9 @@ export const editorMap: DynamicObject = {
     OnlineCourse: 'Video',
     SeriesCourse: 'Video',
     ImageText: 'Video',
-    getEditorByModule ({ tmplId, moduleName }: { tmplId: number; moduleName: string }) {
+    getEditorByModule ({ tmplType, moduleName }: { tmplType: number; moduleName: string }) {
         if (moduleName === 'Miaosha') {
-            return (tmplId === TemplateIds.TemplateBaoFa) ? 'Miaosha' : 'Module'
+            return (tmplType === TemplateTypes.TemplateBaoFa) ? 'Miaosha' : 'Module'
         }
         return this[moduleName]
     }

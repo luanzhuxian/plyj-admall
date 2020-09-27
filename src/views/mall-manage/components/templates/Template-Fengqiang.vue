@@ -61,7 +61,7 @@
                     }"
                     @click="onClick('Maisong')"
                 >
-                    <Maisong :data="Maisong" :tmpl-id="tmplId" />
+                    <Maisong :data="Maisong" :tmpl-type="tmplType" />
                 </div>
                 <!-- 领券 -->
                 <div
@@ -104,7 +104,7 @@
                     }"
                     @click="onClick('Fengqiang')"
                 >
-                    <Fengqiang :data="Fengqiang" :tmpl-id="tmplId" />
+                    <Fengqiang :data="Fengqiang" :tmpl-type="tmplType" />
                 </div>
                 <!-- 精品推荐-->
                 <div
@@ -166,7 +166,7 @@ export default class TemplateFengqiang extends Vue {
         }
     }) readonly data!: TemplateFengQiang
 
-    @Prop(Number) tmplId!: number
+    @Prop(Number) tmplType!: number
     @Prop({
         type: Boolean,
         default: true

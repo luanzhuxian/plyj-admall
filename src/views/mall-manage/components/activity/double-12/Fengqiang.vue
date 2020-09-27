@@ -2,9 +2,9 @@
     <div
         :class="{
             [$style.fengqiang]: true,
-            [$style.bg1]: tmplId === 5,
-            [$style.bg2]: tmplId === 6,
-            [$style.bg3]: tmplId === 7
+            [$style.bg1]: tmplType === 5,
+            [$style.bg2]: tmplType === 6,
+            [$style.bg3]: tmplType === 7
         }"
     >
         <div :class="$style.background" />
@@ -21,7 +21,7 @@
                 <div :class="$style.imgWrapper">
                     <img :src="item.goodsInfo.productMainImage">
                 </div>
-                <div :class="$style.itemInfo" v-if="tmplId === 5 || tmplId === 7">
+                <div :class="$style.itemInfo" v-if="tmplType === 5 || tmplType === 7">
                     <h4>{{ item.goodsInfo.productName }}</h4>
                     <div :class="$style.infoText">
                         <PlSvg name="icon-fengqiangjia" width="39" height="24" style="margin-right: 4px;" />
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div :class="$style.itemInfo" v-if="tmplId === 6">
+                <div :class="$style.itemInfo" v-if="tmplType === 6">
                     <h4>{{ item.goodsInfo.productName }}</h4>
                     <div :class="$style.infoText">
                         <span :class="$style.price" v-if="item.goodsInfo && item.goodsInfo.productSkuModels && item.goodsInfo.productSkuModels.length">
@@ -60,7 +60,7 @@
                 <div :class="$style.imgWrapper">
                     <img :src="item.img">
                 </div>
-                <div :class="$style.itemInfo" v-if="tmplId === 5 || tmplId === 7">
+                <div :class="$style.itemInfo" v-if="tmplType === 5 || tmplType === 7">
                     <h4>{{ item.name }}</h4>
                     <div :class="$style.infoText">
                         <PlSvg name="icon-fengqiangjia" width="39" height="24" style="margin-right: 4px;" />
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div :class="$style.itemInfo" v-if="tmplId === 6">
+                <div :class="$style.itemInfo" v-if="tmplType === 6">
                     <h4>{{ item.name }}</h4>
                     <div :class="$style.infoText">
                         <span :class="$style.price">1000</span>
@@ -90,7 +90,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { TemplateModule } from '../../../utils/types'
+import { TemplateModule, TemplateTypes } from '../../../utils/types'
 import defaultData from '../../../utils/template-default-data/basic'
 import { getPrice } from '../../../utils/helper'
 import { getMaxCoupon } from '../../../../../apis/mall'
@@ -108,14 +108,14 @@ export default class Fengqiang extends Vue {
     @Prop({
         type: Number,
         default: 0
-    }) readonly tmplId!: number
+    }) readonly tmplType!: number
 
     /* data */
     coupon = {}
     defaultData = Object.freeze(defaultData.Popular)
 
     async created () {
-        if (this.tmplId === 6) {
+        if (this.tmplType === TemplateTypes.TemplateBaoFa) {
             try {
                 const { result } = await getMaxCoupon()
                 this.coupon = result
