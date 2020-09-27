@@ -7,6 +7,9 @@ export default [
         redirect: '/marketing-manage/marketing-gameplay-list',
         name: 'MarketingManage',
         component: () => import('../../../views/marketing-manage/Index.vue'),
+        meta: {
+            index: '7'
+        },
         children: [
             {
                 path: 'marketing-gameplay-list',

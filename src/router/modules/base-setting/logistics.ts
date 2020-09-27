@@ -5,7 +5,8 @@ export default [
         redirect: '/base-setting/logistics/postage',
         component: () => import('../../../views/base-setting/logistics-manage/Index.vue'),
         meta: {
-            title: '物流管理'
+            title: '物流管理',
+            index: '6-4'
         },
         children: [
             {

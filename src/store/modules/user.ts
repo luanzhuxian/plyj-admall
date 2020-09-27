@@ -159,9 +159,6 @@ const user: Module<DynamicObject, DynamicObject> = {
             Cookie.remove('agencyCode')
             Cookie.remove('mallId')
             sessionStorage.removeItem('currentStep')
-            sessionStorage.removeItem('MAIN_NAVBAR_SELECTED')
-            sessionStorage.removeItem('MAIN_NAVBAR_OPENED')
-            sessionStorage.removeItem('MAIN_NAVBAR_CLOSED')
         },
         // 缓存权限列表
         // [types.SET_POWER_LIST]: (state, payload) => {
@@ -203,7 +200,6 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
         // 缓存机构列表
         [types.GET_ACCOUNT_INFO]: (state, payload) => {
-            console.log(payload)
             state.accountInfo = payload
         },
         // 缓存当前机构

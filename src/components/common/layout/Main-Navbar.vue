@@ -15,9 +15,6 @@
                 router
                 :default-active="defaultActive"
                 :default-openeds="defaultOpeneds"
-                @select="menuSelected"
-                @open="menuOpened"
-                @close="menuClosed"
                 ref="menu"
             >
                 <el-menu-item index="1" :route="{ name: 'Home' }">
@@ -92,9 +89,9 @@
                         <span>店铺管理</span>
                     </h2>
                     <el-menu-item index="5-1" :route="{ name: 'MallMain' }">我的店铺</el-menu-item>
-                    <el-menu-item index="5-2" route="6-2">模板中心</el-menu-item>
-                    <el-menu-item index="5-3" route="6-3">品宣主页</el-menu-item>
-                    <el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>
+                    <el-menu-item index="5-2" :route="{ name: 'MallThemes' }">模板中心</el-menu-item>
+                    <!--<el-menu-item index="5-3" route="6-3">品宣主页</el-menu-item>-->
+                    <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 
                 <el-submenu index="6">
@@ -160,35 +157,17 @@ export default class MainNavbar extends Vue {
     defaultActive = ''
     defaultOpeneds: string[] = []
     @userModule.Getter logo!: string
-    @Watch('$route')
-    onRouteChange (route: any) {
-        console.log(route)
-    }
-
-    mounted () {
-        this.init()
-    }
-
-    init () {
-        const opened = sessionStorage.getItem('MAIN_NAVBAR_OPENED') || '1'
-        const selected = sessionStorage.getItem('MAIN_NAVBAR_SELECTED') || '1'
-        console.log('opened:', opened)
-        console.log('selected:', selected)
-        this.defaultActive = selected
-        this.defaultOpeneds = [opened]
-    }
-
-    // methods
-    menuOpened (index: string) {
-        sessionStorage.setItem('MAIN_NAVBAR_OPENED', index)
-    }
-
-    menuSelected (index: string) {
-        sessionStorage.setItem('MAIN_NAVBAR_SELECTED', index)
-    }
-
-    menuClosed (index: string) {
-        sessionStorage.setItem('MAIN_NAVBAR_CLOSED', index)
+    @Watch('$route', { immediate: true })
+    onRouteChange (route: Route) {
+        const indexs = route.matched.map(item => item.meta?.index || '')
+        const opened = indexs[0] || ''
+        const activited = indexs[1] || ''
+        if (opened) {
+            this.defaultOpeneds = [opened]
+            if (activited) {
+                this.defaultActive = activited
+            }
+        }
     }
 }
 </script>

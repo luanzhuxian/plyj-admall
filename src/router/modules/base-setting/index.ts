@@ -7,6 +7,9 @@ export default [
         path: '/base-setting',
         name: 'BaseSetting',
         component: () => import('../../../views/base-setting/Index.vue'),
+        meta: {
+            index: '6'
+        },
         children: [
             ...importFiles(context)
         ]

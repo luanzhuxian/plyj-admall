@@ -366,7 +366,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions([GET_RECEIVE_ADDRESS]),
+        ...mapActions({
+            [GET_RECEIVE_ADDRESS]: 'goods/GET_RECEIVE_ADDRESS'
+        }),
         async goodsTypesChange () {
             switch (this.goodsTypes) {
                 case '':

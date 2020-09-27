@@ -10,6 +10,7 @@ export default [
         redirect: '/product-center/online-teaching/function-pack',
         meta: {
             title: '云课堂',
+            index: '2-1',
             requiresAuth: true
         },
         children: [

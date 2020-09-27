@@ -5,7 +5,8 @@ export default [
         name: 'GoodsManage',
         component: () => import('../../../views/product-center/product-manage/Index.vue'),
         meta: {
-            title: '我的商品'
+            title: '我的商品',
+            index: '2-2'
         },
         children: [
             {
