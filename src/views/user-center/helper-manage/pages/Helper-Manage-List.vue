@@ -70,7 +70,6 @@
             已选择{{ currentSelect.length }}个用户
             <el-button
                 type="text"
-                size="mini"
                 :disabled="!currentSelect.length"
                 @click="relieveBatched"
             >
@@ -78,7 +77,6 @@
             </el-button>
             <el-button
                 type="text"
-                size="mini"
                 :disabled="!currentSelect.length"
                 @click="belongBatched"
             >
@@ -249,15 +247,13 @@
                         <el-button
                             v-if="row.baseUserId === ownnerUserId"
                             disabled="disabled"
-                            type="primary"
-                            size="mini"
+                            type="text"
                         >
                             已选择
                         </el-button>
                         <el-button
                             v-else
-                            type="primary"
-                            size="mini"
+                            type="text"
                             @click="changeHelperAccount(row)"
                         >
                             选择

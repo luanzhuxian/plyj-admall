@@ -46,8 +46,8 @@
             </ul>
         </div>
         <div class="btns" v-if="detail.auditStatus === 'AWAIT'">
-            <el-button type="primary" size="mini" @click="updateBrokerStatus(detail.id, 'PASS')">审核通过</el-button>
-            <el-button type="text" size="mini" @click="updateBrokerStatus(detail.id, 'REJECT')">审核驳回</el-button>
+            <el-button type="primary" @click="updateBrokerStatus(detail.id, 'PASS')">审核通过</el-button>
+            <el-button type="text" @click="updateBrokerStatus(detail.id, 'REJECT')">审核驳回</el-button>
         </div>
         <el-dialog
             width="480px"

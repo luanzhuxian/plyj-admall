@@ -44,7 +44,7 @@
 
         <div class="mt-20" v-if="currentStatus === 'AWAIT'">
             已选择{{ currentSelect.length }}个用户
-            <el-button type="text" :disabled="!currentSelect.length" size="mini" @click="batchAudit">
+            <el-button type="text" :disabled="!currentSelect.length" @click="batchAudit">
                 批量通过
             </el-button>
         </div>
@@ -205,8 +205,7 @@
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button
-                            type="primary"
-                            size="mini"
+                            type="text"
                             @click="changeHelperAccount(scope.row)"
                         >
                             选择

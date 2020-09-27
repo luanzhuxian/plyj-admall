@@ -10,12 +10,12 @@
 </template>
 
 <script lang="ts">
+// @ts-noCheck
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
 
 const mall = namespace('mall')
-
 @Component
 export default class MallManage extends Vue {
     currentTab = ''
