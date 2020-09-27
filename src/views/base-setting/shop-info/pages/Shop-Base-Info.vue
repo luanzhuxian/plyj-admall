@@ -55,7 +55,7 @@
                 </el-form-item>
                 <el-form-item label="企业管理员" style="width:30%">13687573423 李明丽</el-form-item>
                 <el-form-item style="width:30%">
-                    <el-button round @click="showShopCode = true">访问店铺</el-button>
+                    <el-button type="primary" plain round @click="showShopCode = true">访问店铺</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -66,7 +66,7 @@
                 :inline="true"
                 class="base-info-form"
             >
-                <el-form-item label="企业名称:" style="width: 100%">
+                <el-form-item label="企业名称：" style="width: 100%">
                     张三的机构教育科技有限公司
                 </el-form-item>
                 <el-form-item label="企业法人姓名：" style="width:30%">
@@ -237,7 +237,7 @@
                         </el-button>
                     </div>
                     <div v-if="form.servicePhoneModels.length < 3 && !addContactWay.some(item => item)">
-                        <el-button style="padding: 4px 8px;" type="primary" size="mini" plain @click="addMoreContactWay">
+                        <el-button type="text" @click="addMoreContactWay">
                             添加电话
                         </el-button>
                     </div>
@@ -303,48 +303,30 @@
                 </el-form-item>
             </el-form>
         </div>
-        <el-dialog title="访问店铺" :visible="showShopCode" @close="showShopCode = false">
-            <el-form
-                ref="form"
-                :inline="true"
-                label-width="100px"
-                label-position="left"
-                class="base-info-form"
-            >
-                <el-form-item
-                    label="店铺网址"
+        <el-dialog title="访问店铺" :visible="showShopCode" @close="showShopCode = false" width="376px">
+            <div style="text-align: center; margin: 0 0 20px">H5店铺</div>
+            <div style="display: flex">
+                <el-input
+                    disabled
+                    style="width: 360px"
+                    v-model="url"
+                    v-if="!addMallUrl && mallSaveModel.mallUrl"
                 >
-                    <span
-                        class="text"
-                        v-text="url"
-                        v-if="!addMallUrl && mallSaveModel.mallUrl"
-                    />
-                    <el-input
-                        clearable
-                        v-if="addMallUrl"
-                        v-model.trim="form.mallUrl"
-                        style="width: 200px"
-                    />
-                    <el-button
-                        type="text"
-                        @click="copy"
-                    >
-                        复制
-                    </el-button>
-                </el-form-item>
-                <el-form-item
-                    label="店铺二维码"
-                >
-                    <div>
-                        <div class="code-box">
-                            <img v-imgError :src="shopCode" alt="店铺二维码">
-                        </div>
-                        <div class="down-code">
-                            <a :href="shopCode" download="店铺二维码.png">下载二维码</a>
-                        </div>
-                    </div>
-                </el-form-item>
-            </el-form>
+                    <el-button slot="append" @click="copy">复制</el-button>
+                </el-input>
+                <el-input
+                    clearable
+                    v-if="addMallUrl"
+                    v-model.trim="form.mallUrl"
+                    style="width: 200px"
+                />
+            </div>
+            <div class="code-box">
+                <img v-imgError :src="shopCode" alt="店铺二维码">
+            </div>
+            <div class="down-code">
+                <a :href="shopCode" download="店铺二维码.png">下载二维码</a>
+            </div>
         </el-dialog>
     </div>
 </template>
@@ -660,23 +642,22 @@ export default {
             font-weight: bold;
             margin-right: 10px;
         }
-        .code-box{
-            display: inline-flex;
-            padding: 10px;
-            width: 120px;
-            height: 120px;
-            border: 1px solid #333;
-            img{
-                width: 100%;
-                height: 100%;
-            }
+    }
+    .code-box{
+        margin: 20px auto 0;
+        padding: 5px;
+        width: 196px;
+        height: 196px;
+        border: 1px dashed #333;
+        img{
+            width: 100%;
+            height: 100%;
         }
-        .down-code{
-            display: inline-flex;
-            padding-top: 60px;
-            padding-left: 20px;
-            font-size: 14px;
-            color: $--color-primary-blue;
-        }
+    }
+    .down-code{
+        padding-top: 20px;
+        text-align: center;
+        font-size: 14px;
+        color: $--color-primary-blue;
     }
 </style>
