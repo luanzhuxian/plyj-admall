@@ -110,7 +110,6 @@
                     </div>
                 </template>
             </pl-tree>
-
             <div class="category-drop-tip">
                 <i>（拖动即可调整同级分类的顺序）</i>
             </div>
@@ -525,7 +524,6 @@ export default {
         },
         // 点击树节点
         async treeClick (nodeData) {
-            console.log(nodeData)
             const { parentCode, id } = nodeData
             this.currentCategory = nodeData
             if (Number(parentCode) !== 0) {
