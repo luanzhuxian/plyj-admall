@@ -109,7 +109,7 @@
                         </div>
                         <div v-if="memberDetail.birthday">
                             <span>年龄：</span>
-                            <span>{{ moment(memberDetail.birthday).diff(moment(), 'year') }}</span>
+                            <span>{{ Math.abs(moment(memberDetail.birthday).diff(moment(), 'year')) }}</span>
                         </div>
                         <div>
                             <span>生日：</span>

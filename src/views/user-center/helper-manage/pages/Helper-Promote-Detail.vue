@@ -374,13 +374,13 @@
                                     {{ row.withdrawalAmount / 100 }}
                                 </template>
                             </el-table-column>
-                            <el-table-column
+                            <!-- <el-table-column
                                 prop="amount"
                                 label="剩余润笔（元）">
                                 <template #default="{ row }">
                                     {{ row.amount / 100 }}
                                 </template>
-                            </el-table-column>
+                            </el-table-column> -->
                             <el-table-column
                                 prop="status"
                                 label="提现状态"
