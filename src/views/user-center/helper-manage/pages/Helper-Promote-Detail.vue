@@ -415,7 +415,7 @@
 
 <script  lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import Field from '../../../../components/common/Field.vue'
+import Field from '../../../../components/common/base/Field.vue'
 import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
 import {
     getHelperDetail,

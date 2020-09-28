@@ -111,7 +111,7 @@
 
 <script>
 import { getAddressList, addAddressList, modifyConsigneeInformation } from '../../apis/order'
-import CityPicker from '../common/City-Picker.vue'
+import CityPicker from '../common/base/City-Picker.vue'
 import { resetForm } from '../../assets/ts/utils'
 import { isPhone } from '../../assets/ts/validate'
 export default {

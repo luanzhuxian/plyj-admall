@@ -139,7 +139,7 @@
 <script>
 import { AccountInfo } from '../../../../apis/account'
 import RoleTree from '../../../../components/base-setting/account-manage/Role-Tree.vue'
-import Field from '../../../../components/common/Field.vue'
+import Field from '../../../../components/common/base/Field.vue'
 import { mapGetters } from 'vuex'
 
 export default {

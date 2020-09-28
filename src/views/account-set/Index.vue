@@ -12,7 +12,7 @@
                     need-edit
                     :width="300"
                     :height="300"
-                    :list="avatar"
+                    v-model="avatar"
                     :count="1"
                     @change="avatarChange"
                 />
@@ -24,7 +24,7 @@
                 </el-form-item>
                 <el-form-item label="手机号码：">
                     <span>{{ accountInfo.mobile | formatAccount }}</span>
-                    <el-button @click="updateMobile = true" type="text">修改</el-button>
+                    <el-button @click="updateMobileHandler" type="text">修改</el-button>
                 </el-form-item>
                 <el-form-item label="账户：">
                     <span v-text="accountInfo.account" />
@@ -77,22 +77,7 @@
             width="480px"
             :visible.sync="updateMobile"
         >
-            <div v-if="updateMobileStep === 1" :class="$style.step1">
-                <div class="fz-16">为保护账户安全，使用手机</div>
-                <div class="fz-16">{{ accountInfo.mobile | formatAccount }}验证身份</div>
-                <div class="mt-20">
-                    <el-input
-                        v-model="form.verifyCode"
-                        style="width: 240px"
-                        placeholder="请输入验证码"
-                        :class="$style.verifyCode"
-                    >
-                        <SendCode slot="append" :mobile="accountInfo.mobile" />
-                    </el-input>
-                </div>
-            </div>
             <el-form
-                v-else-if="updateMobileStep === 2"
                 ref="form_mobile"
                 :model="form"
                 :rules="rules"
@@ -120,8 +105,7 @@
                     </el-input>
                 </el-form-item>
             </el-form>
-            <el-button v-if="updateMobileStep === 1" :class="$style.saveBtn" type="primary" round @click="next" :loading="loading">下一步</el-button>
-            <el-button v-else-if="updateMobileStep === 2" :class="$style.saveBtn" type="primary" round @click="save('mobile')" :loading="loading">保存</el-button>
+            <el-button :class="$style.saveBtn" type="primary" round @click="save('mobile')" :loading="loading">保存</el-button>
         </el-dialog>
 
         <!-- 绑定微信 -->
@@ -132,6 +116,7 @@
         >
             <div :id="$style.bindWechatContainer" :class="$style.bindWechatContainer" />
         </el-dialog>
+
     </div>
 </template>
 
@@ -144,6 +129,7 @@ import { namespace, State } from 'vuex-class'
 import { updateAvatarOrName, updateMobile, WxBind, WxUnBind } from '../../apis/account-set'
 import { getVerifyCodeFunc, checkMobileCode } from '../../apis/common'
 import SendCode from "./../../components/common/Send-Code.vue";
+import validateIdentity from "../../components/common/validate-identity";
 import { testName, testPhone } from '../../assets/ts/validate'
 import {Watch} from "vue-property-decorator";
 const userModule = namespace('user')
@@ -156,10 +142,7 @@ const userModule = namespace('user')
 export default class AccountSet extends Vue {
     private updateName = false
     private updateMobile = false
-    private updateMobileStep = 1
     private bindWechat = false
-    private getCodeText1 = '获取验证码'
-    private getCodeText2 = '获取验证码'
     private loading = false
 
     private form = {
@@ -199,10 +182,11 @@ export default class AccountSet extends Vue {
     @State('weChatStyle') weChatStyle!: string
     @Watch('accountInfo')
     onAccountInfoChange (val: DynamicObject) {
-        const avatar = val.headImgUrl
-        this.avatar = avatar ? [avatar] : []
     }
     async mounted () {
+        const avatar = this.accountInfo.headImgUrl
+        this.avatar = avatar ? [avatar] : []
+        console.log(123)
         const wechatCode = sessionStorage.getItem('redirect_code')
         if (wechatCode) {
             WxBind(wechatCode)
@@ -239,6 +223,11 @@ export default class AccountSet extends Vue {
                 }
             });
         })
+    }
+
+    async updateMobileHandler () {
+        await validateIdentity(this.accountInfo.mobile)
+        this.updateMobile = true
     }
 
     /**
@@ -285,30 +274,9 @@ export default class AccountSet extends Vue {
         }
     }
 
-    //  修改手机号第一步
-    async next () {
-        try {
-            this.loading = true
-            const { result } = await checkMobileCode({
-                smsType: 'ACCOUNT_BIND_PHONE_NUMBER',
-                mobile: this.accountInfo.mobile,
-                verifyCode: this.form.verifyCode
-            })
-            if (result) {
-                this.updateMobileStep = 2
-                this.form.verifyCode = ''
-            } else {
-                this.$error('验证码错误')
-            }
-        } catch (e) {
-            throw e
-        } finally {
-            this.loading = false
-        }
-    }
-
     // 绑定微信
     async bingWechat () {
+        await validateIdentity(this.accountInfo.mobile)
         const { appId, redirectUrl } = this.bindWechatInfo
         const state = Date.now().toString(16)
         sessionStorage.setItem('login_state', state)
@@ -328,6 +296,7 @@ export default class AccountSet extends Vue {
 
     // 解绑微信
     async unBind () {
+        await validateIdentity(this.accountInfo.mobile)
         await this.$confirm({
             title: '您确认解绑微信吗？',
             message: '解绑后，您可以重新绑定微信号'
@@ -372,11 +341,6 @@ export default class AccountSet extends Vue {
         display: block;
         margin: 36px auto 14px;
         min-width: 106px;
-    }
-    .step1 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
     .verify-code {
         > input {

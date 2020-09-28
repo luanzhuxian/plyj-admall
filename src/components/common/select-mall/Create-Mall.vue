@@ -67,7 +67,7 @@ import {
     contactWayType
 } from '../../../apis/home'
 import { isLandlinePhone, isPhone, testName } from '../../../assets/ts/validate'
-import CityPicker from '../City-Picker.vue'
+import CityPicker from '../base/City-Picker.vue'
 import { namespace } from 'vuex-class'
 const testServicePhoneModels = (contactWayType: string): Function => function (rule: any, value: any, callback: Function) {
     if (contactWayType === 'MOBILE') {

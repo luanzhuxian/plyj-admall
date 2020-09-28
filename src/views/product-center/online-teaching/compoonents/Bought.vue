@@ -67,7 +67,7 @@ import {
     checkCard,
     confirmUse
 } from './../../../../apis/product-center/online-teaching/live'
-import Field from '../../../../components/common/Field.vue'
+import Field from '../../../../components/common/base/Field.vue'
 export default {
     name: 'Bought',
     components: {
