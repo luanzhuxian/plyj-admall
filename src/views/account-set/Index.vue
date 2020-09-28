@@ -34,7 +34,7 @@
                     <el-button type="text" @click="modify">更换</el-button>
                 </el-form-item>
                 <el-form-item label="账号绑定：">
-                    <div v-if="accountInfo.wxNickName">
+                    <div v-if="accountInfo.unionId">
                         <div>绑定后通过第三方帐号快速扫码登录</div>
                         <div :class="$style.wechat">
                             <img width="24" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">
@@ -121,17 +121,15 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable */
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import ImageManage from '../../components/common/file/Image-Manager.vue'
 import { namespace, State } from 'vuex-class'
 import { updateAvatarOrName, updateMobile, WxBind, WxUnBind } from '../../apis/account-set'
-import { getVerifyCodeFunc, checkMobileCode } from '../../apis/common'
-import SendCode from "./../../components/common/Send-Code.vue";
-import validateIdentity from "../../components/common/validate-identity";
+import SendCode from './../../components/common/Send-Code.vue'
+import validateIdentity from '../../components/common/validate-identity'
 import { testName, testPhone } from '../../assets/ts/validate'
-import {Watch} from "vue-property-decorator";
+import { Watch } from 'vue-property-decorator'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -180,13 +178,13 @@ export default class AccountSet extends Vue {
     @userModule.Action('AGENCY_USER_INFO') getAgencyUserInfo!: Function
     @State('bindWechatInfo') bindWechatInfo!: DynamicObject
     @State('weChatStyle') weChatStyle!: string
-    @Watch('accountInfo')
+    @Watch('accountInfo', { immediate: true })
     onAccountInfoChange (val: DynamicObject) {
-    }
-    async mounted () {
-        const avatar = this.accountInfo.headImgUrl
+        const avatar = val.headImgUrl
         this.avatar = avatar ? [avatar] : []
-        console.log(123)
+    }
+
+    async mounted () {
         const wechatCode = sessionStorage.getItem('redirect_code')
         if (wechatCode) {
             WxBind(wechatCode)
@@ -221,7 +219,7 @@ export default class AccountSet extends Vue {
                 } else {
                     resolve()
                 }
-            });
+            })
         })
     }
 
@@ -241,6 +239,7 @@ export default class AccountSet extends Vue {
             switch (field) {
                 // 修改手机号
                 case 'mobile':
+                    await this.validate(field, 'mobile')
                     await this.validate(field, 'verifyCode');
                     ({ result } = await updateMobile({
                         mobile: this.form.mobile,
@@ -282,6 +281,7 @@ export default class AccountSet extends Vue {
         sessionStorage.setItem('login_state', state)
         this.bindWechat = true
         await this.$nextTick()
+        /* eslint-disable */
         new window.WxLogin({
             self_redirect: false,
             id: (this as any).$style.bindWechatContainer,
@@ -358,4 +358,3 @@ export default class AccountSet extends Vue {
         overflow: hidden;
     }
 </style>
-
