@@ -30,8 +30,6 @@ export default class ModuleWrapper extends Vue {
         default: 'large'
     }) readonly size!: string
 
-    @Prop(String) readonly name!: string
-
     /* computed */
     get iconWidth () {
         return this.size === 'small' ? 52 : 152
@@ -62,7 +60,7 @@ export default class ModuleWrapper extends Vue {
     onClick () {
         if (!this.isClickable) return
         if (!this.data.showStatue) return
-        this.$emit('on-click', this.name)
+        this.$emit('on-click')
     }
 }
 </script>

@@ -56,8 +56,7 @@
                         [$style.active]: current === 'Miaosha'
                     }"
                     :data="Miaosha"
-                    name="Miaosha"
-                    @on-click="onClick"
+                    @on-click="onClick('Miaosha')"
                 >
                     <Miaosha :data="Miaosha" />
                 </ModuleWrapper>
@@ -71,8 +70,7 @@
                         [$style.active]: current === 'Distribution'
                     }"
                     :data="Distribution"
-                    name="Distribution"
-                    @on-click="onClick"
+                    @on-click="onClick('Distribution')"
                 >
                     <Distribution :data="Distribution" />
                 </ModuleWrapper>
@@ -86,8 +84,7 @@
                         [$style.active]: current === 'Pintuan'
                     }"
                     :data="Pintuan"
-                    name="Pintuan"
-                    @on-click="onClick"
+                    @on-click="onClick('Pintuan')"
                 >
                     <Pintuan :data="Pintuan" />
                 </ModuleWrapper>
@@ -101,8 +98,7 @@
                         [$style.active]: current === 'Yugou'
                     }"
                     :data="Yugou"
-                    name="Yugou"
-                    @on-click="onClick"
+                    @on-click="onClick('Yugou')"
                 >
                     <Yugou :data="Yugou" />
                 </ModuleWrapper>
@@ -116,8 +112,7 @@
                         [$style.active]: current === 'Package'
                     }"
                     :data="Package"
-                    name="Package"
-                    @on-click="onClick"
+                    @on-click="onClick('Package')"
                 >
                     <Package :data="Package" />
                 </ModuleWrapper>

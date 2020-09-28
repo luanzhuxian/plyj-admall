@@ -76,7 +76,7 @@ export default class Banner extends Vue {
     get defaultImg () {
         const { Banner } = defaultData
         const banner = 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/d12-banner.png'
-        const src = this.tmplType === TemplateTypes.TemplateB2 ? Banner : banner
+        const src = this.tmplType === TemplateTypes.TemplateB2 ? banner : Banner
         return src
     }
 }

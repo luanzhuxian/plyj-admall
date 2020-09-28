@@ -37,9 +37,8 @@
                         [$style.active]: current === 'Propagate'
                     }"
                     :data="Propagate"
-                    name="Propagate"
                     size="small"
-                    @on-click="onClick"
+                    @on-click="onClick('Propagate')"
                 >
                     <Propagate :data="Propagate" />
                 </ModuleWrapper>

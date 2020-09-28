@@ -256,7 +256,7 @@ export default class ModalProd extends Vue {
     }
 
     async getData () {
-        if (this.type === ModalType.ClassModal || this.type === ModalType.PintuanModal) {
+        if (this.type === ModalType.ProductModal || this.type === ModalType.ClassModal) {
             this.getProduct()
         } else if (this.type === ModalType.PackageModal) {
             this.getPackage()
@@ -273,6 +273,7 @@ export default class ModalProd extends Vue {
 
     // 团购、预购、秒杀、优惠券
     async getActivity () {
+        console.log(this.type)
         const request = modalMap[this.type].method
         try {
             const params = {

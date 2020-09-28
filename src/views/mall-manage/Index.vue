@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap mall-manage">
+    <div id="mall-manage" class="wrap mall-manage">
         <PlTabs
             v-show="showTabs"
             :tabs="tabs"

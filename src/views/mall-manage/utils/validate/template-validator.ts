@@ -14,8 +14,8 @@ import {
     CategoryListValidator,
     TeacherListValidator,
     RecommendValidator,
-    MaiSongListValidator,
-    MiaoShaListValidator,
+    MaisongListValidator,
+    MiaoshaListValidator,
     ActivityListValidator
 } from './module-validator'
 
@@ -167,40 +167,40 @@ class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | Templa
     }
 
     // 买送模块
-    async checkMaiSong () {
+    async checkMaisong () {
         const { errList, moduleModels } = this
 
         try {
-            const { value } = await new MaiSongListValidator().validate(moduleModels.MaiSong)
-            moduleModels.MaiSong.values = value
+            const { value } = await new MaisongListValidator().validate(moduleModels.Maisong)
+            moduleModels.Maisong.values = value
         } catch (error) {
-            errList.push(new ErrorMsg(error.message || error, 'MaiSong'))
+            errList.push(new ErrorMsg(error.message || error, 'Maisong'))
         }
     }
 
     // 疯抢模块
-    async checkFengQiang () {
+    async checkFengqiang () {
         const { errList, moduleModels } = this
 
         try {
             // 分类
-            if (moduleModels.FengQiang.goodsSource === 1) {
+            if (moduleModels.Fengqiang.goodsSource === 1) {
                 const max = 12
-                await new CategoryListValidator(moduleModels.FengQiang.moduleName, max).validate(moduleModels.FengQiang)
+                await new CategoryListValidator(moduleModels.Fengqiang.moduleName, max).validate(moduleModels.Fengqiang)
             }
         } catch (error) {
-            errList.push(new ErrorMsg(error.message || error, 'FengQiang'))
+            errList.push(new ErrorMsg(error.message || error, 'Fengqiang'))
         }
     }
 
     // 秒杀模块
-    async checkMiaoSha () {
+    async checkMiaosha () {
         const { errList, moduleModels } = this
 
         try {
-            moduleModels.MiaoSha.values = await new MiaoShaListValidator().validate(moduleModels.MiaoSha.values)
+            moduleModels.Miaosha.values = await new MiaoshaListValidator().validate(moduleModels.Miaosha.values)
         } catch (error) {
-            errList.push(new ErrorMsg(error.message || error, 'MiaoSha'))
+            errList.push(new ErrorMsg(error.message || error, 'Miaosha'))
         }
     }
 
@@ -283,10 +283,10 @@ class TemplateDValidator extends HomeValidator<TemplateD> {
     async validate () {
         await this.checkBanner()
         await this.checkActivity()
-        await this.checkList('MiaoSha', { min: 1, max: 6 })
+        await this.checkList('Miaosha', { min: 1, max: 6 })
         await this.checkList('Package', { min: 1, max: 8 })
-        await this.checkList('PinTuan', { min: 1, max: 6 })
-        await this.checkList('YuGou', { min: 1, max: 6 })
+        await this.checkList('Pintuan', { min: 1, max: 6 })
+        await this.checkList('Yugou', { min: 1, max: 6 })
         await this.checkProduct('Popular')
         await this.checkProduct('Class')
         await this.checkRecommend()
@@ -301,14 +301,14 @@ class TemplateDValidator extends HomeValidator<TemplateD> {
 }
 
 // 双十二主会场疯抢、返场模板
-class TemplateFengQiangValidator extends ActivityValidator<TemplateFengQiang> {
+class TemplateFengqiangValidator extends ActivityValidator<TemplateFengQiang> {
     constructor (tmplType: number, moduleModels: TemplateFengQiang) {
         super(tmplType, moduleModels)
     }
 
     async validate () {
-        await this.checkMaiSong()
-        await this.checkFengQiang()
+        await this.checkMaisong()
+        await this.checkFengqiang()
         await this.checkRecommend()
 
         if (this.errList.length) {
@@ -321,15 +321,15 @@ class TemplateFengQiangValidator extends ActivityValidator<TemplateFengQiang> {
 }
 
 // 双十二主会场爆发模板
-class TemplateBaoFaValidator extends ActivityValidator<TemplateBaoFa> {
+class TemplateBaofaValidator extends ActivityValidator<TemplateBaoFa> {
     constructor (tmplType: number, moduleModels: TemplateBaoFa) {
         super(tmplType, moduleModels)
     }
 
     async validate () {
-        await this.checkMaiSong()
-        await this.checkMiaoSha()
-        await this.checkFengQiang()
+        await this.checkMaisong()
+        await this.checkMiaosha()
+        await this.checkFengqiang()
 
         if (this.errList.length) {
             return this.errList[0]
@@ -341,13 +341,13 @@ class TemplateBaoFaValidator extends ActivityValidator<TemplateBaoFa> {
 }
 
 // 新春主会场模板
-class TemplateXinChunValidator extends ActivityValidator<TemplateXinChun> {
+class TemplateXinchunValidator extends ActivityValidator<TemplateXinChun> {
     constructor (tmplType: number, moduleModels: TemplateXinChun) {
         super(tmplType, moduleModels)
     }
 
     async validate () {
-        await this.checkFengQiang()
+        await this.checkFengqiang()
 
         if (this.errList.length) {
             return this.errList[0]
@@ -365,10 +365,10 @@ class TemplateDragonGateValidator extends ActivityValidator<TemplateDragonGate> 
     }
 
     async validate () {
-        await this.checkList('MiaoSha', { min: 1, max: 6 })
+        await this.checkList('Miaosha', { min: 1, max: 6 })
         await this.checkList('Distribution', { min: 1, max: 6 })
-        await this.checkList('PinTuan', { min: 1, max: 6 })
-        await this.checkList('YuGou', { min: 1, max: 6 })
+        await this.checkList('Pintuan', { min: 1, max: 6 })
+        await this.checkList('Yugou', { min: 1, max: 6 })
         await this.checkList('Package', { min: 1, max: 6 })
         await this.checkRecommend()
 
@@ -385,8 +385,8 @@ export {
     TemplateBValidator,
     TemplateCValidator,
     TemplateDValidator,
-    TemplateFengQiangValidator,
-    TemplateBaoFaValidator,
-    TemplateXinChunValidator,
+    TemplateFengqiangValidator,
+    TemplateBaofaValidator,
+    TemplateXinchunValidator,
     TemplateDragonGateValidator
 }

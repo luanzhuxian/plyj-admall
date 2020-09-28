@@ -105,7 +105,7 @@ export const editorMap: DynamicObject = {
     Propagate: 'Propagate',
     Teachers: 'Form',
     Coupon: 'Coupon',
-    MaiSong: 'Form',
+    Maisong: 'Form',
     Miaosha: 'Miaosha',
     Pintuan: 'Module',
     Yugou: 'Module',

@@ -74,7 +74,7 @@
                 @selection-change="onSelectionChange"
             >
                 <span slot="empty">
-                    <PlSvg name="icon-empty" width="16" style="margin-right: 4px;" />
+                    <PlSvg name="icon-empty" width="16" style="margin-right: 4px;" fill="#4F63FF" />
                     {{ emptyText }}
                 </span>
                 <el-table-column
@@ -125,12 +125,10 @@
                 />
                 <el-table-column
                     label="操作"
-                    align="center"
                     width="250"
                 >
                     <template slot-scope="{ row }">
                         <el-button
-                            v-if="row.status !== 1"
                             type="text"
                             @click="$router.push({
                                 name: 'MallDecoration',
@@ -339,10 +337,14 @@ export default class MallMain extends Vue {
         try {
             if (id === this.currentHomeId) {
                 await this.getCurrentTemplate(1)
+                return
             }
             if (id === this.currentActivityId) {
                 await this.getCurrentTemplate(2)
+                return
             }
+            this.getCurrentTemplate(1)
+            this.getCurrentTemplate(2)
         } catch (error) {
             throw error
         }
@@ -583,6 +585,7 @@ export default class MallMain extends Vue {
             if (result) {
                 this.$success('下架成功')
                 await this.getCurrentTemplate(2)
+                await this.getDraft()
             } else {
                 this.$warning(message)
             }
@@ -632,6 +635,12 @@ export default class MallMain extends Vue {
                 min-width: auto;
             }
         }
+    }
+
+    .el-table__column-filter-trigger i {
+        color: #333333;
+        font-weight: bold;
+        font-size: 16px;
     }
 }
 

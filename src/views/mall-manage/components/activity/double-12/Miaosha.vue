@@ -168,7 +168,7 @@
                     </div>
                 </li>
                 <span :class="$style.border" />
-                <li :class="[$style.miaosha-time-item, $style.current]">
+                <li :class="[$style.miaoshaTimeItem, $style.current]">
                     <div :class="$style.wrapper">
                         <div :class="$style.status">
                             进行中
@@ -196,7 +196,7 @@
             <ul :class="$style.miaoshaList">
                 <li :class="$style.miaoshaListItem" v-for="(item, i) of 3" :key="i">
                     <div :class="$style.imgWrapper">
-                        <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/:class/mod$style.-popular-3.jpg" alt="">
+                        <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg" alt="">
                         <div :class="$style.countdownWrapper">
                             <span :class="$style.text">距开始</span>
                             <i :class="$style.block">02</i>天
@@ -220,7 +220,7 @@
                                     <span :class="$style.price">15000</span>
                                 </div>
                                 <div :class="$style.progress">
-                                    <div :class="$style.progress-inner" :style="{ width: '50%' }" />
+                                    <div :class="$style.progressInner" :style="{ width: '50%' }" />
                                 </div>
                                 <div :class="$style.saled">
                                     已抢40件

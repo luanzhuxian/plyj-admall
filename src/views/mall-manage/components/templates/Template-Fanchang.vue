@@ -167,7 +167,7 @@ export default class TemplateFanchang extends Vue {
 }
 </script>
 
-<style moodule lang="scss">
+<style module lang="scss">
 @import './double-12-common-style.scss';
 
 </style>

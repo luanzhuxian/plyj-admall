@@ -36,7 +36,7 @@
             <ul :class="$style.maisongList" v-else>
                 <li :class="$style.maisongListItem" v-for="(item, i) of 3" :key="i">
                     <div :class="$style.imgWrapper">
-                        <img v-imgError src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/:class/mod$style.-popular-3.jpg" alt="">
+                        <img v-imgError src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/class/mod-popular-3.jpg" alt="">
                     </div>
                     <div :class="$style.info">
                         <PlSvg width="16" name="icon-gift-1" v-if="i === 0" />

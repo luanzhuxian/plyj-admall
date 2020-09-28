@@ -67,18 +67,18 @@ const map = {
         icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/pocket.png',
         width: '35'
     },
-    report: {
-        main: '防疫情报站',
-        sub: '众志成城抗击疫情',
-        icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/document.png',
-        width: '32'
-    },
-    sign: {
-        main: '抗疫签到',
-        sub: '共携手抗战疫',
-        icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/medicine.png',
-        width: '32'
-    },
+    // report: {
+    //     main: '防疫情报站',
+    //     sub: '众志成城抗击疫情',
+    //     icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/document.png',
+    //     width: '32'
+    // },
+    // sign: {
+    //     main: '抗疫签到',
+    //     sub: '共携手抗战疫',
+    //     icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/medicine.png',
+    //     width: '32'
+    // },
     distribution: {
         main: '全民来分销',
         sub: 'Helper福利享不停',
@@ -108,11 +108,11 @@ const map = {
 const defaultData = [{
     value: 'cloud'
 }, {
-    value: 'sign'
-}, {
     value: 'newyear'
 }, {
-    value: 'report'
+    value: 'dragon-gate-charity'
+}, {
+    value: 'dragon-gate-play'
 }]
 
 @Component

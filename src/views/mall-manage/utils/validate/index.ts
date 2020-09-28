@@ -2,9 +2,9 @@ import {
     TemplateBValidator,
     TemplateCValidator,
     TemplateDValidator,
-    TemplateFengQiangValidator,
-    TemplateBaoFaValidator,
-    TemplateXinChunValidator,
+    TemplateFengqiangValidator,
+    TemplateBaofaValidator,
+    TemplateXinchunValidator,
     TemplateDragonGateValidator
 } from './template-validator'
 import { TemplateCrosses } from '../types'
@@ -14,10 +14,10 @@ const validatorProducer = (tmplType: number, moduleModels: TemplateCrosses | obj
         '-1': TemplateCValidator,
         3: TemplateBValidator,
         4: TemplateBValidator,
-        5: TemplateFengQiangValidator,
-        6: TemplateBaoFaValidator,
-        7: TemplateFengQiangValidator,
-        8: TemplateXinChunValidator,
+        5: TemplateFengqiangValidator,
+        6: TemplateBaofaValidator,
+        7: TemplateFengqiangValidator,
+        8: TemplateXinchunValidator,
         9: TemplateDValidator,
         10: TemplateDragonGateValidator,
         findValidatorByType (id: string) {

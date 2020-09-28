@@ -19,7 +19,7 @@
                 <components :is="navBarName" />
             </transition>
             <Header />
-            <main :class="$style.main">
+            <main id="main" :class="$style.main">
                 <keep-alive>
                     <router-view />
                 </keep-alive>

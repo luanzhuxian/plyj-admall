@@ -182,7 +182,7 @@ class RecommendValidator extends ModuleNameValidator {
 }
 
 // 买送模块校验
-class MaiSongValidator extends Validator {
+class MaisongValidator extends Validator {
     image: Rule[]
     name: Rule[]
 
@@ -196,12 +196,12 @@ class MaiSongValidator extends Validator {
     }
 }
 
-class MaiSongListValidator extends Validator {
-    validator: MaiSongValidator
+class MaisongListValidator extends Validator {
+    validator: MaisongValidator
     otherValue: Rule[]
     constructor () {
         super()
-        this.validator = new MaiSongValidator()
+        this.validator = new MaisongValidator()
         this.otherValue = [
             new Rule('required', '请填写买送活动模块副标题'),
             new Rule('isLength', '买送活动模块的副标题最多为20个字', { min: 1, max: 20 })
@@ -225,7 +225,7 @@ class MaiSongListValidator extends Validator {
 }
 
 // 秒杀模块校验
-class MiaoShaValidator extends Validator {
+class MiaoshaValidator extends Validator {
     range: Rule[]
     goodsInfo: Rule[]
     constructor () {
@@ -238,11 +238,11 @@ class MiaoShaValidator extends Validator {
     }
 }
 
-class MiaoShaListValidator extends Validator {
-    validator: MiaoShaValidator
+class MiaoshaListValidator extends Validator {
+    validator: MiaoshaValidator
     constructor () {
         super()
-        this.validator = new MiaoShaValidator()
+        this.validator = new MiaoshaValidator()
     }
 
     // TODO:
@@ -287,7 +287,7 @@ export {
     TeacherValidator,
     TeacherListValidator,
     RecommendValidator,
-    MaiSongListValidator,
-    MiaoShaListValidator,
+    MaisongListValidator,
+    MiaoshaListValidator,
     ActivityListValidator
 }

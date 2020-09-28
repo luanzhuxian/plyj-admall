@@ -159,7 +159,7 @@
             </div>
         </div>
         <footer v-show="!showPreview">
-            <el-button :disabled="!loaded" @click="saveDraft">
+            <el-button :disabled="!loaded" style="width: auto" @click="saveDraft">
                 保存草稿箱
             </el-button>
             <el-button :disabled="!loaded" @click="showPreview = true">
@@ -168,10 +168,10 @@
             <el-button :disabled="!loaded" @click="stack">
                 上架
             </el-button>
-            <el-button :disabled="!loaded" @click="stackByTime" v-if="~['TEMPLATE', 'DRAFT'].indexOf(this.from)">
+            <el-button :disabled="!loaded" style="width: auto" @click="stackByTime" v-if="~['TEMPLATE', 'DRAFT'].indexOf(this.from)">
                 定时上架
             </el-button>
-            <el-button :disabled="!loaded" @click="discard">
+            <el-button :disabled="!loaded" style="width: auto" @click="discard">
                 放弃修改
             </el-button>
         </footer>
@@ -304,7 +304,7 @@ export default class MallDecoration extends Vue {
         Appointment: 0,
         Propagate: 0,
         Form: 0,
-        Ccoupon: 0,
+        Coupon: 0,
         Maisong: 0,
         Miaosha: 0,
         getPosition (name: string) {
@@ -330,7 +330,6 @@ export default class MallDecoration extends Vue {
     /* computed */
     @mall.Getter('currentHome') currentHome!: Template
     @mall.Getter('currentActivity') currentActivity!: Template
-    @mall.Getter('currentTemplateLoaded') currentTemplateLoaded!: boolean
 
     get tag () {
         return tagMap.findTemplateTagById(this.tmplType)
@@ -486,16 +485,9 @@ export default class MallDecoration extends Vue {
         const path = type === 2 ? 'currentActivity' : 'currentHome'
         this.unWatch = this.$watch(path, (template: Template) => {
             if (template && template.type) {
-                try {
-                    this.getTemplate(type)
-                } catch (error) {
-                    throw error
-                } finally {
-                    this.loaded = true
-                }
+                this.getTemplate(type)
+                this.loaded = true
             }
-        }, {
-            immediate: true
         })
     }
 
@@ -582,14 +574,15 @@ export default class MallDecoration extends Vue {
 
     // 获取装修组件的位置
     getEditorPosition (target: Element) {
-        const OFFSET = 215
-        const container = document.querySelector('.main-container')
+        const OFFSET = 210
+        const container = document.querySelector('#main')
         if (container && ('scrollTop' in container)) {
+            // 当前点击模块相对窗口顶部的距离 + 容器滚动条滚动距离 - OFFSET
             return target.getBoundingClientRect().top + container.scrollTop - OFFSET
         }
     }
 
-    // 点击模块时触发
+    // 点击模块时触发，找到对应的editor，并根据当前模块的位置设置editor的位置
     async onModuleClick (moduleName: string, domElem: Element) {
         const { tmplType } = this
         // @ts-ignore
@@ -913,7 +906,7 @@ export default class MallDecoration extends Vue {
                     // 滚动到报错的模块
                     await this.$nextTick()
                     const editorName = editorMap.getEditorByModule({ tmplType: this.tmplType, moduleName: errModule })
-                    const container = document.querySelector('.main-container')
+                    const container = document.querySelector('#main')
                     if (container && ('scrollTop' in container)) {
                         container.scrollTop = this.editorPosition.getPosition(editorName) + OFFSET
                     }

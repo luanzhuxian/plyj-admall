@@ -38,7 +38,7 @@
                             maxlength="10"
                             style="margin-bottom: 6px;"
                         />
-                        <div class="link">
+                        <div :class="$style.link">
                             <el-input
                                 v-model.trim="item.valueName"
                                 placeholder="选择跳转路径"
@@ -126,12 +126,10 @@ export default class EditorBanner extends Vue {
     cascaderValue = []
     options = Object.freeze([{
         value: 1,
-        label: '商品及分类',
-        children: []
+        label: '商品及分类'
     }, {
         value: 3,
-        label: '知识商品',
-        children: []
+        label: '知识商品'
     }, {
         value: 4,
         label: '营销活动',
@@ -150,12 +148,12 @@ export default class EditorBanner extends Vue {
         }, {
             value: 45,
             label: '组合聚惠学'
-        }, {
-            value: 46,
-            label: '防疫情报站'
-        }, {
-            value: 47,
-            label: '疫情签到'
+        // }, {
+        //     value: 46,
+        //     label: '防疫情报站'
+        // }, {
+        //     value: 47,
+        //     label: '疫情签到'
         }, {
             value: 48,
             label: '公益棕行动'
@@ -168,13 +166,36 @@ export default class EditorBanner extends Vue {
         }]
     }, {
         value: 5,
-        label: '互动直播',
-        children: []
+        label: '互动直播'
     }, {
         value: 6,
-        label: '店铺主页',
-        children: []
+        label: '店铺主页'
     }])
+
+    add () {
+        if (this.data.values.length >= this.max) return
+        this.data.values.push({
+            id: '',
+            type: '',
+            image: '',
+            name: '',
+            value: '',
+            valueName: '',
+            goodsInfo: ''
+        })
+    }
+
+    async remove (index: number) {
+        try {
+            await this.$confirm({
+                title: '确认删除？',
+                message: '删除后不可恢复'
+            })
+            this.data.values.splice(index, 1)
+        } catch (e) {
+            throw e
+        }
+    }
 
     /* methods */
     selectImage (index: number) {
@@ -219,31 +240,6 @@ export default class EditorBanner extends Vue {
 
         // 清空选中记录
         this.cascaderValue = []
-    }
-
-    add () {
-        if (this.data.values.length >= this.max) return
-        this.data.values.push({
-            id: '',
-            type: '',
-            image: '',
-            name: '',
-            value: '',
-            valueName: '',
-            goodsInfo: ''
-        })
-    }
-
-    async remove (index: number) {
-        try {
-            await this.$confirm({
-                title: '确认删除？',
-                message: '删除后不可恢复'
-            })
-            this.data.values.splice(index, 1)
-        } catch (e) {
-            throw e
-        }
     }
 
     openModal (params: { modalType: number; radio: string; index: number }) {

@@ -34,9 +34,8 @@
                     [$style.active]: current === 'Adv'
                 }"
                 :data="Adv"
-                name="Adv"
                 size="small"
-                @on-click="onClick"
+                @on-click="onClick('Adv')"
             >
                 <Adv :data="Adv" />
             </ModuleWrapper>
@@ -50,8 +49,7 @@
                     [$style.active]: current === 'Live'
                 }"
                 :data="Live"
-                name="Live"
-                @on-click="onClick"
+                @on-click="onClick('Live')"
             >
                 <Live :data="Live" />
             </ModuleWrapper>
@@ -65,8 +63,7 @@
                     [$style.active]: current === 'OnlineCourse'
                 }"
                 :data="OnlineCourse"
-                name="OnlineCourse"
-                @on-click="onClick"
+                @on-click="onClick('OnlineCourse')"
             >
                 <OnlineCourse :data="OnlineCourse" />
             </ModuleWrapper>
@@ -80,8 +77,7 @@
                     [$style.active]: current === 'SeriesCourse'
                 }"
                 :data="SeriesCourse"
-                name="SeriesCourse"
-                @on-click="onClick"
+                @on-click="onClick('SeriesCourse')"
             >
                 <SeriesCourse :data="SeriesCourse" />
             </ModuleWrapper>
@@ -95,8 +91,7 @@
                     [$style.active]: current === 'ImageText'
                 }"
                 :data="ImageText"
-                name="ImageText"
-                @on-click="onClick"
+                @on-click="onClick('ImageText')"
             >
                 <ImageText :data="ImageText" />
             </ModuleWrapper>
@@ -110,8 +105,7 @@
                     [$style.active]: current === 'Popular'
                 }"
                 :data="Popular"
-                name="Popular"
-                @on-click="onClick"
+                @on-click="onClick('Popular')"
             >
                 <template>
                     <SkinTitle
@@ -136,9 +130,8 @@
                     [$style.active]: current === 'Appointment'
                 }"
                 :data="Appointment"
-                name="Appointment"
                 size="small"
-                @on-click="onClick"
+                @on-click="onClick('Appointment')"
             >
                 <Appointment :data="Appointment" :slides-per-view="2" />
             </ModuleWrapper>
@@ -152,9 +145,8 @@
                     [$style.active]: current === 'Propagate'
                 }"
                 :data="Propagate"
-                name="Propagate"
                 size="small"
-                @on-click="onClick"
+                @on-click="onClick('Propagate')"
             >
                 <Propagate :data="Propagate" />
             </ModuleWrapper>
@@ -168,8 +160,7 @@
                     [$style.active]: current === 'Class'
                 }"
                 :data="Class"
-                name="Class"
-                @on-click="onClick"
+                @on-click="onClick('Class')"
             >
                 <template>
                     <SkinTitle
