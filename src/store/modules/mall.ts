@@ -45,12 +45,16 @@ const mall: Module<DynamicObject, DynamicObject> = {
                 // 当前首页
                 if (type === 1) {
                     commit('setCurrentHome', result)
-                    commit('setLoaded')
+                    setTimeout(() => {
+                        commit('setLoaded')
+                    }, 0)
                 }
                 // 当前主会场
                 if (type === 2) {
                     commit('setCurrentActivity', result)
-                    commit('setLoaded')
+                    setTimeout(() => {
+                        commit('setLoaded')
+                    }, 0)
                 }
                 // return result
             } catch (error) {

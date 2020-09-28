@@ -285,7 +285,7 @@ export default class ModalProd extends Vue {
                 } : null),
                 type: ''
             }
-            const { data: { result } } = await request(params)
+            const { result } = await request(params)
             this.productList = result.records
             this.pagination.total = result.total
             if (this.reserveSelection) {
@@ -335,7 +335,7 @@ export default class ModalProd extends Vue {
                 status: '3',
                 ...(this.searchHistory ? { condition: this.searchHistory } : null) // 搜索内容
             }
-            const { data: { result } } = await getSpringPloughingList(params)
+            const { result } = await getSpringPloughingList(params)
             this.productList = result.records
             this.pagination.total = result.total
             if (this.reserveSelection) {

@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="$style.miaoshaPanel" :title="panelTitle">
+    <Panel custom-class="miaosha-panel" :title="panelTitle">
         <ul :class="$style.miaoshaList" v-if="data.values.length">
             <template v-for="(item, index) of data.values">
                 <li

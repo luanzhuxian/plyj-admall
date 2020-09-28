@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="$style.activityPanel" :title="panelTitle" hide-button>
+    <Panel custom-class="activity-panel" :title="panelTitle" hide-button>
         <ul :class="$style.activityList">
             <li v-if="isSignShow">
                 <div :class="$style.imgWrapper">
@@ -59,11 +59,13 @@ export default class Activity extends Vue {
 }
 </script>
 
-<style lang="scss" module>
+<style lang="scss">
 .activity-panel {
     padding: 14px 16px 8px;
     background-color: #01237a;
 }
+</style>
+<style lang="scss" module>
 .activity-list {
     > li {
         display: flex;

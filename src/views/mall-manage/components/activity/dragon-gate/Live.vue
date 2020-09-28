@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="$style.livePanel" :title="panelTitle">
+    <Panel custom-class="live-panel" :title="panelTitle">
         <ul :class="$style.liveList">
             <template v-for="(live, index) of liveModel.slice(0, 3)">
                 <li :class="$style.first" :key="index" v-if="~(liveModel.length > 2 ? [0] : [0, 1]).indexOf(index)">

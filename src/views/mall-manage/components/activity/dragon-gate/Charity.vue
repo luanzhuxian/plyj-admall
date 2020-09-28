@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="$style.charityPanel" :title="panelTitle" button="更多公益活动">
+    <Panel custom-class="charity-panel" :title="panelTitle" button="更多公益活动">
         <div :class="$style.charity">
             <template v-if="!isStarted">
                 <div :class="$style.charityCountdown">
@@ -132,10 +132,12 @@ export default class Charity extends Vue {
 }
 </script>
 
-<style lang="scss" module>
+<style lang="scss">
 .charity-panel {
     padding-top: 30px;
 }
+</style>
+<style lang="scss" module>
 .charity {
     display: flex;
     flex-direction: column;

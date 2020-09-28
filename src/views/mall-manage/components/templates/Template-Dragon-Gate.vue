@@ -133,14 +133,14 @@
                     }"
                     @click="onClick('Recommend')"
                 >
-                    <Panel :custom-class="$style.panel" :title="panelTitle" hide-button>
+                    <Panel custom-class="recommend-panel" :title="panelTitle" hide-button>
                         <Recommend :data="Recommend" btn-color="#FF341B" border="2px solid #222222" />
                     </Panel>
                 </section>
                 <!-- 版权信息 -->
-                <footer :class="$style.moduleCopyright">
+                <div :class="$style.moduleCopyright">
                     — 技术支持 朋来科技 —
-                </footer>
+                </div>
             </div>
         </div>
         <img
@@ -268,6 +268,11 @@ export default class TemplateDragonGate extends Vue {
 }
 </script>
 
+<style lang="scss">
+.recommend-panel {
+    padding-top: 32px;
+}
+</style>
 <style module lang="scss">
 .template-dragon-gate {
     display: flex;
@@ -342,7 +347,7 @@ export default class TemplateDragonGate extends Vue {
 .module-pintuan,
 .module-yugou,
 .module-package,
-.module-recomend {
+.module-recommend {
     padding: 20px 12px;
 }
 
@@ -355,8 +360,9 @@ export default class TemplateDragonGate extends Vue {
     font-size: 13px;
     font-weight: 600;
 }
-.panel {
-    padding-top: 32px;
+
+.pointer {
+    cursor: pointer;
 }
 
 </style>

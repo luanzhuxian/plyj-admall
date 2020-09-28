@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="$style.yugouPanel" :title="panelTitle">
+    <Panel custom-class="yugou-panel" :title="panelTitle">
         <ul :class="$style.yugouList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <li

@@ -592,4 +592,8 @@ export default class TemplateD extends Vue {
     padding: 5px 12px;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 </style>

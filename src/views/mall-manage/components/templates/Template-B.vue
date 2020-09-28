@@ -473,4 +473,8 @@ export default class TemplateB extends Vue {
 .module-propagate {
     padding: 5px 12px;
 }
+
+.pointer {
+    cursor: pointer;
+}
 </style>

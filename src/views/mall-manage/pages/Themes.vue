@@ -489,21 +489,21 @@ export default class MallThemes extends Vue {
 
     // 检查是否有模板使用权限
     check (item: Template) {
-        if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
-            this.modalText = '双十二'
-            this.showAlertModal = true
-            return false
-        }
-        if (item.type === 8 && !this.isXinchunAvailable) {
-            this.modalText = '新春'
-            this.showAlertModal = true
-            return false
-        }
-        if (item.type === 10 && !this.isDragonGateAvailable) {
-            this.modalText = '龙门节'
-            this.showAlertModal = true
-            return false
-        }
+        // if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
+        //     this.modalText = '双十二'
+        //     this.showAlertModal = true
+        //     return false
+        // }
+        // if (item.type === 8 && !this.isXinchunAvailable) {
+        //     this.modalText = '新春'
+        //     this.showAlertModal = true
+        //     return false
+        // }
+        // if (item.type === 10 && !this.isDragonGateAvailable) {
+        //     this.modalText = '龙门节'
+        //     this.showAlertModal = true
+        //     return false
+        // }
         return item
     }
 

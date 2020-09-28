@@ -118,9 +118,9 @@
                     </Recommend>
                 </div>
                 <!-- 版权信息 -->
-                <footer :class="$style.moduleCopyright">
+                <div :class="$style.moduleCopyright">
                     — 技术支持 朋来科技 —
-                </footer>
+                </div>
             </div>
         </div>
         <img
@@ -330,6 +330,10 @@ export default class TemplateXinchun extends Vue {
     color: #fff;
     font-size: 13px;
     font-weight: 600;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 </style>

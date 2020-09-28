@@ -444,4 +444,8 @@ export default class TemplateHome extends Vue {
     padding: 5px 10px;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 </style>

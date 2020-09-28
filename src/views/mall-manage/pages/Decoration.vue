@@ -293,6 +293,7 @@ export default class MallDecoration extends Vue {
     templateModel: Template | {} = {}
     moduleModels: TemplateCrosses | {} = {}
     currentModule = ''
+    unWatch!: Function
 
     editorPosition: DynamicObject = {
         Banner: 0,
@@ -453,25 +454,15 @@ export default class MallDecoration extends Vue {
         this.removeDuplicateHandler()
     }
 
-    @Watch('currentTemplateLoaded')
-    async onChange (isLoaded: boolean) {
-        if (isLoaded === true) {
-            try {
-                await this.getData()
-            } catch (error) {
-                throw error
-            } finally {
-                this.loaded = true
-            }
-        }
-    }
-
     async created () {
         try {
             this.loaded = false
-            const { from } = this.$route.query
+            const { from, type } = this.$route.query
             if (isString(from)) {
                 this.from = from
+            }
+            if (from === 'CURRENT') {
+                this.setWatcher(Number(type))
             }
             await this.getData()
         } catch (error) {
@@ -481,8 +472,32 @@ export default class MallDecoration extends Vue {
         }
     }
 
+    beforeDestroy () {
+        if (this.unWatch) {
+            this.unWatch()
+        }
+    }
+
     /* methods */
     @mall.Action('getCurrentTemplate') getCurrentTemplate!: (type: number) => Promise<void>
+
+    // type: 1 首页 2主会场
+    setWatcher (type: number) {
+        const path = type === 2 ? 'currentActivity' : 'currentHome'
+        this.unWatch = this.$watch(path, (template: Template) => {
+            if (template && template.type) {
+                try {
+                    this.getTemplate(type)
+                } catch (error) {
+                    throw error
+                } finally {
+                    this.loaded = true
+                }
+            }
+        }, {
+            immediate: true
+        })
+    }
 
     // 商品去重
     async removeDuplicateHandler () {
@@ -528,7 +543,7 @@ export default class MallDecoration extends Vue {
      */
     getTemplate (type = 1) {
         const template = type === 2 ? this.currentActivity : this.currentHome
-        if (template && template.type && template.moduleModels) {
+        if (template && template.type) {
             this.tmplType = template.type
             this.skinId = template.skinStatus
             this.moduleModels = rebuild(template.type, JSON.parse(JSON.stringify(template.moduleModels)))
