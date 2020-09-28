@@ -1,7 +1,7 @@
 import { importFiles } from './../../../assets/ts/utils'
 import onlineTeaching from './online-teaching/online-teaching'
 
-const context = require.context('./', false, /\/(((?!index)(?!online-teaching)).)+\.ts$/)
+const context = require.context('./', false, /\/((?!index).)+\.ts$/)
 
 export default [
     {
