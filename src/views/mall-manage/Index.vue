@@ -1,6 +1,7 @@
 <template>
     <div class="wrap mall-manage">
         <PlTabs
+            v-show="showTabs"
             :tabs="tabs"
             :value="currentTab"
             @tabClick="handleTabClick"
@@ -18,6 +19,7 @@ import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
 const mall = namespace('mall')
 @Component
 export default class MallManage extends Vue {
+    /* data */
     currentTab = ''
     tabs = [{
         name: 'MallMain',
@@ -27,16 +29,21 @@ export default class MallManage extends Vue {
         label: '店铺主题'
     }]
 
+    /* computed */
     @mall.Mutation setLiveInfo!: (payload: {}) => void
     @mall.Mutation setNwEvent!: (payload: {}) => void
+    get showTabs () {
+        return !!this.$route.name && this.tabs.map(tab => tab.name).includes(this.$route.name)
+    }
 
+    /* watch */
     @Watch('$route.name', { immediate: true })
-    onChangeValue (newVal: string) {
+    onChange (newVal: string) {
         this.currentTab = newVal
     }
 
     async created () {
-        if (this.$route.name && ['MallMain', 'MallThemes'].includes(this.$route.name)) {
+        if (this.$route.name && this.showTabs) {
             this.currentTab = this.$route.name
         }
 
@@ -46,7 +53,7 @@ export default class MallManage extends Vue {
             this.getCurrentTemplate(1),
             this.getCurrentTemplate(2)
         ]
-        const [{ result: live = {} }, { result: nianwei = [] }] = await Promise.all(requests.map(p => p.catch(e => {
+        const [{ result: live = {} }, { result: nianwei = [] }] = await Promise.all(requests.map((p: Promise<any>) => p.catch(e => {
             console.error(e)
             return { result: null }
         })))

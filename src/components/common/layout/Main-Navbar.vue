@@ -29,7 +29,7 @@
                     </h2>
                 </el-menu-item>
 
-                <el-submenu index="2">
+                <el-submenu index="2" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-kecheng-e9b91"
@@ -47,7 +47,7 @@
                     <el-menu-item index="2-6" :route="{ name: 'Recommend' }">推荐榜单</el-menu-item>
                 </el-submenu>
 
-                <el-submenu index="3">
+                <el-submenu index="3" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-vip-b06e1"
@@ -61,7 +61,7 @@
                     <el-menu-item index="3-2" :route="{ name: 'HelperManage' }">helper管理</el-menu-item>
                 </el-submenu>
 
-                <el-submenu index="4">
+                <el-submenu index="4" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-dingdan-b0bdb"
@@ -78,7 +78,7 @@
                     <el-menu-item index="4-5" :route="{ name: 'Invoice' }">发票管理</el-menu-item>
                 </el-submenu>
 
-                <el-submenu index="5">
+                <el-submenu index="5" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-dianpu-a4653"
@@ -94,7 +94,7 @@
                     <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 
-                <el-submenu index="6">
+                <el-submenu index="6" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-shezhi-28924"
@@ -111,7 +111,7 @@
                     <el-menu-item index="6-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
                 </el-submenu>
 
-                <el-menu-item index="7" :route="{ name: 'MarketingManage' }" :class="$style.marketing">
+                <el-menu-item index="7" :route="{ name: 'MarketingManage' }" :class="$style.marketing" :disabled="!appId">
                     <h2 :class="$style.title">
                         <pl-svg
                             name="icon-yxzx-44de2"
@@ -157,6 +157,10 @@ export default class MainNavbar extends Vue {
     defaultActive = ''
     defaultOpeneds: string[] = []
     @userModule.Getter logo!: string
+    @userModule.Getter mchId!: string
+    @userModule.Getter appId!: string
+    @userModule.Getter mallNumber!: string
+
     @Watch('$route', { immediate: true })
     onRouteChange (route: Route) {
         const indexs = route.matched.map(item => item.meta?.index || '')
@@ -167,6 +171,13 @@ export default class MainNavbar extends Vue {
             if (activited) {
                 this.defaultActive = activited
             }
+        }
+    }
+
+    mounted () {
+        if (this.mallNumber && !this.mchId) {
+            // 未开通支付，一直弹操作引导
+            this.showGuid = true
         }
     }
 }

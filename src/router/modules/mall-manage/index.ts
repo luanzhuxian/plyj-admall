@@ -25,6 +25,13 @@ export default [
                     title: '店铺主题',
                     index: '5-2'
                 }
+            }, {
+                path: 'decoration',
+                name: 'MallDecoration',
+                component: () => import('../../../views/mall-manage/pages/Decoration.vue'),
+                meta: {
+                    title: '编辑模板'
+                }
             }
         ]
     }

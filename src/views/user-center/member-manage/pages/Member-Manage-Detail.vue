@@ -109,7 +109,7 @@
                         </div>
                         <div v-if="memberDetail.birthday">
                             <span>年龄：</span>
-                            <span>{{ moment(memberDetail.birthday).diff(moment(), 'year') }}</span>
+                            <span>{{ Math.abs(moment(memberDetail.birthday).diff(moment(), 'year')) }}</span>
                         </div>
                         <div>
                             <span>生日：</span>
@@ -187,11 +187,15 @@
                                 v-model="addMemberDetailForm.other"
                             />
                         </el-form-item>
-                        <el-form-item label="生日：">
+                        <el-form-item label="生日：" prop="birthday">
                             <el-date-picker
                                 v-model="addMemberDetailForm.birthday"
                                 type="date"
-                                placeholder="选择生日日期" />
+                                placeholder="选择生日日期"
+                                :picker-options="{
+                                    disabledDate: (time) => time.getTime() > Date.now()
+                                }"
+                            />
                         </el-form-item>
                         <el-form-item label="邮箱：" prop="email">
                             <el-input
@@ -224,6 +228,7 @@
                             prop="agencyAddress"
                         >
                             <el-input
+                                clearable
                                 maxlength="30"
                                 v-model="addMemberDetailForm.address"
                                 placeholder="请输入详细地址"
@@ -911,8 +916,8 @@ import moment from 'moment'
 import { Vue, Component } from 'vue-property-decorator'
 import Pagination from '../../../../components/common/Pagination.vue'
 
-import Field from '../../../../components/common/Field.vue'
-import CityPicker from '../../../../components/common/City-Picker.vue'
+import Field from '../../../../components/common/base/Field.vue'
+import CityPicker from '../../../../components/common/base/City-Picker.vue'
 import AddTags from '../components/Add-Tags.vue'
 import WatchDetailList from '../components/Watch-Detail-List.vue'
 import AddRemark from '../components/Add-Remark.vue'
@@ -929,18 +934,35 @@ import {
     getMemberOrderCount
 } from '../../../../apis/member'
 
-  @Component({
-      components: {
-          AddTags,
-          Field,
-          CityPicker,
-          Pagination,
-          WatchDetailList,
-          AddRemark,
-          SelectCategory
-      }
-  })
+const checkSpecialKey = (str: string): boolean => {
+    const reg = /[^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n]/g
+    for (let i = 0; i < str.length; i++) {
+        if (str.match(reg)) {
+            return false
+        }
+    }
+    return true
+}
 
+const validateInput = (rule: any, value: string, callback: any) => {
+    if (!checkSpecialKey(value)) {
+        callback(new Error('当前字段不支持表情符号！！'))
+    } else {
+        callback()
+    }
+}
+
+@Component({
+    components: {
+        AddTags,
+        Field,
+        CityPicker,
+        Pagination,
+        WatchDetailList,
+        AddRemark,
+        SelectCategory
+    }
+})
 export default class MemberManageDetail extends Vue {
     moment = moment
     // 角色
@@ -1058,7 +1080,12 @@ export default class MemberManageDetail extends Vue {
     }
 
     // 当前所在的tab页
-    tabName = this.Tab_List[0].name
+    tabName:
+    ('OrderList' |
+    'ShareList' |
+    'LiveWatchList' |
+    'LineLearningList' |
+    'RemarkList') = 'OrderList'
 
     // 生命周期函数
     async created () {
@@ -1110,27 +1137,9 @@ export default class MemberManageDetail extends Vue {
         workPosition: ''
     }
 
-    checkSpecialKey (str: string): boolean {
-        const reg = /[^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n]/g
-        for (let i = 0; i < str.length; i++) {
-            if (str.match(reg)) {
-                return false
-            }
-        }
-        return true
-    }
-
-    validateInput (rule: any, value: string, callback: any) {
-        if (!this.checkSpecialKey(value)) {
-            callback(new Error('当前字段不支持表情符号！！'))
-        } else {
-            callback()
-        }
-    }
-
     rules = {
         name: [
-            { validator: this.validateInput, trigger: 'blur' }
+            { validator: validateInput, trigger: 'blur' }
         ],
         email: [
             { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
@@ -1139,14 +1148,20 @@ export default class MemberManageDetail extends Vue {
 
     selectedCity (val: Array<any>) {
         const form = this.addMemberDetailForm
-        form.province = val[0].code
-        form.city = val[1].code
-        form.region = val[2] ? val[2].code : ''
-        form.town = val[3] ? val[3].code : ''
-        form.addressPath = val[0].name +
-            val[1].name +
-            (val[2] ? val[2].name : '') +
-            (val[3] ? val[3].name : '')
+        const { length } = val
+
+        form.province = length ? val[0].code : ''
+        form.city = length ? (val[1].code) : ''
+        form.region = length ? (val[2] ? val[2].code : '') : ''
+        form.town = length ? (val[3] ? val[3].code : '') : ''
+        form.addressPath = length
+            ? (
+                val[0].name +
+                val[1].name +
+                (val[2] ? val[2].name : '') +
+                (val[3] ? val[3].name : '')
+            )
+            : ''
     }
 
     edit () {
@@ -1176,36 +1191,26 @@ export default class MemberManageDetail extends Vue {
     }
 
     async more () {
-        this.tabName = 'RemarkList'
-        await this.$nextTick(() => {
-            const itemWrap: HTMLFormElement | null = document.querySelector('#remark-list')
-            if (itemWrap) {
-                itemWrap.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                    inline: 'nearest'
-                })
-            }
+        this.tabClick({ name: 'RemarkList' })
+        await this.$nextTick()
+        const itemWrap: HTMLFormElement | null = document.querySelector('#remark-list')
+        itemWrap && itemWrap.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
         })
     }
 
-    tabClick (data: DynamicObject) {
+    async tabClick (data: DynamicObject) {
         this.tabName = data.name
-        if (this.tabName === 'OrderList') {
-            this.getOrderList()
+        const obj = {
+            OrderList: this.getOrderList,
+            ShareList: this.getShareList,
+            LiveWatchList: this.getLiveWatchList,
+            LineLearningList: this.getLineLearningList,
+            RemarkList: this.getRemarkList
         }
-        if (this.tabName === 'ShareList') {
-            this.getShareList()
-        }
-        if (this.tabName === 'LiveWatchList') {
-            this.getLiveWatchList()
-        }
-        if (this.tabName === 'LineLearningList') {
-            this.getLineLearningList()
-        }
-        if (this.tabName === 'RemarkList') {
-            this.getRemarkList()
-        }
+        await obj[this.tabName]()
     }
 
     // 购买记录

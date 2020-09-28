@@ -24,7 +24,7 @@ export interface Template {
     templateName: string;
     type: number;
     upShelf: string;
-    moduleModels: TemplateModule[];
+    moduleModels?: TemplateModule[];
 }
 
 // 模块

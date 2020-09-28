@@ -208,9 +208,9 @@
                 <Recommend :data="Recommend" />
             </div>
             <!-- 版权信息 -->
-            <footer :class="$style.moduleCopyright">
+            <div :class="$style.moduleCopyright">
                 — 技术支持 朋来科技 —
-            </footer>
+            </div>
         </div>
         <!-- 底部tabbar -->
         <img :src="navBarMap.get(skinId)" style="width: 100%;">
@@ -472,5 +472,9 @@ export default class TemplateB extends Vue {
 .module-appointment,
 .module-propagate {
     padding: 5px 12px;
+}
+
+.pointer {
+    cursor: pointer;
 }
 </style>

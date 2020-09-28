@@ -243,6 +243,7 @@
                         </el-form-item>
                         <el-form-item>
                             <el-button
+                                round
                                 type="primary"
                                 @click="searchShareList"
                             >
@@ -374,13 +375,13 @@
                                     {{ row.withdrawalAmount / 100 }}
                                 </template>
                             </el-table-column>
-                            <el-table-column
+                            <!-- <el-table-column
                                 prop="amount"
                                 label="剩余润笔（元）">
                                 <template #default="{ row }">
                                     {{ row.amount / 100 }}
                                 </template>
-                            </el-table-column>
+                            </el-table-column> -->
                             <el-table-column
                                 prop="status"
                                 label="提现状态"
@@ -414,7 +415,7 @@
 
 <script  lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import Field from '../../../../components/common/Field.vue'
+import Field from '../../../../components/common/base/Field.vue'
 import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
 import {
     getHelperDetail,

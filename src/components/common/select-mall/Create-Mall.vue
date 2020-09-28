@@ -19,12 +19,12 @@
                     </el-select>
                 </el-input>
             </el-form-item>
-            <el-form-item label="详细地址：">
+            <el-form-item label="详细地址：" prop="province">
                 <CityPicker @selected="citySelected" />
             </el-form-item>
-            <el-form-item label="">
+            <!--<el-form-item label="">
                 <el-input v-model="mallInfoForm.address" placeholder="请输入详细地址" />
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item label="服务顾问：">
                 <el-select
                     v-model="mallInfoForm.consultantUserId"
@@ -67,7 +67,7 @@ import {
     contactWayType
 } from '../../../apis/home'
 import { isLandlinePhone, isPhone, testName } from '../../../assets/ts/validate'
-import CityPicker from '../City-Picker.vue'
+import CityPicker from '../base/City-Picker.vue'
 import { namespace } from 'vuex-class'
 const testServicePhoneModels = (contactWayType: string): Function => function (rule: any, value: any, callback: Function) {
     if (contactWayType === 'MOBILE') {
@@ -130,6 +130,9 @@ export default class CreateMall extends Vue {
         contactWay: [
             { required: true, message: '请输入联系方式', trigger: 'blur' },
             { validator: testServicePhoneModels('MOBILE'), trigger: 'blur' }
+        ],
+        province: [
+            { required: true, message: '请选择地址', trigger: 'blur' }
         ]
     }
 

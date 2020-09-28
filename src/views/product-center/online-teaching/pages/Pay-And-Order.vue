@@ -172,11 +172,14 @@
     </div>
 </template>
 
-<script>
+<script lang='ts'>
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Getter, namespace } from 'vuex-class'
+
 import Panel from '../../../../components/common/Panel.vue'
-import Agreement from '../../../../components/register/Agreement'
+import Agreement from '../../../../components/register/Agreement.vue'
 import Bought from './../compoonents/Bought.vue'
-import { mapGetters } from 'vuex'
+
 import { getVideoLibInfo } from './../../../../apis/product-center/online-teaching/knowledge-course'
 import {
     getSurplusMinute,
@@ -186,194 +189,179 @@ import {
     getOrderDetail,
     retryFalidOrder
 } from './../../../../apis/product-center/online-teaching/live'
-export default {
-    name: 'PayAndOrder',
+const userModule = namespace('user')
+
+@Component({
     components: {
         Panel,
         Agreement,
         Bought
-    },
-    data () {
-        return {
-            currentMeal: {},
-            // 直播间状态，3 未开通
-            enable: 0,
-            surplus: {},
-            setMealData: [],
-            loading: true,
-            payStatus: 'WAIT_PAY', // 等待支付
-            rechargeStatus: 'WAIT_PAY', // 等待充值
-            showProtocol: false,
-            showPayCode: false,
-            isAgreementProtocol: false,
-            payCode: ''
-        }
-    },
-    props: {
-
-        /**
+    }
+})
+export default class PayAndOrder extends Vue {
+    /**
      * 要显示的数据类型，课传多个，以‘,’分格
      * 0 全部
      * 1 直播
      * 2 空间
      * 3 流量
      */
-        type: {
-            type: String,
-            default: '0'
-        },
-        // 是否续费 '0'-首次开通 '1'-续费
-        isRenew: {
-            type: String,
-            default: ''
-        }
-    },
-    computed: {
-        ...mapGetters(['forbiddenPay']),
-        ...mapGetters('user', ['entPersonSaveModel', 'mallSaveModel', 'enterpriseSaveModel'])
-    },
+    @Prop({
+        type: String,
+        default: '0'
+    }) readonly type!: string
+
+    // 是否续费 '0'-首次开通 '1'-续费
+    @Prop(String) readonly isRenew!: string
+
+    @Getter forbiddenPay!: string
+    @userModule.Getter entPersonSaveModel!: string
+    @userModule.Getter mallSaveModel!: string
+    @userModule.Getter enterpriseSaveModel!: string
+
+    currentMeal = {
+        id: ''
+    }
+
+    enable = 0 // 直播间状态，3 未开通
+    surplus = {}
+    setMealData: any[] = []
+    loading = true
+    payStatus = 'WAIT_PAY' // 等待支付
+    rechargeStatus = 'WAIT_PAY' // 等待充值
+    showProtocol = false
+    showPayCode = false
+    isAgreementProtocol = false
+    payCode = ''
+    orderId = ''
+    timer = -1
+
     async activated () {
-        this.setMealData = []
-        try {
-            // 直播间状态
-            const { result } = await getRoomStatus()
-            this.enable = result.enable
-            // 没有开通直播间，并且type为1，去开通直播间
-            if (this.enable === 3 && this.type === '0') {
-                await this.$router.replace({ name: 'SetMeal' })
+        // 直播间状态
+        const { result } = await getRoomStatus()
+        this.enable = result.enable
+        // 没有开通直播间，并且type为1，去开通直播间
+        if (this.enable === 3 && this.type === '0') {
+            await this.$router.replace({ name: 'SetMeal' })
+            return
+        }
+        // 是否续费，续费时显示所有套餐
+        if (this.isRenew === '1') {
+            this.getSetMeal()
+            const { result: time } = await getSurplusMinute()
+            const { result: storage } = await getVideoLibInfo()
+            this.surplus = Object.assign(storage, time)
+        } else {
+            // 不是续费，是在未开通直播的情况下，从开通直播套餐页面跳转而来，跳过来的时候，携带了当时选择的套餐
+            const currentMeal = sessionStorage.getItem('SetMealModel')
+            if (!currentMeal) {
+                await this.$router.replace({ name: 'Home' })
                 return
             }
-            // 是否续费，续费时显示所有套餐
-            if (this.isRenew === '1') {
-                this.getSetMeal()
-                const { result: time } = await getSurplusMinute()
-                const { result: storage } = await getVideoLibInfo()
-                this.surplus = Object.assign(storage, time)
-            } else {
-                // 不是续费，是在未开通直播的情况下，从开通直播套餐页面跳转而来，跳过来的时候，携带了当时选择的套餐
-                const currentMeal = sessionStorage.getItem('SetMealModel')
-                if (!currentMeal) {
-                    await this.$router.replace({ name: 'Home' })
-                    return
-                }
-                this.setMealData = [[JSON.parse(currentMeal)]]
-                this.currentMeal = this.setMealData[0][0]
-            }
-        } catch (e) {
-            throw e
+            this.setMealData = [[JSON.parse(currentMeal)]]
+            this.currentMeal = this.setMealData[0][0]
         }
-    },
+    }
+
     deactivated () {
         this.loading = true
         this.showPayCode = false
         clearInterval(this.timer)
-    },
-    methods: {
-        async getSetMeal () {
-            try {
-                let { result } = await getSetMeal()
-                // 计算套餐中包含的总的直播分钟数 赠送+购买
-                for (const item of result) {
-                    item.duration = item.rechargeMinute + item.giveMinute
-                }
+    }
 
-                /*
-         * 套餐类型
-         * 1 纯直播分钟
-         * 2 流量加油包
-         * 3 直播时间 + 流量加油
-         * 4 空间包
-         * 7 直播时间 + 流量 + 空间
-         * */
-                // 未开通直播，过滤掉包含直播的卡
-                if (this.enable === 3) {
-                    result = result.filter(item => !item.duration)
-                }
-                switch (this.type) {
-                    case '1': // 需要直播分钟数
-                        result = result.filter(item => Number(item.duration))
-                        break
-                    case '2': // 需要空间
-                        result = result.filter(item => Number(item.storageSize))
-                        break
-                    case '3': // 需要流量
-                        result = result.filter(item => Number(item.flowSize))
-                }
-                if (!result.length) {
-                    this.$alert('暂无适合的套餐')
-                    return this.$router.go(-1)
-                }
-                for (const item of result) {
-                    item.originalPrice /= 100
-                    item.presentPrice /= 100
-                }
-                while (result.length) {
-                    this.setMealData.push(result.splice(0, 2))
-                }
-                this.currentMeal = this.setMealData[0][0]
-            } catch (e) {
-                throw e
-            }
-        },
-        select (item) {
-            this.currentMeal = item
-        },
-        async buy () {
-            try {
-                const { result } = await getPayCode(this.currentMeal.id)
-                this.payCode = `data:image/gif;base64,${ result.qrCode }`
-                this.showPayCode = true
-                clearInterval(this.timer)
-                this.timer = setInterval(() => {
-                    this.getOrderStatus(result.orderId)
-                }, 1500)
-            } catch (e) {
-                throw e
-            }
-        },
-        // 获取订单支付状态
-        async getOrderStatus (orderId) {
-            this.orderId = orderId
-            try {
-                const { result } = await getOrderDetail(orderId)
-                const {
-                    payStatus,
-                    rechargeStatus
-                } = result
-                this.payStatus = payStatus
-                this.rechargeStatus = rechargeStatus
-                if ((payStatus === 'FINISHED' && rechargeStatus === 'SUCCESS') || rechargeStatus === 'ERROR') {
-                    clearInterval(this.timer)
-                    this.loading = false
-                }
-                // 支付成功后，退出到入口页面
-                if (payStatus === 'FINISHED' && rechargeStatus === 'SUCCESS') {
-                    await this.$success('支付成功')
-                    this.payDone()
-                }
-            } catch (e) {
-                throw e
-            }
-        },
-        async retryFailedOrder () {
-            try {
-                this.loading = true
-                await retryFalidOrder(this.orderId)
-                this.timer = setInterval(() => {
-                    this.getOrderStatus(this.orderId)
-                }, 1500)
-            } catch (e) {
-                throw e
-            }
-        },
-        async payDone () {
-            this.showPayCode = false
-            if (this.$route.params.backRouteName) {
-                await this.$router.push({ name: this.$route.params.backRouteName })
-                return
-            }
-            this.$router.go(-1)
+    private async getSetMeal () {
+        let { result } = await getSetMeal()
+        // 计算套餐中包含的总的直播分钟数 赠送+购买
+        for (const item of result) {
+            item.duration = item.rechargeMinute + item.giveMinute
         }
+
+        /*
+        * 套餐类型
+        * 1 纯直播分钟
+        * 2 流量加油包
+        * 3 直播时间 + 流量加油
+        * 4 空间包
+        * 7 直播时间 + 流量 + 空间
+        * */
+        // 未开通直播，过滤掉包含直播的卡
+        if (this.enable === 3) {
+            result = result.filter((item: any) => !item.duration)
+        }
+        switch (this.type) {
+            case '1': // 需要直播分钟数
+                result = result.filter((item: any) => Number(item.duration))
+                break
+            case '2': // 需要空间
+                result = result.filter((item: any) => Number(item.storageSize))
+                break
+            case '3': // 需要流量
+                result = result.filter((item: any) => Number(item.flowSize))
+        }
+        if (!result.length) {
+            this.$alert('暂无适合的套餐')
+            return this.$router.go(-1)
+        }
+        for (const item of result) {
+            item.originalPrice /= 100
+            item.presentPrice /= 100
+        }
+        while (result.length) {
+            this.setMealData.push(result.splice(0, 2))
+        }
+        this.currentMeal = this.setMealData[0][0]
+    }
+
+    private select (item: any) {
+        this.currentMeal = item
+    }
+
+    private async buy () {
+        const { result } = await getPayCode(this.currentMeal.id)
+        this.payCode = `data:image/gif;base64,${ result.qrCode }`
+        this.showPayCode = true
+        clearInterval(this.timer)
+        this.timer = setInterval(() => {
+            this.getOrderStatus(result.orderId)
+        }, 1500)
+    }
+
+    // 获取订单支付状态
+    private async getOrderStatus (orderId: string) {
+        this.orderId = orderId
+        const { result } = await getOrderDetail(orderId)
+        const {
+            payStatus,
+            rechargeStatus
+        } = result
+        this.payStatus = payStatus
+        this.rechargeStatus = rechargeStatus
+        if ((payStatus === 'FINISHED' && rechargeStatus === 'SUCCESS') || rechargeStatus === 'ERROR') {
+            clearInterval(this.timer)
+            this.loading = false
+        }
+        // 支付成功后，退出到入口页面
+        if (payStatus === 'FINISHED' && rechargeStatus === 'SUCCESS') {
+            await this.$success('支付成功')
+            this.payDone()
+        }
+    }
+
+    private async retryFailedOrder () {
+        this.loading = true
+        await retryFalidOrder(this.orderId)
+        this.timer = setInterval(() => {
+            this.getOrderStatus(this.orderId)
+        }, 1500)
+    }
+
+    private async payDone () {
+        this.showPayCode = false
+        if (this.$route.params.backRouteName) {
+            await this.$router.push({ name: this.$route.params.backRouteName })
+            return
+        }
+        this.$router.go(-1)
     }
 }
 </script>

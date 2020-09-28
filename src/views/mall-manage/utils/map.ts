@@ -23,7 +23,7 @@ export const productTypeMap = {
     EXPERIENCE_CLASS: '体验课'
 }
 
-export const productTypeMap1 = {
+export const productTypeMap1: DynamicObject = {
     PHYSICAL_GOODS: 2,
     VIRTUAL_GOODS: 2,
     FORMAL_CLASS: 3,
@@ -126,7 +126,7 @@ export const editorMap: DynamicObject = {
 }
 
 // 各个模块对应的类名
-export const moduleClassNameMap = {
+export const moduleClassNameMap: DynamicObject = {
     Banner: '.module-banner',
     Adv: '.module-adv',
     Popular: '.module-popular',

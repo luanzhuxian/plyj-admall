@@ -240,7 +240,7 @@
                         align="right"
                         width="55"
                     />
-                    <el-table-column label="用户信息" width="250">
+                    <el-table-column label="用户信息" width="250" fixed="left">
                         <template #default="{ row }">
                             <div class="member-detail">
                                 <img

@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="$style.distributionPanel" :title="panelTitle">
+    <Panel custom-class="distribution-panel" :title="panelTitle">
         <ul :class="$style.distributionList" v-if="data.values.length">
             <template v-for="(item, index) of data.values">
                 <li
@@ -77,7 +77,7 @@ export default class Distribution extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss">
 .distribution-panel {
     padding-top: 30px;
     background: #01237a;
@@ -85,6 +85,8 @@ export default class Distribution extends Vue {
         margin-top: 14px;
     }
 }
+</style>
+<style module lang="scss">
 .distribution {
     &-list-item {
         display: flex;

@@ -69,7 +69,7 @@ import {
     getDistribution,
     getImageTextList
 } from '../../../apis/mall'
-// import { getSpringPloughingList } from '../../../apis/marketing-manage/new-year/spring-ploughing'
+import { getSpringPloughingList } from '../../../apis/marketing-manage/new-year/spring-ploughing'
 import { getVideoList } from '../../../apis/product-center/online-teaching/knowledge-course'
 import {
     activityTableOptionsProducer,
@@ -285,7 +285,7 @@ export default class ModalProd extends Vue {
                 } : null),
                 type: ''
             }
-            const { data: { result } } = await request(params)
+            const { result } = await request(params)
             this.productList = result.records
             this.pagination.total = result.total
             if (this.reserveSelection) {
@@ -325,26 +325,26 @@ export default class ModalProd extends Vue {
 
     // 组合课
     async getPackage () {
-        // try {
-        //     const params = {
-        //         batchType: 1, // 组合课
-        //         current: this.pagination.current,
-        //         size: this.pagination.size,
-        //         startTime: '',
-        //         endTime: '',
-        //         status: '3',
-        //         ...(this.searchHistory ? { condition: this.searchHistory } : null) // 搜索内容
-        //     }
-        //     const { data: { result } } = await getSpringPloughingList(params)
-        //     this.productList = result.records
-        //     this.pagination.total = result.total
-        //     if (this.reserveSelection) {
-        //         // @ts-ignore
-        //         this.$refs.productTable.setDefaultSelection(result.records)
-        //     }
-        // } catch (e) {
-        //     throw e
-        // }
+        try {
+            const params = {
+                batchType: 1, // 组合课
+                current: this.pagination.current,
+                size: this.pagination.size,
+                startTime: '',
+                endTime: '',
+                status: '3',
+                ...(this.searchHistory ? { condition: this.searchHistory } : null) // 搜索内容
+            }
+            const { result } = await getSpringPloughingList(params)
+            this.productList = result.records
+            this.pagination.total = result.total
+            if (this.reserveSelection) {
+                // @ts-ignore
+                this.$refs.productTable.setDefaultSelection(result.records)
+            }
+        } catch (e) {
+            throw e
+        }
     }
 
     // 分销商品

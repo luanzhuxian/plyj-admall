@@ -335,7 +335,7 @@ import {
     setWechat,
     setPhone
 } from '../../../../apis/setting'
-import CityPicker from '../../../../components/common/City-Picker.vue'
+import CityPicker from '../../../../components/common/base/City-Picker.vue'
 import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import { isPhone, isTelNumber } from '../../../../assets/ts/validate'
 import { mapGetters, mapActions } from 'vuex'

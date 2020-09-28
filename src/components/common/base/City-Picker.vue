@@ -4,6 +4,7 @@
         :options="options"
         style="width: 100%"
         :props="props"
+        :clearable="clearable"
         :placeholder="placeholder"
         :value="defaultValue"
         @change="handleChange"
@@ -12,8 +13,8 @@
 
 <script>
 /* eslint-disable */
-import { getCityListByParentId } from '../../apis/address'
-import { requestDB, closeDB, getStore, addData, update, getData } from '../../assets/ts/indexedDB'
+import { getCityListByParentId } from '../../../apis/address'
+import { requestDB, closeDB, getStore, addData, update, getData } from '../../../assets/ts/indexedDB'
 let db
 /**
  * 根据父级id从数据库查找城市列表
@@ -187,7 +188,7 @@ export default {
       this.options = options
     },
     async handleChange (val) {
-      let items = await this.findItem(val)
+        let items = await this.findItem(val)
       // if (items.length === 0) {
       //   return this.$emit('selected', null)
       // }

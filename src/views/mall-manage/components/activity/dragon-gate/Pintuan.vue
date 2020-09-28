@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="$style.pintuanPanel" :title="panelTitle">
+    <Panel custom-class="pintuan-panel" :title="panelTitle">
         <ul :class="$style.pintuanList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <li

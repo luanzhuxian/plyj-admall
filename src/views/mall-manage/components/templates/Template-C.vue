@@ -194,14 +194,14 @@
                     :skin-id="skinId"
                 />
                 <div :class="$style.title" v-else-if="skinId !== null">
-                    — {{ Recommend.moduleName }} —
+                    {{ Recommend.moduleName }}
                 </div>
                 <Recommend :data="Recommend" />
             </div>
             <!-- 版权信息 -->
-            <footer :class="$style.moduleCopyright">
+            <div :class="$style.moduleCopyright">
                 — 技术支持 朋来科技 —
-            </footer>
+            </div>
         </div>
         <!-- 底部tabbar -->
         <img :src="navBarMap.get(skinId)" style="width: 100%;">
@@ -442,6 +442,10 @@ export default class TemplateHome extends Vue {
 .module-appointment,
 .module-propagate {
     padding: 5px 10px;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <Panel :custom-class="packagePanel" :title="panelTitle">
+    <Panel custom-class="package-panel" :title="panelTitle">
         <ul v-if="data.values.length" :class="$style.packageList" class="package-list">
             <template v-for="(item, i) of data.values">
                 <swiper :options="getOptions(item.combinationDetailList[0].productModelList)" :key="i" v-if="item.combinationDetailList && item.combinationDetailList.length">
@@ -82,7 +82,7 @@
             </template>
         </ul>
 
-        <ul :class="$style.package-list" v-else>
+        <ul :class="$style.packageList" v-else>
             <swiper :options="getOptions([1, 2, 3])" v-for="(item, i) of 2" :key="i">
                 <swiperSlide>
                     <li :class="$style.packageListItem">
@@ -194,6 +194,9 @@ export default class Package extends Vue {
 </script>
 
 <style lang="scss">
+.package-panel {
+    padding-right: 0;
+}
 .package-list {
     .swiper-container {
         margin-top: 16px;
@@ -221,9 +224,6 @@ export default class Package extends Vue {
 </style>
 
 <style lang="scss" module>
-.package-panel {
-    padding-right: 0;
-}
 .package {
     &-list {
         &-item {

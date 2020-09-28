@@ -225,7 +225,7 @@
                 </el-form-item>
             </el-form>
 
-            <el-table :data="ownedAccountList">
+            <el-table :data="ownedAccountList" height="500px">
                 <el-table-column
                     prop="name"
                     label="真实姓名"
@@ -440,13 +440,15 @@ export default class HelperManageList extends Vue {
             this.ownnerUserId = ''
         }
         this.showDialog = true
+        await this.getOwnedAccountList()
     }
 
-    showDialogBox (row: DynamicObject) {
+    async showDialogBox (row: DynamicObject) {
         this.showDialog = true
         this.currentUserInfo = row
         this.currentUserId = [row.mallUserId]
         this.ownnerUserId = row.ownnerUserId
+        await this.getOwnedAccountList()
     }
 
     async changeHelperAccount (data: any) {

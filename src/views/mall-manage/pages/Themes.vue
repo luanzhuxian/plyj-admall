@@ -472,37 +472,38 @@ export default class MallThemes extends Vue {
 
     // 预览
     previewTemplate (item: Template | TemplateSkinModel) {
-        if (!item) return false
-        if ('skinId' in item) {
-            this.previewSkinId = item.skinId
+        if (item && item.moduleModels) {
+            if ('skinId' in item) {
+                this.previewSkinId = item.skinId
+            }
+            this.previewTmplType = item.type
+            this.previewData = rebuild(item.type, item.moduleModels)
+            this.showPreview = true
         }
-        this.previewTmplType = item.type
-        this.previewData = rebuild(item.type, item.moduleModels)
-        this.showPreview = true
     }
 
     toNextPage ({ type }: { type: number }) {
         if (!type) return false
-        this.$router.push({ name: 'Decoration', query: { from: 'template', id: String(type) } })
+        this.$router.push({ name: 'MallDecoration', query: { from: 'THEME', id: String(type) } })
     }
 
     // 检查是否有模板使用权限
     check (item: Template) {
-        if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
-            this.modalText = '双十二'
-            this.showAlertModal = true
-            return false
-        }
-        if (item.type === 8 && !this.isXinchunAvailable) {
-            this.modalText = '新春'
-            this.showAlertModal = true
-            return false
-        }
-        if (item.type === 10 && !this.isDragonGateAvailable) {
-            this.modalText = '龙门节'
-            this.showAlertModal = true
-            return false
-        }
+        // if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
+        //     this.modalText = '双十二'
+        //     this.showAlertModal = true
+        //     return false
+        // }
+        // if (item.type === 8 && !this.isXinchunAvailable) {
+        //     this.modalText = '新春'
+        //     this.showAlertModal = true
+        //     return false
+        // }
+        // if (item.type === 10 && !this.isDragonGateAvailable) {
+        //     this.modalText = '龙门节'
+        //     this.showAlertModal = true
+        //     return false
+        // }
         return item
     }
 

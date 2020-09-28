@@ -72,6 +72,7 @@ import { updateModule } from '../../../apis/mall'
 @Component
 export default class EditorSort extends Vue {
     /* props */
+    @Prop(Boolean) show!: boolean
     @Prop(Boolean) disabled!: boolean
     @Prop({
         type: Object,
