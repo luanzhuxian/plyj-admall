@@ -10,7 +10,7 @@
                 <CompleteLogin @emitLogin="login" ref="CompleteLogin" @codeShowFoo="codeShowFoo" v-else-if="$route.name === 'CompleteLogin'" />
             </div>
         </div>
-        <Vcode :show="codeShow" @success="success" @close="close" />
+        <Vcode :imgs="codeImg" :show="codeShow" @success="success" @close="close" />
     </div>
 </template>
 
@@ -47,15 +47,12 @@ export default class Login extends Vue {
     codeShow = false
     toName= ''
     refName = ''
-    @userModule.Getter('token') tokenFoo!: string
-    @userModule.Getter('currentStep') currentStepFoo!: number
-    @userModule.Getter('agencyCode') agencyCodeFoo!: string
-    @userModule.Getter('agencyList') agencyList: any
     @userModule.Mutation('LOGOUT') logout!: Function
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo!: Function
     @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
     @userModule.Action('selectMall') selectMall!: Function
+    @userModule.Getter('codeImg') codeImg!: any
     @Getter('roleMap') roleMap!: DynamicObject
 
     codeShowFoo (e: CodeShowFooType) {

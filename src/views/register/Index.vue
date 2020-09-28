@@ -8,7 +8,7 @@
                 <ModifyPassword @emitLogin="login" v-if="$route.name === 'ModifyPassword'" />
             </div>
         </div>
-        <Vcode :show="codeShow" @success="success" @close="close" />
+        <Vcode :imgs="codeImg" :show="codeShow" @success="success" @close="close" />
     </div>
 </template>
 
@@ -45,10 +45,7 @@ export default class RegisterIndex extends Vue {
         showDialog = false
         toName = ''
         refName = ''
-        @userModule.Getter('token') tokenFoo!: string
-        @userModule.Getter('currentStep') currentStepFoo!: number
-        @userModule.Getter('agencyCode') agencyCodeFoo!: string
-        @userModule.Getter('agencyList') agencyList: any
+        @userModule.Getter('codeImg') codeImg: any
         @userModule.Mutation('LOGOUT') logout!: Function
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo!: Function

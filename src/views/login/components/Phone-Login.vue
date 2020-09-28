@@ -46,7 +46,7 @@
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
-import { Getter, namespace } from 'vuex-class'
+import { namespace } from 'vuex-class'
 const userModule = namespace('user')
 
 @Component
@@ -80,7 +80,6 @@ export default class PhoneLogin extends Vue {
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @userModule.Action('GET_ACCOUNT_INFO') getAccountInfo!: Function
-        @Getter smsType!: string[]
 
         @Emit('emitLogin')
         emitLogin () {

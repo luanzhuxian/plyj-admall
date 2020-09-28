@@ -47,6 +47,7 @@
 <script lang="ts">
 import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
+import { testAccount } from '@/assets/ts/validate'
 const userModule = namespace('user')
 
 @Component
@@ -58,8 +59,7 @@ export default class PasswordLogin extends Vue {
 
     rules = {
         account: [{ required: true, trigger: 'blur', message: '账号不能为空' },
-            { min: 6, message: '账号不能小于6位', trigger: 'blur' },
-            { max: 50, message: '账号不能大于50位', trigger: 'blur' }
+            { validator: testAccount, trigger: 'blur', message: '请输入6-50位数字字母组合的账号' }
         ],
         password: [
             { required: true, message: '密码不能为空', trigger: 'blur' },

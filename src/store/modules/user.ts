@@ -34,6 +34,18 @@ const CalcCookieTime = (expire: number) => Number(new Date(Date.now() + expire *
 
 const user: Module<DynamicObject, DynamicObject> = {
     state: {
+        codeImg: [
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/1.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/2.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/3.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/4.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/5.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/6.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/7.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/8.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/9.png',
+            'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/10.png'
+        ],
         codePass: false,
         // 新老注册流程 1 老 2 新
         REG_TYPE: 1,
@@ -417,6 +429,7 @@ const user: Module<DynamicObject, DynamicObject> = {
     },
     getters: {
         codePass: state => state.codePass,
+        codeImg: state => state.codeImg,
         token: state => state.token || null,
         // 当前登录人的id
         userId: state => state.loginInfo.userId || null,
