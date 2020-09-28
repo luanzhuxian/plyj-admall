@@ -157,6 +157,9 @@ export default class MainNavbar extends Vue {
     defaultActive = ''
     defaultOpeneds: string[] = []
     @userModule.Getter logo!: string
+    @userModule.Getter mchId!: string
+    @userModule.Getter mallNumber!: string
+
     @Watch('$route', { immediate: true })
     onRouteChange (route: Route) {
         const indexs = route.matched.map(item => item.meta?.index || '')
@@ -167,6 +170,13 @@ export default class MainNavbar extends Vue {
             if (activited) {
                 this.defaultActive = activited
             }
+        }
+    }
+
+    mounted () {
+        if (this.mallNumber && !this.mchId) {
+            // 未开通支付，一直弹操作引导
+            this.showGuid = true
         }
     }
 }
