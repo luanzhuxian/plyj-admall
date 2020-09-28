@@ -53,10 +53,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PlSvg from '../../../components/common/Pl-Svg'
 export default {
     name: 'BindWechat',
-    components: { PlSvg },
     computed: {
         ...mapGetters({
             auditStatus: 'user/auditStatus',

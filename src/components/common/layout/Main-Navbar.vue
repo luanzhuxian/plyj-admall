@@ -94,7 +94,7 @@
                     <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 
-                <el-submenu index="6" :disabled="!appId">
+                <el-submenu index="6">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-shezhi-28924"
@@ -104,11 +104,11 @@
                         />
                         <span>基础设置</span>
                     </h2>
-                    <el-menu-item index="6-1" :route="{ name: 'AccountManage' }">账号管理</el-menu-item>
-                    <el-menu-item index="6-2" :route="{ name: 'ShopInfo' }">店铺信息</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="6-1" :route="{ name: 'AccountManage' }">账号管理</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="6-2" :route="{ name: 'ShopInfo' }">店铺信息</el-menu-item>
                     <el-menu-item index="6-3" :route="{ name: 'Wechat' }">公众号服务</el-menu-item>
-                    <el-menu-item index="6-4" :route="{ name: 'Logistics' }">物流设置</el-menu-item>
-                    <el-menu-item index="6-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="6-4" :route="{ name: 'Logistics' }">物流设置</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="6-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
                 </el-submenu>
 
                 <el-menu-item index="7" :route="{ name: 'MarketingManage' }" :class="$style.marketing" :disabled="!appId">
@@ -175,7 +175,7 @@ export default class MainNavbar extends Vue {
     }
 
     mounted () {
-        if (this.mallNumber && !this.mchId) {
+        if (this.mallNumber && !this.mchId && this.$route.name === 'Home') {
             // 未开通支付，一直弹操作引导
             this.showGuid = true
         }

@@ -18,15 +18,15 @@
                     <span>让校园有支付功能</span>
                     <el-button plain round type="primary" @click="guid('BindWechat')">去认证</el-button>
                 </div>
-                <div :class="$style.step" v-if="appId">
+                <div :class="$style.step">
                     <i class="fz-16 font-weight-bold">02.创建产品</i>
                     <span>收益从产品开始</span>
-                    <el-button plain round type="primary" @click="guid('AddProduct')">创建产品</el-button>
+                    <el-button v-if="appId" plain round type="primary" @click="guid('AddProduct')">创建产品</el-button>
                 </div>
-                <div :class="$style.step" v-if="appId">
+                <div :class="$style.step">
                     <i class="fz-16 font-weight-bold">03.装修店铺</i>
                     <span>让店铺独具一格</span>
-                    <el-button plain round type="primary" @click="guid('MallManage')">装修店铺</el-button>
+                    <el-button v-if="appId" plain round type="primary" @click="guid('MallManage')">装修店铺</el-button>
                 </div>
                 <div :class="$style.step">
                     <i class="fz-16 font-weight-bold">04.完成</i>

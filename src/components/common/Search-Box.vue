@@ -3,8 +3,11 @@
         <el-form
             :class="$style.container"
             inline
-            :label-position="labelPosition"
             ref="form"
+            v-bind="{
+                ...$attrs,
+                labelPosition
+            }"
         >
             <slot />
         </el-form>
