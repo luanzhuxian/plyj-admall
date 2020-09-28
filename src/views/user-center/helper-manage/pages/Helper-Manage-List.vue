@@ -440,6 +440,7 @@ export default class HelperManageList extends Vue {
             this.ownnerUserId = ''
         }
         this.showDialog = true
+        await this.getOwnedAccountList()
     }
 
     async showDialogBox (row: DynamicObject) {

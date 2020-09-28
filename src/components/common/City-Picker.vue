@@ -4,6 +4,7 @@
         :options="options"
         style="width: 100%"
         :props="props"
+        :clearable="clearable"
         :placeholder="placeholder"
         :value="defaultValue"
         @change="handleChange"
@@ -187,7 +188,7 @@ export default {
       this.options = options
     },
     async handleChange (val) {
-      let items = await this.findItem(val)
+        let items = await this.findItem(val)
       // if (items.length === 0) {
       //   return this.$emit('selected', null)
       // }

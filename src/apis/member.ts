@@ -113,7 +113,7 @@ export const getTagList = () => axios.get('/apis/v2/user/tag')
 export const sortTagList = (ids: string[]) => axios.post('/apis/v1/mall/user/tag/sort', ids)
 
 // 当前标签是否已经被使用
-export const checkIsTagUsed = (id: string) => axios.get(`/apis/v1/mall/user/tag/isTagUsed/${ id }`)
+export const checkIsTagUsed = (id: string) => axios.get(`/apis/v2/user/tag/isTagUsed/${ id }`)
 
 // 向当前用户添加标签
 export const addTagToMember = (userId: string, tags: string[]) => axios.post('/apis/v2/user/tag/r', { userId, tags })
