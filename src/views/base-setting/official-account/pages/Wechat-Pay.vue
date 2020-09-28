@@ -14,28 +14,28 @@
                 <step4 ref="step4" :detail="detail" v-show="step === 4" />
                 <confirm ref="step5" :detail="detail" v-show="step === 5" />
             </main>
-            <div :class="$style.control">
-                <el-button v-if="step > 1" @click="step--">
-                    上一步
-                </el-button>
-                <el-button v-if="step === 1" type="primary" @click="save1">
-                    保存，并下一步
-                </el-button>
-                <el-button v-else-if="step === 2" type="primary" @click="save2">
-                    保存，并下一步
-                </el-button>
-                <el-button v-else-if="step === 3" type="primary" @click="save3">
-                    保存，并下一步
-                </el-button>
-                <el-button v-else-if="step === 4" type="primary" @click="save4">
-                    保存，并下一步
-                </el-button>
-                <el-button v-else-if="step === 5" type="primary" @click="submit">
-                    确认，并提交
-                </el-button>
-            </div>
         </div>
         <status ref="step6" :detail="detail" v-else v-show="!loading" @again="step = 1" />
+        <div :class="$style.control">
+            <el-button v-if="step > 1" @click="step--" round>
+                上一步
+            </el-button>
+            <el-button v-if="step === 1" type="primary" @click="save1" round>
+                保存，并下一步
+            </el-button>
+            <el-button v-else-if="step === 2" type="primary" @click="save2" round>
+                保存，并下一步
+            </el-button>
+            <el-button v-else-if="step === 3" type="primary" @click="save3" round>
+                保存，并下一步
+            </el-button>
+            <el-button v-else-if="step === 4" type="primary" @click="save4" round>
+                保存，并下一步
+            </el-button>
+            <el-button v-else-if="step === 5" type="primary" @click="submit" round>
+                确认，并提交
+            </el-button>
+        </div>
     </div>
 </template>
 
@@ -149,7 +149,9 @@ export default {
 <style module lang="scss">
   .wechat-pay {
     > .content {
-      border: 1px solid #e7e7e7;
+        padding: 20px;
+        background: #F5F6FA;
+        border-radius: 10px;
     }
     :global {
       .el-form-item {
@@ -165,18 +167,16 @@ export default {
   .steps {
     padding:  0 28px ;
     line-height: 54px;
-    color: #E7E7E7;
-    border-bottom: 1px solid #e7e7e7;
+    color: #666;
     span {
       margin: 0 7px;
     }
     .active {
-      color: #000;
+      color: #4F63FF;
     }
   }
   .main {
     padding: 16px 24px;
-    border-bottom: 1px solid #e7e7e7;
     overflow: hidden;
     h4 {
       font-size: 14px;
@@ -188,7 +188,13 @@ export default {
     }
   }
   .control {
-    padding: 36px 30px;
+      position: absolute;
+      left: -10px;
+      bottom: -10px;
+      width: calc(100% + 20px);
+      padding: 16px 0;
+      text-align: center;
+      background-color: #fff;
     button:nth-of-type(1) {
       margin-right: 74px;
     }

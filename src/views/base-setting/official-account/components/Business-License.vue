@@ -25,7 +25,7 @@
                     />
                 </el-select>
                 <el-link class="ml-24" type="primary" target="_blank" :underline="false" href="https://kf.qq.com/faq/180910IBZVnQ180910naQ77b.html">
-                    如何选择类目？
+                    如何正确选择类目？
                 </el-link>
                 <p class="tip">
                     (请根据你的营业执照和实际售卖商品来选择主体和类目，审核通过后类目不可修改)
