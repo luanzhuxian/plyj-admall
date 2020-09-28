@@ -257,12 +257,14 @@ export default class AccountSet extends Vue {
                         mobile: this.form.mobile,
                         verifyCode: this.form.verifyCode
                     }))
+                    this.updateMobile = false
                     break
                 case 'name':
                     await this.validate(field);
                     ({ result } = await updateAvatarOrName({
                         name: this.form.name
                     }))
+                    this.updateName = false
                     break
                 case 'avatar':
                     ({ result } = await updateAvatarOrName({
