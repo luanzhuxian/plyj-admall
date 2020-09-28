@@ -47,6 +47,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/10.png'
         ],
         codePass: false,
+        codeShow: false,
         // 新老注册流程 1 老 2 新
         REG_TYPE: 1,
         // 数据是否加载完毕
@@ -111,6 +112,9 @@ const user: Module<DynamicObject, DynamicObject> = {
     mutations: {
         [types.SET_CODEPASS]: (state, payload) => {
             state.codePass = payload
+        },
+        [types.SET_CODESHOW]: (state, payload) => {
+            state.codeShow = payload
         },
         [types.SET_LOGININFO]: (state, payload) => {
             if (payload) {
@@ -429,6 +433,7 @@ const user: Module<DynamicObject, DynamicObject> = {
     },
     getters: {
         codePass: state => state.codePass,
+        codeShow: state => state.codeShow,
         codeImg: state => state.codeImg,
         token: state => state.token || null,
         // 当前登录人的id

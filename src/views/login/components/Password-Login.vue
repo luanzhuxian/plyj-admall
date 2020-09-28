@@ -74,16 +74,12 @@ export default class PasswordLogin extends Vue {
     @Prop(Boolean) codeShow!: boolean;
     @userModule.Getter('codePass') codePass!: boolean
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
+    @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
     @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
 
     @Emit('emitLogin')
     emitLogin () {
         return true
-    }
-
-    @Emit('codeShowFoo')
-    codeShowFoo (e: object) {
-        return e
     }
 
     mounted (): void {
@@ -96,16 +92,16 @@ export default class PasswordLogin extends Vue {
         try {
             await (this.$refs.form as HTMLFormElement).validate()
             if (!this.codePass) {
-                this.codeShowFoo({ type: true, name: 'PasswordLogin' })
+                this.setCodeShow(true)
                 return
             }
             this.loading = true
             await this.LOGIN(this.form)
             this.emitLogin()
         } catch (e) {
-            this.setCodePass(false)
             throw e
         } finally {
+            this.setCodePass(false)
             this.loading = false
         }
     }

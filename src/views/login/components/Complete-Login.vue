@@ -101,22 +101,11 @@ export default class CompleteLogin extends Vue {
         isComplete = false
 
         @Prop(Boolean) codeShow!: boolean;
-        @userModule.Getter('codePass') codePass!: boolean
-        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
         @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
         @userModule.Mutation('LOGOUT') LOGOUT!: Function
         @Emit('emitLogin')
         emitLogin () {
             return true
-        }
-
-        @Emit('codeShowFoo')
-        codeShowFoo (e: object) {
-            return e
-        }
-
-        mounted (): void {
-            this.setCodePass(false)
         }
 
         async login () {
@@ -125,15 +114,10 @@ export default class CompleteLogin extends Vue {
             if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
-                if (!this.codePass) {
-                    this.codeShowFoo({ type: true, name: 'CompleteLogin' })
-                    return
-                }
                 this.loading = true
                 this.isComplete = await completeInfo(this.form)
                 this.emitLogin()
             } catch (e) {
-                this.setCodePass(false)
                 throw e
             } finally {
                 this.loading = false

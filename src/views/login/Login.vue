@@ -2,12 +2,7 @@
     <div :class="$style.login">
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
-                <PhoneLogin @emitLogin="login" ref="PhoneLogin" @codeShowFoo="codeShowFoo" v-if="$route.name === 'PhoneLogin'" />
-                <PasswordLogin @emitLogin="login" ref="PasswordLogin" @codeShowFoo="codeShowFoo" v-else-if="$route.name === 'PasswordLogin'" />
-                <WxLogin @emitLogin="login" v-else-if="$route.name === 'WxLogin'" />
-                <WxBindPassword @emitLogin="login" v-else-if="$route.name === 'WxBindPassword'" />
-                <WxBindPhone @emitLogin="login" v-else-if="$route.name === 'WxBindPhone'" />
-                <CompleteLogin @emitLogin="login" ref="CompleteLogin" @codeShowFoo="codeShowFoo" v-else-if="$route.name === 'CompleteLogin'" />
+                <router-view ref="child" @emitLogin="login" />
             </div>
         </div>
         <Vcode :imgs="codeImg" :show="codeShow" @success="success" @close="close" />
@@ -15,15 +10,9 @@
 </template>
 
 <script lang=ts>
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import Vcode from 'vue-puzzle-vcode'
-import PhoneLogin from './components/Phone-Login.vue'
-import WxLogin from './components/Wx-Login.vue'
-import PasswordLogin from './components/Password-Login.vue'
-import WxBindPassword from './components/Wx-Bind-Password.vue'
-import WxBindPhone from './components/Wx-Bind-Phone.vue'
-import CompleteLogin from './components/Complete-Login.vue'
-import { namespace, Getter } from 'vuex-class'
+import { namespace } from 'vuex-class'
 const userModule = namespace('user')
 interface CodeShowFooType {
     type: boolean;
@@ -34,30 +23,24 @@ Component.registerHooks([
 ])
 @Component({
     components: {
-        PhoneLogin,
-        WxLogin,
-        PasswordLogin,
-        WxBindPassword,
-        WxBindPhone,
-        CompleteLogin,
         Vcode
     }
 })
 export default class Login extends Vue {
-    codeShow = false
     toName= ''
-    refName = ''
+    routerName = ''
     @userModule.Mutation('LOGOUT') logout!: Function
     @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
+    @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
     @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo!: Function
     @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
     @userModule.Action('selectMall') selectMall!: Function
     @userModule.Getter('codeImg') codeImg!: any
-    @Getter('roleMap') roleMap!: DynamicObject
+    @userModule.Getter('codeShow') codeShow!: boolean
 
-    codeShowFoo (e: CodeShowFooType) {
-        this.codeShow = e.type
-        this.refName = e.name
+    @Watch('$route.name', { immediate: true })
+    onChangeValue (newVal: string) {
+        this.routerName = newVal
     }
 
     async login () {
@@ -73,18 +56,18 @@ export default class Login extends Vue {
     }
 
     async success () {
-        this.codeShow = false
         this.setCodePass(true)
-        if (this.refName === 'PasswordLogin' || this.refName === 'CompleteLogin') {
-            await (this.$refs[this.refName] as HTMLFormElement).login()
+        this.setCodeShow(false)
+        if (this.routerName === 'PasswordLogin') {
+            await (this.$refs.child as HTMLFormElement).login()
         } else {
-            await (this.$refs[this.refName] as HTMLFormElement).getCode()
+            await (this.$refs.child as HTMLFormElement).getCode()
         }
     }
 
     close () {
-        this.codeShow = false
         this.setCodePass(false)
+        this.setCodeShow(false)
     }
 
     clearCode () {

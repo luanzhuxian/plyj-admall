@@ -2,10 +2,7 @@
     <div :class="$style.login">
         <div :class="$style.loginBody">
             <div :class="$style.loginBg">
-                <Register ref="Register" @codeShowFoo="codeShowFoo" @emitLogin="login" v-if="$route.name === 'RegisterAccount'" />
-                <ForgetPassword ref="ForgetPassword" @codeShowFoo="codeShowFoo" v-if="$route.name === 'ForgetPassword'" />
-                <ResetPassword @emitLogin="login" v-if="$route.name === 'ResetPassword'" />
-                <ModifyPassword @emitLogin="login" v-if="$route.name === 'ModifyPassword'" />
+                <router-view ref="child" @emitLogin="login" />
             </div>
         </div>
         <Vcode :imgs="codeImg" :show="codeShow" @success="success" @close="close" />
@@ -15,10 +12,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import Vcode from 'vue-puzzle-vcode'
-import Register from './components/Register.vue'
-import ForgetPassword from './components/Forget-Password.vue'
-import ResetPassword from './components/Reset-Password.vue'
-import ModifyPassword from './components/Modify-Password.vue'
 import { namespace } from 'vuex-class'
 
 interface CodeShowFooType {
@@ -31,31 +24,19 @@ Component.registerHooks([
 const userModule = namespace('user')
     @Component({
         components: {
-            Register,
-            ForgetPassword,
-            ResetPassword,
-            ModifyPassword,
             Vcode
         }
     })
 export default class RegisterIndex extends Vue {
-        codeShow = false
-        agencyError = ''
-        enterprise = ''
-        showDialog = false
         toName = ''
-        refName = ''
-        @userModule.Getter('codeImg') codeImg: any
-        @userModule.Mutation('LOGOUT') logout!: Function
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
+        @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
+        @userModule.Mutation('LOGOUT') logout!: Function
         @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo!: Function
         @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
         @userModule.Action('selectMall') selectMall!: Function
-
-        codeShowFoo (e: CodeShowFooType) {
-            this.codeShow = e.type
-            this.refName = e.name
-        }
+        @userModule.Getter('codeImg') codeImg!: any
+        @userModule.Getter('codeShow') codeShow!: boolean
 
         async login () {
             try {
@@ -69,9 +50,9 @@ export default class RegisterIndex extends Vue {
         }
 
         async success () {
-            this.codeShow = false
             this.setCodePass(true)
-            await (this.$refs[this.refName] as HTMLFormElement).getCode()
+            this.setCodeShow(false)
+            await (this.$refs.child as HTMLFormElement).getCode()
         }
 
         clearCode () {
@@ -81,8 +62,8 @@ export default class RegisterIndex extends Vue {
         }
 
         close () {
-            this.codeShow = false
             this.setCodePass(false)
+            this.setCodeShow(false)
         }
 
         beforeRouteLeave (to: any, from: any, next: any): void {

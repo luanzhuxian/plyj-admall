@@ -78,17 +78,13 @@ export default class PhoneLogin extends Vue {
         loading = false
         @userModule.Getter('codePass') codePass!: boolean
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
+        @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @userModule.Action('GET_ACCOUNT_INFO') getAccountInfo!: Function
 
         @Emit('emitLogin')
         emitLogin () {
             return true
-        }
-
-        @Emit('codeShowFoo')
-        codeShowFoo (e: object) {
-            return e
         }
 
         mounted (): void {
@@ -102,22 +98,28 @@ export default class PhoneLogin extends Vue {
             })
             if (!validateField) return
             if (!this.codePass) {
-                this.codeShowFoo({ type: true, name: 'PhoneLogin' })
+                this.setCodeShow(true)
                 return
             }
             if (this.getCodeing) return
-            clearInterval(this.timer)
-            this.codeForm.mobile = this.form.mobile
-            await getVerifyCodeFunc(this.codeForm)
-            this.getCodeing = true
-            this.timer = setInterval(() => {
-                this.time--
-                if (!this.time) {
-                    this.getCodeing = false
-                    this.time = 60
-                    clearInterval(this.timer)
-                }
-            }, 1000)
+            try {
+                clearInterval(this.timer)
+                this.codeForm.mobile = this.form.mobile
+                await getVerifyCodeFunc(this.codeForm)
+                this.getCodeing = true
+                this.timer = setInterval(() => {
+                    this.time--
+                    if (!this.time) {
+                        this.getCodeing = false
+                        this.time = 60
+                        clearInterval(this.timer)
+                    }
+                }, 1000)
+            } catch (e) {
+                throw e
+            } finally {
+                this.setCodePass(false)
+            }
         }
 
         async login () {
@@ -134,7 +136,7 @@ export default class PhoneLogin extends Vue {
                 }
                 this.emitLogin()
             } catch (e) {
-                this.setCodePass(false)
+                // this.setCodePass(false)
                 // this.refreshSafeCode()
                 throw e
             } finally {

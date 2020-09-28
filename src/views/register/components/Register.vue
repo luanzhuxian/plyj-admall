@@ -160,17 +160,13 @@ export default class Register extends Vue {
         loading = false
         @userModule.Getter('codePass') codePass!: boolean
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
+        @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
         @userModule.Action('register') register!: (form: Record<string, any>) => void
         @Getter smsType!: string[]
 
         @Emit('emitLogin')
         emitLogin () {
             return true
-        }
-
-        @Emit('codeShowFoo')
-        codeShowFoo (e: object) {
-            return e
         }
 
         mounted (): void {
@@ -193,23 +189,29 @@ export default class Register extends Vue {
                 if (mobileError) validateField = false
             })
             if (!validateField) return
+            if (this.getCodeing) return
             if (!this.codePass) {
-                this.codeShowFoo({ type: true, name: 'Register' })
+                this.setCodeShow(true)
                 return
             }
-            if (this.getCodeing) return
-            clearInterval(this.timer)
-            this.codeForm.mobile = this.form.bindPhone
-            await getVerifyCodeFunc(this.codeForm)
-            this.getCodeing = true
-            this.timer = setInterval(() => {
-                this.time--
-                if (!this.time) {
-                    this.getCodeing = false
-                    this.time = 60
-                    clearInterval(this.timer)
-                }
-            }, 1000)
+            try {
+                clearInterval(this.timer)
+                this.codeForm.mobile = this.form.bindPhone
+                await getVerifyCodeFunc(this.codeForm)
+                this.getCodeing = true
+                this.timer = setInterval(() => {
+                    this.time--
+                    if (!this.time) {
+                        this.getCodeing = false
+                        this.time = 60
+                        clearInterval(this.timer)
+                    }
+                }, 1000)
+            } catch (e) {
+                throw e
+            } finally {
+                this.setCodePass(false)
+            }
         }
 
         async login () {

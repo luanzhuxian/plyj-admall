@@ -1,6 +1,7 @@
 /* 注册相关 */
 
 export const SET_CODEPASS = 'SET_CODEPASS'
+export const SET_CODESHOW = 'SET_CODESHOW'
 export const SET_LOGININFO = 'SET_LOGININFO'
 export const SET_POWER_LIST = 'SET_POWER_LIST'
 export const AGENCY_USER_INFO = 'AGENCY_USER_INFO'

@@ -76,6 +76,7 @@ export default class ForgetPassword extends Vue {
         loading = false
         @userModule.Getter('codePass') codePass!: boolean
         @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
+        @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
         @Getter smsType!: string[]
 
         @Emit('codeShowFoo')
@@ -96,20 +97,27 @@ export default class ForgetPassword extends Vue {
             })
             if (!validateField) return
             if (!this.codePass) {
-                this.codeShowFoo({ type: true, name: 'ForgetPassword' })
+                this.setCodeShow(true)
                 return
             }
-            this.codeForm.mobile = this.form.mobile
-            await getVerifyCodeFunc(this.codeForm)
-            this.getCodeing = true
-            this.timer = setInterval(() => {
-                this.time--
-                if (!this.time) {
-                    this.getCodeing = false
-                    this.time = 60
-                    clearInterval(this.timer)
-                }
-            }, 1000)
+            try {
+                clearInterval(this.timer)
+                this.codeForm.mobile = this.form.mobile
+                await getVerifyCodeFunc(this.codeForm)
+                this.getCodeing = true
+                this.timer = setInterval(() => {
+                    this.time--
+                    if (!this.time) {
+                        this.getCodeing = false
+                        this.time = 60
+                        clearInterval(this.timer)
+                    }
+                }, 1000)
+            } catch (e) {
+                throw e
+            } finally {
+                this.setCodePass(false)
+            }
         }
 
         async login () {
