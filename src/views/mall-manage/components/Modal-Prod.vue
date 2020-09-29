@@ -286,7 +286,7 @@ export default class ModalProd extends Vue {
                 } : null),
                 type: ''
             }
-            const { result } = await request(params)
+            const { result }: any = await request(params)
             this.productList = result.records
             this.pagination.total = result.total
             if (this.reserveSelection) {
