@@ -58,17 +58,16 @@
             </div>
         </section>
         <section class="draft-table">
-            <div :class="$style.batchText" v-if="multipleSelection.length">
-                <div :class="$style.batchNum">
-                    已选择{{ multipleSelection.length }}条
-                </div>
-                <el-button type="text" @click="deleteTemplates">
+            <div :class="$style.operation">
+                <span :class="$style.operationText">
+                    已选择{{ multipleSelection.length }}个
+                </span>
+                <el-button round :disabled="!multipleSelection.length" @click="deleteTemplates">
                     批量删除
                 </el-button>
             </div>
             <el-table
                 ref="table"
-                :class="$style.batch"
                 :data="table"
                 @filter-change="onFilterChange"
                 @selection-change="onSelectionChange"
@@ -601,19 +600,13 @@ export default class MallMain extends Vue {
     .draft-table {
         position: relative;
 
-        > .el-table > .el-table__header-wrapper > .el-table__header > thead {
-            tr {
-                th {
-                    padding-top: 50px;
-                    border-bottom: none;
-                }
-
-                // .el-table-column--selection {
-                //     padding: 0;
-                //     padding-bottom: 30px;
-                // }
-            }
-        }
+        // > .el-table > .el-table__header-wrapper > .el-table__header > thead {
+        //     tr {
+        //         th {
+        //             border-bottom: none;
+        //         }
+        //     }
+        // }
         .el-table__row {
             svg {
                 display: none;
@@ -717,21 +710,11 @@ export default class MallMain extends Vue {
     }
 }
 
-.batch {
+.operation {
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
     &-text {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 11px;
-        left: 79px;
-        z-index: 11;
-        font-size: 14px;
-    }
-
-    &-num {
-        font-weight: 400;
-        line-height: 32px;
         margin-right: 10px;
     }
 }
