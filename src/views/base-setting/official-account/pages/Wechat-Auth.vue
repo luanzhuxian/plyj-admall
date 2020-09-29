@@ -1,10 +1,18 @@
 <template>
     <div :class="$style.wechatAuth">
-        <div :class="$style.wechatInfo" v-if="auditStatus === 'MP_NOT_AUTHORIZED'">
+        <div :class="$style.wechatInfo" v-if="auditStatus !== 'MP_NOT_AUTHORIZED'">
             <div :class="$style.baseInfo">
                 <div :class="$style.authStatus"><div :class="$style.dot" />请使用已认证的微信服务号授权给雅集</div>
                 <div :class="$style.authInfo">
-                    aa
+                    <div>
+                        <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" width="50" height="41">
+                    </div>
+                    <div style="margin: 0 30px">
+                        <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yaji_icon_img.png" width="43" height="43">
+                    </div>
+                    <div>
+                        <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yaji_icon_img.png" width="43" height="43">
+                    </div>
                 </div>
                 <div :class="$style.bindBtn">
                     <el-button round type="primary" @click="auth(false)">
@@ -181,11 +189,10 @@ export default {
       margin-left: 120px;
     .baseInfo {
         width: 800px;
-        height: 320px;
+        padding: 55px 0;
         border-radius: 8px;
         background: #F5F6FA;
         .authStatus{
-            padding-top: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -229,6 +236,11 @@ export default {
         .bindBtn{
             text-align: center;
             margin-top: 46px;
+            button{
+                width: 320px;
+                height: 48px;
+                border-radius: 120px;
+            }
         }
     }
   }

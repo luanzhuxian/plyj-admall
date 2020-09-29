@@ -1,53 +1,51 @@
 <template>
-    <div :class="$style.wechat">
+    <div :class="$style.bingWechat">
+        <div :class="$style.wechatTitle">公众号服务</div>
         <div :class="$style.progress">
-            <div :class="$style.title">公众号服务</div>
-            <div :class="$style.main">
-                <router-link tag="div" :class="$style.step" :to="{ name: 'WechatAuth' }">
-                    <div :class="$style.done" v-if="auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE'">
-                        <pl-svg name="icon-success-8db26" width="20" />
-                    </div>
-                    <div :class="$style.circle" v-else>1</div>
-                    <div :class="$style.highlight">
-                        <div :class="$style.text">
-                            商城授权<div :class="$style.line" />
-                        </div>
-                        <div :class="$style.tips">微信认证服务号授权给雅集</div>
-                    </div>
-                </router-link>
+            <router-link tag="div" :class="$style.stepBox" :to="{ name: 'WechatAuth' }">
+                <div :class="$style.progressCircle">
+                    <pl-svg name="icon-success-8db26" width="16" />
+                </div>
+                <div :class="$style.text" class="bing-wechat-step">
+                    <div :class="$style.title">商城授权 <div :class="$style.line + ' ' + $style.one" /></div>
+                    <div :class="$style.tip">微信认证服务号授权给雅集</div>
+                </div>
+            </router-link>
 
-                <router-link tag="div" :class="$style.step" :to="{ name: (auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') ? 'WechatPay' : $route.name }">
-                    <div :class="$style.done" v-if="auditStatus === 'AUTHENTICATE'">
-                        <pl-svg name="icon-success-8db26" width="20" />
+            <router-link
+                :class="$style.stepBox"
+                tag="div"
+                :to="{ name: (auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') ? 'WechatPay' : $route.name }"
+            >
+                <div :class="$style.progressCircle">
+                    <div :class="$style.inner" v-show="auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE'">
+                        <pl-svg name="icon-success-8db26" width="16" />
                     </div>
-                    <div :class="$style.circle + ' ' + (auditStatus === 'OPEN_WECHAT_PAYMENT' ? 'disabled' : '')" v-else>
-                        2
-                    </div>
-                    <div :class="auditStatus === 'AUTHENTICATE' ? $style.highlight : ''">
-                        <div :class="$style.text">
-                            开通微信支付<div :class="$style.line" />
-                        </div>
-                        <div :class="$style.tips">填写信息完成认证开通支付功能</div>
-                    </div>
-                </router-link>
+                </div>
+                <div :class="$style.text" class="bing-wechat-step">
+                    <div :class="$style.title">开通微信支付 <div :class="$style.line + ' ' + $style.two" /></div>
+                    <div :class="$style.tip">微信认证服务号授权给雅集</div>
+                </div>
+            </router-link>
 
-                <router-link tag="div" :class="$style.step" :to="{ name: applymentState === 'APPLYMENT_STATE_FINISHED' ? 'YajiAuthenticate' : $route.name }">
-                    <div :class="$style.done" v-if="auditStatus === 'AUTHENTICATE'">
-                        <pl-svg name="icon-success-8db26" width="20" />
+            <router-link :class="$style.stepBox" tag="div" :to="{ name: applymentState === 'APPLYMENT_STATE_FINISHED' ? 'YajiAuthenticate' : $route.name }">
+                <div :class="$style.progressCircle">
+                    <div
+                        :class="$style.inner"
+                        v-show="auditStatus !== 'OPEN_WECHAT_PAYMENT' && auditStatus !== 'MP_NOT_AUTHORIZED' && auditStatus !== 'MALL_NOT_COMPLETED'"
+                    >
+                        <pl-svg name="icon-success-8db26" width="16" />
                     </div>
-                    <div :class="$style.circle + ' ' + ((auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING') ? 'disabled' : '')" v-else>
-                        3
-                    </div>
-                    <div :class="auditStatus === 'AUTHENTICATE' ? $style.highlight : ''">
-                        <div :class="$style.text">
-                            雅集认证
-                        </div>
-                        <div :class="$style.tips">人工审核后即可完成雅集认证</div>
-                    </div>
-                </router-link>
-            </div>
-            <router-view />
+                </div>
+                <div :class="$style.text" class="bing-wechat-step">
+                    <div :class="$style.title">雅集认证</div>
+                    <div :class="$style.tip">微信认证服务号授权给雅集</div>
+                </div>
+            </router-link>
         </div>
+        <main>
+            <router-view />
+        </main>
     </div>
 </template>
 
@@ -96,82 +94,67 @@ export default {
 </script>
 
 <style module lang="scss">
-    .wechat {
-        position: relative;
-        padding-bottom: 100px;
-        .progress{
-            background: #fff;
-            padding: 36px 40px;
+    .bing-wechat {
+        padding: 36px 40px;
+        background-color: #fff;
+        .wechatTitle{
+            margin-bottom: 40px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    }
+    .progress {
+        display: flex;
+        margin-bottom: 54px;
+        margin-left: 120px;
+    }
+    .stepBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        > .text {
+            margin-right: 35px;
             .title{
-                font-weight: bold;
-                font-size: 16px;
-                margin-bottom: 40px;
-            }
-            .main{
                 display: flex;
                 align-items: center;
-                margin-left: 138px;
-                margin-bottom: 46px;
-                .step {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    .circle {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 40px;
-                        height: 40px;
-                        background-color: #4F63FF;
-                        border-radius: 50%;
-                        font-size: 16px;
-                        margin-right: 10px;
-                        color: #fff;
-                        .disabled {
-                            background-color: #4F63FF;
-                        }
+                font-weight: bold;
+                .line {
+                    margin-left: 45px;
+                    width: 120px;
+                    height: 1px;
+                    background-color: #4F63FF;
+                    &.one {
+                        background-color: #ccc;
                     }
-                    .done {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 40px;
-                        height: 40px;
-                        border: 2px solid #4F63FF;
-                        border-radius: 50%;
-                        font-size: 16px;
-                        margin-right: 10px;
-                        color: #4F63FF;
-                    }
-                    .text {
-                        display: flex;
-                        align-items: center;
-                        font-weight: bold;
-                        color: #999;
-                        .line{
-                            width: 120px;
-                            height: 1px;
-                            background: #ccc;
-                            margin: 0 40px;
-                        }
-                        .tips{
-                            color: #999;
-                        }
-                    }
-                    .highlight {
-                        .text{
-                            color: #333;
-                            .line{
-                                background: #4F63FF;
-                            }
-                            .tips{
-                                color: #666;
-                            }
-                        }
+                    &.two {
+                        background-color: #ccc;
                     }
                 }
             }
+            .tip{
+                color: #666;
+            }
         }
+    }
+    :global {
+        .bing-wechat-step {
+            color: #333;
+        }
+        .router-link-active {
+            .bing-wechat-step {
+                color: #4F63FF;
+            }
+        }
+    }
+    .progressCircle {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: #4F63FF;
+        border-radius: 50%;
+        margin-right: 10px;
     }
 </style>
