@@ -10,7 +10,8 @@ console.table([
     {
         NODE_ENV,
         MODEL,
-        SERVER: `http://192.168.130.${ SERVER }`
+        SERVER: `http://192.168.130.${ SERVER }`,
+        VERSION
     }
 ])
 const externals = process.env.NODE_ENV === 'production'

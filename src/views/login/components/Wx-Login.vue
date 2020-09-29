@@ -17,13 +17,14 @@
 <script lang="ts">
 import { WxScanLogin } from '../../../apis/login'
 import { Component, Vue, Emit } from 'vue-property-decorator'
-import { namespace } from 'vuex-class'
+import { namespace, State } from 'vuex-class'
 const userModule = namespace('user')
 @Component
 export default class WxLogin extends Vue {
         loading = false
         code = ''
         @userModule.Mutation('SET_LOGININFO') setLoginInfo: any
+        @State('bindWechatInfo') bindWechatInfo: any
         @Emit('emitLogin')
         emitLogin () {
             return true
@@ -65,16 +66,15 @@ export default class WxLogin extends Vue {
         weixinLoginCode () {
             /* eslint-disable @typescript-eslint/camelcase */
             /* eslint-disable no-new */
-            // location.href = 'https://open.weixin.qq.com/connect/qrconnect?appid=wx7f8e7e4ea457931d&redirect_uri=http://joint.xijun.youpenglai.com&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect'
             const weChatStyle: any = 'https://mallcdn.youpenglai.com/static/admall-new/weChatLoginStyle/index.css'
             const state = Date.now().toString(16)
             sessionStorage.setItem('login_state', state)
             new window.WxLogin({
                 self_redirect: false,
                 id: 'login-container',
-                appid: 'wx7f8e7e4ea457931d',
+                appid: this.bindWechatInfo.appId,
                 scope: 'snsapi_login',
-                redirect_uri: 'http://joint.xijun.youpenglai.com/login/wx-login',
+                redirect_uri: `${ this.bindWechatInfo.redirectUrl }/login/wx-login`,
                 state,
                 style: 'black',
                 href: weChatStyle
