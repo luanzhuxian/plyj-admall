@@ -1,7 +1,7 @@
 <template>
     <div class="list-bg">
         <div class="list-header">
-            <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.11.1/mp-weixin-icon.png">
+            <img width="30" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公众号增粉.png">
             <span class="mr-10 font-weight-bold">公众号增粉</span>
             <span class="items description">- 商城引导关注服务号，快速增粉</span>
             <div class="active-time">

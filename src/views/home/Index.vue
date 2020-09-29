@@ -468,7 +468,7 @@ export default class Home extends Vue {
                     this.givePower()
                     return
                 }
-                await this.$router.push({ name: 'BindWechat' })
+                await this.$router.push({ name: 'WechatPay' })
             } catch (e) {
                 if (e) throw e
             }
