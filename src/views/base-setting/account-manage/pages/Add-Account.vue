@@ -32,7 +32,7 @@
                     />
                     <span class="inp-tips">所有员工手机号即为员工账号，请谨慎填写</span>
                 </el-form-item>
-                <el-form-item
+                <!-- <el-form-item
                     :error="error"
                     v-if="!query.selfEdit && query.canEdit"
                     label="状态："
@@ -49,7 +49,7 @@
                     <span v-else style="color: #ccc">
                         &nbsp;关闭
                     </span>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item prop="realName" label="真实姓名：">
                     <el-input
                         class="w250"

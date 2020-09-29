@@ -30,7 +30,7 @@
                     <div :class="$style.account">
                         <div :class="$style.number">
                             账号：{{ enterpriseAdminModel.mobile }}
-                            <span :class="$style.tip">当前账号</span>
+                            <!-- <span :class="$style.tip">当前账号</span> -->
                         </div>
                         <div :class="$style.name">姓名：{{ enterpriseAdminModel.name }}</div>
                     </div>

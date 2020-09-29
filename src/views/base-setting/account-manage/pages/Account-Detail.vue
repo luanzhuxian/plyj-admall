@@ -73,8 +73,48 @@
             </div>
         </div>
         <div class="box-card">
+            <div style="font-weight: bold; font-size: 16px">发展Helper ( {{ total }} ) 人</div>
             <el-tabs v-model="activeTab" @tab-click="getActiveTabList">
-                <el-tab-pane :label="`发展Helper ( ${total} ) 人`" name="Helper">
+                <el-table :data="helpers">
+                    <el-table-column
+                        prop="userId"
+                        label="ID"
+                        width="170"
+                    />
+                    <el-table-column label="头像">
+                        <template #default="{ row }">
+                            <img
+                                class="rounded-circle"
+                                style="height:62px;"
+                                :src="row.avatarUrl"
+                                alt=""
+                            >
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="realName"
+                        label="真实姓名"
+                    />
+                    <el-table-column
+                        prop="createTime"
+                        label="时间"
+                        width="160"
+                    />
+                    <el-table-column
+                        width="190"
+                    >
+                        <template slot-scope="{row}">
+                            <el-button size="mini" @click="showChangeBelongBox(row.userId,row.ownnerUserId)">
+                                更改所属账号
+                            </el-button>
+                            <el-button @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: 'HelperList' }, query: { from: 'HelperList' } })">
+                                查看
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <Pagination v-show="total" :total="total" :size="listForm.size" v-model="listForm.current" @change="getHelperList" />
+                <!-- <el-tab-pane :label="`发展Helper ( ${total} ) 人`" name="Helper">
                     <el-table :data="helpers">
                         <el-table-column
                             prop="userId"
@@ -115,7 +155,7 @@
                     </el-table>
                     <Pagination v-show="total" :total="total" :size="listForm.size" v-model="listForm.current" @change="getHelperList" />
                 </el-tab-pane>
-                <!-- <el-tab-pane :label="`订单总量 ( ${orderTotal} ) 单`" name="Order">
+                <el-tab-pane :label="`订单总量 ( ${orderTotal} ) 单`" name="Order">
                         <el-form class="wrap border-bottom order-form" label-width="82px" :inline="true">
                             <el-form-item class="mb-10 ipt">
                                 <el-input

@@ -53,9 +53,10 @@
                         修改
                     </el-button>
                 </el-form-item>
-                <el-form-item label="企业管理员" style="width:30%">13687573423 李明丽</el-form-item>
+                <el-form-item label="企业管理员" style="width:30%">{{ mallSaveModel.enterpriseUserName }}</el-form-item>
                 <el-form-item style="width:30%">
                     <el-button type="primary" plain round @click="showShopCode = true">访问店铺</el-button>
+                    <shop-modal :show-mall-url="showShopCode" :mall-url="url" :mall-qrcode="shopCode" @close="showShopCode = false" />
                 </el-form-item>
             </el-form>
         </div>
@@ -303,31 +304,6 @@
                 </el-form-item>
             </el-form>
         </div>
-        <el-dialog title="访问店铺" :visible="showShopCode" @close="showShopCode = false" width="376px">
-            <div style="text-align: center; margin: 0 0 20px">H5店铺</div>
-            <div style="display: flex">
-                <el-input
-                    disabled
-                    style="width: 360px"
-                    v-model="url"
-                    v-if="!addMallUrl && mallSaveModel.mallUrl"
-                >
-                    <el-button slot="append" @click="copy">复制</el-button>
-                </el-input>
-                <el-input
-                    clearable
-                    v-if="addMallUrl"
-                    v-model.trim="form.mallUrl"
-                    style="width: 200px"
-                />
-            </div>
-            <div class="code-box">
-                <img v-imgError :src="shopCode" alt="店铺二维码">
-            </div>
-            <div class="down-code">
-                <a :href="shopCode" download="店铺二维码.png">下载二维码</a>
-            </div>
-        </el-dialog>
     </div>
 </template>
 <script>
@@ -337,6 +313,7 @@ import {
 } from '../../../../apis/setting'
 import CityPicker from '../../../../components/common/base/City-Picker.vue'
 import UploadImage from '../../../../components/common/file/Image-Manager.vue'
+import ShopModal from '../../../../components/common/layout/ShopModal.vue'
 import { isPhone, isTelNumber } from '../../../../assets/ts/validate'
 import { mapGetters, mapActions } from 'vuex'
 import { getDataDictionary } from '../../../../apis/common'
@@ -346,7 +323,8 @@ export default {
     name: 'ShopBaseInfo',
     components: {
         CityPicker,
-        UploadImage
+        UploadImage,
+        ShopModal
     },
     data: () => ({
         form: {

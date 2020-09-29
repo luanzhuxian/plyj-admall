@@ -5,22 +5,7 @@
             <div :class="$style.visitShop">
                 <img @click="showMallUrl = true" width="15" class="pointer" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/shangchengguanli.png" alt="">
                 <span @click="showMallUrl = true" class="pointer">访问店铺</span>
-
-                <transition name="fade">
-                    <div v-show="showMallUrl" :class="$style.visitShopBox">
-                        <i class="el-icon-close" @click="showMallUrl = false" />
-                        <div :class="$style.title">访问店铺</div>
-                        <div :class="$style.content">
-                            <div style="text-align: center">H5店铺</div>
-                            <div :class="$style.shopUrl">
-                                <div :class="$style.input" v-text="mallUrl" />
-                                <button v-clipboard:copy="mallUrl" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</button>
-                            </div>
-                            <img :src="mallQrcode" alt="">
-                            <div style="text-align: center">微信扫描可直接查看店铺</div>
-                        </div>
-                    </div>
-                </transition>
+                <shop-modal :show-mall-url="showMallUrl" :mall-url="mallUrl" :mall-qrcode="mallQrcode" @close="closeShopModal" />
             </div>
 
             <!-- 通知中心按钮 -->
@@ -82,9 +67,11 @@ import CreateMall from '../select-mall/Create-Mall.vue'
 import { Getter, namespace } from 'vuex-class'
 import { Watch } from 'vue-property-decorator'
 import { generateQrcode } from '@/assets/ts/utils'
+import ShopModal from '@/components/common/layout/ShopModal.vue'
 const userModule = namespace('user')
 @Component({
     components: {
+        ShopModal,
         CreateMall
     }
 })
@@ -119,16 +106,6 @@ export default class HeaderRigtht extends Vue {
         this.showMallUrl = false
     }
 
-    // 复制成功
-    onCopy () {
-        this.$success('复制成功')
-    }
-
-    // 复制失败
-    onError () {
-        this.$warning('复制失败')
-    }
-
     // 退出登录
     async logout () {
         await this.$confirm('您确定退出登录吗？')
@@ -157,6 +134,10 @@ export default class HeaderRigtht extends Vue {
         if (changed) {
             location.replace('/')
         }
+    }
+
+    closeShopModal () {
+        this.showMallUrl = false
     }
 }
 </script>
@@ -232,64 +213,6 @@ export default class HeaderRigtht extends Vue {
         margin-right: 32px;
         > img {
             margin-right: 6px;
-        }
-    }
-    .visit-shop-box {
-        position: absolute;
-        top: 40px;
-        right: 0;
-        width: 376px;
-        height: 436px;
-        background-color: #fff;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-        border-radius: 2px;
-        z-index: 10;
-        > i {
-            top: 25px;
-            right: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            position: absolute;
-        }
-        .title {
-            line-height: 65px;
-            padding: 0 36px;
-            font-size: 16px;
-            font-weight: bold;
-            border-bottom: 1px solid $--border-color;
-        }
-        .content {
-            padding-top: 40px;
-            > img {
-                display: block;
-                width: 160px;
-                margin: 27px auto 13px;
-                padding: 10px;
-                border: 1px dashed $--border-color;
-            }
-        }
-        .shop-url {
-            display: flex;
-            align-items: center;
-            width: 280px;
-            margin: 20px auto 0;
-            text-align: center;
-            > .input {
-                flex: 1;
-                padding: 0 10px;
-                line-height: 30px;
-                color: #D4D4D4;
-                border: 1px solid $--border-color;
-                background-color: #F5F5F5;
-                @include elps-wrap(1);
-            }
-            > button {
-                width: 50px;
-                line-height: 32px;
-                color: #fff;
-                border: none;
-                background-color: $--color-primary-blue;
-            }
         }
     }
 </style>
