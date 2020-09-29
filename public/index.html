@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta name="renderer" content="webkit" />
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="renderer" content="webkit"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>朋来雅集</title>
     <link rel="icon" href="<%= BASE_URL %>favicon.png">
@@ -12,35 +13,70 @@
     <link rel="stylesheet" href="https://mallcdn.youpenglai.com/cdn/quill/1.3.7/quill.bubble.css">
     <link rel="stylesheet" href="https://mallcdn.youpenglai.com/cdn/quill/1.3.7/quill.snow.css">
     <link rel="stylesheet" href="https://mallcdn.youpenglai.com/cdn/viewerjs/1.3.3/viewer.min.css">
+    <script>
+        var isIe = /Trident|trident|Edg|Edge/.test(navigator.userAgent)
+        if (isIe) {
+            document.write(
+                '<h1>欢迎访问 朋来雅集</h1>' +
+                '<p>' +
+                '<strong>检测到您的浏览器版本过低，无法正常使用本系统，推荐使用 ' +
+                '<i><a href="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/download/78.0.3904.70_chrome_installer_32.exe">谷歌浏览器，点击此载</a></i>' +
+                '</strong>' +
+                '</p>' +
+                '<p><strong>如果您使用的是 <i>QQ浏览器</i>、<i>360浏览器</i> 等其他浏览器，可点击地址栏右侧进行内核切换，选择<i style="color: red;">极速模式</i>，如下图所示：</strong></p>' +
+                '<h2 style="text-align: center;">360浏览器切换内核</h2>' +
+                '<img style="width: 100%;" src="https://mallcdn.youpenglai.com/static/360%E6%B5%8F%E8%A7%88%E5%99%A8%E5%88%87%E6%8D%A2%E5%86%85%E6%A0%B8%E7%A4%BA%E6%84%8F%E5%9B%BE.png">' +
+                '<h2 style="text-align: center;">QQ浏览器切换内核</h2>' +
+                '<img style="width: 100%;" src="https://mallcdn.youpenglai.com/static/QQ%E6%B5%8F%E8%A7%88%E5%99%A8%E5%88%87%E6%8D%A2%E5%86%85%E6%A0%B8%E7%A4%BA%E6%84%8F.png">'
+            )
+        }
+
+        function IsPC () {
+            const userAgentInfo = navigator.userAgent
+            const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod']
+            let flag = true
+            for (let v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                    flag = false
+                    break
+                }
+            }
+            return flag
+        }
+
+        if (!IsPC()) {
+            window.location.href = 'https://admall.youpenglai.com/h5'
+        }
+    </script>
 </head>
-  <body>
-    <noscript>
-      <strong>很抱歉，在没有启用JavaScript的情况下系统不能正常工作，请开启它并继续您的操作。</strong>
-    </noscript>
-    <div id="main-app"></div>
-    <!-- built files will be auto injected -->
-    <script src="https://mallcdn.youpenglai.com/cdn/ali-oss/aliyun-oss-sdk_v6.2.1.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/vue/2.6.11/vue.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/vuex/3.5.1/vuex.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/vue-router/3.3.4/vue-router.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/axios/0.19.2/axios.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/viewerjs/1.3.3/viewer.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/viewerjs/v-viewer_v1.4.2.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/moment/2.27.0/moment.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/moment/2.27.0/zh-cn.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/quill/1.3.7/quill.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/compressorjs/compressor_v1.0.6.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/qrcode/qrcodealg.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/qrcode/index.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/admall-element/2.13.4/index.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/qs/qs_v6.9.4.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/uuid/8.2.0/uuid.min.js"></script>
-    <script src="https://mallcdn.youpenglai.com/cdn/wxLogin.js"></script>
-    <!-- 新项目 -->
-    <script src="https://mallcdn.youpenglai.com/pl-icons/de4034d0-fbdf-11ea-8d27-b5d5359c2aaf.js"></script>
-    <!-- 富文本编辑器图标 -->
-    <script src="https://mallcdn.youpenglai.com/pl-icons/70895240-f730-11ea-9841-0b96e0ca9e6b.js"></script>
-    <!-- 老项目图标 -->
-    <script src="https://mallcdn.youpenglai.com/pl-icons/f5f16720-f734-11ea-9809-09e4752a8d74.js"></script>
-  </body>
+<body>
+<noscript>
+    <strong>很抱歉，在没有启用JavaScript的情况下系统不能正常工作，请开启它并继续您的操作。</strong>
+</noscript>
+<div id="main-app"></div>
+<!-- built files will be auto injected -->
+<script src="https://mallcdn.youpenglai.com/cdn/ali-oss/aliyun-oss-sdk_v6.2.1.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/vue/2.6.11/vue.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/vuex/3.5.1/vuex.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/vue-router/3.3.4/vue-router.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/axios/0.19.2/axios.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/viewerjs/1.3.3/viewer.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/viewerjs/v-viewer_v1.4.2.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/moment/2.27.0/moment.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/moment/2.27.0/zh-cn.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/quill/1.3.7/quill.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/compressorjs/compressor_v1.0.6.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/qrcode/qrcodealg.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/qrcode/index.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/admall-element/2.13.4/index.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/qs/qs_v6.9.4.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/uuid/8.2.0/uuid.min.js"></script>
+<script src="https://mallcdn.youpenglai.com/cdn/wxLogin.js"></script>
+<!-- 新项目 -->
+<script src="https://mallcdn.youpenglai.com/pl-icons/de4034d0-fbdf-11ea-8d27-b5d5359c2aaf.js"></script>
+<!-- 富文本编辑器图标 -->
+<script src="https://mallcdn.youpenglai.com/pl-icons/70895240-f730-11ea-9841-0b96e0ca9e6b.js"></script>
+<!-- 老项目图标 -->
+<script src="https://mallcdn.youpenglai.com/pl-icons/f5f16720-f734-11ea-9809-09e4752a8d74.js"></script>
+</body>
 </html>
