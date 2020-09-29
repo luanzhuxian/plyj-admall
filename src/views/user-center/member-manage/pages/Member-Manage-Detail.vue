@@ -362,12 +362,7 @@
                             class="table-customer"
                             style="width: 100%"
                         >
-                            <template slot="empty">
-                                <div class="no-data">
-                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
-                                    <p>请点击查询，查看用户更多数据~</p>
-                                </div>
-                            </template>
+
                             <el-table-column
                                 prop="orderId"
                                 label="订单号"
@@ -507,12 +502,7 @@
                             class="table-customer"
                             style="width: 100%"
                         >
-                            <template slot="empty">
-                                <div class="no-data">
-                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
-                                    <p>请点击查询，查看用户更多数据~</p>
-                                </div>
-                            </template>
+
                             <el-table-column
                                 prop="orderId"
                                 label="订单号"
@@ -645,12 +635,7 @@
                             class="table-customer"
                             style="width: 100%"
                         >
-                            <template slot="empty">
-                                <div class="no-data">
-                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
-                                    <p>请点击查询，查看用户更多数据~</p>
-                                </div>
-                            </template>
+
                             <el-table-column
                                 prop="liveStartTime"
                                 label="直播时间"
@@ -734,7 +719,7 @@
                         <el-form-item label="分类：" v-show="lineLearningListForm.courseType">
                             <SelectCategory
                                 v-model="classification"
-                                :category-type="lineLearningListForm.courseType"
+                                :category-type="lineLearningListForm.courseType ? lineLearningListForm.courseType : 0"
                                 @change="changeClassification"
                                 show-add
                             />
@@ -763,12 +748,7 @@
                             class="table-customer"
                             style="width: 100%"
                         >
-                            <template slot="empty">
-                                <div class="no-data">
-                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
-                                    <p>请点击查询，查看用户更多数据~</p>
-                                </div>
-                            </template>
+
                             <el-table-column
                                 prop="courseName"
                                 label="课程名称"
@@ -946,7 +926,7 @@ const checkSpecialKey = (str: string): boolean => {
 
 const validateInput = (rule: any, value: string, callback: any) => {
     if (!checkSpecialKey(value)) {
-        callback(new Error('当前字段不支持表情符号！！'))
+        callback(new Error('当前字段不支持表情符号'))
     } else {
         callback()
     }

@@ -257,10 +257,10 @@
                                         </template>
                                     </div>
                                     <div class="tag">
-                                        <template v-if="row.userTags && row.userTags.length">
-                                            <el-tooltip class="item" effect="dark" :content="row.userTags.filter(item => item.tagName).map( item => item.tagName).join('  ')" placement="bottom">
+                                        <template v-if="row.tags && row.tags.length">
+                                            <el-tooltip class="item" effect="dark" :content="row.tags.filter(item => item.tagName).map( item => item.tagName).join('  ')" placement="bottom">
                                                 <div>
-                                                    <span v-for="item in row.userTags" :key="item.id">{{ item && item.tagName }} </span>
+                                                    <span v-for="item in row.tags" :key="item.id">{{ item && item.tagName }} </span>
                                                 </div>
                                             </el-tooltip>
                                         </template>
