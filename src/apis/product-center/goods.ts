@@ -12,7 +12,7 @@ export const getTemplate = (params: any) => axios.get('/apis/v1/product/shipping
 export const getTemplateDetail = (id: string) => axios.get(`/apis/v1/product/shippingTemplate/${ id }`)
 
 // 获取省（仅限一级地址）
-export const getCity = (params: any) => axios.get('/apis/v1/systemctl/location/provinces', { params })
+export const getCity = (params: any) => axios.get('/apis/v2/systemctl/location/provinces', { params })
 
 // 新增模板数据
 export const addTemplate = (data: any) => axios.post('/apis/v1/product/shippingTemplate/add', data)

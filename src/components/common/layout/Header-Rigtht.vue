@@ -64,9 +64,9 @@
                         <div :class="$style.popItem" class="pointer" @click="logout">
                             退出登录
                         </div>
-                        <div :class="$style.popItem" class="pointer" @click="modify">
+                        <!--<div :class="$style.popItem" class="pointer" @click="modify">
                             修改密码
-                        </div>
+                        </div>-->
                     </div>
                 </transition>
             </div>
