@@ -126,24 +126,24 @@ export const editorMap: DynamicObject = {
 }
 
 // 各个模块对应的类名
-export const moduleClassNameMap: DynamicObject = {
-    Banner: '.module-banner',
-    Adv: '.module-adv',
-    Popular: '.module-popular',
-    Class: '.module-class',
-    Recommend: '.module-recommend',
-    Propagate: '.module-propagate',
-    Teachers: '.module-teachers',
-    Maisong: '.module-maisong',
-    Miaosha: '.module-miaosha',
-    Fengqiang: '.module-fengqiang',
-    Activity: '.module-activity',
-    Package: '.module-package',
-    Pintuan: '.module-pintuan',
-    Yugou: '.module-yugou',
-    Distribution: '.module-distribution',
-    Live: '.module-live',
-    OnlineCourse: '.module-course',
-    SeriesCourse: '.module-series',
-    ImageText: '.module-image-text'
+export const moduleIdMap: DynamicObject = {
+    Banner: '#Banner',
+    Adv: '#Adv',
+    Popular: '#Popular',
+    Class: '#Class',
+    Recommend: '#Recommend',
+    Propagate: '#Propagate',
+    Teachers: '#Teachers',
+    Maisong: '#Maisong',
+    Miaosha: '#Miaosha',
+    Fengqiang: '#Fengqiang',
+    Activity: '#Activity',
+    Package: '#Package',
+    Pintuan: '#Pintuan',
+    Yugou: '#Yugou',
+    Distribution: '#Distribution',
+    Live: '#Live',
+    OnlineCourse: '#OnlineCourse',
+    SeriesCourse: '#SeriesCourse',
+    ImageText: '#ImageText'
 }

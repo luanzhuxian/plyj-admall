@@ -12,7 +12,7 @@
             <div :class="$style.container">
                 <!-- 优惠券 -->
                 <section
-                    ref="Coupon"
+                    id="Coupon"
                     v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -31,7 +31,7 @@
                 <!-- 公益 -->
                 <ModuleWrapper
                     v-if="Charity.values && Charity.values.length"
-                    ref="Charity"
+                    id="Charity"
                     :class="$style.moduleCharity"
                     :data="Charity"
                 >
@@ -40,7 +40,7 @@
                 <!-- 活动-->
                 <ModuleWrapper
                     v-if="Activity.values && Activity.values.length && (Activity.values[0].haveSigninActivity || Activity.values[0].haveLuckDrawActivity)"
-                    ref="Activity"
+                    id="Activity"
                     :class="$style.moduleActivity"
                     :data="Activity"
                 >
@@ -48,7 +48,7 @@
                 </ModuleWrapper>
                 <!-- 秒杀 -->
                 <ModuleWrapper
-                    ref="Miaosha"
+                    id="Miaosha"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleMiaosha]: true,
@@ -62,7 +62,7 @@
                 </ModuleWrapper>
                 <!-- 分销 -->
                 <ModuleWrapper
-                    ref="Distribution"
+                    id="Distribution"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleDistribution]: true,
@@ -76,7 +76,7 @@
                 </ModuleWrapper>
                 <!-- 拼团 -->
                 <ModuleWrapper
-                    ref="Pintuan"
+                    id="Pintuan"
                     :class="{
                         [$style.module]: true,
                         [$style.modulePintuan]: true,
@@ -90,7 +90,7 @@
                 </ModuleWrapper>
                 <!-- 预购 -->
                 <ModuleWrapper
-                    ref="Yugou"
+                    id="Yugou"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleYugou]: true,
@@ -104,7 +104,7 @@
                 </ModuleWrapper>
                 <!-- 组合课 -->
                 <ModuleWrapper
-                    ref="Package"
+                    id="Package"
                     :class="{
                         [$style.module]: true,
                         [$style.modulePackage]: true,
@@ -118,7 +118,7 @@
                 </ModuleWrapper>
                 <!-- 精品推荐 -->
                 <section
-                    ref="Recommend"
+                    id="Recommend"
                     v-if="data && data.Recommend && (data.Recommend.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,

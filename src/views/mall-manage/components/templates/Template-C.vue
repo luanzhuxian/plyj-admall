@@ -9,7 +9,7 @@
             </div>
             <!-- 品牌宣传 -->
             <div
-                ref="Propagate"
+                id="Propagate"
                 v-if="data && data.Propagate && (data.Propagate.values.length || isClickable || isEmptyShow)"
                 :class="{
                     [$style.module]: true,
@@ -23,7 +23,7 @@
             </div>
             <!-- 直播 -->
             <ModuleWrapper
-                ref="Live"
+                id="Live"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleLive]: true,
@@ -37,7 +37,7 @@
             </ModuleWrapper>
             <!-- 单课 -->
             <ModuleWrapper
-                ref="OnlineCourse"
+                id="OnlineCourse"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleOnlineCourse]: true,
@@ -51,7 +51,7 @@
             </ModuleWrapper>
             <!-- 系列课 -->
             <ModuleWrapper
-                ref="SeriesCourse"
+                id="SeriesCourse"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleSeriesCourse]: true,
@@ -65,7 +65,7 @@
             </ModuleWrapper>
             <!-- 图文资料 -->
             <ModuleWrapper
-                ref="ImageText"
+                id="ImageText"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleImageText]: true,
@@ -79,7 +79,7 @@
             </ModuleWrapper>
             <!-- 预约 -->
             <ModuleWrapper
-                ref="Appointment"
+                id="Appointment"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleAppointment]: true,
@@ -94,7 +94,7 @@
             </ModuleWrapper>
             <!-- 热销单品-->
             <ModuleWrapper
-                ref="Popular"
+                id="Popular"
                 :class="{
                     [$style.module]: true,
                     [$style.modulePopular]: true,
@@ -119,7 +119,7 @@
             </ModuleWrapper>
             <!-- 名师专栏 -->
             <ModuleWrapper
-                ref="Teachers"
+                id="Teachers"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleTeachers]: true,
@@ -144,7 +144,7 @@
             </ModuleWrapper>
             <!-- 精品课程 -->
             <ModuleWrapper
-                ref="Class"
+                id="Class"
                 :class="{
                     [$style.module]: true,
                     [$style.moduleClass]: true,
@@ -169,7 +169,7 @@
             </ModuleWrapper>
             <!-- 精品推荐 -->
             <div
-                ref="Recommend"
+                id="Recommend"
                 v-if="data && data.Recommend && (data.Recommend.values.length || isClickable || isEmptyShow)"
                 :class="{
                     [$style.module]: true,

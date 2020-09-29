@@ -29,7 +29,7 @@
                 </div> -->
                 <!-- 秒杀 -->
                 <div
-                    ref="Miaosha"
+                    id="Miaosha"
                     v-if="data && data.Miaosha && (data.Miaosha.values.length || isClickable || isEmptyShow)"
                     :class="[$style.module, $style.moduleMiaosha]"
                 >
@@ -37,7 +37,7 @@
                 </div>
                 <!-- 百人拼团 -->
                 <div
-                    ref="Pintuan"
+                    id="Pintuan"
                     v-if="data && data.Pintuan && (data.Pintuan.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -51,7 +51,7 @@
                 </div>
                 <!-- 买送 -->
                 <div
-                    ref="Maisong"
+                    id="Maisong"
                     v-if="data && data.Maisong && (data.Maisong.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -65,7 +65,7 @@
                 </div>
                 <!-- 领券 -->
                 <div
-                    ref="Coupon"
+                    id="Coupon"
                     v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -80,7 +80,7 @@
                 </div>
                 <!-- 预购 -->
                 <div
-                    ref="Yugou"
+                    id="Yugou"
                     v-if="data && data.Yugou && (data.Yugou.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -94,7 +94,7 @@
                 </div>
                 <!-- 疯抢 -->
                 <div
-                    ref="Fengqiang"
+                    id="Fengqiang"
                     v-if="data && data.Fengqiang && (data.Fengqiang.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -108,7 +108,7 @@
                 </div>
                 <!-- 精品推荐-->
                 <div
-                    ref="Recommend"
+                    id="Recommend"
                     v-if="data && data.Recommend && (data.Recommend.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,

@@ -273,7 +273,6 @@ export default class ModalProd extends Vue {
 
     // 团购、预购、秒杀、优惠券
     async getActivity () {
-        console.log(this.type)
         const request = modalMap[this.type].method
         try {
             const params = {

@@ -29,7 +29,7 @@
                 /> -->
                 <!-- 品牌宣传 -->
                 <ModuleWrapper
-                    ref="Propagate"
+                    id="Propagate"
                     :class="{
                         [$style.module]: true,
                         [$style.modulePropagate]: true,
@@ -44,7 +44,7 @@
                 </ModuleWrapper>
                 <!-- 领券 -->
                 <div
-                    ref="Coupon"
+                    id="Coupon"
                     v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -58,7 +58,7 @@
                 </div>
                 <!-- 春耘 -->
                 <div
-                    ref="Chunyun"
+                    id="Chunyun"
                     v-if="data && data.Chunyun && (data.Chunyun.values.length || isClickable || isEmptyShow)"
                     :class="[$style.module, $style.moduleChunyun]"
                 >
@@ -66,7 +66,7 @@
                 </div>
                 <!-- 拼团 -->
                 <div
-                    ref="Pintuan"
+                    id="Pintuan"
                     v-if="data && data.Pintuan && (data.Pintuan.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -80,7 +80,7 @@
                 </div>
                 <!-- 预购 -->
                 <div
-                    ref="Yugou"
+                    id="Yugou"
                     v-if="data && data.Yugou && (data.Yugou.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
@@ -94,7 +94,7 @@
                 </div>
                 <!-- 疯抢 -->
                 <div
-                    ref="Fengqiang"
+                    id="Fengqiang"
                     v-if="data && data.Fengqiang && (data.Fengqiang.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,

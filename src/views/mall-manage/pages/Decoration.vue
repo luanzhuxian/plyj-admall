@@ -1,11 +1,11 @@
 <template>
     <div :class="$style.mallDecoration">
-        <div :class="$style.header">
+        <!-- <div :class="$style.header">
             <span @click="back">
                 <i class="el-icon-back" />
                 返回
             </span>
-        </div>
+        </div> -->
         <div :class="$style.template" v-if="show">
             <div :class="$style.previewSection">
                 <TemplateB
@@ -159,20 +159,48 @@
             </div>
         </div>
         <footer v-show="!showPreview">
-            <el-button :disabled="!loaded" style="width: auto" @click="saveDraft">
-                保存草稿箱
-            </el-button>
-            <el-button :disabled="!loaded" @click="showPreview = true">
-                预览
-            </el-button>
-            <el-button :disabled="!loaded" @click="stack">
+            <el-button
+                type="primary"
+                round
+                :disabled="!loaded"
+                @click="stack"
+            >
                 上架
             </el-button>
-            <el-button :disabled="!loaded" style="width: auto" @click="stackByTime" v-if="~['TEMPLATE', 'DRAFT'].indexOf(this.from)">
+            <el-button
+                v-if="~['TEMPLATE', 'DRAFT'].indexOf(this.from)"
+                type="primary"
+                round
+                :disabled="!loaded"
+                style="width: auto"
+                @click="stackByTime"
+            >
                 定时上架
             </el-button>
-            <el-button :disabled="!loaded" style="width: auto" @click="discard">
-                放弃修改
+            <el-button
+                type="primary"
+                plain
+                round
+                :disabled="!loaded"
+                @click="showPreview = true"
+            >
+                预览
+            </el-button>
+            <el-button
+                plain
+                round
+                :disabled="!loaded"
+                @click="saveDraft"
+            >
+                保存
+            </el-button>
+            <el-button
+                plain
+                round
+                :disabled="!loaded"
+                @click="discard"
+            >
+                取消
             </el-button>
         </footer>
         <ModalProdCategory
@@ -240,7 +268,7 @@ import { rebuild, rebuildBeforeSubmit } from '../utils/service'
 import { isString, isPlainObject } from '../utils/helper'
 import {
     editorMap,
-    moduleClassNameMap,
+    moduleIdMap,
     productTypeMap1,
     tagMap
 } from '../utils/map'
@@ -574,7 +602,7 @@ export default class MallDecoration extends Vue {
 
     // 获取装修组件的位置
     getEditorPosition (target: Element) {
-        const OFFSET = 210
+        const OFFSET = 110
         const container = document.querySelector('#main')
         if (container && ('scrollTop' in container)) {
             // 当前点击模块相对窗口顶部的距离 + 容器滚动条滚动距离 - OFFSET
@@ -895,12 +923,12 @@ export default class MallDecoration extends Vue {
                     await this.submit(model, msg)
                 }
                 if (result.pass === false) {
-                    const OFFSET = 112
+                    const OFFSET = 50
                     const { errMsg, errModule } = result
                     this.$warning(errMsg)
 
                     if (this.currentModule !== errModule) {
-                        this.onModuleClick(errModule, document.querySelector(moduleClassNameMap[errModule]))
+                        this.onModuleClick(errModule, document.querySelector(moduleIdMap[errModule]))
                     }
 
                     // 滚动到报错的模块
@@ -960,45 +988,46 @@ export default class MallDecoration extends Vue {
 .template {
     position: relative;
     display: flex;
-    padding: 60px 0 150px 100px;
+    padding: 10px 0 150px 185px;
 }
-.header {
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    height: 52px;
-    background: #fff;
-    > span {
-        font-size: 16px;
-        font-weight: bold;
-        color: #333;
-        cursor: pointer;
-    }
-    i {
-        margin-left: 15px;
-        margin-right: 30px;
-        vertical-align: bottom;
-        font-size: 24px;
-        font-weight: bold;
-        &:before {
-            color: #598bf8;
-            font-weight: bold;
-        }
-    }
-}
+// .header {
+//     display: flex;
+//     align-items: center;
+//     padding: 0 10px;
+//     height: 52px;
+//     background: #fff;
+//     > span {
+//         font-size: 16px;
+//         font-weight: bold;
+//         color: #333;
+//         cursor: pointer;
+//     }
+//     i {
+//         margin-left: 15px;
+//         margin-right: 30px;
+//         vertical-align: bottom;
+//         font-size: 24px;
+//         font-weight: bold;
+//         &:before {
+//             color: #598bf8;
+//             font-weight: bold;
+//         }
+//     }
+// }
 footer {
     position: fixed;
     right: 0;
-    left: 200px;
+    left: 150px;
     bottom: 0;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 0 24px;
-    height: 78px;
+    height: 64px;
     background-color: #fff;
     border-top: 1px solid #e7e7e7;
     z-index: 99;
     > button {
+        margin-left: 20px !important;
         padding-left: 0;
         padding-right: 0;
         width: 80px;
