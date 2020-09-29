@@ -309,7 +309,7 @@ export default class ModalProd extends Vue {
                 ...(this.searchHistory ? { productName: this.searchHistory } : null), // 搜索内容
                 isHidden: 1 // 不展示首页隐藏的课程
             }
-            const { result } = await getGoods(params)
+            const { result }: any = await getGoods(params)
             for (const item of result.records) {
                 item.skuEntityList.sort((a: { price: number }, b: { price: number }) => a.price - b.price)
             }
@@ -336,7 +336,7 @@ export default class ModalProd extends Vue {
                 status: '3',
                 ...(this.searchHistory ? { condition: this.searchHistory } : null) // 搜索内容
             }
-            const { result } = await getSpringPloughingList(params)
+            const { result }: any = await getSpringPloughingList(params)
             this.productList = result.records
             this.pagination.total = result.total
             if (this.reserveSelection) {
@@ -356,7 +356,7 @@ export default class ModalProd extends Vue {
                 current: this.pagination.current,
                 size: this.pagination.size
             }
-            const { result } = await getDistribution(params)
+            const { result }: any = await getDistribution(params)
             this.productList = result.records
             this.pagination.total = result.total
             if (this.reserveSelection) {
@@ -379,7 +379,7 @@ export default class ModalProd extends Vue {
                 size: this.pagination.size,
                 isHidden: 1 // 不展示首页隐藏的课程
             }
-            const { result } = await getVideoList(params)
+            const { result }: any = await getVideoList(params)
             this.productList = result.records
             this.pagination.total = result.total
         } catch (error) {
@@ -395,7 +395,7 @@ export default class ModalProd extends Vue {
                 current: this.pagination.current,
                 size: this.pagination.size
             }
-            const { result } = await getImageTextList(params)
+            const { result }: any = await getImageTextList(params)
             this.productList = result.records
             this.pagination.total = result.total
         } catch (error) {
