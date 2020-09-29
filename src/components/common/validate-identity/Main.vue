@@ -5,21 +5,21 @@
         @close="close"
         width="480px"
     >
-        <div :class="$style.validate">
+        <el-form :class="$style.validate">
             <div class="fz-16">为保护账户安全，使用手机</div>
             <div class="fz-16">{{ mobile | formatAccount }}验证身份</div>
-            <div class="mt-20">
+            <el-form-item :error="error" class="mt-20">
                 <el-input
-                    v-model="verifyCode"
+                    v-model.trim="verifyCode"
                     style="width: 240px"
                     placeholder="请输入验证码"
                     :class="$style.verifyCode"
                 >
                     <SendCode slot="append" :mobile="mobile" />
                 </el-input>
-                <el-button :class="$style.next" type="primary" round @click="next" :loading="loading">下一步</el-button>
-            </div>
-        </div>
+            </el-form-item>
+            <el-button :class="$style.next" type="primary" round @click="next" :loading="loading">下一步</el-button>
+        </el-form>
     </el-dialog>
 </template>
 
@@ -36,6 +36,7 @@ import { checkMobileCode } from '@/apis/common'
 export default class ValidateIdentity extends Vue {
     private loading = false
     private verifyCode = ''
+    private error = ''
     private show = false
     private mobile = ''
 
@@ -45,6 +46,10 @@ export default class ValidateIdentity extends Vue {
 
     async next () {
         try {
+            if (!this.verifyCode) {
+                this.error = '请输入验证码'
+                return Promise.reject(false)
+            }
             this.loading = true
             const { result } = await checkMobileCode({
                 smsType: 'ACCOUNT_BIND_PHONE_NUMBER',

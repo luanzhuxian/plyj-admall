@@ -3,14 +3,16 @@ declare global {
     interface Uuid {
         v1: () => string;
     }
+
     interface ResponseData<T> {
         code: number;
         result: any;
         message: string;
         devMessage: string;
     }
+
     interface MyAxios extends AxiosStatic {
-        request<T = any, R = ResponseData<T>> (config: AxiosRequestConfig): Promise<R>;
+        request<T = any, R = ResponseData<T>>(config: AxiosRequestConfig): Promise<R>;
         get<T = any, R = ResponseData<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
         delete<T = any, R = ResponseData<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
         head<T = any, R = ResponseData<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
@@ -19,10 +21,13 @@ declare global {
         put<T = any, R = ResponseData<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
         patch<T = any, R = ResponseData<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
     }
+
     interface Window {
         uuid: Uuid;
         createObjectURL: Function;
+
         [key: string]: any;
+
         Qrcode: new(arg: {
             render: string;
             // 纠错级别
@@ -46,29 +51,9 @@ declare global {
             href: string;
         }) => void;
     }
-    // 短信类型
-    export type SmsType = 'ACCOUNT_BIND_PHONE_NUMBER' | 'AGENT_USER_LOGIN' | 'AGENCY_MOBILE_REGISTER' | 'AGENCY_MOBILE_PASSWD_REST'
-    export type agencyStatusType = 'AUTHENTICATE' | 'AUDITING' | 'AUTH_FAIL' | 'MICRO_NOT_UPGRADE' | 'MICRO_NOT_APPLY' | 'MP_NOT_AUTHORIZED' | 'MALL_NOT_COMPLETED'
 
     // 动态属性的对象
     interface DynamicObject {
         [propName: string]: any;
-    }
-
-    // 路由属性
-    interface Route {
-        meta?: {
-            title?: string;
-            index?: string;
-        };
-        name: string;
-        path: string;
-        redirect: string;
-        regex: RegExp;
-        parent: Route;
-        matched: Route[];
-        params: DynamicObject;
-        query: DynamicObject;
-        fullPath: string;
     }
 }

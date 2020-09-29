@@ -35,6 +35,11 @@ import OnlineTeachingNavbar from './components/common/layout/Online-Teaching-Nav
 import Header from './components/common/layout/Header.vue'
 import Header2 from './components/common/layout/Header2.vue'
 import { Getter, Mutation, namespace } from 'vuex-class'
+Component.registerHooks([
+    'beforeRouteEnter',
+    'beforeRouteLeave',
+    'beforeRouteUpdate'
+])
 
 const userModule = namespace('user')
 const goodsModule = namespace('goods')

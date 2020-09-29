@@ -48,6 +48,8 @@
 <script lang="ts">
 import { modifyPassword } from '../../../apis/base/register'
 import { Component, Vue } from 'vue-property-decorator'
+import validateIdentity from '../../../components/common/validate-identity'
+import store from '../../../store'
 
 @Component
 export default class ModifyPassword extends Vue {
@@ -107,6 +109,11 @@ export default class ModifyPassword extends Vue {
             } finally {
                 this.loading = false
             }
+        }
+
+        async beforeRouteEnter (to: Route, from: Route, next: RouteNext) {
+            await validateIdentity(store.getters['user/bindPhone'])
+            next()
         }
 }
 </script>

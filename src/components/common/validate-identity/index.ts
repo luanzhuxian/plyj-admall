@@ -1,3 +1,6 @@
+/**
+ * 发送验证码以校验身份
+ */
 import ValidateIdentityComponent from './Main.vue'
 import Vue from 'vue'
 interface ValidateIdentityClass {
