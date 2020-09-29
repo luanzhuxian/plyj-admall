@@ -206,15 +206,15 @@ export default class MainNavbar extends Vue {
         overflow: auto;
     }
     .marketing {
-        position: fixed;
+        position: absolute;
         left: 0;
-        top: 580px;
+        top: 500px;
         width: 140px;
     }
     .guid {
-        position: fixed;
+        position: absolute;
         left: 0;
-        top: 620px;
+        top: 540px;
         width: 140px;
     }
     .icon {

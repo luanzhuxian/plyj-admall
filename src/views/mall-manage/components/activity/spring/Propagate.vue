@@ -15,6 +15,8 @@
             <img
                 v-if="data.values[0].mallLogo"
                 :src="data.values[0].mallLogo + '?x-oss-process=style/thum-small'"
+                v-viewer
+                v-img-error
             >
         </div>
     </div>
