@@ -196,10 +196,10 @@ export default {
             try {
                 if (!this.inputAdd) return this.$warning('用户标签名称不能为空')
                 if (this.inputAdd.length < this.minTagNameLength) return this.$warning('用户标签名称为2到8个字')
-                const { data } = await updateTag({ tagName: this.inputAdd })
+                const { result } = await updateTag({ tagName: this.inputAdd })
                 // 在添加标签中新建标签，用户选中时，自动选中
                 if (this.selected.length < this.maxSetTagNum) {
-                    const id = data && data.result && data.result.id
+                    const id = result && result.id
                     this.selected.push(id)
                 }
                 this.getTagList()
@@ -227,8 +227,8 @@ export default {
         async remove (tag, index) {
             try {
                 // TODO.删除分为两种，有无活动（需要等待新春包上传后）,有活动不允许删除;有无使用
-                const { data } = await checkIsTagUsed(tag.id)
-                if (data.result) {
+                const { result } = await checkIsTagUsed(tag.id)
+                if (result) {
                     await this.$confirm('删除标签后，该标签下的所有用户将失去该标签属性。是否确定删除？')
                 }
                 await deleteTag(tag.id)
