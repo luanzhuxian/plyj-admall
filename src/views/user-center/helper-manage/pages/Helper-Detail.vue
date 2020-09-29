@@ -24,7 +24,7 @@
                         <div class="label">姓名：</div>{{ detail.name }}</li>
                     <li>
                         <div class="info-list-li"><div class="label">地址：</div>{{ detail.address }}</div>
-                        <div class="label">标签：</div>{{ detail.tags }}<a v-if="detail.tags">编辑</a>
+                        <div class="label">标签：</div>{{ detail.tags }}
                     </li>
                     <li>
                         <div class="label">来源：</div>{{ detail.source }}

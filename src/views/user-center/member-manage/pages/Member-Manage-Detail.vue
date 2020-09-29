@@ -148,7 +148,7 @@
                         </div>
                         <div class="fill">
                             备注：
-                            <div>
+                            <div style="width: 200px">
                                 <el-tooltip popper-class="item" effect="dark" :content="memberDetail.remark" placement="bottom">
                                     <span class="remark">{{ memberDetail.remark }} </span>
                                 </el-tooltip>

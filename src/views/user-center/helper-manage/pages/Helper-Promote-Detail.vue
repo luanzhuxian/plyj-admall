@@ -52,11 +52,14 @@
                         <span class="tags" v-if="helperDetail.tags && helperDetail.tags.length">
                             <span v-for="item in helperDetail.tags" :key="item.id">{{ item && item.tagName }} </span>
                         </span>
+                        <a @click="showAddTagDialog = true">
+                            编辑
+                        </a>
                     </div>
                     <div class="record">
                         <span>记录：</span>
-                        <div class="list" v-if="helperDetail.record && helperDetail.record.length">
-                            <p v-for="item in helperDetail.record" :key="item.id">
+                        <div class="list" v-if="helperDetail.logs && helperDetail.logs.length">
+                            <p v-for="item in helperDetail.logs" :key="item.id">
                                 {{ item }}
                             </p>
                         </div>
@@ -403,6 +406,13 @@
             </div>
         </div>
 
+        <!-- 添加标签 -->
+        <AddTags
+            :show.sync="showAddTagDialog"
+            :current-member="helperDetail"
+            @confirm="getHelperDetail"
+        />
+
         <!--更改所属账号-->
         <ChangeOwnerDialog
             :show.sync="showChangeOwnerDialog"
@@ -417,6 +427,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import Field from '../../../../components/common/base/Field.vue'
 import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
+import AddTags from '../../member-manage/components/Add-Tags.vue'
 import {
     getHelperDetail,
     getHelperStatistics,
@@ -427,7 +438,8 @@ import {
   @Component({
       components: {
           Field,
-          ChangeOwnerDialog
+          ChangeOwnerDialog,
+          AddTags
       }
   })
 export default class HelperPromoteDetail extends Vue {
@@ -436,6 +448,9 @@ export default class HelperPromoteDetail extends Vue {
         2: '学生',
         3: '其他'
     }
+
+    // 是否显示添加标签弹框
+    showAddTagDialog = false
 
     // TAB页面
     ORDER_LIST = 'OrderList'
