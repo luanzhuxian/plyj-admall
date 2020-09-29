@@ -816,12 +816,6 @@
                             class="table-customer"
                             style="width: 100%"
                         >
-                            <template slot="empty">
-                                <div class="no-data">
-                                    <img width="136" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/no-data.png" alt="">
-                                    <p>该会员还没有备注哦</p>
-                                </div>
-                            </template>
                             <el-table-column
                                 prop="content"
                                 label="备注内容">
