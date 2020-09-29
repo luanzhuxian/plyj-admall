@@ -1,157 +1,121 @@
 <template>
     <div class="account-single">
-        <el-row class="mt-20">
-            <el-card class="box-card">
-                <div
-                    slot="header"
-                    class="clearfix"
-                />
-                <div class="title font-18 font-weight-bold pb-20 edit-box">
-                    <span>{{ single.roleName }} </span>
-                    <el-button type="primary" plain v-if="selfEdit || canEdit" :disabled="!single.lockStatus" @click="edit">
-                        编辑
-                    </el-button>
+        <div class="box-card box-card-info">
+            <div class="avatar-info">
+                <img
+                    class="rounded-circle"
+                    style="width: 62px;height: 62px;border-radius: 50%;"
+                    :src="single.avatarUrl"
+                    slot="label"
+                >
+                <div class="base-info">
+                    <div class="font-18 font-weight-bold">
+                        {{ single.nickName }} <span style="font-weight: 400">({{ single.lockStatus? '开启':'禁用' }})</span>
+                    </div>
+                    <div class="font-16">
+                        {{ single.position }}
+                    </div>
                 </div>
-                <el-form label-position="left">
-                    <el-form-item
-                        class="mb-1"
-                        label-width="80px"
+            </div>
+            <el-form label-position="left" class="account-info">
+                <el-form-item>
+                    <div
+                        slot="label"
+                        class="font-16"
                     >
-                        <img
-                            class="rounded-circle"
-                            style="width: 62px;height: 62px;border-radius: 50%;"
-                            :src="single.avatarUrl"
-                            slot="label"
+                        职位:
+                    </div>
+                    <div class="font-16">
+                        {{ single.position }}
+                    </div>
+                </el-form-item>
+                <el-form-item>
+                    <div
+                        slot="label"
+                        class="font-16"
+                    >
+                        联系方式:
+                    </div>
+                    <div class="font-16">
+                        {{ single.mobile }}
+                    </div>
+                </el-form-item>
+                <el-form-item>
+                    <div
+                        slot="label"
+                        class="font-16"
+                    >
+                        创建时间:
+                    </div>
+                    <div class="font-16">
+                        {{ single.createTime }}
+                    </div>
+                </el-form-item>
+                <el-form-item>
+                    <div
+                        slot="label"
+                        class="font-16"
+                    >
+                        管理权限:
+                    </div>
+                    <div class="font-16">
+                        <el-button type="text" @click="viewTree" v-if="selfEdit || canEdit">
+                            查看
+                        </el-button>
+                    </div>
+                </el-form-item>
+            </el-form>
+            <div class="edit-box">
+                <!-- <span>{{ single.roleName }} </span> -->
+                <el-button type="primary" round plain v-if="selfEdit || canEdit" :disabled="!single.lockStatus" @click="edit">
+                    编辑
+                </el-button>
+            </div>
+        </div>
+        <div class="box-card">
+            <el-tabs v-model="activeTab" @tab-click="getActiveTabList">
+                <el-tab-pane :label="`发展Helper ( ${total} ) 人`" name="Helper">
+                    <el-table :data="helpers">
+                        <el-table-column
+                            prop="userId"
+                            label="ID"
+                            width="170"
+                        />
+                        <el-table-column label="头像">
+                            <template #default="{ row }">
+                                <img
+                                    class="rounded-circle"
+                                    style="height:62px;"
+                                    :src="row.avatarUrl"
+                                    alt=""
+                                >
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            prop="realName"
+                            label="真实姓名"
+                        />
+                        <el-table-column
+                            prop="createTime"
+                            label="时间"
+                            width="160"
+                        />
+                        <el-table-column
+                            width="190"
                         >
-                        <div class="pl-0_25">
-                            <div class="font-18 font-weight-bold">
-                                {{ single.realName }} <span style="font-weight: 400">({{ single.lockStatus? '开启':'禁用' }})</span>
-                            </div>
-                            <div class="font-16">
-                                {{ single.position }}
-                            </div>
-                        </div>
-                    </el-form-item>
-                    <!--            <el-form-item class="mb-10">-->
-                    <!--              <div-->
-                    <!--                slot="label"-->
-                    <!--                class="font-16"-->
-                    <!--              >-->
-                    <!--                身份证号:-->
-                    <!--              </div>-->
-                    <!--              <div class="font-16">-->
-                    <!--                {{ single.idCard }}-->
-                    <!--              </div>-->
-                    <!--            </el-form-item>-->
-                    <el-form-item class="mb-10">
-                        <div
-                            slot="label"
-                            class="font-16"
-                        >
-                            昵称:
-                        </div>
-                        <div class="font-16">
-                            {{ single.nickName }}
-                        </div>
-                    </el-form-item>
-                    <el-form-item class="mb-10">
-                        <div
-                            slot="label"
-                            class="font-16"
-                        >
-                            职位:
-                        </div>
-                        <div class="font-16">
-                            {{ single.position }}
-                        </div>
-                    </el-form-item>
-                    <el-form-item class="mb-10">
-                        <div
-                            slot="label"
-                            class="font-16"
-                        >
-                            联系方式:
-                        </div>
-                        <div class="font-16">
-                            {{ single.mobile }}
-                        </div>
-                    </el-form-item>
-                    <el-form-item class="mb-10">
-                        <div
-                            slot="label"
-                            class="font-16"
-                        >
-                            创建时间:
-                        </div>
-                        <div class="font-16">
-                            {{ single.createTime }}
-                        </div>
-                    </el-form-item>
-                    <el-form-item class="mb-10">
-                        <div
-                            slot="label"
-                            class="font-16"
-                        >
-                            管理权限:
-                        </div>
-                        <div class="font-16">
-                            <el-button type="text" @click="viewTree" v-if="selfEdit || canEdit">
-                                查看
-                            </el-button>
-                        </div>
-                    </el-form-item>
-                </el-form>
-            </el-card>
-        </el-row>
-        <el-row class="mt-20">
-            <el-card class="box-card">
-                <!-- <div class="title font-18 font-weight-bold border-bottom pb-20">
-            <span>发展Helper</span>
-            <span class="text-info font-weight-normal"> ( {{ total }} 人)</span>
-          </div> -->
-                <el-tabs v-model="activeTab" @tab-click="getActiveTabList">
-                    <el-tab-pane :label="`发展Helper ( ${total} ) 人`" name="Helper">
-                        <el-table :data="helpers">
-                            <el-table-column
-                                prop="userId"
-                                label="ID"
-                                width="170"
-                            />
-                            <el-table-column label="头像">
-                                <template #default="{ row }">
-                                    <img
-                                        class="rounded-circle"
-                                        style="height:62px;"
-                                        :src="row.avatarUrl"
-                                        alt=""
-                                    >
-                                </template>
-                            </el-table-column>
-                            <el-table-column
-                                prop="realName"
-                                label="真实姓名"
-                            />
-                            <el-table-column
-                                prop="createTime"
-                                label="时间"
-                                width="160"
-                            />
-                            <el-table-column
-                                width="190"
-                            >
-                                <template slot-scope="{row}">
-                                    <el-button size="mini" @click="showChangeBelongBox(row.userId,row.ownnerUserId)">
-                                        更改所属账号
-                                    </el-button>
-                                    <el-button @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: 'HelperList' }, query: { from: 'HelperList' } })">
-                                        查看
-                                    </el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <Pagination v-show="total" :total="total" :size="listForm.size" v-model="listForm.current" @change="getHelperList" />
-                    </el-tab-pane>
-                    <el-tab-pane :label="`订单总量 ( ${orderTotal} ) 单`" name="Order">
+                            <template slot-scope="{row}">
+                                <el-button size="mini" @click="showChangeBelongBox(row.userId,row.ownnerUserId)">
+                                    更改所属账号
+                                </el-button>
+                                <el-button @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: 'HelperList' }, query: { from: 'HelperList' } })">
+                                    查看
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <Pagination v-show="total" :total="total" :size="listForm.size" v-model="listForm.current" @change="getHelperList" />
+                </el-tab-pane>
+                <!-- <el-tab-pane :label="`订单总量 ( ${orderTotal} ) 单`" name="Order">
                         <el-form class="wrap border-bottom order-form" label-width="82px" :inline="true">
                             <el-form-item class="mb-10 ipt">
                                 <el-input
@@ -303,10 +267,9 @@
                             />
                         </el-table>
                         <Pagination v-show="orderTotal" :total="orderTotal" v-model="orderForm.current" :size="orderForm.size" @change="getOrderList" />
-                    </el-tab-pane>
-                </el-tabs>
-            </el-card>
-        </el-row>
+                    </el-tab-pane> -->
+            </el-tabs>
+        </div>
 
         <role-tree
             :visible.sync="visible"
@@ -429,6 +392,7 @@
                 </el-form-item>
             </el-form>
         </ExportDialog>
+
     </div>
 </template>
 
@@ -757,32 +721,26 @@ export default class AccountList extends Vue {
 </script>
 
 <style scoped lang="scss">
-.el-card {
-  padding-left: 36px;
-  padding-right: 36px;
-  .pb-20 {
-    padding-bottom: 20px;
-  }
-  .mb-10 {
-    margin-bottom: 10px;
-  }
-  .text-info {
-    color: #EC742E;
-  }
-  .ipt .el-input {
-    ::v-deep.el-input__inner {
-      width: 197px;
-      padding-right: 15px;
-    }
-  }
-}
-.edit-box {
-    display: flex;
-    justify-content: space-between;
-}
 .account-single {
-    > .el-row{
-        margin-bottom: 20px;
+    .box-card{
+        padding: 36px 40px;
+        background: #fff;
+        margin-bottom: 10px;
+    }
+    .box-card-info{
+        display: flex;
+        .avatar-info{
+            display: flex;
+            align-items: center;
+            margin-right: 50px;
+            width: 30%;
+            .base-info{
+                margin-left: 20px;
+            }
+        }
+        .account-info{
+            width: 40%;
+        }
     }
     ::v-deep.el-table {
         &:before {
@@ -811,16 +769,5 @@ export default class AccountList extends Vue {
             }
         }
     }
-}
-</style>
-
-<style lang="scss">
-.account-single {
-  .el-card__header {
-    border-bottom: none;
-    padding: 10px;
-    padding-top: 0;
-    margin-right: -40px;
-  }
 }
 </style>

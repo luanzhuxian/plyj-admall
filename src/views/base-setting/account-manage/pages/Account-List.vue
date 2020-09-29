@@ -244,10 +244,12 @@ import { namespace } from 'vuex-class'
 import {
     AccountInfo,
     getAccounts,
-    // deleteAccount,
+    deleteAccount,
+    deleteDeadAccount,
     enableAccount,
     downgradeAccount,
-    editAccount
+    editAccount,
+    getNotActiveAccounts
 } from '../../../../apis/account'
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 
@@ -375,17 +377,32 @@ export default class AccountList extends Vue {
             roleCode
         } = this.filter
 
-        const { result: res } = await getAccounts({
-            current,
-            size,
-            status,
-            searchContent,
-            startTime,
-            endTime,
-            roleCode
-        })
-        this.table = res.records
-        this.total = res.total
+        let result
+        // 未激活
+        if (status === '2') {
+            const { result: res } = await getNotActiveAccounts({
+                current,
+                size,
+                searchContent,
+                startTime,
+                endTime,
+                roleCode
+            })
+            result = res
+        } else {
+            const { result: res } = await getAccounts({
+                current,
+                size,
+                status,
+                searchContent,
+                startTime,
+                endTime,
+                roleCode
+            })
+            result = res
+        }
+        this.table = result.records
+        this.total = result.total
     }
 
     private async tabClick (data: any) {
@@ -415,10 +432,11 @@ export default class AccountList extends Vue {
 
     private async deleteAccount (row: any) {
         await this.$confirm('删除后将无法恢复！')
-        // await deleteAccount(row)
-        const params = JSON.parse(JSON.stringify(row))
-        params.lockStatus = 3
-        await enableAccount(params)
+        if (row.lockStatus === 2) {
+            await deleteDeadAccount(row.mobile)
+        } else {
+            await deleteAccount(row)
+        }
         this.$success('删除成功')
         this.filter.current = 1
         await this.getAccounts()

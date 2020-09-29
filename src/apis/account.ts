@@ -13,7 +13,7 @@ export const getAccounts = (params: any) => axios.get('/apis/v2/systemctl/accoun
 export const getOwnedAccountList = (params: any) => axios.get('/apis/v2/helper/owner', { params })
 
 // 获取待激活账户列表
-export const getNotActiveAccounts = (params: any) => axios.get('/apis/v2/systemctl/account/roleUser/list/acting', { params })
+export const getNotActiveAccounts = (params: any) => axios.get('/apis/v2/systemctl/account/deadAccounts', { params })
 
 // 获取单个账户的详情
 export const getSingleAccount = (params: any) => axios.get('/apis/v2/systemctl/account/detail', { params })
@@ -25,6 +25,9 @@ export const searchMobile = (params: any) => axios.get('/apis/v2/systemctl/accou
 
 // 从此公司删除这个账户
 export const deleteAccount = (params: any) => axios.put('/apis/v2/systemctl/account/delete', null, { params })
+
+// 从待激活页面删除这个账户
+export const deleteDeadAccount = (mobile: any) => axios.delete(`/apis/v2/systemctl/account/deadAccounts/${ mobile }`)
 
 // 从此公司启用一个账户
 export const enableAccount = (params: any) => axios.put('/apis/v2/systemctl/account/enable', null, { params })
