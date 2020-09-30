@@ -53,7 +53,7 @@
                         修改
                     </el-button>
                 </el-form-item>
-                <el-form-item label="企业管理员" style="width:30%">{{ mallSaveModel.enterpriseUserName }}</el-form-item>
+                <el-form-item label="企业管理员" style="width:30%">{{ entPersonSaveModel.name + ' - ' + entPersonSaveModel.mobile }}</el-form-item>
                 <el-form-item style="width:30%">
                     <el-button type="primary" plain round @click="showShopCode = true">访问店铺</el-button>
                     <shop-modal :show-mall-url="showShopCode" :mall-url="url" :mall-qrcode="shopCode" @close="showShopCode = false" />
@@ -67,27 +67,28 @@
                 :inline="true"
                 class="base-info-form"
             >
-                <el-form-item label="企业名称：" style="width: 100%">
+                <el-form-item label="企业名称：" style="width: 30%">
                     {{ enterpriseSaveModel.entName }}
-                </el-form-item>
-                <el-form-item label="企业法人姓名：" style="width:30%">
-                    {{ entPersonSaveModel.idName }}
-                </el-form-item>
-                <el-form-item label="手机号：" style="width:30%">
-                    18966790240
-                </el-form-item>
-                <el-form-item label="证件类型：" style="width:30%">
-                    {{ entPersonSaveModel.idCardType === '1' ? '身份证' : '' }}
-                </el-form-item>
-                <br>
-                <el-form-item label="微信支付管理员：" style="width:30%">
-                    上海朋来教育科技有限公司
                 </el-form-item>
                 <el-form-item label="微信支付商户号：" style="width:30%">
                     {{ mallSaveModel.mchId }}
                 </el-form-item>
+                <br>
+                <!-- <el-form-item label="手机号：" style="width:30%">
+                    18966790240
+                </el-form-item>
+                <el-form-item label="证件类型：" style="width:30%">
+                    {{ entPersonSaveModel.idCardType === '1' ? '身份证' : '' }}
+                </el-form-item> -->
+                <el-form-item label="企业法人姓名：" style="width:30%">
+                    {{ entPersonSaveModel.idName }}
+                </el-form-item>
+                <el-form-item label="微信支付管理员：" style="width:30%">
+                    {{ entWxPayInfoVO.contact }}
+                </el-form-item>
+                <br>
                 <el-form-item label="微信支付预留手机号：" style="width:30%">
-                    151****2111
+                    {{ entWxPayInfoVO.contactPhone }}
                 </el-form-item>
             </el-form>
         </div>
@@ -404,6 +405,7 @@ export default {
             mallSaveModel: 'user/mallSaveModel',
             enterpriseSaveModel: 'user/enterpriseSaveModel',
             entPersonSaveModel: 'user/entPersonSaveModel',
+            entWxPayInfoVO: 'user/entWxPayInfoVO',
             defaultLogo: 'defaultLogo'
         }),
         defaultCity () {

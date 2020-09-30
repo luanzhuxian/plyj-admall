@@ -84,6 +84,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         enterpriseSaveModel: {},
         // 注册第二步数据
         entPersonSaveModel: {},
+        entWxPayInfoVO: {},
         mallSaveModel: {},
         subAccount: [],
         menuList: [{
@@ -133,6 +134,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             const {
                 currentStep = 1,
                 entPersonSaveModel = {},
+                entWxPayInfoVO = {},
                 enterpriseSaveModel = {},
                 mallSaveModel = {},
                 inviteCode,
@@ -145,6 +147,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.currentRoleCode = currentRoleCode || ''
             // 注册第二步数据
             state.entPersonSaveModel = entPersonSaveModel
+            state.entWxPayInfoVO = entWxPayInfoVO
             // 注册第一步数据
             state.enterpriseSaveModel = enterpriseSaveModel
             state.mallSaveModel = mallSaveModel
@@ -158,6 +161,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         [types.LOGOUT] (state) {
             resetForm(state.loginInfo)
             resetForm(state.entPersonSaveModel)
+            resetForm(state.entWxPayInfoVO)
             resetForm(state.enterpriseSaveModel)
             resetForm(state.mallSaveModel)
             state.inviteCode = ''
@@ -444,6 +448,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         // currentStep: state => 6, // 注册步骤
         enterpriseSaveModel: state => state.enterpriseSaveModel,
         entPersonSaveModel: state => state.entPersonSaveModel,
+        entWxPayInfoVO: state => state.entWxPayInfoVO,
         idName: state => state.entPersonSaveModel.idName,
         regType: state => state.REG_TYPE,
         agencyList: state => state.agencyList,
