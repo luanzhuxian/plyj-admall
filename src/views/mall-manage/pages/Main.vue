@@ -450,6 +450,7 @@ export default class MallMain extends Vue {
             this.$success('修改成功')
             row.isEdit = false
             await this.getDraft()
+            await this.$nextTick()
             await this.refreshCurrentTemplate(row.id)
         } catch (error) {
             throw error
@@ -514,6 +515,7 @@ export default class MallMain extends Vue {
                 await updateTemplateStatus({ id, type, status: 1 })
                 this.$success('上架成功')
                 await this.getDraft()
+                await this.$nextTick()
                 await this.refreshCurrentTemplate(id)
             } else {
                 this.$warning(errMsg)
@@ -583,6 +585,7 @@ export default class MallMain extends Vue {
             const { result, message } = await takeOffCurrentTemplate({ id: this.currentActivityId, type: 2 })
             if (result) {
                 this.$success('下架成功')
+                await this.$nextTick()
                 await this.getCurrentTemplate(2)
                 await this.getDraft()
             } else {

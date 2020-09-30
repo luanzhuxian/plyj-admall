@@ -562,6 +562,7 @@ export default class MallThemes extends Vue {
             if (result) {
                 this.$success('换肤成功')
                 this.currentSkinId = skinId
+                await this.$nextTick()
                 await this.getCurrentTemplate(1)
             } else {
                 this.$error('换肤失败，请先装修商城')
@@ -578,6 +579,7 @@ export default class MallThemes extends Vue {
             if (result) {
                 this.$success('取消换肤成功')
                 this.currentSkinId = 0
+                await this.$nextTick()
                 await this.getCurrentTemplate(1)
             } else {
                 this.$error('取消换肤失败')
