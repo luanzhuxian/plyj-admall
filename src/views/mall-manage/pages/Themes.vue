@@ -139,14 +139,14 @@ import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue
 import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
-import { rebuild } from '../utils/service'
+import { rebuild } from '../utils/rebuild'
 import { tagMap } from '../utils/map'
 import { isString } from '../utils/helper'
 import { Template, TemplateTypes, TemplateSkinModel } from '../utils/types'
 
 const mall = namespace('mall')
 
-const models = [
+const templateModels = [
     {
         category: 'template',
         type: -1,
@@ -222,7 +222,7 @@ const models = [
     }
 ]
 
-const skinModles = [
+const skinModels = [
     {
         category: 'skin',
         skinId: 1,
@@ -310,6 +310,12 @@ const skinModles = [
     }, {
         category: 'skin',
         skinId: 14,
+        img: 'https://mallcdn.youpenglai.com/static/admall/skin/mid-autumn-festival/skin-mid-autumn.jpg',
+        isHover: false,
+        templateName: '中秋佳节'
+    }, {
+        category: 'skin',
+        skinId: 15,
         img: 'https://mallcdn.youpenglai.com/static/admall/skin/national-day/skin-national-day.jpg',
         isHover: false,
         templateName: '喜迎国庆'
@@ -391,6 +397,8 @@ export default class MallThemes extends Vue {
     }
 
     /* methods */
+    @mall.Action('getCurrentTemplate') getCurrentTemplate!: (type: number) => Promise<void>
+
     async handleTabClick (tab: { name: '' }) {
         try {
             this.currentTab = tab.name
@@ -405,7 +413,7 @@ export default class MallThemes extends Vue {
             const result: Template[] = data.result
             if (result.length) {
                 for (const item of result) {
-                    const model = models.find(m => m.type === item.type)
+                    const model = templateModels.find(m => m.type === item.type)
                     Object.assign(item, model)
                 }
 
@@ -431,7 +439,7 @@ export default class MallThemes extends Vue {
                 this.dragonGateTemplateList = result.filter(item => item.type === TemplateTypes.TemplateDragonGate)
 
                 // 皮肤
-                this.skinList = skinModles
+                this.skinList = skinModels
                     .map(model => {
                         const template = JSON.parse(JSON.stringify(this.templateList[1]))
                         return {
@@ -554,6 +562,7 @@ export default class MallThemes extends Vue {
             if (result) {
                 this.$success('换肤成功')
                 this.currentSkinId = skinId
+                await this.getCurrentTemplate(1)
             } else {
                 this.$error('换肤失败，请先装修商城')
             }
@@ -569,6 +578,7 @@ export default class MallThemes extends Vue {
             if (result) {
                 this.$success('取消换肤成功')
                 this.currentSkinId = 0
+                await this.getCurrentTemplate(1)
             } else {
                 this.$error('取消换肤失败')
             }

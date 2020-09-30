@@ -40,12 +40,6 @@
             left: 92px !important;
         }
     }
-    // .el-input {
-    //     width: 282px !important;
-    //     .el-input__icon {
-    //         left: 92px !important;
-    //     }
-    // }
 }
 @mixin copyright ($height, $color, $background-image: null, $background-color: transparent) {
     height: $height !important;
@@ -56,6 +50,8 @@
         background-position: center !important;
         background-size: 100% !important;
         background-color: $background-color !important;
+    } @else {
+        background: transparent;
     }
     @content;
 }
@@ -443,5 +439,69 @@
     }
     .module-copyright {
         @include copyright(45px, #1b8864);
+    }
+}
+
+// 中秋
+.skin-mid-autumn-festival {
+    @extend .skin-common;
+    background-color: #22ADB2 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/mid-autumn-festival/bg.jpg';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #F9DF55 !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 0 0 10px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 8.5px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(54px, #F9DF55);
+    }
+}
+
+// 国庆
+.skin-national-day {
+    @extend .skin-common;
+    background-color: #BA0909 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/national-day/bg.jpg';
+        @include container(90px, $background-image);
+        > .module.active {
+            border-color: #FD7803 !important;
+        }
+        .module-title {
+            padding: 0 12px 5px !important;
+            background: transparent !important;
+            &.module {
+                border-top-color: transparent;
+            }
+        }
+        .skin-title {
+            margin: 0 -12px 12px;
+        }
+    }
+    .module-search {
+        @include search();
+        margin-bottom: 6px;
+        padding-top: 0 !important;
+        height: 30px !important;
+    }
+    .module-copyright {
+        @include copyright(45px, #FD7803);
     }
 }

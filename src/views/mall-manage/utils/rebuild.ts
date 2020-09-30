@@ -12,7 +12,7 @@ import {
     TemplateDragonGate,
     TemplateModule,
     TemplateTypes, TemplateModuleItem
-} from '../utils/types'
+} from './types'
 
 // 找到指定模块
 const findModule = function (modules: TemplateModule[]) {

@@ -264,7 +264,7 @@ import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import Render from '../components/Render'
 import { teacherEditorOptions, maisongEditorOptions } from '../utils/config'
 import { validatorProducer } from '../utils/validate/index'
-import { rebuild, rebuildBeforeSubmit } from '../utils/service'
+import { rebuild, rebuildBeforeSubmit } from '../utils/rebuild'
 import { isString, isPlainObject } from '../utils/helper'
 import {
     editorMap,

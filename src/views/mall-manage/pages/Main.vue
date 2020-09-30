@@ -214,7 +214,7 @@ import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue
 import TemplatePreview from '../components/Template-Preview.vue'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import Render from '../components/Render'
-import { rebuild } from '../utils/service'
+import { rebuild } from '../utils/rebuild'
 import { validatorProducer } from '../utils/validate'
 import { tagMap } from '../utils/map'
 import { Template, DraftTableRow, TemplateStatus, TemplateTypes } from '../utils/types'

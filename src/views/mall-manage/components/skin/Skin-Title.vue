@@ -1,18 +1,20 @@
 <template>
     <div :class="$style.skinTitle">
-        <title-xmas v-if="skinId === 1" :data="data" />
-        <title-yuan-dan v-if="skinId === 2" :data="data" />
-        <title-new-year v-if="skinId === 3" :data="data" />
-        <title-xiao-nian v-if="skinId === 4" :data="data" />
-        <title-yuan-xiao v-if="skinId === 5" :data="data" />
-        <title-women-day v-if="skinId === 6" :data="data" />
-        <title-nian-nian-fan v-if="skinId === 7" :data="data" />
-        <title-earth-day v-if="skinId === 8" :data="data" />
-        <title-labour-day v-if="skinId === 9" :data="data" />
-        <title-mothers-day v-if="skinId === 10" :data="data" />
-        <title-children-day v-if="skinId === 11" :data="data" />
-        <title-fathers-day v-if="skinId === 12" :data="data" />
-        <title-dragon-boat v-if="skinId === 13" :data="data" />
+        <TitleXmas v-if="skinId === 1" :data="data" />
+        <TitleYuanDan v-if="skinId === 2" :data="data" />
+        <TitleNewYear v-if="skinId === 3" :data="data" />
+        <TitleXiaoNian v-if="skinId === 4" :data="data" />
+        <TitleYuanXiao v-if="skinId === 5" :data="data" />
+        <TitleWomenDay v-if="skinId === 6" :data="data" />
+        <TitleNianNianFan v-if="skinId === 7" :data="data" />
+        <TitleEarthDay v-if="skinId === 8" :data="data" />
+        <TitleLabourDay v-if="skinId === 9" :data="data" />
+        <TitleMothersDay v-if="skinId === 10" :data="data" />
+        <TitleChildrenDay v-if="skinId === 11" :data="data" />
+        <TitleFathersDay v-if="skinId === 12" :data="data" />
+        <TitleDragonBoat v-if="skinId === 13" :data="data" />
+        <TitleMidAutumnFestival v-if="skinId === 14" :data="data" />
+        <TitleNationalDay v-if="skinId === 15" :data="data" />
     </div>
 </template>
 
@@ -31,6 +33,8 @@ import TitleMothersDay from './Title-Mothers-Day.vue'
 import TitleChildrenDay from './Title-Children-Day.vue'
 import TitleFathersDay from './Title-Fathers-Day.vue'
 import TitleDragonBoat from './Title-Dragon-Boat.vue'
+import TitleMidAutumnFestival from './Title-Mid-Autumn-Festival.vue'
+import TitleNationalDay from './Title-National-Day.vue'
 
 @Component({
     components: {
@@ -46,7 +50,9 @@ import TitleDragonBoat from './Title-Dragon-Boat.vue'
         TitleMothersDay,
         TitleChildrenDay,
         TitleFathersDay,
-        TitleDragonBoat
+        TitleDragonBoat,
+        TitleMidAutumnFestival,
+        TitleNationalDay
     }
 })
 export default class SkinTitle extends Vue {
