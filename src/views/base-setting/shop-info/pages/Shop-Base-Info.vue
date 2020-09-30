@@ -68,23 +68,23 @@
                 class="base-info-form"
             >
                 <el-form-item label="企业名称：" style="width: 100%">
-                    张三的机构教育科技有限公司
+                    {{ enterpriseSaveModel.entName }}
                 </el-form-item>
                 <el-form-item label="企业法人姓名：" style="width:30%">
-                    万少松
+                    {{ entPersonSaveModel.idName }}
                 </el-form-item>
                 <el-form-item label="手机号：" style="width:30%">
                     18966790240
                 </el-form-item>
                 <el-form-item label="证件类型：" style="width:30%">
-                    身份证
+                    {{ entPersonSaveModel.idCardType === '1' ? '身份证' : '' }}
                 </el-form-item>
                 <br>
                 <el-form-item label="微信支付管理员：" style="width:30%">
                     上海朋来教育科技有限公司
                 </el-form-item>
                 <el-form-item label="微信支付商户号：" style="width:30%">
-                    1511875211
+                    {{ mallSaveModel.mchId }}
                 </el-form-item>
                 <el-form-item label="微信支付预留手机号：" style="width:30%">
                     151****2111
@@ -402,6 +402,8 @@ export default {
     computed: {
         ...mapGetters({
             mallSaveModel: 'user/mallSaveModel',
+            enterpriseSaveModel: 'user/enterpriseSaveModel',
+            entPersonSaveModel: 'user/entPersonSaveModel',
             defaultLogo: 'defaultLogo'
         }),
         defaultCity () {

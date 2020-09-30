@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.wechatAuth">
-        <div :class="$style.wechatInfo" v-if="auditStatus !== 'MP_NOT_AUTHORIZED'">
+        <div :class="$style.wechatInfo" v-if="auditStatus === 'MP_NOT_AUTHORIZED'">
             <div :class="$style.baseInfo">
                 <div :class="$style.authStatus"><div :class="$style.dot" />请使用已认证的微信服务号授权给雅集</div>
                 <div :class="$style.authInfo">
