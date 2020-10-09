@@ -150,12 +150,12 @@
 
             <!-- 待办事宜 -->
             <Panel custom-class="to-do-panel" title="待办事宜">
-                <router-link class="to-do-panel__item" to="/admall/orders-manage/order-list?status=WAIT_SHIP">
+                <router-link class="to-do-panel__item" :to="{ name: 'OrderList', query: { status: 'WAIT_SHIP' } }">
                     <div class="to-do-panel__item-name">待发货订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitShip || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitShip || 0 }单` }}</div>
                 </router-link>
-                <router-link class="to-do-panel__item" to="/admall/orders-manage/backorder?status=WaitReview">
+                <router-link class="to-do-panel__item" :to="{ name: 'Backorder', query: { status: 'WaitReview' } }">
                     <div class="to-do-panel__item-name">待退款订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitRefund || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitRefund || 0 }单` }}</div>
@@ -256,42 +256,54 @@ const functionsPanelTmpl = [
         name: '新人有礼',
         desc: '新人注册送礼活动',
         to: {
-            name: ''
+            name: 'NewcomersGiftList'
         }
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公众号增粉.png',
         name: '公众号增粉',
         desc: '商城引导关注服务号',
         to: {
-            name: ''
+            name: 'MpWeixin'
         }
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png',
         name: '组合聚惠学',
         desc: '组合商品打包售卖',
         to: {
-            name: ''
+            name: 'CoursePackage',
+            params: {
+                programId: '1'
+            }
         }
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png',
         name: '秒杀',
         desc: '多种满减券金额',
         to: {
-            name: ''
+            name: 'SecondBuy',
+            params: {
+                programId: '3'
+            }
         }
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png',
         name: '众志成团',
         desc: '商城引导关注服务号',
         to: {
-            name: ''
+            name: 'NewYearTogetherBuy',
+            params: {
+                programId: '4'
+            }
         }
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png',
         name: '预购',
         desc: '组合商品打包售卖',
         to: {
-            name: ''
+            name: 'NewYearBookingBuy',
+            params: {
+                programId: '5'
+            }
         }
     }
 ]
