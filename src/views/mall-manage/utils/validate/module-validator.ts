@@ -160,8 +160,8 @@ class TeacherListValidator extends ModuleNameValidator {
             for (const item of list) {
                 await this.validator.validate(item)
             }
-            if (list.length < 3 || list.length > 15) {
-                throw new Error(`${ data.moduleName }模块，最少添加3名老师，最多添加15名老师`)
+            if (list.length < 3 || list.length > 10) {
+                throw new Error(`${ data.moduleName }模块，最少添加3名老师，最多添加10名老师`)
             }
             return list
         } catch (error) {

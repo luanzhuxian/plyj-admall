@@ -89,7 +89,7 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> {
                 await new ProductListValidator(module.moduleName, 12).validate(module)
             }
         } catch (error) {
-            errList.push(new ErrorMsg(error.message || error, name))
+            errList.push(new ErrorMsg(error.message || error, moduleName))
         }
     }
 
