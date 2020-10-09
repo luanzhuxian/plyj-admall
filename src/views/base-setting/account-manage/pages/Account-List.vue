@@ -219,7 +219,7 @@
                         <a style="color: #4F63FF" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
                             详情
                         </a>
-                        <a style="color: #4F63FF" @click="switchChange(row)" v-if="row.lockStatus !== 2">
+                        <a style="color: #4F63FF" @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
                             {{ row.lockStatus ? '禁用' : '启用' }}
                         </a>
                         <a style="color: #4F63FF" @click="deleteAccount(row)" v-if="row.lockStatus === 0 || row.lockStatus === 2">

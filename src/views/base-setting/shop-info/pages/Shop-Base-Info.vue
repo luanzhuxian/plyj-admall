@@ -378,8 +378,9 @@ export default {
             }
         },
         'form.servicePhoneModels': {
-            handler  (val) {
-                this.defaultContact = val.findIndex(item => item.isDefault === 1)
+            handler (val) {
+                this.form.servicePhoneModels = val || []
+                this.defaultContact = val && val.findIndex(item => item.isDefault === 1)
             },
             immediate: true
         }
@@ -522,6 +523,7 @@ export default {
         },
         // 添加更多联系方式
         addMoreContactWay () {
+            console.log(this.form.servicePhoneModels)
             this.form.servicePhoneModels.push({
                 contactUserName: '',
                 contactWay: '',

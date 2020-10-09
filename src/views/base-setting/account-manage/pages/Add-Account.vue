@@ -152,7 +152,7 @@ export default class AddAccount extends Vue {
     menuCode = ''
     rules = {
         realName: [
-            { required: false, message: '请输入真实姓名', trigger: 'blur' },
+            { required: true, message: '请输入真实姓名', trigger: 'blur' },
             { min: 1, max: 16, message: '请输入至多16字的员工真实姓名', trigger: 'blur' }
         ],
         mobile: [
@@ -162,6 +162,10 @@ export default class AddAccount extends Vue {
         nickName: [
             { required: false, message: '请输入昵称', trigger: 'blur' },
             { min: 1, max: 16, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+        ],
+        position: [
+            { required: true, message: '请输入职位', trigger: 'blur' },
+            { min: 1, max: 16, message: '请输入至多16字的员工职位', trigger: 'blur' }
         ]
     }
 
