@@ -102,7 +102,7 @@
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 import { TemplateModule } from '../utils/types'
 import Draggable from '../../../components/common/draggable'
-import ImageManager from '../../../components/file/Image-Manager.vue'
+import ImageManager from '../../../components/common/file/Image-Manager.vue'
 
 @Component({
     components: {

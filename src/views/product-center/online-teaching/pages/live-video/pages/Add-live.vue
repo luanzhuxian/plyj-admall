@@ -383,7 +383,7 @@
 
 <script>
 import Panel from './../../../../../../components/common/Panel.vue'
-import UploadImage from './../../../../../../components/file/Image-Manager'
+import UploadImage from './../../../../../../components/common/file/Image-Manager'
 import SelectCoupon from './../../../../../../components/coupon/Select-Coupon.vue'
 import CheckLiveVideo from './../../../../../../components/select/Check-Live-Video.vue'
 import AddRoom from './../components/Add-Room.vue'

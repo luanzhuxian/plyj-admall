@@ -96,10 +96,10 @@ import {
 // sortCategory
 } from '../../apis/product-center/category'
 import { testCategory } from '../../assets/ts/validate'
-import EditImage from '../file/Edit-Image.vue'
+import EditImage from '../common/file/Edit-Image.vue'
 import { mapGetters } from 'vuex'
 import { copyFields } from '../../assets/ts/utils'
-import ImageSelector from '../file/File-Selector.vue'
+import ImageSelector from '../common/file/File-Selector.vue'
 import {
     createObjectUrl,
     upload,

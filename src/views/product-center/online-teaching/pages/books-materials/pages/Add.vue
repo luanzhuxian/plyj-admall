@@ -292,8 +292,8 @@
 </template>
 <script>
 
-import UploadImage from './../../../../../../components/file/Image-Manager.vue'
-import PdfManager from './../../../../../../components/file/Pdf-Manager.vue'
+import UploadImage from './../../../../../../components/common/file/Image-Manager.vue'
+import PdfManager from './../../../../../../components/common/file/Pdf-Manager.vue'
 import PlEditor from './../../../../../../components/common/Pl-Editor.vue'
 import SelectCategory from './../../../../../../components/category/Select-Category.vue'
 import UserGroup from './../../../../../../components/common/User-Group.vue'

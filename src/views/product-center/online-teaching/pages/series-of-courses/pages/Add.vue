@@ -81,9 +81,9 @@
                         placeholder="请输入内容"
                     />
                 </el-form-item>
-                <!--<el-form-item label="课程类型">
-          <span>视频课程</span>
-        </el-form-item>-->
+                <!-- <el-form-item label="课程类型">
+                    <span>视频课程</span>
+                </el-form-item> -->
 
                 <el-form-item label="课程内容" prop="liveInfos" id="liveInfos">
                     <div>
@@ -381,10 +381,10 @@
 <script>
 import Panel from './../../../../../../components/common/Panel.vue'
 import SelectVideoCourse from './../../../../../../components/select/Select-Video-Course.vue'
-import ImageManager from './../../../../../../components/file/Image-Manager.vue'
+import ImageManager from './../../../../../../components/common/file/Image-Manager.vue'
 import PlEditor from './../../../../../../components/common/Pl-Editor.vue'
 import UserGroup from './../../../../../../components/common/User-Group.vue'
-import Draggable from './../../../../../../components/draggable'
+import Draggable from './../../../../../../components/common/draggable'
 import CheckLiveVideo from './../../../../../../components/select/Check-Live-Video.vue'
 import MainImageTheme from './../../../../../../components/goods/Main-Image-Theme.vue'
 import VideoCoursePreview from './../components/Video-Course-Preview'

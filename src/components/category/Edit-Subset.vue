@@ -134,8 +134,8 @@ import {
 import { mapGetters } from 'vuex'
 import { copyFields } from '../../assets/ts/utils'
 import { testCategory } from '../../assets/ts/validate'
-import ImageSelector from '../file/File-Selector.vue'
-import EditImage from '../file/Edit-Image.vue'
+import ImageSelector from '../common/file/File-Selector.vue'
+import EditImage from '../common/file/Edit-Image.vue'
 import {
     createObjectUrl,
     upload,

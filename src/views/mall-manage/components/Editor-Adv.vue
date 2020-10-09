@@ -110,7 +110,7 @@
 import { Vue, Component, Prop, Emit, Watch } from 'vue-property-decorator'
 import { TemplateModule, ModuleIds, ModalType } from '../utils/types'
 import Draggable from '../../../components/common/draggable'
-import ImageManager from '../../../components/file/Image-Manager.vue'
+import ImageManager from '../../../components/common/file/Image-Manager.vue'
 import { findBrothersComponents } from '../utils/helper'
 
 @Component({
