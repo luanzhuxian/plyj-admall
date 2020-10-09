@@ -163,7 +163,7 @@ export default class VistorManageList extends Vue {
   visitTimeRange ({ start, end }: DynamicObject) {
       this.form.createStartTime = start
       this.form.createEndTime = end
-      this.getYouKe()
+      this.search()
   }
 
   // methods

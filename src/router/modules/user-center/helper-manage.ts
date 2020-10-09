@@ -35,8 +35,9 @@ export default [
             },
             // helper推广详情
             {
-                path: 'helper-promote-detail/:id?',
+                path: 'helper-promote-detail/:id/:mallUserId?',
                 name: 'HelperPromoteDetail',
+                props: true,
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Promote-Detail.vue'),
                 meta: {
                     title: 'Helper推广详情'

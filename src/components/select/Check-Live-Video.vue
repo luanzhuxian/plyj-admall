@@ -179,7 +179,7 @@ export default {
     methods: {
         async getTableList () {
             try {
-                const { data: { result: { total, records } } } = await getLibraryList(this.params)
+                const { result: { total, records } } = await getLibraryList(this.params)
                 this.total = total
                 this.tableData = records
                 await this.$nextTick()
@@ -260,7 +260,7 @@ export default {
                 }
                 // await uploadLibraryFile(this.uploadMes)
                 try {
-                    const { data: { result } } = await uploadLibraryFile(data)
+                    const { result } = await uploadLibraryFile(data)
                     this.params.current = 1
                     await this.getTableList()
                     await this.$nextTick()

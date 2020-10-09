@@ -643,15 +643,31 @@
                             <el-table-column
                                 prop="liveName"
                                 label="直播信息"
-                            />
+                                width="200px"
+                            >
+                                <template #default="{ row }">
+                                    <div>
+                                        <img style="width: 75px; height: 50px; margin-right: 10px; vertical-align: top;" :src="row.liveFrontCover" alt="">
+                                        <span style="display:inline-block; width: 90px">{{ row.liveName }}</span>
+                                    </div>
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="liveMode"
                                 label="形式"
-                            />
+                            >
+                                <template #default="{ row }">
+                                    {{ row.liveType === 'public' ? '公开课' : '私享课' }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="liveType"
                                 label="类型"
-                            />
+                            >
+                                <template #default="{ row }">
+                                    {{ row.liveType === 'live' ? '实时直播' : '录制直播' }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="amount"
                                 label="实付款（元）">

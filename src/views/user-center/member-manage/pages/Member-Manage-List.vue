@@ -799,8 +799,12 @@ export default class MemberManageList extends Vue {
   // 删除用户标签
   async deleteTag (id: string) {
       const data = await checkIsTagUsed(id)
+      await this.$confirm({
+          title: '删除标签',
+          message: '删除标签后，该标签下的所有用户将失去该标签属性。<br/>是否确定删除？',
+          dangerouslyUseHTMLString: true
+      })
       if (data.result) {
-          await this.$confirm('删除标签后，该标签下的所有用户将失去该标签属性是否确定删除？')
       }
       await deleteTag(id)
       await this.getTagList()

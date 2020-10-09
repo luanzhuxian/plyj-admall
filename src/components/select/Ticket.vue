@@ -234,12 +234,12 @@ export default {
         },
         async getTicket () {
             try {
-                const { data: res } = await getCouponList(this.params)
-                for (const i in res.result.records) {
-                    res.result.records[i].stock = 1
+                const { result } = await getCouponList(this.params)
+                for (const i in result.records) {
+                    result.records[i].stock = 1
                 }
-                this.gridData = await res.result.records
-                this.total = await res.result.total
+                this.gridData = result.records
+                this.total = result.total
                 if (this.selectedTicket.length) {
                     for (const item of this.gridData) {
                         // 已选择的券

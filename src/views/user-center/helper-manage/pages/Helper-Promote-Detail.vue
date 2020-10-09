@@ -424,7 +424,7 @@
 </template>
 
 <script  lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import Field from '../../../../components/common/base/Field.vue'
 import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
 import AddTags from '../../member-manage/components/Add-Tags.vue'
@@ -443,6 +443,9 @@ import {
       }
   })
 export default class HelperPromoteDetail extends Vue {
+    @Prop(String) readonly id!: string
+    @Prop(String) readonly mallUserId!: string
+
     USER_TYPE = {
         1: '家长',
         2: '学生',
@@ -490,7 +493,7 @@ export default class HelperPromoteDetail extends Vue {
     ]
 
     async created () {
-        this.userId = this.$route.params.id
+        this.userId = this.id
         try {
             await this.getHelperDetail()
             await this.getHelperStatistics()
@@ -774,7 +777,10 @@ export default class HelperPromoteDetail extends Vue {
     async getWithdrawalRecords () {
         try {
             this.withdrawalRecordsForm.mallUserId = this.userId
-            const { result: { records, total } } = await getWithdrawalRecords(this.withdrawalRecordsForm)
+            const { result: { records, total } } = await getWithdrawalRecords({
+                ...this.withdrawalRecordsForm,
+                mallUserId: this.mallUserId
+            })
             this.withdrawalRecords = records || []
             this.withdrawalRecordsTotal = total || 0
         } catch (e) {

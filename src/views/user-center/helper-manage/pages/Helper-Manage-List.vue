@@ -173,7 +173,7 @@
                         </a>
                         |
                         <a
-                            @click="$router.push({ name: 'HelperPromoteDetail', params: { id: row.id } })">
+                            @click="$router.push({ name: 'HelperPromoteDetail', params: { id: row.id, mallUserId: row.mallUserId } })">
                             详情
                         </a>
                     </div>
