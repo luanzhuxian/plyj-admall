@@ -1,5 +1,6 @@
 <template>
     <el-dialog
+        class="modal-product-category"
         :class="$style.modalProductCategory"
         :title="title"
         :modal-append-to-body="false"
@@ -338,14 +339,14 @@ export default class ModalProdCategory extends Vue {
 <style lang="scss">
 .modal-product-category {
     img {
-        width: 100%;
+        // width: 100%;
         object-fit: cover;
     }
     .el-icon-refresh {
         font-size: 24px;
         cursor: pointer;
         &::before {
-            color: #326ff6;
+            color: #4F63FF;
         }
     }
     .el-dialog {
@@ -354,51 +355,19 @@ export default class ModalProdCategory extends Vue {
     .el-dialog__body {
         padding: 0 !important;
     }
-    .el-tabs__nav {
-        border: none;
-    }
     .el-tabs__item {
         text-align: center;
         width: 160px;
-        border-top: 2px solid transparent;
-        &:hover {
-            color: #ec742e;
-        }
-        &.is-active {
-            color: #ec742e;
-            border-top: 2px solid #ec742e;
-        }
     }
     .el-tabs--card > .el-tabs__header {
-        border-top: 1px solid #e4e7ed;
         border-bottom: none;
     }
-    .el-input--small .el-input__inner {
-        padding-left: 30px;
-    }
-    .el-pager li {
-        color: #333;
-        font-weight: normal;
-        &:hover {
-            color: #333;
-        }
-    }
-    .el-pager li.active {
-        color: #ec742e;
-        cursor: default;
-        &:hover {
-            color: #ec742e;
-        }
-    }
-    .el-icon {
-        color: #333;
-        &:hover {
-            color: #333;
-        }
-    }
+    // .el-input--small .el-input__inner {
+    //     padding-left: 30px;
+    // }
     .tab-bar {
         &.hide {
-            ::v-deep .el-tabs__header {
+            .el-tabs__header {
                 display: none;
             }
         }
@@ -408,6 +377,7 @@ export default class ModalProdCategory extends Vue {
 </style>
 <style module lang="scss">
 .modal-product-category {
+    min-width: 1300px;
     .search-group {
         display: flex;
         justify-content: space-between;
