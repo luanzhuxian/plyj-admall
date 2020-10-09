@@ -27,6 +27,7 @@ const NO_AUTH = [
     'BaseSetting',
     'Wechat',
     'AccountSet',
+    'CompleteLogin',
     ...NOLOGIN
 ]
 

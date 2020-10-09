@@ -1,6 +1,6 @@
 <template>
     <div class="comment wrap">
-        <search-box>
+        <SearchBox>
             <el-form-item label="商品名称：">
                 <el-input
                     @change="handleSearch"
@@ -26,7 +26,7 @@
                     搜索
                 </el-button>
             </el-form-item>
-        </search-box>
+        </SearchBox>
 
         <el-table :data="commentData" size="small">
             <el-table-column
