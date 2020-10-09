@@ -93,8 +93,8 @@
                 align="right"
                 width="50"
             />
-            <el-table-column label="用户信息">
-                <template slot-scope="{row}">
+            <el-table-column label="用户信息" width="300px">
+                <template #default="{ row }">
                     <div class="user-info">
                         <img
                             class="avatar"
@@ -141,7 +141,7 @@
             >
                 <template slot-scope="{row}">
                     {{ row.ownedUser }}
-                    <span class="acc-label">{{ row.ownedRoleCode === 'ENTERPRISE_ADMIN' ? '企' : '高' }}</span>
+                    <span class="acc-label">{{ roleType[row.ownedRoleCode] }}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -193,6 +193,7 @@
             :close-on-click-modal="false"
             :close-on-press-escape="false"
             :visible.sync="showDialog"
+            @close="close"
             title="选择所属账号"
             width="40%"
         >
@@ -301,6 +302,13 @@ export default class HelperManageList extends Vue {
         HelperList: null
     }
 
+    // 所属账号角色类型
+    roleType = {
+        ENTERPRISE_ADMIN: '企',
+        ADMIN: '高',
+        EMPLOYEE: '子'
+    }
+
     /* 查询所属账号表单 */
     searchOwnedAccountForm = {
         current: 1,
@@ -390,6 +398,11 @@ export default class HelperManageList extends Vue {
         this.form.startTime = start
         this.form.endTime = end
         this.getList()
+    }
+
+    async close () {
+        this.searchOwnedAccountForm.keyword = ''
+        await this.getOwnedAccountList()
     }
 
     async getOwnedAccountList () {
@@ -502,10 +515,9 @@ export default class HelperManageList extends Vue {
         display: flex;
         height: 20px;
         li{
-            margin-right: 12px;
+            margin-right: 6px;
             color: #999;
             font-size: 12px;
-            width: 24px;
         }
     }
 }

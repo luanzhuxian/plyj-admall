@@ -159,8 +159,8 @@ export default {
     methods: {
         async getList () {
             try {
-                const { data } = await getVideoLibraryList(this.form)
-                this.table = this.addAttr(data.result.records)
+                const { result } = await getVideoLibraryList(this.form)
+                this.table = this.addAttr(result.records)
                 // 包括孩子在内的总数
                 let totalItem = 0
                 // 所有子视频的合集
@@ -179,7 +179,7 @@ export default {
                 // 把所有的孩子单独保存一份
                 // this.allChild = this.table.map(item => item.children || []).flat()
                 // this.allVideo = [...this.table.filter(item => item.resourceTime), ...this.allChild]
-                this.total = data.result.total
+                this.total = result.total
                 this.allVideo = allVideo
                 this.allChild = allChild
                 this.totalItem = totalItem

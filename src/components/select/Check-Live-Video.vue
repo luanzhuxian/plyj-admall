@@ -10,9 +10,8 @@
             @close="close"
         >
             <div>
-                <hr class="hr">
-                <div style="margin: 24px 0 10px 0">
-                    <el-button v-if="isUpload" @click="inputFileName">
+                <div v-if="isUpload" style="margin: 24px 0 10px 0">
+                    <el-button @click="inputFileName">
                         上传视频
                     </el-button>
                 </div>

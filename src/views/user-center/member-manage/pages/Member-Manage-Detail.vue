@@ -358,6 +358,7 @@
                     </SearchBox>
                     <div class="list">
                         <el-table
+                            key="OrderList"
                             :data="orderList"
                             class="table-customer"
                             style="width: 100%"
@@ -498,6 +499,7 @@
                     </SearchBox>
                     <div class="list">
                         <el-table
+                            key="ShareList"
                             :data="shareList"
                             class="table-customer"
                             style="width: 100%"
@@ -586,8 +588,8 @@
                                 clearable
                             >
                                 <el-option :value="''" label="全部" />
-                                <el-option :value="'live'" label="直播" />
-                                <el-option :value="'video'" label="录像" />
+                                <el-option :value="'live'" label="实时直播" />
+                                <el-option :value="'video'" label="录制直播" />
                             </el-select>
                         </el-form-item>
                         <el-form-item label="形式：">
@@ -631,6 +633,7 @@
                     </SearchBox>
                     <div class="list">
                         <el-table
+                            key="LiveWatchList"
                             :data="liveWatchList"
                             class="table-customer"
                             style="width: 100%"
@@ -760,6 +763,7 @@
                     </SearchBox>
                     <div class="list">
                         <el-table
+                            key="LineLearningList"
                             :data="liveWatchList"
                             class="table-customer"
                             style="width: 100%"
@@ -828,6 +832,7 @@
                             添加备注
                         </el-button>
                         <el-table
+                            key="RemarkList"
                             :data="remarkList"
                             class="table-customer"
                             style="width: 100%"
@@ -837,10 +842,11 @@
                                 label="备注内容">
                                 <template #default="{row}">
                                     <el-tooltip
+                                        width="500"
                                         effect="dark"
-                                        :content="row.content"
                                         placement="top-start"
                                     >
+                                        <div slot="content" style="width: 500px">{{ row.content }}</div>
                                         <span class="show-first-line">{{ row.content }}</span>
                                     </el-tooltip>
                                 </template>
