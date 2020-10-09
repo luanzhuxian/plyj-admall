@@ -168,7 +168,7 @@
                 上架
             </el-button>
             <el-button
-                v-if="~['TEMPLATE', 'DRAFT'].indexOf(this.from)"
+                v-if="~['THEME', 'DRAFT'].indexOf(this.from)"
                 type="primary"
                 round
                 :disabled="!loaded"
