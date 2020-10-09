@@ -25,7 +25,9 @@ const NOLOGIN = [
 const NO_AUTH = [
     'Home',
     'BaseSetting',
-    'Wechat'
+    'Wechat',
+    'AccountSet',
+    ...NOLOGIN
 ]
 
 Vue.use(Router)
