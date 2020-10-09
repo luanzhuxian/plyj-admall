@@ -279,7 +279,7 @@ import {
     checkIsFull
 } from '../../../apis/mall'
 import { getSpringPloughingDetail } from '../../../apis/marketing-manage/new-year/spring-ploughing'
-import { TemplateCrosses, Template, TemplateModule, TemplateModuleItem, TemplateTypes, ModalType } from '../utils/types'
+import { TemplateCrosses, Template, TemplateModuleItem, TemplateTypes, ModalType } from '../utils/types'
 
 const mall = namespace('mall')
 
@@ -443,12 +443,12 @@ export default class MallDecoration extends Vue {
     get defaultSelection () {
         if (this.currentModule === 'Coupon') {
             if ('Coupon' in this.moduleModels) {
-                return (this.moduleModels.Coupon as TemplateModule).values
+                return this.moduleModels.Coupon?.values
             }
         }
         if (this.currentModule === 'Package') {
             if ('Package' in this.moduleModels) {
-                return (this.moduleModels.Package as TemplateModule).values
+                return this.moduleModels.Package?.values
             }
         }
         return []
@@ -524,11 +524,9 @@ export default class MallDecoration extends Vue {
         if ('Recommend' in this.moduleModels) {
             if (!this.moduleModels.Recommend || !this.moduleModels.Recommend.remDuplicate) return
             // @ts-ignore
-            const editor = this.$refs['editor-sort']
-            // @ts-ignore
+            const editor: { getData: Function; rmDuplicate: Function } = this.$refs['editor-sort']
             let values = await editor.getData(this.moduleModels.Recommend)
             if (values.length) {
-                // @ts-ignore
                 values = editor.rmDuplicate(values)
             }
             this.moduleModels.Recommend.values = values
@@ -911,7 +909,7 @@ export default class MallDecoration extends Vue {
         try {
             if (isPlainObject<Template>(this.templateModel)) {
                 // eslint-disable-next-line
-                            const { moduleModels, status, ...rest } = this.templateModel
+                const { moduleModels, status, ...rest } = this.templateModel
                 const model = {
                     ...rest,
                     status: 1

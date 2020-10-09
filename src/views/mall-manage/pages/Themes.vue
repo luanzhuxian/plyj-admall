@@ -502,12 +502,12 @@ export default class MallThemes extends Vue {
             this.showAlertModal = true
             return false
         }
-        if (item.type === 8 && !this.isXinchunAvailable) {
+        if (item.type === TemplateTypes.TemplateXinChun && !this.isXinchunAvailable) {
             this.modalText = '新春'
             this.showAlertModal = true
             return false
         }
-        if (item.type === 10 && !this.isDragonGateAvailable) {
+        if (item.type === TemplateTypes.TemplateDragonGate && !this.isDragonGateAvailable) {
             this.modalText = '龙门节'
             this.showAlertModal = true
             return false
