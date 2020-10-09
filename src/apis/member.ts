@@ -110,7 +110,7 @@ export const deleteTag = (id: string) => axios.delete(`/apis/v2/user/tag/${ id }
 export const getTagList = () => axios.get('/apis/v2/user/tag')
 
 // 排序用户标签列表
-export const sortTagList = (ids: string[]) => axios.post('/apis/v1/mall/user/tag/sort', ids)
+export const sortTagList = (ids: string[]) => axios.post('/apis/v2/user/tag/sort', ids)
 
 // 当前标签是否已经被使用
 export const checkIsTagUsed = (id: string) => axios.get(`/apis/v2/user/tag/isTagUsed/${ id }`)
