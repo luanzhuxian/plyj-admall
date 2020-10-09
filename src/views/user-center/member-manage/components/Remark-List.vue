@@ -27,9 +27,9 @@
                 <template #default="{row}">
                     <el-tooltip
                         effect="dark"
-                        :content="row.content"
                         placement="top-start"
                     >
+                        <div slot="content" style="width: 500px; line-height: 20px;">{{ row.content }}</div>
                         <span class="show-first-line">{{ row.content }}</span>
                     </el-tooltip>
                 </template>
@@ -40,7 +40,10 @@
             />
             <el-table-column label="添加人">
                 <template #default="{row}">
-                    {{ row.createUser }} （{{ row.roleName }}）
+                    {{ row.createUser }}
+                    <template v-if="row.createUserRoleName">
+                        （{{ roleType[row.createUserRoleName] }}）
+                    </template>
                 </template>
             </el-table-column>
         </el-table>
@@ -91,6 +94,14 @@ export default {
                 mallUserId: '',
                 current: 1,
                 size: 10
+            },
+            roleType: {
+                SUPER_ADMIN: '超级管理员',
+                ENTERPRISE_ADMIN: '企业级管理',
+                ADMIN: '高级管理员',
+                EMPLOYEE: '子账号',
+                HELPER: 'Helper',
+                MEMBERSHIP: '普通会员'
             }
         }
     },
