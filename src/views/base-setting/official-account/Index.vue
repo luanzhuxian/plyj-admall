@@ -8,7 +8,7 @@
                 </div>
                 <div :class="$style.text" class="bing-wechat-step">
                     <div :class="$style.title">商城授权 <div :class="$style.line + ' ' + $style.one" /></div>
-                    <div :class="$style.tip">微信认证服务号授权给雅集</div>
+                    <div class="tip">微信认证服务号授权给雅集</div>
                 </div>
             </router-link>
 
@@ -17,29 +17,24 @@
                 tag="div"
                 :to="{ name: (auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') ? 'WechatPay' : $route.name }"
             >
-                <div :class="$style.progressCircle">
-                    <div :class="$style.inner" v-show="auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE'">
-                        <pl-svg name="icon-success-8db26" width="16" />
-                    </div>
+                <div :class="$style.progressCircleDisabled" v-if="auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE'" />
+                <div :class="$style.progressCircle" v-else>
+                    <pl-svg name="icon-success-8db26" width="16" />
                 </div>
                 <div :class="$style.text" class="bing-wechat-step">
                     <div :class="$style.title">开通微信支付 <div :class="$style.line + ' ' + $style.two" /></div>
-                    <div :class="$style.tip">微信认证服务号授权给雅集</div>
+                    <div class="tip">微信认证服务号授权给雅集</div>
                 </div>
             </router-link>
 
             <router-link :class="$style.stepBox" tag="div" :to="{ name: applymentState === 'APPLYMENT_STATE_FINISHED' ? 'YajiAuthenticate' : $route.name }">
-                <div :class="$style.progressCircle">
-                    <div
-                        :class="$style.inner"
-                        v-show="auditStatus !== 'OPEN_WECHAT_PAYMENT' && auditStatus !== 'MP_NOT_AUTHORIZED' && auditStatus !== 'MALL_NOT_COMPLETED'"
-                    >
-                        <pl-svg name="icon-success-8db26" width="16" />
-                    </div>
+                <div :class="$style.progressCircleDisabled" v-if="auditStatus !== 'OPEN_WECHAT_PAYMENT' && auditStatus !== 'MP_NOT_AUTHORIZED' && auditStatus !== 'MALL_NOT_COMPLETED'" />
+                <div :class="$style.progressCircle" v-else>
+                    <pl-svg name="icon-success-8db26" width="16" />
                 </div>
                 <div :class="$style.text" class="bing-wechat-step">
                     <div :class="$style.title">雅集认证</div>
-                    <div :class="$style.tip">微信认证服务号授权给雅集</div>
+                    <div class="tip">微信认证服务号授权给雅集</div>
                 </div>
             </router-link>
         </div>
@@ -132,18 +127,21 @@ export default {
                     }
                 }
             }
-            .tip{
-                color: #666;
-            }
         }
     }
     :global {
         .bing-wechat-step {
             color: #333;
+            .tip{
+                color: #ccc;
+            }
         }
         .router-link-active {
             .bing-wechat-step {
                 color: #4F63FF;
+                .tip{
+                    color: #666;
+                }
             }
         }
     }
@@ -154,6 +152,16 @@ export default {
         width: 40px;
         height: 40px;
         background-color: #4F63FF;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .progressCircleDisabled{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: #E7E7E7;
         border-radius: 50%;
         margin-right: 10px;
     }
