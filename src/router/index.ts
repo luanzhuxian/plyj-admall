@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import NProgress from 'nprogress'
 import Cookie from './../assets/ts/storage-cookie'
 import qs from 'qs'
+import store from '../store'
+import { MessageBox } from 'admall-element'
 // import NotFound from '../views/404.vue'
 import { importFiles } from './../assets/ts/utils'
 
@@ -18,6 +20,12 @@ const NOLOGIN = [
     'RegisterAccount',
     'ForgetPassword',
     'ResetPassword'
+]
+// 无需进行微信授权就可以访问的页面
+const NO_AUTH = [
+    'Home',
+    'BaseSetting',
+    'Wechat'
 ]
 
 Vue.use(Router)
@@ -95,6 +103,7 @@ export const router = new Router({
     routes
 })
 export const beforeResolve = async (to, from, next) => {
+    console.log(to.name)
     if (to.query.code) {
         sessionStorage.setItem('redirect_state', to.query.state)
         sessionStorage.setItem('redirect_code', to.query.code)
@@ -108,19 +117,36 @@ export const beforeResolve = async (to, from, next) => {
     }
     NProgress.start()
     // 部分路由没有title，此时就找离它最近的父级title
-    // try {
-    //     document.title = [...to.matched].reverse().find(item => item.meta.title).meta.title
-    // } catch (e) {
-    //     document.title = ''
-    // }
+    try {
+        document.title = [...to.matched].reverse().find(item => item.meta.title).meta.title
+    } catch (e) {
+        document.title = ''
+    }
     const token = Cookie.get('token') || ''
     // 需要登录，但未登录
     if (!token && !NOLOGIN.includes(to.name)) {
-        return next({ name: 'PhoneLogin' })
+        next({ name: 'PhoneLogin' })
+        return
     }
     // 已登录，访问不需要登录的页面
     if (token && NOLOGIN.includes(to.name)) {
         next({ name: 'Home' })
+        return
+    }
+    // 访问了需要微信授权的页面
+    const appId = store.getters['user/appId']
+    if (!appId && !to.matched.some(item => NO_AUTH.includes(item.name))) {
+        NProgress.done()
+        MessageBox.confirm('进行微信授权即可访问全部页面', {
+            title: '请进行微信授权',
+            confirmButtonText: '去授权'
+        })
+            .then(() => {
+                next({ name: 'Wechat' })
+            })
+            .catch(() => {
+                next({ name: 'Home' })
+            })
         return
     }
     next()
