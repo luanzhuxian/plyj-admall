@@ -90,7 +90,7 @@
                 name="知识课程管理"
                 desc="知识付费课程，让学习更便捷"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/知识课程管理.png"
-                @click="$router.push({ name: 'KnowledgeCourseManagement' })"
+                @click="$router.push({ name: 'KnowledgeCourse' })"
             >
                 <div>上架课程 {{ statisticsInfo.numberOfCourse }}</div>
             </OnlinePack>
