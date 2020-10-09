@@ -56,7 +56,7 @@
                 <el-form-item label="企业管理员" style="width:30%">{{ entPersonSaveModel.name + ' - ' + entPersonSaveModel.mobile }}</el-form-item>
                 <el-form-item style="width:30%">
                     <el-button type="primary" plain round @click="showShopCode = true">访问店铺</el-button>
-                    <shop-modal :show-mall-url="showShopCode" :mall-url="url" :mall-qrcode="shopCode" @close="showShopCode = false" />
+                    <shop-modal :show-mall-url="showShopCode" @close="showShopCode = false" />
                 </el-form-item>
             </el-form>
         </div>
@@ -314,11 +314,10 @@ import {
 } from '../../../../apis/setting'
 import CityPicker from '../../../../components/common/base/City-Picker.vue'
 import UploadImage from '../../../../components/common/file/Image-Manager.vue'
-import ShopModal from '../../../../components/common/layout/ShopModal.vue'
+import ShopModal from '../../../../components/common/layout/Shop-Modal.vue'
 import { isPhone, isTelNumber } from '../../../../assets/ts/validate'
 import { mapGetters, mapActions } from 'vuex'
 import { getDataDictionary } from '../../../../apis/common'
-import { generateQrcode } from '../../../../assets/ts/utils'
 
 export default {
     name: 'ShopBaseInfo',
@@ -369,7 +368,6 @@ export default {
             mallDesc: { validator: new RegExp('^(.|\\s){1,200}$'), message: '店铺介绍长度不能超过200个字符' },
             address: { validator: new RegExp('^.{1,50}$'), message: '地址长度不能超过50个字符' }
         },
-        shopCode: '',
         showShopCode: false
     }),
     watch: {
@@ -398,7 +396,6 @@ export default {
             this.logoList.push(this.mallSaveModel.logoUrl)
         }
         this.form.servicePhoneModels = JSON.parse(JSON.stringify(this.mallSaveModel.servicePhoneModels || []))
-        this.createQrCode()
     },
     computed: {
         ...mapGetters({
@@ -411,20 +408,12 @@ export default {
         defaultCity () {
             if (this.mallSaveModel.town) return [this.mallSaveModel.province, this.mallSaveModel.city, this.mallSaveModel.region, this.mallSaveModel.town]
             return [this.mallSaveModel.province, this.mallSaveModel.city, this.mallSaveModel.region]
-        },
-        url () {
-            return `${ this.mallSaveModel.mallUrl }?t=${ Date.now() }`
         }
     },
     methods: {
         ...mapActions({
             AGENCY_USER_INFO: 'user/AGENCY_USER_INFO'
         }),
-        async createQrCode () {
-            if (this.mallSaveModel.mallUrl) {
-                this.shopCode = await generateQrcode({ text: `${ this.url }` })
-            }
-        },
         async copy () {
             try {
                 await this.$copyText(this.url)

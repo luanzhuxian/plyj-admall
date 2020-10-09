@@ -10,38 +10,54 @@
                     <button v-clipboard:copy="mallUrl" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</button>
                 </div>
                 <img :src="mallQrcode" alt="">
-                <div style="text-align: center">微信扫描可直接查看店铺</div>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <p>
+                        <el-button type="text" @click="downloadQrcode">下载二维码</el-button>
+                    </p>
+                    <p>微信扫描可直接查看店铺</p>
+                </div>
             </div>
         </div>
     </transition>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import { Component, Prop, Watch } from 'vue-property-decorator'
+import { generateQrcode } from '@/assets/ts/utils'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
+@Component
+export default class ShopModal extends Vue {
+    private mallQrcode = ''
+    @Prop({ type: Boolean }) showMallUrl!: boolean;
 
-<script>
-export default {
-    name: 'ShopModal',
-    props: {
-        mallUrl: {
-            type: String,
-            default: ''
-        },
-        mallQrcode: {
-            type: String,
-            default: ''
-        },
-        showMallUrl: {
-            type: Boolean,
-            default: false
+    @userModule.Getter('mallUrl') mallUrl!: string
+    // watch
+    @Watch('mallUrl', { immediate: true })
+    async onMallUrlChange (val: string) {
+        if (val) {
+            this.mallQrcode = await generateQrcode({
+                text: `${ val }?=${ Date.now() }`
+            })
         }
-    },
-    methods: {
-        // 复制成功
-        onCopy () {
-            this.$success('复制成功')
-        },
+    }
 
-        // 复制失败
-        onError () {
-            this.$warning('复制失败')
+    // methods
+    onCopy () {
+        this.$success('复制成功')
+    }
+
+    // 复制失败
+    onError () {
+        this.$warning('复制失败')
+    }
+
+    downloadQrcode () {
+        if (this.mallQrcode) {
+            const a = document.createElement('a')
+            a.href = this.mallQrcode
+            a.download = '店铺二维码.png'
+            a.click()
         }
     }
 }
@@ -53,7 +69,6 @@ export default {
         top: 40px;
         right: 0;
         width: 376px;
-        height: 450px;
         background-color: #fff;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         border-radius: 2px;
@@ -77,7 +92,7 @@ export default {
             > img {
                 display: block;
                 width: 160px;
-                margin: 27px auto 13px;
+                margin: 27px auto 10px;
                 padding: 10px;
                 border: 1px dashed $--border-color;
             }

@@ -5,7 +5,7 @@
             <div :class="$style.visitShop">
                 <img @click="showMallUrl = true" width="15" class="pointer" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/shangchengguanli.png" alt="">
                 <span @click="showMallUrl = true" class="pointer">访问店铺</span>
-                <shop-modal :show-mall-url="showMallUrl" :mall-url="mallUrl" :mall-qrcode="mallQrcode" @close="closeShopModal" />
+                <shop-modal :show-mall-url="showMallUrl" @close="closeShopModal" />
             </div>
 
             <!-- 通知中心按钮 -->
@@ -66,8 +66,7 @@ import Component from 'vue-class-component'
 import CreateMall from '../select-mall/Create-Mall.vue'
 import { Getter, namespace } from 'vuex-class'
 import { Watch } from 'vue-property-decorator'
-import { generateQrcode } from '@/assets/ts/utils'
-import ShopModal from '@/components/common/layout/ShopModal.vue'
+import ShopModal from '@/components/common/layout/Shop-Modal.vue'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -84,21 +83,10 @@ export default class HeaderRigtht extends Vue {
     @userModule.Mutation('LOGOUT') LOGOUT!: Function
     @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
     @userModule.Action('selectMall') selectMall!: Function
-    @userModule.Getter('mallUrl') mallUrl!: string
     @userModule.Getter('bindPhone') bindPhone!: string
     @userModule.Getter('auditStatus') auditStatus!: string
     @userModule.Getter('currentRoleCode') currentRoleCode!: string
     @Getter('roleMap') roleMap!: any
-
-    // watch
-    @Watch('mallUrl', { immediate: true })
-    async onMallUrlChange (val: string) {
-        if (val) {
-            this.mallQrcode = await generateQrcode({
-                text: val
-            })
-        }
-    }
 
     @Watch('$route')
     async onRouteChange () {
