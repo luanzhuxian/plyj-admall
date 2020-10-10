@@ -3,7 +3,7 @@ import Cookie from './storage-cookie'
 import store from '../../store'
 import { router } from '../../router'
 import { Loading } from 'admall-element'
-import { SessionEnum } from '@/enum/storage'
+import { LocalEnum, SessionEnum } from '@/enum/storage'
 
 interface ResData {
     message: string;
@@ -65,7 +65,7 @@ const reqHandler = (config: AxiosRequestConfig) => {
     }
     reqCount++
     // 比对cookie中的mallId和内存中的mallId是否一致
-    const cookieMallId = Cookie.get('mallId')
+    const cookieMallId = Cookie.get(LocalEnum.mallId)
     const memoryMallId = store.state.user.mallId
     if (memoryMallId && cookieMallId && cookieMallId !== memoryMallId) {
         alert('检测到您在当前浏览器登录了其它商城，请重新登录，并继续操作')
@@ -74,10 +74,10 @@ const reqHandler = (config: AxiosRequestConfig) => {
         location.reload()
         return Promise.reject(new Error('what?'))
     }
-    config.headers.token = Cookie.get('token')
+    config.headers.token = Cookie.get(LocalEnum.token)
     /* eslint-disable @typescript-eslint/camelcase */
-    config.headers.refresh_token = Cookie.get('refresh_token')
-    config.headers.agencyCode = Cookie.get('agencyCode')
+    config.headers.refresh_token = Cookie.get(LocalEnum.refreshToken)
+    config.headers.agencyCode = Cookie.get(LocalEnum.agencyCode)
     config.headers.mallId = cookieMallId
     return config
 }
@@ -105,10 +105,10 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         return response.data
     }
     if (data.code === TOKEN_TIME_OUT) {
-        Cookie.remove('token')
-        Cookie.remove('refresh_token')
-        Cookie.remove('agencyCode')
-        Cookie.remove('mallId')
+        Cookie.remove(LocalEnum.token)
+        Cookie.remove(LocalEnum.refreshToken)
+        Cookie.remove(LocalEnum.agencyCode)
+        Cookie.remove(LocalEnum.mallId)
         sessionStorage.removeItem(SessionEnum.currentStep)
         await router.push({ name: 'PhoneLogin' })
         return Promise.reject(false)

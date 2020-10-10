@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="marketing-management">
-            <search-box class="mt-24">
+            <search-box>
                 <el-form-item label="搜索内容：">
                     <el-input
                         v-model="filterForm.keyword"
@@ -10,7 +10,7 @@
                         @input="nameInput"
                     />
                 </el-form-item>
-                <el-form-item label="活动状态:">
+                <el-form-item label="活动状态：">
                     <el-select
                         v-model="filterForm.activityStatus"
                         placeholder="请选择"
@@ -38,6 +38,7 @@
                         />
                     </el-select>
                 </el-form-item>
+                <br>
                 <el-form-item>
                     <el-button
                         round

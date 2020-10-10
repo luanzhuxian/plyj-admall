@@ -29,7 +29,7 @@ export default class HelperManage extends Vue {
 
     showTabRouterNameList = ['HelperManageList', 'HelperReviewList']
 
-    @Watch('$route.name')
+    @Watch('$route.name', { immediate: true })
     onChangeValue (newVal: string) {
         this.activeName = newVal
     }

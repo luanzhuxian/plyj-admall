@@ -22,13 +22,13 @@ import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
 import setSentry from '../../assets/ts/set-sentry'
 import selectMall from '../../components/common/select-mall'
-import { SessionEnum } from '@/enum/storage'
+import { LocalEnum, SessionEnum } from '@/enum/storage'
 import { MutationTypes } from '@/store/mutation-type'
 
 const currentStep = Number(sessionStorage.getItem(SessionEnum.currentStep)) || 0
-const agencyCode = Cookie.get('agencyCode') || ''
-const mallId = Cookie.get('mallId') || ''
-const token = Cookie.get('token') || ''
+const agencyCode = Cookie.get(LocalEnum.agencyCode) || ''
+const mallId = Cookie.get(LocalEnum.mallId) || ''
+const token = Cookie.get(LocalEnum.token) || ''
 
 // 本地cookie较服务器提前一小时过期
 const CalcCookieTime = (expire: number) => Number(new Date(Date.now() + expire * 1000 - 60000000))
@@ -120,10 +120,10 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
         [MutationTypes.setLoginInfo]: (state, payload) => {
             if (payload) {
-                Cookie.set('token', payload.token, {
+                Cookie.set(LocalEnum.token, payload.token, {
                     expires: CalcCookieTime(payload.expire)
                 })
-                Cookie.set('refresh_token', payload.token, {
+                Cookie.set(LocalEnum.refreshToken, payload.token, {
                     expires: CalcCookieTime(payload.refresh_token_expire)
                 })
                 Object.assign(state.loginInfo, payload)
@@ -175,10 +175,10 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.currentRoleCode = ''
             state.agencyList = []
             state.allLoaded = false
-            Cookie.remove('token')
-            Cookie.remove('refresh_token')
-            Cookie.remove('agencyCode')
-            Cookie.remove('mallId')
+            Cookie.remove(LocalEnum.token)
+            Cookie.remove(LocalEnum.refreshToken)
+            Cookie.remove(LocalEnum.agencyCode)
+            Cookie.remove(LocalEnum.mallId)
             sessionStorage.removeItem(SessionEnum.currentStep)
         },
         // 缓存权限列表
@@ -226,11 +226,11 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 缓存当前机构
         [MutationTypes.setCurrentAgency]: (state, payload) => {
             state.agencyCode = payload.agencyCode || ''
-            Cookie.set('agencyCode', payload.agencyCode, {
+            Cookie.set(LocalEnum.agencyCode, payload.agencyCode, {
                 expires: CalcCookieTime(state.loginInfo.expire)
             })
             state.mallId = payload.mallId || ''
-            Cookie.set('mallId', payload.mallId, {
+            Cookie.set(LocalEnum.mallId, payload.mallId, {
                 expires: CalcCookieTime(state.loginInfo.expire)
             })
         },

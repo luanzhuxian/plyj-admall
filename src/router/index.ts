@@ -8,7 +8,7 @@ import store from '../store'
 import { MessageBox } from 'admall-element'
 // import NotFound from '../views/404.vue'
 import { importFiles } from './../assets/ts/utils'
-import { SessionEnum } from '@/enum/storage'
+import { LocalEnum, SessionEnum } from '@/enum/storage'
 
 // 无需登录就可以看到的页面
 const NOLOGIN = [
@@ -126,7 +126,7 @@ export const beforeResolve = async (to, from, next) => {
     } catch (e) {
         document.title = ''
     }
-    const token = Cookie.get('token') || ''
+    const token = Cookie.get(LocalEnum.token) || ''
     // 需要登录，但未登录
     if (!token && !NOLOGIN.includes(to.name)) {
         next({ name: 'PhoneLogin' })

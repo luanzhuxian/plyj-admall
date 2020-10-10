@@ -17,3 +17,10 @@ export enum SessionEnum {
     // 临时存储选中的优惠券
     selectedCouponList = 'SELECTED_COUPON_LIST'
 }
+
+export enum LocalEnum {
+    token = 'TOKEN',
+    refreshToken = 'REFRESH_TOKEN',
+    mallId = 'MALL_ID',
+    agencyCode = 'AGENCY_CODE'
+}
