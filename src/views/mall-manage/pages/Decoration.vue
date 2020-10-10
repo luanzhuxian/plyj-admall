@@ -1,13 +1,8 @@
 <template>
     <div :class="$style.mallDecoration">
-        <!-- <div :class="$style.header">
-            <span @click="back">
-                <i class="el-icon-back" />
-                返回
-            </span>
-        </div> -->
         <div :class="$style.template" v-if="show">
             <div :class="$style.previewSection">
+                <!-- 首页 -->
                 <TemplateB
                     v-if="tmplType === 3 || tmplType === 4"
                     ref="template-b"
@@ -35,6 +30,7 @@
                     :current="currentModule"
                     @select="onModuleClick"
                 />
+                <!-- 双十二主会场 -->
                 <TemplateFengqiang
                     v-if="tmplType === 5"
                     ref="template-fengqiang"
@@ -59,6 +55,7 @@
                     :current="currentModule"
                     @select="onModuleClick"
                 />
+                <!-- 新春主会场 -->
                 <TemplateXinchun
                     v-if="tmplType === 8"
                     ref="template-xinchun"
@@ -67,6 +64,7 @@
                     :current="currentModule"
                     @select="onModuleClick"
                 />
+                <!-- 龙门节主会场 -->
                 <TemplateDragonGate
                     v-if="tmplType === 10"
                     ref="template-dragon-gate"
@@ -315,11 +313,17 @@ export default class MallDecoration extends Vue {
     loaded = false
     show = false
     showPreview = false
+    // 进入编辑页的入口 DRAFT：草稿箱列表 THEME：主题页 CURRENT：当前首页\主会场
     from = ''
+    // 模板类型
     tmplType = 0
+    // 皮肤id
     skinId = 0
+    // 当前模板
     templateModel: Template | {} = {}
+    // 当前模板的module列表
     moduleModels: TemplateCrosses | {} = {}
+    // 当前处于点击状态的module
     currentModule = ''
     unWatch!: Function
 
@@ -988,30 +992,6 @@ export default class MallDecoration extends Vue {
     display: flex;
     padding: 10px 0 150px 185px;
 }
-// .header {
-//     display: flex;
-//     align-items: center;
-//     padding: 0 10px;
-//     height: 52px;
-//     background: #fff;
-//     > span {
-//         font-size: 16px;
-//         font-weight: bold;
-//         color: #333;
-//         cursor: pointer;
-//     }
-//     i {
-//         margin-left: 15px;
-//         margin-right: 30px;
-//         vertical-align: bottom;
-//         font-size: 24px;
-//         font-weight: bold;
-//         &:before {
-//             color: #598bf8;
-//             font-weight: bold;
-//         }
-//     }
-// }
 footer {
     position: fixed;
     left: 150px;
