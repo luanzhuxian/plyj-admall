@@ -76,7 +76,7 @@
                         show-word-limit
                     />
                 </el-form-item>
-                <el-form-item label="选择角色：">
+                <el-form-item label="选择角色：" prop="accountRole">
                     <el-radio-group v-model="ruleForm.accountRole" @change="handleRadioChange">
                         <el-radio
                             label="ADMIN"
@@ -163,9 +163,8 @@ export default class AddAccount extends Vue {
             { required: false, message: '请输入昵称', trigger: 'blur' },
             { min: 1, max: 16, message: '长度在 1 到 20 个字符', trigger: 'blur' }
         ],
-        position: [
-            { required: true, message: '请输入职位', trigger: 'blur' },
-            { min: 1, max: 16, message: '请输入至多16字的员工职位', trigger: 'blur' }
+        accountRole: [
+            { required: true, message: '请选择角色', trigger: 'blur' }
         ]
     }
 
