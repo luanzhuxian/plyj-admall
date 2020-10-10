@@ -327,6 +327,7 @@ export default class MallDecoration extends Vue {
     currentModule = ''
     unWatch!: Function
 
+    // 模块装饰器的位置
     editorPosition: DynamicObject = {
         Banner: 0,
         Adv: 0,
@@ -344,6 +345,7 @@ export default class MallDecoration extends Vue {
         }
     }
 
+    // 弹窗信息
     modalOption = {
         show: false,
         type: 0,
@@ -351,6 +353,7 @@ export default class MallDecoration extends Vue {
         radio: ''
     }
 
+    // 弹窗信息
     ActivityModalOption = {
         show: false,
         type: 0,
