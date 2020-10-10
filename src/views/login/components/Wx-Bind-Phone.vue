@@ -48,6 +48,7 @@ import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { Getter, namespace } from 'vuex-class'
+import { sessionEnum } from '@/enum/storage'
 // import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
 
@@ -114,7 +115,7 @@ export default class WxBindPhone extends Vue {
                 await (this.$refs[formName] as HTMLFormElement).validate()
                 this.loading = true
                 await this.LOGIN(this.form)
-                const code = sessionStorage.getItem('redirect_code') as string
+                const code = sessionStorage.getItem(sessionEnum.redirectCode) as string
                 await WxBind(code)
                 this.clearCode()
                 this.emitLogin()
@@ -132,8 +133,8 @@ export default class WxBindPhone extends Vue {
         }
 
         clearCode () {
-            sessionStorage.removeItem('redirect_code')
-            sessionStorage.removeItem('redirect_state')
+            sessionStorage.removeItem(sessionEnum.redirectCode)
+            sessionStorage.removeItem(sessionEnum.redirectState)
             sessionStorage.removeItem('login_state')
         }
 }

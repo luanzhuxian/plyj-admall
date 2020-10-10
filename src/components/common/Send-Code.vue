@@ -13,6 +13,7 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../apis/common'
+import { sessionEnum } from '@/enum/storage'
 
 @Component
 export default class SendCode extends Vue {
@@ -30,7 +31,7 @@ export default class SendCode extends Vue {
     mounted () {
         this.dynamicCodeText = this.codeText
         // 获取上次发验证码的时间
-        const countdownInfo = sessionStorage.getItem('VERIFY_CODE_TIME')
+        const countdownInfo = sessionStorage.getItem(sessionEnum.verifyCodeTime)
         if (countdownInfo) {
             // 总剩余时长
             const countdown = Number(countdownInfo.split('-')[0])
@@ -67,10 +68,10 @@ export default class SendCode extends Vue {
             if (countdown === 0) {
                 this.dynamicCodeText = '获取验证码'
                 clearInterval(this.timer)
-                sessionStorage.removeItem('VERIFY_CODE_TIME')
+                sessionStorage.removeItem(sessionEnum.verifyCodeTime)
                 return
             }
-            sessionStorage.setItem('VERIFY_CODE_TIME', `${ countdown }-${ Date.now() }`)
+            sessionStorage.setItem(sessionEnum.verifyCodeTime, `${ countdown }-${ Date.now() }`)
             countdown--
         }, 1000)
     }

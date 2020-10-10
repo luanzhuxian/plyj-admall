@@ -13,6 +13,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Vcode from 'vue-puzzle-vcode'
 import { namespace } from 'vuex-class'
+import { sessionEnum } from '@/enum/storage'
 const userModule = namespace('user')
 interface CodeShowFooType {
     type: boolean;
@@ -71,8 +72,8 @@ export default class Login extends Vue {
     }
 
     clearCode () {
-        sessionStorage.removeItem('redirect_code')
-        sessionStorage.removeItem('redirect_state')
+        sessionStorage.removeItem(sessionEnum.redirectCode)
+        sessionStorage.removeItem(sessionEnum.redirectState)
         sessionStorage.removeItem('login_state')
     }
 

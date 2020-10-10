@@ -130,6 +130,7 @@ import SendCode from './../../components/common/Send-Code.vue'
 import validateIdentity from '../../components/common/validate-identity'
 import { testName, testPhone } from '../../assets/ts/validate'
 import { Watch } from 'vue-property-decorator'
+import { sessionEnum } from '@/enum/storage'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -185,12 +186,12 @@ export default class AccountSet extends Vue {
     }
 
     async mounted () {
-        const wechatCode = sessionStorage.getItem('redirect_code')
+        const wechatCode = sessionStorage.getItem(sessionEnum.redirectCode)
         if (wechatCode) {
             WxBind(wechatCode)
                 .then(() => {
-                    sessionStorage.removeItem('redirect_code')
-                    sessionStorage.removeItem('redirect_state')
+                    sessionStorage.removeItem(sessionEnum.redirectCode)
+                    sessionStorage.removeItem(sessionEnum.redirectState)
                     this.$alert('绑定微信成功！')
                     this.getAccountInfo()
                 })

@@ -35,6 +35,7 @@ import OnlineTeachingNavbar from './components/common/layout/Online-Teaching-Nav
 import Header from './components/common/layout/Header.vue'
 import Header2 from './components/common/layout/Header2.vue'
 import { Getter, Mutation, namespace } from 'vuex-class'
+import { sessionEnum } from '@/enum/storage'
 Component.registerHooks([
     'beforeRouteEnter',
     'beforeRouteLeave',
@@ -109,7 +110,7 @@ export default class App extends Vue {
 
     created () {
         try {
-            const code = sessionStorage.getItem('redirect_code')
+            const code = sessionStorage.getItem(sessionEnum.redirectCode)
             if (!code) this.step()
         } catch (e) {
             throw e

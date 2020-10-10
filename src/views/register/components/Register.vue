@@ -91,6 +91,7 @@ import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import Agreement from '../../../components/register/Agreement.vue'
 import { Getter, namespace } from 'vuex-class'
+import { sessionEnum } from '@/enum/storage'
 const userModule = namespace('user')
 
     @Component({
@@ -170,7 +171,7 @@ export default class Register extends Vue {
         }
 
         mounted (): void {
-            this.form.wxCode = sessionStorage.getItem('redirect_code') || ''
+            this.form.wxCode = sessionStorage.getItem(sessionEnum.redirectCode) || ''
             this.setCodePass(false)
             document.addEventListener('keydown', this.keyupEnter)
         }

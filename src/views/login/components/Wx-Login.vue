@@ -18,6 +18,7 @@
 import { WxScanLogin } from '../../../apis/login'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { namespace, State } from 'vuex-class'
+import { sessionEnum } from '@/enum/storage'
 const userModule = namespace('user')
 @Component
 export default class WxLogin extends Vue {
@@ -32,7 +33,7 @@ export default class WxLogin extends Vue {
 
         async mounted () {
             this.weixinLoginCode()
-            this.code = sessionStorage.getItem('redirect_code') as string
+            this.code = sessionStorage.getItem(sessionEnum.redirectCode) as string
             if (this.code) {
                 await this.WxScanLogin()
             }
@@ -58,8 +59,8 @@ export default class WxLogin extends Vue {
         }
 
         clearCode () {
-            sessionStorage.removeItem('redirect_code')
-            sessionStorage.removeItem('redirect_state')
+            sessionStorage.removeItem(sessionEnum.redirectCode)
+            sessionStorage.removeItem(sessionEnum.redirectState)
             sessionStorage.removeItem('login_state')
         }
 

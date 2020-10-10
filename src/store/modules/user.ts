@@ -23,8 +23,9 @@ import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
 import setSentry from '../../assets/ts/set-sentry'
 import selectMall from '../../components/common/select-mall'
+import { sessionEnum } from '@/enum/storage'
 
-const currentStep = Number(sessionStorage.getItem('currentStep')) || 0
+const currentStep = Number(sessionStorage.getItem(sessionEnum.currentStep)) || 0
 const agencyCode = Cookie.get('agencyCode') || ''
 const mallId = Cookie.get('mallId') || ''
 const token = Cookie.get('token') || ''
@@ -142,7 +143,7 @@ const user: Module<DynamicObject, DynamicObject> = {
                 currentRoleCode
             } = payload
             // 对步骤进行本地缓存
-            sessionStorage.setItem('currentStep', currentStep)
+            sessionStorage.setItem(sessionEnum.currentStep, currentStep)
             state.currentStep = currentStep
             state.currentRoleCode = currentRoleCode || ''
             // 注册第二步数据
@@ -178,7 +179,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             Cookie.remove('refresh_token')
             Cookie.remove('agencyCode')
             Cookie.remove('mallId')
-            sessionStorage.removeItem('currentStep')
+            sessionStorage.removeItem(sessionEnum.currentStep)
         },
         // 缓存权限列表
         // [types.SET_POWER_LIST]: (state, payload) => {
