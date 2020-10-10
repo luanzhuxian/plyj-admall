@@ -377,11 +377,12 @@ export default class Workbench extends Vue {
         justify-content: center;
         align-items: center;
         height: 120px;
-        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心-banner.png') no-repeat;
+        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/互动直播背景.jpg') no-repeat;
         background-size: cover;
         > .detail {
+            display: flex;
+            align-items: flex-start;
             font-size: 24px;
-            color: #fff;
             > .btn {
                 margin-left: 20px;
             }

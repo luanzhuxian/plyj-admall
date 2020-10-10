@@ -295,16 +295,16 @@
                 </el-form-item>
             </el-form>
             <div class="btn-box">
-                <el-button size="mini" plain style="width: 90px;margin-left: 20px" @click="cancel">
+                <el-button plain style="width: 90px;margin-left: 20px" @click="cancel">
                     取消
                 </el-button>
-                <el-button size="mini" type="primary" plain @click="save(2)">
+                <el-button type="primary" plain @click="save(2)">
                     保存
                 </el-button>
-                <el-button size="mini" type="primary" plain @click="save(1)">
+                <el-button type="primary" plain @click="save(1)">
                     保存并上架
                 </el-button>
-                <el-button size="mini" plain style="width: 90px;margin-left: 20px" @click="preview">
+                <el-button plain style="width: 90px;margin-left: 20px" @click="preview">
                     预览
                 </el-button>
             </div>

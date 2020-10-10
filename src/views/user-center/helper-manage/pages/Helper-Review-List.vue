@@ -105,8 +105,14 @@
             <el-table-column
                 label="所属账号"
             >
-                <template slot-scope="{row}">
-                    {{ row.ownedUser }}
+                <template #default="{ row }">
+                    <template v-if="row.ownedUserMobile">
+                        {{ row.ownedUserMobile }}
+                    </template>
+                    <template v-if="row.ownedUserMobile && row.ownedUser">-</template>
+                    <template v-if="row.ownedUser">
+                        {{ row.ownedUser }}
+                    </template>
                     <span class="acc-label">{{ row.ownedRoleCode === 'ENTERPRISE_ADMIN' ? '企' : '高' }}</span>
                 </template>
             </el-table-column>

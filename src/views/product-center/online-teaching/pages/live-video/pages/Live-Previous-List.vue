@@ -3,7 +3,7 @@
         <PlTabs
             :value="$route.name"
             :tabs="[
-                {label: '近期直播', name: 'LiveNowList'},
+                {label: '直播工作台', name: 'LiveNowList'},
                 { label: '往期直播', name: 'LivePreviousList'}
             ]"
             @tabClick="data => $router.push({ name: data.name })"

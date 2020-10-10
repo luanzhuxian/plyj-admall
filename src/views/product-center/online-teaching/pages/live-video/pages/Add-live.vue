@@ -767,7 +767,7 @@ export default {
                 } else {
                     await addLive(form)
                 }
-                this.$router.replace({ name: 'SeriesOverview' })
+                this.$router.replace({ name: 'LivePreviousList' })
             } catch (e) { throw e }
         },
         cancel () {

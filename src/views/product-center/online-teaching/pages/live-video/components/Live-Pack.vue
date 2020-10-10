@@ -35,7 +35,9 @@
                 </el-popover>
             </div>
             <div :class="$style.streamAddress">推流地址 rtmp://...</div>
-            <div :class="$style.liveStatus" :style="{ '--color': data.liveStatus === 'LIVING' ? '#4F63FF' : '#F79F1A' }">直播中</div>
+            <div :class="$style.liveStatus" :style="{ '--color': data.liveStatus === 'LIVING' ? '#4F63FF' : '#F79F1A' }">
+                {{ data.liveStatus === 'LIVING' ? '直播中' : '即将开始' }}
+            </div>
         </div>
         <div :class="$style.content">
             <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心-banner.png" alt="">
@@ -55,8 +57,8 @@
                     <div :class="$style.btn" @click="$emit('add-student', data)" v-if="data.liveMode === 'private'">添加学员</div>
                     <!--收费的直播才可送课-->
                     <div :class="$style.btn" @click="$emit('give-class', data)" v-if="data.paidAmount">送课</div>
-                    <div :class="$style.btn" @click="$emit('close-live', data)" v-if="data.status === 'LIVING'">关闭直播</div>
-                    <div :class="$style.btn" @click="$emit('remove-live', data)" v-if="data.status === 'READY_START'">删除直播</div>
+                    <div :class="$style.btn" @click="$emit('close-live', data)" v-if="data.liveStatus === 'LIVING'">关闭直播</div>
+                    <div :class="$style.btn" @click="$emit('remove-live', data)" v-if="data.liveStatus === 'READY_START'">删除直播</div>
                     <div :class="$style.btn" @click="$emit('share', data)">分享</div>
                 </div>
             </div>

@@ -9,6 +9,14 @@ export default [
         },
         children: [
             {
+                path: '/product-center/online-teaching/live/set-meal/:isRenew',
+                name: 'SetMeal',
+                component: () => import('../../../../views/product-center/online-teaching/pages/Set-Meal.vue'),
+                meta: {
+                    title: '开通直播'
+                }
+            },
+            {
                 path: '/product-center/online-teaching/live/pay-and-order/:isRenew/:type?',
                 name: 'PayAndOrder',
                 props: true,
@@ -38,7 +46,7 @@ export default [
                 name: 'LiveNowList',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Live-Now-List.vue'),
                 meta: {
-                    title: '近期直播' // 近期直播
+                    title: '直播工作台' // 直播工作台
                 }
             },
             {

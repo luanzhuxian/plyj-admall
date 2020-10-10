@@ -122,7 +122,7 @@ export default {
                 })
                 this.showActivate = false
                 await confirmUse(this.activeForm)
-                this.$router.push({ name: 'SeriesOverview' })
+                this.$router.push({ name: 'LivePreviousList' })
             } catch (e) {
                 throw e
             }

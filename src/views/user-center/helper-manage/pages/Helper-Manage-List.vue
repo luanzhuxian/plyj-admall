@@ -138,9 +138,16 @@
             />
             <el-table-column
                 label="所属账号"
+                width="200"
             >
                 <template slot-scope="{row}">
-                    {{ row.ownedUser }}
+                    <template v-if="row.ownedUserMobile">
+                        {{ row.ownedUserMobile }}
+                    </template>
+                    <template v-if="row.ownedUserMobile && row.ownedUser">-</template>
+                    <template v-if="row.ownedUser">
+                        {{ row.ownedUser }}
+                    </template>
                     <span class="acc-label">{{ roleType[row.ownedRoleCode] }}</span>
                 </template>
             </el-table-column>

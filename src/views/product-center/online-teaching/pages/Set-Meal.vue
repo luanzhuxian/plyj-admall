@@ -1,8 +1,7 @@
 <template>
-    <div class="live-index">
-        <top-back />
+    <div class="live-index wrap">
         <Panel title="视频直播" width="95%" top="20">
-            <div slot="content" class="main">
+            <div class="main">
                 <el-form label-width="152px" label-position="left">
                     <el-form-item label="说明：">
                         <p class="tips">
@@ -97,9 +96,9 @@
 import {
     getSetMeal,
     getRoomStatus
-} from '../../../apis/live'
-import Panel from '../../../components/common/Panel.vue'
-import Bought from './components/Bought.vue'
+} from './../../../../apis/product-center/online-teaching/live'
+import Panel from '../../../../components/common/Panel.vue'
+import Bought from './../compoonents/Bought.vue'
 
 export default {
     name: 'LiveVideoList',
@@ -166,8 +165,8 @@ export default {
     // getRoomInfo()
     // getMinute()
         try {
-            const { data } = await getRoomStatus()
-            this.enable = data.result.enable
+            const { result } = await getRoomStatus()
+            this.enable = result.enable
         } catch (e) {
             throw e
         }
@@ -177,7 +176,7 @@ export default {
         async getSetMeal () {
             try {
                 this.setMealData = []
-                let { data: { result } } = await getSetMeal()
+                let { result } = await getSetMeal()
                 for (const item of result) {
                     item.duration = item.rechargeMinute + item.giveMinute
                 }
