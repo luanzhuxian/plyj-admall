@@ -244,7 +244,7 @@ import { namespace } from 'vuex-class'
 import {
     AccountInfo,
     getAccounts,
-    deleteAccount,
+    // deleteAccount,
     deleteDeadAccount,
     enableAccount,
     downgradeAccount,
@@ -435,7 +435,10 @@ export default class AccountList extends Vue {
         if (row.lockStatus === 2) {
             await deleteDeadAccount(row.mobile)
         } else {
-            await deleteAccount(row)
+            const params = JSON.parse(JSON.stringify(row))
+            params.lockStatus = 3
+            await enableAccount(params)
+            // await deleteAccount(row)
         }
         this.$success('删除成功')
         this.filter.current = 1
