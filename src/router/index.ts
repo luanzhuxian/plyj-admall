@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import NProgress from 'nprogress'
 import Cookie from './../assets/ts/storage-cookie'
 import qs from 'qs'
-import store from '../store'
 import { MessageBox } from 'admall-element'
 // import NotFound from '../views/404.vue'
 import { importFiles } from './../assets/ts/utils'
@@ -138,7 +137,7 @@ export const beforeResolve = async (to, from, next) => {
         return
     }
     // 访问了需要微信授权的页面
-    const appId = store.getters['user/appId']
+    const appId = localStorage.getItem(LocalEnum.appId)
     if (!appId && !to.matched.some(item => NO_AUTH.includes(item.name))) {
         NProgress.done()
         MessageBox.confirm('进行微信授权即可访问全部页面', {

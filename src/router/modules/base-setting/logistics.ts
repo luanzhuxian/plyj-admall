@@ -6,7 +6,7 @@ export default [
         component: () => import('../../../views/base-setting/logistics-manage/Index.vue'),
         meta: {
             title: '物流管理',
-            index: '6-4'
+            index: '7-4'
         },
         children: [
             {

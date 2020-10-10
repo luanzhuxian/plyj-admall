@@ -5,7 +5,7 @@ export default [
         redirect: '/base-setting/shop-info/set',
         component: () => import('../../../views/base-setting/shop-info/Index.vue'),
         meta: {
-            index: '6-2'
+            index: '7-2'
         },
         children: [
             {

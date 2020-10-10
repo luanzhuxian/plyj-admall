@@ -22,5 +22,6 @@ export enum LocalEnum {
     token = 'TOKEN',
     refreshToken = 'REFRESH_TOKEN',
     mallId = 'MALL_ID',
+    appId = 'APPID',
     agencyCode = 'AGENCY_CODE'
 }

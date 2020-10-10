@@ -1,17 +1,12 @@
 <template>
-    <div>
-        <keep-alive>
-            <router-view />
-        </keep-alive>
-    </div>
+    <div>提现管理</div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-
 @Component
-export default class FinanceCenter extends Vue {
+export default class WithdrawDepositManage extends Vue {
 
 }
 </script>

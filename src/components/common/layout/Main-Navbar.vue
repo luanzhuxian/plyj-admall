@@ -81,6 +81,20 @@
                 <el-submenu index="5" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
+                            name="icon-dingdan-b0bdb"
+                            width="15"
+                            height="15"
+                            :class="$style.icon"
+                        />
+                        <span>财务中心</span>
+                    </h2>
+                    <el-menu-item index="5-1" :route="{ name: 'RunbiManage' }">润笔管理</el-menu-item>
+                    <el-menu-item index="5-2" :route="{ name: 'WithdrawDepositManage' }">提现管理</el-menu-item>
+                </el-submenu>
+
+                <el-submenu index="6" :disabled="!appId">
+                    <h2 :class="$style.title" slot="title">
+                        <pl-svg
                             name="icon-dianpu-a4653"
                             width="15"
                             height="15"
@@ -88,13 +102,13 @@
                         />
                         <span>店铺管理</span>
                     </h2>
-                    <el-menu-item index="5-1" :route="{ name: 'MallMain' }">我的店铺</el-menu-item>
-                    <el-menu-item index="5-2" :route="{ name: 'MallThemes' }">模板中心</el-menu-item>
+                    <el-menu-item index="6-1" :route="{ name: 'MallMain' }">我的店铺</el-menu-item>
+                    <el-menu-item index="6-2" :route="{ name: 'MallThemes' }">模板中心</el-menu-item>
                     <!--<el-menu-item index="5-3" route="6-3">品宣主页</el-menu-item>-->
                     <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 
-                <el-submenu index="6">
+                <el-submenu index="7">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-shezhi-28924"
@@ -104,14 +118,14 @@
                         />
                         <span>基础设置</span>
                     </h2>
-                    <el-menu-item :disabled="!appId" index="6-1" :route="{ name: 'AccountManage' }">账号管理</el-menu-item>
-                    <el-menu-item :disabled="!appId" index="6-2" :route="{ name: 'ShopInfo' }">店铺信息</el-menu-item>
-                    <el-menu-item index="6-3" :route="{ name: 'Wechat' }">公众号服务</el-menu-item>
-                    <el-menu-item :disabled="!appId" index="6-4" :route="{ name: 'Logistics' }">物流设置</el-menu-item>
-                    <el-menu-item :disabled="!appId" index="6-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="7-1" :route="{ name: 'AccountManage' }">账号管理</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="7-2" :route="{ name: 'ShopInfo' }">店铺信息</el-menu-item>
+                    <el-menu-item index="7-3" :route="{ name: 'Wechat' }">公众号服务</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="7-4" :route="{ name: 'Logistics' }">物流设置</el-menu-item>
+                    <el-menu-item :disabled="!appId" index="7-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
                 </el-submenu>
 
-                <el-menu-item index="7" :route="{ name: 'MarketingManage' }" :class="$style.marketing" :disabled="!appId">
+                <el-menu-item index="8" :route="{ name: 'MarketingManage' }" :class="$style.marketing" :disabled="!appId">
                     <h2 :class="$style.title">
                         <pl-svg
                             name="icon-yxzx-44de2"
@@ -164,6 +178,7 @@ export default class MainNavbar extends Vue {
     @Watch('$route', { immediate: true })
     onRouteChange (route: Route) {
         const indexs = route.matched.map(item => item.meta?.index || '')
+        console.log(indexs)
         const opened = indexs[0] || ''
         const activited = indexs[1] || ''
         if (opened) {

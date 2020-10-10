@@ -6,7 +6,7 @@ export default [
         component: () => import('../../../views/mall-manage/Index.vue'),
         meta: {
             title: '店铺管理',
-            index: '5'
+            index: '6'
         },
         children: [
             {
@@ -15,7 +15,7 @@ export default [
                 component: () => import('../../../views/mall-manage/pages/Main.vue'),
                 meta: {
                     title: '我的店铺',
-                    index: '5-1'
+                    index: '6-1'
                 }
             }, {
                 path: 'themes',
@@ -23,7 +23,7 @@ export default [
                 component: () => import('../../../views/mall-manage/pages/Themes.vue'),
                 meta: {
                     title: '店铺主题',
-                    index: '5-2'
+                    index: '6-2'
                 }
             }, {
                 path: 'decoration',

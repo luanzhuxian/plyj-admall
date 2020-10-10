@@ -165,7 +165,7 @@
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingReviewHelper || 0 }人` }}</div>
                 </router-link>
-                <router-link class="to-do-panel__item" to="/admall/money-manage/runbi/await">
+                <router-link class="to-do-panel__item" :to="{ name: 'RunbiManage', query: { status: 'AWAIT' } }">
                     <div class="to-do-panel__item-name">待审核润笔</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0 }人` }}</div>

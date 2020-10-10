@@ -3,7 +3,8 @@ import Cookie from './storage-cookie'
 import store from '../../store'
 import { router } from '../../router'
 import { Loading } from 'admall-element'
-import { LocalEnum, SessionEnum } from '@/enum/storage'
+import { LocalEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 
 interface ResData {
     message: string;
@@ -105,11 +106,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         return response.data
     }
     if (data.code === TOKEN_TIME_OUT) {
-        Cookie.remove(LocalEnum.token)
-        Cookie.remove(LocalEnum.refreshToken)
-        Cookie.remove(LocalEnum.agencyCode)
-        Cookie.remove(LocalEnum.mallId)
-        sessionStorage.removeItem(SessionEnum.currentStep)
+        store.commit(`user/${ MutationTypes.logout }`)
         await router.push({ name: 'PhoneLogin' })
         return Promise.reject(false)
     }

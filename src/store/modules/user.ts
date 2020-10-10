@@ -157,6 +157,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             // TODO: 由于新流程不能无法保存成功性，暂且都按老流程处理，需要的时候，放开注释即可
             state.REG_TYPE = Number(enterpriseSaveModel.regType) || 1
             state.mallId = mallSaveModel.id
+            localStorage.setItem(LocalEnum.appId, mallSaveModel.appId)
         },
         // 退出
         [MutationTypes.logout] (state) {
@@ -180,6 +181,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             Cookie.remove(LocalEnum.agencyCode)
             Cookie.remove(LocalEnum.mallId)
             sessionStorage.removeItem(SessionEnum.currentStep)
+            localStorage.removeItem(LocalEnum.appId)
         },
         // 缓存权限列表
         // [types.SET_POWER_LIST]: (state, payload) => {

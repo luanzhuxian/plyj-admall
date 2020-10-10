@@ -8,7 +8,7 @@ export default [
         name: 'MarketingManage',
         component: () => import('../../../views/marketing-manage/Index.vue'),
         meta: {
-            index: '7'
+            index: '8'
         },
         children: [
             {

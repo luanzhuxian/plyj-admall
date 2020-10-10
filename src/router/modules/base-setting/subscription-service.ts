@@ -6,7 +6,7 @@ export default [
         component: () => import('../../../views/base-setting/subscription-service/Index.vue'),
         meta: {
             title: '我的订购服务',
-            index: '6-5'
+            index: '7-5'
         },
         children: [
             {

@@ -6,7 +6,7 @@ export default [
         component: () => import('../../../views/base-setting/official-account/Index.vue'),
         meta: {
             title: '公众号服务',
-            index: '6-3'
+            index: '7-3'
         },
         children: [
             {
