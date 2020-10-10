@@ -32,7 +32,7 @@
                     <div class="role-type">{{ isHelper?'Helper会员':'普通会员' }}</div>
                     <div
                         class="member-type"
-                        v-text="ROLE[memberDetail.roleCode]"
+                        v-text="roleType[memberDetail.roleCode]"
                     />
                 </div>
                 <div class="info-list">
@@ -846,7 +846,7 @@
                                         effect="dark"
                                         placement="top-start"
                                     >
-                                        <div slot="content" style="width: 500px">{{ row.content }}</div>
+                                        <div slot="content" style="width: 500px; line-height: 20px;">{{ row.content }}</div>
                                         <span class="show-first-line">{{ row.content }}</span>
                                     </el-tooltip>
                                 </template>
@@ -859,7 +859,10 @@
                                 prop="createUser"
                                 label="添加人">
                                 <template #default="{row}">
-                                    {{ row.createUser }} （{{ row.roleName }}）
+                                    {{ row.createUser }}
+                                    <template v-if="row.createUserRoleName">
+                                        （{{ roleType[row.createUserRoleName] }}）
+                                    </template>
                                 </template>
                             </el-table-column>
                             <el-table-column
@@ -962,9 +965,13 @@ const validateInput = (rule: any, value: string, callback: any) => {
 export default class MemberManageDetail extends Vue {
     moment = moment
     // 角色
-    ROLE = {
-        MEMBERSHIP: '普通会员',
-        HELPER: 'Helper'
+    roleType = {
+        SUPER_ADMIN: '超级管理员',
+        ENTERPRISE_ADMIN: '企业级管理',
+        ADMIN: '高级管理员',
+        EMPLOYEE: '子账号',
+        HELPER: 'Helper',
+        MEMBERSHIP: '普通会员'
     }
 
     USER_TYPE = {
