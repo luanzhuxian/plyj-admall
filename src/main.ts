@@ -4,13 +4,13 @@ import { router } from './router'
 import store from './store'
 import './assets/ts/el-components'
 
-// import PlSvg from './components/common/base/Pl-Svg.vue'
-// import SearchBox from './components/common/Search-Box.vue'
-// import DateRange from './components/common/base/Date-Range.vue'
-// import PlTabs from './components/common/Pl-Tabs.vue'
-// import Pagination from './components/common/Pagination.vue'
-// import Operating from './components/common/Operating.vue'
-// import PlTable from './components/common/Pl-Table.vue'
+import PlSvg from './components/common/base/Pl-Svg.vue'
+import SearchBox from './components/common/Search-Box.vue'
+import DateRange from './components/common/base/Date-Range.vue'
+import PlTabs from './components/common/Pl-Tabs.vue'
+import Pagination from './components/common/Pagination.vue'
+import Operating from './components/common/Operating.vue'
+import PlTable from './components/common/Pl-Table.vue'
 
 import VueViewer from 'v-viewer'
 import VueClipboard from 'vue-clipboard2'
@@ -28,13 +28,13 @@ Vue.use(VueViewer, {
 })
 
 /* 注册全局组件 */
-Vue.component('PlSvg', () => import('./components/common/base/Pl-Svg.vue'))
-Vue.component('DateRange', () => import('./components/common/base/Date-Range.vue'))
-Vue.component('SearchBox', () => import('./components/common/Search-Box.vue'))
-Vue.component('PlTabs', () => import('./components/common/Pl-Tabs.vue'))
-Vue.component('Pagination', () => import('./components/common/Pagination.vue'))
-Vue.component('Operating', () => import('./components/common/Operating.vue'))
-Vue.component('PlTable', () => import('./components/common/Pl-Table.vue'))
+Vue.component('PlSvg', PlSvg)
+Vue.component('DateRange', DateRange)
+Vue.component('SearchBox', SearchBox)
+Vue.component('PlTabs', PlTabs)
+Vue.component('Pagination', Pagination)
+Vue.component('Operating', Operating)
+Vue.component('PlTable', PlTable)
 
 /* *************** 自定义指令 ***************** */
 for (const k of Object.keys(directive)) {
