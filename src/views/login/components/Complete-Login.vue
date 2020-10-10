@@ -111,9 +111,9 @@ export default class CompleteLogin extends Vue {
         async login () {
             // 防止连续敲击回车
             if (this.loading) return
-            if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
+                if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
                 this.loading = true
                 this.isComplete = await completeInfo(this.form)
                 this.emitLogin()
