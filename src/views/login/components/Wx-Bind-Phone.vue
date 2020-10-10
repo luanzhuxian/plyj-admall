@@ -135,7 +135,7 @@ export default class WxBindPhone extends Vue {
         clearCode () {
             sessionStorage.removeItem(SessionEnum.redirectCode)
             sessionStorage.removeItem(SessionEnum.redirectState)
-            sessionStorage.removeItem('login_state')
+            sessionStorage.removeItem(SessionEnum.loginState)
         }
 }
 </script>

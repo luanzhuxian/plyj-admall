@@ -178,6 +178,7 @@
 <script>
 import { getCouponList } from '../../../apis/marketing-manage/coupon'
 import { resetForm } from '../../../assets/ts/utils'
+import { SessionEnum } from '../../../enum/storage'
 
 export default {
     name: 'SelectCoupon',
@@ -310,8 +311,8 @@ export default {
             return list.findIndex(item => item.id === id)
         },
         addNewCoupon () {
-            const newCoupon = JSON.parse(sessionStorage.getItem('resultData'))
-            sessionStorage.removeItem('resultData')
+            const newCoupon = JSON.parse(sessionStorage.getItem(SessionEnum.couponResultData))
+            sessionStorage.removeItem(SessionEnum.couponResultData)
             // 活动发放的才可
             if (!(newCoupon && newCoupon.id && newCoupon.distributionMethod === 1)) return
             if (this.allSelect.length >= this.maxSelect) return
@@ -320,8 +321,8 @@ export default {
         // 新建满减券/品类券之后，返回后重置数据
         resetSelectedCouponList () {
             // 来源于两部分： 点击确认选择的initCouponArray -> originalSelected; 本次新选的
-            const selectedList = JSON.parse(sessionStorage.getItem('selectedCouponList'))
-            sessionStorage.removeItem('selectedCouponList')
+            const selectedList = JSON.parse(sessionStorage.getItem(SessionEnum.selectedCouponList))
+            sessionStorage.removeItem(SessionEnum.selectedCouponList)
             // 没有该记录，不影响正常操作
             if (!selectedList) return
             // 选出上次点击确认后，在本次影响后的结果
@@ -403,7 +404,7 @@ export default {
         },
         addCoupon (name) {
             // 记录当前页面的选择
-            sessionStorage.setItem('selectedCouponList', JSON.stringify(this.allSelect))
+            sessionStorage.setItem(SessionEnum.selectedCouponList, JSON.stringify(this.allSelect))
             this.$router.push({ name })
         },
         confirm () {

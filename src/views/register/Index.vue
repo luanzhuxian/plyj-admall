@@ -60,7 +60,7 @@ export default class RegisterIndex extends Vue {
         clearCode () {
             sessionStorage.removeItem(SessionEnum.redirectCode)
             sessionStorage.removeItem(SessionEnum.redirectState)
-            sessionStorage.removeItem('login_state')
+            sessionStorage.removeItem(SessionEnum.loginState)
         }
 
         close () {

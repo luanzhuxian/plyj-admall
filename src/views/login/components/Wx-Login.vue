@@ -62,7 +62,7 @@ export default class WxLogin extends Vue {
         clearCode () {
             sessionStorage.removeItem(SessionEnum.redirectCode)
             sessionStorage.removeItem(SessionEnum.redirectState)
-            sessionStorage.removeItem('login_state')
+            sessionStorage.removeItem(SessionEnum.loginState)
         }
 
         weixinLoginCode () {
@@ -70,7 +70,7 @@ export default class WxLogin extends Vue {
             /* eslint-disable no-new */
             const weChatStyle: any = 'https://mallcdn.youpenglai.com/static/admall-new/weChatLoginStyle/index.css'
             const state = Date.now().toString(16)
-            sessionStorage.setItem('login_state', state)
+            sessionStorage.setItem(SessionEnum.loginState, state)
             new window.WxLogin({
                 self_redirect: false,
                 id: 'login-container',

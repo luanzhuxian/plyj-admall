@@ -280,7 +280,7 @@ export default class AccountSet extends Vue {
         await validateIdentity(this.accountInfo.mobile)
         const { appId, redirectUrl } = this.bindWechatInfo
         const state = Date.now().toString(16)
-        sessionStorage.setItem('login_state', state)
+        sessionStorage.setItem(SessionEnum.loginState, state)
         this.bindWechat = true
         await this.$nextTick()
         /* eslint-disable */

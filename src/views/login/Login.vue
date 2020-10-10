@@ -75,7 +75,7 @@ export default class Login extends Vue {
     clearCode () {
         sessionStorage.removeItem(SessionEnum.redirectCode)
         sessionStorage.removeItem(SessionEnum.redirectState)
-        sessionStorage.removeItem('login_state')
+        sessionStorage.removeItem(SessionEnum.loginState)
     }
 
     beforeRouteLeave (to: any, from: any, next: any): void {

@@ -314,6 +314,7 @@ import {
     getUserTtagList
 } from '../../../../apis/marketing-manage/coupon'
 import Preview from '../../../../components/common/Preview.vue'
+import { SessionEnum } from '../../../../enum/storage'
 
 const START_TIME = `${ moment().format('YYYY-MM-DD') } 00:00:00`
 // let END_TIME = moment().format('YYYY-MM-DD') + ' 23:59:59'
@@ -741,10 +742,10 @@ export default {
             })
         }
         if (to.name === 'NewcomersAdd' || to.name === 'NewcomersEdit' || to.name === 'NewcomersCopy') {
-            sessionStorage.setItem('resultData', JSON.stringify(this.resultData))
+            sessionStorage.setItem(SessionEnum.couponResultData, JSON.stringify(this.resultData))
         }
         if (to.name !== 'NewcomersAdd' && to.name !== 'NewcomersEdit' && to.name !== 'NewcomersCopy') {
-            sessionStorage.removeItem('selectedCouponList')
+            sessionStorage.removeItem(SessionEnum.selectedCouponList)
         }
         await this.clearData()
         next()
