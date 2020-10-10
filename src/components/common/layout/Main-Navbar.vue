@@ -81,7 +81,7 @@
                 <el-submenu index="5" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
-                            name="icon-dingdan-b0bdb"
+                            name="icon-zijin-2fdab"
                             width="15"
                             height="15"
                             :class="$style.icon"

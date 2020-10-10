@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import ElementUI from 'admall-element'
 
-import 'admall-element/packages/theme-chalk/src/index.scss'
 // import '../../styles/element-variables.scss'
 Vue.use(ElementUI)
 const {
