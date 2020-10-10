@@ -17,10 +17,10 @@
                 tag="div"
                 :to="{ name: (auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') ? 'WechatPay' : $route.name }"
             >
-                <div :class="$style.progressCircleDisabled" v-if="auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE'" />
-                <div :class="$style.progressCircle" v-else>
+                <div :class="$style.progressCircle" v-if="auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE'">
                     <pl-svg name="icon-success-8db26" width="16" />
                 </div>
+                <div :class="$style.progressCircleDisabled" v-else />
                 <div :class="$style.text" class="bing-wechat-step">
                     <div :class="$style.title">开通微信支付 <div :class="$style.line + ' ' + $style.two" /></div>
                     <div class="tip">微信认证服务号授权给雅集</div>
@@ -28,10 +28,10 @@
             </router-link>
 
             <router-link :class="$style.stepBox" tag="div" :to="{ name: applymentState === 'APPLYMENT_STATE_FINISHED' ? 'YajiAuthenticate' : $route.name }">
-                <div :class="$style.progressCircleDisabled" v-if="auditStatus !== 'OPEN_WECHAT_PAYMENT' && auditStatus !== 'MP_NOT_AUTHORIZED' && auditStatus !== 'MALL_NOT_COMPLETED'" />
-                <div :class="$style.progressCircle" v-else>
+                <div :class="$style.progressCircle" v-if="auditStatus !== 'OPEN_WECHAT_PAYMENT' && auditStatus !== 'MP_NOT_AUTHORIZED' && auditStatus !== 'MALL_NOT_COMPLETED'">
                     <pl-svg name="icon-success-8db26" width="16" />
                 </div>
+                <div :class="$style.progressCircleDisabled" v-else />
                 <div :class="$style.text" class="bing-wechat-step">
                     <div :class="$style.title">雅集认证</div>
                     <div class="tip">微信认证服务号授权给雅集</div>
