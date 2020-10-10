@@ -284,7 +284,7 @@ export default {
             this.getList()
         },
         share ({ activityId }) {
-            this.shareText = `${ this.$store.getters.mallUrl }/new-year-activity/${ activityId }`
+            this.shareText = `${ this.$store.getters['user/mallUrl'] }/new-year-activity/${ activityId }`
             this.showShare = true
         },
         sizeChange (val) {

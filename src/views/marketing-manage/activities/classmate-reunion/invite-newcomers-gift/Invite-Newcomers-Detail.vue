@@ -373,7 +373,7 @@ export default {
             this.getInvitingDetailList()
         },
         share () {
-            this.qrcodeText = `${ this.$store.getters.mallUrl }/invitenewcomers/${ this.$route.params.id }?noCache=${ Date.now() }`
+            this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/invitenewcomers/${ this.$route.params.id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         },
         // 导出数据

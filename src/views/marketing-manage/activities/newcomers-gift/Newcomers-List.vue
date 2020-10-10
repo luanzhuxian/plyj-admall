@@ -437,7 +437,7 @@ export default {
             }
         },
         share (id) {
-            this.qrcodeText = `${ this.$store.getters.mallUrl }/newcomers/${ id }?noCache=${ Date.now() }`
+            this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/newcomers/${ id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         }
     }

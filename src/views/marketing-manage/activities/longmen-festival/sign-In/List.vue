@@ -262,7 +262,7 @@ export default {
             this.getList()
         },
         share ({ activityId }) {
-            this.shareText = `${ this.$store.getters.mallUrl }/longmen-festival/sign-in/${ activityId }`
+            this.shareText = `${ this.$store.getters['user/mallUrl'] }/longmen-festival/sign-in/${ activityId }`
             this.showShare = true
         },
         sizeChange (val) {

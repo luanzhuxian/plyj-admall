@@ -228,7 +228,7 @@ export default {
             }
         },
         share () {
-            this.shareText = `${ this.$store.getters.mallUrl }/course-package`
+            this.shareText = `${ this.$store.getters['user/mallUrl'] }/course-package`
             this.showShare = true
         },
         async deleteData ({ id }) {

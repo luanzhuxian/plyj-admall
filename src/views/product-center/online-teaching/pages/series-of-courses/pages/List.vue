@@ -448,7 +448,7 @@ export default {
             }
         },
         async share (id) {
-            this.qrcodeText = `${ this.$store.getters.mallUrl }/detail/curriculum/${ id }?noCache=${ Date.now() }`
+            this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/detail/curriculum/${ id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         },
         async showOrder (id) {

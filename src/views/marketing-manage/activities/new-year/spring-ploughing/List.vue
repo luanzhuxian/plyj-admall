@@ -229,7 +229,7 @@ export default {
             }
         },
         share () {
-            this.shareText = `${ this.$store.getters.mallUrl }/spring-ploughing`
+            this.shareText = `${ this.$store.getters['user/mallUrl'] }/spring-ploughing`
             this.showShare = true
         },
         async deleteData ({ id }) {

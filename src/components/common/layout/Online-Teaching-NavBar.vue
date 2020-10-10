@@ -9,8 +9,8 @@
                 </div>
                 <div :class="$style.user">
                     <div>企业管理员：</div>
-                    <el-tooltip effect="light" content="Ramon王琦" placement="top">
-                        <div :class="$style.userName">Ramon王琦</div>
+                    <el-tooltip effect="light" :content="idName" placement="top">
+                        <div :class="$style.userName">{{ idName }}</div>
                     </el-tooltip>
                 </div>
             </div>
@@ -31,6 +31,8 @@
 
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
 
 interface MenuItem {
     name: string;
@@ -39,6 +41,8 @@ interface MenuItem {
 
 @Component
 export default class OnlineTeachingNavBar extends Vue {
+    @userModule.Getter('idName') idName!: string
+
     menuList: MenuItem[] = [
         {
             name: '云课堂',

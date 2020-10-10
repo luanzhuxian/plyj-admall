@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div :class="$style.packages" class="wrap">
+        <div :class="$style.packages">
             <OnlinePack
                 name="互动直播"
                 desc="互动直播，让教育更简单"
@@ -82,9 +82,9 @@
                 :tags="['https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新.png']"
                 @click="$router.push({ name: 'Live' })"
             >
-                <div>直播中：{{ statisticsInfo.ongoing }}</div>
-                <div>即将开始：{{ statisticsInfo.notStarted }}</div>
-                <div>往期直播：{{ statisticsInfo.over }}</div>
+                <div>直播中 {{ statisticsInfo.ongoing }}</div>
+                <div>即将开始 {{ statisticsInfo.notStarted }}</div>
+                <div>往期直播 {{ statisticsInfo.over }}</div>
             </OnlinePack>
             <OnlinePack
                 name="知识课程管理"
@@ -290,7 +290,7 @@ export default class FunctionPack extends Vue {
         height: 274px;
         text-align: center;
         color: #fff;
-        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/new-login-bg.png') no-repeat;
+        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yun_bg.jpg') no-repeat;
         background-size: 100% 100%;
         > .title-img {
             height: 35px;
@@ -304,7 +304,7 @@ export default class FunctionPack extends Vue {
         > .live-info {
             display: flex;
             box-sizing: border-box;
-            margin: 24px 0;
+            margin: 24px 0 0 0;
             padding: 34px 78px;
             border-radius: 10px;
             background-color: #f5f6fa;

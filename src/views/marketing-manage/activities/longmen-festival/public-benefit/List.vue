@@ -196,7 +196,7 @@ export default {
             } catch (e) { throw e }
         },
         share (id) {
-            this.qrcodeText = `${ this.$store.getters.mallUrl }/longmen-festival/action/${ id }?noCache=${ Date.now() }`
+            this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/longmen-festival/action/${ id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         }
     }

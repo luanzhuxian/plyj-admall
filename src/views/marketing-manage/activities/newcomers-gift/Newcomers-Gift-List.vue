@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         share () {
-            this.qrcodeText = `${ this.$store.getters.mallUrl }/newcomers/${ this.$route.params.id }?noCache=${ Date.now() }`
+            this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/newcomers/${ this.$route.params.id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         }
     }

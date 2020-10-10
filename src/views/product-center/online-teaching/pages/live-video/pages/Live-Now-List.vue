@@ -388,7 +388,7 @@ export default {
         },
         async share (row) {
             this.selectedLiveInfo = row
-            this.qrcodeText = `${ this.$store.getters.mallUrl }/lived/room/${ row.roomValue }`
+            this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/lived/room/${ row.roomValue }`
             this.qrcodeShow = true
         },
         copyWord () { // 复制口令

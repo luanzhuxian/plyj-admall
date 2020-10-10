@@ -11,6 +11,7 @@
             class="content-table"
             :data="table"
             ref="table"
+            height="500px"
         >
             <el-table-column label="目录" width="60px">
                 <template #default="{ row }">
@@ -137,7 +138,7 @@ export default {
     methods: {
         async getAllList () {
             try {
-                const { data: { result } } = await getCourseDetail(this.courseId)
+                const { result } = await getCourseDetail(this.courseId)
                 this.originalTable = result.liveInfos.map((item, index) => {
                     const liveInfo = result.liveInfo.find(iItem => item.liveId === iItem.id)
                     return {
@@ -178,4 +179,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.content-table {
+    ::v-deep .el-table__empty-block {
+        min-height: 0;
+    }
+}
+
 </style>

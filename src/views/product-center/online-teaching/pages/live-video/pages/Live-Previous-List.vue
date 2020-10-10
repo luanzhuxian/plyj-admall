@@ -425,7 +425,7 @@ export default {
         },
         async share (row) {
             this.selectedLiveInfo = row
-            this.qrcodeText = `${ this.$store.getters.mallUrl }/lived/play-back/${ row.videoLibId }/${ row.id }/0`
+            this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/lived/play-back/${ row.videoLibId }/${ row.id }/0`
             this.qrcodeShow = true
         },
         copyWord () { // 复制口令
