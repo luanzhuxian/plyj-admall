@@ -3,8 +3,8 @@ const bindWechatInfo = VUE_APP_MODEL === 'development' || VUE_APP_MODEL === 'loc
     appId: 'wx7f8e7e4ea457931d',
     redirectUrl: 'http://joint.xijun.youpenglai.com'
 } : {
-    appId: '',
-    redirectUrl: 'https://admall.youpenglai.com'
+    appId: 'wxb1536f57905c8753',
+    redirectUrl: 'https://admall.youpenglai.com/h5'
 }
 export default {
     bindWechatInfo,
