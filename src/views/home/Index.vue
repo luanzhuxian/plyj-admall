@@ -170,7 +170,7 @@
                     <div class="to-do-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0 }人` }}</div>
                 </router-link>
-                <router-link class="to-do-panel__item" to="/admall/money-manage/withdraw-deposit/await">
+                <router-link class="to-do-panel__item" :to="{ name: 'WithdrawDepositManage', query: { status: 'AWAIT' } }">
                     <div class="to-do-panel__item-name">待提现审核</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0 }人` }}</div>

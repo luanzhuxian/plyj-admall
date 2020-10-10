@@ -1,7 +1,7 @@
 <template>
     <div class="runbi-mamange bg-white wrap">
         <search-box>
-            <el-form-item label="Helper姓名">
+            <el-form-item label="Helper姓名：">
                 <el-input
                     v-model="form.keyword"
                     placeholder="请输入Helper姓名"
@@ -193,6 +193,7 @@ export default class RunbiManage extends Vue {
         keyword: '',
         status: '',
         current: 1,
+        size: 10,
         startTime: '',
         endTime: ''
     }
@@ -225,7 +226,6 @@ export default class RunbiManage extends Vue {
     }
 
     async dateChange ({ start, end }: DynamicObject) {
-        this.form.current = 1
         this.form.startTime = start
         this.form.endTime = end
         await this.search()
