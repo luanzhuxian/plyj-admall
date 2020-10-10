@@ -1013,14 +1013,15 @@ export default class MallDecoration extends Vue {
 //     }
 // }
 footer {
-    position: absolute;
-    left: -40px;
-    right: -40px;
-    bottom: -30px;
+    position: fixed;
+    left: 150px;
+    right: 0;
+    bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 64px;
+    min-width: 800px;
     background-color: #fff;
     border-top: 1px solid #e7e7e7;
     z-index: 99;
