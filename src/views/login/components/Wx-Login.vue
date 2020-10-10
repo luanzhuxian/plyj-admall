@@ -51,7 +51,7 @@ export default class WxLogin extends Vue {
             } catch (e) {
                 const ResponseError = JSON.parse(e.message)
                 if (ResponseError.resCode === 5001) {
-                    await this.$router.push({ name: 'Register' })
+                    await this.$router.push({ name: 'WxBindPhone' })
                 } else {
                     this.clearCode()
                 }
