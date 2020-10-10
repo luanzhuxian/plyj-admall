@@ -26,7 +26,7 @@
                     <span>{{ accountInfo.mobile | formatAccount }}</span>
                     <el-button @click="updateMobileHandler" type="text">修改</el-button>
                 </el-form-item>
-                <el-form-item label="账户：">
+                <el-form-item label="账号：">
                     <span v-text="accountInfo.account" />
                 </el-form-item>
                 <el-form-item label="登录密码：">
