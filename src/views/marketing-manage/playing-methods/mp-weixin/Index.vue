@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div style="position: relative; height: 100%">
         <router-view />
     </div>
 </template>

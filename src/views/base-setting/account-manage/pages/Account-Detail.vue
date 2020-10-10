@@ -4,7 +4,7 @@
             <div class="avatar-info">
                 <img
                     class="rounded-circle"
-                    style="width: 62px;height: 62px;border-radius: 50%;"
+                    style="width: 88px;height: 88px;border-radius: 50%;"
                     :src="single.avatarUrl"
                     slot="label"
                 >

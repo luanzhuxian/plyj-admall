@@ -1,21 +1,25 @@
 <template>
-    <div class="list-bg">
+    <div class="wrap">
         <div class="list-header">
-            <img width="30" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公众号增粉.png">
-            <span class="mr-10 font-weight-bold">公众号增粉</span>
-            <span class="items description">- 商城引导关注服务号，快速增粉</span>
-            <div class="active-time">
-                <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" />
-                使用有效期：长期有效
+            <div class="header">
+                <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公众号增粉.png">
+                <div>
+                    <div class="font-weight-bold">公众号增粉</div>
+                    <div class="description">商城引导关注服务号，快速增粉</div>
+                </div>
             </div>
-            <el-button type="primary" round @click="$router.push({ name: 'MpWeixinAdd' })">
-                新建活动
-                <i class="el-icon-plus el-icon--right" />
-            </el-button>
-            <el-button type="text" @click="showExplanation = true">
-                活动说明
-            </el-button>
+            <div class="active-time">
+                <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
+                有效期：长期有效
+            </div>
         </div>
+        <el-button type="primary" round @click="$router.push({ name: 'MpWeixinAdd' })">
+            新建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
+        <el-button type="text" @click="showExplanation = true">
+            活动说明
+        </el-button>
         <el-table :data="tableData">
             <span slot="empty" class="empty">
                 <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" />
@@ -31,20 +35,20 @@
                     {{ row.status === 1 ? '开启中' : '未开启' }}
                 </template>
             </el-table-column>
-            <el-table-column label="操作" align="right" header-align="right" width="200">
+            <el-table-column label="操作" align="right" header-align="right">
                 <template #default="{ row }">
-                    <el-button type="text" @click="handleUpdateStatus(row.id, row.status, 1)" v-if="row.status === 0 || row.status === 2">
+                    <a style="color: #4F63FF" @click="handleUpdateStatus(row.id, row.status, 1)" v-if="row.status === 0 || row.status === 2">
                         开启
-                    </el-button>
-                    <el-button type="text" @click="handleUpdateStatus(row.id, row.status, 2)" v-if="row.status === 1">
+                    </a>
+                    <a style="color: #4F63FF" @click="handleUpdateStatus(row.id, row.status, 2)" v-if="row.status === 1">
                         关闭
-                    </el-button>
-                    <el-button type="text" @click="$router.push({name: 'MpWeixinEdit', params: {id: row.id}})">
+                    </a>
+                    <a style="color: #4F63FF" @click="$router.push({name: 'MpWeixinEdit', params: {id: row.id}})">
                         编辑
-                    </el-button>
-                    <el-button type="text" @click="handleUpdateStatus(row.id, row.status, 3)" v-if="row.status !== 3">
+                    </a>
+                    <a style="color: #4F63FF" @click="handleUpdateStatus(row.id, row.status, 3)" v-if="row.status !== 3">
                         删除
-                    </el-button>
+                    </a>
                 </template>
             </el-table-column>
         </el-table>
@@ -135,29 +139,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .list-bg{
-    padding-bottom: 20px;
-    background: #fff;
     .list-header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      height: 52px;
-      padding-left: 20px;
-      .items {
-        margin-right: 24px;
-      }
-      .description {
-        color: #A8A8A8;
-      }
+        background: #F5F6FA;
+        display: flex;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        .header{
+            display: flex;
+            align-items: center;
+        }
+        .description {
+            font-size: 12px;
+            color: #A8A8A8;
+            margin-top: 4px;
+        }
     }
     .active-time{
-      margin-right: 16px;
-      border:1px solid rgba(204,204,204,1);
-      border-radius:130px;
-      padding: 2px 10px;
-      font-size:16px;
-      color: #666666;
+        font-size: 12px;
+        color: #999;
+        margin-left: 100px;
+        margin-top: 10px;
     }
-  }
 </style>

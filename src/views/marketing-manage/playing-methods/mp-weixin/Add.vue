@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="add-content">
+        <div class="wrap">
             <el-form label-width="150px" :model="form" :rules="rules" ref="ruleForm" label-position="left" class="main-form">
                 <div class="content-title">
                     活动设置
@@ -61,15 +61,15 @@
                         预览展示效果
                     </el-button>
                 </el-form-item>
-                <div class="btn-box">
-                    <el-button size="mini" plain class="mr-10" @click="cancel">
-                        取消
-                    </el-button>
-                    <el-button size="mini" type="primary" plain @click="save">
-                        保存
-                    </el-button>
-                </div>
             </el-form>
+        </div>
+        <div class="btn-box">
+            <el-button round @click="cancel">
+                取消
+            </el-button>
+            <el-button round type="primary" @click="save">
+                保存
+            </el-button>
         </div>
         <MpWeixinPreview :show.sync="showPreview" :qr-code-url="this.form.qrCodeImgUrl" />
     </div>
@@ -191,31 +191,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .add-content{
-    margin: 20px;
-    background: #fff;
-    box-shadow: 0 3px 8px rgba(44,48,58,0.08);
     .content-title {
-      margin-bottom: 24px;
-      height: 60px;
-      line-height: 60px;
-      padding-left: 30px;
-      font-size: 14px;
-      font-weight: bold;
-      background-color: #fbfbfb;
+        margin-bottom: 24px;
+        height: 60px;
+        line-height: 60px;
+        padding-left: 30px;
+        font-size: 14px;
+        font-weight: bold;
     }
     .main-form {
-      ::v-deep .el-form-item__label {
-        padding-left: 30px !important;
-      }
+        ::v-deep .el-form-item__label {
+            padding-left: 30px !important;
+        }
     }
     .btn-box {
-      border-top: 1px solid #e7e7e7;
-      padding: 24px 0;
-      margin-left: 24px;
-      button{
-        min-width: 90px;
-      }
+        position: absolute;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        padding: 16px 0;
+        background: #fff;
+        text-align: center;
+        button{
+            min-width: 90px;
+        }
     }
-  }
 </style>

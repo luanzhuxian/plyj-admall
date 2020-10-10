@@ -21,7 +21,7 @@
             </p>
         </div>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="close">
+            <el-button round type="primary" @click="close">
                 确 定
             </el-button>
         </div>
