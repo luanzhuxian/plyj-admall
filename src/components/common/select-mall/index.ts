@@ -18,11 +18,11 @@ const select = (agencyList: any[], roleMap: DynamicObject): Promise<DynamicObjec
     Instance.agencyList = agencyList
     Instance.roleMap = roleMap
     // 如果只有一个商城，则不弹出选择框
-    // if (agencyList.length === 1) {
-    //     const mallList = Instance.formatAgencyList()
-    //     resolve(mallList[0])
-    //     return
-    // }
+    if (agencyList.length === 1) {
+        const mallList = Instance.formatAgencyList()
+        resolve(mallList[0])
+        return
+    }
     document.body.appendChild(Instance.$el)
     Instance.$on('confirm', (mall: any) => {
         resolve(mall)

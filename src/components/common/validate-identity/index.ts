@@ -25,6 +25,7 @@ const validate = (mobile: string) => {
         })
         Instance.$on('passed', () => {
             resolve(true)
+            sessionStorage.setItem('VALIDATE_IDENTITY_TIME', String(Date.now()))
         })
     })
 }
