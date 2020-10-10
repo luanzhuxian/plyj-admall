@@ -107,7 +107,7 @@ export const updateTag = (params: any) => axios.post('/apis/v2/user/tag', params
 export const deleteTag = (id: string) => axios.delete(`/apis/v2/user/tag/${ id }`)
 
 // 获取用户标签列表
-export const getTagList = () => axios.get('/apis/v2/user/tag')
+export const getTagList = (keyword: string) => axios.get('/apis/v2/user/tag', { params: { keyword } })
 
 // 排序用户标签列表
 export const sortTagList = (ids: string[]) => axios.post('/apis/v2/user/tag/sort', ids)

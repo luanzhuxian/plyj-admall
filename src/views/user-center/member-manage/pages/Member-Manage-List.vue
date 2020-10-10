@@ -165,9 +165,21 @@
                 class="tag-list"
             >
                 <div class="tag-list-top">
-                    <el-button icon="el-icon-plus" @click="editTag" style="color: #333333; border-radius: 20px;">
-                        新建标签
-                    </el-button>
+                    <template v-if="!isShowTagSearch">
+                        <el-button icon="el-icon-plus" @click="editTag" style="color: #333333; border-radius: 20px;">
+                            新建标签
+                        </el-button>
+                        <i class="el-icon-search" @click="showTagSearch" />
+                    </template>
+                    <el-input
+                        v-else
+                        ref="tagSearch"
+                        v-model="tagKeyword"
+                        @input="getTagList"
+                        @blur="hiddenTagSearch"
+                        prefix-icon="el-icon-search"
+                        placeholder="请输入标签名称"
+                    />
                 </div>
                 <div class="tag-list-default" @click="getMemberListByTag('')">
                     <span class="color-333">全部用户</span>
@@ -432,6 +444,7 @@ import EditMemberTag from '../components/Edit-Member-Tag.vue'
 import AddTags from '../components/Add-Tags.vue'
 import RemarkList from '../components/Remark-List.vue'
 
+import { throttle } from './../../../../assets/ts/utils'
 import {
     getMemberData,
     getMemberList,
@@ -486,6 +499,8 @@ export default class MemberManageList extends Vue {
       tagId: ''
   }
 
+  isShowTagSearch = false
+  tagKeyword = ''
   timeRange = []
   loginTimeRange = []
   lastPurchaseTimeRange = []
@@ -538,12 +553,27 @@ export default class MemberManageList extends Vue {
   }
 
   async created () {
+      const fn = throttle(this.getTagList, 2000)
+      this.getTagList = async () => fn(this)
       await this.getMemberData()
       await this.getMemberList()
       await this.getTagList()
   }
 
-  //  methods
+  // 展示搜索tag
+  async showTagSearch () {
+      this.isShowTagSearch = true
+      await this.$nextTick()
+      const { tagSearch }: any = this.$refs
+      tagSearch.focus()
+  }
+
+  async hiddenTagSearch () {
+      this.isShowTagSearch = false
+      this.tagKeyword = ''
+      await this.getTagList()
+  }
+
   // 标签排序
   async treeSort (node: DynamicObject, list: DynamicObject[]) {
       const ids = list.map(item => item.id)
@@ -777,7 +807,7 @@ export default class MemberManageList extends Vue {
 
   // 获取标签列表
   async getTagList () {
-      const { result } = await getTagList()
+      const { result } = await getTagList(this.tagKeyword)
       this.tagList = result || []
   }
 
@@ -853,6 +883,13 @@ export default class MemberManageList extends Vue {
             height: 61px;
             padding: 0 16px;
             border-bottom: 1px solid #ddd;
+            .el-icon-search {
+                font-size: 16px;
+                cursor: pointer;
+            }
+            ::v-deep .el-input__inner {
+                border-radius: 20px;
+            }
         }
 
         .tag-list-default {
