@@ -297,7 +297,7 @@ import PdfManager from './../../../../../../components/common/file/Pdf-Manager.v
 import PlEditor from './../../../../../../components/common/Pl-Editor.vue'
 import SelectCategory from './../../../../../../components/category/Select-Category.vue'
 import UserGroup from './../../../../../../components/common/User-Group.vue'
-import MainImageTheme from './../../../../../../components/goods/Main-Image-Theme.vue'
+import MainImageTheme from '../../../../../../components/product-center/goods/Main-Image-Theme.vue'
 import BooksMaterialsPreview from './../components/Books-Materials-Preview'
 import { isMoney } from '../../../../../../assets/ts/validate'
 import { addBooksMaterials, getBooksDetail, modifyBooksMaterials } from './../../../../../../apis/product-center/online-teaching/books-materials'

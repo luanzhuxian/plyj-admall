@@ -386,7 +386,7 @@ import PlEditor from './../../../../../../components/common/Pl-Editor.vue'
 import UserGroup from './../../../../../../components/common/User-Group.vue'
 import Draggable from './../../../../../../components/common/draggable'
 import CheckLiveVideo from './../../../../../../components/select/Check-Live-Video.vue'
-import MainImageTheme from './../../../../../../components/goods/Main-Image-Theme.vue'
+import MainImageTheme from '../../../../../../components/product-center/goods/Main-Image-Theme.vue'
 import VideoCoursePreview from './../components/Video-Course-Preview'
 
 import { SectionToChinese } from '../../../../../../assets/ts/utils'

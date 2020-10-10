@@ -274,7 +274,7 @@ export default {
     },
     async getMainImageTheme () {
       try {
-        const { result } = await getMainImageTheme()
+        const {result  } = await getMainImageTheme()
         this.theme = result
         if (this.defaultTheme) {
           this.currentTheme = this.theme.find(item => item.id === this.defaultTheme.themeId)
@@ -667,4 +667,7 @@ export default {
       line-height: 59px;
     }
   }
+
+
+
 </style>
