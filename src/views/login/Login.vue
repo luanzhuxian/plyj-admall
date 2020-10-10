@@ -13,7 +13,8 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import Vcode from 'vue-puzzle-vcode'
 import { namespace } from 'vuex-class'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 interface CodeShowFooType {
     type: boolean;
@@ -30,11 +31,11 @@ Component.registerHooks([
 export default class Login extends Vue {
     toName= ''
     routerName = ''
-    @userModule.Mutation('LOGOUT') logout!: Function
-    @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
-    @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
-    @userModule.Action('GET_ALL_MALL_INFO') getAllMallInfo!: Function
-    @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
+    @userModule.Mutation(MutationTypes.logout) logout!: Function
+    @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
+    @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
+    @userModule.Action(MutationTypes.getAllMallInfo) getAllMallInfo!: Function
+    @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
     @userModule.Action('selectMall') selectMall!: Function
     @userModule.Getter('codeImg') codeImg!: any
     @userModule.Getter('codeShow') codeShow!: boolean
@@ -72,8 +73,8 @@ export default class Login extends Vue {
     }
 
     clearCode () {
-        sessionStorage.removeItem(sessionEnum.redirectCode)
-        sessionStorage.removeItem(sessionEnum.redirectState)
+        sessionStorage.removeItem(SessionEnum.redirectCode)
+        sessionStorage.removeItem(SessionEnum.redirectState)
         sessionStorage.removeItem('login_state')
     }
 

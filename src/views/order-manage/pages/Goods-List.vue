@@ -367,6 +367,7 @@ import UncodedVerification from '../../../components/order-center/Uncoded-Verifi
 import CloseOrder from '../../../components/order-center/Close-Order.vue'
 import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
 import ExportOrder from '../components/Export-Order'
+import { MutationTypes } from '../../../store/mutation-type'
 
 export default {
     name: 'GoodsList',
@@ -499,7 +500,7 @@ export default {
             throw e
         }
         if (!this.receiveAddressList.length) {
-            await this.GET_RECEIVE_ADDRESS()
+            await this.getReceiveAddress()
         }
         if (this.$route.params.verify === 'true') {
             this.dialogVerificationVisible = true
@@ -518,7 +519,7 @@ export default {
     // },
     methods: {
         ...mapActions({
-            GET_RECEIVE_ADDRESS: 'goods/GET_RECEIVE_ADDRESS'
+            getReceiveAddress: `goods/${ MutationTypes.getReceiveAddress }`
         }),
         canApplyRefund (row) {
             const comon = row.orderStatus !== 'WAIT_PAY' && row.orderStatus !== 'CLOSED' && !row.redeemCodeOperatorUserName.length && row.supportAfterSales === 1 && row.aftersaleStatus === 'NO_AFTER_SALES' && row.skuSource < 2

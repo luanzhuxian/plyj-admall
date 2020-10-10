@@ -6,7 +6,7 @@
 <script>
 import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'LongmenFestival',
     data () {
@@ -16,7 +16,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     async activated () {
@@ -36,23 +36,23 @@ export default {
         } else if (routeName.path.indexOf('longmen-festival/lottery') !== -1) {
             this.programId = '7'
         }
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) {
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) {
             this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
             return
         }
 
         // 组合聚惠学信息
-        const compoundInformation = this.mrketStatuAuth.find(({ programId }) => programId === '1')
+        const compoundInformation = this.marketStatusAuth.find(({ programId }) => programId === '1')
         const compoundStatus = !!(compoundInformation && moment(compoundInformation.validity).valueOf() > moment().valueOf())
         // 粽粽有礼信息
-        const dumplingsInformation = this.mrketStatuAuth.find(({ programId }) => programId === '2')
+        const dumplingsInformation = this.marketStatusAuth.find(({ programId }) => programId === '2')
         const dumplingsStatus = !!(dumplingsInformation && moment(dumplingsInformation.validity).valueOf() > moment().valueOf())
         // 公益活动
-        const benefitInformation = this.mrketStatuAuth.find(({ programId }) => programId === '6')
+        const benefitInformation = this.marketStatusAuth.find(({ programId }) => programId === '6')
         const benefitStatus = !!(benefitInformation && moment(benefitInformation.validity).valueOf() > moment().valueOf())
         // 龙门抽奖
-        const LongmenLotteryInformation = this.mrketStatuAuth.find(({ programId }) => programId === '7')
+        const LongmenLotteryInformation = this.marketStatusAuth.find(({ programId }) => programId === '7')
         const LongmenLotteryStatus = !!(LongmenLotteryInformation && moment(LongmenLotteryInformation.validity).valueOf() > moment().valueOf())
 
         // 判断当前活动是否购买
@@ -60,7 +60,7 @@ export default {
         if (status) this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

@@ -77,8 +77,8 @@
 
 <script>
 import { getAuthUrl, setAuthCode, getWexinInfo } from '../../../../apis/base/register'
-import { AGENCY_USER_INFO, WECHAT_PAY_STATUS } from '../../../../store/mutation-type'
 import { mapGetters, mapActions } from 'vuex'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'WechatAuth',
     computed: {
@@ -110,7 +110,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['WECHAT_PAY_STATUS', 'AGENCY_USER_INFO']),
+        ...mapActions([MutationTypes.wechatPayStatus, MutationTypes.agencyUserInfo]),
         async auth (flag) {
             try {
                 if (flag) {
@@ -151,8 +151,8 @@ export default {
                     }
                 } finally {
                     sessionStorage.removeItem('authCode')
-                    this[AGENCY_USER_INFO]()
-                    this[WECHAT_PAY_STATUS]()
+                    this[MutationTypes.agencyUserInfo]()
+                    this[MutationTypes.wechatPayStatus]()
                 }
             }
             return null

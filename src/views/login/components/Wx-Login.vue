@@ -18,13 +18,14 @@
 import { WxScanLogin } from '../../../apis/login'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { namespace, State } from 'vuex-class'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 @Component
 export default class WxLogin extends Vue {
         loading = false
         code = ''
-        @userModule.Mutation('SET_LOGININFO') setLoginInfo: any
+        @userModule.Mutation(MutationTypes.setLoginInfo) setLoginInfo: any
         @State('bindWechatInfo') bindWechatInfo: any
         @Emit('emitLogin')
         emitLogin () {
@@ -33,7 +34,7 @@ export default class WxLogin extends Vue {
 
         async mounted () {
             this.weixinLoginCode()
-            this.code = sessionStorage.getItem(sessionEnum.redirectCode) as string
+            this.code = sessionStorage.getItem(SessionEnum.redirectCode) as string
             if (this.code) {
                 await this.WxScanLogin()
             }
@@ -59,8 +60,8 @@ export default class WxLogin extends Vue {
         }
 
         clearCode () {
-            sessionStorage.removeItem(sessionEnum.redirectCode)
-            sessionStorage.removeItem(sessionEnum.redirectState)
+            sessionStorage.removeItem(SessionEnum.redirectCode)
+            sessionStorage.removeItem(SessionEnum.redirectState)
             sessionStorage.removeItem('login_state')
         }
 

@@ -46,7 +46,7 @@
 import { WxBind } from '../../../apis/account-set'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
 const userModule = namespace('user')
 
 @Component
@@ -87,7 +87,7 @@ export default class WxBindPassword extends Vue {
                 this.loading = true
                 await this.LOGIN(this.form)
 
-                const code = sessionStorage.getItem(sessionEnum.redirectCode) as string
+                const code = sessionStorage.getItem(SessionEnum.redirectCode) as string
                 await WxBind(code)
                 this.clearCode()
                 this.emitLogin()
@@ -104,8 +104,8 @@ export default class WxBindPassword extends Vue {
         }
 
         clearCode () {
-            sessionStorage.removeItem(sessionEnum.redirectCode)
-            sessionStorage.removeItem(sessionEnum.redirectState)
+            sessionStorage.removeItem(SessionEnum.redirectCode)
+            sessionStorage.removeItem(SessionEnum.redirectState)
             sessionStorage.removeItem('login_state')
         }
 }

@@ -136,7 +136,6 @@
 <script>
 import ActiveTime from '../../../components/Active-Time.vue'
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../../store/mutation-type'
 import Share from '../../../../../components/common/Share.vue'
 import moment from 'moment'
 import {
@@ -144,6 +143,7 @@ import {
     endLottery,
     delLottery
 } from '../../../../../apis/marketing-manage/lonmen-festival/lottery'
+import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'LongmenLotteryList',
     components: {
@@ -171,12 +171,12 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     async created () {
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        this.LongmenLotteryInformation = this.mrketStatuAuth.find(({ programId }) => programId === '7')
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        this.LongmenLotteryInformation = this.marketStatusAuth.find(({ programId }) => programId === '7')
         try {
             await this.getLottery()
         } catch (e) {
@@ -184,7 +184,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH]),
+        ...mapActions([MutationTypes.getMarketStatusAuth]),
         async getLottery (page) {
             if (page) {
                 this.form.current = page

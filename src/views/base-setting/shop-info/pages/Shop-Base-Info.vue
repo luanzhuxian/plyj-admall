@@ -318,6 +318,7 @@ import ShopModal from '../../../../components/common/layout/Shop-Modal.vue'
 import { isPhone, isTelNumber } from '../../../../assets/ts/validate'
 import { mapGetters, mapActions } from 'vuex'
 import { getDataDictionary } from '../../../../apis/common'
+import { MutationTypes } from '../../../../store/mutation-type'
 
 export default {
     name: 'ShopBaseInfo',
@@ -413,7 +414,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            AGENCY_USER_INFO: 'user/AGENCY_USER_INFO'
+            agencyUserInfo: `user/${ MutationTypes.agencyUserInfo }`
         }),
         async copy () {
             try {
@@ -446,7 +447,7 @@ export default {
             }
             try {
                 await setWechat(this.form)
-                await this.AGENCY_USER_INFO()
+                await this.agencyUserInfo()
                 this[type] = false
                 this.form[field] = ''
                 this.$success('保存成功！')
@@ -460,7 +461,7 @@ export default {
                 await this.$confirm('确定删除吗？')
                 old = this.form.servicePhoneModels.splice(contactIndex, 1)
                 await setWechat(this.form)
-                await this.AGENCY_USER_INFO()
+                await this.agencyUserInfo()
                 this.$success('已删除！')
             } catch (e) {
                 if (e !== 'cancel') {
@@ -479,7 +480,7 @@ export default {
             form.addressPrefix = `${ data[0] ? data[0].name : '' }${ data[1] ? data[1].name : '' }${ data[2] ? data[2].name : '' }${ data[3] ? data[3].name : '' }`
             try {
                 await setWechat(form)
-                await this.AGENCY_USER_INFO()
+                await this.agencyUserInfo()
                 form.province = ''
                 form.city = ''
                 form.region = ''
@@ -568,7 +569,7 @@ export default {
                     this.form.servicePhoneModels = [...servicePhoneModels, item]
                     await setWechat(this.form)
                     // 因为每添加一次客服，id就会变，所以得刷新
-                    await this.AGENCY_USER_INFO()
+                    await this.agencyUserInfo()
                     this.form.servicePhoneModels = this.mallSaveModel.servicePhoneModels
                 }
                 this.currentEditContact.splice(index, 1, null)
@@ -584,7 +585,7 @@ export default {
     },
     beforeRouteLeave (to, from, next) {
         next()
-        this.AGENCY_USER_INFO()
+        this.agencyUserInfo()
     }
 }
 

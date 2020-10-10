@@ -18,14 +18,14 @@ import {
     // getUpgradeStatus,
     // getVstatus
 } from '../../apis/base/register'
-import * as types from '../mutation-type'
 import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
 import setSentry from '../../assets/ts/set-sentry'
 import selectMall from '../../components/common/select-mall'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 
-const currentStep = Number(sessionStorage.getItem(sessionEnum.currentStep)) || 0
+const currentStep = Number(sessionStorage.getItem(SessionEnum.currentStep)) || 0
 const agencyCode = Cookie.get('agencyCode') || ''
 const mallId = Cookie.get('mallId') || ''
 const token = Cookie.get('token') || ''
@@ -105,20 +105,20 @@ const user: Module<DynamicObject, DynamicObject> = {
         token,
         inviteCode: '',
         // 小v商户审核状态
-        vMerchantStatus: {},
+        // vMerchantStatus: {},
         // 小v商户升级审核状态
         upgradeStatus: {},
         // 微信支付审核状态
         wechatPayStatus: {}
     },
     mutations: {
-        [types.SET_CODEPASS]: (state, payload) => {
+        [MutationTypes.setCodePass]: (state, payload) => {
             state.codePass = payload
         },
-        [types.SET_CODESHOW]: (state, payload) => {
+        [MutationTypes.setCodeShow]: (state, payload) => {
             state.codeShow = payload
         },
-        [types.SET_LOGININFO]: (state, payload) => {
+        [MutationTypes.setLoginInfo]: (state, payload) => {
             if (payload) {
                 Cookie.set('token', payload.token, {
                     expires: CalcCookieTime(payload.expire)
@@ -130,7 +130,7 @@ const user: Module<DynamicObject, DynamicObject> = {
                 state.token = state.loginInfo.token
             }
         },
-        [types.AGENCY_USER_INFO] (state, payload) {
+        [MutationTypes.agencyUserInfo] (state, payload) {
             if (!payload) return
             const {
                 currentStep = 1,
@@ -143,7 +143,7 @@ const user: Module<DynamicObject, DynamicObject> = {
                 currentRoleCode
             } = payload
             // 对步骤进行本地缓存
-            sessionStorage.setItem(sessionEnum.currentStep, currentStep)
+            sessionStorage.setItem(SessionEnum.currentStep, currentStep)
             state.currentStep = currentStep
             state.currentRoleCode = currentRoleCode || ''
             // 注册第二步数据
@@ -159,7 +159,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.mallId = mallSaveModel.id
         },
         // 退出
-        [types.LOGOUT] (state) {
+        [MutationTypes.logout] (state) {
             resetForm(state.loginInfo)
             resetForm(state.entPersonSaveModel)
             resetForm(state.entWxPayInfoVO)
@@ -179,7 +179,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             Cookie.remove('refresh_token')
             Cookie.remove('agencyCode')
             Cookie.remove('mallId')
-            sessionStorage.removeItem(sessionEnum.currentStep)
+            sessionStorage.removeItem(SessionEnum.currentStep)
         },
         // 缓存权限列表
         // [types.SET_POWER_LIST]: (state, payload) => {
@@ -216,15 +216,15 @@ const user: Module<DynamicObject, DynamicObject> = {
         //     state.menuList = [{ children: menus }]
         // },
         // 缓存机构列表
-        [types.GET_AGENCY_LIST]: (state, payload) => {
+        [MutationTypes.getAgencyList]: (state, payload) => {
             state.agencyList = payload
         },
         // 缓存机构列表
-        [types.GET_ACCOUNT_INFO]: (state, payload) => {
+        [MutationTypes.getAccountInfo]: (state, payload) => {
             state.accountInfo = payload
         },
         // 缓存当前机构
-        [types.SET_CURRENT_AGENCY]: (state, payload) => {
+        [MutationTypes.setCurrentAgency]: (state, payload) => {
             state.agencyCode = payload.agencyCode || ''
             Cookie.set('agencyCode', payload.agencyCode, {
                 expires: CalcCookieTime(state.loginInfo.expire)
@@ -246,15 +246,15 @@ const user: Module<DynamicObject, DynamicObject> = {
         //         state.upgradeStatus = payload
         //     }
         // },
-        [types.WECHAT_PAY_STATUS]: (state, payload) => {
+        [MutationTypes.wechatPayStatus]: (state, payload) => {
             if (payload) {
                 state.wechatPayStatus = payload
             }
         },
-        [types.HAS_GET_ALL_MALL_INFO]: (state, loaded) => {
+        [MutationTypes.hasGetAllMallInfo]: (state, loaded) => {
             state.allLoaded = loaded
         },
-        [types.GET_ALL_MALL_INFO]: (state, getters) => {
+        [MutationTypes.getAllMallInfo]: (state, getters) => {
             setSentry(getters)
         }
     },
@@ -262,20 +262,20 @@ const user: Module<DynamicObject, DynamicObject> = {
         async login ({ commit }, form) {
             try {
                 const data = await login(form)
-                commit(types.SET_LOGININFO, data.result)
+                commit(MutationTypes.setLoginInfo, data.result)
                 return data.res
             } catch (e) {
-                commit(types.LOGOUT)
+                commit(MutationTypes.logout)
                 throw e
             }
         },
         async mobileLogin ({ commit }, form) {
             try {
                 const data = await mobileLogin(form)
-                commit(types.SET_LOGININFO, data.result)
+                commit(MutationTypes.setLoginInfo, data.result)
                 return data.result
             } catch (e) {
-                commit(types.LOGOUT)
+                commit(MutationTypes.logout)
                 throw e
             }
         },
@@ -283,10 +283,10 @@ const user: Module<DynamicObject, DynamicObject> = {
         async register ({ commit }, payload) {
             try {
                 const data = await register(payload)
-                commit(types.SET_LOGININFO, data.result)
+                commit(MutationTypes.setLoginInfo, data.result)
                 return data.result
             } catch (e) {
-                commit(types.LOGOUT)
+                commit(MutationTypes.logout)
                 throw e
             }
         },
@@ -297,7 +297,7 @@ const user: Module<DynamicObject, DynamicObject> = {
          */
         async createMall ({ commit }, data: mallInfoData) {
             const { result: { id, enterpriseId } } = await saveMallInfo(data)
-            commit(types.SET_CURRENT_AGENCY, {
+            commit(MutationTypes.setCurrentAgency, {
                 mallId: id,
                 agencyCode: enterpriseId
             })
@@ -307,12 +307,12 @@ const user: Module<DynamicObject, DynamicObject> = {
         async selectMall  ({ commit, state, rootState }) {
             const { mallId, agencyCode } = await selectMall(state.agencyList, rootState.roleMap)
             if (mallId !== state.mallId) {
-                commit(types.SET_CURRENT_AGENCY, {
+                commit(MutationTypes.setCurrentAgency, {
                     mallId, agencyCode
                 })
                 return { mallId, agencyCode, changed: true }
             }
-            commit(types.SET_CURRENT_AGENCY, {
+            commit(MutationTypes.setCurrentAgency, {
                 mallId, agencyCode
             })
             return { mallId, agencyCode, changed: false }
@@ -322,10 +322,10 @@ const user: Module<DynamicObject, DynamicObject> = {
          * 获取所有机构列表，并选择一个商城
          * @param commit
          */
-        async [types.GET_AGENCY_LIST] ({ commit }) {
+        async [MutationTypes.getAgencyList] ({ commit }) {
             try {
                 const data = await getAgencyList()
-                commit(types.GET_AGENCY_LIST, data.result)
+                commit(MutationTypes.getAgencyList, data.result)
                 return data.result
             } catch (e) {
                 throw e
@@ -336,10 +336,10 @@ const user: Module<DynamicObject, DynamicObject> = {
          * 获取账户信息
          * @param commit
          */
-        async [types.GET_ACCOUNT_INFO] ({ commit }) {
+        async [MutationTypes.getAccountInfo] ({ commit }) {
             try {
                 const { result } = await getAccountInfo()
-                commit(types.GET_ACCOUNT_INFO, result)
+                commit(MutationTypes.getAccountInfo, result)
                 return result
             } catch (e) {
                 throw e
@@ -347,22 +347,22 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
 
         // 获取机构和商城详情
-        async [types.AGENCY_USER_INFO] ({ commit }) {
+        async [MutationTypes.agencyUserInfo] ({ commit }) {
             try {
                 const { result: AgencyDetail } = await getAgencyDetail()
-                commit(types.AGENCY_USER_INFO, AgencyDetail)
+                commit(MutationTypes.agencyUserInfo, AgencyDetail)
                 return AgencyDetail
             } catch (e) {
                 throw e
             }
         },
-        async [types.SET_LOGININFO] ({ commit }) {
+        async [MutationTypes.setLoginInfo] ({ commit }) {
             try {
                 const LoginInfo = await getLoginInfo()
-                commit(types.SET_LOGININFO, LoginInfo.result)
+                commit(MutationTypes.setLoginInfo, LoginInfo.result)
                 return LoginInfo.result
             } catch (e) {
-                commit(types.LOGOUT)
+                commit(MutationTypes.logout)
                 throw e
             }
         },
@@ -401,26 +401,26 @@ const user: Module<DynamicObject, DynamicObject> = {
         //     }
         // },
         // 微信支付申请状态
-        async [types.WECHAT_PAY_STATUS] ({ commit }) {
+        async [MutationTypes.wechatPayStatus] ({ commit }) {
             try {
                 const data = await getWechatPaytStatus()
                 if (data.result.errCode) {
                     data.result.applymentState = 'APPLYMENT_STATE_REJECTED'
                     data.result.applymentStateMsg = data.result.errCodeDes
                 }
-                commit(types.WECHAT_PAY_STATUS, data.result)
+                commit(MutationTypes.wechatPayStatus, data.result)
                 return data.result
             } catch (e) {
                 throw e
             }
         },
         // 获取所有商城数据
-        async [types.GET_ALL_MALL_INFO] ({ dispatch, commit, getters }) {
+        async [MutationTypes.getAllMallInfo] ({ dispatch, commit, getters }) {
             // 日志系统getters暂时删除
             try {
-                await dispatch(types.AGENCY_USER_INFO)
-                await dispatch(types.GET_ACCOUNT_INFO)
-                await dispatch(types.WECHAT_PAY_STATUS)
+                await dispatch(MutationTypes.agencyUserInfo)
+                await dispatch(MutationTypes.getAccountInfo)
+                await dispatch(MutationTypes.wechatPayStatus)
                 // await dispatch(types.SET_POWER_LIST)
                 // if (state.REG_TYPE === 2) {
                 //     // 新流程
@@ -429,8 +429,8 @@ const user: Module<DynamicObject, DynamicObject> = {
                 //     // 老流程
                 //     await Promise.all([dispatch(types.V_MERCHANT_STATUS), dispatch(types.UPGRADE_STATUS)])
                 // }
-                commit(types.HAS_GET_ALL_MALL_INFO, true)
-                commit(types.GET_ALL_MALL_INFO, getters)
+                commit(MutationTypes.hasGetAllMallInfo, true)
+                commit(MutationTypes.getAllMallInfo, getters)
             } catch (e) {
                 throw e
             }
@@ -471,7 +471,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         mallSaveModel: state => state.mallSaveModel,
         mallName: state => state.mallSaveModel.mallName,
         bindPhone: state => state.accountInfo.mobile,
-        vMerchantStatus: state => state.vMerchantStatus,
+        // vMerchantStatus: state => state.vMerchantStatus,
         upgradeStatus: state => state.upgradeStatus,
         wechatPayStatus: state => state.wechatPayStatus,
         // 微信审核状态详情

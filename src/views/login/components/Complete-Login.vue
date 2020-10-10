@@ -54,6 +54,7 @@ import Agreement from '../../../components/register/Agreement.vue'
 import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { testAccount } from '@/assets/ts/validate'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
     @Component({
@@ -102,7 +103,7 @@ export default class CompleteLogin extends Vue {
 
         @Prop(Boolean) codeShow!: boolean;
         @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
-        @userModule.Mutation('LOGOUT') LOGOUT!: Function
+        @userModule.Mutation(MutationTypes.logout) logout!: Function
         @Emit('emitLogin')
         emitLogin () {
             return true
@@ -125,7 +126,7 @@ export default class CompleteLogin extends Vue {
         }
 
         async beforeDestroy () {
-            if (!this.isComplete) await this.LOGOUT()
+            if (!this.isComplete) await this.logout()
         }
 }
 </script>

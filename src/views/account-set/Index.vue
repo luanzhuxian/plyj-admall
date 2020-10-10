@@ -130,7 +130,8 @@ import SendCode from './../../components/common/Send-Code.vue'
 import validateIdentity from '../../components/common/validate-identity'
 import { testName, testPhone } from '../../assets/ts/validate'
 import { Watch } from 'vue-property-decorator'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -175,8 +176,8 @@ export default class AccountSet extends Vue {
     avatar: string[] = []
 
     @userModule.Getter('accountInfo') accountInfo!: DynamicObject
-    @userModule.Action('GET_ACCOUNT_INFO') getAccountInfo!: Function
-    @userModule.Action('AGENCY_USER_INFO') getAgencyUserInfo!: Function
+    @userModule.Action(MutationTypes.getAccountInfo) getAccountInfo!: Function
+    @userModule.Action(MutationTypes.agencyUserInfo) getAgencyUserInfo!: Function
     @State('bindWechatInfo') bindWechatInfo!: DynamicObject
     @State('weChatStyle') weChatStyle!: string
     @Watch('accountInfo', { immediate: true })
@@ -186,12 +187,12 @@ export default class AccountSet extends Vue {
     }
 
     async mounted () {
-        const wechatCode = sessionStorage.getItem(sessionEnum.redirectCode)
+        const wechatCode = sessionStorage.getItem(SessionEnum.redirectCode)
         if (wechatCode) {
             WxBind(wechatCode)
                 .then(() => {
-                    sessionStorage.removeItem(sessionEnum.redirectCode)
-                    sessionStorage.removeItem(sessionEnum.redirectState)
+                    sessionStorage.removeItem(SessionEnum.redirectCode)
+                    sessionStorage.removeItem(SessionEnum.redirectState)
                     this.$alert('绑定微信成功！')
                     this.getAccountInfo()
                 })

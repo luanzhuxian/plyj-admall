@@ -272,11 +272,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../../store/mutation-type'
 import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview.vue'
 import Share from '../../../../../components/common/Share'
 import { bookingActivityPage, duplicateBookingActivity, updateActivityStatus } from '../../../../../apis/marketing-manage/booking'
 import { getSingleGoods } from '../../../../../apis/product-center/goods'
+import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'NewYearBookingBuyList',
     components: {
@@ -311,14 +311,14 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth',
+            marketStatusAuth: 'account/marketStatusAuth',
             mallUrl: 'user/mallUrl'
         })
     },
     async created () {
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) return
-        const bookingBuyInformation = this.mrketStatuAuth.find(({ programId }) => programId === '5')
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
+        const bookingBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '5')
         this.start = bookingBuyInformation.createTime || ''
         this.end = bookingBuyInformation.validity || ''
         this.getList()
@@ -336,7 +336,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH]),
+        ...mapActions([MutationTypes.getMarketStatusAuth]),
         iconGengduoEnter (row) {
             row.iconGengduoShow = true
         },

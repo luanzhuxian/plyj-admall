@@ -238,12 +238,12 @@ import {
     getOrderQuery,
     exportOrderQuery
 } from '../../../apis/order'
-import { GET_RECEIVE_ADDRESS } from '../../../store/mutation-type'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import { createObjectUrl } from '../../../assets/ts/upload'
 import moment from 'moment'
 import ExportOrder from './../components/Export-Order'
 import CloseOrder from '../../../components/order-center/Close-Order.vue'
+import { MutationTypes } from '../../../store/mutation-type'
 
 export default {
     name: 'OnlineSchoolOrder',
@@ -362,12 +362,12 @@ export default {
             throw e
         }
         if (!this.receiveAddressList.length) {
-            await this[GET_RECEIVE_ADDRESS]()
+            await this.getReceiveAddress()
         }
     },
     methods: {
         ...mapActions({
-            [GET_RECEIVE_ADDRESS]: 'goods/GET_RECEIVE_ADDRESS'
+            getReceiveAddress: `goods/${ MutationTypes.getReceiveAddress }`
         }),
         async goodsTypesChange () {
             switch (this.goodsTypes) {

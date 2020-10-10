@@ -141,6 +141,7 @@ import {
     upload,
     deleteImage
 } from '../../assets/ts/upload'
+import { MutationTypes } from '../../store/mutation-type'
 // img/dJYBK2q9Q-BwZwChow-L2-1561685633037.jpeg
 // img/JvgDShG6L-ftPtkve0-24SAFp3W-SR-1561685709971.jpeg
 // http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/img/kegRQCKaj-ziNGAdBi-EPr-1561688756756.jpeg
@@ -297,7 +298,7 @@ export default {
                 }
                 this.close()
                 // 刷新分类列表
-                await this.$store.dispatch('GET_CLASSIFY_TREE', this.goodType ? 2 : 1)
+                await this.$store.dispatch(MutationTypes.getClassifyTree, this.goodType ? 2 : 1)
                 this.$emit('success', result)
             } catch (e) {
                 throw e

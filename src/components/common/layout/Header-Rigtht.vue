@@ -67,6 +67,7 @@ import CreateMall from '../select-mall/Create-Mall.vue'
 import { Getter, namespace } from 'vuex-class'
 import { Watch } from 'vue-property-decorator'
 import ShopModal from '@/components/common/layout/Shop-Modal.vue'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -80,8 +81,8 @@ export default class HeaderRigtht extends Vue {
     private showMallUrl = false
     private showPop = false
 
-    @userModule.Mutation('LOGOUT') LOGOUT!: Function
-    @userModule.Action('GET_AGENCY_LIST') getAgencyList!: Function
+    @userModule.Mutation(MutationTypes.logout) LOGOUT!: Function
+    @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
     @userModule.Action('selectMall') selectMall!: Function
     @userModule.Getter('bindPhone') bindPhone!: string
     @userModule.Getter('auditStatus') auditStatus!: string

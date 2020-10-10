@@ -49,10 +49,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { isHasRead } from '../../../../apis/marketing-manage/redeem-code'
 import moment from 'moment'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'RedeemCode',
     components: {
@@ -78,7 +78,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     async mounted () {
@@ -94,18 +94,18 @@ export default {
         if (routeName.path.indexOf('redeem-code/') !== -1) {
             this.programId = '8'
         }
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) {
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) {
             this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
             return
         }
-        const redeemCodeInformation = this.mrketStatuAuth.find(({ programId }) => programId === '8')
+        const redeemCodeInformation = this.marketStatusAuth.find(({ programId }) => programId === '8')
         const redeemCodeStatus = !!(redeemCodeInformation && moment(redeemCodeInformation.validity).valueOf() > moment().valueOf())
         const status = !!(this.programId === '8' && !redeemCodeStatus)
         if (status) this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

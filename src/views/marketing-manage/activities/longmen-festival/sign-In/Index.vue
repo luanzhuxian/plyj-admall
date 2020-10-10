@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../../store/mutation-type'
+import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'GeneralIndex',
     data () {
@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     watch: {
@@ -49,15 +49,15 @@ export default {
     },
     async created () {
         this.activeTab = this.$route.name
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) return
-        const dumplingsInformation = this.mrketStatuAuth.find(({ programId }) => programId === '2')
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
+        const dumplingsInformation = this.marketStatusAuth.find(({ programId }) => programId === '2')
         this.start = dumplingsInformation.createTime || ''
         this.end = dumplingsInformation.validity || ''
     },
 
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH]),
+        ...mapActions([MutationTypes.getMarketStatusAuth]),
         add () {
             this.$router.push({ name: 'GeneralAdd' })
         }

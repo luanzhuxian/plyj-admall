@@ -279,7 +279,6 @@ import {
     exportOrderQuery,
     redeemUserList
 } from '../../../apis/order'
-import { GET_RECEIVE_ADDRESS } from '../../../store/mutation-type'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import { createObjectUrl } from '../../../assets/ts/upload'
 import ApplyAfter from '../../../components/order-center/Apply-After.vue'
@@ -288,6 +287,7 @@ import UncodedVerification from '../../../components/order-center/Uncoded-Verifi
 import CloseOrder from '../../../components/order-center/Close-Order.vue'
 import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
 import ExportOrder from './../components/Export-Order'
+import { MutationTypes } from '../../../store/mutation-type'
 export default {
     name: 'CourseList',
     components: {
@@ -417,7 +417,7 @@ export default {
             throw e
         }
         if (!this.receiveAddressList.length) {
-            await this[GET_RECEIVE_ADDRESS]()
+            await this[MutationTypes.getReceiveAddress]()
         }
         if (this.$route.params.verify === 'true') {
             this.dialogVerificationVisible = true
@@ -425,7 +425,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            [GET_RECEIVE_ADDRESS]: 'goods/GET_RECEIVE_ADDRESS'
+            [MutationTypes.getReceiveAddress]: `goods/${ MutationTypes.getReceiveAddress }`
         }),
         canApplyRefund (row) {
             // 申请条件 不等于待付款、订单关闭，订单可申请售后，订单没有申请过售后

@@ -1,4 +1,4 @@
-export enum sessionEnum {
+export enum SessionEnum {
     // 身份校验时间
     validateIdentityTime = 'VALIDATE_IDENTITY_TIME',
     // 微信授权STATE

@@ -1,31 +1,26 @@
-/* 注册相关 */
-
-export const SET_CODEPASS = 'SET_CODEPASS'
-export const SET_CODESHOW = 'SET_CODESHOW'
-export const SET_LOGININFO = 'SET_LOGININFO'
-export const SET_POWER_LIST = 'SET_POWER_LIST'
-export const AGENCY_USER_INFO = 'AGENCY_USER_INFO'
-export const LOGOUT = 'LOGOUT'
-export const GET_AGENCY_LIST = 'GET_AGENCY_LIST'
-export const GET_ACCOUNT_INFO = 'GET_ACCOUNT_INFO'
-export const SET_CURRENT_AGENCY = 'SET_CURRENT_AGENCY'
-export const V_MERCHANT_STATUS = 'V_MERCHANT_STATUS'
-export const UPGRADE_STATUS = 'UPGRADE_STATUS'
-export const GET_ALL_MALL_INFO = 'GET_ALL_MALL_INFO'
-export const HAS_GET_ALL_MALL_INFO = 'HAS_GET_ALL_MALL_INFO'
-
-/* 商品管理 */
-export const GET_CLASSIFY_TREE = 'GET_CLASSIFY_TREE'
-export const GET_PRODUCT_CLASSIFY_TREE = 'GET_PRODUCT_CLASSIFY_TREE'
-export const GET_COURSE_CLASSIFY_TREE = 'GET_COURSE_CLASSIFY_TREE'
-export const GET_RECEIVE_ADDRESS = 'GET_RECEIVE_ADDRESS'
-export const GET_RETURN_ADDRESS = 'GET_RETURN_ADDRESS'
-export const WECHAT_PAY_STATUS = 'WECHAT_PAY_STATUS'
-
-export const UNBIND_WECHAT = 'UNBIND_WECHAT'
-
-/* 授权code */
-export const SET_AUTH_CODE = 'SET_AUTH_CODE'
-
-/* 营销中心活动信息 */
-export const GET_MRKET_STATU_AUTH = 'GET_MRKET_STATU_AUTH'
+export enum MutationTypes {
+    setCodePass = 'SET_CODEPASS',
+    setCodeShow = 'SET_CODESHOW',
+    setLoginInfo = 'SET_LOGININFO',
+    setPowerList = 'SET_POWER_LIST',
+    agencyUserInfo = 'AGENCY_USER_INFO',
+    logout = 'LOGOUT',
+    getAgencyList = 'GET_AGENCY_LIST',
+    getAccountInfo = 'GET_ACCOUNT_INFO',
+    setCurrentAgency = 'SET_CURRENT_AGENCY',
+    // vMerchantStatus = 'V_MERCHANT_STATUS',
+    // upgradeStatus = 'UPGRADE_STATUS',
+    getAllMallInfo = 'GET_ALL_MALL_INFO',
+    hasGetAllMallInfo = 'HAS_GET_ALL_MALL_INFO',
+    // 商品管理
+    getClassifyTree = 'GET_CLASSIFY_TREE',
+    getProductClassifyTree = 'GET_PRODUCT_CLASSIFY_TREE',
+    getCourseClassifyTree = 'GET_COURSE_CLASSIFY_TREE',
+    getReceiveAddress = 'GET_RECEIVE_ADDRESS',
+    getReturnAddress = 'GET_RETURN_ADDRESS',
+    wechatPayStatus = 'WECHAT_PAY_STATUS',
+    // unbindWechat = 'UNBIND_WECHAT',
+    // setAuthCode = 'SET_AUTH_CODE',
+    // 营销中心活动信息
+    getMarketStatusAuth = 'GET_MARKET_STATUS_AUTH',
+}

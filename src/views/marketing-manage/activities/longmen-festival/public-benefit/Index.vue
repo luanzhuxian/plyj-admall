@@ -71,7 +71,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../../store/mutation-type'
+import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'LongmenPublicBenefit',
     data () {
@@ -81,24 +81,24 @@ export default {
     },
     async created () {
         try {
-            if (!this.mrketStatuAuth) {
-                await this[GET_MRKET_STATU_AUTH]()
+            if (!this.marketStatusAuth) {
+                await this[MutationTypes.getMarketStatusAuth]()
             }
         } catch (e) { throw e }
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         }),
         showTop () {
             return this.$route.name === 'LongmenPublicBenefitList'
         },
         publicBenefitInformation () {
-            if (!this.mrketStatuAuth || !this.mrketStatuAuth.find(({ programId }) => programId === '6')) return {}
-            const { createTime = '', validity = '' } = this.mrketStatuAuth.find(({ programId }) => programId === '6')
+            if (!this.marketStatusAuth || !this.marketStatusAuth.find(({ programId }) => programId === '6')) return {}
+            const { createTime = '', validity = '' } = this.marketStatusAuth.find(({ programId }) => programId === '6')
             return { createTime, validity }
         }
     }

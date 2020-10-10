@@ -48,6 +48,7 @@
 import { Component, Vue, Emit, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { testAccount } from '@/assets/ts/validate'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
 @Component
@@ -73,8 +74,8 @@ export default class PasswordLogin extends Vue {
 
     @Prop(Boolean) codeShow!: boolean;
     @userModule.Getter('codePass') codePass!: boolean
-    @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
-    @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
+    @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
+    @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
     @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
 
     @Emit('emitLogin')

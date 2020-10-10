@@ -1,21 +1,21 @@
-import * as types from './../mutation-type'
 import { getmMrketStatuAuth } from '../../apis/marketing-manage/gameplay'
 import { Module } from 'vuex'
+import { MutationTypes } from '@/store/mutation-type'
 
 const account: Module<DynamicObject, DynamicObject> = {
     state: {
-        mrketStatuAuth: []
+        marketStatusAuth: []
     },
     mutations: {
-        [types.GET_MRKET_STATU_AUTH] (state, payload) {
-            state.mrketStatuAuth = payload
+        [MutationTypes.getMarketStatusAuth] (state, payload) {
+            state.marketStatusAuth = payload
         }
     },
     actions: {
-        async [types.GET_MRKET_STATU_AUTH] ({ commit }) {
+        async [MutationTypes.getMarketStatusAuth] ({ commit }) {
             try {
                 const { result } = await getmMrketStatuAuth()
-                commit(types.GET_MRKET_STATU_AUTH, result)
+                commit(MutationTypes.getMarketStatusAuth, result)
             } catch (e) {
                 throw e
             }
@@ -23,7 +23,7 @@ const account: Module<DynamicObject, DynamicObject> = {
     },
     getters: {
     // 营销中心公共活动信息及状态
-        mrketStatuAuth: state => state.mrketStatuAuth
+        marketStatusAuth: state => state.marketStatusAuth
     }
 }
 export default {

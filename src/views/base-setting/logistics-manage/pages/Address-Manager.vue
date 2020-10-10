@@ -99,10 +99,10 @@
 import {
     deleteAddress
 } from '../../../../apis/address'
-import { GET_RECEIVE_ADDRESS, GET_RETURN_ADDRESS } from '../../../../store/mutation-type'
 import NewAddress from '../../../../components/base-setting/logistics-manage/New-address.vue'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
+import { MutationTypes } from '@/store/mutation-type'
 const goodModule = namespace('goods')
 
 @Component({
@@ -118,8 +118,8 @@ export default class AddressManager extends Vue {
     showAddAddress = false
     @goodModule.Getter('receiveAddressList') receiveAddressList!: any[]
     @goodModule.Getter('returnAddressList') returnAddressList!: any[]
-    @goodModule.Action(GET_RECEIVE_ADDRESS) getReceiveAddress!: Function
-    @goodModule.Action(GET_RETURN_ADDRESS) getReturnAddress!: Function
+    @goodModule.Action(MutationTypes.getReceiveAddress) getReceiveAddress!: Function
+    @goodModule.Action(MutationTypes.getReturnAddress) getReturnAddress!: Function
 
     @Watch('$route')
     onRouteChange () {
@@ -165,10 +165,6 @@ export default class AddressManager extends Vue {
         this.form = {}
         this.sequenceNbr = ''
     }
-    // methods: {
-    //     ...mapActions([GET_RECEIVE_ADDRESS, GET_RETURN_ADDRESS]),
-    //
-    // }
 }
 </script>
 

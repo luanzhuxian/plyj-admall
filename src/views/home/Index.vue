@@ -185,7 +185,6 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { AGENCY_USER_INFO } from '../../store/mutation-type'
 import Panel from '../../components/common/Panel.vue'
 import CreateMall from '../../components/common/select-mall/Create-Mall.vue'
 import {
@@ -196,6 +195,7 @@ import {
 import { getWaitWarrantyResource } from '../../apis/product-center/online-teaching/library-repository'
 import { getNotificationList, markReaded } from '../../apis/base/message'
 import { getAuthUrl, setAuthCode } from '../../apis/base/register'
+import { MutationTypes } from '@/store/mutation-type'
 
 const user = namespace('user')
 
@@ -341,7 +341,7 @@ export default class Home extends Vue {
     @user.Getter currentStep!: number
     @user.Getter regType!: number
     @user.Getter agencyList!: any
-    @user.Getter vMerchantStatus!: DynamicObject
+    // @user.Getter vMerchantStatus!: DynamicObject
     @user.Getter upgradeStatus!: DynamicObject
     @user.Getter wechatPayStatus!: DynamicObject
 
@@ -384,7 +384,7 @@ export default class Home extends Vue {
     }
 
     /* methods */
-    @user.Action [AGENCY_USER_INFO]: () => void
+    @user.Action [MutationTypes.agencyUserInfo]: () => void
 
     // 获取送课的资源
     async getWaitWarrantyResource () {
@@ -542,7 +542,7 @@ export default class Home extends Vue {
             this.repeatAuth('授权失败，请重试')
             throw e
         } finally {
-            this.AGENCY_USER_INFO()
+            this[MutationTypes.agencyUserInfo]()
         }
     }
 

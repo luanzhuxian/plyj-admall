@@ -566,9 +566,9 @@ import SelectCategory from '../../../../components/product-center/category-manag
 import Draggable from '../../../../components/common/draggable'
 import MainImageTheme from '../../../../components/product-center/goods/Main-Image-Theme.vue'
 import { mapGetters, mapActions } from 'vuex'
-import { GET_RETURN_ADDRESS } from '../../../../store/mutation-type'
 import { deleteImage } from '../../../../assets/ts/upload'
 import moment from 'moment'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'AddCourses',
     components: {
@@ -754,7 +754,7 @@ export default {
             await this.init()
             await this.getTemplateList()
             if (!this.returnAddressList.length) {
-                await this[GET_RETURN_ADDRESS]()
+                await this.getReturnAddress()
             }
             this.hasPingXuan = await this.getPingXuan()
             if (this.form.showBranding === 4) {
@@ -777,7 +777,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            GET_RETURN_ADDRESS: 'goods/GET_RETURN_ADDRESS'
+            getReturnAddress: `goods/${ MutationTypes.getReturnAddress }`
         }),
         beforeunload (e) {
             e.returnValue = '123'

@@ -100,6 +100,7 @@ import {
     upload,
     deleteImage
 } from '../../../assets/ts/upload'
+import { MutationTypes } from '@/store/mutation-type'
 export default {
     name: 'EditMain',
     components: {
@@ -248,7 +249,7 @@ export default {
                     this.$success('分类添加成功')
                 }
                 this.close()
-                await this.$store.dispatch('GET_CLASSIFY_TREE', this.goodType ? 2 : 1)
+                await this.$store.dispatch(MutationTypes.getClassifyTree, this.goodType ? 2 : 1)
                 this.$emit('success', result)
             } catch (e) {
                 throw e

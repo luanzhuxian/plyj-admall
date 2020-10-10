@@ -8,7 +8,7 @@
 
 import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'NewYearTogetherBuy',
     data () {
@@ -19,23 +19,23 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     async activated () {
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) {
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) {
             this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
             return
         }
         // 团购信息
-        const information = this.mrketStatuAuth.find(({ programId }) => programId === this.programId)
+        const information = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
         const status = !!(information && moment(information.validity).valueOf() > moment().valueOf())
         // 判断当前活动是否购买
         if (!status) this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

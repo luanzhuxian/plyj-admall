@@ -45,6 +45,7 @@ import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import { forgetPassword } from '../../../apis/base/register'
 import { Getter, namespace } from 'vuex-class'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
 @Component
@@ -75,8 +76,8 @@ export default class ForgetPassword extends Vue {
         timer: any = null
         loading = false
         @userModule.Getter('codePass') codePass!: boolean
-        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
-        @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
+        @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
+        @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
         @Getter smsType!: string[]
 
         @Emit('codeShowFoo')

@@ -3,7 +3,7 @@ import Cookie from './storage-cookie'
 import store from '../../store'
 import { router } from '../../router'
 import { Loading } from 'admall-element'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
 
 interface ResData {
     message: string;
@@ -109,7 +109,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         Cookie.remove('refresh_token')
         Cookie.remove('agencyCode')
         Cookie.remove('mallId')
-        sessionStorage.removeItem(sessionEnum.currentStep)
+        sessionStorage.removeItem(SessionEnum.currentStep)
         await router.push({ name: 'PhoneLogin' })
         return Promise.reject(false)
     }

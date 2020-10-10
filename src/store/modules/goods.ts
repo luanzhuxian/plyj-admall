@@ -1,13 +1,7 @@
 import { getCategoryTree, getCourseCategory } from '../../apis/product-center/goods'
 import { getAddress } from '../../apis/address'
-import {
-    GET_PRODUCT_CLASSIFY_TREE,
-    GET_COURSE_CLASSIFY_TREE,
-    GET_CLASSIFY_TREE,
-    GET_RECEIVE_ADDRESS,
-    GET_RETURN_ADDRESS
-} from '../mutation-type'
 import { Module } from 'vuex'
+import { MutationTypes } from '@/store/mutation-type'
 
 /**
  * 为树结构数据设置叶子节点标记
@@ -33,7 +27,7 @@ const goodsManage: Module<DynamicObject, DynamicObject> = {
 
     mutations: {
     // 获取所有分类
-        [GET_CLASSIFY_TREE]: (state, payload = {}) => {
+        [MutationTypes.getClassifyTree]: (state, payload = {}) => {
             const { courseCategory = [], goodsCategory = [] } = payload
             setTreeLeaf(goodsCategory)
             setTreeLeaf(courseCategory)
@@ -41,22 +35,22 @@ const goodsManage: Module<DynamicObject, DynamicObject> = {
             if (courseCategory.length) state.courseCategoryTree = courseCategory
         },
         // 获取商品分类
-        [GET_PRODUCT_CLASSIFY_TREE]: (state, goodsCategory) => {
+        [MutationTypes.getProductClassifyTree]: (state, goodsCategory) => {
             setTreeLeaf(goodsCategory)
             state.categoryTree = goodsCategory || []
         },
         // 获取课程分类
-        [GET_COURSE_CLASSIFY_TREE]: (state, courseCategoryTree) => {
+        [MutationTypes.getCourseClassifyTree]: (state, courseCategoryTree) => {
             setTreeLeaf(courseCategoryTree)
             state.courseCategoryTree = courseCategoryTree || []
         },
         // 获取地址
-        [GET_RECEIVE_ADDRESS]: (state, payload) => {
+        [MutationTypes.getReceiveAddress]: (state, payload) => {
             if (Array.isArray(payload)) {
                 state.receiveAddressList = payload
             }
         },
-        [GET_RETURN_ADDRESS]: (state, payload) => {
+        [MutationTypes.getReturnAddress]: (state, payload) => {
             if (Array.isArray(payload)) {
                 state.returnAddressList = payload
             }
@@ -70,30 +64,30 @@ const goodsManage: Module<DynamicObject, DynamicObject> = {
          * @param type {number} 1 商品分类 2 课程分类
          * @return {Promise<void>}
          */
-        [GET_CLASSIFY_TREE]: async ({ commit }, type) => {
+        [MutationTypes.getClassifyTree]: async ({ commit }, type) => {
             if (type === 1) {
                 const { result: goodsCategory } = await getCategoryTree()
-                commit(GET_PRODUCT_CLASSIFY_TREE, goodsCategory)
+                commit(MutationTypes.getProductClassifyTree, goodsCategory)
             } else if (type === 2) {
                 const { result: courseCategory } = await getCourseCategory()
-                commit(GET_COURSE_CLASSIFY_TREE, courseCategory)
+                commit(MutationTypes.getCourseClassifyTree, courseCategory)
             } else {
                 const { result: courseCategory } = await getCourseCategory()
                 const { result: goodsCategory } = await getCategoryTree()
-                commit(GET_CLASSIFY_TREE, { goodsCategory, courseCategory })
+                commit(MutationTypes.getClassifyTree, { goodsCategory, courseCategory })
             }
         },
 
         /* 用户发货地址 */
-        [GET_RECEIVE_ADDRESS]: async ({ commit }) => {
+        [MutationTypes.getReceiveAddress]: async ({ commit }) => {
             const { result } = await getAddress(1)
-            commit(GET_RECEIVE_ADDRESS, result)
+            commit(MutationTypes.getReceiveAddress, result)
         },
 
         /* 用户退货地址 */
-        [GET_RETURN_ADDRESS]: async ({ commit }) => {
+        [MutationTypes.getReturnAddress]: async ({ commit }) => {
             const { result } = await getAddress(3)
-            commit(GET_RETURN_ADDRESS, result)
+            commit(MutationTypes.getReturnAddress, result)
         }
     },
     getters: {

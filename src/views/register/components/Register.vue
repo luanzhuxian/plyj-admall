@@ -91,7 +91,8 @@ import { Component, Vue, Emit } from 'vue-property-decorator'
 import { getVerifyCodeFunc } from '../../../apis/common'
 import Agreement from '../../../components/register/Agreement.vue'
 import { Getter, namespace } from 'vuex-class'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
     @Component({
@@ -160,8 +161,8 @@ export default class Register extends Vue {
         timer: any = null
         loading = false
         @userModule.Getter('codePass') codePass!: boolean
-        @userModule.Mutation('SET_CODEPASS') setCodePass!: Function
-        @userModule.Mutation('SET_CODESHOW') setCodeShow!: Function
+        @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
+        @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
         @userModule.Action('register') register!: (form: Record<string, any>) => void
         @Getter smsType!: string[]
 
@@ -171,7 +172,7 @@ export default class Register extends Vue {
         }
 
         mounted (): void {
-            this.form.wxCode = sessionStorage.getItem(sessionEnum.redirectCode) || ''
+            this.form.wxCode = sessionStorage.getItem(SessionEnum.redirectCode) || ''
             this.setCodePass(false)
             document.addEventListener('keydown', this.keyupEnter)
         }

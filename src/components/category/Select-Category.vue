@@ -29,6 +29,7 @@
 import { mapGetters } from 'vuex'
 import EditMain from './Edit-Main.vue'
 import EditSubset from './Edit-Subset.vue'
+import { MutationTypes } from '../../store/mutation-type'
 export default {
     name: 'SelectCategory',
     components: {
@@ -137,7 +138,7 @@ export default {
     methods: {
         async getTree () {
             try {
-                await this.$store.dispatch('GET_CLASSIFY_TREE')
+                await this.$store.dispatch(MutationTypes.getClassifyTree)
             } catch (e) {
                 throw e
             }

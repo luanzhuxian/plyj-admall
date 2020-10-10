@@ -229,8 +229,8 @@ import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import SchemeLabel from '../components/Scheme-Label.vue'
 import SchemePack from '../components/Scheme-Pack.vue'
-import { GET_MRKET_STATU_AUTH } from '../../../store/mutation-type'
 import { getActivitiesInfo, getActivityAuth } from '../../../apis/marketing-manage/gameplay'
+import { MutationTypes } from '@/store/mutation-type'
 const account = namespace('account')
 
 interface Menu {
@@ -257,8 +257,8 @@ interface ActivityCounts {
 })
 
 export default class Gameplay extends Vue {
-    @account.Getter mrketStatuAuth!: any[]
-    @account.Action(GET_MRKET_STATU_AUTH) GET_MRKET_STATU_AUTH: any
+    @account.Getter marketStatusAuth!: any[]
+    @account.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth: any
 
     dlgExpired = false
     dlgUnOpened = false
@@ -334,11 +334,11 @@ export default class Gameplay extends Vue {
     }
 
     private async getmMrketStatuAuth () {
-        await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) return
+        await this.getMarketStatusAuth()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
 
         const timeNow = moment().valueOf()
-        const { mrketStatuAuth, activitys } = this
+        const { marketStatusAuth, activitys } = this
         const info: any = {
             compound: '1',
             dumplings: '2',
@@ -351,7 +351,7 @@ export default class Gameplay extends Vue {
         }
 
         for (const key of Object.keys(info)) {
-            const data = mrketStatuAuth.find(({ programId }) => programId === info[key])
+            const data = marketStatusAuth.find(({ programId }) => programId === info[key])
             const status = !!(data && moment(data.validity).valueOf() > timeNow)
             activitys[key] = {
                 data,

@@ -271,6 +271,7 @@ import {
     courseGoodSort,
     goodSort
 } from '../../../apis/product-center/category'
+import { MutationTypes } from '../../../store/mutation-type'
 export default {
     name: 'Category',
     components: {
@@ -333,7 +334,7 @@ export default {
          */
         async getTree (type = '') {
             try {
-                await this.$store.dispatch('goods/GET_CLASSIFY_TREE', type)
+                await this.$store.dispatch(`goods/${ MutationTypes.getClassifyTree }`, type)
             } catch (e) {
                 throw e
             }

@@ -78,7 +78,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'CoursePackage',
     data () {
@@ -97,18 +97,18 @@ export default {
             return 'activityStatus' in this.$route.query ? Number(this.$route.query.activityStatus) : -1
         },
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     async activated () {
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) return
-        const compoundInformation = this.mrketStatuAuth.find(({ programId }) => programId === '1')
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
+        const compoundInformation = this.marketStatusAuth.find(({ programId }) => programId === '1')
         this.start = compoundInformation.createTime || ''
         this.end = compoundInformation.validity || ''
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

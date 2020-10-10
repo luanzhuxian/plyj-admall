@@ -9,8 +9,8 @@ import {
     submitWechatPay
 } from '../../../../apis/base/register'
 import Detail from './Detail.vue'
-import { WECHAT_PAY_STATUS, AGENCY_USER_INFO } from '../../../../store/mutation-type'
 import { mapActions } from 'vuex'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'Confirm',
     components: {
@@ -29,12 +29,12 @@ export default {
         }
     },
     methods: {
-        ...mapActions([WECHAT_PAY_STATUS, AGENCY_USER_INFO]),
+        ...mapActions([MutationTypes.wechatPayStatus, MutationTypes.agencyUserInfo]),
         async submit () {
             try {
                 const res = await submitWechatPay(this.detail)
-                await this[WECHAT_PAY_STATUS]()
-                await this[AGENCY_USER_INFO]()
+                await this[MutationTypes.wechatPayStatus]()
+                await this[MutationTypes.agencyUserInfo]()
                 return res
             } catch (e) {
                 if (e) throw e

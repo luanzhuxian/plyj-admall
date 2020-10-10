@@ -35,7 +35,8 @@ import OnlineTeachingNavbar from './components/common/layout/Online-Teaching-Nav
 import Header from './components/common/layout/Header.vue'
 import Header2 from './components/common/layout/Header2.vue'
 import { Getter, Mutation, namespace } from 'vuex-class'
-import { sessionEnum } from '@/enum/storage'
+import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 Component.registerHooks([
     'beforeRouteEnter',
     'beforeRouteLeave',
@@ -100,17 +101,17 @@ export default class App extends Vue {
     @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('allLoaded') allLoaded!: boolean
     @userModule.Getter('agencyCode') agencyCode!: string
-    @userModule.Action('SET_LOGININFO') SET_LOGININFO!: Function
-    @userModule.Action('GET_ALL_MALL_INFO') GET_ALL_MALL_INFO!: Function
-    @userModule.Action('GET_AGENCY_LIST') GET_AGENCY_LIST!: Function
-    @goodsModule.Action('GET_CLASSIFY_TREE') getClassifyTree!: Function
+    @userModule.Action(MutationTypes.setLoginInfo) setLoginInfo!: Function
+    @userModule.Action(MutationTypes.getAllMallInfo) getAllMallInfo!: Function
+    @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
+    @goodsModule.Action(MutationTypes.getClassifyTree) getClassifyTree!: Function
 
     @Mutation('changeNavBarName') changeNavBarName!: Function
-    @userModule.Mutation('LOGOUT') LOGOUT!: Function
+    @userModule.Mutation(MutationTypes.logout) logout!: Function
 
     created () {
         try {
-            const code = sessionStorage.getItem(sessionEnum.redirectCode)
+            const code = sessionStorage.getItem(SessionEnum.redirectCode)
             if (!code) this.step()
         } catch (e) {
             throw e
@@ -128,14 +129,14 @@ export default class App extends Vue {
         }
         // 没有选中机构
         if (!this.agencyCode && !this.NOLOGIN.includes(this.routeName as string)) {
-            this.LOGOUT()
+            this.logout()
             return
         }
         try {
-            this.SET_LOGININFO()
+            this.setLoginInfo()
             // 刷新登录信息缓存时效
-            await this.GET_AGENCY_LIST()
-            await this.GET_ALL_MALL_INFO()
+            await this.getAgencyList()
+            await this.getAllMallInfo()
             // this.loaded = true
             await this.getClassifyTree()
             // startQiankun()

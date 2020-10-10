@@ -2,7 +2,7 @@
  * 发送验证码以校验身份
  */
 import ValidateIdentityComponent from './Main.vue'
-import { sessionEnum } from '../../../enum/storage'
+import { SessionEnum } from '../../../enum/storage'
 import Vue from 'vue'
 interface ValidateIdentityClass {
     show: boolean;
@@ -20,7 +20,7 @@ const validate = (mobile: string) => {
     Instance.mobile = mobile
     document.body.appendChild(Instance.$el)
     return new Promise((resolve, reject) => {
-        const TIME = Number(sessionStorage.getItem(sessionEnum.validateIdentityTime)) || 0
+        const TIME = Number(sessionStorage.getItem(SessionEnum.validateIdentityTime)) || 0
         // 如果校验的时间未超过30分钟，则本次不校验
         if (Date.now() - TIME < 30 * 1000 * 60) {
             resolve(true)
@@ -32,7 +32,7 @@ const validate = (mobile: string) => {
         })
         Instance.$on('passed', () => {
             resolve(true)
-            sessionStorage.setItem(sessionEnum.validateIdentityTime, String(Date.now()))
+            sessionStorage.setItem(SessionEnum.validateIdentityTime, String(Date.now()))
         })
     })
 }

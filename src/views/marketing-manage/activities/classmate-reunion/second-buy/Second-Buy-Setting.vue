@@ -56,7 +56,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../../store/mutation-type'
+import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'SecondBuySetting',
     data () {
@@ -68,19 +68,19 @@ export default {
     computed: {
         ...mapGetters({
             mallUrl: 'user/mallUrl',
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     async created () {
-        if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-        if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) return
-        const secondBuyInformation = this.mrketStatuAuth.find(({ programId }) => programId === '3')
+        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
+        const secondBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '3')
         this.start = secondBuyInformation.createTime || ''
         this.end = secondBuyInformation.validity || ''
         this.getList()
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

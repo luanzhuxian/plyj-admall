@@ -35,7 +35,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'RedeemCodeList',
     data () {
@@ -46,14 +46,14 @@ export default {
     },
     computed: {
         ...mapGetters({
-            mrketStatuAuth: 'account/mrketStatuAuth'
+            marketStatusAuth: 'account/marketStatusAuth'
         })
     },
     async mounted () {
         try {
-            if (!this.mrketStatuAuth) await this[GET_MRKET_STATU_AUTH]()
-            if (!this.mrketStatuAuth || !this.mrketStatuAuth.length) return
-            const redeemCodeInformation = this.mrketStatuAuth.find(({ programId }) => programId === '8')
+            if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
+            const redeemCodeInformation = this.marketStatusAuth.find(({ programId }) => programId === '8')
             this.start = (redeemCodeInformation && redeemCodeInformation.createTime) || ''
             this.end = (redeemCodeInformation && redeemCodeInformation.validity) || ''
         } catch (e) {
@@ -61,7 +61,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

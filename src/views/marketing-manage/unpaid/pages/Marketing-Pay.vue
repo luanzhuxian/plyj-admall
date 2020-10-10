@@ -149,7 +149,7 @@ import Agreement from '../../../../components/register/Agreement'
 import { retryFalidOrder } from '../../../../product-center/online-teaching/live'
 import { getBaseMarket, getMarketPayCode, getMarketPayStatus } from '../../../../apis/marketing-manage/gameplay'
 import { mapActions } from 'vuex'
-import { GET_MRKET_STATU_AUTH } from '../../../../store/mutation-type'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'CoursePackagePay',
     components: { Agreement },
@@ -208,7 +208,7 @@ export default {
         clearInterval(this.timer)
     },
     methods: {
-        ...mapActions([GET_MRKET_STATU_AUTH]),
+        ...mapActions([MutationTypes.getMarketStatusAuth]),
         // 查询年年翻活动详情
         async getBaseMarket () {
             try {
@@ -249,7 +249,7 @@ export default {
                 // 支付成功后，退出到入口页面
                 if (payStatus === 'FINISHED' && rechargeStatus === 'SUCCESS') {
                     await this.$success('支付成功')
-                    await this[GET_MRKET_STATU_AUTH]()
+                    await this[MutationTypes.getMarketStatusAuth]()
                     this.payDone()
                 }
             } catch (e) {
