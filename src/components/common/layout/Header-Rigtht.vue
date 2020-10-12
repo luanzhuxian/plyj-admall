@@ -121,12 +121,7 @@ export default class HeaderRigtht extends Vue {
 
     async selectMallBtn () {
         await this.getAgencyList(true)
-        const { changed, mallId } = await this.selectMall()
-        if (!mallId) {
-            // 创建店铺
-            this.showCreateMall = true
-            return
-        }
+        const { changed } = await this.selectMall()
         if (changed) {
             location.replace('/')
         }

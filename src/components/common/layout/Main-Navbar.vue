@@ -178,7 +178,6 @@ export default class MainNavbar extends Vue {
     @Watch('$route', { immediate: true })
     onRouteChange (route: Route) {
         const indexs = route.matched.map(item => item.meta?.index || '')
-        console.log(indexs)
         const opened = indexs[0] || ''
         const activited = indexs[1] || ''
         if (opened) {

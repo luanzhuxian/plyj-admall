@@ -15,8 +15,6 @@
 
 <script>
 import { getTextWidth } from '../../assets/ts/utils'
-
-console.log(getTextWidth)
 export default {
     name: 'SearchBox',
     async mounted () {

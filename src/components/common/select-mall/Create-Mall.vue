@@ -6,7 +6,6 @@
         :close-on-press-escape="false"
         width="540px"
         @close="close"
-        :show-close="false"
     >
         <el-form ref="mallInfoForm" :model="mallInfoForm" :rules="mallInfoFormRules" style="padding: 0 54px;" label-width="95px" label-position="left">
             <el-form-item label="店铺名称：" prop="mallName">
