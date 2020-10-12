@@ -1,38 +1,17 @@
 <template>
     <div :class="$style.memberDetail" class="bg-white">
-        <!--        <div :class="$style.module">-->
-        <!--            <div :class="$style.moduleTitle">用户基本信息</div>-->
-        <!--            <div :class="$style.baseInfo">-->
-        <!--                <div :class="$style.right">-->
-        <!--                    <img :class="$style.avatar" width="88" :src="memberDetail.userImage" alt="">-->
-        <!--                    <div :class="$style.userTitle">-->
-        <!--                        <div :class="$style.name" v-text="memberDetail.nickName" />-->
-        <!--                        <div :class="$style.level" v-text="roleType[memberDetail.roleCode]" />-->
-        <!--                        <pl-svg :class="$style.gender" v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />-->
-        <!--                        <pl-svg :class="$style.gender" v-else-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />-->
-        <!--                        <span :class="$style.userType" v-if="memberDetail.type">-->
-        <!--                            <template v-if="memberDetail.type !== 3">-->
-        <!--                                {{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}-->
-        <!--                            </template>-->
-        <!--                            <template v-else>-->
-        <!--                                {{ memberDetail.other && memberDetail.other.split('')[0] }}-->
-        <!--                            </template>-->
-        <!--                        </span>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--用户信息-->
-        <div class="container bg-white mt-20">
-            <p class="title">用户基本信息</p>
-            <div class="header">
-                <img
-                    class="face"
-                    :src="memberDetail.userImage"
-                >
-                <div class="intro">
-                    <div class="detail">
-                        <span class="user-type" v-if="memberDetail.type">
+        <!-- 用户基本信息 -->
+        <div :class="$style.module">
+            <div :class="$style.moduleTitle">用户基本信息</div>
+            <div :class="$style.baseInfo">
+                <div :class="$style.right">
+                    <img :class="$style.avatar" :src="memberDetail.userImage" alt="">
+                    <div :class="$style.userTitle">
+                        <div :class="$style.name" v-text="memberDetail.nickName" />
+                        <div :class="$style.level" v-text="roleType[memberDetail.roleCode]" />
+                        <pl-svg :class="$style.gender" v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />
+                        <pl-svg :class="$style.gender" v-else-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                        <span :class="$style.userType" v-if="memberDetail.type">
                             <template v-if="memberDetail.type !== 3">
                                 {{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}
                             </template>
@@ -40,58 +19,67 @@
                                 {{ memberDetail.other && memberDetail.other.split('')[0] }}
                             </template>
                         </span>
-                        <span
-                            slot="right-top"
-                            class="name"
-                            v-text="memberDetail.nickName"
-                        />
-                        <template>
-                            <pl-svg v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />
-                            <pl-svg v-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
-                        </template>
                     </div>
-                    <div class="role-type">{{ isHelper ? 'Helper会员' : '普通会员' }}</div>
-                    <div
-                        class="member-type"
-                        v-text="roleType[memberDetail.roleCode]"
-                    />
                 </div>
-                <div class="info-list">
+                <div :class="$style.left">
                     <Field
                         title="手机号："
+                        inline
+                        style="margin-right: 78px;"
+                        :mb="24"
                         :text="memberDetail.mobile"
                     />
                     <Field
                         title="姓名："
+                        inline
+                        :mb="24"
                         :text="memberDetail.userName || '--'"
                     />
                     <Field
                         title="地址："
+                        :mb="24"
                         :text="memberDetail.addressPath + memberDetail.address || '--'"
                     />
-                    <div class="tag-list">
-                        <span>标签：</span>
-                        <span class="tags" v-if="memberDetail.tags && memberDetail.tags.length">
-                            <span v-for="item in memberDetail.tags" :key="item.id">{{ item && item.tagName }} </span>
-                        </span>
-                        <a @click="showAddTagDialog = true">
-                            编辑
-                        </a>
-                    </div>
                     <Field
                         title="来源："
+                        :mb="24"
+                        inline
+                        style="margin-right: 78px;"
                         :text="memberDetail.source"
                     />
-                    <div class="record">
-                        <span>记录：</span>
-                        <div class="list" v-if="memberDetail.record && memberDetail.record.length">
-                            <p v-for="item in memberDetail.record" :key="item.id">
-                                {{ item }}
-                            </p>
-                        </div>
-                    </div>
+                    <Field
+                        title="标签："
+                        inline
+                        :mb="24"
+                    >
+                        <span v-html="memberDetail.tags.slice(0, 2).map(item => `<span>${ item.tagName }</span>`).join(`<i class='${ $style.separator }'></i>`)" />
+                        <template v-if="memberDetail.tags.length >= 3">
+                            <i :class="$style.separator" />
+                            <el-popover
+                                placement="bottom-end"
+                                trigger="hover"
+                            >
+                                <ul :class="$style.tagList">
+                                    <li v-for="item of memberDetail.tags.slice(2)" :key="item.tagName" v-text="item.tagName" />
+                                </ul>
+                                <span class="pointer" slot="reference">更多</span>
+                            </el-popover>
+                        </template>
+                        <el-button style="padding-bottom: 0; padding-top: 0;" type="text" @click="showAddTagDialog = true">编辑</el-button>
+                    </Field>
+                    <Field
+                        title="记录："
+                    >
+                        <p class="mb-16">{{ memberDetail.createTime }}<span class="ml-16">注册</span></p>
+                        <p class="mb-16" v-if="memberDetail.lastLoginTime">{{ memberDetail.lastLoginTime }}<span class="ml-16">最近登录</span></p>
+                        <p class="mb-16">{{ memberDetail.lastPurchaseTime }}<span class="ml-16">最近购买</span></p>
+                    </Field>
                 </div>
             </div>
+        </div>
+
+        <div :class="$style.module">
+            <div :class="$style.moduleTitle">备注用户信息</div>
         </div>
 
         <!--备注用户信息-->
@@ -1074,7 +1062,7 @@ export default class MemberManageDetail extends Vue {
         town: '',
         addressPath: '',
         address: '',
-        tags: '',
+        tags: [],
         source: '',
         wechatNumber: '',
         email: '',
@@ -1625,15 +1613,21 @@ export default class MemberManageDetail extends Vue {
         margin-left: -7px;
     }
     .module {
+        margin-bottom: 20px;
         .module-title {
             font-size: 16px;
         }
     }
     .base-info {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
         padding: 40px 8px;
         .right {
             display: inline-flex;
+            margin-right: 23px;
             .avatar {
+                width: 88px;
                 border-radius: 50%;
                 margin-right: 15px;
             }
@@ -1670,6 +1664,20 @@ export default class MemberManageDetail extends Vue {
                 box-sizing: border-box;
             }
         }
+        .left {
+        }
+    }
+    .separator {
+        display: inline-block;
+        width: 1px;
+        height: 12px;
+        background-color: #333;
+        margin: 0 10px;
+    }
+    .tag-list {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-gap: 6px 12px;
     }
 </style>
 

@@ -1,11 +1,11 @@
 <template>
     <div
-        :class="'field ' + size"
+        :class="{ inline, field: true, size }"
         :style="{
             marginBottom: mb + 'px'
         }"
     >
-        <span
+        <div
             :style="{
                 width: titleWidth,
                 color: titleColor
@@ -13,14 +13,16 @@
             class="title"
             v-text="title"
         />
-        <span
+        <div
             :style="{
                 color: textColor,
                 ...textStyle
             }"
             class="text"
-            v-text="text"
-        />
+        >
+            <span v-if="text" v-text="text" />
+            <slot v-else />
+        </div>
     </div>
 </template>
 
@@ -42,6 +44,7 @@ export default {
                 return {}
             }
         },
+        inline: Boolean,
         titleWidth: {
             type: String,
             default: 'auto'
@@ -73,27 +76,36 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .field {
-    display: flex;
-    flex-wrap: nowrap;
-    &.middle {
-      font-size: 16px;
+    .field {
+        display: flex;
+        flex-wrap: nowrap;
+
+        &.inline {
+            display: inline-flex;
+        }
+
+        &.middle {
+            font-size: 16px;
+        }
+
+        &.small {
+            font-size: 14px;
+        }
+
+        .title {
+            display: inline-block;
+            margin-right: 18px;
+            line-height: 20px;
+            white-space: nowrap;
+        }
+
+        .text {
+            display: inline-block;
+            line-height: 20px;
+        }
+
+        &:nth-last-of-type(1) {
+            margin-bottom: 0 !important;
+        }
     }
-    &.small {
-      font-size: 14px;
-    }
-    .title {
-      display: inline-block;
-      margin-right: 10px;
-      line-height: 22px;
-      white-space: nowrap;
-    }
-    .text {
-      display: inline-block;
-      line-height: 22px;
-    }
-    &:nth-last-of-type(1) {
-      margin-bottom: 0 !important;
-    }
-  }
 </style>
