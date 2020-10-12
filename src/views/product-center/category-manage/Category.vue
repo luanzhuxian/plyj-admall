@@ -190,7 +190,7 @@
             @closed="newCategory = []; newCategoryError = ''; willRemove = [];"
             width="33%"
         >
-            <p style="margin: 24px 0;">
+            <p style="margin-bottom: 24px;">
                 该分类下有商品，分类删除后将不可恢复！您可将该分类下的所有商品将移动到<i style="color: #7472dd">其它分类</i>中
             </p>
             <el-form>

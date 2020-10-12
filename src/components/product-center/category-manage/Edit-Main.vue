@@ -92,7 +92,7 @@ import {
 } from '../../../apis/product-center/category'
 import { testCategory } from '../../../assets/ts/validate'
 import EditImage from '../../common/file/Edit-Image.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { copyFields } from '../../../assets/ts/utils'
 import ImageSelector from '../../common/file/File-Selector.vue'
 import {
@@ -196,6 +196,9 @@ export default {
         copyFields(this.form, this.data)
     },
     methods: {
+        ...mapActions({
+            getClassifyTree: `goods/${ MutationTypes.getClassifyTree }`
+        }),
         close () {
             this.form = {
                 categoryName: '',
@@ -249,7 +252,7 @@ export default {
                     this.$success('分类添加成功')
                 }
                 this.close()
-                await this.$store.dispatch(MutationTypes.getClassifyTree, this.goodType ? 2 : 1)
+                await this.getClassifyTree(this.goodType ? 2 : 1)
                 this.$emit('success', result)
             } catch (e) {
                 throw e
