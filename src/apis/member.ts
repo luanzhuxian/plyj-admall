@@ -9,8 +9,8 @@ export const getMemberList = ({ current, size, keyword, roleCode, userSource, st
 })
 
 /* Helper列表 */
-export const getHelperList = ({ keyword, ownnerUserId, current, size, auditFlag, auditStatus, loginStartTime, loginEndTime, startTime, endTime }: any) => axios.get('/apis/v2/helper', {
-    params: { keyword, ownnerUserId, current, size, auditFlag, auditStatus, loginStartTime, loginEndTime, startTime, endTime }
+export const getHelperList = ({ keyword, ownedUser, current, size, auditFlag, auditStatus, loginStartTime, loginEndTime, startTime, endTime }: any) => axios.get('/apis/v2/helper', {
+    params: { keyword, ownedUser, current, size, auditFlag, auditStatus, loginStartTime, loginEndTime, startTime, endTime }
 })
 
 /**

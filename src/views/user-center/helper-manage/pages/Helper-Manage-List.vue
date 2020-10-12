@@ -15,7 +15,7 @@
                 v-if="currentRoleCode !== 'EMPLOYEE'"
             >
                 <el-select
-                    v-model="form.ownnerUserId"
+                    v-model="form.ownedUser"
                     clearable
                     @change="search"
                     style="width: 350px"
@@ -275,7 +275,7 @@ export default class HelperManageList extends Vue {
     showDialog = false
     form = {
         keyword: '',
-        ownnerUserId: '',
+        ownedUser: '',
         current: 1,
         size: 10,
         auditFlag: true,
@@ -339,7 +339,7 @@ export default class HelperManageList extends Vue {
     restForm () {
         this.form = {
             keyword: '',
-            ownnerUserId: '',
+            ownedUser: '',
             current: 1,
             size: 10,
             auditFlag: true,
