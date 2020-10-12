@@ -145,6 +145,7 @@
                         v-else
                         ref="tagSearch"
                         v-model="tagKeyword"
+                        clearable
                         @input="getTagList"
                         @blur="hiddenTagSearch"
                         prefix-icon="el-icon-search"
