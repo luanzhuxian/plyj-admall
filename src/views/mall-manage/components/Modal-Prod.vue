@@ -37,17 +37,12 @@
                 :is-checkbox-selectable="checker"
                 @update-checkbox="onCheckboxChange"
             />
-            <div :class="$style.paginationGroup">
-                <el-pagination
-                    :class="$style.pagination"
-                    small
-                    layout="prev, pager, next"
-                    :page-size="pagination.size"
-                    :total="pagination.total"
-                    :current-page.sync="pagination.current"
-                    @current-change="onPageChange"
-                />
-            </div>
+            <Pagination
+                v-model="pagination.current"
+                :total="pagination.total"
+                :size="pagination.size"
+                @change="onPageChange"
+            />
             <div :class="$style.btnGroup">
                 <el-button type="primary" @click="confirm">
                     确定
@@ -492,12 +487,6 @@ export default class ModalProd extends Vue {
     .el-dialog {
         min-width: 790px;
     }
-    .el-dialog__body {
-        padding: 0 !important;
-    }
-    // .el-input--small .el-input__inner {
-    //     padding-left: 30px;
-    // }
 }
 
 </style>
@@ -508,39 +497,19 @@ export default class ModalProd extends Vue {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 32px;
-        border-bottom: 1px solid #e4e7ed;
 
         &-input {
             display: flex;
             align-items: center;
             position: relative;
-            input {
-                width: 180px;
-            }
         }
         button {
             margin-left: 10px;
         }
     }
 
-    .pagination-group {
-        position: relative;
-        padding: 12px 32px;
-        span {
-            font-size: 12px;
-            color: #666;
-        }
-        .pagination {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate3d(-50%, -50%, 0);
-        }
-    }
-
     .btn-group {
-        padding: 28px 0 32px;
+        margin-top: 32px;
         text-align: center;
     }
 }
