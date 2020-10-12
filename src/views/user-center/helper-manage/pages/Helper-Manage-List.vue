@@ -109,24 +109,15 @@
                                     <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
                                 </div>
                             </div>
-                            <ul class="tag">
-                                <li v-for="(tag, k) in row.userTags" :key="k">
-                                    {{ tag }}
-                                </li>
-                                <li v-if="row.userTags.length >= 3">
-                                    <el-popover
-                                        placement="bottom"
-                                        width="200"
-                                        trigger="hover">
-                                        <ul class="tag" slot="content">
-                                            <li v-for="(tag, k) in row.userTags" :key="k">
-                                                {{ tag }}
-                                            </li>
-                                        </ul>
-                                        更多
-                                    </el-popover>
-                                </li>
-                            </ul>
+                            <div class="tag">
+                                <template v-if="row.userTags && row.userTags.length">
+                                    <el-tooltip class="item" effect="dark" :content="row.userTags.join('  ')" placement="bottom">
+                                        <div>
+                                            <span v-for="(item, index) in row.userTags" :key="index">{{ item && item }} </span>
+                                        </div>
+                                    </el-tooltip>
+                                </template>
+                            </div>
                         </div>
                     </div>
 
@@ -513,14 +504,11 @@ export default class HelperManageList extends Vue {
         color: #333;
         display: flex;
     }
-    .tag{
-        display: flex;
-        height: 20px;
-        li{
-            margin-right: 6px;
-            color: #999;
-            font-size: 12px;
-        }
+    .tag {
+        margin-top: 8px;
+        width: 110px;
+        color: #999999;
+        @include elps-wrap(1);
     }
 }
 .action {
