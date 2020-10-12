@@ -297,7 +297,7 @@
                                 style="width: 300px;"
                                 @change="searchOrderList"
                                 placeholder="请输入订单号/产品名称"
-                                v-model="orderListForm.keyword"
+                                v-model.trim="orderListForm.keyword"
                             />
                         </el-form-item>
                         <el-form-item label="产品类型：">

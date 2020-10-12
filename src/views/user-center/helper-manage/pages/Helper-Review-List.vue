@@ -69,7 +69,7 @@
                         >
                         <div>
                             <div class="name">
-                                {{ row.userName }}
+                                <span class="nickName">{{ row.nickName }}</span>
                                 <div class="ml-10">
                                     <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
                                     <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
@@ -468,6 +468,10 @@ export default class HelperReviewList extends Vue {
             font-size: 14px;
             color: #333;
             display: flex;
+            .nickName{
+                max-width: 81px;
+                @include elps-wrap(1);
+            }
         }
         .tag {
             margin-top: 8px;

@@ -16,7 +16,7 @@
                     clearable
                     @change="search"
                     placeholder="请输入用户昵称/真实姓名/手机号"
-                    v-model="form.keyword"
+                    v-model.trim="form.keyword"
                     style="width: 254px;"
                 />
             </el-form-item>
