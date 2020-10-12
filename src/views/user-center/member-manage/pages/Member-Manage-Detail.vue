@@ -764,7 +764,7 @@
                     <div class="list">
                         <el-table
                             key="LineLearningList"
-                            :data="liveWatchList"
+                            :data="lineLearningList"
                             class="table-customer"
                             style="width: 100%"
                         >
@@ -1415,6 +1415,7 @@ export default class MemberManageDetail extends Vue {
         }
     }
 
+    // 直播观看记录
     async getLiveWatchList () {
         try {
             this.liveWatchListForm.mallUserId = this.userId
@@ -1489,6 +1490,7 @@ export default class MemberManageDetail extends Vue {
         }
     }
 
+    // 云课堂进度
     async getLineLearningList () {
         try {
             this.lineLearningListForm.mallUserId = this.userId

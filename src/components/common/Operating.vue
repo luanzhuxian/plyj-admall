@@ -58,6 +58,8 @@ export default class Operating extends Vue {
             text-align: left;
             padding: 12px 20px;
             font-size: 12px;
+            color: $--color-primary-blue;
+            margin: 0 !important;
             background: none;
             border: none;
         }

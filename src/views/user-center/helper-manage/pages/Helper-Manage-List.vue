@@ -166,24 +166,19 @@
                 width="200"
             >
                 <template slot-scope="{ row }">
-                    <div class="action">
-                        <a
-                            @click="showDialogBox(row)"
-                        >
-                            更改所属账号
-                        </a>
-                        |
-                        <a
-                            @click="relieve(row.mallUserId)"
-                        >
-                            降级
-                        </a>
-                        |
-                        <a
-                            @click="$router.push({ name: 'HelperPromoteDetail', params: { id: row.id, mallUserId: row.mallUserId } })">
-                            详情
-                        </a>
-                    </div>
+                    <Operating>
+                        <template slot="button-box">
+                            <el-button type="text" @click="showDialogBox(row)">
+                                更改所属账号
+                            </el-button>
+                            <el-button type="text" @click="relieve(row.mallUserId)">
+                                降级
+                            </el-button>
+                            <el-button type="text" @click="$router.push({ name: 'HelperPromoteDetail', params: { id: row.id, mallUserId: row.mallUserId } })">
+                                详情
+                            </el-button>
+                        </template>
+                    </Operating>
                 </template>
             </el-table-column>
         </el-table>
