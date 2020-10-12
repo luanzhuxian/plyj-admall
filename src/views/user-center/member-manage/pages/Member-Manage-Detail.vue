@@ -1534,9 +1534,9 @@ export default class MemberManageDetail extends Vue {
     async getLineLearningList () {
         try {
             this.lineLearningListForm.mallUserId = this.userId
-            const { result: { records, total } }: DynamicObject = await getLineLearningList(this.lineLearningListForm)
-            this.lineLearningList = records || []
-            this.lineLearningListTotal = total || 0
+            const { result } = await getLineLearningList(this.lineLearningListForm)
+            this.lineLearningList = result.records || []
+            this.lineLearningListTotal = result.total || 0
         } catch (e) {
             throw e
         }
@@ -1549,7 +1549,7 @@ export default class MemberManageDetail extends Vue {
 
     classification =[]
     changeClassification (val: DynamicObject) {
-        this.lineLearningListForm.courseCategory = val[0]
+        this.lineLearningListForm.courseCategory = val[val.length - 1]
         this.searchLineLearningList()
     }
 
