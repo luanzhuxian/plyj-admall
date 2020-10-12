@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="product-manage">
         <router-view />
     </div>
 </template>

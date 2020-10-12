@@ -15,9 +15,7 @@ export default class ProductCenter extends Vue {
 </script>
 
 <style lang="scss" module>
-
 .product-center {
     height: 100%;
 }
-
 </style>

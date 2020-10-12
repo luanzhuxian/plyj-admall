@@ -1559,9 +1559,6 @@ export default {
             }
             return true
         },
-        getReturnAddress () {
-            this.getReturnAddress()
-        },
 
         /**
      * 表单校验事件
