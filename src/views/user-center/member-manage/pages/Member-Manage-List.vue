@@ -1,5 +1,5 @@
 <template>
-    <div class="member-manage-list">
+    <div class="member-manage-list wrap">
         <!--会员数据-->
         <DataBar
             title="会员数据"

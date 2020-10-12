@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="member bg-white wrap">
         <pl-tabs
             v-show="showTabRouteName.includes($route.name)"
             :value="$route.name"

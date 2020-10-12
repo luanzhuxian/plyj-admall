@@ -1,11 +1,32 @@
 <template>
-    <div class="member-detail">
+    <div :class="$style.memberDetail" class="bg-white">
+        <div :class="$style.module">
+            <div :class="$style.moduleTitle">用户基本信息</div>
+            <div :class="$style.baseInfo">
+                <div :class="$style.right">
+                    <img :class="$style.avatar" width="88" :src="memberDetail.userImage" alt="">
+                    <div :class="$style.userTitle">
+                        <div :class="$style.name" v-text="memberDetail.nickName" />
+                        <div :class="$style.level" v-text="roleType[memberDetail.roleCode]" />
+                        <pl-svg :class="$style.gender" v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />
+                        <pl-svg :class="$style.gender" v-else-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                        <span :class="$style.userType" v-if="memberDetail.type">
+                            <template v-if="memberDetail.type !== 3">
+                                {{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}
+                            </template>
+                            <template v-else>
+                                {{ memberDetail.other && memberDetail.other.split('')[0] }}
+                            </template>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--用户信息-->
         <div class="container bg-white mt-20">
             <p class="title">用户基本信息</p>
             <div class="header">
                 <img
-                    slot="left"
                     class="face"
                     :src="memberDetail.userImage"
                 >
@@ -29,7 +50,7 @@
                             <pl-svg v-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
                         </template>
                     </div>
-                    <div class="role-type">{{ isHelper?'Helper会员':'普通会员' }}</div>
+                    <div class="role-type">{{ isHelper ? 'Helper会员' : '普通会员' }}</div>
                     <div
                         class="member-type"
                         v-text="roleType[memberDetail.roleCode]"
@@ -1599,6 +1620,59 @@ export default class MemberManageDetail extends Vue {
     }
 }
 </script>
+<style module lang="scss">
+    .member-detail {
+        padding: 14px 0;
+        margin-left: -7px;
+    }
+    .module {
+        .module-title {
+            font-size: 16px;
+        }
+    }
+    .base-info {
+        padding: 40px 8px;
+        .right {
+            display: inline-flex;
+            .avatar {
+                border-radius: 50%;
+                margin-right: 15px;
+            }
+            .user-title {
+                position: relative;
+                padding: 0 22px;
+            }
+            .name {
+                max-width: 76px;
+                @include elps();
+            }
+            .level {
+                margin-top: 7px;
+                color: #6FD79F;
+                font-size: 12px;
+            }
+            .gender {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .user-type {
+                position: absolute;
+                top: 0;
+                left: 0;
+                text-align: center;
+                width: 18px;
+                height: 18px;
+                border-radius: 5px;
+                border: 1px solid #F79F1A;
+                font-size: 12px;
+                line-height: 16px;
+                color: #F79F1A;
+                box-sizing: border-box;
+            }
+        }
+    }
+</style>
 
 <style scoped lang="scss">
     .container {
