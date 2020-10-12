@@ -36,5 +36,8 @@ export default {
             return str.replace(/(.)(.+)(.)/, '$1*****$3')
         }
         return str.replace(/(.{3})(.{4})(.+)/, '$1****$3')
+    },
+    round (value, decimals) {
+        return Number(`${ Math.round(`${ value }e${ decimals }`) }e-${ decimals }`)
     }
 } as Filter
