@@ -761,7 +761,6 @@
                                 v-model="classification"
                                 :category-type="lineLearningListForm.courseType ? lineLearningListForm.courseType : 0"
                                 @change="changeClassification"
-                                show-add
                             />
                         </el-form-item>
                         <el-form-item>
