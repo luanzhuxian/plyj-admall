@@ -129,7 +129,7 @@
                 <div class="operation-panel__item" :to="{ name: '' }">
                     <div class="operation-panel__item-name">收益总额</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.revenueTotal || 0" />
-                    <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.revenueYesterdayAdd/100 || 0}单` }}</div>
+                    <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.revenueYesterdayAdd/100 || 0}元` }}</div>
                 </div>
                 <div class="operation-panel__item" :to="{ name: '' }">
                     <div class="operation-panel__item-name">会员数</div>
@@ -153,27 +153,32 @@
                 <router-link class="to-do-panel__item" :to="{ name: 'OrderList', query: { status: 'WAIT_SHIP' } }">
                     <div class="to-do-panel__item-name">待发货订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitShip || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitShip || 0 }单` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitShip || 0 }单` }}</div>
+                    <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitShip" />
                 </router-link>
                 <router-link class="to-do-panel__item" :to="{ name: 'Backorder', query: { status: 'WaitReview' } }">
                     <div class="to-do-panel__item-name">待退款订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitRefund || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayWaitRefund || 0 }单` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitRefund || 0 }单` }}</div>
+                    <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitRefund" />
                 </router-link>
                 <router-link class="to-do-panel__item" :to="{ name: 'HelperReviewList' }">
                     <div class="to-do-panel__item-name">待审核Helper</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingReviewHelper || 0 }人` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayPendingReviewHelper || 0 }人` }}</div>
+                    <span class="to-do-panel__item-red-dot" v-if="homeInfo.pendingReviewHelper" />
                 </router-link>
                 <router-link class="to-do-panel__item" :to="{ name: 'RunbiManage', query: { status: 'AWAIT' } }">
                     <div class="to-do-panel__item-name">待审核润笔</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayShareWaitAudit || 0 }人` }}</div>
+                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayShareWaitAudit || 0 }人` }}</div>
+                    <span class="to-do-panel__item-red-dot" v-if="homeInfo.shareWaitAudit" />
                 </router-link>
                 <router-link class="to-do-panel__item" :to="{ name: 'WithdrawDepositManage', query: { status: 'AWAIT' } }">
                     <div class="to-do-panel__item-name">待提现审核</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0 }人` }}</div>
+                    <span class="to-do-panel__item-red-dot" v-if="homeInfo.pendingWithdraw" />
                 </router-link>
             </Panel>
         </div>
@@ -683,6 +688,8 @@ export default class Home extends Vue {
             // padding-left: 36px;
         }
         &__item {
+            position: relative;
+            padding: 0 5px;
             font-size: 16px;
             font-family: Microsoft YaHei UI;
             line-height: 21px;
@@ -696,6 +703,15 @@ export default class Home extends Vue {
                 margin-top: 8px;
                 font-size: 16px;
                 color: #999;
+            }
+            &-red-dot {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 4px;
+                height: 4px;
+                border-radius: 2px;
+                background-color: $--color-red-1;
             }
             &:hover {
                 .to-do-panel__item-total {

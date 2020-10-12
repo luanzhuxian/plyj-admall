@@ -62,10 +62,10 @@
         </search-box>
         <div class="mt-24" style="display: flex; justify-content: space-between; align-items: center;">
             <div v-if="$route.name !== 'DraftBox'">
-                <el-button round type="primary" @click="$router.push({name: 'AddProduct', params: { productType: 'PHYSICAL_GOODS' } })">
+                <el-button size="middle" round type="primary" @click="$router.push({name: 'AddProduct', params: { productType: 'PHYSICAL_GOODS' } })">
                     新增实体商品
                 </el-button>
-                <el-button round type="primary" @click="$router.push({name: 'AddProduct', params: { productType: 'VIRTUAL_GOODS' } })">
+                <el-button size="middle" round type="primary" @click="$router.push({name: 'AddProduct', params: { productType: 'VIRTUAL_GOODS' } })">
                     新增虚拟商品
                 </el-button>
             </div>

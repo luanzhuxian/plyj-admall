@@ -22,7 +22,7 @@
                     height="18"
                 />
                 <span>通知中心</span>
-                <i :class="$style.mark" />
+                <i v-if="messageCount" :class="$style.mark" />
             </router-link>
 
             <div :class="$style.user" @mouseenter="showPop = true" @mouseleave="showPop = false">
@@ -68,6 +68,7 @@ import { Getter, namespace } from 'vuex-class'
 import { Watch } from 'vue-property-decorator'
 import ShopModal from '@/components/common/layout/Shop-Modal.vue'
 import { MutationTypes } from '@/store/mutation-type'
+import { getNotificationSmallMark } from '../../../apis/base/message'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -80,6 +81,7 @@ export default class HeaderRigtht extends Vue {
     private mallQrcode = ''
     private showMallUrl = false
     private showPop = false
+    private messageCount = 0
 
     @userModule.Mutation(MutationTypes.logout) LOGOUT!: Function
     @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
@@ -87,12 +89,17 @@ export default class HeaderRigtht extends Vue {
     @userModule.Getter('bindPhone') bindPhone!: string
     @userModule.Getter('auditStatus') auditStatus!: string
     @userModule.Getter('currentRoleCode') currentRoleCode!: string
+    @userModule.Getter('agencyCode') agencyCode!: string
     @Getter('roleMap') roleMap!: any
 
     @Watch('$route')
     async onRouteChange () {
         this.showPop = false
         this.showMallUrl = false
+    }
+
+    async mounted () {
+        await this.getMessageCount()
     }
 
     // 退出登录
@@ -127,6 +134,13 @@ export default class HeaderRigtht extends Vue {
 
     closeShopModal () {
         this.showMallUrl = false
+    }
+
+    async getMessageCount () {
+        const { result } = await getNotificationSmallMark({
+            toAgencyCode: this.agencyCode
+        })
+        this.messageCount = Number(result) || 0
     }
 }
 </script>

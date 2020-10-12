@@ -19,7 +19,7 @@
                 <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />
                 <span>使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}</span>
             </div>
-            <el-button v-show="$route.name !== 'SpringPloughingDetailInfo' && $route.name !== 'SpringPloughingDetailData'" type="primary" round @click="$router.push({ name: 'AddSpringPloughing' })">
+            <el-button size="middle" v-show="$route.name !== 'SpringPloughingDetailInfo' && $route.name !== 'SpringPloughingDetailData'" type="primary" round @click="$router.push({ name: 'AddSpringPloughing' })">
                 新建活动 <i class="el-icon-plus" />
             </el-button>
             <el-button class="underline" type="text" @click="explainFlag = true">

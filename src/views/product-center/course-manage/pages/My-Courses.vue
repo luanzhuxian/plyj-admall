@@ -62,7 +62,7 @@
         </search-box>
         <div class="mt-24" style="display: flex; justify-content: space-between; align-items: center;">
             <div v-if="$route.name !== 'DraftBoxCourses'">
-                <el-button round type="primary" @click="$router.push({name: 'AddCourses', params: { productType: 'FORMAL_CLASS' } })">
+                <el-button size="middle" round type="primary" @click="$router.push({name: 'AddCourses', params: { productType: 'FORMAL_CLASS' } })">
                     新增课程
                 </el-button>
             </div>

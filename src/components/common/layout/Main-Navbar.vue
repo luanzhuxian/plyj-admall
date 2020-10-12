@@ -223,13 +223,13 @@ export default class MainNavbar extends Vue {
     .marketing {
         position: absolute;
         left: 0;
-        top: 500px;
+        top: 530px;
         width: 140px;
     }
     .guid {
         position: absolute;
         left: 0;
-        top: 540px;
+        top: 570px;
         width: 140px;
     }
     .icon {
