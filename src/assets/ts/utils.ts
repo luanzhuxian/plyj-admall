@@ -339,3 +339,17 @@ export const goPage = async (vm: any, { flag, list }: any, warnMessage: string, 
         })
     }
 }
+
+/**
+ * 获取文字宽度，单位px
+ * @param text {string} 文本
+ * @param fontSize {number} 字体大小
+ * @return number
+ */
+export const getTextWidth = (text: string, fontSize: number): number => {
+    const canvas = document.createElement('canvas') as HTMLCanvasElement
+    const context = canvas.getContext("2d") as CanvasRenderingContext2D
+    context.font = `${ fontSize }px Microsoft YaHei`
+    const metrics = context.measureText(text)
+    return metrics.width
+}

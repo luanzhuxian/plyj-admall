@@ -14,9 +14,13 @@
 </template>
 
 <script>
+import { getTextWidth } from '../../assets/ts/utils'
+
+console.log(getTextWidth)
 export default {
     name: 'SearchBox',
-    mounted () {
+    async mounted () {
+        await this.$nextTick()
         // 动态设置label的宽度
         // 将表单项按“列”存储，一共3列
         const form = this.$refs.form
@@ -37,7 +41,7 @@ export default {
                 if (item.isFormItem) {
                     item.formItemLabel = item.querySelector('.el-form-item__label')
                     if (item.formItemLabel) {
-                        return item.formItemLabel.offsetWidth
+                        return getTextWidth(item.formItemLabel.innerText, 14) + 14
                     }
                 }
                 return 0

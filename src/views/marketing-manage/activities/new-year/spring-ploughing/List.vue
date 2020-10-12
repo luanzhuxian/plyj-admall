@@ -9,7 +9,7 @@
 
         <search-box class="mt-24">
             <el-form-item label="搜索内容：">
-                <el-input clearable style="width: 220px;" placeholder="请输入活动名称" v-model="filter.condition" @change="getList(1)" />
+                <el-input clearable placeholder="请输入活动名称" v-model="filter.condition" @change="getList(1)" />
             </el-form-item>
             <el-form-item label="状态: ">
                 <el-select
@@ -37,7 +37,6 @@
                     clearable
                 />
             </el-form-item>
-
             <el-form-item>
                 <el-button round type="primary" @click="getList(1)">
                     查询
@@ -207,9 +206,9 @@ export default {
         async getList (page) {
             this.filter.current = page || this.filter.current
             try {
-                const { data } = await getSpringPloughingList(this.filter)
-                this.list = data.result.records
-                this.total = data.result.total
+                const { result } = await getSpringPloughingList(this.filter)
+                this.list = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }
