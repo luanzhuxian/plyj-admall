@@ -628,8 +628,8 @@ export default {
                     } else {
                         obj.id = this.form.id
                         obj.status = this.form.status
-                        const { data: res } = await editTemplate(obj)
-                        if (res.status === 200) {
+                        const { code } = await editTemplate(obj)
+                        if (code === 2000) {
                             this.clearData()
                             this.getTemplateList()
                             this.dialogVisible = false

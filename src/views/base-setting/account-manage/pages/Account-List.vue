@@ -46,7 +46,7 @@
                             </template>
                             <div :class="$style.descTip">?</div>
                         </el-tooltip>
-                        <span style="font-size: 12px; color: #999999">至多可设置4个超高级管理员</span>
+                        <span style="font-size: 12px; color: #999999">至多可设置4个高级管理员</span>
                     </div>
                     <Progress
                         :percentage="currentCount / maxCount * 100"
