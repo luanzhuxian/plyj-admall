@@ -60,16 +60,14 @@
                                 trigger="hover"
                             >
                                 <ul :class="$style.tagList">
-                                    <li v-for="item of memberDetail.tags.slice(2)" :key="item.tagName" v-text="item.tagName" />
+                                    <li v-for="item of memberDetail.tags.slice(2)" :key="item.id" v-text="item.tagName" />
                                 </ul>
                                 <span class="pointer" slot="reference">更多</span>
                             </el-popover>
                         </template>
                         <el-button style="padding-bottom: 0; padding-top: 0;" type="text" @click="showAddTagDialog = true">编辑</el-button>
                     </Field>
-                    <Field
-                        title="记录："
-                    >
+                    <Field title="记录：">
                         <p class="mb-16">{{ memberDetail.createTime }}<span class="ml-16">注册</span></p>
                         <p class="mb-16" v-if="memberDetail.lastLoginTime">{{ memberDetail.lastLoginTime }}<span class="ml-16">最近登录</span></p>
                         <p class="mb-16">{{ memberDetail.lastPurchaseTime }}<span class="ml-16">最近购买</span></p>
@@ -80,10 +78,44 @@
 
         <div :class="$style.module">
             <div :class="$style.moduleTitle">备注用户信息</div>
+            <div :class="$style.remarkInfo">
+                <el-form inline label-width="90px">
+                    <el-form-item label="真实姓名：" style="margin-right: 128px;">
+                        <span v-text="memberDetail.name || '--'" />
+                    </el-form-item>
+
+                    <el-form-item label="用户身份：" style="display: inline-block;">
+                        <span v-text="memberDetail.type === 3 ? memberDetail.other : USER_TYPE[memberDetail.type]" />
+                    </el-form-item>
+                    <br>
+                    <el-form-item label="手机号码：" style="margin-right: 116px;">
+                        <span v-text="memberDetail.mobile || '--'" />
+                    </el-form-item>
+
+                    <el-form-item label="生日：">
+                        <span>{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</span>
+                    </el-form-item>
+                    <br>
+                    <el-form-item label="微信号：" style="display: block;">
+                        <span v-text="memberDetail.wechatNumber || '--'" />
+                    </el-form-item>
+
+                    <el-form-item label="所在区域：" style="display: block;">
+                        <span v-text="(memberDetail.addressPath + memberDetail.address) || '--'" />
+                    </el-form-item>
+
+                    <el-form-item label="备注：" style="display: block;">
+                        <div class="flex">
+                            <span :class="$style.remark" v-text="memberDetail.remark" />
+                            <el-button class="pb-0 pt-0 ml-40" type="text" v-if="memberDetail.remark">查看更多</el-button>
+                        </div>
+                    </el-form-item>
+                </el-form>
+            </div>
         </div>
 
         <!--备注用户信息-->
-        <div class="container bg-white mt-20">
+        <!--<div class="container bg-white mt-20">
             <p class="title">
                 备注用户信息
                 <el-tooltip
@@ -106,15 +138,15 @@
                     <div class="text">
                         <div>
                             <span>真实姓名：</span>
-                            <span>{{ memberDetail.name || '--' }}</span>
+                            <span>{{ memberDetail.name || '&#45;&#45;' }}</span>
                         </div>
                         <div>
                             <span>用户身份：</span>
-                            <span>{{ USER_TYPE[memberDetail.type] || '--' }}</span>
+                            <span>{{ memberDetail.type === 3 ? memberDetail.other : USER_TYPE[memberDetail.type] }}</span>
                         </div>
                         <div>
                             <span>手机号码：</span>
-                            <span>{{ memberDetail.mobile || '--' }}</span>
+                            <span>{{ memberDetail.mobile || '&#45;&#45;' }}</span>
                         </div>
                         <div v-if="memberDetail.birthday">
                             <span>年龄：</span>
@@ -124,36 +156,36 @@
                             <span>生日：</span>
                             <span>
                                 <template v-if="memberDetail.birthday">{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</template>
-                                <template v-else>--</template>
+                                <template v-else>&#45;&#45;</template>
                             </span>
                         </div>
                         <div>
                             <span>性别：</span>
-                            <span>{{ GENDER[memberDetail.gender] || '--' }}</span>
+                            <span>{{ GENDER[memberDetail.gender] || '&#45;&#45;' }}</span>
                         </div>
                         <div>
                             <span>微信号：</span>
-                            <span>{{ memberDetail.wechatNumber || '--' }}</span>
+                            <span>{{ memberDetail.wechatNumber || '&#45;&#45;' }}</span>
                         </div>
                         <div>
                             <span>邮箱：</span>
-                            <span>{{ memberDetail.email || '--' }}</span>
+                            <span>{{ memberDetail.email || '&#45;&#45;' }}</span>
                         </div>
                         <div class="fill">
                             <span>所在区域：</span>
-                            <span>{{ (memberDetail.addressPath + memberDetail.address) || '--' }}</span>
+                            <span>{{ (memberDetail.addressPath + memberDetail.address) || '&#45;&#45;' }}</span>
                         </div>
                         <div v-if="memberDetail.type !== 2">
                             <span>行业：</span>
-                            <span>{{ memberDetail.industry || '--' }}</span>
+                            <span>{{ memberDetail.industry || '&#45;&#45;' }}</span>
                         </div>
                         <div v-if="memberDetail.type !== 2">
                             <span>公司：</span>
-                            <span>{{ memberDetail.company || '--' }}</span>
+                            <span>{{ memberDetail.company || '&#45;&#45;' }}</span>
                         </div>
                         <div v-if="memberDetail.type !== 2">
                             <span>职位：</span>
-                            <span>{{ memberDetail.workPosition || '--' }}</span>
+                            <span>{{ memberDetail.workPosition || '&#45;&#45;' }}</span>
                         </div>
                         <div class="fill">
                             备注：
@@ -271,7 +303,7 @@
                     </el-form>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <div class="container bg-white mt-20">
             <p class="title">
@@ -1615,6 +1647,7 @@ export default class MemberManageDetail extends Vue {
     .module {
         margin-bottom: 20px;
         .module-title {
+            font-weight: bold;
             font-size: 16px;
         }
     }
@@ -1665,6 +1698,18 @@ export default class MemberManageDetail extends Vue {
             }
         }
         .left {
+        }
+    }
+
+    .remark-info {
+        margin-top: 24px;
+        padding: 27px 32px;
+        border-radius: 20px;
+        background-color: #F5F6FA;
+        .remark {
+            display: inline-block;
+            width: 300px;
+            @include elps();
         }
     }
     .separator {
