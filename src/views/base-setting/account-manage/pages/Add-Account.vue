@@ -271,8 +271,8 @@ export default class AddAccount extends Vue {
                 throw e
             }
         } else {
-            (this.$refs.ruleForm as any).validate(async (valid: boolean) => {
-                if (!valid) return false
+            try {
+                await (this.$refs.ruleForm as HTMLFormElement).validate()
                 if (this.ruleForm.accountRole === 'EMPLOYEE') {
                     this.ruleForm.menuCode = []
                     this.ruleForm.menuCode = this.menuCode
@@ -282,22 +282,20 @@ export default class AddAccount extends Vue {
                     }
                 }
                 delete this.ruleForm.lockStatus
-                try {
-                    const res = await addAccount(this.ruleForm)
-                    if (!res.result) {
-                        this.$alert({
-                            title: '名额已满',
-                            message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`,
-                            cancelButtonText: ''
-                        })
-                        return
-                    }
-                    this.$success('新增成功')
-                    this.$router.push({ name: 'AccountList' })
-                } catch (e) {
-                    throw e
+                const res = await addAccount(this.ruleForm)
+                if (!res.result) {
+                    this.$alert({
+                        title: '名额已满',
+                        message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`,
+                        cancelButtonText: ''
+                    })
+                    return
                 }
-            })
+                this.$success('新增成功')
+                this.$router.push({ name: 'AccountList' })
+            } catch (e) {
+                throw e
+            }
         }
     }
 
