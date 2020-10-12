@@ -10,11 +10,9 @@
     >
         <template>
             <div class="add-tags__top">
-                <template v-if="!showAddInput">
-                    <el-button class="add-tags__btn" type="primary" @click="showAddInput = true">
-                        新增标签
-                    </el-button>
-                </template>
+                <el-button v-if="!showAddInput" type="primary" round size="middle" @click="showAddInput = true">
+                    新增标签
+                </el-button>
                 <template v-else>
                     <el-input
                         class="add-tags__top-input"
@@ -104,8 +102,8 @@
                 </div>
             </div>
             <div class="add-tags__bottom">
-                <el-button class="add-tags__btn" @click="confirm">
-                    确定
+                <el-button @click="confirm" type="primary" size="middle" round>
+                    确 定
                 </el-button>
             </div>
         </template>
@@ -311,14 +309,10 @@ export default {
       }
     }
 
-    &__btn {
-      width: 98px;
-    }
-
     &__top {
       display: flex;
       align-items: center;
-      padding: 0 27px 16px 27px;
+      padding: 27px 27px 16px 27px;
 
       &-input {
         width: 180px;
