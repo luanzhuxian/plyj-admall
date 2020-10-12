@@ -52,9 +52,9 @@
                         <span class="tags" v-if="helperDetail.tags && helperDetail.tags.length">
                             <span v-for="item in helperDetail.tags" :key="item.id">{{ item && item.tagName }} </span>
                         </span>
-                        <a @click="showAddTagDialog = true">
-                            编辑
-                        </a>
+                        <!--                        <a @click="showAddTagDialog = true">-->
+                        <!--                            编辑-->
+                        <!--                        </a>-->
                     </div>
                     <div class="record">
                         <span>记录：</span>
