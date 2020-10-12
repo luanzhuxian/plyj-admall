@@ -192,7 +192,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import Panel from '../../components/common/Panel.vue'
-import GiveCourse from '../../components/home/GIve-Course.vue'
+import GiveCourse from '../../components/home/Give-Course.vue'
 import CreateMall from '../../components/common/select-mall/Create-Mall.vue'
 import {
     getHomeInfo,

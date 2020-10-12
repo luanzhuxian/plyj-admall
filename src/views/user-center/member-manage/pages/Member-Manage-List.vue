@@ -223,7 +223,7 @@
                         align="right"
                         width="55"
                     />
-                    <el-table-column label="用户信息" width="250">
+                    <el-table-column label="用户信息" width="250" fixed>
                         <template #default="{ row }">
                             <div class="member-detail">
                                 <img
@@ -274,7 +274,7 @@
                         prop="purchasesNumber"
                         label="购买次数"
                     />
-                    <el-table-column label="支付总额（元）">
+                    <el-table-column label="支付总额（元）" width="120">
                         <template #default="{ row }">
                             {{ row.purchasesAmount /100 }}
                         </template>
@@ -299,6 +299,7 @@
                         width="80"
                         header-align="right"
                         align="right"
+                        fixed="right"
                     >
                         <template #default="{ row }">
                             <Operating>

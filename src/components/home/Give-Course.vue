@@ -80,7 +80,7 @@ export default class GiveCourse extends Vue {
                     id: item.courseId
                 },
                 query: {
-                    isFirstBuy: 1,
+                    isFirstBuy: '1',
                     giveRecordId: item.id
                 }
             })
