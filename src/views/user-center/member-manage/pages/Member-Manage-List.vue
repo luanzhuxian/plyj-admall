@@ -1,44 +1,14 @@
 <template>
     <div class="member-manage-list">
         <!--会员数据-->
-        <div class="data">
-            <h4>会员数据</h4>
-            <div class="data-list">
-                <div>
-                    今日新增会员
-                    <el-tooltip
-                        effect="dark"
-                        content="今日新增会员，是指当日新注册的会员数量，即当日绑定手机号的会员数量；会员包括普通会员和Helper。"
-                        placement="top-start"
-                    >
-                        <i class="el-icon-info" />
-                    </el-tooltip>
-                    <b>{{ memberData.todayUserCount }}</b>
-                </div>
-                <div>
-                    近30天新增会员
-                    <el-tooltip
-                        effect="dark"
-                        content="近30天新增会员，是指从昨日开始结算，30天内新注册会员的数量；会员包括普通会员和Helper。"
-                        placement="top-start"
-                    >
-                        <i class="el-icon-info" />
-                    </el-tooltip>
-                    <b>{{ memberData.monthUserCount }}</b>
-                </div>
-                <div>
-                    累计会员总量
-                    <el-tooltip
-                        effect="dark"
-                        content="累计会员总量，是指店铺中所有已注册会员的合计数量；会员包括普通会员和Helper。"
-                        placement="top-start"
-                    >
-                        <i class="el-icon-info" />
-                    </el-tooltip>
-                    <b>{{ memberData.count }}</b>
-                </div>
-            </div>
-        </div>
+        <DataBar
+            title="会员数据"
+            :data-list="[
+                { title: '今日新增会员', data: memberData.todayUserCount, tooltip: '今日新增会员，是指当日新注册的会员数量，即当日绑定手机号的会员数量；会员包括普通会员和Helper。' },
+                { title: '近30天新增会员', data: memberData.monthUserCount, tooltip: '近30天新增会员，是指从昨日开始结算，30天内新注册会员的数量；会员包括普通会员和Helper。' },
+                { title: '累计会员总量', data: memberData.count, tooltip: '累计会员总量，是指店铺中所有已注册会员的合计数量；会员包括普通会员和Helper。' }
+            ]"
+        />
         <!--搜索-->
         <SearchBox label-width="110px">
             <el-form-item label="关键字：">
@@ -443,6 +413,7 @@ import PlTree from '../../../../components/common/pl-tree'
 import EditMemberTag from '../components/Edit-Member-Tag.vue'
 import AddTags from '../components/Add-Tags.vue'
 import RemarkList from '../components/Remark-List.vue'
+import DataBar from '../components/Data-Bar.vue'
 
 import { throttle } from './../../../../assets/ts/utils'
 import {
@@ -464,7 +435,8 @@ import { ElForm } from 'admall-element/types/form'
         EditMemberTag,
         AddTags,
         ExportDialog,
-        RemarkList
+        RemarkList,
+        DataBar
     }
 })
 
@@ -846,22 +818,6 @@ export default class MemberManageList extends Vue {
 
 <style lang="scss" scoped>
 .member-manage-list {
-    .data {
-        font-size: 16px;
-        color: #333333;
-        .data-list {
-            display: flex;
-            margin: 20px 0 33px;
-            > div {
-                margin: 0 98px;
-                > b {
-                    display: block;
-                    font-size: 48px;
-                }
-            }
-        }
-    }
-
     .member-info {
         display: flex;
         margin-top: 33px;

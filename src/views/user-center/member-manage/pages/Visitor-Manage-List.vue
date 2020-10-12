@@ -1,22 +1,13 @@
 <template>
     <div class="member-list">
-        <div class="data">
-            <h4>游客数据</h4>
-            <div class="data-list">
-                <div>
-                    <b>{{ visitorData.todayUserCount }}</b>
-                    今日新增游客
-                </div>
-                <div>
-                    <b>{{ visitorData.monthUserCount }}</b>
-                    近30天新增游客
-                </div>
-                <div>
-                    <b>{{ visitorData.count }}</b>
-                    游客总量
-                </div>
-            </div>
-        </div>
+        <DataBar
+            title="游客数据"
+            :data-list="[
+                { title: '今日新增游客', data: visitorData.todayUserCount },
+                { title: '近30天新增游客', data: visitorData.monthUserCount },
+                { title: '游客总量', data: visitorData.count }
+            ]"
+        />
         <SearchBox>
             <el-form-item label="关键字：">
                 <el-input
@@ -125,8 +116,13 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { getYouKe, getYouKeCount } from '../../../../apis/member'
+import DataBar from '../components/Data-Bar.vue'
 
-@Component
+@Component({
+    components: {
+        DataBar
+    }
+})
 export default class VistorManageList extends Vue {
   // 数据
   leave=''
@@ -212,34 +208,19 @@ export default class VistorManageList extends Vue {
 </script>
 
 <style lang="scss" scoped>
-    .member-list{
+    .member-list {
         min-height: calc(100vh - 110px);
         padding-bottom: 30px;
         background-color: #ffffff;
     }
-    .data {
-        font-size: 16px;
-        color: #333333;
-        .data-list {
-            display: flex;
-            margin: 20px 0 33px;
-            > div {
-                margin: 0 98px;
-                > b {
-                    display: block;
-                    font-size: 48px;
-                }
-            }
-        }
-    }
-    .form-filter{
+    .form-filter {
         padding: 20px 32px;
         background: #F5F6FA;
         border-radius: 10px;
         .filter-inp{
             width: 350px;
         }
-        .filter-btns{
+        .filter-btns {
             padding-left: 96px;
             button{
                 height: 32px;
@@ -247,7 +228,7 @@ export default class VistorManageList extends Vue {
             }
         }
     }
-    .avatar{
+    .avatar {
         width: 40px;
         height: 40px;
         border-radius: 14px;
