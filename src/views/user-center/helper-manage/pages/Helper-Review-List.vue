@@ -113,7 +113,11 @@
                     <template v-if="row.ownedUser">
                         {{ row.ownedUser }}
                     </template>
-                    <span class="acc-label">{{ row.ownedRoleCode === 'ENTERPRISE_ADMIN' ? '企' : '高' }}</span>
+                    <span class="acc-label">
+                        <template v-if="row.ownedRoleCode === 'ENTERPRISE_ADMIN'">企</template>
+                        <template v-if="row.ownedRoleCode === 'EMPLOYEE'">子</template>
+                        <template v-if="row.ownedRoleCode === 'ADMIN'">高</template>
+                    </span>
                 </template>
             </el-table-column>
             <el-table-column label="审核状态">

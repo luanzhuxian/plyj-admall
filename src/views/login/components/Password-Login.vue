@@ -85,6 +85,15 @@ export default class PasswordLogin extends Vue {
 
     mounted (): void {
         this.setCodePass(false)
+        document.addEventListener('keydown', this.keyupEnter)
+    }
+
+    beforeDestroy (): void {
+        document.removeEventListener('keydown', this.keyupEnter)
+    }
+
+    keyupEnter (e: any) {
+        if (e.keyCode === 13) this.login()
     }
 
     async login () {

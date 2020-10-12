@@ -536,16 +536,16 @@ export default {
             this.invoiceAddressNewTemp.city = ''
             this.invoiceAddressNewTemp.region = ''
             if (val) {
-                const { data } = await getLocation(val)
-                this.commonAddressList.city = data.result
+                const { result } = await getLocation(val)
+                this.commonAddressList.city = result
             }
         },
         async 'invoiceAddressNewTemp.city' (val) {
             // 省市区数据中的市变动时，发送请求获取数据
             this.invoiceAddressNewTemp.region = ''
             if (val) {
-                const { data } = await getLocation(val)
-                this.commonAddressList.region = data.result
+                const { result } = await getLocation(val)
+                this.commonAddressList.region = result
             }
         },
         async 'invoiceAddressNewTemp.region' () {
@@ -583,8 +583,8 @@ export default {
                 this.invoiceForm.recvName = ''
                 this.invoiceForm.recvMobile = ''
                 this.invoiceForm.recvAddr = ''
-                const { data } = await getLocation('0')
-                this.commonAddressList.province = data.result
+                const { result } = await getLocation('0')
+                this.commonAddressList.province = result
             } else if (!this.invoiceAddressSelected) {
                 this.invoiceForm.mailingMethod = 1
                 this.invoiceForm.recvName = ''
@@ -623,9 +623,9 @@ export default {
         },
         async getCompanyMessage () {
             this.invoiceCompanyList = [{ label: '添加', value: 'add' }]
-            const { data: { result: res } } = await getEinList(this.userId)
-            if (res && res.length) {
-                for (const item of res) {
+            const { result } = await getEinList(this.userId)
+            if (result && result.length) {
+                for (const item of result) {
                     this.invoiceCompanyList.unshift({
                         label: `${ item.entName } ${ item.tin }`,
                         value: item.tin,
@@ -654,9 +654,9 @@ export default {
         // 获取发票详情
         async getInvoiceDetail () {
             try {
-                const { data: { result: res } } = await getInvoiceDetail(this.id)
-                this.invoiceOrderList = res.orderInfos
-                const { invoiceType, invoiceTitle, recvName, recvMobile, recvAddr, mobile, description, taxpayerNumber, mailingMethod } = res
+                const { result } = await getInvoiceDetail(this.id)
+                this.invoiceOrderList = result.orderInfos
+                const { invoiceType, invoiceTitle, recvName, recvMobile, recvAddr, mobile, description, taxpayerNumber, mailingMethod } = result
                 if (String(invoiceType) === '0') {
                     this.invoiceAddressNewTemp.name = invoiceTitle
                     this.invoiceAddressNewTemp.mobile = mobile
@@ -696,8 +696,8 @@ export default {
             // const { data } = await getDataDictionary('invoiceType')
             // this.invoiceTypeList = data.result
             try {
-                const { data: res } = await getDataDictionary('RECEIPTREMARKS')
-                this.invoiceMemoList = res.result
+                const { result } = await getDataDictionary('RECEIPTREMARKS')
+                this.invoiceMemoList = result
             } catch (e) {
                 throw e
             }
@@ -714,9 +714,9 @@ export default {
         async getOrderList () {
             try {
                 if (this.userId) this.orderForm.userId = this.userId
-                const { data: { result: res } } = await selectOrderForInvoice(this.orderForm)
-                this.searchOrderTable = res.records || []
-                this.searchTotal = res.total || 0
+                const { result } = await selectOrderForInvoice(this.orderForm)
+                this.searchOrderTable = result.records || []
+                this.searchTotal = result.total || 0
             } catch (e) {
                 throw e
             }
@@ -773,18 +773,18 @@ export default {
         // 获取订单的详细信息，自动生成的个人发票信息基于这个接口返回的数据
         async getOrderDetail (id) {
             try {
-                const { data } = await selectDetailInvoice({ orderId: id })
-                this.invoiceOrderList.push(data.result)
+                const { result } = await selectDetailInvoice({ orderId: id })
+                this.invoiceOrderList.push(result)
             } catch (e) {
                 throw e
             }
         },
         async getAddress (userId) {
             if (userId) {
-                const { data } = await getAddressList(userId)
+                const { result } = await getAddressList(userId)
                 const array = []
                 array.push({ label: '门店自提', value: '' })
-                for (const item of data.result) {
+                for (const item of result) {
                     array.push({ label: `${ item.realName } ${ item.mobile } ${ item.addressPrefix }${ item.agencyAddress }`, value: `${ item.realName } ${ item.mobile } ${ item.addressPrefix }${ item.agencyAddress }` })
                 }
                 this.invoiceAddressList = array
@@ -827,7 +827,7 @@ export default {
         async saveAddressNewList () {
             try {
                 if (this.invoiceAddressNewTemp.province && this.invoiceAddressNewTemp.city && this.invoiceAddressNewTemp.region && this.invoiceAddressNewTemp.addressPrefix && this.invoiceAddressNewTemp.address && this.invoiceAddressNewTemp.mobile && this.invoiceAddressNewTemp.name) {
-                    const { data } = await addAddressList({
+                    const { result } = await addAddressList({
                         userId: this.userId,
                         country: '',
                         province: this.invoiceAddressNewTemp.province,
@@ -842,13 +842,13 @@ export default {
                         type: 2
                     })
                     this.invoiceAddressList.unshift({
-                        label: `${ data.result.realName } ${ data.result.mobile } ${ data.result.addressPrefix }${ data.result.agencyAddress }`,
-                        value: data.result.sequenceNbr,
-                        name: data.result.realName,
-                        mobile: data.result.mobile,
-                        address: `${ data.result.addressPrefix }${ data.result.agencyAddress }`
+                        label: `${ result.realName } ${ result.mobile } ${ result.addressPrefix }${ result.agencyAddress }`,
+                        value: result.sequenceNbr,
+                        name: result.realName,
+                        mobile: result.mobile,
+                        address: `${ result.addressPrefix }${ result.agencyAddress }`
                     })
-                    this.invoiceAddressSelected = data.result.sequenceNbr
+                    this.invoiceAddressSelected = result.sequenceNbr
                 } else {
                     this.$error('请您填写正确的收票人地址信息')
                 }

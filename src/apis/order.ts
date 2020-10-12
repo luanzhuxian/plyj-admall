@@ -144,7 +144,7 @@ export const selectDetailInvoice = params => axios.get('/apis/v2/order/invoice/o
 export const selectInvoiceDetail = id => axios.post('/apis/v1/invoice/invoice/admin/selectInvoiceDetail', { id })
 
 // 查询企业税号公司名
-export const getEinList = userId => axios.post('/apis/v1/base/baseUserInvoice/select', { userId })
+export const getEinList = userId => axios.post('/apis/v2/base/baseUserInvoice/select', { userId })
 
 // 新增企业税号公司名
 export const addEinList = data => axios.post('/apis/v1/base/baseUserInvoice/add', data)

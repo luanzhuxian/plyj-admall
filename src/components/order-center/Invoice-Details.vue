@@ -103,7 +103,7 @@ export default {
     methods: {
         async getInvoiceDetail () {
             try {
-                const { data: { result } } = await getInvoiceDetail(this.id)
+                const { result } = await getInvoiceDetail(this.id)
                 this.data = result
                 this.title = this.orderStatusText[result.status]
             } catch (e) {
