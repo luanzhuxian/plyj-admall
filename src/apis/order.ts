@@ -150,7 +150,7 @@ export const getEinList = userId => axios.post('/apis/v2/base/baseUserInvoice/se
 export const addEinList = data => axios.post('/apis/v1/base/baseUserInvoice/add', data)
 
 // 查询用户收票地址
-export const getAddressList = userId => axios.get(`/apis/v1/publicuser/address/user/list?type=2&userId=${ userId }`)
+export const getAddressList = userId => axios.get(`/apis/v2/publicuser/address/user/list?type=2&userId=${ userId }`)
 
 // 新增用户收票地址
 export const addAddressList = data => axios.post('/apis/v1/publicuser/address/admin/add', data)
