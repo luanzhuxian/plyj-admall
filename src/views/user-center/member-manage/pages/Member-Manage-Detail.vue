@@ -1,27 +1,27 @@
 <template>
     <div :class="$style.memberDetail" class="bg-white">
-        <div :class="$style.module">
-            <div :class="$style.moduleTitle">用户基本信息</div>
-            <div :class="$style.baseInfo">
-                <div :class="$style.right">
-                    <img :class="$style.avatar" width="88" :src="memberDetail.userImage" alt="">
-                    <div :class="$style.userTitle">
-                        <div :class="$style.name" v-text="memberDetail.nickName" />
-                        <div :class="$style.level" v-text="roleType[memberDetail.roleCode]" />
-                        <pl-svg :class="$style.gender" v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />
-                        <pl-svg :class="$style.gender" v-else-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
-                        <span :class="$style.userType" v-if="memberDetail.type">
-                            <template v-if="memberDetail.type !== 3">
-                                {{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}
-                            </template>
-                            <template v-else>
-                                {{ memberDetail.other && memberDetail.other.split('')[0] }}
-                            </template>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--        <div :class="$style.module">-->
+        <!--            <div :class="$style.moduleTitle">用户基本信息</div>-->
+        <!--            <div :class="$style.baseInfo">-->
+        <!--                <div :class="$style.right">-->
+        <!--                    <img :class="$style.avatar" width="88" :src="memberDetail.userImage" alt="">-->
+        <!--                    <div :class="$style.userTitle">-->
+        <!--                        <div :class="$style.name" v-text="memberDetail.nickName" />-->
+        <!--                        <div :class="$style.level" v-text="roleType[memberDetail.roleCode]" />-->
+        <!--                        <pl-svg :class="$style.gender" v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />-->
+        <!--                        <pl-svg :class="$style.gender" v-else-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />-->
+        <!--                        <span :class="$style.userType" v-if="memberDetail.type">-->
+        <!--                            <template v-if="memberDetail.type !== 3">-->
+        <!--                                {{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}-->
+        <!--                            </template>-->
+        <!--                            <template v-else>-->
+        <!--                                {{ memberDetail.other && memberDetail.other.split('')[0] }}-->
+        <!--                            </template>-->
+        <!--                        </span>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <!--用户信息-->
         <div class="container bg-white mt-20">
             <p class="title">用户基本信息</p>
