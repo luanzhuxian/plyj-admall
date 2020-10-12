@@ -146,6 +146,7 @@ export const getTotalPrice = (item: TemplateModuleItem) => {
 
 export const findBrothersComponents = (ctx: Vue, componentName: string, exceptMe = true) => {
     // @ts-ignore
+    // 打包压缩后组件的名称会被更改，所以通过在组件 data 上添加 name 的方式来找到组件
     const list = ctx.$parent.$children.filter(item => item?.$options?.name === componentName || item.name === componentName)
     // @ts-ignore
     const index = list.findIndex(item => item._uid === ctx._uid)

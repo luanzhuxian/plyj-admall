@@ -190,6 +190,7 @@ const modalMap: DynamicObject = {
     components: { CustomTable }
 })
 export default class ModalProd extends Vue {
+    // 名字不要改
     name = 'ModalProd'
 
     /* props */

@@ -110,6 +110,7 @@ const courseChecker = (row: { status: string }) => row.status === '2'
     components: { CustomTable }
 })
 export default class ModalProdCategory extends Vue {
+    // 名字不要改
     name = 'ModalProdCategory'
 
     /* props */
