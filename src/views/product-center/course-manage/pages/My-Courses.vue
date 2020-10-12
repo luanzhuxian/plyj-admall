@@ -6,7 +6,7 @@
                     v-model="filter.productName"
                     placeholder="课程名称"
                     clearable
-                    @change="search(1)"
+                    @change="search"
                 />
             </el-form-item>
             <el-form-item label="课程分类：">
@@ -19,7 +19,7 @@
                 />
             </el-form-item>
             <el-form-item v-if="filter.productStatus !== 3" label="推荐课程：">
-                <el-select v-model="filter.recommendStatus" @change="search(1)" clearable>
+                <el-select v-model="filter.recommendStatus" @change="search" clearable>
                     <el-option
                         v-for="item in recommendStatusMap"
                         :key="item.value"
@@ -29,14 +29,14 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="课程类型：">
-                <el-select v-model="filter.productType" @change="search(1)" clearable>
+                <el-select v-model="filter.productType" @change="search" clearable>
                     <el-option v-for="item of productType" :value="item.value" :key="item.value" :label="item.label" />
                 </el-select>
             </el-form-item>
             <el-form-item label="课程状态：">
                 <el-select
                     v-model="filter.productStatus"
-                    @change="search(1)"
+                    @change="search"
                 >
                     <el-option
                         v-for="item of statusMap"
@@ -55,7 +55,7 @@
                 />
             </el-form-item>
             <el-form-item>
-                <el-button round type="primary" @click="search(1)">
+                <el-button round type="primary" @click="search">
                     查询
                 </el-button>
             </el-form-item>
@@ -85,7 +85,7 @@
             </el-button>
         </div>
         <div class="sort mt-24" v-if="$route.name !== 'DraftBoxCourses'">
-            <Sort :data="sortData" v-model="filter.sortCondition" @change="this.getGoods" />
+            <Sort :data="sortData" v-model="filter.sortCondition" @change="getGoods" />
         </div>
 
         <el-table :data="table" @selection-change="handleSelectionChange" ref="table">
@@ -690,7 +690,7 @@ export default {
         }
     },
     async created () {
-        await this.getGoods()
+        await this.search()
     },
     computed: {
         ...mapGetters({
@@ -750,9 +750,10 @@ export default {
                 throw e
             }
         },
-        async search (page) {
+        async search () {
             this.emptyText = '未搜索到相关课程'
-            await this.getGoods(page)
+            this.filter.current = 1
+            await this.getGoods()
         },
         async goEdit (row) {
             if (row.productStatus === 1 || row.productStatus === 3) {
@@ -763,9 +764,8 @@ export default {
                 this.$router.push({ name: 'EditCourses', params: { id: row.id }, query: { toName: this.$route.name } })
             }
         },
-        async getGoods (page) {
+        async getGoods () {
             try {
-                this.filter.current = page || this.filter.current
                 if (this.filter.productStatus === 3) {
                     this.filter.recommendStatus = ''
                 }
@@ -827,7 +827,7 @@ export default {
         dateChange ({ start, end }) {
             this.filter.startTime = start
             this.filter.endTime = end
-            this.search(1)
+            this.search()
         },
         handleSelectionChange (val) {
             this.multipleSelection = val
@@ -921,18 +921,14 @@ export default {
             } catch (e) {
                 throw e
             } finally {
-                this.getGoods()
+                this.search()
             }
-        },
-        async saleChange (order) {
-            this.filter.saleSort = order
-            await this.getGoods()
         },
         async categoryChange (value) {
             this.filter.categoryId = value[0] || ''
             this.filter.subCategoryId = value[1] || ''
             this.filter.current = 1
-            await this.search(1)
+            await this.search()
         },
         async showShare (row) {
             this.qrcode.qrcodeText = `${ this.mallUrl }/detail/product/${ row.id }?noCache=${ Date.now() }`
