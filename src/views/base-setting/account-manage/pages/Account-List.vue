@@ -21,8 +21,8 @@
                         企业管理员
                         <el-tooltip placement="top">
                             <template #content>
-                                账号是包括角色为企业管理员、高级管理员或自子账号的所有账号；<br>
-                                其中超级管理员仅关联1个账号；
+                                账号是包括角色为企业管理员、高级管理员或子账号的所有账号；<br>
+                                其中企业管理员仅关联1个账号；
                             </template>
                             <div :class="$style.descTip">?</div>
                         </el-tooltip>
@@ -500,14 +500,16 @@ export default class AccountList extends Vue {
                 return
             }
             this.$success('启用成功')
-            row.lockStatusText = '已启用'
-            row.lockStatus = 1
+            // row.lockStatusText = '已启用'
+            // row.lockStatus = 1
+            this.getAccounts()
         } else if (row.lockStatus === 1) {
             await this.$confirm('确认禁用此账户吗？')
             await enableAccount(params)
             this.$success('禁用成功')
-            row.lockStatusText = '已禁用'
-            row.lockStatus = 0
+            // row.lockStatusText = '已禁用'
+            // row.lockStatus = 0
+            this.getAccounts()
         }
     }
 }
