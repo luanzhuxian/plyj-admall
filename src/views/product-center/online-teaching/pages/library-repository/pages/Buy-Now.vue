@@ -122,7 +122,7 @@
 
 <script>
 import Agreement from './../../../../../../components/register/Agreement'
-import Panel from './../../../../../../components/common/Panel.vue'
+import Panel from '../../../../../../components/common/Panel.vue'
 import { getBuyDetails, buyNow, getOrderStatus, retryFalidOrder } from './../../../../../../apis/product-center/online-teaching/library-repository'
 import { mapGetters } from 'vuex'
 export default {

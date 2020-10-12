@@ -379,7 +379,7 @@
 </template>
 
 <script>
-import Panel from './../../../../../../components/common/Panel.vue'
+import Panel from '../../../../../../components/common/Panel.vue'
 import SelectVideoCourse from './../../../../../../components/select/Select-Video-Course.vue'
 import ImageManager from './../../../../../../components/common/file/Image-Manager.vue'
 import PlEditor from './../../../../../../components/common/Pl-Editor.vue'

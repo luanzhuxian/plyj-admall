@@ -184,6 +184,7 @@
         </div>
 
         <CreateMall :created-mall-show.sync="createdMallShow" />
+        <GiveCourse :show.sync="showGiveCourse" :list="giveResourceList" />
     </div>
 </template>
 
@@ -191,6 +192,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import Panel from '../../components/common/Panel.vue'
+import GiveCourse from '../../components/home/GIve-Course.vue'
 import CreateMall from '../../components/common/select-mall/Create-Mall.vue'
 import {
     getHomeInfo,
@@ -316,6 +318,7 @@ const functionsPanelTmpl = [
 @Component({
     components: {
         Panel,
+        GiveCourse,
         CreateMall
     }
 })
@@ -331,6 +334,7 @@ export default class Home extends Vue {
     private showGiveResource = false
     private showPhoneTips = false
     private createdMallShow = false
+    private showGiveCourse = false
     private countdown = '获取验证码'
     private form = {
         // 绑定的手机号
@@ -397,7 +401,7 @@ export default class Home extends Vue {
             const { result } = await getWaitWarrantyResource(0)
             this.giveResourceList = result || []
             if (result && result.length) {
-                this.showGiveResource = true
+                this.showGiveCourse = true
             }
         } catch (e) {
             throw e
