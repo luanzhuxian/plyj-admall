@@ -63,7 +63,7 @@
                     />
                     <Field
                         title="姓名："
-                        :text="memberDetail.name || '--'"
+                        :text="memberDetail.userName || '--'"
                     />
                     <Field
                         title="地址："
