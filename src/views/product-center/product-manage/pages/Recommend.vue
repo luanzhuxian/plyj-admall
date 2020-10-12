@@ -502,21 +502,21 @@ export default {
         async searchProduct () {
             try {
                 await this.checkRoute()
-                const { data } = await getAddRecommend(this.searchForm)
-                if (data && data.result && data.result.records) {
+                const { result } = await getAddRecommend(this.searchForm)
+                if (result && result.records) {
                     // 如果当前页面没有数据，且页码大于1，则请求上一页
-                    if (data.result.records.length === 0 && this.searchForm.current > 1) {
+                    if (result.records.length === 0 && this.searchForm.current > 1) {
                         this.searchForm.current--
                         this.searchProduct()
                         return
                     }
                     await this.getRecommendCurrent()
-                    for (const item of data.result.records) {
+                    for (const item of result.records) {
                         item.isSelected = false
                         item.sort = this.recommendNumberInfo.nextNumber
                     }
-                    this.searchTable = data.result.records
-                    this.searchTotal = data.result.total
+                    this.searchTable = result.records
+                    this.searchTotal = result.total
                 } else {
                     this.searchTable = []
                 }

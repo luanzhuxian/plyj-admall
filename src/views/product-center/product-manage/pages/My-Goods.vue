@@ -1039,9 +1039,9 @@ export default {
         async searchProduct (page) {
             try {
                 this.recommendedForm.current = page || this.recommendedForm.current
-                const { data } = await getRecommendProduct(this.recommendedForm)
-                this.recommendedTable = data.result.records
-                this.recommendTotal = data.result.total
+                const { result } = await getRecommendProduct(this.recommendedForm)
+                this.recommendedTable = result.records
+                this.recommendTotal = result.total
             } catch (e) {
                 throw e
             }
