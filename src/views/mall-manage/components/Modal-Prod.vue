@@ -190,6 +190,8 @@ const modalMap: DynamicObject = {
     components: { CustomTable }
 })
 export default class ModalProd extends Vue {
+    name = 'ModalProd'
+
     /* props */
     @Prop(Boolean) show!: boolean
     @Prop(String) title!: string
@@ -460,13 +462,15 @@ export default class ModalProd extends Vue {
      * @param index {Number} 在当前模块values列表中的位置
      * @param range {Array} 秒杀模块场次
      */
-    open ({ modalType, index, range = [] }: { modalType: number; index: number; range: string[] }) {
+    async open ({ modalType, index, range = [] }: { modalType: number; index: number; range: string[] }) {
         this.editorListIndex = index
         this.init(modalType)
         this.$emit('update:type', Number(modalType))
         this.$emit('update:title', modalTitleMap[modalType])
         this.$emit('update:range', range)
-        this.$nextTick(() => this.$emit('update:show', true))
+        await this.$nextTick()
+        this.$emit('update:show', true)
+        console.log(2, this.show)
     }
 }
 </script>

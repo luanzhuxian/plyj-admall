@@ -145,7 +145,8 @@ export const getTotalPrice = (item: TemplateModuleItem) => {
 }
 
 export const findBrothersComponents = (ctx: Vue, componentName: string, exceptMe = true) => {
-    const list = ctx.$parent.$children.filter(item => item?.$options?.name === componentName)
+    // @ts-ignore
+    const list = ctx.$parent.$children.filter(item => item?.$options?.name === componentName || item.name === componentName)
     // @ts-ignore
     const index = list.findIndex(item => item._uid === ctx._uid)
     if (exceptMe && index !== -1) {
