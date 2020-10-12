@@ -6,7 +6,7 @@
                     v-model="filter.productName"
                     placeholder="商品名称"
                     clearable
-                    @change="search(1)"
+                    @change="search"
                 />
             </el-form-item>
             <el-form-item label="商品分类：">
@@ -19,7 +19,7 @@
                 />
             </el-form-item>
             <el-form-item v-if="filter.productStatus !== 3" label="推荐商品：">
-                <el-select v-model="filter.recommendStatus" @change="search(1)" clearable>
+                <el-select v-model="filter.recommendStatus" @change="search" clearable>
                     <el-option
                         v-for="item in recommendStatusMap"
                         :key="item.value"
@@ -31,7 +31,7 @@
             <el-form-item label="商品状态：">
                 <el-select
                     v-model="filter.productStatus"
-                    @change="search(1)"
+                    @change="search"
                 >
                     <el-option
                         v-for="item of statusMap"
@@ -55,7 +55,7 @@
                 />
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="search(1)" round>
+                <el-button type="primary" @click="search" round>
                     查询
                 </el-button>
             </el-form-item>
@@ -88,7 +88,7 @@
             </el-button>
         </div>
         <div class="sort mt-24" v-if="$route.name !== 'DraftBox'">
-            <Sort :data="sortData" v-model="filter.sortCondition" @change="getGoods(1)" />
+            <Sort :data="sortData" v-model="filter.sortCondition" @change="getGoods()" />
         </div>
 
         <el-table
@@ -692,10 +692,9 @@ export default {
     },
     async created () {
         try {
-            console.log(this.$route.query.goodsType)
             this.filter.productType = this.$route.query.productType || ''
             this.filter.productStatus = this.$route.query.status || ''
-            await this.getGoods(1)
+            await this.search()
         } catch (e) {
             throw e
         }
@@ -725,7 +724,7 @@ export default {
         }
     },
     methods: {
-    // 商品 C 端显示隐藏
+        // 商品 C 端显示隐藏
         async showProduct ({ id, isShow }) {
             try {
                 const show = isShow === 1
@@ -761,9 +760,10 @@ export default {
                 throw e
             }
         },
-        async search (page) {
+        async search () {
             this.emptyText = '未搜索到相关商品'
-            await this.getGoods(page)
+            this.filter.current = 1
+            await this.getGoods()
         },
         async goEdit (row) {
             if (row.productStatus === 1 || row.productStatus === 3) {
@@ -775,17 +775,15 @@ export default {
             }
         },
         async sizeChange (val) {
-            this.filter.current = 1
             this.filter.size = val
             try {
-                await this.getGoods(1)
+                await this.search()
             } catch (e) {
                 throw e
             }
         },
-        async getGoods (page) {
+        async getGoods () {
             try {
-                this.filter.current = page || this.filter.current
                 if (this.filter.productStatus === 3) {
                     this.filter.recommendStatus = ''
                 }
@@ -843,7 +841,7 @@ export default {
         async dateChange ({ start, end }) {
             this.filter.startTime = start
             this.filter.endTime = end
-            await this.search(1)
+            await this.search()
         },
         handleSelectionChange (val) {
             this.multipleSelection = val
@@ -937,18 +935,14 @@ export default {
             } catch (e) {
                 throw e
             } finally {
-                this.getGoods()
+                this.search()
             }
-        },
-        async saleChange (order) {
-            this.filter.saleSort = order
-            await this.getGoods()
         },
         async categoryChange (value) {
             this.filter.categoryId = value[0] || ''
             this.filter.subCategoryId = value[1] || ''
             this.filter.current = 1
-            await this.getGoods()
+            await this.search()
         },
         async showShare (row) {
             this.currentShareShow = {
