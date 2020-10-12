@@ -157,7 +157,7 @@
                     width="180"
                 >
                     <template slot-scope="round">
-                        {{ round.row.PRICE | round(2) }}
+                        {{ round.row.PRICE }}
                     </template>
                 </el-table-column>
                 <el-table-column
