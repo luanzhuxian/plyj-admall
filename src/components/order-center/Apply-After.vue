@@ -115,19 +115,19 @@ export default {
     methods: {
     // 获取退货最大金额
         async getRefundsMaxAmount () {
-            const { data: { result } } = await refundsMaxAmount({ orderId: this.orderId })
+            const { result } = await refundsMaxAmount({ orderId: this.orderId })
             this.afterForm.refundsMaxAmount = result
             if (this.applyAfterData.orderStatus === 'WAIT_SHIP') this.afterForm.refundType = '2'
             // 获取售后类型
             if (this.applyAfterData.orderType === 'PHYSICAL_GOODS' || this.applyAfterData.goodsType === 'PHYSICAL_GOODS') {
                 // 实体商品售后类型数据字典
-                const { data: result } = await getDataDictionary('refundType')
-                this.afterTypeList = result.result || []
+                const { result } = await getDataDictionary('refundType')
+                this.afterTypeList = result || []
             } else {
                 this.afterForm.refundType = '2'
                 // 虚拟商品售后类型数据字典
-                const { data: result } = await getDataDictionary('refundTypeForVirtualAndClass')
-                this.afterTypeList = result.result || []
+                const { result } = await getDataDictionary('refundTypeForVirtualAndClass')
+                this.afterTypeList = result || []
             }
         },
         async applyRefund () {
