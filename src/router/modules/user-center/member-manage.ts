@@ -17,12 +17,45 @@ export default [
             },
             // 会员管理详情
             {
-                path: 'member-manage-detail/:userId?',
+                path: 'member-manage-detail/:userId',
                 name: 'MemberManageDetail',
                 component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-Detail.vue'),
+                props: true,
                 meta: {
                     title: '会员详情'
-                }
+                },
+                children: [
+                    {
+                        path: 'buy-record',
+                        name: 'MemberBuyRecord',
+                        props: true,
+                        component: () => import('../../../views/user-center/member-manage/pages/Buy-Record.vue')
+                    },
+                    {
+                        path: 'share-record',
+                        name: 'MemberShareRecord',
+                        props: true,
+                        component: () => import('../../../views/user-center/member-manage/pages/Share-Record.vue')
+                    },
+                    {
+                        path: 'live-record',
+                        name: 'MemberLiveRecord',
+                        props: true,
+                        component: () => import('../../../views/user-center/member-manage/pages/Live-Record.vue')
+                    },
+                    {
+                        path: 'online-progress',
+                        name: 'MemberOnlineProgress',
+                        props: true,
+                        component: () => import('../../../views/user-center/member-manage/pages/Online-Progress.vue')
+                    },
+                    {
+                        path: 'remark',
+                        name: 'MemberRemark',
+                        props: true,
+                        component: () => import('../../../views/user-center/member-manage/pages/Remark.vue')
+                    }
+                ]
             },
             // 游客管理列表
             {

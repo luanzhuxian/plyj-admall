@@ -17,6 +17,11 @@
 import { getTextWidth } from '../../assets/ts/utils'
 export default {
     name: 'SearchBox',
+    computed: {
+        form () {
+            return this.$refs.form
+        }
+    },
     async mounted () {
         await this.$nextTick()
         // 动态设置label的宽度

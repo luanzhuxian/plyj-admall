@@ -10,7 +10,7 @@ export default {
                 sameElse: 'YYYY-MM-DD'
             })
         }
-        return ''
+        return '--'
     },
     dateFormat (val, format) {
         if (!val) return ''

@@ -40,9 +40,9 @@ export default class MemberDataBar extends Vue {
         margin-top: 8px;
         .data-list {
             display: grid;
-            grid-template-columns: repeat(3, auto);
+            grid-template-columns: repeat(4, auto);
             grid-column-gap: 196px;
-            margin: 11px 0 33px;
+            margin: 16px 0 33px;
             padding-left: 80px;
             > .item {
                 > strong {

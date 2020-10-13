@@ -223,7 +223,7 @@
                         align="right"
                         width="55"
                     />
-                    <el-table-column label="用户信息" width="250" fixed>
+                    <el-table-column label="用户信息" width="250">
                         <template #default="{ row }">
                             <div class="member-detail">
                                 <img
