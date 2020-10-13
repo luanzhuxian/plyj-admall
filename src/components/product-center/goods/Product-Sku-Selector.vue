@@ -55,7 +55,7 @@
                     type="primary"
                     @click="getGoodsList(1)"
                 >
-                    搜索
+                    查询
                 </el-button>
             </el-form-item>
         </el-form>

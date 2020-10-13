@@ -52,7 +52,7 @@
                         type="primary"
                         @click="search"
                     >
-                        搜索
+                        查询
                     </el-button>
                     <el-button
                         v-if="!hideClearBtn"

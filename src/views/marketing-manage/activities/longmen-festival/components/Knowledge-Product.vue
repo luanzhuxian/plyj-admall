@@ -24,7 +24,7 @@
                     style="width: 98px;margin-left: 28px;"
                     @click="search"
                 >
-                    搜索
+                    查询
                 </el-button>
             </el-form-item>
         </el-form>

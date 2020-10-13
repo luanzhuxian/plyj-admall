@@ -23,7 +23,7 @@
                     type="primary"
                     @click="handleSearch"
                 >
-                    搜索
+                    查询
                 </el-button>
             </el-form-item>
         </SearchBox>

@@ -21,7 +21,7 @@
                         @clear="search"
                     />
                     <el-button type="primary" @click="search">
-                        搜索
+                        查询
                     </el-button>
                 </div>
                 <i class="el-icon-refresh" @click="refresh" />

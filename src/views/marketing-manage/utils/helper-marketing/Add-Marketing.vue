@@ -435,7 +435,7 @@
                                 style="width: 98px;margin-left: 28px;"
                                 @click="getGoodsList(1)"
                             >
-                                搜索
+                                查询
                             </el-button>
                             <el-button
                                 type="primary"
@@ -532,7 +532,7 @@
                                 style="width: 98px;margin-left: 20px;"
                                 @click="getClassifyList(1)"
                             >
-                                搜索
+                                查询
                             </el-button>
                             <el-button
                                 type="primary"

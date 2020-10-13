@@ -42,7 +42,7 @@
                     style="width: 98px;margin-left: 28px;"
                     @click="search"
                 >
-                    搜索
+                    查询
                 </el-button>
                 <el-button
                     type="primary"

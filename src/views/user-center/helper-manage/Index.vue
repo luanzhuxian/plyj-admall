@@ -18,7 +18,7 @@ import { Vue, Component, Watch } from 'vue-property-decorator'
 export default class HelperManage extends Vue {
   tabs = [{
       name: 'HelperManageList',
-      label: 'Helper管理'
+      label: '全部Helper'
   },
   {
       name: 'HelperReviewList',
