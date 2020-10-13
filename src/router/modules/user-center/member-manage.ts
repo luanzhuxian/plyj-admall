@@ -21,6 +21,7 @@ export default [
                 name: 'MemberManageDetail',
                 component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-Detail.vue'),
                 props: true,
+                redirect: 'member-manage-detail/:userId/buy-record',
                 meta: {
                     title: '会员详情'
                 },

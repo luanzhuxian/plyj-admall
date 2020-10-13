@@ -219,10 +219,8 @@
                 </el-table>
                 <Pagination
                     @change="getInviting"
-                    @sizeChange="sizeChange"
                     v-model="params.current"
                     :total="total"
-                    :sizes="true"
                 />
                 <el-dialog title="您可先去创建赠送给用户的满减券" :visible.sync="dlgCreate" width="560px">
                     <span>再进行赢取豪礼活动设置！</span>
@@ -295,11 +293,6 @@ export default {
         },
         search () {
             this.params.current = 1
-            this.getInviting()
-        },
-        sizeChange (val) {
-            this.ticketParams.current = 1
-            this.ticketParams.size = val
             this.getInviting()
         },
         async getInviting () {

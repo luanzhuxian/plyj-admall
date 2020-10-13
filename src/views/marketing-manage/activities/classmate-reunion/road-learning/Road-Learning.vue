@@ -127,10 +127,8 @@
             </el-table>
             <pagination
                 :total="total"
-                :sizes="true"
                 v-model="filterCondition.current"
                 @change="getActivityList"
-                @sizeChange="sizeChange"
             />
         </div>
         <Share :show.sync="qrcodeShow" :qrcode-text="qrcodeText" ref="share" />
@@ -200,15 +198,6 @@ export default {
                 }
                 this.activityList = result.records
                 this.total = result.total
-            } catch (e) {
-                throw e
-            }
-        },
-        async sizeChange (newSize) {
-            this.filterCondition.current = 1
-            this.filterCondition.size = newSize
-            try {
-                await this.getActivityList()
             } catch (e) {
                 throw e
             }

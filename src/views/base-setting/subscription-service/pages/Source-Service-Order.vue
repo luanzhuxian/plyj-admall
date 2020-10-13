@@ -106,7 +106,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <Pagination :total="total" v-model="params.current" @sizeChange="sizeChange" @change="getList" :sizes="true" />
+        <Pagination :total="total" v-model="params.current" @change="getList" />
     </div>
 </template>
 
@@ -173,14 +173,6 @@ export default class LiveServiceOrder extends Vue {
               startTime: '',
               endTime: ''
           }
-          await this.getList()
-      } catch (e) { throw e }
-  }
-
-  async sizeChange (val) {
-      try {
-          this.params.current = 1
-          this.params.size = val
           await this.getList()
       } catch (e) { throw e }
   }

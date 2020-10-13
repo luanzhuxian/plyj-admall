@@ -262,10 +262,8 @@
             </el-table>
             <Pagination
                 @change="getInvitingDetailList"
-                @sizeChange="sizeChange"
                 v-model="params.current"
                 :total="total"
-                :sizes="true"
             />
         </div>
         <Share :show.sync="qrcodeShow" :qrcode-text="qrcodeText" ref="share" />
@@ -350,11 +348,6 @@ export default {
         },
         search () {
             this.params.current = 1
-            this.getInvitingDetailList()
-        },
-        sizeChange (val) {
-            this.ticketParams.current = 1
-            this.ticketParams.size = val
             this.getInvitingDetailList()
         },
         async getInvitingDetailList () {

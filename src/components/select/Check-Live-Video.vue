@@ -90,7 +90,7 @@
                     </el-table>
                 </div>
             </div>
-            <Pagination :total="total" v-model="params.current" @sizeChange="sizeChange" @change="getTableList" :sizes="true" />
+            <Pagination :total="total" v-model="params.current" @change="getTableList" />
             <div slot="footer">
                 <el-button type="primary" @click="confirm" :disabled="!currentChecked.id">
                     确定
@@ -183,13 +183,6 @@ export default {
                 this.tableData = records
                 await this.$nextTick()
                 this.highlightRow(records)
-            } catch (e) { throw e }
-        },
-        async sizeChange (val) {
-            try {
-                this.params.current = 1
-                this.params.size = val
-                this.getTableList()
             } catch (e) { throw e }
         },
         expandRow (row) {

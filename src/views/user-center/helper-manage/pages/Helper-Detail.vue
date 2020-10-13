@@ -12,65 +12,43 @@
                 </span>
             </span>
         </div>
-        <!--<div class="detail-main">
-            <div class="title">用户基本信息</div>
-            <div class="user-info">
-                <div class="user-avatar">
-                    <div class="avatar">
-                        <img :src="detail.userImage">
-                    </div>
-                    <div>
-                        <div style="font-size: 16px;margin-bottom: 12px">{{ detail.nickName }}</div>
-                        <div>普通会员</div>
-                    </div>
-                </div>
-                <ul class="info-list">
-                    <li>
-                        <div class="info-list-li">
-                            <div class="label">手机号：</div>
-                            {{ detail.mobile }}
-                        </div>
-                        <div class="label">姓名：</div>
-                        {{ detail.name }}
-                    </li>
-                    <li>
-                        <div class="info-list-li">
-                            <div class="label">地址：</div>
-                            {{ detail.address }}
-                        </div>
-                        <div class="label">标签：</div>
-                        {{ detail.tags }}
-                    </li>
-                    <li>
-                        <div class="label">来源：</div>
-                        {{ detail.source }}
-                    </li>
-                    <li>
-                        <div class="label">记录：</div>
-                        {{ detail.createTime }} 注册
-                    </li>
-                </ul>
-            </div>
-            <div class="title">申请资料</div>
+        <div :class="$style.module" class="mt-30">
+            <div :class="$style.moduleTitle">用户基本信息</div>
+            <BaseInfo
+                :avatar="detail.userImage"
+                :nick-name="detail.nickName"
+                role-code="MEMBERSHIP"
+                :mobile="detail.mobile"
+                :name="detail.name"
+                :tags="detail.tags"
+                :type="detail.type"
+                :gender="detail.gender"
+                :address="detail.address"
+                :source="detail.source"
+                :create-time="detail.createTime"
+            />
+        </div>
+        <div :class="$style.module" class="mt-30">
+            <div :class="$style.moduleTitle">申请资料</div>
             <el-table :data="detail.data">
                 <el-table-column label="真实姓名" prop="name" />
                 <el-table-column label="手机号" prop="mobile" />
                 <el-table-column label="身份证号码" prop="idCard" />
             </el-table>
-            <div class="title">操作日志</div>
-            <ul class="logs">
-                <li v-for="(item, index) in detail.logs" :key="index">
-                    <span>{{ item.createTime }}</span>
-                    <span>
-                        操作人：{{ item.operationName }}
-                        <template>({{ roleCodeMap[item.operationRole] }})</template>
-                    </span>
-                    <span>{{ item.content }}</span>
+        </div>
+        <div :class="$style.module" style="margin-top: 80px;">
+            <div :class="$style.moduleTitle">操作日志</div>
+            <ul :class="$style.logs">
+                <li v-for="(log, i) of detail.logs" :key="i">
+                    <span v-text="log.createTime" class="mr-30" />
+                    <span>操作人：{{ log.operationName }}</span>
+                    <span>（{{ roleCodeMap[log.operationRole] }}）</span>
+                    <span v-text="log.content" />
                 </li>
             </ul>
-        </div>-->
-        <div class="btns" v-if="detail.auditStatus === 'AWAIT'">
-            <el-button type="primary" @click="updateBrokerStatus(detail.id, 'PASS')">审核通过</el-button>
+        </div>
+        <div class="mt-30" v-if="detail.auditStatus === 'AWAIT'">
+            <el-button type="primary" round @click="updateBrokerStatus(detail.id, 'PASS')">审核通过</el-button>
             <el-button type="text" @click="updateBrokerStatus(detail.id, 'REJECT')">审核驳回</el-button>
         </div>
         <el-dialog
@@ -114,8 +92,12 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { getHelperDetail, updateBrokerStatus } from '../../../../apis/member'
-
-@Component
+import BaseInfo from '../../../../components/user-center/Base-Info.vue'
+@Component({
+    components: {
+        BaseInfo
+    }
+})
 export default class MemberManageDetail extends Vue {
         roleCodeMap = {
             ENTERPRISE_ADMIN: '企业管理员',
@@ -124,7 +106,8 @@ export default class MemberManageDetail extends Vue {
         }
 
         detail = {
-            data: [] as any[]
+            data: [] as any[],
+            tags: [] as any[]
         }
 
         statusMap = { AWAIT: '待审核', PASS: '审核通过', REJECT: '审核驳回' }
@@ -153,13 +136,6 @@ export default class MemberManageDetail extends Vue {
                 const { result } = await getHelperDetail(this.id)
                 if (result && result.idCard) {
                     result.idCard = result.idCard.replace(/^(\d{4})\d{9}(\d+)/, '$1*********$2')
-                }
-                if (result && result.tags) {
-                    const tags = []
-                    for (const item of result.tags) {
-                        tags.push(item.tagName)
-                    }
-                    result.tags = tags.join(' | ')
                 }
                 this.detail = result || {}
                 this.detail.data = [{ name: result.name, mobile: result.mobile, idCard: result.idCard }] as any[]
@@ -199,7 +175,21 @@ export default class MemberManageDetail extends Vue {
         }
 }
 </script>
-
+<style module lang="scss">
+    .module {
+        margin-bottom: 20px;
+        .module-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+    }
+    .logs {
+        li {
+            margin-top: 33px;
+            line-height: 20px;
+        }
+    }
+</style>
 <style scoped lang="scss">
     .helper-detail {
         .detail-top {
@@ -215,81 +205,6 @@ export default class MemberManageDetail extends Vue {
 
             .apply-date {
                 margin-right: 80px;
-            }
-        }
-
-        .detail-main {
-            padding: 0 16px;
-
-            .title {
-                font-size: 16px;
-                margin: 24px 0;
-            }
-
-            .user-info {
-                display: flex;
-
-                .user-avatar {
-                    display: flex;
-                    margin-right: 60px;
-
-                    .avatar {
-                        width: 88px;
-                        height: 88px;
-                        border-radius: 50%;
-                        background: #DFE5FC;
-                        margin-right: 16px;
-
-                        img {
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 50%;
-                        }
-                    }
-                }
-
-                .info-list {
-                    line-height: 2;
-
-                    li {
-                        display: flex;
-                        margin-bottom: 24px;
-
-                        .info-list-li {
-                            display: flex;
-                            width: 220px;
-                        }
-                    }
-                }
-            }
-
-            .logs {
-                li {
-                    display: flex;
-                    padding: 5px;
-                    font-size: 14px;
-                    line-height: 2;
-
-                    span {
-                        &:first-of-type {
-                            width: 200px;
-                        }
-
-                        &:nth-child(2) {
-                            padding-right: 15px;
-                        }
-                    }
-                }
-            }
-        }
-
-        .btns {
-            margin: 32px 16px 0;
-
-            button {
-                height: 40px;
-                border-radius: 120px;
-                padding: 0 20px;
             }
         }
     }

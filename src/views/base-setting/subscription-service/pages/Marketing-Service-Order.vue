@@ -102,7 +102,6 @@
         <pagination
             v-model="query.current"
             :total="total"
-            :sizes="true"
             @sizeChange="sizeChange"
             @change="getList"
         />

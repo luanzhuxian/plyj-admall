@@ -157,10 +157,8 @@
             </el-table>
             <Pagination
                 @change="getTicket"
-                @sizeChange="sizeChange"
                 v-model="params.current"
                 :total="total"
-                :sizes="true"
                 style="margin-bottom:20px;"
             />
             <div style="text-align:center">
@@ -225,11 +223,6 @@ export default {
         },
         search () {
             this.params.current = 1
-            this.getTicket()
-        },
-        sizeChange (val) {
-            this.params.current = 1
-            this.params.size = val
             this.getTicket()
         },
         async getTicket () {

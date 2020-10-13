@@ -112,7 +112,6 @@
                 </el-table>
                 <pagination
                     :total="total"
-                    :sizes="true"
                     v-model="filterCondition.current"
                     @change="getActivityGiftList"
                     @sizeChange="sizeChange"
@@ -230,15 +229,6 @@ export default {
                 item.useStartTime = item.useStartTime || '-'
             })
             this.total = result.total
-        },
-        async sizeChange (newSize) {
-            this.filterCondition.current = 1
-            this.filterCondition.size = newSize
-            try {
-                await this.getActivityGiftList()
-            } catch (e) {
-                throw e
-            }
         },
         formatTimeRange ({ start, end }) {
             this.filterCondition.startTime = start || ''

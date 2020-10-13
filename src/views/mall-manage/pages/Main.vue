@@ -170,8 +170,6 @@
             v-model="searchForm.current"
             :size="searchForm.size"
             :total="total"
-            sizes
-            @sizeChange="onSizeChange"
             @change="getDraft"
         />
         <TemplatePreview :show.sync="showPreview">
@@ -368,16 +366,6 @@ export default class MallMain extends Vue {
             return '主会场'
         }
         return ''
-    }
-
-    async onSizeChange (val: number) {
-        this.searchForm.current = 1
-        this.searchForm.size = val
-        try {
-            await this.getDraft()
-        } catch (e) {
-            throw e
-        }
     }
 
     // 按条件查询

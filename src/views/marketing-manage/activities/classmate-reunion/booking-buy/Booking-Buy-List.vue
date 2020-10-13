@@ -198,9 +198,7 @@
         </el-table>
         <pagination
             v-model="filterForm.current"
-            :sizes="true"
             :total="total"
-            @sizeChange="sizeChange"
             @change="getList"
             style="margin-top: 12px;text-align: center;"
         />
@@ -291,15 +289,6 @@ export default {
         },
         async search () {
             this.filterForm.current = 1
-            try {
-                await this.getList()
-            } catch (e) {
-                throw e
-            }
-        },
-        async sizeChange (val) {
-            this.filterForm.current = 1
-            this.filterForm.size = val
             try {
                 await this.getList()
             } catch (e) {

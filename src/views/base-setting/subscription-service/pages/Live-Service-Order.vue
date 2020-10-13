@@ -125,11 +125,9 @@
         </el-table>
         <pagination
             v-model="form.current"
-            sizes
             :total="total"
             style="margin-bottom: 70px;"
             @change="getList"
-            @sizeChange="sizeChange"
         />
     </div>
 </template>
@@ -173,11 +171,6 @@ export default class LiveServiceOrder extends Vue {
             this.total = result.total || 0
             this.tableData = result.records
         } catch (e) { throw e }
-    }
-
-    async sizeChange (val) {
-        this.form.size = val
-        this.search()
     }
 
     search () {
