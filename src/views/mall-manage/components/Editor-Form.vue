@@ -342,18 +342,11 @@ export default class EditorForm extends Vue {
         }
       }
       label {
-        width: 68px;
+        min-width: 86px;
         text-align: right;
         margin-right: 5px;
       }
     }
-    // .link {
-    //   display: flex;
-    //   justify-content: space-between;
-    //   align-items: center;
-    //   background-color: #FFF;
-    //   border: 1px solid #e4e7ed;
-    // }
   }
   &-btn {
     display: flex;
