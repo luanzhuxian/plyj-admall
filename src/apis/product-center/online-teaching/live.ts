@@ -279,4 +279,4 @@ export const getRoomInfoById = roomId => axios.get(`/apis/v1/mall/live/live_stre
  * 根据分组id,查找所有用户信息
  * @returns {Promise<AxiosResponse<T>>}
  */
-export const getAllUserListByTagId = id => axios.get(`/apis/v1/mall/user/tag/usersInfo?tagId=${ id }`)
+export const getAllUserListByTagId = id => axios.get(`/apis/v2/user/tag/r/usersInfo?tagId=${ id }`)
