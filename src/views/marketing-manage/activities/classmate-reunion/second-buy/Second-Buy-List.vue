@@ -349,9 +349,9 @@ export default {
         async handlePreview (id, status) {
             const { result } = await getSingleGoods(id)
             if (status > 1) {
-                res.result.activeProduct = 1
+                result.activeProduct = 1
             }
-            this.singleGoods = res.result
+            this.singleGoods = result
             this.showPreview = true
         },
         async handleShare (row) {
