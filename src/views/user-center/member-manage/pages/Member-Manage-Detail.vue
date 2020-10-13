@@ -834,10 +834,6 @@
                                 label="消耗流量"
                             />
                             <el-table-column
-                                prop="shareName"
-                                label="分享人"
-                            />
-                            <el-table-column
                                 fixed="right"
                                 label="学习进度"
                             >
@@ -847,7 +843,7 @@
                                             查看
                                         </a>
                                     </div>
-                                    <span v-else>{{ row.learnProgress }}</span>
+                                    <span v-else>{{ row.learnProgress }}%</span>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -1661,6 +1657,7 @@ export default class MemberManageDetail extends Vue {
             margin-right: 23px;
             .avatar {
                 width: 88px;
+                height: 88px;
                 border-radius: 50%;
                 margin-right: 15px;
             }
