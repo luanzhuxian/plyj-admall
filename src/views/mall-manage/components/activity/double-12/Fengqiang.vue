@@ -90,8 +90,9 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { TemplateModule, TemplateTypes } from '../../../utils/types'
 import defaultData from '../../../utils/template-default-data/basic'
+import { TemplateModule } from '../../../utils/types'
+import { TemplateTypes } from '../../../utils/map'
 import { getPrice } from '../../../utils/helper'
 import { getMaxCoupon } from '../../../../../apis/mall'
 

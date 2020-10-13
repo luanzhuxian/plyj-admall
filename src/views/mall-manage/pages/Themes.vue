@@ -140,9 +140,9 @@ import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
 import { rebuild } from '../utils/rebuild'
-import { tagMap } from '../utils/map'
 import { isString } from '../utils/helper'
-import { Template, TemplateTypes, TemplateSkinModel } from '../utils/types'
+import { tagMap, TemplateTypes } from '../utils/map'
+import { Template, TemplateSkinModel } from '../utils/types'
 
 const mall = namespace('mall')
 

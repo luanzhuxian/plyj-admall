@@ -36,9 +36,10 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { TemplateModule, TemplateTypes } from '../../utils/types'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import defaultData from '../../utils/template-default-data/basic'
+import { TemplateModule } from '../../utils/types'
+import { TemplateTypes } from '../../utils/map'
 
 @Component({
     components: {

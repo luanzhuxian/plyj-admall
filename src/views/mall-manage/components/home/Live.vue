@@ -83,7 +83,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { LiveStatus } from '../../utils/types'
+import { LiveStatus } from '../../utils/map'
 
 @Component
 export default class Live extends Vue {

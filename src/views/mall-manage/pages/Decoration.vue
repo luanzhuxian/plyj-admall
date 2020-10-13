@@ -268,8 +268,15 @@ import {
     editorMap,
     moduleIdMap,
     productTypeMap1,
-    tagMap
+    tagMap,
+    TemplateTypes,
+    ModalType
 } from '../utils/map'
+import {
+    TemplateCrosses,
+    Template,
+    TemplateModuleItem
+} from '../utils/types'
 import {
     getDefaultTemplateList,
     updateCurrentTemplate,
@@ -277,7 +284,6 @@ import {
     checkIsFull
 } from '../../../apis/mall'
 import { getSpringPloughingDetail } from '../../../apis/marketing-manage/new-year/spring-ploughing'
-import { TemplateCrosses, Template, TemplateModuleItem, TemplateTypes, ModalType } from '../utils/types'
 
 const mall = namespace('mall')
 

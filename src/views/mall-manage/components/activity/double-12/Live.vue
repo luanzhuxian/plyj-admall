@@ -58,7 +58,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import moment from 'moment'
 import Countdown from '../../Countdown.vue'
-import { LiveStatus } from '../../../utils/types'
+import { LiveStatus } from '../../../utils/map'
 
 @Component({
     components: { Countdown }

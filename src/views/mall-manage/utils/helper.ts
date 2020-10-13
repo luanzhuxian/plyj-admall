@@ -2,7 +2,8 @@
 
 import moment from 'moment'
 import Vue from 'vue'
-import { TemplateModuleItem, ActivityStatus } from './types'
+import { TemplateModuleItem } from './types'
+import { ActivityStatus } from './map'
 
 export const objectToString = Object.prototype.toString
 export const toTypeString = (value: unknown): string => objectToString.call(value)

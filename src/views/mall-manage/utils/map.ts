@@ -1,4 +1,146 @@
-import { TemplateTypes } from './types'
+// 直播活动状态
+export enum LiveStatus {
+    // 已结束
+    Finished = 0,
+    // 未开始
+    NotStarted = 2,
+    // 已开始
+    Started = 4
+}
+
+// 营销活动状态
+export enum ActivityStatus {
+    // 未开始
+    NotStarted,
+    // 已开始
+    Started,
+    // 拼团成功
+    Succuss,
+    // 已结束
+    Finished
+}
+
+// 商品课程状态
+export enum ProductStatus {
+    // 已删除
+    Deleted,
+    // 下架
+    OffSell,
+    // 上架
+    OnSell,
+    // 草稿箱
+    Draft
+}
+
+// 模板状态
+export enum TemplateStatus {
+    // 下架
+    OffShelf,
+    // 上架
+    OnShelf,
+    // 草稿箱
+    Draft
+}
+
+// 弹窗的类型
+export enum ModalType {
+    // 分类
+    CategoryModal = 1,
+    // 商品
+    ProductModal = 2,
+    // 课程
+    ClassModal = 3,
+    // 商品和分类，双tab
+    ProductAndCategoryModal = 4,
+    // 知识课程
+    CourseModal = 5,
+    // 拼团
+    PintuanModal = 8,
+    // 领券
+    CouponModal = 9,
+    // 秒杀
+    MiaoshaModal = 10,
+    // 预购
+    YugouModal = 11,
+    // 组合课
+    PackageModal = 16,
+    // 分销
+    DistributionModal = 18,
+    // 单课
+    OnlineCourseModal = 21,
+    // 系列课
+    SeriesCourseModal = 22,
+    // 图文资料
+    ImageTextModal = 23
+}
+
+// 模板类型
+export enum TemplateTypes {
+    // 新春首页模板
+    TemplateC = -1,
+    // 普通首页模板
+    TemplateB = 3,
+    // 双十二首页模板
+    TemplateB2 = 4,
+    // 双十二疯抢
+    TemplateFengQiang = 5,
+    // 双十二爆发
+    TemplateBaoFa = 6,
+    // 双十二返场
+    TemplateFanChang = 7,
+    // 新春主会场
+    TemplateXinChun = 8,
+    // 活动首页模板
+    TemplateD = 9,
+    // 龙门节主会场
+    TemplateDragonGate = 10
+}
+
+// 模块id
+export enum ModuleIds {
+    // 轮播图
+    Banner = 1,
+    // 商品模块
+    Popular = 2,
+    // 精品课程
+    Class = 3,
+    // 精品推荐
+    Recommend = 4,
+    // 在线预约
+    Appointment = 5,
+    // 品宣
+    Propagate = 6,
+    // 买送活动
+    Maisong = 7,
+    // 团购
+    Pintuan = 8,
+    // 优惠券
+    Coupon = 9,
+    // 秒杀
+    Miaosha = 10,
+    // 预购
+    Yugou = 11,
+    // 名师专栏
+    Teachers = 12,
+    // 春耘活动
+    Chunyun = 13,
+    // 活动入口模块
+    Activity = 15,
+    // 组合聚惠学
+    Package = 16,
+    // 公益粽
+    Charity = 17,
+    // 热门活动
+    DragonGateActivity = 19,
+    // 互动直播
+    Live = 20,
+    // 知识课程
+    OnlineCourse = 21,
+    // 系列课程
+    SeriesCourse = 22,
+    // 图文资料
+    ImageText = 23
+}
 
 // 各个模板 id 对应模板名
 export const tagMap: DynamicObject = {

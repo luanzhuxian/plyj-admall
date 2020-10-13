@@ -55,7 +55,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import CustomTable from './Custom-Table.vue'
-import { modalTitleMap } from '../utils/map'
+import { modalTitleMap, ModalType, ProductStatus } from '../utils/map'
 import { getGoods } from '../../../apis/product-center/goods'
 import {
     getCoupon,
@@ -76,7 +76,6 @@ import {
     courseTableOptions,
     imageTextTableOptions
 } from '../utils/config'
-import { ModalType, ProductStatus } from '../utils/types'
 
 const productChecker = () => true
 const packageChecker = (row: { status: number }) => row.status !== 2

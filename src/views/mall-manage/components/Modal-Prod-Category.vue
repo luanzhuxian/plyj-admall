@@ -87,7 +87,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import CustomTable from './Custom-Table.vue'
-import { modalTitleMap } from '../utils/map'
+import { modalTitleMap, ModalType, ProductStatus } from '../utils/map'
 import { getGoods } from '../../../apis/product-center/goods'
 import { getCategory } from '../../../apis/product-center/category'
 import { getVideoList } from '../../../apis/product-center/online-teaching/knowledge-course'
@@ -96,7 +96,6 @@ import {
     courseTableOptions,
     categoryTableOptionsProducer
 } from '../utils/config'
-import { ModalType, ProductStatus } from '../utils/types'
 
 const productChecker = () => false
 const courseChecker = (row: { status: string }) => row.status === '2'

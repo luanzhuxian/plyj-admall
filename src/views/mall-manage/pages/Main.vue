@@ -216,8 +216,8 @@ import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import Render from '../components/Render'
 import { rebuild } from '../utils/rebuild'
 import { validatorProducer } from '../utils/validate'
-import { tagMap } from '../utils/map'
-import { Template, DraftTableRow, TemplateStatus, TemplateTypes } from '../utils/types'
+import { tagMap, TemplateStatus, TemplateTypes } from '../utils/map'
+import { Template, DraftTableRow } from '../utils/types'
 
 const mall = namespace('mall')
 

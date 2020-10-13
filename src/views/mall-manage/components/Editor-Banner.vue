@@ -84,10 +84,11 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
-import { TemplateModule, TemplateModuleItem, ModalType } from '../utils/types'
 import Draggable from '../../../components/common/draggable'
 import ImageManager from '../../../components/common/file/Image-Manager.vue'
 import { findBrothersComponents } from '../utils/helper'
+import { TemplateModule, TemplateModuleItem } from '../utils/types'
+import { ModalType } from '../utils/map'
 
 @Component({
     components: {

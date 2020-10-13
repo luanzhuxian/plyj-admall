@@ -1,5 +1,4 @@
 import moment from 'moment'
-
 import {
     TemplateCrosses,
     TemplateB,
@@ -11,8 +10,9 @@ import {
     TemplateXinChun,
     TemplateDragonGate,
     TemplateModule,
-    TemplateTypes, TemplateModuleItem
+    TemplateModuleItem
 } from './types'
+import { TemplateTypes } from './map'
 
 // 找到指定模块
 const findModule = function (modules: TemplateModule[]) {

@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { LiveStatus } from '../../../utils/types'
+import { LiveStatus } from '../../../utils/map'
 import moment from 'moment'
 import Panel from './Panel.vue'
 

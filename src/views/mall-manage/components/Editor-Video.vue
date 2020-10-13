@@ -89,7 +89,6 @@
 /* eslint-disable no-underscore-dangle */
 
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
-import { TemplateModule, TemplateTypes, ModuleIds } from '../utils/types'
 import Draggable from '../../../components/common/draggable'
 import {
     updateModule,
@@ -98,6 +97,8 @@ import {
     getImageTextList
 } from '../../../apis/mall'
 import { findBrothersComponents } from '../utils/helper'
+import { TemplateModule } from '../utils/types'
+import { TemplateTypes, ModuleIds } from '../utils/map'
 
 const editorMap: DynamicObject = {
     20: {
