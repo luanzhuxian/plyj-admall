@@ -327,8 +327,8 @@ export default {
         },
         async getData () {
             try {
-                const { data: res } = await getActivityData({ activityId: this.filterForm.activityId, activityType: 2 })
-                this.statistics = res.result
+                const { result } = await getActivityData({ activityId: this.filterForm.activityId, activityType: 2 })
+                this.statistics = result
             } catch (e) {
                 throw e
             }
@@ -336,9 +336,9 @@ export default {
         // 获取列表数据
         async getList () {
             try {
-                const { data: res } = await togetherActivityOrders(this.filterForm)
-                this.tableData = res.result.records || []
-                this.total = res.result.total
+                const { result } = await togetherActivityOrders(this.filterForm)
+                this.tableData = result.records || []
+                this.total = result.total
             } catch (e) {
                 throw e
             }

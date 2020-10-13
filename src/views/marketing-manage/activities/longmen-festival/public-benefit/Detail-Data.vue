@@ -299,9 +299,9 @@ export default {
         },
         async getList () {
             try {
-                const { data: res } = await activityDataList(this.queryPage, this.form)
-                this.list = res.result.records || []
-                this.total = res.result.total
+                const { result } = await activityDataList(this.queryPage, this.form)
+                this.list = result.records || []
+                this.total = result.total
             } catch (e) { throw e }
         },
         async getStatistics () {

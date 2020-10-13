@@ -72,9 +72,9 @@ export default {
                         this.roleList = this.treeList
                         this.searchKeyOfSelected(this.treeList)
                     } else if (this.roleCode) {
-                        const { data: res } = await getAllRolesByCode(this.roleCode)
-                        this.roleList = res.result
-                        this.searchKeyOfSelected(res.result)
+                        const { result } = await getAllRolesByCode(this.roleCode)
+                        this.roleList = result
+                        this.searchKeyOfSelected(result)
                     }
                 } catch (e) {
                     throw e

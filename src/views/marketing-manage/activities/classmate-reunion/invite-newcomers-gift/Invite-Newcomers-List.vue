@@ -304,9 +304,9 @@ export default {
         },
         async getInviting () {
             try {
-                const { data: res } = await getInviting(this.params)
-                this.data = res.result.records
-                this.total = res.result.total
+                const { result } = await getInviting(this.params)
+                this.data = result.records
+                this.total = result.total
                 // if (this.data.length === 0) {
                 //   this.dlgCreate = true
                 // }

@@ -326,8 +326,7 @@ export default {
         },
         async finish (row) {
             try {
-                const { data: res } = await getActivityListUseCoupon(row.id)
-                const result = res.result
+                const { result } = await getActivityListUseCoupon(row.id)
                 if (result.containInviting || result.containLiveActivity || result.containNewcomer) {
                     await this.$confirm({
                         title: '确认结束该满减券？',
@@ -366,9 +365,9 @@ export default {
         },
         async getList () {
             try {
-                const { data: res } = await getCouponList(this.form)
-                this.table = res.result.records
-                this.total = res.result.total
+                const { result } = await getCouponList(this.form)
+                this.table = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }

@@ -217,19 +217,19 @@ export default {
             }
         },
         async getActivityGiftList () {
-            const { data: res } = await getActivityGiftList(this.id, this.filterCondition)
-            if (res.result.records.length === 0 && this.filterCondition.current > 1) {
+            const { result } = await getActivityGiftList(this.id, this.filterCondition)
+            if (result.records.length === 0 && this.filterCondition.current > 1) {
                 this.filter.current--
                 this.getActivityGiftList()
                 return
             }
-            this.giftList = res.result.records
+            this.giftList = result.records
             this.giftList.forEach(item => {
                 item.createTime = item.createTime || '--'
                 item.giftName = item.giftName || '--'
                 item.useStartTime = item.useStartTime || '-'
             })
-            this.total = res.result.total
+            this.total = result.total
         },
         async sizeChange (newSize) {
             this.filterCondition.current = 1

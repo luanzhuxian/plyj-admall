@@ -382,16 +382,16 @@ export default {
             }
             try {
                 await this.$refs[formName].validate()
-                const { data: res } = await getSingleGoods(this.marketingForm.product.id)
-                res.result = {
-                    ...res.result,
+                let { result } = await getSingleGoods(this.marketingForm.product.id)
+                result = {
+                    ...result,
                     activityProductModel: {
                         ...this.marketingForm,
                         status: this.activityStatus || 0
                     },
                     activeProduct: 4
                 }
-                this.singleGoods = res.result
+                this.singleGoods = result
                 this.showPreview = true
             } catch (e) {
                 throw e

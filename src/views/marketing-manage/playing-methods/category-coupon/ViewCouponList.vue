@@ -351,8 +351,8 @@ export default {
         },
         async getStatistics () {
             try {
-                const { data: res } = await getCouponstatistics(this.form.couponId)
-                this.statisticsData = res.result
+                const { result } = await getCouponstatistics(this.form.couponId)
+                this.statisticsData = result
             } catch (e) {
                 throw e
             }
@@ -369,9 +369,9 @@ export default {
         },
         async getList () {
             try {
-                const { data: res } = await selectCouponDetail(this.form)
-                this.table = res.result.records
-                this.total = res.result.total
+                const { result } = await selectCouponDetail(this.form)
+                this.table = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }

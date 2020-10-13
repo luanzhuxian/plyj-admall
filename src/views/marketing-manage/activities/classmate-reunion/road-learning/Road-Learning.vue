@@ -191,15 +191,15 @@ export default {
         },
         async getActivityList () {
             try {
-                const { data: res } = await getActivityList(this.filterCondition)
+                const { result } = await getActivityList(this.filterCondition)
                 // 如果当前页面没有数据，且页码大于1，则请求上一页
-                if (res.result.records.length === 0 && this.filterCondition.current > 1) {
+                if (result.records.length === 0 && this.filterCondition.current > 1) {
                     this.filter.current--
                     this.getActivityList()
                     return
                 }
-                this.activityList = res.result.records
-                this.total = res.result.total
+                this.activityList = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }

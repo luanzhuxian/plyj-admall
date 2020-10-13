@@ -394,16 +394,16 @@ export default {
         },
         async getData () {
             try {
-                const { data: res } = await getActivityData({ activityId: this.form.businessId, activityType: 4 })
-                this.statistics = res.result
+                const { result } = await getActivityData({ activityId: this.form.businessId, activityType: 4 })
+                this.statistics = result
             } catch (e) { throw e }
         },
         // 获取列表数据
         async getList () {
             try {
-                const { data: res } = await activityDataList(this.queryPage, this.form)
-                this.tableData = res.result.records || []
-                this.total = res.result.total
+                const { result } = await activityDataList(this.queryPage, this.form)
+                this.tableData = result.records || []
+                this.total = result.total
             } catch (e) { throw e }
         },
         // 导出数据

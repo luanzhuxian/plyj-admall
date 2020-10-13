@@ -331,8 +331,8 @@ export default {
     methods: {
         async getInvitingDetail () {
             try {
-                const { data: res } = await getInvitingDetail(this.params.activityId)
-                this.detail = res.result
+                const { result } = await getInvitingDetail(this.params.activityId)
+                this.detail = result
             } catch (e) {
                 throw e
             }
@@ -359,9 +359,9 @@ export default {
         },
         async getInvitingDetailList () {
             try {
-                const { data: res } = await getInvitingDetailList(this.params)
-                this.data = res.result.records
-                this.total = res.result.total
+                const { result } = await getInvitingDetailList(this.params)
+                this.data = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }

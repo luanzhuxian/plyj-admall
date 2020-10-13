@@ -432,9 +432,9 @@ export default {
             if (!provideValidate) return
             try {
                 await this.$refs[formName].validate()
-                const { data: res } = await getSingleGoods(this.marketingForm.product.id)
-                res.result = { ...res.result, activityProductModel: { ...this.marketingForm, status: this.activityStatus || 0 }, activeProduct: 2 }
-                this.singleGoods = res.result
+                let { result } = await getSingleGoods(this.marketingForm.product.id)
+                result = { ...result, activityProductModel: { ...this.marketingForm, status: this.activityStatus || 0 }, activeProduct: 2 }
+                this.singleGoods = result
                 this.showPreview = true
             } catch (e) { throw e }
         },

@@ -486,10 +486,10 @@ export default {
             }
             const { data } = await getDataDictionary(type)
             this.searchType = data.result || []
-            const { data: res } = await getCategoryTreePlatform()
-            if (res && res.result && res.result.length) {
-                res.result.unshift({ categoryName: '全部分类', id: '' })
-                this.categoryList = res.result
+            const { result } = await getCategoryTreePlatform()
+            if (result && result.length) {
+                result.unshift({ categoryName: '全部分类', id: '' })
+                this.categoryList = result
             }
         },
         // 打开新增推荐弹窗，并准备数据

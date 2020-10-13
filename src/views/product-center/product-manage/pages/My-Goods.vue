@@ -925,13 +925,13 @@ export default {
         },
         async handleCopy (id) {
             try {
-                const { data: res } = await copyProduct(id)
+                const { result } = await copyProduct(id)
                 await this.$confirm({
                     title: '已复制成功，是否进入编辑页面？',
                     message: '该商品复制后，复制商品请在-已下架中查看',
                     confirmButtonText: '编辑'
                 })
-                this.$router.push({ name: 'EditProduct', params: { id: res.result } })
+                this.$router.push({ name: 'EditProduct', params: { id: result } })
             } catch (e) {
                 throw e
             } finally {

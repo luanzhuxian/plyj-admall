@@ -357,11 +357,11 @@ export default {
     methods: {
         async init () {
             try {
-                const { data: res } = await getRoadLearningActivitysDeatil(this.id)
-                this.status = res.result.mallCheckinActivityEntity.status
+                const { result } = await getRoadLearningActivitysDeatil(this.id)
+                this.status = result.mallCheckinActivityEntity.status
                 if (this.status === 2) this.isStart = true
-                copyFields(this.form, res.result.mallCheckinActivityEntity)
-                this.form.mallCheckinActivityGiftEntities = res.result.mallCheckinActivityGiftEntities
+                copyFields(this.form, result.mallCheckinActivityEntity)
+                this.form.mallCheckinActivityGiftEntities = result.mallCheckinActivityGiftEntities
 
                 // 活动时间范围
                 this.activityTimeRange = [this.form.activityStartTime, this.form.activityEndTime]

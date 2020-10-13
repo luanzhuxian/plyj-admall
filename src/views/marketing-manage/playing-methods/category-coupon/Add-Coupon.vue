@@ -592,24 +592,24 @@ export default {
         },
         async init () {
             try {
-                const { data: res } = await getCouponDetail(this.id)
-                if ((res.result.status === 0 || res.result.status === 4) && !this.isCopy) {
+                const { result } = await getCouponDetail(this.id)
+                if ((result.status === 0 || result.status === 4) && !this.isCopy) {
                     this.status = true
                 } else {
                     this.status = false
                 }
                 this.form.id = ''
-                copyFields(this.form, res.result)
+                copyFields(this.form, result)
                 this.form.tagIds = []
-                for (const item of res.result.couponTagList) {
+                for (const item of result.couponTagList) {
                     this.form.tagIds.push(item.userTagId)
                 }
-                for (const item of res.result.couponProductRList) {
+                for (const item of result.couponProductRList) {
                     item.price = item.minPrice
                     item.id = item.productId
                     item.productTypeText = this.productTypeMap[item.productType]
                 }
-                this.form.applicableGoodsId = res.result.couponProductRList || []
+                this.form.applicableGoodsId = result.couponProductRList || []
                 if (this.form.receiveStartTime) {
                     // if ((moment(this.form.receiveStartTime).valueOf() < Date.now()) && this.isCopy) {
                     //   this.form.receiveStartTime = ''
@@ -649,8 +649,8 @@ export default {
         },
         async getUserTtagListFun () {
             try {
-                const { data: res } = await getUserTtagList()
-                this.checkListArray = res.result
+                const { result } = await getUserTtagList()
+                this.checkListArray = result
             } catch (e) {
                 throw e
             }

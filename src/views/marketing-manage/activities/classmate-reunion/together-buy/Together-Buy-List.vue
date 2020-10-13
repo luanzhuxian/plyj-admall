@@ -337,14 +337,14 @@ export default {
         // 获取列表数据
         async getList () {
             try {
-                const { data: res } = await togetherActivityPage(this.filterForm)
-                res.result.records.forEach(item => {
+                const { result } = await togetherActivityPage(this.filterForm)
+                result.records.forEach(item => {
                     item.qrcode = ''
                     item.productLink = `${ this.mallUrl }/detail/product/${ item.id }?noCache=${ Date.now() }`
                     item.iconGengduoShow = false
                 })
-                this.tableData = res.result.records || []
-                this.total = res.result.total
+                this.tableData = result.records || []
+                this.total = result.total
             } catch (e) {
                 throw e
             }
@@ -367,11 +367,11 @@ export default {
             }
         },
         async handlePreview (id, status) {
-            const { data: res } = await getSingleGoods(id)
+            const { result } = await getSingleGoods(id)
             if (status > 1) {
-                res.result.activeProduct = 1
+                result.activeProduct = 1
             }
-            this.singleGoods = res.result
+            this.singleGoods = result
             this.showPreview = true
         },
         async handleShare (row) {

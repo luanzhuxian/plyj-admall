@@ -443,14 +443,14 @@ export default {
     methods: {
         async init () {
             try {
-                const { data: res } = await getNewcomerActivitysDeatil(this.id)
-                for (const item of res.result.couponModels) {
+                const { result } = await getNewcomerActivitysDeatil(this.id)
+                for (const item of result.couponModels) {
                     item.isSelected = false
                 }
-                this.checkbox1 = res.result.couponModels.length > 0
-                this.checkbox2 = res.result.scholarships.length > 0
-                this.checkbox3 = res.result.gifts.length > 0
-                this.form = { ...res.result, publishNum: res.result.limited === 0 ? undefined : res.result.publishNum }
+                this.checkbox1 = result.couponModels.length > 0
+                this.checkbox2 = result.scholarships.length > 0
+                this.checkbox3 = result.gifts.length > 0
+                this.form = { ...result, publishNum: result.limited === 0 ? undefined : result.publishNum }
                 if (this.isCopy) {
                     this.form.status = ''
                     this.form.activityStartTime = ''

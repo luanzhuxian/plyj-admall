@@ -247,9 +247,9 @@ export default {
                     mobile: query
                 }
                 try {
-                    const { data: res } = await getUserByPhone(params)
+                    const { result } = await getUserByPhone(params)
                     this.loading = false
-                    this.mobileOptions = res.result.records
+                    this.mobileOptions = result.records
                     this.hiddenSelectedUsers()
                     if (this.mobileOptions.length === 0) {
                         this.error = '该手机号不存在'

@@ -457,8 +457,8 @@ export default {
     methods: {
         async getUserTtagListFun () {
             try {
-                const { data: res } = await getUserTtagList()
-                this.checkListArray = res.result
+                const { result } = await getUserTtagList()
+                this.checkListArray = result
             } catch (e) {
                 throw e
             }
@@ -475,18 +475,18 @@ export default {
         },
         async init () {
             try {
-                const { data: res } = await getCouponDetail(this.id)
-                if ((res.result.status === 0 || res.result.status === 4) && !this.isCopy) {
+                const { result } = await getCouponDetail(this.id)
+                if ((result.status === 0 || result.status === 4) && !this.isCopy) {
                     this.status = true
                 } else {
                     this.status = false
                 }
                 this.form.id = ''
-                copyFields(this.form, res.result)
+                copyFields(this.form, result)
                 // 防止receiveLimit为空字符
                 this.form.receiveLimit = this.form.receiveLimit || 0
                 this.form.tagIds = []
-                for (const item of res.result.couponTagList) {
+                for (const item of result.couponTagList) {
                     this.form.tagIds.push(item.userTagId)
                 }
                 if (this.form.receiveStartTime) {

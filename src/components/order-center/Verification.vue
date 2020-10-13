@@ -353,12 +353,12 @@ export default {
                 if (this.verificationNo.length === 14) {
                     this.boxStatus = 99
                     if (!(this.verificationNo.substr(0, 2) === '99')) return this.$warning('无效码')
-                    const { data: res } = await byredeemcodeActive({ redeemCode: this.verificationNo })
-                    result = res.result
+                    const { result: res } = await byredeemcodeActive({ redeemCode: this.verificationNo })
+                    result = res
                 } else {
                     this.boxStatus = 12
-                    const { data: res } = await byredeemcode({ redeemCode: this.verificationNo })
-                    result = res.result
+                    const { result: res } = await byredeemcode({ redeemCode: this.verificationNo })
+                    result = res
                 }
                 this.resData = result
                 // if (this.resData.status === 1 || this.resData.status === 2 || this.resData.status === 3 || this.resData.status === 4 || this.resData.status === 8 || this.resData.status === 9) {
@@ -374,12 +374,12 @@ export default {
                 let result = ''
                 if (this.verificationNo.length === 14 && this.verificationNo.substr(0, 2) === '99') {
                     this.boxStatus = 99
-                    const { data: res } = await auditredeemcodeActive({ redeemCode: this.verificationNo })
-                    result = res.result
+                    const { result: res } = await auditredeemcodeActive({ redeemCode: this.verificationNo })
+                    result = res
                 } else {
                     this.boxStatus = 12
-                    const { data: res } = await auditredeemcode({ redeemCode: this.verificationNo })
-                    result = res.result
+                    const { result: res } = await auditredeemcode({ redeemCode: this.verificationNo })
+                    result = res
                 }
                 this.verificationCompleteVisible = true
                 if (result) {
