@@ -224,19 +224,19 @@ export default class FunctionPack extends Vue {
 
     get livePercentage () {
         const { available, totalMinute } = this.statisticsInfo
-        const num = (totalMinute - available) || 0
+        const num = ((totalMinute - available) / totalMinute) || 0
         return num * 100
     }
 
     get handPercentage () {
         const { remainderDatalowSize_G, dataFlowSize_G } = this.statisticsInfo
-        const num = (dataFlowSize_G - remainderDatalowSize_G) || 0
+        const num = ((dataFlowSize_G - remainderDatalowSize_G) / dataFlowSize_G) || 0
         return num * 100
     }
 
     get videoSpacePercentage () {
         const { remainderStorageSize_G, storageSize_G } = this.statisticsInfo
-        const num = (storageSize_G - remainderStorageSize_G) || 0
+        const num = ((storageSize_G - remainderStorageSize_G) / storageSize_G) || 0
         return num * 100
     }
 }

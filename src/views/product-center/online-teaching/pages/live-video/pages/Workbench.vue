@@ -35,7 +35,6 @@
                     }"
                 >
                     <div :class="$style.addLive" @click="addLive">
-                        <div :class="$style.addStatus">空闲中</div>
                         <div :class="$style.addInfo">
                             <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/摄像头.png" alt="">
                             <span>点击预约直播房间</span>
@@ -44,7 +43,7 @@
                     <div :class="$style.livePrevious" @click="$router.push({ name: 'LiveNowList' })">
                         <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/摄像头.png" alt="">
                         <div :class="$style.previousInfo">
-                            <div>查看直播</div>
+                            <div>添加直播</div>
                             <img :class="$style.more" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/更多.png" alt="">
                         </div>
                     </div>
@@ -73,7 +72,7 @@
                     <div :class="$style.comboBtn">
                         <div>
                             <el-button round type="primary" @click="$router.push({ name: 'PayAndOrder', params: { isRenew: '1', type: '1' } })">续费</el-button>
-                            <el-button round @click="$router.push({ name: 'SubscriptionServiceOfFunctional' })">订单记录</el-button>
+                            <el-button round @click="$router.push({ name: 'SubscriptionService' })">订单记录</el-button>
                         </div>
                         <div><el-button type="text" @click="$router.push({ name: 'VideoDownload' })">视频下载</el-button></div>
                     </div>
@@ -430,6 +429,8 @@ export default class Workbench extends Vue {
                 grid-row-gap: 30px;
                 flex: 1;
                 > .add-live {
+                    display: flex;
+                    align-items: center;
                     box-sizing: border-box;
                     height: 190px;
                     padding: 20px;
@@ -454,6 +455,7 @@ export default class Workbench extends Vue {
                     }
                     > .add-info {
                         display: flex;
+                        flex: 1;
                         justify-content: center;
                         align-items: center;
                         height: calc( 100% - 24px);
