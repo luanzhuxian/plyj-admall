@@ -8,9 +8,9 @@
 
 import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
-import { MutationTypes } from '../../../../../store/mutation-type'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
-    name: 'NewYearBookingBuy',
+    name: 'BookingBuy',
     data () {
         return {
             programId: '5'

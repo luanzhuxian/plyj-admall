@@ -15,8 +15,8 @@
         <pl-tabs
             :value="$route.name"
             :tabs="[
-                {label:'活动详情',name:'NewYearBookingBuyDetail'},
-                {label:'活动数据',name:'NewYearBookingBuyData'},
+                {label:'活动详情', name:'BookingBuyDetail'},
+                {label:'活动数据', name:'BookingBuyData'},
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
         />
@@ -26,7 +26,7 @@
                 type="primary"
                 plain
                 size="mini"
-                @click="$router.push({name:'NewYearAddBooking', params:{id: activityDetail.id}})"
+                @click="$router.push({name:'AddBookingBuy', params:{id: activityDetail.id}})"
                 v-if="activityDetail.status === 0 || activityDetail.status === 1"
             >
                 编辑
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { bookingActivityDetail, getUserTagList } from '../../../../../apis/marketing-manage/booking'
+import { bookingActivityDetail, getUserTagList } from '../../../../apis/marketing-manage/booking'
 export default {
     data () {
         return {

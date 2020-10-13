@@ -70,7 +70,7 @@
                 :is-lock="!activitys.bookingBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png"
                 :route-info="{
-                    name: 'NewYearBookingBuy',
+                    name: 'BookingBuy',
                     params: {
                         programId: '5'
                     }

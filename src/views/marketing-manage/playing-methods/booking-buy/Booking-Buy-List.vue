@@ -12,7 +12,7 @@
                 <el-button
                     type="primary"
                     size="mini"
-                    @click="$router.push({name:'NewYearAddBooking'})"
+                    @click="$router.push({name:'AddBookingBuy'})"
                     class="add-btn"
                     icon="el-icon-plus"
                 >
@@ -25,7 +25,7 @@
         <pl-tabs
             :value="$route.name"
             :tabs="[
-                {label:'活动列表',name:'NewYearBookingBuyList'},
+                {label:'活动列表', name:'BookingBuyList'},
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
         />
@@ -173,14 +173,10 @@
                 <template slot-scope="{ row }">
                     <Operating>
                         <template slot="button-box">
-                            <a
-                                @click="$router.push({name:'NewYearBookingBuyDetail', params:{id: row.id}})"
-                            >
+                            <a @click="$router.push({name: 'BookingBuyDetail', params: { id: row.id }})">
                                 详情
                             </a>
-                            <a
-                                @click="$router.push({name:'NewYearBookingBuyData', params:{id: row.id}})"
-                            >
+                            <a @click="$router.push({name: 'BookingBuyData', params: { id: row.id }})">
                                 查看数据
                             </a>
                             <!-- 未开始/已结束的活动均支持删除 -->
@@ -272,13 +268,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview.vue'
-import Share from '../../../../../components/common/Share'
-import { bookingActivityPage, duplicateBookingActivity, updateActivityStatus } from '../../../../../apis/marketing-manage/booking'
-import { getSingleGoods } from '../../../../../apis/product-center/goods'
-import { MutationTypes } from '../../../../../store/mutation-type'
+import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
+import Share from '../../../../components/common/Share'
+import { bookingActivityPage, duplicateBookingActivity, updateActivityStatus } from '../../../../apis/marketing-manage/booking'
+import { getSingleGoods } from '../../../../apis/product-center/goods'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
-    name: 'NewYearBookingBuyList',
+    name: 'BookingBuyList',
     components: {
         GoodsPreview,
         Share
@@ -389,7 +385,7 @@ export default {
                     confirmButtonText: '编辑',
                     showClose: false
                 })
-                this.$router.push({ name: 'NewYearAddBooking', params: { id: data.result.id, type: 'duplicate' } })
+                this.$router.push({ name: 'AddBookingBuy', params: { id: data.result.id, type: 'duplicate' } })
             } catch (e) {
                 throw e
             } finally {

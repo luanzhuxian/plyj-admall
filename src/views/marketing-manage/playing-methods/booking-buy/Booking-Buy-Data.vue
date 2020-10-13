@@ -14,8 +14,8 @@
         <pl-tabs
             :value="$route.name"
             :tabs="[
-                {label:'活动详情',name:'NewYearBookingBuyDetail'},
-                {label:'活动数据',name:'NewYearBookingBuyData'},
+                {label:'活动详情', name:'BookingBuyDetail'},
+                {label:'活动数据', name:'BookingBuyData'},
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
         />
@@ -323,13 +323,13 @@
 </template>
 
 <script>
-import Export from './../../classmate-reunion/components/Export'
-import verification from '../../../../../components/order-center/Verification.vue'
-import { getActivityData } from '../../../../../apis/marketing-manage/gameplay'
-import { exportActivityData } from '../../../../../apis/marketing-manage/booking'
-import { activityDataList, redeemUserList } from '../../../../../apis/order'
+import Export from '../../activities/classmate-reunion/components/Export'
+import verification from '../../../../components/order-center/Verification.vue'
+import { getActivityData } from '../../../../apis/marketing-manage/gameplay'
+import { exportActivityData } from '../../../../apis/marketing-manage/booking'
+import { activityDataList, redeemUserList } from '../../../../apis/order'
 import moment from 'moment/moment'
-import { createObjectUrl } from '../../../../../assets/ts/upload'
+import { createObjectUrl } from '../../../../assets/ts/upload'
 export default {
     components: {
         verification,

@@ -230,20 +230,20 @@
 </template>
 
 <script>
-import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview'
-import ProductRadio from '../../../../../components/product-center/goods/Product-Radio.vue'
-import { getSingleGoods } from '../../../../../apis/product-center/goods'
+import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview'
+import ProductRadio from '../../../../components/product-center/goods/Product-Radio.vue'
+import { getSingleGoods } from '../../../../apis/product-center/goods'
 import {
     createBookingActivity,
     updateBookingActivity,
     bookingActivityDetail,
     getUserTagList
-} from '../../../../../apis/marketing-manage/booking'
-import { goPage } from '../../../../../assets/ts/utils'
+} from '../../../../apis/marketing-manage/booking'
+import { goPage } from '../../../../assets/ts/utils'
 import moment from 'moment/moment'
 
 export default {
-    name: 'NewYearAddBooking',
+    name: 'AddBookingBuy',
     components: {
         GoodsPreview,
         ProductRadio
@@ -333,7 +333,7 @@ export default {
         window.removeEventListener('beforeunload', this.beforeunload)
     },
     beforeRouteLeave (to, from, next) {
-        if (to.name !== 'NewYearBookingBuyList' && to.name !== 'NewYearBookingBuyList') {
+        if (to.name !== 'BookingBuyList' && to.name !== 'BookingBuyList') {
             this.$confirm({
                 title: '确定离开该页面吗？',
                 message: '请确定您所作的修改已经保存！'
@@ -487,11 +487,11 @@ export default {
                         gomMes = await updateBookingActivity(params)
                         warnMessage = '修改成功'
                     }
-                    goPage(this, gomMes.data.result, warnMessage, 'NewYearBookingBuyList')
+                    goPage(this, gomMes.data.result, warnMessage, 'BookingBuyList')
                 } else {
                     gomMes = await createBookingActivity(params)
                     warnMessage = '创建成功'
-                    goPage(this, gomMes.data.result, warnMessage, 'NewYearBookingBuyList')
+                    goPage(this, gomMes.data.result, warnMessage, 'BookingBuyList')
                 }
             } catch (e) { throw e }
         },

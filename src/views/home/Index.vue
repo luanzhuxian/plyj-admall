@@ -261,7 +261,7 @@ const functionsPanelTmpl = [
     {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新人有礼.png',
         name: '新人有礼',
-        desc: '新人注册送礼活动',
+        desc: '新人注册立享豪礼大礼包',
         to: {
             name: 'NewcomersGiftList'
         }
@@ -275,7 +275,7 @@ const functionsPanelTmpl = [
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png',
         name: '组合聚惠学',
-        desc: '组合商品打包售卖',
+        desc: '组合商品打包售卖，立享优惠',
         to: {
             name: 'CoursePackage',
             params: {
@@ -285,7 +285,7 @@ const functionsPanelTmpl = [
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png',
         name: '秒杀',
-        desc: '多种满减券金额',
+        desc: '限时抢购，引导用户消费',
         to: {
             name: 'SecondBuy',
             params: {
@@ -295,7 +295,7 @@ const functionsPanelTmpl = [
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png',
         name: '众志成团',
-        desc: '商城引导关注服务号',
+        desc: '微信裂变，快速引流',
         to: {
             name: 'NewYearTogetherBuy',
             params: {
@@ -305,9 +305,9 @@ const functionsPanelTmpl = [
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png',
         name: '预购',
-        desc: '组合商品打包售卖',
+        desc: '分批支付，提前享服务',
         to: {
-            name: 'NewYearBookingBuy',
+            name: 'BookingBuy',
             params: {
                 programId: '5'
             }
