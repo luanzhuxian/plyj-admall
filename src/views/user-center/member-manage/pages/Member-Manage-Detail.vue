@@ -68,6 +68,7 @@
                             :min="0"
                             :max="199"
                             :precision="0"
+                            disabled
                             v-if="isEdit"
                             v-model="addMemberDetailForm.age"
                             placeholder="请输入年龄"
