@@ -63,7 +63,7 @@
                             <!--                                {{ item.createTime }}-->
                             <!--                            </p>-->
                             <p>
-                                {{ helperDetail.logs[helperDetail.logs.length-1].createTime }}
+                                {{ helperDetail.logs[0].createTime }}
                             </p>
                         </div>
                     </div>
