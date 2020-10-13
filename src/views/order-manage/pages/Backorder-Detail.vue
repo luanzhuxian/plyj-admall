@@ -673,8 +673,8 @@ export default {
         // 获取驳回原因字典
         async getEditInfoList () {
             try {
-                const { data } = await getDataDictionary('REASONMODIFIEDAMOUNT')
-                this.editInfoList = data.result || []
+                const { result } = await getDataDictionary('REASONMODIFIEDAMOUNT')
+                this.editInfoList = result || []
             } catch (e) {
                 throw e
             }
