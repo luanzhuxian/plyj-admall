@@ -31,6 +31,19 @@ export default {
         ADMIN: '高级管理员',
         EMPLOYEE: '子账号'
     },
+
+    // 商品类型
+    productTypeMap: {
+        GRAPHIC_DATA: '图文资料',
+        PHYSICAL_GOODS: '实体商品',
+        VIRTUAL_GOODS: '虚拟商品',
+        EXPERIENCE_CLASS: '体验课',
+        KNOWLEDGE_COURSE: '知识课程',
+        SERIES_OF_COURSE: '系列课',
+        FORMAL_CLASS: '正式课',
+        LIVE_GOODS: '直播课',
+        VIDEO_GOODS: '录播课'
+    },
     orderStatus: {
         NEW: '待提交',
         WAIT_PAY: '待支付',
