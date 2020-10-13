@@ -4,7 +4,7 @@
             <!-- 访问店铺 -->
             <div :class="$style.visitShop">
                 <img @click="showMallUrl = true" width="15" class="pointer" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/shangchengguanli.png" alt="">
-                <span @click="showMallUrl = true" class="pointer">访问店铺</span>
+                <span @click="visitMall" class="pointer">访问店铺</span>
                 <shop-modal :show-mall-url="showMallUrl" @close="closeShopModal" />
             </div>
 
@@ -90,6 +90,7 @@ export default class HeaderRigtht extends Vue {
     @userModule.Getter('auditStatus') auditStatus!: string
     @userModule.Getter('currentRoleCode') currentRoleCode!: string
     @userModule.Getter('agencyCode') agencyCode!: string
+    @userModule.Getter currentStep!: number
     @Getter('roleMap') roleMap!: any
 
     @Watch('$route')
@@ -129,6 +130,10 @@ export default class HeaderRigtht extends Vue {
 
     closeShopModal () {
         this.showMallUrl = false
+    }
+
+    visitMall () {
+        this.currentStep === 1 ? this.showCreateMall = true : this.showMallUrl = true
     }
 
     async getMessageCount () {
