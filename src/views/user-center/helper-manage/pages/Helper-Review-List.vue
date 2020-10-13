@@ -69,7 +69,7 @@
                         >
                         <div>
                             <div class="name">
-                                <span class="nickName">{{ row.nickName }}</span>
+                                <span class="nickName">{{ row.userName }}</span>
                                 <div class="ml-10">
                                     <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
                                     <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
