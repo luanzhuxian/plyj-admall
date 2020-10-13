@@ -193,11 +193,10 @@
                     label="发展helper"
                 />
                 <el-table-column
-                    prop="createTime"
                     label="创建时间"
                 >
-                    <template slot-scope="scope">
-                        {{ scope.row.createTime | dateFormat("YYYY-MM-DD hh:mm:ss") }}
+                    <template #default="{row}">
+                        {{ row.createTime | dateFormat("YYYY-MM-DD hh:mm:ss") }}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -435,13 +434,13 @@ export default class AccountList extends Vue {
         if (lockStatus === 2) {
             await this.$confirm({
                 title: `确认移除（${ realName }）${ mobile }账号吗？`,
-                message: '移除后，邀请该员工的邀请链接将失效，改员工将我权限查看和管理我的机构店铺。'
+                message: '移除后，邀请该员工的邀请链接将失效，该员工将我权限查看和管理我的机构店铺。'
             })
             await deleteDeadAccount(mobile)
         } else {
             await this.$confirm({
                 title: `确认移除（${ realName }）${ mobile }账号吗？`,
-                message: '移除后，邀请该员工的邀请链接将失效，改员工将我权限查看和管理我的机构店铺，该员工店铺的操作记录等数据还将保留。'
+                message: '移除后，该账号将不再是该机构的员工，无权查看和管理我的机构店铺，该员工店铺的操作记录等数据还将保留。'
             })
             const params = JSON.parse(JSON.stringify(row))
             params.lockStatus = 3

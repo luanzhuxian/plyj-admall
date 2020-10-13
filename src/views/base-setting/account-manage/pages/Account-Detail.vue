@@ -578,7 +578,7 @@ export default class AccountList extends Vue {
                 this.canEdit = query.canEdit
                 this.getData()
                 this.getHelperList()
-                this.getOrderList()
+                // this.getOrderList()
                 this.getMenuByUserFun()
             }
 
