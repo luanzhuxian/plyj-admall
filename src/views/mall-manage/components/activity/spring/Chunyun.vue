@@ -148,7 +148,7 @@
             </template>
         </ul>
 
-        <ul :class="$style.chunyunList" v-else>
+        <ul :class="$style.chunyunList" class="chunyun-list" v-else>
             <li :class="$style.chunyunListItem">
                 <div :class="$style.title">
                     新春开学季度第一弹

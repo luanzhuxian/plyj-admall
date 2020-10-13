@@ -82,7 +82,7 @@
             </template>
         </ul>
 
-        <ul :class="$style.packageList" v-else>
+        <ul :class="$style.packageList" class="package-list" v-else>
             <swiper :options="getOptions([1, 2, 3])" v-for="(item, i) of 2" :key="i">
                 <swiperSlide>
                     <li :class="$style.packageListItem">
