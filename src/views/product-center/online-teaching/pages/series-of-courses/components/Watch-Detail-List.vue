@@ -89,7 +89,7 @@ export default {
     methods: {
         async getList () {
             try {
-                const { data: { result: { records, total } } } = await getWatchDetailList(this.filterForm)
+                const { result: { records, total } } = await getWatchDetailList(this.filterForm)
                 this.table = records
                 this.total = total
             } catch (e) {

@@ -104,7 +104,7 @@ export default {
     methods: {
         async getList () {
             try {
-                const { data: { result: { records, total } } } = await getWatchStudentList(this.filterForm)
+                const { result: { records, total } } = await getWatchStudentList(this.filterForm)
                 this.table = records
                 this.total = total
             } catch (e) {

@@ -131,7 +131,7 @@ import {
 // setCategoryBatch,
 // sortCategory
 } from '../../apis/product-center/category'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { copyFields } from '../../assets/ts/utils'
 import { testCategory } from '../../assets/ts/validate'
 import ImageSelector from '../common/file/File-Selector.vue'
@@ -248,6 +248,7 @@ export default {
         this.form.parentCode = this.parentCode || ''
     },
     methods: {
+        ...mapActions('goods', [MutationTypes.getClassifyTree]),
         close () {
             this.form = {
                 parentCode: '',
@@ -271,13 +272,13 @@ export default {
                         delete this.form.mallId
                         delete this.form.sort
                         this.form.id = this.data.id;
-                        ({ data: { result } } = await editCourseCategory(this.form))
+                        ({ result } = await editCourseCategory(this.form))
                     } else {
                         // 编辑商品子分类
                         delete this.form.id
                         this.form.mallId = this.mallNumber
                         this.form.sort = 1;
-                        ({ data: { result } } = await updateCategory(this.data.id, this.form))
+                        ({ result } = await updateCategory(this.data.id, this.form))
                     }
                     // 删除被替换的图片
                     if (this.willDelete.length > 0) deleteImage(this.willDelete, 'img')
@@ -287,18 +288,18 @@ export default {
                         // 添加线上课子分类
                         delete this.form.mallId
                         delete this.form.sort;
-                        ({ data: { result } } = await addCourseCategory(this.form))
+                        ({ result } = await addCourseCategory(this.form))
                     } else {
                         // 添加商品子分类
                         this.form.mallId = this.mallNumber
                         this.form.sort = 1;
-                        ({ data: { result } } = await addSubCategory(this.form))
+                        ({ result } = await addSubCategory(this.form))
                     }
                     this.$success('分类添加成功')
                 }
                 this.close()
                 // 刷新分类列表
-                await this.$store.dispatch(MutationTypes.getClassifyTree, this.goodType ? 2 : 1)
+                await this[MutationTypes.getClassifyTree](this.goodType ? 2 : 1)
                 this.$emit('success', result)
             } catch (e) {
                 throw e

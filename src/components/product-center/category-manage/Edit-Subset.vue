@@ -296,7 +296,7 @@ export default {
                 }
                 this.close()
                 // 刷新分类列表
-                await this.$store.dispatch(MutationTypes.getClassifyTree, this.goodType ? 2 : 1)
+                await this.$store.dispatch(`goods/${ MutationTypes.getClassifyTree }`, this.goodType ? 2 : 1)
                 this.$emit('success', result)
             } catch (e) {
                 throw e

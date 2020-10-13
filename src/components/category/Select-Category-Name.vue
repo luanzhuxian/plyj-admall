@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import EditMain from './Edit-Main.vue'
 import EditSubset from './Edit-Subset.vue'
 import { MutationTypes } from '../../store/mutation-type'
@@ -135,9 +135,10 @@ export default {
     // }
     },
     methods: {
+        ...mapActions('goods', [MutationTypes.getClassifyTree]),
         async getTree () {
             try {
-                await this.$store.dispatch(MutationTypes.getClassifyTree)
+                await this[MutationTypes.getClassifyTree]()
             } catch (e) {
                 throw e
             }

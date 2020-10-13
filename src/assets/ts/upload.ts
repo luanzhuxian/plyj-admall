@@ -137,7 +137,7 @@ export const blobToBase64 = (blob: Blob): Promise<string> => new Promise((resolv
  */
 
 export const compress = async (file: Blob | HTMLImageElement, fileType = 'blob', maxWidth = 1920): Promise<Blob | string> => {
-    let newFile: Blob | null = null
+    let newFile: Blob | HTMLImageElement | null = file
     if (file.toLocaleString().indexOf('HTMLImageElement') > -1) {
         newFile = await imgToBlob(file as HTMLImageElement)
     }

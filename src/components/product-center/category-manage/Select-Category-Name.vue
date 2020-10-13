@@ -141,7 +141,7 @@ export default {
     methods: {
         async getTree () {
             try {
-                await this.$store.dispatch(MutationTypes.getClassifyTree)
+                await this.$store.dispatch(`goods/${ MutationTypes.getClassifyTree }`)
             } catch (e) {
                 throw e
             }
