@@ -124,7 +124,7 @@
                 fixed="right"
                 label="操作"
             >
-                <template>
+                <template #default="{row}">
                     <el-button type="text" @click="$router.push({ name: 'OrderDetail', params: { id: row.orderId } })">
                         订单详情
                     </el-button>
