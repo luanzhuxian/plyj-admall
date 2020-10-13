@@ -33,7 +33,7 @@ export const infoStep3 = data => axios.post('/apis/v1/micro/applyment/step3', da
 // export const submitBusinessInfo = data => axios.post('/apis/v1/base/baseMall/saveMall', data)
 
 // 随机获取客服
-export const selectOneRandom = () => axios.get('/apis/v1/agency/AgencyCustomerService/selectOneRandom')
+export const selectOneRandom = () => axios.get('/apis/v2/agency/AgencyCustomerService/selectOneRandom')
 
 /* 识别营业执照 */
 export const getBusLicenseInfo = fileUrl => axios.post(`/apis/v2/oss/upload/img/busLicense?fileUrl=${ fileUrl }`)
