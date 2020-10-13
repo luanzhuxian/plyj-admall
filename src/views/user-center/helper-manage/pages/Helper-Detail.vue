@@ -12,7 +12,7 @@
                 </span>
             </span>
         </div>
-        <div class="detail-main">
+        <!--<div class="detail-main">
             <div class="title">用户基本信息</div>
             <div class="user-info">
                 <div class="user-avatar">
@@ -68,7 +68,7 @@
                     <span>{{ item.content }}</span>
                 </li>
             </ul>
-        </div>
+        </div>-->
         <div class="btns" v-if="detail.auditStatus === 'AWAIT'">
             <el-button type="primary" @click="updateBrokerStatus(detail.id, 'PASS')">审核通过</el-button>
             <el-button type="text" @click="updateBrokerStatus(detail.id, 'REJECT')">审核驳回</el-button>
@@ -115,8 +115,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { getHelperDetail, updateBrokerStatus } from '../../../../apis/member'
 
-    @Component({})
-
+@Component
 export default class MemberManageDetail extends Vue {
         roleCodeMap = {
             ENTERPRISE_ADMIN: '企业管理员',

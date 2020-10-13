@@ -3,77 +3,24 @@
         <!-- 用户基本信息 -->
         <div :class="$style.module">
             <div :class="$style.moduleTitle">用户基本信息</div>
-            <div :class="$style.baseInfo">
-                <div :class="$style.right">
-                    <img :class="$style.avatar" :src="memberDetail.userImage" alt="">
-                    <div :class="$style.userTitle">
-                        <div :class="$style.name" v-text="memberDetail.nickName" />
-                        <div :class="$style.level" v-text="roleType[memberDetail.roleCode]" />
-                        <pl-svg :class="$style.gender" v-if="memberDetail.gender === 2" name="icon-women-be552" width="10" height="10" />
-                        <pl-svg :class="$style.gender" v-else-if="memberDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
-                        <span :class="$style.userType" v-if="memberDetail.type">
-                            <template v-if="memberDetail.type !== 3">
-                                {{ USER_TYPE[memberDetail.type] && USER_TYPE[memberDetail.type].split('')[0] }}
-                            </template>
-                            <template v-else>
-                                {{ memberDetail.other && memberDetail.other.split('')[0] }}
-                            </template>
-                        </span>
-                    </div>
-                </div>
-                <div :class="$style.left">
-                    <Field
-                        title="手机号："
-                        inline
-                        style="margin-right: 78px;"
-                        :mb="24"
-                        :text="memberDetail.mobile"
-                    />
-                    <Field
-                        title="姓名："
-                        inline
-                        :mb="24"
-                        :text="memberDetail.userName || '--'"
-                    />
-                    <Field
-                        title="地址："
-                        :mb="24"
-                        :text="memberDetail.addressPath + memberDetail.address || '--'"
-                    />
-                    <Field
-                        title="来源："
-                        :mb="24"
-                        inline
-                        style="margin-right: 78px;"
-                        :text="memberDetail.source"
-                    />
-                    <Field
-                        title="标签："
-                        inline
-                        :mb="24"
-                    >
-                        <span v-html="memberDetail.tags.slice(0, 2).map(item => `<span>${ item.tagName }</span>`).join(`<i class='${ $style.separator }'></i>`)" />
-                        <template v-if="memberDetail.tags.length >= 3">
-                            <i :class="$style.separator" />
-                            <el-popover
-                                placement="bottom-end"
-                                trigger="hover"
-                            >
-                                <ul :class="$style.tagList">
-                                    <li v-for="item of memberDetail.tags.slice(2)" :key="item.id" v-text="item.tagName" />
-                                </ul>
-                                <span class="pointer" slot="reference">更多</span>
-                            </el-popover>
-                        </template>
-                        <el-button style="padding-bottom: 0; padding-top: 0;" type="text" @click="showAddTagDialog = true">编辑</el-button>
-                    </Field>
-                    <Field title="记录：">
-                        <p class="mb-16">{{ memberDetail.createTime }}<span class="ml-16">注册</span></p>
-                        <p class="mb-16" v-if="memberDetail.lastLoginTime">{{ memberDetail.lastLoginTime }}<span class="ml-16">最近登录</span></p>
-                        <p class="mb-16">{{ memberDetail.lastPurchaseTime }}<span class="ml-16">最近购买</span></p>
-                    </Field>
-                </div>
-            </div>
+            <BaseInfo
+                :avatar="memberDetail.userImage"
+                :nick-name="memberDetail.nickName"
+                :role-code="memberDetail.roleCode"
+                :gender="memberDetail.gender"
+                :type="memberDetail.type"
+                :other="memberDetail.other"
+                :mobile="memberDetail.mobile"
+                :user-name="memberDetail.userName"
+                :address="memberDetail.addressPath + memberDetail.address"
+                :source="memberDetail.source"
+                :tags="memberDetail.tags"
+                :create-time="memberDetail.createTime"
+                :last-login-time="memberDetail.lastLoginTime"
+                :last-purchase-time="memberDetail.lastPurchaseTime"
+                :id="memberDetail.id"
+                @tagChange="getMemberDetail"
+            />
         </div>
 
         <div :class="$style.module">
@@ -203,7 +150,8 @@ import Field from '../../../../components/common/base/Field.vue'
 import CityPicker from '../../../../components/common/base/City-Picker.vue'
 import AddTags from '../components/Add-Tags.vue'
 import WatchDetailList from '../components/Watch-Detail-List.vue'
-import DataBar from '../components/Data-Bar.vue'
+import DataBar from '../../../../components/user-center/Data-Bar.vue'
+import BaseInfo from '../../../../components/user-center/Base-Info.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
 
 import {
@@ -238,7 +186,8 @@ const validateInput = (rule: any, value: string, callback: any) => {
         Pagination,
         WatchDetailList,
         SelectCategory,
-        DataBar
+        DataBar,
+        BaseInfo
     }
 })
 export default class MemberManageDetail extends Vue {
@@ -297,6 +246,7 @@ export default class MemberManageDetail extends Vue {
 
     // 当前用户是否helper
     isHelper = false
+
     // 用户数据
     memberDetail: DynamicObject = {
         tags: []
@@ -440,56 +390,6 @@ export default class MemberManageDetail extends Vue {
             font-size: 16px;
         }
     }
-    .base-info {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding: 40px 8px;
-        .right {
-            display: inline-flex;
-            margin-right: 23px;
-            .avatar {
-                width: 88px;
-                border-radius: 50%;
-                margin-right: 15px;
-            }
-            .user-title {
-                position: relative;
-                padding: 0 22px;
-            }
-            .name {
-                max-width: 76px;
-                @include elps();
-            }
-            .level {
-                margin-top: 7px;
-                color: #6FD79F;
-                font-size: 12px;
-            }
-            .gender {
-                position: absolute;
-                right: 0;
-                top: 0;
-            }
-            .user-type {
-                position: absolute;
-                top: 0;
-                left: 0;
-                text-align: center;
-                width: 18px;
-                height: 18px;
-                border-radius: 5px;
-                border: 1px solid #F79F1A;
-                font-size: 12px;
-                line-height: 16px;
-                color: #F79F1A;
-                box-sizing: border-box;
-            }
-        }
-        .left {
-        }
-    }
-
     .remark-info {
         margin-top: 24px;
         padding: 27px 32px;
@@ -501,16 +401,5 @@ export default class MemberManageDetail extends Vue {
             @include elps();
         }
     }
-    .separator {
-        display: inline-block;
-        width: 1px;
-        height: 12px;
-        background-color: #333;
-        margin: 0 10px;
-    }
-    .tag-list {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        grid-gap: 6px 12px;
-    }
+
 </style>

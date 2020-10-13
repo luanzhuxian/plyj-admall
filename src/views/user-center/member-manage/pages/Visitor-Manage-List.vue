@@ -116,7 +116,7 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { getYouKe, getYouKeCount } from '../../../../apis/member'
-import DataBar from '../components/Data-Bar.vue'
+import DataBar from '../../../../components/user-center/Data-Bar.vue'
 
 @Component({
     components: {

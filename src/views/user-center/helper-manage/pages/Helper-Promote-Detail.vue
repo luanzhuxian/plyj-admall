@@ -1,102 +1,36 @@
 <template>
     <div>
-        <!--用户信息-->
-        <div>
-            <div class="header">
-                <img
-                    slot="left"
-                    class="face"
-                    :src="helperDetail.userImage"
-                >
-                <div class="intro">
-                    <div class="detail">
-                        <span class="user-type" v-if="helperDetail.type">
-                            <template v-if="helperDetail.type !== 3">
-                                {{ USER_TYPE[helperDetail.type] && USER_TYPE[helperDetail.type].split('')[0] }}
-                            </template>
-                            <template v-else>
-                                {{ helperDetail.other && helperDetail.other.split('')[0] }}
-                            </template>
-                        </span>
-                        <span
-                            slot="right-top"
-                            class="name"
-                            v-text="helperDetail.nickName"
-                        />
-                        <template>
-                            <pl-svg v-if="helperDetail.gender === 2" name="icon-women-be552" width="10" height="10" />
-                            <pl-svg v-if="helperDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
-                        </template>
-                    </div>
-                    <div class="role-type">Helper</div>
-                </div>
-                <div class="info-list">
-                    <Field
-                        title="手机号："
-                        :text="helperDetail.mobile"
-                    />
-                    <Field
-                        title="姓名："
-                        :text="helperDetail.name || '--'"
-                    />
-                    <Field
-                        title="地址："
-                        :text="helperDetail.address || '--'"
-                    />
-                    <Field
-                        title="来源："
-                        :text="helperDetail.source"
-                    />
-                    <div class="tag-list">
-                        <span>标签：</span>
-                        <span class="tags" v-if="helperDetail.tags && helperDetail.tags.length">
-                            <span v-for="item in helperDetail.tags" :key="item.id">{{ item && item.tagName }} </span>
-                        </span>
-                        <!--                        <a @click="showAddTagDialog = true">-->
-                        <!--                            编辑-->
-                        <!--                        </a>-->
-                    </div>
-                    <div class="record">
-                        <span>记录：</span>
-                        <div class="list" v-if="helperDetail.logs && helperDetail.logs.length">
-                            <!--                            <p v-for="item in helperDetail.logs" :key="item.id">-->
-                            <!--                                {{ item.createTime }}-->
-                            <!--                            </p>-->
-                            <p>
-                                {{ helperDetail.logs[0].createTime | dateFormat("YYYY.MM.DD HH:mm:ss") }}  加入
-                            </p>
-                        </div>
-                    </div>
-                    <div class="tag-list">
-                        <span>所属账号：</span>
-                        <span class="tags">{{ helperDetail.ownedUser }}</span>
-                        <a @click="showChangeOwnerDialog = true">
-                            更改所属账号
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div :class="$style.module">
+            <div :class="$style.moduleTitle">用户基本信息</div>
+            <BaseInfo
+                :avatar="helperDetail.userImage"
+                :type="Number(helperDetail.type) || 3"
+                :other="helperDetail.other"
+                :nick-name="helperDetail.nickName"
+                :mobile="helperDetail.mobile"
+                :gender="Number(helperDetail.gender) || 0"
+                :role-code="helperDetail.roleCode"
+                :user-name="helperDetail.name"
+                :address="helperDetail.address"
+                :tags="helperDetail.tags"
+                :id="helperDetail.id"
+                :source="helperDetail.source"
+                :create-time="helperDetail.createTime"
+                :owned-user="helperDetail.ownedUser || helperDetail.ownedMobile"
+                :owned-role="helperDetail.ownedRole"
+                :owned-user-id="helperDetail.ownedUserId"
+                @changeOwnedAccount="showChangeOwnerDialog = true"
+            />
         </div>
-        <!--统计数据-->
-        <div class="statistics">
-            <h3 class="title">Helper推广数据</h3>
-            <ul class="info">
-                <li>
-                    <p>支付订单</p>
-                    <b>{{ statistics.totalOrder || 0 }}</b>
-                    <span>自购{{ statistics.selfBuyOrder || 0 }} <i>分享{{ statistics.shareOrder || 0 }}</i> </span>
-                </li>
-                <li>
-                    <p>支付总额</p>
-                    <b>{{ statistics.totalAmount / 100 || 0 }}</b>
-                    <span>自购{{ statistics.selfBuyAmount / 100 || 0 }} <i>分享{{ statistics.shareAmount / 100 || 0 }}</i> </span>
-                </li>
-                <li>
-                    <p>获得润笔</p>
-                    <b>{{ statistics.rebateAmount / 100 || 0 }}</b>
-                    <span>未提现润笔{{ statistics.pendingWithdrawal / 100 || 0 }}元</span>
-                </li>
-            </ul>
+        <div :class="$style.module">
+            <div :class="$style.moduleTitle">Helper推广数据</div>
+            <DataBar
+                :data-list="[
+                    { title: '支付订单', data: statistics.totalOrder || 0, tip: `自购${ statistics.selfBuyOrder || 0 } <i class='ml-20'>分享${ statistics.shareOrder || 0 }</i>` },
+                    { title: '支付总额', data: statistics.totalAmount / 100 || 0, tip: `自购${ statistics.selfBuyAmount || 0 } <i class='ml-20'>分享${ statistics.shareAmount || 0 }</i>` },
+                    { title: '获得润笔', data: statistics.rebateAmount / 100 || 0, tip: `未提现润笔${ statistics.pendingWithdrawal || 0 }` }
+                ]"
+            />
         </div>
         <!--helper列表数据-->
         <div class="table-list">
@@ -408,14 +342,6 @@
                 </template>
             </div>
         </div>
-
-        <!-- 添加标签 -->
-        <AddTags
-            :show.sync="showAddTagDialog"
-            :current-member="helperDetail"
-            @confirm="getHelperDetail"
-        />
-
         <!--更改所属账号-->
         <ChangeOwnerDialog
             :show.sync="showChangeOwnerDialog"
@@ -430,7 +356,9 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Field from '../../../../components/common/base/Field.vue'
 import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
-import AddTags from '../../member-manage/components/Add-Tags.vue'
+import BaseInfo from '../../../../components/user-center/Base-Info.vue'
+import DataBar from '../../../../components/user-center/Data-Bar.vue'
+
 import {
     getHelperDetail,
     getHelperStatistics,
@@ -442,7 +370,8 @@ import {
       components: {
           Field,
           ChangeOwnerDialog,
-          AddTags
+          BaseInfo,
+          DataBar
       }
   })
 export default class HelperPromoteDetail extends Vue {
@@ -802,6 +731,15 @@ export default class HelperPromoteDetail extends Vue {
     }
 }
 </script>
+<style module lang="scss">
+    .module {
+        margin-bottom: 20px;
+        .module-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+    }
+</style>
 
 <style scoped lang="scss">
     .header {

@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.data">
-        <div v-text="title" />
+        <div v-if="title" v-text="title" />
         <div :class="$style.dataList">
             <div
                 :class="$style.item"
@@ -17,6 +17,7 @@
                     <i class="el-icon-info" />
                 </el-tooltip>
                 <strong v-text="item.data" />
+                <div v-if="item.tip" :class="$style.tip" v-html="item.tip" />
             </div>
         </div>
     </div>
@@ -25,11 +26,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-
+type dataList = {
+    title: string;
+    tooltip?: string;
+    data: number;
+    tip?: string;
+}
 @Component
 export default class MemberDataBar extends Vue {
     @Prop({ type: String }) title!: string
-    @Prop({ type: Array }) dataList!: any[]
+    @Prop({ type: Array }) dataList!: dataList[]
 }
 </script>
 
@@ -49,6 +55,10 @@ export default class MemberDataBar extends Vue {
                     display: block;
                     line-height: 60px;
                     font-size: 48px;
+                }
+                > .tip {
+                    margin-top: 10px;
+                    color: #999;
                 }
             }
         }

@@ -415,7 +415,7 @@ import PlTree from '../../../../components/common/pl-tree'
 import EditMemberTag from '../components/Edit-Member-Tag.vue'
 import AddTags from '../components/Add-Tags.vue'
 import RemarkList from '../components/Remark-List.vue'
-import DataBar from '../components/Data-Bar.vue'
+import DataBar from '../../../../components/user-center/Data-Bar.vue'
 
 import { throttle } from './../../../../assets/ts/utils'
 import {
