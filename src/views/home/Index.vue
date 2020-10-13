@@ -48,13 +48,13 @@
                 :to="{ name: 'MarketingManage' }"
             >
                 <div v-for="(item, key) in functionsPanelTmpl" :key="key">
-                    <router-link class="functions-panel__item" :to="item.to">
+                    <a class="functions-panel__item" @click="navigator(item.to)">
                         <img class="functions-panel__item-icon" :src="item.icon" alt="">
                         <div class="functions-panel__item-info">
                             <div class="functions-panel__item-name" v-text="item.name" />
                             <div class="functions-panel__item-desc" v-text="item.desc" />
                         </div>
-                    </router-link>
+                    </a>
                 </div>
             </Panel>
 
@@ -63,59 +63,37 @@
                 <div class="write-off-panel__item">
                     <div>
                         <div>虚拟商品</div>
-                        <router-link
+                        <a
                             class="write-off-panel__item-number"
-                            :to="{
-                                name: 'OrderList',
-                                query: {
-                                    status: 'WAIT_RECEIVE',
-                                    productType: 'VIRTUAL_GOODS'
-                                }
-                            }"
+                            @click="navigator({ name: 'OrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } })"
                             v-text="homeInfo.virtualCount || 0"
                         />
                     </div>
-                    <router-link
+                    <a
                         class="write-off-panel__item-link"
-                        :to="{
-                            name: 'OrderList',
-                            query: {
-                                status: 'WAIT_RECEIVE',
-                                productType: 'VIRTUAL_GOODS'
-                            }
-                        }"
+                        @click="navigator({ name: 'OrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } })"
                     >
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
-                    </router-link>
+                    </a>
                 </div>
                 <div class="write-off-panel__item">
                     <div>
                         <div>课程商品</div>
                         <!--<router-link class="write-off-panel__item-number" to="/admall/orders-manage/courses-list?status=WAIT_RECEIVE" v-text="homeInfo.courseCount || 0" />-->
-                        <router-link
+                        <a
                             class="write-off-panel__item-number"
-                            :to="{
-                                name: 'CoursesList',
-                                query: {
-                                    status: 'WAIT_RECEIVE'
-                                }
-                            }"
+                            @click="navigator({ name: 'CoursesList', query: { status: 'WAIT_RECEIVE' } })"
                             v-text="homeInfo.courseCount || 0"
                         />
                     </div>
-                    <router-link
+                    <a
                         class="write-off-panel__item-link"
-                        :to="{
-                            name: 'CoursesList',
-                            query: {
-                                status: 'WAIT_RECEIVE'
-                            }
-                        }"
+                        @click="navigator({ name: 'CoursesList', query: { status: 'WAIT_RECEIVE' } })"
                     >
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
-                    </router-link>
+                    </a>
                 </div>
             </Panel>
 
@@ -150,36 +128,36 @@
 
             <!-- 待办事宜 -->
             <Panel custom-class="to-do-panel" title="待办事宜">
-                <router-link class="to-do-panel__item" :to="{ name: 'OrderList', query: { status: 'WAIT_SHIP' } }">
+                <a class="to-do-panel__item" @click="navigator({ name: 'OrderList', query: { status: 'WAIT_SHIP' } })">
                     <div class="to-do-panel__item-name">待发货订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitShip || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitShip || 0 }单` }}</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitShip" />
-                </router-link>
-                <router-link class="to-do-panel__item" :to="{ name: 'Backorder', query: { status: 'WaitReview' } }">
+                </a>
+                <a class="to-do-panel__item" @click="navigator({ name: 'Backorder', query: { status: 'WaitReview' } })">
                     <div class="to-do-panel__item-name">待退款订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitRefund || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitRefund || 0 }单` }}</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitRefund" />
-                </router-link>
-                <router-link class="to-do-panel__item" :to="{ name: 'HelperReviewList' }">
+                </a>
+                <a class="to-do-panel__item" @click="navigator({ name: 'HelperReviewList' })">
                     <div class="to-do-panel__item-name">待审核Helper</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayPendingReviewHelper || 0 }人` }}</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.pendingReviewHelper" />
-                </router-link>
-                <router-link class="to-do-panel__item" :to="{ name: 'RunbiManage', query: { status: 'AWAIT' } }">
+                </a>
+                <a class="to-do-panel__item" @click="navigator({ name: 'RunbiManage', query: { status: 'AWAIT' } })">
                     <div class="to-do-panel__item-name">待审核润笔</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayShareWaitAudit || 0 }人` }}</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.shareWaitAudit" />
-                </router-link>
-                <router-link class="to-do-panel__item" :to="{ name: 'WithdrawDepositManage', query: { status: 'AWAIT' } }">
+                </a>
+                <a class="to-do-panel__item" @click="navigator({ name: 'WithdrawDepositManage', query: { status: 'AWAIT' } })">
                     <div class="to-do-panel__item-name">待提现审核</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0 }人` }}</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.pendingWithdraw" />
-                </router-link>
+                </a>
             </Panel>
         </div>
 
@@ -356,19 +334,12 @@ export default class Home extends Vue {
 
     async created () {
         try {
-            await this.getHomeInfo()
-        } catch (e) {
-            throw e
-        }
-    }
-
-    async mounted () {
-        try {
             // if (this.regType === 2) {
             //     await this.newCheckStatus()
             // } else {
             //     this.checkStatus()
             // }
+            await this.getHomeInfo()
             if (this.currentStep === 1) {
                 this.createdMallShow = true
             }
@@ -569,6 +540,10 @@ export default class Home extends Vue {
             .catch(() => {
                 this.$router.replace({ name: 'Home' })
             })
+    }
+
+    navigator (route: any) {
+        this.currentStep === 1 ? this.createdMallShow = true : this.$router.push(route)
     }
 }
 </script>
