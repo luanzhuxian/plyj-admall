@@ -1,5 +1,8 @@
 <template>
-    <div :class="$style.searchBox">
+    <div
+        :class="$style.searchBox"
+        :style="{ '--gapColumn': gapColumn, '--padding': padding }"
+    >
         <el-form
             :class="$style.container"
             inline
@@ -20,6 +23,16 @@ export default {
     computed: {
         form () {
             return this.$refs.form
+        }
+    },
+    props: {
+        gapColumn: {
+            type: String,
+            default: '40px'
+        },
+        padding: {
+            type: String,
+            default: '20px 32px'
         }
     },
     async mounted () {
@@ -68,13 +81,13 @@ export default {
 <style module lang="scss">
   .search-box {
     display: flex;
-    padding: 20px 32px;
+    padding: var(--padding);
     background-color: #F5F6FA;
     border-radius: 10px;
     > .container {
       display: inline-grid;
       grid-template-columns: auto auto auto;
-      grid-gap: 10px 40px;
+      grid-gap: 10px var(--gapColumn);
     }
   }
 </style>

@@ -12,7 +12,7 @@
                 :other="memberDetail.other"
                 :mobile="memberDetail.mobile"
                 :user-name="memberDetail.userName"
-                :address="memberDetail.addressPath + memberDetail.address"
+                :address="memberDetail.addressPath + memberDetail.address || ''"
                 :source="memberDetail.source"
                 :tags="memberDetail.tags"
                 :create-time="memberDetail.createTime"
@@ -31,10 +31,10 @@
                 <el-button v-if="isEdit" class="ml-0" type="text" @click="isEdit = false">取消</el-button>
             </div>
             <div :class="$style.remarkInfo">
-                <search-box inline ref="searchBox">
+                <search-box inline ref="searchBox" gap-column="20px" padding="0">
                     <el-form-item label="真实姓名：" style="margin-right: 128px;">
                         <el-input style="width: 220px;" v-if="isEdit" v-model="addMemberDetailForm.name" placeholder="请输入真实姓名" />
-                        <span v-else v-text="addMemberDetailForm.name || '--'" />
+                        <span v-else v-text="memberDetail.name || '--'" />
                     </el-form-item>
 
                     <el-form-item label="用户身份：" style="display: inline-block;">
@@ -46,7 +46,7 @@
                                 <el-input v-else v-model="addMemberDetailForm.other" />
                             </el-radio>
                         </el-radio-group>
-                        <span v-else v-text="addMemberDetailForm.type === 3 ? memberDetail.other : USER_TYPE[memberDetail.type] || '--'" />
+                        <span v-else v-text="memberDetail.type === 3 ? memberDetail.other : USER_TYPE[memberDetail.type] || '--'" />
                     </el-form-item>
 
                     <el-form-item v-show="!isEdit" label="手机号码：" style="margin-right: 116px;">
@@ -58,8 +58,9 @@
                             v-if="isEdit"
                             value-format="yyyy-MM-dd"
                             v-model="addMemberDetailForm.birthday"
+                            placeholder="请选择生日"
                         />
-                        <span v-else>{{ addMemberDetailForm.birthday | dateFormat('YYYY-MM-DD') }}</span>
+                        <span v-else>{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</span>
                     </el-form-item>
 
                     <el-form-item label="年龄：" style="margin-right: 116px;">
@@ -71,7 +72,7 @@
                             v-model="addMemberDetailForm.age"
                             placeholder="请输入年龄"
                         />
-                        <span v-else v-text="addMemberDetailForm.age" />
+                        <span v-else v-text="memberDetail.age" />
                     </el-form-item>
 
                     <el-form-item label="微信号：">
@@ -79,22 +80,22 @@
                         <span v-else v-text="memberDetail.wechatNumber || '--'" />
                     </el-form-item>
                     <el-form-item label="邮箱：" style="margin-right: 116px;">
-                        <el-input v-if="isEdit" v-model="addMemberDetailForm.email" placeholder="请输入手机号" />
-                        <span v-else v-text="addMemberDetailForm.email" />
+                        <el-input style="width: 220px;" v-if="isEdit" v-model="addMemberDetailForm.email" placeholder="请输入邮箱" />
+                        <span v-else v-text="memberDetail.email" />
                     </el-form-item>
 
                     <el-form-item label="行业：" style="margin-right: 116px;">
                         <el-input v-if="isEdit" v-model="addMemberDetailForm.industry" placeholder="请输入行业" />
-                        <span v-else v-text="addMemberDetailForm.industry" />
+                        <span v-else v-text="memberDetail.industry" />
                     </el-form-item>
 
                     <el-form-item label="公司：">
-                        <el-input v-if="isEdit" v-model="addMemberDetailForm.company" placeholder="请输入手机号" />
-                        <span v-else v-text="addMemberDetailForm.company" />
+                        <el-input v-if="isEdit" v-model="addMemberDetailForm.company" placeholder="请输入公司" />
+                        <span v-else v-text="memberDetail.company" />
                     </el-form-item>
                     <el-form-item label="职位：" style="margin-right: 116px;">
-                        <el-input v-if="isEdit" v-model="addMemberDetailForm.workPosition" placeholder="请输入职位" />
-                        <span v-else v-text="addMemberDetailForm.workPosition" />
+                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.workPosition" placeholder="请输入职位" />
+                        <span v-else v-text="memberDetail.workPosition" />
                     </el-form-item>
 
                     <el-form-item label="所在区域：">
@@ -103,7 +104,7 @@
                             <br>
                             <el-input style="width: 260px;" class="mt-10" v-model="addMemberDetailForm.address" placeholder="请输入详细地址" />
                         </template>
-                        <span v-else v-text="(addMemberDetailForm.addressPath + addMemberDetailForm.address) || '--'" />
+                        <span v-else v-text="(memberDetail.addressPath + memberDetail.address) || '--'" />
                     </el-form-item>
                     <br>
                     <el-form-item v-if="!isEdit" label="备注：" style="display: block;">
@@ -153,7 +154,7 @@ import WatchDetailList from '../components/Watch-Detail-List.vue'
 import DataBar from '../../../../components/user-center/Data-Bar.vue'
 import BaseInfo from '../../../../components/user-center/Base-Info.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
-
+import { copyFields } from '../../../../assets/ts/utils'
 import {
     saveMemberInfo,
     getMemberDetail,
@@ -252,7 +253,25 @@ export default class MemberManageDetail extends Vue {
         tags: []
     }
 
-    addMemberDetailForm: DynamicObject = {}
+    addMemberDetailForm: DynamicObject = {
+        name: '',
+        type: '',
+        birthday: '',
+        wechatNumber: '',
+        other: '',
+        age: '',
+        email: '',
+        industry: '',
+        workPosition: '',
+        company: '',
+        address: '',
+        addressPath: '',
+        province: '',
+        city: '',
+        region: '',
+        town: ''
+    }
+
     defaultCity: string[] = []
     // 是否显示添加标签弹框
     showAddTagDialog = false
@@ -296,27 +315,28 @@ export default class MemberManageDetail extends Vue {
     async getMemberDetail () {
         try {
             const { result } = await getMemberDetail(this.userId)
-            const { name, type, birthday, wechatNumber, other, age, email, industry, workPosition, company, address, addressPath, province, city, region, town } = result
+            const { province, city, region, town } = result
             this.memberDetail = result
             this.defaultCity = town ? [province, city, region, town] : [province, city, region]
-            this.addMemberDetailForm = {
-                name,
-                type,
-                birthday,
-                wechatNumber,
-                other,
-                age,
-                email,
-                industry,
-                workPosition,
-                company,
-                address,
-                addressPath,
-                province,
-                city,
-                region,
-                town
-            }
+            copyFields(this.addMemberDetailForm, result)
+            // this.addMemberDetailForm = {
+            //     name,
+            //     type,
+            //     birthday,
+            //     wechatNumber,
+            //     other,
+            //     age,
+            //     email,
+            //     industry,
+            //     workPosition,
+            //     company,
+            //     address,
+            //     addressPath,
+            //     province,
+            //     city,
+            //     region,
+            //     town
+            // }
         } catch (e) {
             throw e
         }
