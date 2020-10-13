@@ -487,10 +487,15 @@ export default class AccountList extends Vue {
     }
 
     private async switchChange (row: any) {
-        const { roleCode, userId, lockStatus } = row
+        console.log(row)
+        const { roleCode, userId, lockStatus, realName, mobile } = row
         const params = { roleCode, userId, lockStatus }
         if (row.lockStatus === 0) {
             params.lockStatus = 1
+            await this.$confirm({
+                title: `确认启用账号（${ realName }）${ mobile }的操作权限吗？`,
+                message: '启用后，改用户可正常登陆商城进行相关操作和管理。'
+            })
             const res = await enableAccount(params)
             if (!res.result) {
                 this.$alert({
@@ -506,7 +511,10 @@ export default class AccountList extends Vue {
             this.getAccounts()
         } else if (row.lockStatus === 1) {
             params.lockStatus = 0
-            await this.$confirm('确认禁用此账户吗？')
+            await this.$confirm({
+                title: `确认禁用账号（${ realName }）${ mobile }的操作权限吗？`,
+                message: '禁用后，改用户不可正常登陆商城进行相关操作和管理。'
+            })
             await enableAccount(params)
             this.$success('禁用成功')
             // row.lockStatusText = '已禁用'
