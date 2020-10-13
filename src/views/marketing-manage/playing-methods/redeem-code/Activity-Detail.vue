@@ -98,7 +98,7 @@ export default {
     async created () {
         if (this.id) {
             try {
-                const { data: { result } } = await getRedeemCodeById(this.id)
+                const { result } = await getRedeemCodeById(this.id)
                 this.detail = result
                 this.useTime = `${ moment(result.startTime).format('YYYY-MM-DD') } - ${ moment(result.endTime).format('YYYY-MM-DD') }`
             } catch (e) {

@@ -261,7 +261,7 @@ export default {
     },
     async created () {
         try {
-            const { data: { result } } = await coupleIsFirstTime()
+            const { result } = await coupleIsFirstTime()
             if (result) this.guideStatus = 1
         } catch (e) {
             throw e

@@ -606,7 +606,7 @@ export default {
                 if (this.isCopy) {
                     delete this.form.id
                 }
-                const { data: { result } } = await saveCoupon(this.form)
+                const { result } = await saveCoupon(this.form)
                 this.resultData = result
             }
             this.$router.back()

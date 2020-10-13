@@ -303,7 +303,7 @@ export default {
         },
         async getData () {
             try {
-                const { data: { result } } = await activityStatistic(this.$route.params.id)
+                const { result } = await activityStatistic(this.$route.params.id)
                 this.statistics = result
             } catch (e) { throw e }
         },
@@ -311,7 +311,7 @@ export default {
         async getActivityGiftDetail ({ userId }) {
             try {
                 const activityId = this.$route.params.id
-                const { data: { result } } = await queryActivityGiftDetail(activityId, userId)
+                const { result } = await queryActivityGiftDetail(activityId, userId)
                 this.giftData = result
             } catch (e) { throw e }
         },

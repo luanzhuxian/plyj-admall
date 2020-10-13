@@ -56,7 +56,7 @@ export default {
     },
     async created () {
         try {
-            const { data: { result } } = await getRedeemCodeById(this.id)
+            const { result } = await getRedeemCodeById(this.id)
             this.activityDetail = result
         } catch (e) {
             throw e

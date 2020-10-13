@@ -149,7 +149,7 @@ export default {
         },
         async getList () {
             try {
-                const { data: { result } } = await getPublicBenefitList(this.form)
+                const { result } = await getPublicBenefitList(this.form)
                 this.list = result.records
                 this.total = result.total
             } catch (e) { throw e }

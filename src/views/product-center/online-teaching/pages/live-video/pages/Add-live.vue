@@ -767,7 +767,7 @@ export default {
                 } else {
                     await addLive(form)
                 }
-                this.$router.replace({ name: 'LivePreviousList' })
+                this.$router.replace({ name: 'Workbench' })
             } catch (e) { throw e }
         },
         cancel () {

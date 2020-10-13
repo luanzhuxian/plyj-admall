@@ -286,7 +286,7 @@ export default {
         try {
             // await this.getCouponList()
             await this.doQuery()
-            const { data: { result } } = await isShowGuide()
+            const { result } = await isShowGuide()
             // 新用户
             if (result === 1) {
                 this.newcomersDialog = true
@@ -342,7 +342,7 @@ export default {
         },
         async getCouponList () {
             try {
-                const { data: { result } } = await getCouponList({
+                const { result } = await getCouponList({
                     distributionMethod: 1,
                     status: 4,
                     couponType: '1,2'
@@ -377,7 +377,7 @@ export default {
             queryParams.size = this.pagination.size
 
             try {
-                const { data: { result } } = await getNewcomersActivities(queryParams)
+                const { result } = await getNewcomersActivities(queryParams)
                 this.activityList = result.records
                 this.pagination.total = result.total
             } catch (e) {

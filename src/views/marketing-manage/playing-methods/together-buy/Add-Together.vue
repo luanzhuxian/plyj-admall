@@ -338,7 +338,7 @@ export default {
         }
         // 获取用户分组
         try {
-            const { data: { result } } = await getUserTagList()
+            const { result } = await getUserTagList()
             this.userTagList = result
         } catch (e) { throw e }
     },
@@ -374,7 +374,7 @@ export default {
         },
         async getTogetherActivityDetail (id) {
             try {
-                const { data: { result } } = await togetherActivityDetail(id)
+                const { result } = await togetherActivityDetail(id)
                 Object.assign(this.marketingForm, {
                     activityBrief: result.activityBrief,
                     countdown: result.countdown,

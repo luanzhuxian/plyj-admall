@@ -198,7 +198,7 @@ export default {
     // 获取核销人
         async getRedeemUserList () {
             try {
-                const { data: { result } } = await getRedeemUserList()
+                const { result } = await getRedeemUserList()
                 this.redeemUserList = result
             } catch (e) { throw e }
         },

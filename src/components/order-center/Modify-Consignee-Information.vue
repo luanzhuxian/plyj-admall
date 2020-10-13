@@ -234,7 +234,7 @@ export default {
         // 获取收货人地址列表
         async getAddress () {
             if (this.userId) {
-                const { data: { result } } = await getAddressList(this.userId)
+                const { result } = await getAddressList(this.userId)
                 if (result && result.length) {
                     this.addressDataList = result
                     const array = []
@@ -256,7 +256,7 @@ export default {
         async saveAddressNew () {
             if (this.addressNewTemp.province && this.addressNewTemp.city && this.addressNewTemp.region && this.addressNewTemp.addressPrefix && this.addressNewTemp.address && this.addressNewTemp.name && this.addressNewTemp.mobile) {
                 if (this.testMobile(this.addressNewTemp.mobile)) {
-                    const { data: { result } } = await addAddressList({
+                    const { result } = await addAddressList({
                         userId: this.userId,
                         country: '',
                         province: this.addressNewTemp.province,

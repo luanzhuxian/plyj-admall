@@ -90,7 +90,7 @@ export default {
             }
         },
         async getDataDictionaryFun () {
-            const { data: { result } } = await getDataDictionary('refundRejectReason')
+            const { result } = await getDataDictionary('refundRejectReason')
             for (const item of result) {
                 this.optionsReason.push({ value: `${ item.dictDataKey }-${ item.dictDataValue }`, label: item.dictDataValue })
             }

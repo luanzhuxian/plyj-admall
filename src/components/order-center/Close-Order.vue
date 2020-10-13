@@ -118,7 +118,7 @@ export default {
             }
         },
         async getCancelOrderData () {
-            const { data: { result } } = await getDataDictionary('CANCELREASON')
+            const { result } = await getDataDictionary('CANCELREASON')
             this.closeOrderDataList = result || []
         },
         close () {

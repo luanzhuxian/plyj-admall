@@ -138,7 +138,7 @@ export default {
         // 获取统计数据
         async getStatistics () {
             try {
-                const { data: { result } } = await getStatistics(this.id)
+                const { result } = await getStatistics(this.id)
                 this.statistics = result
             } catch (e) {
                 throw e

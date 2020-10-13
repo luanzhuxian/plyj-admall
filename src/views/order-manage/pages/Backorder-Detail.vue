@@ -614,7 +614,7 @@ export default {
     // 获取页面展示数据
         async getOrderDetail () {
             try {
-                const { data: { result } } = await getBackorderDetail(this.id)
+                const { result } = await getBackorderDetail(this.id)
                 this.detailInfo = result || {}
                 const {
                     record,

@@ -127,7 +127,7 @@ export default {
         },
         async getGoodsList () {
             try {
-                const { data: { result } } = await getList(this.form)
+                const { result } = await getList(this.form)
                 this.total = result.total
                 this.courseList = result.records
                 this.defaultSelect()

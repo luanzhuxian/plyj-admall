@@ -384,7 +384,7 @@ export default {
         async getList (page) {
             this.queryPage.current = page || this.queryPage.current
             try {
-                const { data: { result } } = await courseActivityDataList({ ...this.queryPage, ...this.form })
+                const { result } = await courseActivityDataList({ ...this.queryPage, ...this.form })
                 for (const order of result.records) {
                     order.expanded = false
                     for (const pro of order.orderModels) {

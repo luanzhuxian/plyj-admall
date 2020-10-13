@@ -150,7 +150,7 @@ export default {
     methods: {
         async getActivityDetail (id) {
             try {
-                const { data: { result } } = await signinActivityDetail(id)
+                const { result } = await signinActivityDetail(id)
                 this.activityDetail = result
             } catch (e) { throw e }
         },

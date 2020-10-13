@@ -151,7 +151,7 @@ export default {
         this.getBookingActivityDetail(this.id)
         // 获取用户分组
         try {
-            const { data: { result } } = await getUserTagList()
+            const { result } = await getUserTagList()
             this.userTagList = result
         } catch (e) {
             throw e

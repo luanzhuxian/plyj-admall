@@ -136,7 +136,7 @@ export default {
     },
     methods: {
         async getCompanyList () {
-            const { data: { result } } = await getCompany({ goodId: this.products.goodsId })
+            const { result } = await getCompany({ goodId: this.products.goodsId })
             this.companyList = result || []
         },
         // 确认发货按钮

@@ -370,7 +370,7 @@ export default {
     // 获得用户分组标签和活动标签列表
         async getTagList () {
             try {
-                const { data: { result } } = await getTagList()
+                const { result } = await getTagList()
                 this.userGroup = result || []
             } catch (e) { throw e }
         },
@@ -408,7 +408,7 @@ export default {
         },
         async getDetail () {
             try {
-                const { data: { result } } = await getPublicBenefitDetail(this.id)
+                const { result } = await getPublicBenefitDetail(this.id)
                 if (this.copy) result.definiteStatus = 1
                 this.logoUrl = result.logoUrl ? [result.logoUrl] : []
                 result.initAmountCopy = result.initAmount

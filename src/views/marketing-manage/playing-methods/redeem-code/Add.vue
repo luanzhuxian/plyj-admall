@@ -220,7 +220,7 @@ export default {
         if (this.id) {
             this.type = this.$route.params.type
             try {
-                const { data: { result } } = await getRedeemCodeById(this.id)
+                const { result } = await getRedeemCodeById(this.id)
                 for (const item of result.productList) {
                     item.id = item.productId
                     item.price = item.price / 100

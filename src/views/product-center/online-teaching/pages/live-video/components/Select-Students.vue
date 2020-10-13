@@ -220,7 +220,7 @@ export default {
     // 获得用户分组标签和活动标签列表
         async getTagList () {
             try {
-                const { data: { result } } = await getTagList()
+                const { result } = await getTagList()
                 this.userGroup = result || []
             } catch (e) {
                 throw e
@@ -229,7 +229,7 @@ export default {
         // 获得用户分组标签和活动标签列表
         async getLiveSelectUsersInfo () {
             try {
-                const { data: { result } } = await getLiveSelectStudentInfo(this.liveId)
+                const { result } = await getLiveSelectStudentInfo(this.liveId)
                 this.selectedUsers = result.users || []
                 this.originalUsers = JSON.parse(JSON.stringify(this.selectedUsers))
                 // 已支付的或已观看的学员，不允许删除
@@ -323,7 +323,7 @@ export default {
             this.tabGrade = 2
             this.currentGroup = item
             try {
-                const { data: { result } } = await getAllUserListByTagId(item.id)
+                const { result } = await getAllUserListByTagId(item.id)
                 this.currentTagUser = result || []
                 this.currentTagUser.map(item => {
                     item.checked = this.selectedUsers.findIndex(iItem => iItem.userId === item.userId) !== -1

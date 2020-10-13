@@ -118,7 +118,7 @@ export default {
     methods: {
         async getLiveRoomInfo () {
             try {
-                const { data: { result } } = await getRoomInfoById(this.roomId)
+                const { result } = await getRoomInfoById(this.roomId)
                 this.roomPassword = result.password
             } catch (e) {
                 throw e

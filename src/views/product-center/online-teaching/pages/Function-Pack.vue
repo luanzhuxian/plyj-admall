@@ -79,7 +79,6 @@
                 name="互动直播"
                 desc="互动直播，让教育更简单"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/互动直播.png"
-                :tags="['https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新.png']"
                 @click="$router.push({ name: 'Live' })"
             >
                 <div>直播中 {{ statisticsInfo.ongoing }}</div>
@@ -98,7 +97,6 @@
                 name="系列课"
                 desc="系列课程，组合学习，进阶更快"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/系列课.png"
-                :tags="['https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新.png']"
                 @click="$router.push({ name: 'SeriesOfCourses' })"
             >
                 <div>上架课程 {{ statisticsInfo.numberOfSeriesCourse }}</div>
@@ -115,7 +113,6 @@
                 name="视频库"
                 desc="便捷的视频存储空间"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/视频库.png"
-                :tags="['https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新.png']"
                 @click="$router.push({ name: 'VideoLibraryList' })"
             >
                 <div>视频文件 {{ statisticsInfo.numberOfVideos }}</div>
@@ -124,7 +121,6 @@
                 name="资源库"
                 desc="海量在线课程视频"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/资源库.png"
-                :tags="['https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新.png']"
                 @click="$router.push({ name: 'VideoRepository' })"
             >
                 <div>资源文件 {{ statisticsInfo.numberOfResources }}</div>

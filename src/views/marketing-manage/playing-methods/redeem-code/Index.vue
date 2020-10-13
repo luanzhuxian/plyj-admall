@@ -83,7 +83,7 @@ export default {
     },
     async mounted () {
         try {
-            const { data: { result } } = await isHasRead()
+            const { result } = await isHasRead()
             this.showGuidePage = !result
         } catch (e) {
             throw e
