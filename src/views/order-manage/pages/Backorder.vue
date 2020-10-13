@@ -4,7 +4,7 @@
             <el-form-item label="搜索内容：">
                 <el-input
                     v-model="form.keywords"
-                    style="width: 350px"
+                    style="width: 380px"
                     placeholder="输入订单编号/售后单号/收货电话/收货人姓名/商品名称"
                     clearable
                     @change="getList"
@@ -42,6 +42,7 @@
             </el-form-item>
             <el-form-item label="申请时间：">
                 <date-range
+                    width="380px"
                     :clearable="true"
                     disable-after
                     size="small"
@@ -50,7 +51,7 @@
                     range-separator="至"
                 />
             </el-form-item>
-            <el-form-item label="售后状态">
+            <el-form-item label="售后状态：">
                 <el-select v-model="exportData.returnStatus" @change="orderStatusChange">
                     <el-option v-for="(item,index) in routeMap" :label="item" :value="index" :key="index" />
                 </el-select>

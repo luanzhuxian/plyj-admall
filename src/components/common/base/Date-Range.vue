@@ -5,6 +5,7 @@
         title="请先点选开始时间，再点选结束时间"
     >
         <el-date-picker
+            :style="{ width }"
             v-if="!disabledEndTime && !disabledStartTime"
             v-model="dateValue"
             :type="type === 'datetime' ? 'datetimerange' : 'daterange'"
@@ -99,6 +100,10 @@ export default {
         size: {
             type: String,
             default: 'mini'
+        },
+        width: {
+            type: String,
+            default: null
         },
         separator: {
             type: String,
@@ -311,5 +316,10 @@ export default {
 .separator {
     margin: 0 10px;
 }
+    ::v-deep {
+        .el-range-separator {
+            padding: 0 !important;
+        }
+    }
 
 </style>
