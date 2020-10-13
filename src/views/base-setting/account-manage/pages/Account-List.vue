@@ -490,6 +490,7 @@ export default class AccountList extends Vue {
         const { roleCode, userId, lockStatus } = row
         const params = { roleCode, userId, lockStatus }
         if (row.lockStatus === 0) {
+            params.lockStatus = 1
             const res = await enableAccount(params)
             if (!res.result) {
                 this.$alert({
@@ -504,6 +505,7 @@ export default class AccountList extends Vue {
             // row.lockStatus = 1
             this.getAccounts()
         } else if (row.lockStatus === 1) {
+            params.lockStatus = 0
             await this.$confirm('确认禁用此账户吗？')
             await enableAccount(params)
             this.$success('禁用成功')
