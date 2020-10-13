@@ -312,9 +312,9 @@ export default class AddAccount extends Vue {
             this.getEmployeeDefaultFun()
         }
         if (this.ruleForm.userId) return
-        this.ruleForm.realName = ''
-        this.ruleForm.mobile = ''
-        this.ruleForm.position = ''
+        // this.ruleForm.realName = ''
+        // this.ruleForm.mobile = ''
+        // this.ruleForm.position = ''
         this.error = ''
     }
 
