@@ -15,6 +15,7 @@
             <p>
                 <b>当前所属账号</b>
                 <span>{{ currentUserInfo.ownedUser? currentUserInfo.ownedUser : '--' }}</span>
+                <span v-if="currentUserInfo.ownedMobile"> ({{ currentUserInfo.ownedMobile }})</span>
             </p>
         </div>
         <el-form :inline="true">
