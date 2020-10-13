@@ -159,11 +159,11 @@ export default {
                 for (const item of skuModels) {
                     item.status = Number(item.status)
                 }
-                const { data } = await createSku({
+                const { result } = await createSku({
                     attributeModels: this.attributeModels,
                     productSkuModels: skuModels
                 })
-                this.$emit('createSku', data.result)
+                this.$emit('createSku', result)
                 this.clearTemp()
                 this.$emit('update:show', false)
             } catch (e) {

@@ -2,13 +2,15 @@
     <!-- 选择商品分类 -->
     <div :class="$style.selectCategory">
         <!-- 商品 -->
-        <el-cascader
-            :value="classification"
-            :options="category"
-            :props="{ ...props, checkStrictly }"
-            @change="changeHandler"
-            clearable
-        />
+        <template v-if="destroyCascader">
+            <el-cascader
+                :value="classification"
+                :options="category"
+                :props="{ ...props, checkStrictly }"
+                @change="changeHandler"
+                clearable
+            />
+        </template>
         <el-button
             v-if="showAdd"
             type="text"
@@ -39,6 +41,8 @@ export default {
     data () {
         return {
             showAddCategory: false,
+            // 手动销毁级联选择器
+            destroyCascader: true,
             // 分类
             category: [],
             parent: {}
@@ -63,7 +67,7 @@ export default {
         }
     },
     props: {
-    // 绑定值
+        // 绑定值
         classification: {
             type: Array,
             default: () => ([])
@@ -99,6 +103,14 @@ export default {
     watch: {
         courseCategoryTree () {
             this.init()
+        },
+        // 分类树改变时，清空已选值
+        category () {
+            this.destroyCascader = false
+            this.$nextTick(() => {
+                this.destroyCascader = true
+                this.$emit('change', [])
+            })
         },
         categoryTree () {
             this.init()
