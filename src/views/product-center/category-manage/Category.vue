@@ -557,7 +557,7 @@ export default {
             const { tree1, tree2 } = this.$refs
             tree1.expandOfCollapse()
             tree2.expandOfCollapse()
-            this.isExpand = this.tree1.isExpand
+            this.isExpand = tree1.isExpand
         },
         async treeSort ({ moved: { element } }, list) {
             const ids = []
