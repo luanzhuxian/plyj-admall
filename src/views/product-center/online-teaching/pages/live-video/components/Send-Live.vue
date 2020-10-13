@@ -207,7 +207,7 @@ export default {
     // 获得用户分组标签和活动标签列表
         async getTagList () {
             try {
-                const { data: { result } } = await getTagList()
+                const { result } = await getTagList()
                 this.userGroup = result || []
             } catch (e) {
                 throw e
@@ -216,7 +216,7 @@ export default {
         // 获得用户分组标签和活动标签列表
         async getLiveSelectUsersInfo () {
             try {
-                const { data: { result } } = await getSendLiveUsersInfo(this.liveId)
+                const { result } = await getSendLiveUsersInfo(this.liveId)
                 this.selectedUsers = result.users || []
                 this.originalUsers = JSON.parse(JSON.stringify(this.selectedUsers))
                 this.cannotDeleteUserIds = result.users.filter(item => item.isWatch).map(item => item.userId)
@@ -233,9 +233,9 @@ export default {
                     mobile: query
                 }
                 try {
-                    const { data: res } = await getUserByPhone(params)
+                    const { result } = await getUserByPhone(params)
                     this.loading = false
-                    this.mobileOptions = res.result.records
+                    this.mobileOptions = result.records
                     this.hiddenSelectedUsers()
                     if (this.mobileOptions.length === 0) {
                         this.error = '该手机号不存在'
@@ -309,7 +309,7 @@ export default {
             this.tabGrade = 2
             this.currentGroup = item
             try {
-                const { data: { result } } = await getAllUserListByTagId(item.id)
+                const { result } = await getAllUserListByTagId(item.id)
                 this.currentTagUser = result || []
                 this.currentTagUser.map(item => {
                     item.checked = this.selectedUsers.findIndex(iItem => iItem.userId === item.userId) !== -1

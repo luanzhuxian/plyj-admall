@@ -10,7 +10,7 @@
         <div :class="$style.liveInfo" class="wrap">
             <div :class="$style.label">
                 <div :class="$style.name">互动直播</div>
-                <div :class="$style.content">可预约房间数：{{ maxRooms - useRooms }}/{{ maxRooms }}</div>
+                <!-- <div :class="$style.content">可预约房间数：{{ maxRooms - useRooms }}/{{ maxRooms }}</div> -->
             </div>
             <div :class="$style.roomInfo">
                 <div :class="$style.rooms" v-if="liveColums">

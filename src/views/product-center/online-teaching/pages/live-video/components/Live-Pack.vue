@@ -40,7 +40,7 @@
             </div>
         </div>
         <div :class="$style.content">
-            <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心-banner.png" alt="">
+            <img :class="$style.img" :src="data.coverImg" alt="">
             <div :class="$style.detail">
                 <div :class="$style.specific">
                     <div :class="$style.title">{{ data.name }}</div>

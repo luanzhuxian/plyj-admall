@@ -273,7 +273,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['mallUrl'])
+        ...mapGetters('user', ['mallUrl'])
     },
     async created () {
         try {
