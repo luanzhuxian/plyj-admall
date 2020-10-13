@@ -154,6 +154,7 @@ export default class MemberBaseInfo extends Vue {
             margin-right: 23px;
             .avatar {
                 width: 88px;
+                height: 88px;
                 border-radius: 50%;
                 margin-right: 15px;
             }
