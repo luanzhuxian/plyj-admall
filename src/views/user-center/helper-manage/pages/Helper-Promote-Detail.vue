@@ -59,8 +59,11 @@
                     <div class="record">
                         <span>记录：</span>
                         <div class="list" v-if="helperDetail.logs && helperDetail.logs.length">
-                            <p v-for="item in helperDetail.logs" :key="item.id">
-                                {{ item.createTime }}
+                            <!--                            <p v-for="item in helperDetail.logs" :key="item.id">-->
+                            <!--                                {{ item.createTime }}-->
+                            <!--                            </p>-->
+                            <p>
+                                {{ helperDetail.logs[helperDetail.logs.length-1].createTime }}
                             </p>
                         </div>
                     </div>
