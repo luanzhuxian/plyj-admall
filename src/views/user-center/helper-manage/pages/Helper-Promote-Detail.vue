@@ -63,7 +63,7 @@
                             <!--                                {{ item.createTime }}-->
                             <!--                            </p>-->
                             <p>
-                                {{ helperDetail.logs[0].createTime }}
+                                {{ helperDetail.logs[0].createTime | dateFormat("YYYY.MM.DD HH:mm:ss") }}  加入
                             </p>
                         </div>
                     </div>
