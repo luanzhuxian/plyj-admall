@@ -10,7 +10,7 @@
                 />
             </el-form-item>
             <el-form-item label="分类：">
-                <SelectCategory :category-type="3" check-strictly show-all @change="categoryChange" />
+                <SelectCategory v-model="category" :category-type="3" check-strictly show-all @change="categoryChange" />
             </el-form-item>
             <el-form-item label="添加时间：">
                 <date-range
@@ -249,6 +249,7 @@ export default {
     },
     data () {
         return {
+            category: [],
             showPreview: false,
             detail: {},
             showSendBooks: false,
@@ -302,8 +303,8 @@ export default {
             }
         },
         async categoryChange (value) {
-            this.form.categoryId = value[0]
-            this.form.subCategoryId = value[1]
+            this.form.categoryId = value[0] || ''
+            this.form.subCategoryId = value[1] || ''
             try {
                 await this.search()
             } catch (e) {

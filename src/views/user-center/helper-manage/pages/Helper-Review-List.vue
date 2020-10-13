@@ -104,7 +104,7 @@
                     <template v-if="row.ownedUser">
                         {{ row.ownedUser }}
                     </template>
-                    <span class="acc-label">
+                    <span class="acc-label" v-if="row.ownedRoleCode">
                         <template v-if="row.ownedRoleCode === 'ENTERPRISE_ADMIN'">企</template>
                         <template v-if="row.ownedRoleCode === 'EMPLOYEE'">子</template>
                         <template v-if="row.ownedRoleCode === 'ADMIN'">高</template>

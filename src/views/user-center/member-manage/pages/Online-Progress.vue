@@ -61,7 +61,11 @@
             <el-table-column
                 prop="courseType"
                 label="类型"
-            />
+            >
+                <template #default="{ row }">
+                    {{ row.courseType === 1 ? '单课程' : '系列课' }}
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="courseCategory"
                 label="分类"
@@ -69,7 +73,11 @@
             <el-table-column
                 prop="learnStatus"
                 label="学习状态"
-            />
+            >
+                <template #default="{ row }">
+                    {{ learnStatus[row.learnStatus] }}
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="firstViewingTime"
                 label="首次观看时间"
@@ -136,6 +144,12 @@ export default class MemberOnlineProgress extends Vue {
         keyword: '',
         courseType: '',
         courseCategory: ''
+    }
+
+    learnStatus = {
+        1: '未学习',
+        2: '已学习',
+        3: '已过期'
     }
 
     @Prop() userId!: string
