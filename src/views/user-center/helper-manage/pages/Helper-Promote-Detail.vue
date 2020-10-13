@@ -28,7 +28,7 @@
                             <pl-svg v-if="helperDetail.gender === 1" name="icon-man-8b747" width="10" height="10" />
                         </template>
                     </div>
-                    <div class="role-type">Helper会员</div>
+                    <div class="role-type">Helper</div>
                 </div>
                 <div class="info-list">
                     <Field
@@ -628,7 +628,7 @@ export default class HelperPromoteDetail extends Vue {
 
     async getOrderList () {
         try {
-            this.orderListForm.mallUserId = this.userId
+            this.orderListForm.mallUserId = this.mallUserId
             const { result: { records, total } } = await getOrderList(this.orderListForm)
             this.orderList = records || []
             this.orderListTotal = total || 0
