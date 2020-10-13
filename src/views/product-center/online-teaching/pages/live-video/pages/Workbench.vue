@@ -37,13 +37,13 @@
                     <div :class="$style.addLive" @click="addLive">
                         <div :class="$style.addInfo">
                             <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/摄像头.png" alt="">
-                            <span>点击预约直播房间</span>
+                            <span>添加直播</span>
                         </div>
                     </div>
                     <div :class="$style.livePrevious" @click="$router.push({ name: 'LiveNowList' })">
                         <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/摄像头.png" alt="">
                         <div :class="$style.previousInfo">
-                            <div>添加直播</div>
+                            <div>查看直播</div>
                             <img :class="$style.more" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/更多.png" alt="">
                         </div>
                     </div>
