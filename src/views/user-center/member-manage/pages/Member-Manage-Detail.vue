@@ -26,27 +26,25 @@
         <div :class="$style.module">
             <div :class="$style.moduleTitle">
                 <span>备注用户信息</span>
-                <el-button v-if="!isEdit" type="text" @click="isEdit = true">编辑</el-button>
-                <el-button v-if="isEdit" type="text" @click="saveAddMemberDetail">保存</el-button>
-                <el-button v-if="isEdit" class="ml-0" type="text" @click="cancelEdit">取消</el-button>
+                <el-button v-show="!isEdit" type="text" @click="isEdit = true">编辑</el-button>
+                <el-button v-show="isEdit" type="text" @click="saveAddMemberDetail">保存</el-button>
+                <el-button v-show="isEdit" class="ml-0" type="text" @click="cancelEdit">取消</el-button>
             </div>
             <div :class="$style.remarkInfo">
-                <search-box
+                <el-form
                     inline
-                    ref="searchBox"
-                    gap-column="20px"
-                    gap-row="20px"
-                    padding="0"
+                    ref="form"
+                    label-width="95px"
                     :model="addMemberDetailForm"
                     :rules="rules"
                 >
-                    <el-form-item label="真实姓名：" prop="name" style="margin-right: 128px;">
-                        <el-input style="width: 220px;" v-if="isEdit" v-model="addMemberDetailForm.name" placeholder="请输入真实姓名" />
-                        <span v-else v-text="memberDetail.name || '--'" />
+                    <el-form-item label="真实姓名：" prop="name">
+                        <el-input style="width: 220px;" v-show="isEdit" v-model="addMemberDetailForm.name" placeholder="请输入真实姓名" />
+                        <div :class="$style.width" v-show="!isEdit" v-text="memberDetail.name || '--'" />
                     </el-form-item>
 
-                    <el-form-item label="用户身份：" prop="other" style="display: inline-block;">
-                        <el-radio-group v-if="isEdit" v-model="addMemberDetailForm.type">
+                    <el-form-item label="用户身份：" prop="other">
+                        <el-radio-group v-show="isEdit" v-model="addMemberDetailForm.type">
                             <el-radio :label="1">家长</el-radio>
                             <el-radio :label="2">学生</el-radio>
                             <el-radio :label="3">
@@ -54,68 +52,76 @@
                                 <el-input v-else v-model="addMemberDetailForm.other" />
                             </el-radio>
                         </el-radio-group>
-                        <span v-else v-text="memberDetail.type === 3 ? memberDetail.other : USER_TYPE[memberDetail.type] || '--'" />
+                        <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.type === 3 ? memberDetail.other : USER_TYPE[memberDetail.type] || '--'" />
                     </el-form-item>
-
-                    <el-form-item v-show="!isEdit" label="手机号码：" style="margin-right: 116px;">
-                        <span v-text="memberDetail.mobile || '--'" />
+                    <br>
+                    <el-form-item v-show="!isEdit" label="手机号码：">
+                        <div :class="$style.width" v-text="memberDetail.mobile || '--'" />
                     </el-form-item>
-                    <br v-show="isEdit">
-                    <el-form-item label="生日：" style="margin-right: 116px;">
+                    <el-form-item label="生日：">
                         <el-date-picker
-                            v-if="isEdit"
+                            v-show="isEdit"
                             value-format="yyyy-MM-dd"
                             v-model="addMemberDetailForm.birthday"
                             placeholder="请选择生日"
                         />
-                        <span v-else>{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</span>
+                        <div :class="$style.width" v-show="!isEdit">{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</div>
                     </el-form-item>
 
-                    <el-form-item v-show="!isEdit" label="年龄：" style="margin-right: 116px;">
-                        <span v-text="memberDetail.age" />
+                    <el-form-item v-show="!isEdit" label="年龄：">
+                        <div :class="$style.width" v-text="memberDetail.age" />
                     </el-form-item>
 
-                    <el-form-item label="微信号：" prop="wechatNumber">
-                        <el-input v-if="isEdit" style="width: 220px" v-model="addMemberDetailForm.wechatNumber" placeholder="请输入微信号" />
-                        <span v-else v-text="memberDetail.wechatNumber || '--'" />
+                    <br v-show="!isEdit">
+
+                    <el-form-item label="微信号：" prop="wechatNumber" :required="false">
+                        <el-input v-show="isEdit" :class="$style.width" v-model="addMemberDetailForm.wechatNumber" placeholder="请输入微信号" />
+                        <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.wechatNumber || '--'" />
                     </el-form-item>
 
-                    <el-form-item label="邮箱：" prop="email" style="margin-right: 116px;">
-                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.email" placeholder="请输入邮箱" />
-                        <span v-else v-text="memberDetail.email" />
+                    <el-form-item label="邮箱：" prop="email">
+                        <el-input v-show="isEdit" style="width: 220px;" v-model="addMemberDetailForm.email" placeholder="请输入邮箱" />
+                        <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.email || '--'" />
                     </el-form-item>
 
-                    <el-form-item label="行业：" prop="industry" style="margin-right: 116px;">
-                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.industry" placeholder="请输入行业" />
-                        <span v-else v-text="memberDetail.industry" />
+                    <br v-show="isEdit">
+
+                    <el-form-item label="行业：" prop="industry">
+                        <el-input v-show="isEdit" style="width: 220px;" v-model="addMemberDetailForm.industry" placeholder="请输入行业" />
+                        <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.industry || '--'" />
                     </el-form-item>
+
+                    <br v-show="!isEdit">
 
                     <el-form-item label="公司：" prop="company">
-                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.company" placeholder="请输入公司" />
-                        <span v-else v-text="memberDetail.company" />
+                        <el-input v-show="isEdit" style="width: 220px;" v-model="addMemberDetailForm.company" placeholder="请输入公司" />
+                        <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.company || '--'" />
                     </el-form-item>
 
-                    <el-form-item label="职位：" prop="workPosition" style="margin-right: 116px;">
-                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.workPosition" placeholder="请输入职位" />
-                        <span v-else v-text="memberDetail.workPosition" />
+                    <el-form-item label="职位：" prop="workPosition">
+                        <el-input v-show="isEdit" style="width: 220px;" v-model="addMemberDetailForm.workPosition" placeholder="请输入职位" />
+                        <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.workPosition || '--'" />
                     </el-form-item>
+
+                    <br v-show="isEdit">
 
                     <el-form-item label="所在区域：" prop="address">
-                        <template v-if="isEdit">
+                        <div v-show="isEdit">
                             <CityPicker style="width: 260px;" @selected="selectedCity" :default-value="defaultCity" />
-                            <br>
-                            <el-input style="width: 260px;" class="mt-10" v-model="addMemberDetailForm.address" placeholder="请输入详细地址" />
-                        </template>
-                        <span v-else v-text="(memberDetail.addressPath + memberDetail.address) || '--'" />
+                            <el-input style="width: 260px;" class="ml-10" v-model="addMemberDetailForm.address" placeholder="请输入详细地址" />
+                        </div>
+                        <div v-show="!isEdit" :class="$style.width" v-text="(memberDetail.addressPath + memberDetail.address) || '--'" />
                     </el-form-item>
+
                     <br>
+
                     <el-form-item v-show="!isEdit" label="备注：" style="display: block;">
                         <div class="flex">
-                            <span :class="$style.remark" v-text="memberDetail.remark || '--'" />
+                            <div :class="$style.remark" v-text="memberDetail.remark || '--'" />
                             <el-button class="pb-0 pt-0 ml-40" type="text" v-if="memberDetail.remark">查看更多</el-button>
                         </div>
                     </el-form-item>
-                </search-box>
+                </el-form>
             </div>
         </div>
 
@@ -283,13 +289,34 @@ export default class MemberManageDetail extends Vue {
 
     rules = {
         name: [{ validator: testName(20), message: '请输入1~20位中文或英文的组合', trigger: 'blur' }],
-        wechatNumber: [{ validator: testWechatNumber, message: '请输入6-20位字母、数字、下划线和减号', trigger: 'blur' }],
-        email: [{ type: 'email', message: '邮箱格式错误', trigger: 'blur' }],
-        company: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
-        industry: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
-        workPosition: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
-        address: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
-        other: [{ validator: testUserType(this.addMemberDetailForm), message: '请输入自定义身份', trigger: 'blur' }]
+        wechatNumber: [
+            { required: false, trigger: 'blur' },
+            { validator: testWechatNumber, trigger: 'blur' }
+        ],
+        email: [
+            { required: false },
+            { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
+        ],
+        company: [
+            { required: false },
+            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+        ],
+        industry: [
+            { required: false },
+            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+        ],
+        workPosition: [
+            { required: false },
+            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+        ],
+        address: [
+            { required: false },
+            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+        ],
+        other: [
+            { required: false },
+            { validator: testUserType(this.addMemberDetailForm), message: '请输入自定义身份', trigger: 'blur' }
+        ]
     }
 
     @Prop() userId!: string
@@ -350,7 +377,7 @@ export default class MemberManageDetail extends Vue {
     // 保存备注用户信息
     async saveAddMemberDetail () {
         try {
-            await (this.$refs.searchBox as HTMLFormElement).form.validate()
+            await (this.$refs.form as HTMLFormElement).validate()
             const params = this.addMemberDetailForm
             if (Number(params.type) === 2) {
                 params.industry = ''
@@ -368,7 +395,7 @@ export default class MemberManageDetail extends Vue {
 
     cancelEdit () {
         this.isEdit = false;
-        (this.$refs.searchBox as HTMLFormElement).form.clearValidate()
+        (this.$refs.form as HTMLFormElement).clearValidate()
     }
 
     async more () {
@@ -382,6 +409,9 @@ export default class MemberManageDetail extends Vue {
 }
 </script>
 <style module lang="scss">
+    .width {
+        width: 220px;
+    }
     .member-detail {
         padding: 14px 0;
         margin-left: -7px;
@@ -400,7 +430,7 @@ export default class MemberManageDetail extends Vue {
         background-color: #F5F6FA;
         .remark {
             display: inline-block;
-            width: 150px;
+            width: 220px;
             @include elps();
         }
     }

@@ -293,10 +293,14 @@ export const testCategory = (len: number) => (rule: any, value: any, callback: F
 
 // 校验微信号
 export const testWechatNumber = (rule: any, value: any, callback: Function) => {
+    if (value && !/[a-zA-Z]/.test(value[0])) {
+        callback(new Error('微信号必须以字母开头'))
+        return
+    }
     if (isWechatNumber(value)) {
         callback()
     } else {
-        callback(new Error(rule.message))
+        callback(new Error('请输入6-20位字母、数字、下划线和减号'))
     }
 }
 

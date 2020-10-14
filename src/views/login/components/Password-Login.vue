@@ -59,7 +59,8 @@ export default class PasswordLogin extends Vue {
     }
 
     rules = {
-        account: [{ required: true, trigger: 'blur', message: '账号不能为空' },
+        account: [
+            { required: true, trigger: 'blur', message: '账号不能为空' },
             { validator: testAccount, trigger: 'blur', message: '请输入6-50位数字字母组合的账号' }
         ],
         password: [
