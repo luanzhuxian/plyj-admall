@@ -51,12 +51,12 @@
                 >
                     查询
                 </el-button>
-                <el-button
+                <!-- <el-button
                     @click="search"
                     round
                 >
                     导出数据
-                </el-button>
+                </el-button> -->
                 <el-button
                     type="text"
                     @click="restForm"
@@ -103,6 +103,14 @@
                         >
                         <div>
                             <div class="name">
+                                <div class="user-type" v-if="row.type" :title="row.type === 3 ? row.typeName : USER_TYPE[row.type]">
+                                    <template v-if="row.type !== 3">
+                                        {{ USER_TYPE[row.type] && USER_TYPE[row.type].substr(0, 1) }}
+                                    </template>
+                                    <template v-else>
+                                        {{ row.typeName && row.typeName.substr(0, 1) }}
+                                    </template>
+                                </div>
                                 {{ row.userName }}
                                 <div class="ml-10">
                                     <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
@@ -504,6 +512,20 @@ export default class HelperManageList extends Vue {
         font-size: 14px;
         color: #333;
         display: flex;
+        align-items: center;
+    }
+    .user-type {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+        border: 1px solid #F79F1A;
+        border-radius: 5px;
+        font-size: 12px;
+        font-family: Microsoft YaHei UI;
+        font-weight: 600;
+        line-height: 15px;
+        text-align: center;
+        color: #F79F1A;
     }
     .tag {
         margin-top: 8px;

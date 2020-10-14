@@ -59,7 +59,7 @@
                         管理权限:
                     </div>
                     <div class="font-16">
-                        <el-button type="text" @click="viewTree" v-if="selfEdit || canEdit">
+                        <el-button type="text" @click="viewTree" v-if="canEdit">
                             查看
                         </el-button>
                     </div>
@@ -67,7 +67,7 @@
             </el-form>
             <div class="edit-box">
                 <!-- <span>{{ single.roleName }} </span> -->
-                <el-button type="primary" round plain v-if="selfEdit || canEdit" :disabled="!single.lockStatus" @click="edit">
+                <el-button type="primary" round plain v-if="canEdit" :disabled="!single.lockStatus" @click="edit">
                     编辑
                 </el-button>
             </div>
