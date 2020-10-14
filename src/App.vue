@@ -20,7 +20,7 @@
             </transition>
             <Header />
             <main id="main" :class="$style.main">
-                <keep-alive>
+                <keep-alive :exclude="exclude">
                     <router-view />
                 </keep-alive>
             </main>
@@ -55,6 +55,8 @@ const goodsModule = namespace('goods')
     }
 })
 export default class App extends Vue {
+    exclude=['OrderManage']
+
     // 不显示菜单的页面
     noMenu: Array<string> = [
         'WxLogin',

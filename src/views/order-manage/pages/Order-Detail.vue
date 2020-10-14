@@ -713,8 +713,12 @@ export default {
     //   return this.productDetailModels.filter(item => item.needStudentInfo === 2).length
     // }
     },
-    created () {
-        this.getOrderDetail()
+    async created () {
+        try {
+            await this.getOrderDetail()
+        } catch (e) {
+            throw e
+        }
     },
     methods: {
     // 获取页面展示数据
