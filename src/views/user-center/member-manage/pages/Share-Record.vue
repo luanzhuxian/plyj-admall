@@ -108,6 +108,11 @@
                 prop="userName"
                 label="分享人"
             />
+            <el-table-column v-if="isHelper" label="润笔金额（元）">
+                <template #default="{ row }">
+                    {{ row.rebateAmount / 100 }}
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="orderStatus"
                 label="订单状态"
@@ -149,6 +154,7 @@ import { State } from 'vuex-class'
 export default class MemberShareRecord extends Vue {
     shareList = []
     shareListTotal = 0
+    isHelper = false
     shareListForm = {
         current: 1,
         size: 10,
@@ -167,6 +173,7 @@ export default class MemberShareRecord extends Vue {
     @State('orderStatus') orderStatus!: DynamicObject
 
     async activated () {
+        this.isHelper = Boolean(this.$route.query.isHelper)
         await this.search()
     }
 
