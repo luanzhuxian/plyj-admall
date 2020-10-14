@@ -19,7 +19,7 @@
                 :nick-name="detail.nickName"
                 role-code="MEMBERSHIP"
                 :mobile="detail.mobile"
-                :name="detail.name"
+                :user-name="detail.name"
                 :tags="detail.tags"
                 :type="detail.type"
                 :gender="detail.gender"
