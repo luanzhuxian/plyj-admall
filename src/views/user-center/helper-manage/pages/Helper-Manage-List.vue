@@ -103,12 +103,12 @@
                         >
                         <div>
                             <div class="name">
-                                <div class="user-type" v-if="row.type" :title="row.type === 3 ? row.typeName : USER_TYPE[row.type]">
+                                <div class="user-type" v-if="row.type" :title="row.type === 3 ? row.other : USER_TYPE[row.type]">
                                     <template v-if="row.type !== 3">
                                         {{ USER_TYPE[row.type] && USER_TYPE[row.type].substr(0, 1) }}
                                     </template>
                                     <template v-else>
-                                        {{ row.typeName && row.typeName.substr(0, 1) }}
+                                        {{ row.other && row.other.substr(0, 1) }}
                                     </template>
                                 </div>
                                 {{ row.userName }}

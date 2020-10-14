@@ -25,8 +25,8 @@
                 :gender="detail.gender"
                 :address="detail.address"
                 :source="detail.source"
+                :other="detail.other"
                 :create-time="detail.createTime"
-                :type-name="detail.typeName"
             />
         </div>
         <div :class="$style.module" class="mt-30">

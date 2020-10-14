@@ -163,8 +163,8 @@ import BaseInfo from '../../../../components/user-center/Base-Info.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
 import { copyFields } from '../../../../assets/ts/utils'
 import {
-    testName,
-    testWechatNumber
+    isName,
+    isWechatNumber
 } from '../../../../assets/ts/validate'
 import {
     saveMemberInfo,
@@ -172,9 +172,30 @@ import {
     getMemberOrderCount
 } from '../../../../apis/member'
 
+const testName = (rule: DynamicObject, value: string, callback: Function) => {
+    if (!value) {
+        return callback()
+    }
+    if (isName(20, value)) {
+        return callback()
+    }
+    return callback(new Error(rule.message))
+}
+const testWechatNumber = (rule: DynamicObject, value: string, callback: Function) => {
+    if (!value) {
+        return callback()
+    }
+    if (value && !/[a-zA-Z]/.test(value[0])) {
+        callback(new Error('微信号必须以字母开头'))
+        return
+    }
+    if (isWechatNumber(value)) {
+        callback()
+    } else {
+        callback(new Error('请输入6-20位字母、数字、下划线和减号'))
+    }
+}
 const testUserType = (form: DynamicObject) => (rule: DynamicObject, value: string, callback: Function) => {
-    console.log(form.type)
-    console.log(value)
     if (form.type === 3 && !value) {
         callback(new Error(rule.message))
     } else {
@@ -291,30 +312,26 @@ export default class MemberManageDetail extends Vue {
     }
 
     rules = {
-        name: [{ validator: testName(20), message: '请输入1~20位中文或英文的组合', trigger: 'blur' }],
+        name: [
+            { validator: testName, message: '请输入1~20位中文或英文的组合', trigger: 'blur' }
+        ],
         wechatNumber: [
-            { required: false, trigger: 'blur' },
             { validator: testWechatNumber, trigger: 'blur' }
         ],
         email: [
-            { required: false },
             { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
         ],
         company: [
-            { required: false },
-            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+            { max: 100, min: 0, message: '请输入100个字符以内', trigger: 'blur' }
         ],
         industry: [
-            { required: false },
-            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+            { max: 100, min: 0, message: '请输入100个字符以内', trigger: 'blur' }
         ],
         workPosition: [
-            { required: false },
-            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+            { max: 100, min: 0, message: '请输入100个字符以内', trigger: 'blur' }
         ],
         address: [
-            { required: true, message: '请输入自定义身份', trigger: 'blur' },
-            { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
+            { max: 100, min: 0, message: '请输入100个字符以内', trigger: 'blur' }
         ],
         other: [
             { required: false, message: '请输入自定义身份', trigger: 'blur' },

@@ -232,12 +232,12 @@
                                 >
                                 <div class="info">
                                     <div class="intro">
-                                        <span class="user-type" v-if="row.userType" :title="row.userType === 3 ? row.typeName : USER_TYPE[row.userType]">
+                                        <span class="user-type" v-if="row.userType" :title="row.userType === 3 ? row.other : USER_TYPE[row.userType]">
                                             <template v-if="row.userType !== 3">
                                                 {{ USER_TYPE[row.userType] && USER_TYPE[row.userType].substr(0, 1) }}
                                             </template>
                                             <template v-else>
-                                                {{ row.typeName && row.typeName.substr(0, 1) }}
+                                                {{ row.other && row.other.substr(0, 1) }}
                                             </template>
                                         </span>
                                         <span class="name">{{ row.nickName }}</span>
