@@ -1,69 +1,64 @@
 <template>
-    <Panel custom-class="live-panel" :title="panelTitle">
-        <ul :class="$style.liveList">
-            <template v-for="(live, index) of liveModel.slice(0, 3)">
-                <li :class="$style.first" :key="index" v-if="~(liveModel.length > 2 ? [0] : [0, 1]).indexOf(index)">
-                    <label>
-                        <span v-if="live.isNoticeShow">即将开始</span>
-                        <span v-if="live.statue === 4">直播中</span>
-                        <span v-if="live.statue === 0">看回放</span>
-                    </label>
-                    <div :class="$style.imgWrapper">
-                        <img :src="(live.isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-middle'">
-                    </div>
-                    <div :class="$style.liveInfo">
-                        <h4 v-text="live.name" />
-                        <p>
-                            <template v-if="live.isNoticeShow">
-                                <span>{{ `直播时间 ${getTime(live.liveStartTime)}` }}</span>
-                            </template>
-                            <template v-if="live.statue === 4">
-                                <span>正在直播</span>
-                                <span>|</span>
-                                <span>{{ `${live.visitTimes}人观看` }}</span>
-                            </template>
-                            <template v-if="live.statue === 0">
-                                <span>直播已结束，去看回放</span>
-                            </template>
-                        </p>
-                    </div>
-                </li>
-                <li :class="$style.others" :key="index" v-else>
-                    <label>
-                        <span v-if="live.isNoticeShow">即将开始</span>
-                        <span v-if="live.statue === 4">直播中</span>
-                        <span v-if="live.statue === 0">看回放</span>
-                    </label>
-                    <div :class="$style.imgWrapper">
-                        <img :src="(live.isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-small'">
-                    </div>
-                    <div :class="$style.liveInfo">
-                        <h4 v-text="live.name" />
-                        <p v-if="live.isNoticeShow">
-                            {{ `直播时间 ${getTime(live.liveStartTime)}` }}
-                        </p>
-                        <p v-if="live.statue === 4">
-                            {{ `${live.visitTimes}人正在观看` }}
-                        </p>
-                        <p v-if="live.statue === 0">
-                            直播已结束，去看回放
-                        </p>
-                    </div>
-                </li>
-            </template>
-        </ul>
-    </Panel>
+    <ul :class="$style.liveList">
+        <template v-for="(live, index) of liveModel.slice(0, 3)">
+            <li :class="$style.first" :key="index" v-if="~(liveModel.length > 2 ? [0] : [0, 1]).indexOf(index)">
+                <label>
+                    <span v-if="live.isNoticeShow">即将开始</span>
+                    <span v-if="live.statue === 4">直播中</span>
+                    <span v-if="live.statue === 0">看回放</span>
+                </label>
+                <div :class="$style.imgWrapper">
+                    <img :src="(live.isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-middle'">
+                </div>
+                <div :class="$style.liveInfo">
+                    <h4 v-text="live.name" />
+                    <p>
+                        <template v-if="live.isNoticeShow">
+                            <span>{{ `直播时间 ${getTime(live.liveStartTime)}` }}</span>
+                        </template>
+                        <template v-if="live.statue === 4">
+                            <span>正在直播</span>
+                            <span>|</span>
+                            <span>{{ `${live.visitTimes}人观看` }}</span>
+                        </template>
+                        <template v-if="live.statue === 0">
+                            <span>直播已结束，去看回放</span>
+                        </template>
+                    </p>
+                </div>
+            </li>
+            <li :class="$style.others" :key="index" v-else>
+                <label>
+                    <span v-if="live.isNoticeShow">即将开始</span>
+                    <span v-if="live.statue === 4">直播中</span>
+                    <span v-if="live.statue === 0">看回放</span>
+                </label>
+                <div :class="$style.imgWrapper">
+                    <img :src="(live.isNoticeShow ? live.noticeImg : live.coverImg) + '?x-oss-process=style/thum-small'">
+                </div>
+                <div :class="$style.liveInfo">
+                    <h4 v-text="live.name" />
+                    <p v-if="live.isNoticeShow">
+                        {{ `直播时间 ${getTime(live.liveStartTime)}` }}
+                    </p>
+                    <p v-if="live.statue === 4">
+                        {{ `${live.visitTimes}人正在观看` }}
+                    </p>
+                    <p v-if="live.statue === 0">
+                        直播已结束，去看回放
+                    </p>
+                </div>
+            </li>
+        </template>
+    </ul>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { LiveStatus } from '../../../utils/map'
 import moment from 'moment'
-import Panel from './Panel.vue'
 
-@Component({
-    components: { Panel }
-})
+@Component
 export default class Live extends Vue {
     /* props */
     @Prop({
@@ -76,13 +71,6 @@ export default class Live extends Vue {
         nowCount: number;
         pastCount: number;
         liveModel: DynamicObject[];
-    }
-
-    /* data */
-    panelTitle = {
-        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zbfys.png',
-        width: 184,
-        height: 27
     }
 
     /* computed */

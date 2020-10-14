@@ -313,7 +313,7 @@ export default class MallMain extends Vue {
                 this.searchForm = Object.assign({}, this.searchForm, params)
             }
             const { result = {} } = await getTemplateList(this.searchForm)
-            if (result && result.records && result.records.length) {
+            if (result?.records?.length) {
                 for (const item of result.records) {
                     item.isEdit = false
                     item.editName = item.templateName
@@ -484,7 +484,7 @@ export default class MallMain extends Vue {
     }
 
     preview (data: Template) {
-        if (data && data.type && data.moduleModels) {
+        if (data?.type && data?.moduleModels) {
             this.previewTmplType = data.type
             this.previewSkinId = data.skinStatus || 0
             this.previewData = rebuild(data.type, data.moduleModels)

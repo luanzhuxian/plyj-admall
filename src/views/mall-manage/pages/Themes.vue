@@ -52,12 +52,12 @@
                     />
                 </div>
 
-                <div :class="$style.mallThemesTitle" v-if="activityTemplateList.length">
+                <div :class="$style.mallThemesTitle" v-if="double12TemplateList.length">
                     双十二主会场（仅在主会场按钮下显示）
                 </div>
-                <div :class="$style.mallThemesList" v-if="activityTemplateList.length">
+                <div :class="$style.mallThemesList" v-if="double12TemplateList.length">
                     <TemplateItem
-                        v-for="(item, index) of activityTemplateList"
+                        v-for="(item, index) of double12TemplateList"
                         :key="index"
                         :data="item"
                         :current="currentActivityType"
@@ -347,7 +347,7 @@ export default class MallThemes extends Vue {
 
     currentTab = 'HOME'
     templateList: Template[] = []
-    activityTemplateList: Template[] = []
+    double12TemplateList: Template[] = []
     xinchunTemplateList: Template[] = []
     dragonGateTemplateList: Template[] = []
     skinList: TemplateSkinModel[] = []
@@ -426,7 +426,7 @@ export default class MallThemes extends Vue {
                 ].indexOf(item.type))
 
                 // 双12主会场模版
-                this.activityTemplateList = result.filter(item => ~[
+                this.double12TemplateList = result.filter(item => ~[
                     TemplateTypes.TemplateFengQiang,
                     TemplateTypes.TemplateBaoFa,
                     TemplateTypes.TemplateFanChang

@@ -26,7 +26,9 @@
                 </section>
                 <!-- 直播 -->
                 <section :class="$style.moduleLive" v-if="isLiveShow">
-                    <Live :data="liveInfo" />
+                    <Panel custom-class="live-panel" :title="livePanelTitle">
+                        <Live :data="liveInfo" />
+                    </Panel>
                 </section>
                 <!-- 公益 -->
                 <ModuleWrapper
@@ -128,7 +130,7 @@
                     }"
                     @click="onClick('Recommend')"
                 >
-                    <Panel custom-class="recommend-panel" :title="panelTitle" hide-button>
+                    <Panel custom-class="recommend-panel" :title="recommendPanelTitle" hide-button>
                         <Recommend :data="Recommend" btn-color="#FF341B" border="2px solid #222222" />
                     </Panel>
                 </section>
@@ -200,7 +202,13 @@ export default class TemplateDragonGate extends Vue {
     @Prop(String) current!: string
 
     /* data */
-    panelTitle = Object.freeze({
+    livePanelTitle = Object.freeze({
+        name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/zbfys.png',
+        width: 184,
+        height: 27
+    })
+
+    recommendPanelTitle = Object.freeze({
         name: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/jptj.png',
         width: 163,
         height: 27
