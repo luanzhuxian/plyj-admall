@@ -501,7 +501,7 @@ export default class AccountList extends Vue {
             params.lockStatus = 1
             await this.$confirm({
                 title: `确认启用账号（${ realName }）${ mobile }的操作权限吗？`,
-                message: '启用后，改用户可正常登陆商城进行相关操作和管理。'
+                message: '启用后，该用户可正常登陆商城进行相关操作和管理。'
             })
             const res = await enableAccount(params)
             if (!res.result) {
@@ -520,7 +520,7 @@ export default class AccountList extends Vue {
             params.lockStatus = 0
             await this.$confirm({
                 title: `确认禁用账号（${ realName }）${ mobile }的操作权限吗？`,
-                message: '禁用后，改用户不可正常登陆商城进行相关操作和管理。'
+                message: '禁用后，该用户不可正常登陆商城进行相关操作和管理。'
             })
             await enableAccount(params)
             this.$success('禁用成功')
