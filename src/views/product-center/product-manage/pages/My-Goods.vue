@@ -18,8 +18,8 @@
                     :props="propsSet"
                 />
             </el-form-item>
-            <el-form-item v-if="filter.productStatus !== 3" label="推荐商品：">
-                <el-select v-model="filter.recommendStatus" @change="search" clearable>
+            <el-form-item label="推荐商品：">
+                <el-select :disabled="filter.productStatus === 3" v-model="filter.recommendStatus" @change="search" clearable>
                     <el-option
                         v-for="item in recommendStatusMap"
                         :key="item.value"
@@ -721,6 +721,9 @@ export default {
                 this.recommendedForm.categoryId = val[0] || ''
                 this.recommendedForm.subCategoryId = val[1] || ''
             }
+        },
+        'filter.productStatus' (val) {
+            if (val === 3) this.filter.recommendStatus = ''
         }
     },
     methods: {
