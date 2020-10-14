@@ -12,7 +12,7 @@
   "dependencies": {
     "@sentry/browser": "~5.15.5",
     "@sentry/integrations": "~5.15.5",
-    "admall-element": "^2.13.9",
+    "admall-element": "^2.13.10",
     "ali-oss": "~6.2.1",
     "axios": "~0.19.0",
     "compressorjs": "~1.0.6",
