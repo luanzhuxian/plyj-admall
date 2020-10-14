@@ -58,7 +58,7 @@
                         <span>用户中心</span>
                     </h2>
                     <el-menu-item index="3-1" :route="{ name: 'MemberManage' }">用户管理</el-menu-item>
-                    <el-menu-item index="3-2" :route="{ name: 'HelperManage' }">helper管理</el-menu-item>
+                    <el-menu-item index="3-2" :route="{ name: 'HelperManage' }">Helper管理</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="4" :disabled="!appId">
