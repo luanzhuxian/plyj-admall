@@ -41,8 +41,8 @@
             <ul :class="$style.logs">
                 <li v-for="(log, i) of detail.logs" :key="i">
                     <span v-text="log.createTime" class="mr-30" />
-                    <span>操作人：{{ log.operationName }}</span>
-                    <span>（{{ roleCodeMap[log.operationRole] }}）</span>
+                    <span> 操作人：{{ log.operationName }} </span>
+                    <span v-if="log.operationRole"> （{{ roleCodeMap[log.operationRole] }}） </span>
                     <span v-text="log.content" />
                 </li>
             </ul>
