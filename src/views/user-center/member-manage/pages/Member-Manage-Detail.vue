@@ -28,16 +28,24 @@
                 <span>备注用户信息</span>
                 <el-button v-if="!isEdit" type="text" @click="isEdit = true">编辑</el-button>
                 <el-button v-if="isEdit" type="text" @click="saveAddMemberDetail">保存</el-button>
-                <el-button v-if="isEdit" class="ml-0" type="text" @click="isEdit = false">取消</el-button>
+                <el-button v-if="isEdit" class="ml-0" type="text" @click="cancelEdit">取消</el-button>
             </div>
             <div :class="$style.remarkInfo">
-                <search-box inline ref="searchBox" gap-column="20px" padding="0">
-                    <el-form-item label="真实姓名：" style="margin-right: 128px;">
+                <search-box
+                    inline
+                    ref="searchBox"
+                    gap-column="20px"
+                    gap-row="20px"
+                    padding="0"
+                    :model="addMemberDetailForm"
+                    :rules="rules"
+                >
+                    <el-form-item label="真实姓名：" prop="name" style="margin-right: 128px;">
                         <el-input style="width: 220px;" v-if="isEdit" v-model="addMemberDetailForm.name" placeholder="请输入真实姓名" />
                         <span v-else v-text="memberDetail.name || '--'" />
                     </el-form-item>
 
-                    <el-form-item label="用户身份：" style="display: inline-block;">
+                    <el-form-item label="用户身份：" prop="other" style="display: inline-block;">
                         <el-radio-group v-if="isEdit" v-model="addMemberDetailForm.type">
                             <el-radio :label="1">家长</el-radio>
                             <el-radio :label="2">学生</el-radio>
@@ -63,43 +71,36 @@
                         <span v-else>{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</span>
                     </el-form-item>
 
-                    <el-form-item label="年龄：" style="margin-right: 116px;">
-                        <el-input-number
-                            :min="0"
-                            :max="199"
-                            :precision="0"
-                            disabled
-                            v-if="isEdit"
-                            v-model="addMemberDetailForm.age"
-                            placeholder="请输入年龄"
-                        />
-                        <span v-else v-text="memberDetail.age" />
+                    <el-form-item v-show="!isEdit" label="年龄：" style="margin-right: 116px;">
+                        <span v-text="memberDetail.age" />
                     </el-form-item>
 
-                    <el-form-item label="微信号：">
-                        <el-input v-if="isEdit" v-model="addMemberDetailForm.wechatNumber" placeholder="请输入微信号" />
+                    <el-form-item label="微信号：" prop="wechatNumber">
+                        <el-input v-if="isEdit" style="width: 220px" v-model="addMemberDetailForm.wechatNumber" placeholder="请输入微信号" />
                         <span v-else v-text="memberDetail.wechatNumber || '--'" />
                     </el-form-item>
-                    <el-form-item label="邮箱：" style="margin-right: 116px;">
-                        <el-input style="width: 220px;" v-if="isEdit" v-model="addMemberDetailForm.email" placeholder="请输入邮箱" />
+
+                    <el-form-item label="邮箱：" prop="email" style="margin-right: 116px;">
+                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.email" placeholder="请输入邮箱" />
                         <span v-else v-text="memberDetail.email" />
                     </el-form-item>
 
-                    <el-form-item label="行业：" style="margin-right: 116px;">
-                        <el-input v-if="isEdit" v-model="addMemberDetailForm.industry" placeholder="请输入行业" />
+                    <el-form-item label="行业：" prop="industry" style="margin-right: 116px;">
+                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.industry" placeholder="请输入行业" />
                         <span v-else v-text="memberDetail.industry" />
                     </el-form-item>
 
-                    <el-form-item label="公司：">
-                        <el-input v-if="isEdit" v-model="addMemberDetailForm.company" placeholder="请输入公司" />
+                    <el-form-item label="公司：" prop="company">
+                        <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.company" placeholder="请输入公司" />
                         <span v-else v-text="memberDetail.company" />
                     </el-form-item>
-                    <el-form-item label="职位：" style="margin-right: 116px;">
+
+                    <el-form-item label="职位：" prop="workPosition" style="margin-right: 116px;">
                         <el-input v-if="isEdit" style="width: 220px;" v-model="addMemberDetailForm.workPosition" placeholder="请输入职位" />
                         <span v-else v-text="memberDetail.workPosition" />
                     </el-form-item>
 
-                    <el-form-item label="所在区域：">
+                    <el-form-item label="所在区域：" prop="address">
                         <template v-if="isEdit">
                             <CityPicker style="width: 260px;" @selected="selectedCity" :default-value="defaultCity" />
                             <br>
@@ -108,7 +109,7 @@
                         <span v-else v-text="(memberDetail.addressPath + memberDetail.address) || '--'" />
                     </el-form-item>
                     <br>
-                    <el-form-item v-if="!isEdit" label="备注：" style="display: block;">
+                    <el-form-item v-show="!isEdit" label="备注：" style="display: block;">
                         <div class="flex">
                             <span :class="$style.remark" v-text="memberDetail.remark || '--'" />
                             <el-button class="pb-0 pt-0 ml-40" type="text" v-if="memberDetail.remark">查看更多</el-button>
@@ -147,7 +148,6 @@
 import moment from 'moment'
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import Pagination from '../../../../components/common/Pagination.vue'
-
 import Field from '../../../../components/common/base/Field.vue'
 import CityPicker from '../../../../components/common/base/City-Picker.vue'
 import AddTags from '../components/Add-Tags.vue'
@@ -157,24 +157,18 @@ import BaseInfo from '../../../../components/user-center/Base-Info.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
 import { copyFields } from '../../../../assets/ts/utils'
 import {
+    testName,
+    testWechatNumber
+} from '../../../../assets/ts/validate'
+import {
     saveMemberInfo,
     getMemberDetail,
     getMemberOrderCount
 } from '../../../../apis/member'
 
-const checkSpecialKey = (str: string): boolean => {
-    const reg = /[^\u0020-\u007E\u00A0-\u00BE\u2E80-\uA4CF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF\u0080-\u009F\u2000-\u201f\u2026\u2022\u20ac\r\n]/g
-    for (let i = 0; i < str.length; i++) {
-        if (str.match(reg)) {
-            return false
-        }
-    }
-    return true
-}
-
-const validateInput = (rule: any, value: string, callback: any) => {
-    if (!checkSpecialKey(value)) {
-        callback(new Error('当前字段不支持表情符号'))
+const testUserType = (form: DynamicObject) => (rule: DynamicObject, value: string, callback: Function) => {
+    if (form.type === 3 && !value) {
+        callback(new Error(rule.message))
     } else {
         callback()
     }
@@ -260,7 +254,6 @@ export default class MemberManageDetail extends Vue {
         birthday: '',
         wechatNumber: '',
         other: '',
-        age: '',
         email: '',
         industry: '',
         workPosition: '',
@@ -289,12 +282,14 @@ export default class MemberManageDetail extends Vue {
     }
 
     rules = {
-        name: [
-            { validator: validateInput, trigger: 'blur' }
-        ],
-        email: [
-            { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
-        ]
+        name: [{ validator: testName(20), message: '请输入1~20位中文或英文的组合', trigger: 'blur' }],
+        wechatNumber: [{ validator: testWechatNumber, message: '请输入6-20位字母、数字、下划线和减号', trigger: 'blur' }],
+        email: [{ type: 'email', message: '邮箱格式错误', trigger: 'blur' }],
+        company: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
+        industry: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
+        workPosition: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
+        address: [{ max: 100, message: '请输入100个字符以内', trigger: 'blur' }],
+        other: [{ validator: testUserType(this.addMemberDetailForm), message: '请输入自定义身份', trigger: 'blur' }]
     }
 
     @Prop() userId!: string
@@ -320,24 +315,6 @@ export default class MemberManageDetail extends Vue {
             this.memberDetail = result
             this.defaultCity = town ? [province, city, region, town] : [province, city, region]
             copyFields(this.addMemberDetailForm, result)
-            // this.addMemberDetailForm = {
-            //     name,
-            //     type,
-            //     birthday,
-            //     wechatNumber,
-            //     other,
-            //     age,
-            //     email,
-            //     industry,
-            //     workPosition,
-            //     company,
-            //     address,
-            //     addressPath,
-            //     province,
-            //     city,
-            //     region,
-            //     town
-            // }
         } catch (e) {
             throw e
         }
@@ -373,7 +350,7 @@ export default class MemberManageDetail extends Vue {
     // 保存备注用户信息
     async saveAddMemberDetail () {
         try {
-            // await (this.$refs.form as HTMLFormElement).validate()
+            await (this.$refs.searchBox as HTMLFormElement).form.validate()
             const params = this.addMemberDetailForm
             if (Number(params.type) === 2) {
                 params.industry = ''
@@ -387,6 +364,11 @@ export default class MemberManageDetail extends Vue {
         } catch (e) {
             throw e
         }
+    }
+
+    cancelEdit () {
+        this.isEdit = false;
+        (this.$refs.searchBox as HTMLFormElement).form.clearValidate()
     }
 
     async more () {

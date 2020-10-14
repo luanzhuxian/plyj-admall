@@ -57,6 +57,9 @@ export const isLandlinePhone = (val: string) => /^[0][1-9]{2,3}-[0-9]{5,10}$/.te
 // 校验快递单号
 export const isExpressNumber = (str: string) => /^[0-9a-zA-Z]+$/.test(str)
 
+// 校验微信号
+export const isWechatNumber = (str: string) => /^[a-zA-Z][a-zA-Z\d_-]{5,19}$/.test(str)
+
 // 判断身份证号码是否正确
 export const isIdCard = (val: string | number) => {
     if (typeof val !== 'string' && typeof val !== 'number') {
@@ -286,6 +289,15 @@ export const testCategory = (len: number) => (rule: any, value: any, callback: F
     // } else {
     //   callback()
     // }
+}
+
+// 校验微信号
+export const testWechatNumber = (rule: any, value: any, callback: Function) => {
+    if (isWechatNumber(value)) {
+        callback()
+    } else {
+        callback(new Error(rule.message))
+    }
 }
 
 /**

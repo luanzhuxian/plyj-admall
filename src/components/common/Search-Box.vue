@@ -1,7 +1,7 @@
 <template>
     <div
         :class="$style.searchBox"
-        :style="{ '--gapColumn': gapColumn, '--padding': padding }"
+        :style="{ '--gapColumn': gapColumn, '--gapRow': gapRow, '--padding': padding }"
     >
         <el-form
             :class="$style.container"
@@ -29,6 +29,10 @@ export default {
         gapColumn: {
             type: String,
             default: '40px'
+        },
+        gapRow: {
+            type: String,
+            default: '10px'
         },
         padding: {
             type: String,
@@ -87,7 +91,7 @@ export default {
     > .container {
       display: inline-grid;
       grid-template-columns: auto auto auto;
-      grid-gap: 10px var(--gapColumn);
+      grid-gap: var(--gapRow) var(--gapColumn);
     }
   }
 </style>
