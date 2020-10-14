@@ -108,7 +108,7 @@
                     <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 
-                <el-submenu index="7">
+                <el-submenu index="7" :disabled="!mallNumber">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-shezhi-28924"
@@ -120,7 +120,7 @@
                     </h2>
                     <el-menu-item :disabled="!appId" index="7-1" :route="{ name: 'AccountManage' }">账号管理</el-menu-item>
                     <el-menu-item :disabled="!appId" index="7-2" :route="{ name: 'ShopInfo' }">店铺信息</el-menu-item>
-                    <el-menu-item :disabled="!mallNumber" index="7-3" :route="{ name: 'Wechat' }">公众号服务</el-menu-item>
+                    <el-menu-item index="7-3" :route="{ name: 'Wechat' }">公众号服务</el-menu-item>
                     <el-menu-item :disabled="!appId" index="7-4" :route="{ name: 'Logistics' }">物流设置</el-menu-item>
                     <el-menu-item :disabled="!appId" index="7-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
                 </el-submenu>
