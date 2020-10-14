@@ -123,7 +123,7 @@
             style="margin-top: 28px"
             title="用户行为数据"
             :data-list="[
-                { title: '用户行为数据', data: memberData.currentMonthOrder },
+                { title: '近30天自购订单量', data: memberData.currentMonthOrder },
                 { title: '累计自购订单量', data: memberData.totalOrder },
                 { title: '支付总额', data: memberData.totalAmount/100 },
                 { title: '分享订单量', data: memberData.shareOrder }

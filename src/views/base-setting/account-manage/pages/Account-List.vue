@@ -434,7 +434,7 @@ export default class AccountList extends Vue {
         if (lockStatus === 2) {
             await this.$confirm({
                 title: `确认移除（${ realName }）${ mobile }账号吗？`,
-                message: '移除后，邀请该员工的邀请链接将失效，该员工将我权限查看和管理我的机构店铺。'
+                message: '移除后，邀请该员工的邀请链接将失效，该员工将无权限查看和管理我的机构店铺。'
             })
             await deleteDeadAccount(mobile)
         } else {

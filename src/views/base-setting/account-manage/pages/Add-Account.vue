@@ -263,10 +263,13 @@ export default class AddAccount extends Vue {
                     return
                 }
                 this.$success('编辑成功')
-                this.$router.replace({
-                    name: 'AccountDetail',
-                    query: { mobile: this.query.mobile, userId: this.query.userId, roleCode: this.ruleForm.accountRole, selfEdit: this.query.selfEdit, canEdit: this.query.canEdit }
-                })
+
+                /* this.$router.replace({
+                     name: 'AccountDetail',
+                     query: { mobile: this.query.mobile, userId: this.query.userId, roleCode: this.ruleForm.accountRole, selfEdit: this.query.selfEdit, canEdit: this.query.canEdit }
+                }) */
+
+                this.$router.go(-1)
             } catch (e) {
                 throw e
             }
