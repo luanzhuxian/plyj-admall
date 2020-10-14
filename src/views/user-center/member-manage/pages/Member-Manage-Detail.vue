@@ -236,6 +236,7 @@ export default class MemberManageDetail extends Vue {
         { value: 'FORMAL_CLASS', label: '正式课' },
         { value: 'KNOWLEDGE_COURSE', label: '知识课程' },
         { value: 'SERIES_OF_COURSE', label: '系列课' },
+        { value: 'GRAPHIC_DATA', label: '图文资料' },
         { value: 'LIVE_GOODS', label: '直播订单' },
         { value: 'VIDEO_GOODS', label: '录播订单' }
     ]
