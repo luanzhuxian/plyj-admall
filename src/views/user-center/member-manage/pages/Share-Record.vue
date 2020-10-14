@@ -173,7 +173,7 @@ export default class MemberShareRecord extends Vue {
     @State('orderStatus') orderStatus!: DynamicObject
 
     async activated () {
-        this.isHelper = Boolean(this.$route.query.isHelper)
+        this.isHelper = Number(this.$route.query.isHelper) === 1
         await this.search()
     }
 
