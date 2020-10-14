@@ -118,7 +118,7 @@
                     <el-form-item v-show="!isEdit" label="备注：" style="display: block;">
                         <div class="flex">
                             <div :class="$style.remark" v-text="memberDetail.remark || '--'" />
-                            <el-button class="pb-0 pt-0 ml-40" type="text" v-if="memberDetail.remark">查看更多</el-button>
+                            <el-button class="pb-0 pt-0 ml-40" type="text" v-if="memberDetail.remark" @click="more">查看更多</el-button>
                         </div>
                     </el-form-item>
                 </el-form>
@@ -136,7 +136,7 @@
             ]"
         />
 
-        <pl-tabs :value="tabName" :tabs="Tab_List" @tabClick="tabClick" />
+        <pl-tabs id="member-tabs" :value="tabName" :tabs="Tab_List" @tabClick="tabClick" />
 
         <keep-alive>
             <router-view :order-type="Order_Type" :order-status-map="orderStatusMap" @addRemarkSuccess="getMemberDetail" />
@@ -428,7 +428,13 @@ export default class MemberManageDetail extends Vue {
     }
 
     async more () {
-        this.$router.push({ name: 'MemberRemark' })
+        await this.$router.push({ name: 'MemberRemark' })
+        const tabs = document.querySelector('#member-tabs') as HTMLElement
+        tabs.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+        })
     }
 
     async tabClick (data: DynamicObject) {

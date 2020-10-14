@@ -13,20 +13,26 @@
             key="RemarkList"
             :data="remarkList"
             class="table-customer"
-            style="width: 100%"
+            fit
         >
             <el-table-column
                 prop="content"
-                label="备注内容">
+                label="备注内容"
+                width="500px"
+                align="left"
+                header-align="left"
+            >
                 <template #default="{row}">
-                    <el-tooltip
-                        width="500"
-                        effect="dark"
+                    <el-popover
+                        v-if="row.content.length > 30"
                         placement="top-start"
+                        width="500"
+                        trigger="hover"
+                        :content="row.content"
                     >
-                        <div slot="content" style="width: 500px; line-height: 20px;">{{ row.content }}</div>
-                        <span class="show-first-line">{{ row.content }}</span>
-                    </el-tooltip>
+                        <span slot="reference">{{ row.content.substr(0, 30) }} {{ row.content.length > 30 ? '...' : '' }}</span>
+                    </el-popover>
+                    <span v-else>{{ row.content }}</span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -35,7 +41,8 @@
             />
             <el-table-column
                 prop="createUser"
-                label="添加人">
+                label="添加人"
+            >
                 <template #default="{row}">
                     {{ row.createUser }}
                     <template v-if="row.createUserRoleName">
@@ -46,13 +53,13 @@
             <el-table-column
                 fixed="right"
                 label="操作"
+                header-align="right"
+                align="right"
             >
-                <template #default="{row}">
-                    <div class="operate">
-                        <a @click="deleteRemark(row.id)">
-                            删除
-                        </a>
-                    </div>
+                <template #default="{ row }">
+                    <el-button type="text" @click="deleteRemark(row.id)">
+                        删除
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -137,6 +144,7 @@ export default class MemberRemark extends Vue {
 
     async deleteRemark (id: string) {
         try {
+            await this.$confirm('确定删除吗？')
             await deleteRemark({ id })
             await this.getRemarkList()
             this.$emit('addRemarkSuccess')
