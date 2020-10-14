@@ -141,7 +141,7 @@ export const beforeResolve = async (to, from, next) => {
     }
     // 访问了需要微信授权的页面
     const appId = localStorage.getItem(LocalEnum.appId)
-    const mallId = localStorage.getItem(LocalEnum.mallId)
+    const mallId = Cookie.get(LocalEnum.mallId)
     if (!mallId && !to.matched.some(item => NO_MALL.includes(item.name))) {
         NProgress.done()
         MessageBox.alert('创建店铺后才可以进行后续操作，请点击操作指引完成创建', {
