@@ -251,6 +251,10 @@ export default class WithdrawDepositManage extends Vue {
     total = 0
     statusList: DynamicObject[] = [
         {
+            label: '全部',
+            value: ''
+        },
+        {
             label: '提现成功',
             value: 'RECEIVED'
         },
