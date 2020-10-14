@@ -6,6 +6,7 @@
                     v-model="form.keyword"
                     placeholder="请输入Helper姓名"
                     @change="search"
+                    clearable
                 />
             </el-form-item>
             <el-form-item label="时间选择：">
@@ -15,7 +16,7 @@
                 />
             </el-form-item>
             <el-form-item label="审核状态：">
-                <el-select v-model="form.status" @change="search">
+                <el-select v-model="form.status" @change="search" clearable>
                     <el-option
                         v-for="item of statusList"
                         :key="item.value"
