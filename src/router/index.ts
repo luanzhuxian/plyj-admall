@@ -23,7 +23,8 @@ const NOLOGIN = [
 ]
 // 无需创建店铺就可以访问的页面
 const NO_MALL = [
-    'Home'
+    'Home',
+    ...NOLOGIN
 ]
 // 无需进行微信授权就可以访问的页面
 const NO_AUTH = [
@@ -31,7 +32,6 @@ const NO_AUTH = [
     'Wechat',
     'AccountSet',
     'CompleteLogin',
-    ...NOLOGIN,
     ...NO_MALL
 ]
 
