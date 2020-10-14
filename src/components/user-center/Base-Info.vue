@@ -61,7 +61,7 @@
                         <span class="pointer" slot="reference">更多</span>
                     </el-popover>
                 </template>
-                <el-button style="padding-bottom: 0; padding-top: 0;" type="text" @click="showAddTagDialog = true">编辑</el-button>
+                <el-button v-if="editTags" style="padding-bottom: 0; padding-top: 0;" type="text" @click="showAddTagDialog = true">编辑</el-button>
             </Field>
             <br>
             <Field title="记录：" inline style="margin-right: 78px;">
@@ -79,7 +79,7 @@
         <add-tags
             :show.sync="showAddTagDialog"
             :current-member="{ id, tags }"
-            @confirm="getMemberDetail"
+            @confirm="tagChange"
         />
     </div>
 </template>
@@ -113,26 +113,48 @@ export default class MemberBaseInfo extends Vue {
         3: '其他'
     }
 
+    // props
+    // 头像
     @Prop({ type: String }) avatar!: string
+    // 会员昵称
     @Prop({ type: String }) nickName!: string
+    // 会员角色
     @Prop({ type: String }) roleCode!: string
+    // 性别
     @Prop({ type: Number, default: 0 }) gender!: number
+    // 会员类型
     @Prop({ type: Number }) type!: string
+    // 会员自定义类型名称
     @Prop({ type: String }) other!: string
+    // 真实姓名
     @Prop({ type: String }) userName!: string
+    // 手机号
     @Prop({ type: String }) mobile!: string
+    // 地址
     @Prop({ type: String }) address!: string
+    // 注册来源
     @Prop({ type: String }) source!: string
+    // 上次购买时间
     @Prop({ type: String }) lastPurchaseTime!: string
+    // 上次登录时间
     @Prop({ type: String }) lastLoginTime!: string
+    // 注册时间
     @Prop({ type: String }) createTime!: string
+    // 会员id
     @Prop({ type: String }) id!: string
+    // 所属账号用户名称
     @Prop({ type: String }) ownedUser?: string
+    // 所属账号的角色
     @Prop({ type: String }) ownedRole?: string
+    // 所属账号id
     @Prop({ type: String }) ownedUserId?: string
+    // 标签列表
     @Prop({ type: Array, default: [] }) tags!: string[]
+    // 是否可以编辑标签
+    @Prop({ type: Boolean, default: true }) editTags!: boolean
 
-    getMemberDetail () {
+    // 添加标签成功事件
+    tagChange () {
         this.$emit('tagChange')
     }
 

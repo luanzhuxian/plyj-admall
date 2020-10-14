@@ -20,6 +20,7 @@
                 :owned-role="helperDetail.ownedRole"
                 :owned-user-id="helperDetail.ownedUserId"
                 @changeOwnedAccount="showChangeOwnerDialog = true"
+                :edit-tags="false"
             />
         </div>
         <div :class="$style.module">
