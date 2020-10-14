@@ -5,7 +5,7 @@
                 <img
                     class="rounded-circle"
                     style="width: 88px;height: 88px;border-radius: 50%;"
-                    :src="single.avatarUrl"
+                    :src="single.avatarUrl || 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png'"
                     slot="label"
                 >
                 <div class="base-info">
