@@ -449,6 +449,7 @@ export default {
     },
     async created () {
         try {
+            this.exportData.returnStatus = 'AllAfter'
             await this.search()
         } catch (e) {
             throw e
@@ -642,7 +643,7 @@ export default {
                 const url = createObjectUrl(blob)
                 const a = document.createElement('a')
                 a.href = url
-                a.download = `${ this.exportData.returnStatus ? this.routeMap[this.exportData.returnStatus] : '全部售后' }${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+                a.download = `${ this.routeMap[this.exportData.returnStatus] }${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
                 a.click()
                 this.exportClose()
             } catch (e) {

@@ -186,7 +186,7 @@ export default class MemberOnlineProgress extends Vue {
 
     watchDetail (row: DynamicObject) {
         this.showWatchDetailList = true
-        this.courseResourceId = row.id
+        this.courseResourceId = row.courseId
     }
 
     async resetLineLearningList () {
