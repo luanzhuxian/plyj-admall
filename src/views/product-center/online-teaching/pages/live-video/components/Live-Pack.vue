@@ -126,7 +126,6 @@ export default class LivePack extends Vue {
         > .stream-address {
             font-size: 14px;
             color: #6e7b8e;
-            cursor: pointer;
         }
         > .live-status {
             color: var(--color);

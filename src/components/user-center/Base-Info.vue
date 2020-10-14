@@ -57,7 +57,7 @@
                         trigger="hover"
                     >
                         <ul :class="$style.tagList">
-                            <li v-for="item of tags.slice(2)" :key="item.id" v-text="item.tagName" />
+                            <li v-for="(item, index) of tags.slice(2)" :key="index" v-text="item.tagName" />
                         </ul>
                         <span class="pointer" slot="reference">更多</span>
                     </el-popover>

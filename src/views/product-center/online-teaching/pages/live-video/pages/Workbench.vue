@@ -37,7 +37,7 @@
                     <div :class="$style.addLive" @click="addLive">
                         <div :class="$style.addInfo">
                             <img :class="$style.img" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/摄像头.png" alt="">
-                            <span>添加直播</span>
+                            <el-button type="text" icon="el-icon-plus">添加直播</el-button>
                         </div>
                     </div>
                     <div :class="$style.livePrevious" @click="$router.push({ name: 'LiveNowList' })">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div :class="$style.statisticsItem">
-                        <div :class="$style.label">已点播流量</div>
+                        <div :class="$style.label">已消耗点播流量</div>
                         <div :class="$style.value">
                             <span>{{ flowUsed }}</span>
                             <span :class="$style.unit">G</span>
@@ -111,6 +111,18 @@
                         <div>全部数据</div>
                         <img :class="$style.moreImg" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/更多.png" alt="">
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div :class="$style.liveRooms" class="wrap">
+            <div :class="$style.label">
+                <div :class="$style.name">开通房间数</div>
+                <div :class="$style.content">可预约房间数：{{ maxRooms - useRooms }}/{{ maxRooms }}</div>
+            </div>
+            <div :class="$style.rooms">
+                <div :class="$style.scrollBar">
+                    <LiveRoom v-for="(item, index) in rooms" :data="item" :key="index" :class="$style.room" />
                 </div>
             </div>
         </div>
@@ -191,6 +203,7 @@ import Share from './../../../../../../components/common/Share.vue'
 import SchemeLabel from './../../../../../marketing-manage/components/Scheme-Label.vue'
 import LivePack, { LiveData } from './../components/Live-Pack.vue'
 import Progress from './../../../../../../components/base-setting/account-manage/Progress.vue'
+import LiveRoom from './../components/Live-Room.vue'
 
 import {
     updateRoomToken,
@@ -212,7 +225,8 @@ const userModule = namespace('user')
         Share,
         SchemeLabel,
         LivePack,
-        Progress
+        Progress,
+        LiveRoom
     }
 })
 export default class Workbench extends Vue {
@@ -220,6 +234,7 @@ export default class Workbench extends Vue {
 
     useRooms = 0
     maxRooms = 1
+    rooms: any[] = []
     flowUsed = 0 // 已消耗流量
     showDownload = false
     selectStudent = false
@@ -266,7 +281,8 @@ export default class Workbench extends Vue {
     }
 
     private async getRooms () {
-        const { result: { maxRooms, useRooms } }: any = await getAllRoomsOfDetail()
+        const { result: { rooms, maxRooms, useRooms } }: any = await getAllRoomsOfDetail()
+        this.rooms = rooms
         this.maxRooms = maxRooms
         this.useRooms = useRooms
     }
@@ -557,6 +573,37 @@ export default class Workbench extends Vue {
                     > .more-img {
                         width: 36px;
                         margin-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    > .live-rooms {
+        margin-top: 10px;
+        > .label {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 24px;
+            font-size: 14px;
+            > .name {
+                margin-right: 20px;
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+        > .rooms {
+            padding: 20px;
+            border-radius: 20px;
+            overflow-x: auto;
+            background-color: #fefeff;
+            > .scroll-bar {
+                display: flex;
+                width: fit-content;
+                > .room {
+                    margin-right: 30px;
+                    &:nth-last-of-type(1) {
+                        margin-right: 0;
                     }
                 }
             }
