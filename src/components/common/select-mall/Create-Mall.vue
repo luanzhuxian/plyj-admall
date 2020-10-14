@@ -6,6 +6,7 @@
         :close-on-press-escape="false"
         width="540px"
         @close="close"
+        :append-to-body="appendToBody"
     >
         <el-form ref="mallInfoForm" :model="mallInfoForm" :rules="mallInfoFormRules" style="padding: 0 54px;" label-width="95px" label-position="left">
             <el-form-item label="店铺名称：" prop="mallName">
@@ -137,6 +138,7 @@ export default class CreateMall extends Vue {
     }
 
     @Prop({ type: Boolean, default: false }) createdMallShow!: boolean
+    @Prop({ type: Boolean, default: false }) appendToBody!: boolean
 
     @Watch('createdMallShow')
     async onChange (val: boolean) {

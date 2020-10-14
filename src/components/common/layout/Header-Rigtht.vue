@@ -90,7 +90,7 @@ export default class HeaderRigtht extends Vue {
     @userModule.Getter('auditStatus') auditStatus!: string
     @userModule.Getter('currentRoleCode') currentRoleCode!: string
     @userModule.Getter('agencyCode') agencyCode!: string
-    @userModule.Getter currentStep!: number
+    @userModule.Getter('mallNumber') mallNumber!: number
     @Getter('roleMap') roleMap!: any
 
     @Watch('$route')
@@ -133,7 +133,7 @@ export default class HeaderRigtht extends Vue {
     }
 
     visitMall () {
-        this.currentStep === 1 ? this.showCreateMall = true : this.showMallUrl = true
+        this.mallNumber ? this.showMallUrl = true : this.showCreateMall = true
     }
 
     async getMessageCount () {

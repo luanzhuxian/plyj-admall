@@ -21,14 +21,18 @@ const NOLOGIN = [
     'ForgetPassword',
     'ResetPassword'
 ]
+// 无需创建店铺就可以访问的页面
+const NO_MALL = [
+    'Home'
+]
 // 无需进行微信授权就可以访问的页面
 const NO_AUTH = [
-    'Home',
     'BaseSetting',
     'Wechat',
     'AccountSet',
     'CompleteLogin',
-    ...NOLOGIN
+    ...NOLOGIN,
+    ...NO_MALL
 ]
 
 Vue.use(Router)
@@ -137,6 +141,16 @@ export const beforeResolve = async (to, from, next) => {
     }
     // 访问了需要微信授权的页面
     const appId = localStorage.getItem(LocalEnum.appId)
+    const mallId = localStorage.getItem(LocalEnum.mallId)
+    if (!mallId && !to.matched.some(item => NO_MALL.includes(item.name))) {
+        NProgress.done()
+        MessageBox.alert('创建店铺后才可以进行后续操作，请点击操作指引完成创建', {
+            title: '请先创建店铺',
+            confirmButtonText: '我知道了'
+        })
+        next({ name: 'Home' })
+        return
+    }
     if (!appId && !to.matched.some(item => NO_AUTH.includes(item.name))) {
         NProgress.done()
         MessageBox.confirm('进行微信授权即可访问全部页面', {

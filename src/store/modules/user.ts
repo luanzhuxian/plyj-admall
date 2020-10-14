@@ -446,6 +446,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 当前登录人的id
         userId: state => state.loginInfo.userId || null,
         accountInfo: state => state.accountInfo,
+        // 注册步骤
         currentStep: state => state.currentStep,
         allLoaded: state => state.allLoaded,
         // currentStep: state => 6, // 注册步骤
