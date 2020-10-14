@@ -70,9 +70,9 @@ export default {
     methods: {
         async getList () {
             try {
-                const { data: { result: { records, total } } } = await getWatchDetailList(this.userId, this.courseId)
-                this.table = records
-                this.total = total
+                const { result } = await getWatchDetailList(this.userId, this.courseId)
+                this.table = result
+                this.total = result.length
             } catch (e) {
                 throw e
             }
