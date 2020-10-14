@@ -65,7 +65,10 @@
             </Field>
             <br>
             <Field title="记录：" inline style="margin-right: 78px;">
-                <p class="mb-16">{{ createTime }}<span class="ml-16">加入</span></p>
+                <p class="mb-16">{{ createTime }}
+                    <span class="ml-16" v-if="$route.name === 'HelperPromoteDetail'">加入</span>
+                    <span class="ml-16" v-else>注册</span>
+                </p>
                 <p class="mb-16" v-if="lastLoginTime">{{ lastLoginTime }}<span class="ml-16">最近登录</span></p>
                 <p class="mb-16" v-if="lastPurchaseTime">{{ lastPurchaseTime }}<span class="ml-16">最近购买</span></p>
             </Field>
