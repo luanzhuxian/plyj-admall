@@ -116,8 +116,15 @@
                     <br>
 
                     <el-form-item v-show="!isEdit" label="备注：" style="display: block;">
-                        <div class="flex">
-                            <div :class="$style.remark" v-text="memberDetail.remark || '--'" />
+                        <div class="flex align-item-center">
+                            <el-popover
+                                width="500"
+                                placement="bottom-start"
+                                trigger="hover"
+                                :content="memberDetail.remark "
+                            >
+                                <span style="line-height: 24px; vertical-align: -8px;" slot="reference" :class="$style.remark" v-text="memberDetail.remark || '--'" />
+                            </el-popover>
                             <el-button class="pb-0 pt-0 ml-40" type="text" v-if="memberDetail.remark" @click="more">查看更多</el-button>
                         </div>
                     </el-form-item>
@@ -163,7 +170,6 @@ import BaseInfo from '../../../../components/user-center/Base-Info.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
 import { copyFields } from '../../../../assets/ts/utils'
 import {
-    isName,
     isWechatNumber
 } from '../../../../assets/ts/validate'
 import {
@@ -173,13 +179,12 @@ import {
 } from '../../../../apis/member'
 
 const testName = (rule: DynamicObject, value: string, callback: Function) => {
-    if (!value) {
+    if (!value || value.length < 16) {
         return callback()
     }
-    if (isName(20, value)) {
-        return callback()
+    if (value.length > 16) {
+        return callback(new Error(rule.message))
     }
-    return callback(new Error(rule.message))
 }
 const testWechatNumber = (rule: DynamicObject, value: string, callback: Function) => {
     if (!value) {
@@ -312,7 +317,7 @@ export default class MemberManageDetail extends Vue {
 
     rules = {
         name: [
-            { validator: testName, message: '请输入1~20位中文或英文的组合', trigger: 'blur' }
+            { validator: testName, message: '最多可输入16个字符', trigger: 'blur' }
         ],
         wechatNumber: [
             { validator: testWechatNumber, trigger: 'blur' }
@@ -417,6 +422,7 @@ export default class MemberManageDetail extends Vue {
             this.isEdit = false
             await this.getMemberDetail()
         } catch (e) {
+            console.log(e)
             throw e
         }
     }
