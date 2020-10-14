@@ -346,7 +346,6 @@
         <!--更改所属账号-->
         <ChangeOwnerDialog
             :show.sync="showChangeOwnerDialog"
-            :current-user-id="userId"
             :current-user-info="helperDetail"
             @success="getHelperDetail"
         />

@@ -2,12 +2,12 @@
     <el-dialog
         class="select-video"
         :visible="show"
-        width="65%"
+        width="55%"
         title="选择所属账号"
         @close="closeHandler"
         :close-on-click-modal="false"
     >
-        <div class="current-account-info" v-if="currentUserInfo.mallUserId || currentUserInfo.id">
+        <div class="current-account-info" v-if="!helperIds.length && currentUserInfo.mallUserId || currentUserInfo.id">
             <p>
                 <b>Helper用户</b>
                 <span>{{ currentUserInfo.userName || currentUserInfo.name }}({{ currentUserInfo.mobile }})</span>
@@ -22,14 +22,15 @@
             <el-form-item>
                 <el-input
                     clearable
-                    @change="getList"
+                    @change="getList(1)"
                     v-model="filterForm.keyword"
                     placeholder="请输入真实姓名/手机号"
                 />
             </el-form-item>
             <el-form-item>
                 <el-button
-                    @click="getList"
+                    @click="getList(1)"
+                    round
                     type="primary"
                 >
                     查询
@@ -59,6 +60,7 @@
                     <el-button
                         v-if="row.baseUserId === currentUserInfo.mallUserId"
                         disabled="disabled"
+                        round
                         type="text"
                     >
                         已选择
@@ -66,6 +68,7 @@
                     <el-button
                         v-else
                         type="text"
+                        round
                         @click="changeHelperAccount(row)"
                     >
                         选择
@@ -73,6 +76,12 @@
                 </template>
             </el-table-column>
         </el-table>
+
+        <Pagination
+            v-model="filterForm.current"
+            :total="total"
+            @change="getList"
+        />
     </el-dialog>
 </template>
 
@@ -85,15 +94,16 @@ export default {
     },
     props: {
         show: Boolean,
-        currentUserId: {
-            type: String,
-            default: ''
-        },
         currentUserInfo: {
             type: Object,
             default () {
                 return {}
             }
+        },
+        // 多个helper的id
+        helperIds: {
+            type: Array,
+            default: () => []
         }
     },
     data () {
@@ -103,7 +113,8 @@ export default {
                 current: 1,
                 size: 10
             },
-            table: []
+            table: [],
+            total: 0
         }
     },
     watch: {
@@ -115,10 +126,12 @@ export default {
     },
     methods: {
         // 备注
-        async getList () {
+        async getList (page) {
             try {
+                this.filterForm.current = page || this.filterForm.current
                 const { result } = await getOwnedAccountList(this.filterForm)
                 this.table = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }
@@ -134,12 +147,12 @@ export default {
             try {
                 await changeHelpersAccount({
                     ownerUserId: data.baseUserId,
-                    userId: this.currentUserId
+                    userId: this.helperIds.length ? this.helperIds : [this.currentUserInfo.id]
                 })
                 this.$success('变更成功！')
                 this.$emit('success')
                 this.restForm()
-                this.getList()
+                await this.getList()
             } catch (e) {
                 throw e
             }

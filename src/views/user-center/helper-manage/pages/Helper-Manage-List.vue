@@ -189,82 +189,13 @@
             :sizes="true"
         />
 
-        <el-dialog
-            :modal-append-to-body="false"
-            :close-on-click-modal="false"
-            :close-on-press-escape="false"
-            :visible.sync="showDialog"
-            @close="close"
-            title="选择所属账号"
-            width="40%"
-        >
-            <div class="current-account-info" v-if="currentUserId.length === 1">
-                <p>
-                    <b>Helper用户</b>
-                    <span>{{ currentUserInfo.userName }}({{ currentUserInfo.mobile }})</span>
-                </p>
-                <p>
-                    <b>当前所属账号</b>
-                    <span>{{ currentUserInfo.ownedUser? currentUserInfo.ownedUser : '--' }}</span>
-                    <span v-if="currentUserInfo.ownedUserMobile"> ({{ currentUserInfo.ownedUserMobile }})</span>
-                </p>
-            </div>
-            <el-form :inline="true">
-                <el-form-item>
-                    <el-input
-                        clearable
-                        @change="getOwnedAccountList"
-                        v-model="searchOwnedAccountForm.keyword"
-                        placeholder="请输入真实姓名/手机号"
-                    />
-                </el-form-item>
-                <el-form-item>
-                    <el-button
-                        @click="getOwnedAccountList"
-                        type="primary"
-                    >
-                        查询
-                    </el-button>
-                </el-form-item>
-            </el-form>
-
-            <el-table :data="ownedAccountList" height="500px">
-                <el-table-column
-                    prop="name"
-                    label="真实姓名"
-                />
-                <el-table-column
-                    prop="mobile"
-                    label="手机号（账户）"
-                />
-                <el-table-column
-                    prop="roleName"
-                    label="角色"
-                />
-                <el-table-column
-                    prop="helperNumber"
-                    label="管理Helper数量"
-                />
-                <el-table-column label="操作" align="center">
-                    <template slot-scope="{row}">
-                        <el-button
-                            v-if="row.baseUserId === ownnerUserId"
-                            disabled="disabled"
-                            type="text"
-                        >
-                            已选择
-                        </el-button>
-                        <el-button
-                            v-else
-                            type="text"
-                            @click="changeHelperAccount(row)"
-                        >
-                            选择
-                        </el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </el-dialog>
+        <!--更改所属账号-->
+        <ChangeOwnerDialog
+            :show.sync="showDialog"
+            :helper-ids="currentUserIds"
+            :current-user-info="currentUserInfo"
+            @success="getList"
+        />
     </div>
 </template>
 
@@ -274,12 +205,14 @@ import {
     getHelperList,
     relieveHelper,
     relieveHelperBatched,
-    changeHelpersAccount,
     updateBrokerStatus
 } from '../../../../apis/member'
-import { getOwnedAccountList } from '../../../../apis/account'
-
-@Component
+import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
+@Component({
+    components: {
+        ChangeOwnerDialog
+    }
+})
 export default class HelperManageList extends Vue {
     showDialog = false
     form = {
@@ -311,23 +244,15 @@ export default class HelperManageList extends Vue {
         EMPLOYEE: '子'
     }
 
-    /* 查询所属账号表单 */
-    searchOwnedAccountForm = {
-        current: 1,
-        size: 200,
-        keyword: ''
-    }
-
     ownedAccountList = []
     routeName = ''
 
     /* 当前正在修改所属账号的数据id */
     currentUserInfo: DynamicObject = {}
-    currentUserId: string[] = []
+    currentUserIds: string[] = []
 
     /* 当前选中的表格数据 */
     currentSelect: any[] = []
-    ownnerUserId = ''
     currentRoleCode = ''
 
     created () {
@@ -335,7 +260,6 @@ export default class HelperManageList extends Vue {
         this.form.auditStatus = this.statusMap[this.routeName]
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
-        this.getOwnedAccountList()
     }
 
     @Watch('showDialog')
@@ -357,11 +281,6 @@ export default class HelperManageList extends Vue {
             loginEndTime: '',
             startTime: '',
             endTime: ''
-        }
-        this.searchOwnedAccountForm = {
-            current: 1,
-            size: 200,
-            keyword: ''
         }
         this.form.auditStatus = this.statusMap[this.routeName] || ''
         this.form.auditFlag = Boolean(this.form.auditStatus)
@@ -402,20 +321,6 @@ export default class HelperManageList extends Vue {
         this.getList()
     }
 
-    async close () {
-        this.searchOwnedAccountForm.keyword = ''
-        await this.getOwnedAccountList()
-    }
-
-    async getOwnedAccountList () {
-        try {
-            const { result } = await getOwnedAccountList(this.searchOwnedAccountForm)
-            this.ownedAccountList = result.records
-        } catch (e) {
-            throw e
-        }
-    }
-
     async relieve (id: string) {
         const ids = [id]
         try {
@@ -446,39 +351,14 @@ export default class HelperManageList extends Vue {
     }
 
     async belongBatched () {
-        this.currentUserId = []
-        this.currentUserInfo = {}
-        for (const item of this.currentSelect) {
-            this.currentUserId.push(item.mallUserId)
-        }
-        if (this.currentUserId.length !== 1) {
-            this.ownnerUserId = ''
-        }
+        this.currentUserIds = this.currentSelect.map(item => item.mallUserId)
         this.showDialog = true
-        await this.getOwnedAccountList()
     }
 
     async showDialogBox (row: DynamicObject) {
         this.showDialog = true
         this.currentUserInfo = row
-        this.currentUserId = [row.mallUserId]
-        this.ownnerUserId = row.ownnerUserId
-        await this.getOwnedAccountList()
-    }
-
-    async changeHelperAccount (data: any) {
-        try {
-            await changeHelpersAccount({
-                ownerUserId: data.baseUserId,
-                userId: this.currentUserId
-            })
-            this.showDialog = false
-            this.$success('变更成功！')
-            this.restForm()
-            this.getList()
-        } catch (e) {
-            throw e
-        }
+        this.currentUserIds = [row.mallUserId]
     }
 
     selectionChange (list: any[]) {
@@ -550,19 +430,5 @@ export default class HelperManageList extends Vue {
         color: #F79F1A;
         border-radius: 5px;
         border: 1px solid #F79F1A;
-    }
-    .current-account-info {
-        display: grid;
-        margin-top: 14px;
-        margin-bottom: 30px;
-        padding: 26px 29px;
-        border-radius: 20px;
-        grid-template-columns: repeat(2, 48%);
-        grid-row-gap: 24px;
-        background-color: #F5F6FA;
-        font-size: 16px;
-        > p > b {
-            margin-right: 10px;
-        }
     }
 </style>
