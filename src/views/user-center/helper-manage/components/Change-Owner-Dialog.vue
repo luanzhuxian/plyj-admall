@@ -58,7 +58,7 @@
             <el-table-column label="操作" align="center">
                 <template slot-scope="{row}">
                     <el-button
-                        v-if="row.baseUserId === currentUserInfo.mallUserId"
+                        v-if="row.baseUserId === currentUserInfo.ownedUserId"
                         disabled="disabled"
                         round
                         type="text"
