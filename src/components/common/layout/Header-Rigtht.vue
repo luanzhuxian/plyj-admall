@@ -101,6 +101,9 @@ export default class HeaderRigtht extends Vue {
 
     async mounted () {
         await this.getMessageCount()
+        if (!this.mallNumber) {
+            this.showCreateMall = true
+        }
     }
 
     // 退出登录

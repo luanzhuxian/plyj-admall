@@ -161,7 +161,6 @@
             </Panel>
         </div>
 
-        <CreateMall :created-mall-show.sync="createdMallShow" />
         <GiveCourse :show.sync="showGiveCourse" :list="giveResourceList" />
     </div>
 </template>
@@ -171,7 +170,6 @@ import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import Panel from '../../components/common/Panel.vue'
 import GiveCourse from '../../components/home/Give-Course.vue'
-import CreateMall from '../../components/common/select-mall/Create-Mall.vue'
 import {
     getHomeInfo,
     getProductOrder,
@@ -296,8 +294,7 @@ const functionsPanelTmpl = [
 @Component({
     components: {
         Panel,
-        GiveCourse,
-        CreateMall
+        GiveCourse
     }
 })
 export default class Home extends Vue {
@@ -311,7 +308,6 @@ export default class Home extends Vue {
     // 是否展示资源库送客
     private showGiveResource = false
     private showPhoneTips = false
-    private createdMallShow = false
     private showGiveCourse = false
     private countdown = '获取验证码'
     private form = {
@@ -325,7 +321,6 @@ export default class Home extends Vue {
     @user.Getter agencyCode!: string
     @user.Getter auditStatus!: string
     @user.Getter mallNumber!: string
-    @user.Getter currentStep!: number
     @user.Getter regType!: number
     @user.Getter agencyList!: any
     // @user.Getter vMerchantStatus!: DynamicObject
@@ -340,9 +335,6 @@ export default class Home extends Vue {
             //     this.checkStatus()
             // }
             await this.getHomeInfo()
-            if (this.currentStep === 1) {
-                this.createdMallShow = true
-            }
             await this.newCheckStatus()
         } catch (e) {
             throw e
@@ -543,7 +535,7 @@ export default class Home extends Vue {
     }
 
     navigator (route: any) {
-        this.currentStep === 1 ? this.createdMallShow = true : this.$router.push(route)
+        this.$router.push(route)
     }
 }
 </script>
