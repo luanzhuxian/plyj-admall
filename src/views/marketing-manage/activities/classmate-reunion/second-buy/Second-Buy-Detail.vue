@@ -1,18 +1,24 @@
 <template>
     <div class="together">
-        <div class="together-data-top">
-            <div class="together-title">
-                <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_together.png">
-                秒杀
+        <div class="list-header">
+            <div class="header">
+                <img width="48" class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png">
+                <div>
+                    <div class="font-weight-bold">秒杀</div>
+                    <div class="description">{{ activityDetail.name }}</div>
+                </div>
             </div>
-            <div class="activity-status">
-                <pl-svg width="16" name="icon-shijian1" fill="#fff" class="mr-10" />
-                <span v-if="activityDetail.status === 0">未开始</span>
-                <span v-else-if="activityDetail.status === 1">进行中</span>
-                <span v-else-if="activityDetail.status === 2">已结束</span>
+            <div class="active-time">
+                <div class="activity-status">
+                    <pl-svg width="16" name="icon-shijian1" fill="#fff" class="mr-10" />
+                    <span v-if="activityDetail.status === 0">未开始</span>
+                    <span v-else-if="activityDetail.status === 1">进行中</span>
+                    <span v-else-if="activityDetail.status === 2">已结束</span>
+                </div>
+                <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
+                活动时间：{{ activityDetail.activityStartTime | dateFormat('YYYY.MM.DD') }} - {{ activityDetail.activityEndTime | dateFormat('YYYY.MM.DD') }}
             </div>
         </div>
-
         <pl-tabs
             value="SecondBuyDetail"
             :tabs="[
@@ -108,8 +114,8 @@ export default {
     },
     methods: {
         async getSecondActivityDetail (id) {
-            const data = await secondActivityDetail(id)
-            this.activityDetail = data.result
+            const { result } = await secondActivityDetail(id)
+            this.activityDetail = result
         }
     }
 }

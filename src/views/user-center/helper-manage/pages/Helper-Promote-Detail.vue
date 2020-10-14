@@ -411,10 +411,11 @@ export default class HelperPromoteDetail extends Vue {
             label: '待收货',
             value: 'WAIT_RECEIVE'
         },
-        {
+
+        /* {
             label: '待付款',
             value: 'WAIT_PAY'
-        },
+        }, */
         {
             label: '订单完成',
             value: 'FINISHED'

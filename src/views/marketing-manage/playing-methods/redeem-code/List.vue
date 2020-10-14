@@ -10,7 +10,7 @@
             </div>
             <div class="active-time">
                 <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
-                有效期：长期有效
+                有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
             </div>
         </div>
         <el-button type="primary" round @click="$router.push({ name: 'AddRedeemCode' })">

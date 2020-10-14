@@ -1,33 +1,33 @@
 <template>
     <div class="together">
-        <div class="together-top">
-            <div class="together-top-left">
-                <div class="together-top-title">
-                    <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png">
-                    秒杀 <span>- 限时抢购，引导用户消费</span>
+        <div class="list-header">
+            <div class="header">
+                <img width="48" class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png">
+                <div>
+                    <div class="font-weight-bold">秒杀</div>
+                    <div class="description">限时抢购，引导用户消费</div>
                 </div>
-                <div class="activity-date">
-                    <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />  使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
-                </div>
-                <el-button
-                    type="primary"
-                    size="mini"
-                    @click="$router.push({name:'AddSecond'})"
-                    class="add-btn"
-                >
-                    新建活动 <i class="el-icon-plus el-icon--right" />
-                </el-button>
+            </div>
+            <div class="active-time">
+                <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
+                有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
             </div>
         </div>
-
-        <pl-tabs
+        <el-button type="primary" round @click="$router.push({ name: 'AddSecond' })">
+            新建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
+        <el-button type="text" @click="showExplanation = true">
+            活动说明
+        </el-button>
+        <!-- <pl-tabs
             value="SecondBuyList"
             :tabs="[
                 {label:'活动列表',name:'SecondBuyList'},
                 {label:'活动设置',name:'SecondBuySetting'},
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
-        />
+        /> -->
 
         <search-box class="mt-24">
             <el-form-item label="活动状态：">
@@ -217,6 +217,7 @@
             :data="singleGoods"
         />
         <Share :show.sync="qrcodeShow" :qrcode-text="qrcodeText" ref="share" />
+        <Setting :show.sync="showExplanation" />
     </div>
 </template>
 
@@ -226,12 +227,14 @@ import GoodsPreview from '../../../../../components/product-center/goods/Goods-P
 import { secondActivityPage, duplicateSecondActivity, updateActivityStatus } from '../../../../../apis/marketing-manage/second'
 import { getSingleGoods } from '../../../../../apis/product-center/goods'
 import Share from '../../../../../components/common/Share'
+import Setting from './Second-Buy-Setting'
 import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'SecondBuyList',
     components: {
         GoodsPreview,
-        Share
+        Share,
+        Setting
     },
     data () {
         return {
@@ -252,7 +255,8 @@ export default {
             // 分享开关
             qrcodeShow: false,
             start: '',
-            end: ''
+            end: '',
+            showExplanation: false
         }
     },
     computed: {

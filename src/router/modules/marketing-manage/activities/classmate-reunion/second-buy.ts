@@ -5,7 +5,7 @@ export default [
         redirect: '/marketing-manage/second-buy/list',
         component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/second-buy/Index.vue'),
         meta: {
-            title: ''
+            title: '秒杀'
         },
         children: [
             {

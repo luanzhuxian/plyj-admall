@@ -1,13 +1,17 @@
 <template>
     <div class="together">
-        <div class="together-data-top">
-            <div class="together-title">
-                <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png">
-                秒杀
+        <div class="list-header">
+            <div class="header">
+                <img width="48" class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png">
+                <div>
+                    <div class="font-weight-bold">秒杀</div>
+                </div>
             </div>
-            <div class="activity-status">
-                <pl-svg width="16" name="icon-shijian1" fill="#fff" />
-                {{ statistics.statusText }}
+            <div class="active-time">
+                <div class="activity-status">
+                    <pl-svg width="16" name="icon-shijian1" fill="#fff" class="mr-10" />
+                    {{ statistics.statusText }}
+                </div>
             </div>
         </div>
 

@@ -90,9 +90,11 @@ export default {
       color: #ffffff;
       text-align: center;
       line-height: 31px;
+      margin-right: 20px;
   }
   .active-time{
       display: flex;
+      align-items: center;
       font-size: 12px;
       color: #999;
       margin-left: 100px;
