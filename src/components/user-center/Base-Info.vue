@@ -127,9 +127,11 @@ export default class MemberBaseInfo extends Vue {
     // 性别
     @Prop({ type: Number, default: 0 }) gender!: number
     // 会员类型
-    @Prop([Number, String]) type!: string | number | void
+    @Prop({ type: Number }) type!: number
     // 会员自定义类型名称
     @Prop({ type: String }) other!: string
+    // 会员类型
+    @Prop({ type: String }) typeName!: string
     // 真实姓名
     @Prop({ type: String }) userName!: string
     // 手机号

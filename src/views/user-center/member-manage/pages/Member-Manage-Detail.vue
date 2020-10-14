@@ -8,7 +8,7 @@
                 :nick-name="memberDetail.nickName"
                 :role-code="memberDetail.roleCode"
                 :gender="memberDetail.gender"
-                :type="memberDetail.type"
+                :type="Number(memberDetail.type)"
                 :other="memberDetail.other"
                 :mobile="memberDetail.mobile"
                 :user-name="memberDetail.userName"
@@ -44,7 +44,7 @@
                     </el-form-item>
 
                     <el-form-item label="用户身份：" prop="other">
-                        <el-radio-group v-show="isEdit" v-model="addMemberDetailForm.type">
+                        <el-radio-group v-show="isEdit" v-model="addMemberDetailForm.type" @change="typeChange">
                             <el-radio :label="1">家长</el-radio>
                             <el-radio :label="2">学生</el-radio>
                             <el-radio :label="3">
@@ -173,6 +173,8 @@ import {
 } from '../../../../apis/member'
 
 const testUserType = (form: DynamicObject) => (rule: DynamicObject, value: string, callback: Function) => {
+    console.log(form.type)
+    console.log(value)
     if (form.type === 3 && !value) {
         callback(new Error(rule.message))
     } else {
@@ -311,11 +313,11 @@ export default class MemberManageDetail extends Vue {
             { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
         ],
         address: [
-            { required: false },
+            { required: true, message: '请输入自定义身份', trigger: 'blur' },
             { max: 100, message: '请输入100个字符以内', trigger: 'blur' }
         ],
         other: [
-            { required: false },
+            { required: false, message: '请输入自定义身份', trigger: 'blur' },
             { validator: testUserType(this.addMemberDetailForm), message: '请输入自定义身份', trigger: 'blur' }
         ]
     }
@@ -355,6 +357,14 @@ export default class MemberManageDetail extends Vue {
             this.memberData = result || {}
         } catch (e) {
             throw e
+        }
+    }
+
+    typeChange (val: number) {
+        if (val === 3) {
+            this.rules.other.splice(0, 1, { required: true, message: '请输入自定义身份', trigger: 'blur' })
+        } else {
+            this.rules.other.splice(0, 1, { required: false, message: '请输入自定义身份', trigger: 'blur' })
         }
     }
 
