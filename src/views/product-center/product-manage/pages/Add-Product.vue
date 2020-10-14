@@ -482,15 +482,7 @@
                 </el-form-item>
             </el-form>
             <div class="btn-box">
-                <el-button :loading="loading" round plain style="width: 90px;margin-left: 20px" @click="saveAndOnline">
-                    保存
-                </el-button>
-                <el-button :loading="loading" round type="primary" plain @click="saveAndAdd">
-                    保存并新增
-                </el-button>
-                <el-button :loading="loading" round type="primary" plain @click="saveAndOnline('online')">
-                    保存并上架
-                </el-button>
+
                 <div class="btn-description">
                     <div>
                         保存后的商品，不上架到商铺中展示，可在已下架的商品列表中查看；
@@ -500,6 +492,17 @@
                     </div>
                 </div>
             </div>
+            <footer>
+                <el-button :loading="loading" round plain style="width: 90px;margin-left: 20px" @click="saveAndOnline">
+                    保存
+                </el-button>
+                <el-button :loading="loading" round type="primary" plain @click="saveAndAdd">
+                    保存并新增
+                </el-button>
+                <el-button :loading="loading" round type="primary" plain @click="saveAndOnline('online')">
+                    保存并上架
+                </el-button>
+            </footer>
         </div>
         <point :activities="activities" @saveDraft="saveDraft" :show-draft="showDraft" />
         <ShippingTemplate :template-detail="templateDetail" :show.sync="showShippingTemplate" />
@@ -1609,11 +1612,6 @@ export default {
     padding-left: 30px !important;
   }
 }
-.alink {
-  color: #598bf8;
-  font-size: 12px;
-  text-decoration-line: underline;
-}
 
 .add-product {
   background-color: #f5f6f7;
@@ -1865,10 +1863,6 @@ export default {
       color: #999999;
     }
   }
-  .el-button--primary{
-    display: block;
-    margin: 30px auto 0;
-  }
 }
 
 .sku-dialog{
@@ -1892,10 +1886,6 @@ export default {
       color: #D2524C;
       font-size: 12px;
     }
-  }
-  .el-button--primary{
-    display: block;
-    margin: 60px auto 0;
   }
 }
 
@@ -1921,6 +1911,28 @@ export default {
       text-align: center;
     }
   }
+}
+
+footer {
+    position: fixed;
+    left: 150px;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    min-width: 800px;
+    background-color: #fff;
+    border-top: 1px solid #e7e7e7;
+    z-index: 99;
+    > button {
+        margin-left: 20px !important;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100px;
+        text-align: center;
+    }
 }
 
 </style>
