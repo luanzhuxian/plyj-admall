@@ -58,6 +58,7 @@
                     v-model="filterForm.status"
                     placeholder="请选择"
                     @change="search"
+                    style="width: 128px;"
                 >
                     <el-option
                         key="全部活动"
@@ -109,14 +110,16 @@
                 >
                     导出数据
                 </el-button>
-                <el-button round plain :disabled="hasNoVoidData || multipleSelection.length === 0" @click="showBatchToVoid = true">
-                    批量作废
-                </el-button>
-                <el-button round plain :disabled="multipleSelection.length === 0" @click="showBatchRemarks = true">
-                    批量备注
-                </el-button>
             </el-form-item>
         </search-box>
+        <div class="mt-24">
+            <el-button round plain :disabled="hasNoVoidData || multipleSelection.length === 0" @click="showBatchToVoid = true">
+                批量作废
+            </el-button>
+            <el-button round plain :disabled="multipleSelection.length === 0" @click="showBatchRemarks = true">
+                批量备注
+            </el-button>
+        </div>
         <el-table :data="tableData" class="mt-10" stripe @selection-change="handleSelectionChange">
             <span slot="empty" class="empty">
                 <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" />

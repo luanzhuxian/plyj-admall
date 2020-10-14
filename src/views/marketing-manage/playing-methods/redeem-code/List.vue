@@ -1,26 +1,27 @@
 <template>
     <div>
-        <div class="redeem-code-top">
-            <div class="redeem-code-top-left">
-                <div class="redeem-code-top-title">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.10.0/redeem_code_icon.png">
-                    兑换码 <span>- 支持多商品兑换，使用即可减免商品费用</span>
+        <div class="list-header">
+            <div class="header">
+                <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.10.0/redeem_code_icon.png">
+                <div>
+                    <div class="font-weight-bold">兑换码</div>
+                    <div class="description">支持多商品兑换，使用即可减免商品费用</div>
                 </div>
-                <div class="activity-date">
-                    <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />  使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
-                </div>
-                <el-button
-                    type="primary"
-                    size="mini"
-                    @click="$router.push({ name: 'AddRedeemCode' })"
-                    class="add-btn"
-                >
-                    新建活动 <i class="el-icon-plus el-icon--right" />
-                </el-button>
+            </div>
+            <div class="active-time">
+                <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
+                有效期：长期有效
             </div>
         </div>
+        <el-button type="primary" round @click="$router.push({ name: 'AddRedeemCode' })">
+            新建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
+        <el-button type="text" @click="showExplanation = true">
+            活动说明
+        </el-button>
 
-        <pl-tabs
+        <!--<pl-tabs
             :value="$route.name"
             :tabs="[
                 {label:'活动列表',name:'RedeemCodeListData'},
@@ -28,20 +29,26 @@
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
         />
-
+-->
         <router-view />
+        <Setting :show.sync="showExplanation" />
     </div>
 </template>
 
 <script>
+import Setting from './Setting'
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'RedeemCodeList',
+    components: {
+        Setting
+    },
     data () {
         return {
             start: '',
-            end: ''
+            end: '',
+            showExplanation: false
         }
     },
     computed: {
@@ -66,49 +73,26 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .redeem-code-top{
-    display: flex;
-    height: 52px;
-    align-items: center;
-    padding: 0 24px;
-    .redeem-code-top-left{
-      display: flex;
-      align-items: center;
-      .redeem-code-top-title{
+    .list-header {
+        background: #F5F6FA;
         display: flex;
-        align-items: center;
-        font-size: 16px;
-        color: #333333;
-        font-weight: bold;
-        img{
-          margin-right: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        .header{
+            display: flex;
+            align-items: center;
         }
-        span{
-          color: #999999;
-          margin-left: 10px;
+        .description {
+            font-size: 12px;
+            color: #A8A8A8;
+            margin-top: 4px;
         }
-      }
-      .add-btn{
-        width: 106px;
-        height: 35px;
-        border-radius: 121px;
-        margin-left: 32px;
-      }
     }
-    .activity-date{
-      margin-left: 32px;
-      height: 31px;
-      border: 1px solid #cccccc;
-      border-radius: 130px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 16px;
-      color: #666666;
-      padding: 0 10px;
-      i{
-        margin-right: 10px;
-      }
+    .active-time{
+        font-size: 12px;
+        color: #999;
+        margin-left: 100px;
+        margin-top: 10px;
     }
-  }
 </style>

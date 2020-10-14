@@ -1,13 +1,14 @@
 <template>
     <div>
-        <div class="redeem-code-top">
-            <div class="redeem-code-top-left">
-                <div class="redeem-code-top-title">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.10.0/redeem_code_icon.png">
-                    兑换码 <span>- {{ activityDetail.name }}</span>
+        <div class="list-header">
+            <div class="header">
+                <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.10.0/redeem_code_icon.png">
+                <div>
+                    <div class="font-weight-bold">兑换码</div>
+                    <div class="description">{{ activityDetail.name }}</div>
                 </div>
             </div>
-            <div class="redeem-code-top-right">
+            <div class="active-time">
                 <div class="activity-status">
                     <pl-svg name="icon-shijian" width="16" class="mr-10" />
                     <span v-if="activityDetail.status === 1">未开始</span>
@@ -15,9 +16,8 @@
                     <span v-if="activityDetail.status === 3">已停止</span>
                     <span v-if="activityDetail.status === 4">已结束</span>
                 </div>
-                <div class="activity-date">
-                    <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />  活动时间：{{ activityDetail.startTime | dateFormat('YYYY.MM.DD') }} - {{ activityDetail.endTime | dateFormat('YYYY.MM.DD') }}
-                </div>
+                <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
+                活动时间：{{ activityDetail.startTime | dateFormat('YYYY.MM.DD') }} - {{ activityDetail.endTime | dateFormat('YYYY.MM.DD') }}
             </div>
         </div>
 
@@ -66,63 +66,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .redeem-code-top{
-    display: flex;
-    height: 52px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    .redeem-code-top-left{
+  .list-header {
+      background: #F5F6FA;
       display: flex;
-      align-items: center;
-      .redeem-code-top-title{
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        color: #333333;
-        font-weight: bold;
-        img{
-          margin-right: 10px;
-        }
-        span{
-          color: #999999;
-          margin-left: 10px;
-        }
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      .header{
+          display: flex;
+          align-items: center;
       }
-      .add-btn{
-        width: 106px;
-        height: 35px;
-        border-radius: 121px;
-        margin-left: 32px;
+      .description {
+          font-size: 12px;
+          color: #A8A8A8;
+          margin-top: 4px;
       }
-    }
-    .redeem-code-top-right{
+  }
+  .activity-status{
+      width: 104px;
+      height: 31px;
+      background: #EC742E;
+      border-radius: 130px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 31px;
+  }
+  .active-time{
       display: flex;
-      align-items: center;
-      .activity-status{
-        width: 104px;
-        height: 31px;
-        background: #EC742E;
-        border-radius: 130px;
-        color: #ffffff;
-        text-align: center;
-        line-height: 31px;
-      }
-      .activity-date{
-        margin-left: 16px;
-        height: 31px;
-        border: 1px solid #cccccc;
-        border-radius: 130px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 16px;
-        color: #666666;
-        padding: 0 10px;
-        i{
-          margin-right: 10px;
-        }
-      }
-    }
+      font-size: 12px;
+      color: #999;
+      margin-left: 100px;
+      margin-top: 10px;
   }
 </style>
