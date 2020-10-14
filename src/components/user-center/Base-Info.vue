@@ -48,6 +48,7 @@
                 inline
                 :mb="24"
             >
+                <span v-if="!tags.length">无标签</span>
                 <span v-html="tags.slice(0, 2).map(item => `<span>${ item.tagName }</span>`).join(`<i class='${ $style.separator }'></i>`)" />
                 <template v-if="tags.length >= 3">
                     <i :class="$style.separator" />

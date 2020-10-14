@@ -342,6 +342,7 @@ export default class MemberManageDetail extends Vue {
             const { province, city, region, town } = result
             this.memberDetail = result
             this.defaultCity = town ? [province, city, region, town] : [province, city, region]
+            if (!result.name) result.name = result.userName
             copyFields(this.addMemberDetailForm, result)
         } catch (e) {
             throw e
