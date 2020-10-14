@@ -128,7 +128,7 @@ export default {
         // 活动详情
         async getDetail () {
             try {
-                const { data } = await getActivity(this.id)
+                const data = await getActivity(this.id)
                 const { activityName, activityStartTime, activityEndTime, activityStatus } = data.result
                 this.detail = { activityName, activityStartTime, activityEndTime, activityStatus }
             } catch (e) {

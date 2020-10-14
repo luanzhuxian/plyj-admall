@@ -206,7 +206,7 @@ export default {
         async getList (page = this.filter.current) {
             this.filter.current = page
             try {
-                const { data } = await getSpringPloughingList(this.filter)
+                const data = await getSpringPloughingList(this.filter)
                 this.list = data.result.records
                 this.total = data.result.total
             } catch (e) {

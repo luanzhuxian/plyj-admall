@@ -97,8 +97,7 @@ export default {
         async beActivited () {
             try {
                 await this.$refs.activeForm.validate()
-                const { data } = await checkCard(this.activeForm)
-                const { result } = data
+                const { result } = await checkCard(this.activeForm)
                 result.storageSize = this.formatFlowSize(result.storageSize)
                 result.flowSize = this.formatFlowSize(result.flowSize)
                 if (result.errorCode !== 0) {

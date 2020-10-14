@@ -352,7 +352,7 @@ export default {
         // 复制活动
         async handleCopy (id) {
             try {
-                const { data } = await togetherActivityDetail(id)
+                const data = await togetherActivityDetail(id)
                 await this.$confirm({
                     title: '已复制，进入编辑页面修改活动时间',
                     message: '活动时间不能重复，该活动复制后，进入编辑保存成功后可在活动列表查看',

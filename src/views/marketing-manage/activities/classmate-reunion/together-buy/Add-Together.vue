@@ -270,7 +270,7 @@ export default {
                 })
         },
         async getTogetherActivityDetail (id) {
-            const { data } = await togetherActivityDetail(id)
+            const data = await togetherActivityDetail(id)
             this.marketingForm = {
                 activityBrief: data.result.activityBrief,
                 countdown: data.result.countdown,

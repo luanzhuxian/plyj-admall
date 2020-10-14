@@ -110,7 +110,7 @@ export default {
     },
     methods: {
         async getTogetherActivityDetail (id) {
-            const { data } = await togetherActivityDetail(id)
+            const data = await togetherActivityDetail(id)
             this.activityDetail = data.result
         }
     }

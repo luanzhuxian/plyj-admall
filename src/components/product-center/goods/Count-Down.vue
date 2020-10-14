@@ -65,7 +65,7 @@ export default {
     },
     methods: {
         async init () {
-            const { data } = await getServerTime()
+            const data = await getServerTime()
             this.starttiemstamp = Number(data.result)
             if (this.data) {
                 this.endtiemstamp = Number(this.data[this.fields.end]) || 0

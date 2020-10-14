@@ -159,7 +159,7 @@ export default {
     },
     methods: {
         async getBookingActivityDetail (id) {
-            const { data } = await bookingActivityDetail(id)
+            const data = await bookingActivityDetail(id)
             this.activityDetail = data.result
         },
         // 展示部分用户

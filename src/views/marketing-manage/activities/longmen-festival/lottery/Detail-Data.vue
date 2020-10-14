@@ -243,7 +243,7 @@ export default {
     methods: {
         async getList () {
             try {
-                const { data } = await getLotteryStatisticsList(this.form, this.id)
+                const data = await getLotteryStatisticsList(this.form, this.id)
                 this.data = data.result.records || []
                 this.total = data.result.total
             } catch (e) {
@@ -252,7 +252,7 @@ export default {
         },
         async getWinningGift (userId) {
             try {
-                const { data } = await getWinningGift(this.id, userId)
+                const data = await getWinningGift(this.id, userId)
                 this.giftPreview.show = true
                 this.giftPreview.giftData = data.result
             } catch (e) {

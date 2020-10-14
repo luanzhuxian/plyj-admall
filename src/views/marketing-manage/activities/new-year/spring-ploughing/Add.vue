@@ -279,7 +279,7 @@ export default {
     methods: {
         async getDetail () {
             try {
-                const { data } = await getSpringPloughingDetail(this.id)
+                const data = await getSpringPloughingDetail(this.id)
                 const detail = data.result
                 const {
                     activityName,

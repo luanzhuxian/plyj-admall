@@ -379,7 +379,7 @@ export default {
         },
         // 获取推荐状态
         async getRecommendCurrent () {
-            const { data } = await getCurrentNumber({ recommendType: this.checkRoute() })
+            const data = await getCurrentNumber({ recommendType: this.checkRoute() })
             if (data.result) {
                 this.recommendNumberInfo = data.result
             }
@@ -388,7 +388,7 @@ export default {
         async getRecommends () {
             try {
                 await this.checkRoute()
-                const { data } = await getRecommendProduct(this.recommendForm)
+                const data = await getRecommendProduct(this.recommendForm)
                 if (data && data.result && data.result.records && data.result.records.length) {
                     for (const item of data.result.records) {
                         item.sort = item.serialNo
@@ -484,7 +484,7 @@ export default {
                 type = 'courseType'
                 this.searchForm.productType = 'ALL_CLASS'
             }
-            const { data } = await getDataDictionary(type)
+            const data = await getDataDictionary(type)
             this.searchType = data.result || []
             const { result } = await getCategoryTreePlatform()
             if (result && result.length) {

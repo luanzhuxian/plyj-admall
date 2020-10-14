@@ -64,7 +64,7 @@ export default {
         async show (val) {
             if (val) {
                 try {
-                    const { data } = await queryPickup(this.orderId)
+                    const data = await queryPickup(this.orderId)
                     this.appointmentData = data.result
                     this.appointmentCanCancel = data.result.appointmentCanCancel
                 } catch (e) {
@@ -78,7 +78,7 @@ export default {
             const { orderId, courierCompanyCode } = this.appointmentData
             try {
                 await this.$confirm('确定取消预约吗？')
-                const { data } = await cancelCourier(orderId, courierCompanyCode)
+                const data = await cancelCourier(orderId, courierCompanyCode)
                 if (data.result) {
                     this.$emit('success')
                     this.$emit('update:show', false)

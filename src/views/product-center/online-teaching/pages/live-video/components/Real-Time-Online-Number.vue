@@ -156,7 +156,7 @@ export default {
             if (!this.roomId) return
             try {
                 this.loading = true
-                let { data } = await getCountInTwoMinute(this.roomId)
+                let data = await getCountInTwoMinute(this.roomId)
                 data = data.result.data || []
                 data = data.splice(0, 15)
                 this.empty = !data.length

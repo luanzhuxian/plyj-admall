@@ -407,7 +407,7 @@ export default {
         },
         async getStatistics () {
             try {
-                const { data } = await getSpringPloughingStatistics(this.id)
+                const data = await getSpringPloughingStatistics(this.id)
                 this.statistics = data.result
             } catch (e) {
                 throw e

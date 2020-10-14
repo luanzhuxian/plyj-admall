@@ -815,7 +815,7 @@ export default {
                 const goodsListForm = JSON.parse(JSON.stringify(this.goodsListForm))
                 // 删除前端自定义的数据，防止后端报错
                 delete goodsListForm.classifyCodes
-                const { data } = await getProductJust(goodsListForm)
+                const data = await getProductJust(goodsListForm)
                 if (data && data.result && data.result.records && data.result.records.length) {
                     this.goodsList = data.result.records
                     this.goodsPageSize = {
@@ -853,7 +853,7 @@ export default {
                 if (current) {
                     this.classifyListForm.current = current
                 }
-                const { data } = await getCategoryName(this.classifyListForm)
+                const data = await getCategoryName(this.classifyListForm)
                 if (data && data.result && data.result.records && data.result.records.length) {
                     for (const item of data.result.records) {
                         item.isSelected = false
@@ -877,7 +877,7 @@ export default {
             }
         },
         async getGoodsClassifyList () {
-            const { data } = await getCategoryTreePlatform()
+            const data = await getCategoryTreePlatform()
             if (data && data.result && data.result.length) {
                 // 添加前端自定义的数据，方便展示
                 data.result.unshift({ categoryName: '全部分类', id: '' })
@@ -915,7 +915,7 @@ export default {
                 this.$error('请最少选择1个商品')
                 return false
             }
-            const { data } = await getProductSkuByProductId({
+            const data = await getProductSkuByProductId({
                 activityId: this.id,
                 productIds: this.selectedGoods
             })
@@ -982,7 +982,7 @@ export default {
                         this.$error('该分类下暂无可添加商品，请选择其他分类')
                         return false
                     }
-                    const { data } = await getProductByCategoryId({
+                    const data = await getProductByCategoryId({
                         activityId: this.id,
                         categoryId: items.categoryId,
                         includeProductIds: this.classifyListForm.includeProductIds

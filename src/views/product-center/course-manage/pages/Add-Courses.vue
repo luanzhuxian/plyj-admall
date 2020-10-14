@@ -976,7 +976,7 @@ export default {
                     }
                     this.$router.replace({ name: 'MyCourses' })
                 } else {
-                    const { data } = await addGoods(form)
+                    const data = await addGoods(form)
                     if (type === 'online') {
                         await updateGoodsStatus(2, [data.result])
                     }

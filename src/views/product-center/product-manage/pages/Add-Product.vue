@@ -1179,9 +1179,9 @@ export default {
                     }
                     this.$router.replace({ name: 'MyGoods' })
                 } else {
-                    const { data } = await addGoods(form)
+                    const { result } = await addGoods(form)
                     if (type === 'online') {
-                        await updateGoodsStatus(2, [data.result])
+                        await updateGoodsStatus(2, [result])
                     }
                     this.$router.replace({ name: 'MyGoods' })
                 }

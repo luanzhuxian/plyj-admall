@@ -295,7 +295,7 @@ export default {
     methods: {
         async getList () {
             try {
-                const { data } = await getCouponList(this.form)
+                const data = await getCouponList(this.form)
                 this.table = data.result.records
                 this.total = data.result.total
                 // 翻页时，为每页数据主备一个数组，如果这一页之前有选中的项，则使用之前的选择

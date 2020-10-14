@@ -240,7 +240,7 @@ export default {
         },
         async getList () {
             try {
-                const { data } = await getCouponList(this.form)
+                const data = await getCouponList(this.form)
                 this.table = data.result.records
                 this.total = data.result.total
             } catch (e) {

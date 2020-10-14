@@ -108,7 +108,7 @@ export default {
     },
     methods: {
         async getSecondActivityDetail (id) {
-            const { data } = await secondActivityDetail(id)
+            const data = await secondActivityDetail(id)
             this.activityDetail = data.result
         }
     }

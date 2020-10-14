@@ -203,7 +203,7 @@ export default {
             }
         },
         async getActivityStat () {
-            const { data } = await getActivityStat(this.id)
+            const data = await getActivityStat(this.id)
             this.checkInStatModel = {
                 viewNum: Number(data.result.viewNum),
                 visitorNum: Number(data.result.visitorNum),

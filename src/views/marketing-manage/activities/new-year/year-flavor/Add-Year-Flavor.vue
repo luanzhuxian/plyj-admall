@@ -499,7 +499,7 @@ export default {
         async getDetail () {
             try {
                 if (this.id) {
-                    const { data } = await signinActivityDetail(this.id)
+                    const data = await signinActivityDetail(this.id)
                     // 将详情数据格式处理到与添加数据格式基本已知
                     let {
                         bigGifts,
