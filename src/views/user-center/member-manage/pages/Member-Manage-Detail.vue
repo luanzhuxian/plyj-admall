@@ -231,7 +231,6 @@ export default class MemberManageDetail extends Vue {
         { label: '全部', value: '' },
         { label: '待发货', value: 'WAIT_SHIP' },
         { label: '待收货', value: 'WAIT_RECEIVE' },
-        { label: '待付款', value: 'WAIT_PAY' },
         { label: '订单完成', value: 'FINISHED' },
         { label: '订单关闭', value: 'CLOSED' }
     ]
