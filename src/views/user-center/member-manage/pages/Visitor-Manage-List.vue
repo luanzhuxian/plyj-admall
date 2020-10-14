@@ -12,9 +12,8 @@
             <el-form-item label="关键字：">
                 <el-input
                     clearable
-                    style="width: 250px;"
                     v-model.trim="form.keyword"
-                    placeholder="请输入用户昵称/真实姓名"
+                    placeholder="请输入昵称"
                     @change="search"
                 />
             </el-form-item>
