@@ -26,6 +26,7 @@
                 :address="detail.address"
                 :source="detail.source"
                 :create-time="detail.createTime"
+                :type-name="detail.typeName"
             />
         </div>
         <div :class="$style.module" class="mt-30">

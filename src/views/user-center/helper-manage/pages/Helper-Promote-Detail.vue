@@ -5,6 +5,7 @@
             <BaseInfo
                 :avatar="helperDetail.userImage"
                 :type="Number(helperDetail.type) || 3"
+                :type-name="helperDetail.typeName"
                 :other="helperDetail.other"
                 :nick-name="helperDetail.nickName"
                 :mobile="helperDetail.mobile"

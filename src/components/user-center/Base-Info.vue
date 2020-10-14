@@ -7,12 +7,12 @@
                 <div :class="$style.level" v-text="roleType[roleCode]" />
                 <pl-svg :class="$style.gender" v-if="gender === 2" title="女" name="icon-women-be552" width="10" height="10" />
                 <pl-svg :class="$style.gender" v-else-if="gender === 1" title="男" name="icon-man-8b747" width="10" height="10" />
-                <span :class="$style.userType" v-if="type" :title="type === 3 ? other : USER_TYPE[type]">
+                <span :class="$style.userType" v-if="type" :title="type === 3 ? typeName : USER_TYPE[type]">
                     <template v-if="type !== 3">
                         {{ USER_TYPE[type] && USER_TYPE[type].substr(0, 1) }}
                     </template>
                     <template v-else>
-                        {{ other && other.substr(0, 1) }}
+                        {{ typeName && typeName.substr(0, 1) }}
                     </template>
                 </span>
             </div>
@@ -129,6 +129,8 @@ export default class MemberBaseInfo extends Vue {
     @Prop({ type: Number }) type!: string
     // 会员自定义类型名称
     @Prop({ type: String }) other!: string
+    // 会员类型
+    @Prop({ type: String }) typeName!: string
     // 真实姓名
     @Prop({ type: String }) userName!: string
     // 手机号

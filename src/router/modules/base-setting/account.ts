@@ -30,7 +30,7 @@ export default [
                 name: 'AddAccount',
                 component: () => import('../../../views/base-setting/account-manage/pages/Add-Account.vue'),
                 meta: {
-                    title: '新增账号'
+                    title: '添加账号'
                 }
             },
             {

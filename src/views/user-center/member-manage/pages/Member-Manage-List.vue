@@ -232,7 +232,14 @@
                                 >
                                 <div class="info">
                                     <div class="intro">
-                                        <span v-if="row.userType" class="user-type">{{ USER_TYPE[row.userType] }}</span>
+                                        <span class="user-type" v-if="row.userType" :title="row.userType === 3 ? row.typeName : USER_TYPE[row.userType]">
+                                            <template v-if="row.userType !== 3">
+                                                {{ USER_TYPE[row.userType] && USER_TYPE[row.userType].substr(0, 1) }}
+                                            </template>
+                                            <template v-else>
+                                                {{ row.typeName && row.typeName.substr(0, 1) }}
+                                            </template>
+                                        </span>
                                         <span class="name">{{ row.nickName }}</span>
                                         <template>
                                             <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
@@ -448,11 +455,11 @@ export default class MemberManageList extends Vue {
       HELPER: 'Helper'
   }
 
-  USER_TYPE = {
-      1: '家',
-      2: '学',
-      3: '其'
-  }
+    USER_TYPE = {
+        1: '家长',
+        2: '学生',
+        3: '其他'
+    }
 
   form = {
       keyword: '',

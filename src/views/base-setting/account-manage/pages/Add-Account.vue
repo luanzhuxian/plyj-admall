@@ -2,7 +2,7 @@
     <div class="account-new">
         <div class="wrap">
             <div class="title">
-                <span class="float-left">添加账号</span>
+                <span class="float-left">{{ $route.query.userId ? '编辑账号' : '添加账号' }}</span>
             </div>
 
             <el-form
@@ -198,7 +198,7 @@ export default class AddAccount extends Vue {
     created () {
         this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
         this.query = this.$route.query
-        console.log(this.$route.query)
+        // console.log(this.$route.query)
         this.query.selfEdit = Boolean(this.query.selfEdit)
         this.query.canEdit = Boolean(this.query.canEdit)
         this.detailForm.userId = this.query.userId
@@ -358,7 +358,7 @@ export default class AddAccount extends Vue {
         .w250{
             width: 250px;
         }
-        > .title {
+        .title {
             margin-bottom: 40px;
             font-size: 16px;
             font-weight: 600;
