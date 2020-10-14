@@ -63,7 +63,7 @@
                 label="类型"
             >
                 <template #default="{ row }">
-                    {{ row.courseType === 1 ? '单课程' : '系列课' }}
+                    {{ Number(row.courseType) === 1 ? '单课程' : '系列课' }}
                 </template>
             </el-table-column>
             <el-table-column
@@ -91,7 +91,7 @@
                 label="学习进度"
             >
                 <template #default="{ row }">
-                    <div class="operate" v-if="row.courseType === 2">
+                    <div class="operate" v-if="Number(row.courseType) === 2">
                         <a @click="watchDetail(row)">
                             查看
                         </a>
