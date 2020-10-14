@@ -85,6 +85,16 @@ import AddRemark from '../components/Add-Remark.vue'
     }
 })
 export default class MemberRemark extends Vue {
+    // 角色
+    roleType = {
+        SUPER_ADMIN: '超级管理员',
+        ENTERPRISE_ADMIN: '企业级管理',
+        ADMIN: '高级管理员',
+        EMPLOYEE: '子账号',
+        HELPER: 'Helper',
+        MEMBERSHIP: '普通会员'
+    }
+
     remarkList = []
     remarkListTotal = 0
     showAddRemark = false
