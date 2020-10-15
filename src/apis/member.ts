@@ -33,8 +33,6 @@ export const getHelperDetail = (id: any) => axios.get(`/apis/v2/helper/${ id }`)
 
 export const getHelperStatistics = (id: string) => axios.get(`/apis/v2/user/order/helper/${ id }`)
 
-export const orderRebateInfo = ({ userId }: any) => axios.get('/apis/v2/order/agency/orderRebateInfo', { params: { userId } })
-
 /* 解除helper */
 export const relieveHelper = (ids: any) => axios.post('/apis/v2/helper/demote', ids)
 
@@ -70,7 +68,7 @@ export const exportMemberQuery = (params: any): Promise<Blob> => axios.post(
 )
 
 // 账户中心查看订单数据
-export const getOrderList = (params: any) => axios.get('/apis/v2/user/order', { params })
+export const getOrderList = (params: any) => axios.get('/apis/v2/user/order/helper', { params })
 
 // 账户中心查看订单数据
 export const getLiveWatchList = (params: any) => axios.get('/apis/v2/live/visitor', { params })

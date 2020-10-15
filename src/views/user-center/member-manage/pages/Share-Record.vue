@@ -105,7 +105,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="userName"
+                prop="helperName"
                 label="分享人"
             />
             <el-table-column v-if="isHelper" label="润笔金额（元）">

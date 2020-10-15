@@ -129,9 +129,12 @@
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                prop="orderStatus"
                                 label="订单状态"
-                            />
+                            >
+                                <template #default="{row}">
+                                    {{ orderStatusText[row.orderStatus] }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="payTime"
                                 label="支付时间"
@@ -239,11 +242,14 @@
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                prop="orderStatus"
                                 label="订单状态"
-                            />
+                            >
+                                <template #default="{row}">
+                                    {{ orderStatusText[row.orderStatus] }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
-                                prop="orderStatus"
+                                prop="userName"
                                 label="购买人"
                             />
                             <el-table-column
@@ -378,6 +384,16 @@ export default class HelperPromoteDetail extends Vue {
     @Prop(String) readonly id!: string
     @Prop(String) readonly mallUserId!: string
 
+    orderStatusText= {
+        ALL_ORDER: '全部订单',
+        WAIT_SHIP: '待发货',
+        WAIT_RECEIVE: '待收货',
+        WAIT_PAY: '待付款',
+        WAIT_PAY_TAIL_MONEY: '待付尾款',
+        FINISHED: '订单完成',
+        CLOSED: '订单关闭'
+    }
+
     USER_TYPE = {
         1: '家长',
         2: '学生',
@@ -489,6 +505,7 @@ export default class HelperPromoteDetail extends Vue {
 
     // 切换Tab页面
     tabClick (data: DynamicObject) {
+        console.log(data.name)
         this.tabName = data.name
         if (this.tabName === this.ORDER_LIST) {
             this.getOrderList()
@@ -642,7 +659,9 @@ export default class HelperPromoteDetail extends Vue {
     async getShareList () {
         try {
             this.shareListForm.mallUserId = this.userId
-            const { result: { records, total } } = await getOrderList(this.orderListForm)
+            const form = JSON.parse(JSON.stringify(this.orderListForm))
+            form.helper = true
+            const { result: { records, total } } = await getOrderList(form)
             this.shareList = records || []
             this.shareListTotal = total || 0
         } catch (e) {
