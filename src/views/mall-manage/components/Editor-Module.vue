@@ -163,7 +163,7 @@ const editorMap: DynamicObject = {
     16: {
         title: '组合课',
         subTitle: '添加活动',
-        max: 8,
+        max: 6,
         min: 0
     },
     18: {
