@@ -106,9 +106,13 @@
                                 label="产品名称"
                             />
                             <el-table-column
-                                prop="categoryName"
+                                prop="orderType"
                                 label="产品类型"
-                            />
+                            >
+                                <template #default="{ row }">
+                                    {{ orderTypeText[row.orderType] }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="unitPrice"
                                 label="单价（元）">
@@ -219,9 +223,13 @@
                                 label="产品名称"
                             />
                             <el-table-column
-                                prop="categoryName"
+                                prop="orderType"
                                 label="产品类型"
-                            />
+                            >
+                                <template #default="{ row }">
+                                    {{ orderTypeText[row.orderType] }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="unitPrice"
                                 label="单价（元）">
@@ -398,6 +406,18 @@ export default class HelperPromoteDetail extends Vue {
         WAIT_PAY_TAIL_MONEY: '待付尾款',
         FINISHED: '订单完成',
         CLOSED: '订单关闭'
+    }
+
+    orderTypeText= {
+        VIRTUAL_GOODS: '虚拟商品',
+        PHYSICAL_GOODS: '实体商品',
+        FORMAL_CLASS: '正式课',
+        EXPERIENCE_CLASS: '体验课',
+        KNOWLEDGE_COURSE: '知识课程',
+        SERIES_OF_COURSE: '系列课程',
+        GRAPHIC_DATA: '图文资料',
+        LIVE_GOODS: '直播',
+        VIDEO_GOODS: '录播'
     }
 
     USER_TYPE = {
