@@ -157,6 +157,7 @@
                 </div>
                 <div
                     @click.stop="getMemberListByTag(0)"
+                    style="margin-left: 8px;"
                     :class="{'tag-list-options':true, 'background-color-grey': form.tagId === 0}"
                 >
                     无标签
@@ -873,7 +874,7 @@ export default class MemberManageList extends Vue {
         }
 
         .tag-list-options {
-            padding-left: 16px;
+            padding-left: 8px;
         }
 
         .tag-list-options {
