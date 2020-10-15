@@ -619,8 +619,8 @@ export default {
                         postageNo: this.form.isPostage === 'N' ? this.form.postageCondition === 'CONDITIONBYNO' ? this.form.postageNo : '' : ''
                     }
                     if (this.dialogType === '1') {
-                        const { status } = await addTemplate(obj)
-                        if (status === 200) {
+                        const { code } = await addTemplate(obj)
+                        if (code === 2000) {
                             this.clearData()
                             this.getTemplateList()
                             this.dialogVisible = false
