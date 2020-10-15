@@ -111,7 +111,15 @@
                             <CityPicker style="width: 260px;" @selected="selectedCity" :default-value="defaultCity" />
                             <el-input style="width: 260px;" class="ml-10" v-model="addMemberDetailForm.address" placeholder="请输入详细地址" />
                         </div>
-                        <div v-show="!isEdit" :class="$style.width" v-text="(memberDetail.addressPath + memberDetail.address) || '--'" />
+                        <el-popover
+                            width="500"
+                            placement="bottom-start"
+                            trigger="hover"
+                            :disabled="!(memberDetail.addressPath + memberDetail.address)"
+                            :content="memberDetail.addressPath + memberDetail.address"
+                        >
+                            <div v-show="!isEdit" slot="reference" :class="$style.width" v-text="(memberDetail.addressPath + memberDetail.address) || '--'" />
+                        </el-popover>
                     </el-form-item>
 
                     <br>
@@ -456,6 +464,7 @@ export default class MemberManageDetail extends Vue {
 <style module lang="scss">
     .width {
         width: 220px;
+        @include elps();
     }
     .member-detail {
         padding: 14px 0;
