@@ -125,6 +125,18 @@
                     <el-menu-item :disabled="!appId" index="7-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
                 </el-submenu>
 
+                <el-menu-item index="9" :disabled="!mallNumber" :route="{ name: 'ReservationManage' }">
+                    <h2 :class="$style.title" slot="title">
+                        <pl-svg
+                            name="icon-shezhi-28924"
+                            width="15"
+                            height="15"
+                            :class="$style.icon"
+                        />
+                        <span>预约管理</span>
+                    </h2>
+                </el-menu-item>
+
                 <el-menu-item index="8" :route="{ name: 'MarketingManage' }" :class="$style.marketing" :disabled="!appId">
                     <h2 :class="$style.title">
                         <pl-svg
