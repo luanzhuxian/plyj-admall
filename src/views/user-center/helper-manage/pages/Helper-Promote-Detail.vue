@@ -330,13 +330,19 @@
                                 </template>
                             </el-table-column> -->
                             <el-table-column
-                                prop="status"
-                                label="提现状态"
-                            />
+                                label="手机号"
+                            >
+                                <template #default="{ row }">
+                                    {{ row.mobile }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
-                                prop="createTime"
                                 label="申请时间"
-                            />
+                            >
+                                <template #default="{ row }">
+                                    {{ row.createTime }}
+                                </template>
+                            </el-table-column>
                         </el-table>
                         <Pagination
                             @change="getWithdrawalRecords"
