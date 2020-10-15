@@ -137,13 +137,9 @@
             />
             <el-table-column
                 label="所属账号"
-                width="200"
+                width="250"
             >
                 <template slot-scope="{row}">
-                    <template v-if="row.ownedUserMobile">
-                        {{ row.ownedUserMobile }}
-                    </template>
-                    <template v-if="row.ownedUserMobile && row.ownedUser">-</template>
                     <template v-if="row.ownedUser">
                         {{ row.ownedUser }}
                     </template>
@@ -194,7 +190,7 @@
             :show.sync="showDialog"
             :helper-ids="currentUserIds"
             :current-user-info="currentUserInfo"
-            @success="getList"
+            @success="showDialog = false; getList()"
         />
     </div>
 </template>

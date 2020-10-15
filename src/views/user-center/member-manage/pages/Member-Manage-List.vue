@@ -740,6 +740,7 @@ export default class MemberManageList extends Vue {
       if (this.checkPurchasesNumber()) return
       if (this.checkPurchasesAmount()) return
       this.form.current = 1
+      await this.getMemberData()
       await this.getMemberList()
   }
 

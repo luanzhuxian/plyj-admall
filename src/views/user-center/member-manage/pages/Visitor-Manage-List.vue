@@ -190,6 +190,7 @@ export default class VistorManageList extends Vue {
   search () {
       this.form.current = 1
       this.getYouKe()
+      this.getYouKeCount()
   }
 
   resetForm () {

@@ -156,7 +156,7 @@ export default {
                 this.$success('变更成功！')
                 this.$emit('success')
                 this.restForm()
-                await this.getList()
+                // await this.getList()
             } catch (e) {
                 throw e
             }

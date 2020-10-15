@@ -76,6 +76,7 @@
                         <el-form-item>
                             <el-button
                                 type="primary"
+                                round
                                 @click="searchOrderList"
                             >
                                 查询
@@ -290,6 +291,7 @@
                         <el-form-item>
                             <el-button
                                 type="primary"
+                                round
                                 @click="searchWithdrawalRecords"
                             >
                                 查询
@@ -575,6 +577,7 @@ export default class HelperPromoteDetail extends Vue {
     async searchOrderList () {
         try {
             this.orderListForm.current = 1
+            await this.getHelperStatistics()
             await this.getOrderList()
         } catch (e) {
             throw e
@@ -596,6 +599,7 @@ export default class HelperPromoteDetail extends Vue {
                 payEndTime: ''
             }
             this.orderListTimeRange = []
+            await this.getHelperStatistics()
             await this.getOrderList()
         } catch (e) {
             throw e
