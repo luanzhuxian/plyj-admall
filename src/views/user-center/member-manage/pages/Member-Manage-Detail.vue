@@ -64,6 +64,7 @@
                             value-format="yyyy-MM-dd"
                             v-model="addMemberDetailForm.birthday"
                             placeholder="请选择生日"
+                            :picker-options="dateOptions"
                         />
                         <div :class="$style.width" v-show="!isEdit">{{ memberDetail.birthday | dateFormat('YYYY-MM-DD') }}</div>
                     </el-form-item>
@@ -298,6 +299,10 @@ export default class MemberManageDetail extends Vue {
         city: '',
         region: '',
         town: ''
+    }
+
+    dateOptions = {
+        disabledDate: (date: string) => moment(date).valueOf() > Date.now()
     }
 
     defaultCity: string[] = []
