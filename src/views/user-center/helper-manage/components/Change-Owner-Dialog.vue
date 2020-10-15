@@ -7,7 +7,10 @@
         @close="closeHandler"
         :close-on-click-modal="false"
     >
-        <div class="current-account-info" v-if="!helperIds.length && currentUserInfo.mallUserId || currentUserInfo.id">
+        <div
+            class="current-account-info"
+            v-if="!helperIds.length && (currentUserInfo.mallUserId || currentUserInfo.id)"
+        >
             <p>
                 <b>Helper用户</b>
                 <span>{{ currentUserInfo.userName || currentUserInfo.name }}({{ currentUserInfo.mobile }})</span>
