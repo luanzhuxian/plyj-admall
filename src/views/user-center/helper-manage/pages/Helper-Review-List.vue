@@ -69,6 +69,14 @@
                         >
                         <div>
                             <div class="name">
+                                <div class="user-type" v-if="row.type" :title="row.type === 3 ? row.other : USER_TYPE[row.type]">
+                                    <template v-if="row.type !== 3">
+                                        {{ USER_TYPE[row.type] && USER_TYPE[row.type].substr(0, 1) }}
+                                    </template>
+                                    <template v-else>
+                                        {{ row.other && row.other.substr(0, 1) }}
+                                    </template>
+                                </div>
                                 <span class="nickName">{{ row.userName }}</span>
                                 <div class="ml-10">
                                     <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
@@ -471,6 +479,19 @@ export default class HelperReviewList extends Vue {
             .nickName{
                 max-width: 81px;
                 @include elps-wrap(1);
+            }
+            .user-type{
+                width: 18px;
+                height: 18px;
+                margin-right: 6px;
+                border: 1px solid #F79F1A;
+                border-radius: 5px;
+                font-size: 12px;
+                font-family: Microsoft YaHei UI;
+                font-weight: 600;
+                line-height: 15px;
+                text-align: center;
+                color: #F79F1A;
             }
         }
         .tag {
