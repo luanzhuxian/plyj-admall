@@ -27,6 +27,7 @@
                 :source="detail.source"
                 :other="detail.other"
                 :create-time="detail.createTime"
+                :edit-tags="false"
             />
         </div>
         <div :class="$style.module" class="mt-30">
