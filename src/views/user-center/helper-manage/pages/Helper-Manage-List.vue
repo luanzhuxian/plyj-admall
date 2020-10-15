@@ -203,6 +203,7 @@ import {
     relieveHelperBatched,
     updateBrokerStatus
 } from '../../../../apis/member'
+import { getOwnedAccountList } from '../../../../apis/account'
 import ChangeOwnerDialog from '../components/Change-Owner-Dialog.vue'
 @Component({
     components: {
@@ -262,6 +263,7 @@ export default class HelperManageList extends Vue {
         this.form.auditStatus = this.statusMap[this.routeName]
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
+        this.getOwnedAccountList()
     }
 
     @Watch('showDialog')
@@ -287,6 +289,20 @@ export default class HelperManageList extends Vue {
         this.form.auditStatus = this.statusMap[this.routeName] || ''
         this.form.auditFlag = Boolean(this.form.auditStatus)
         this.getList()
+    }
+
+    async getOwnedAccountList () {
+        try {
+            const filterForm = {
+                mallUserId: '',
+                current: 1,
+                size: 10
+            }
+            const { result } = await getOwnedAccountList(filterForm)
+            this.ownedAccountList = result.records
+        } catch (e) {
+            throw e
+        }
     }
 
     async getList () {

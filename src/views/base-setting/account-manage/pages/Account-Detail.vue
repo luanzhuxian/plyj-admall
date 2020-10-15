@@ -101,13 +101,13 @@
                         width="160"
                     />
                     <el-table-column
-                        width="190"
+                        width="300"
                     >
                         <template slot-scope="{row}">
                             <el-button size="mini" @click="showChangeBelongBox(row.userId,row.ownnerUserId)">
                                 更改所属账号
                             </el-button>
-                            <el-button @click="$router.push({ name: 'MemberDetail', params: { id: row.mallUserId, roleCode: 'HELPER', fromRouteName: 'HelperList' }, query: { from: 'HelperList' } })">
+                            <el-button size="mini" @click="$router.push({ name: 'HelperPromoteDetail', params: { id: row.id, mallUserId: row.mallUserId } })">
                                 查看
                             </el-button>
                         </template>

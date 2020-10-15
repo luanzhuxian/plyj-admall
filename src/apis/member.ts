@@ -119,6 +119,9 @@ export const checkIsTagUsed = (id: string) => axios.get(`/apis/v2/user/tag/isTag
 // 向当前用户添加标签
 export const addTagToMember = (userId: string, tags: string[]) => axios.post('/apis/v2/user/tag/r', { userId, tags })
 
+// 向当前用户添加标签
+export const setTagToMember = (userId: string, tags: string[]) => axios.post('/apis/v2/user/tag/r/batchInsert', { userId, tags })
+
 // 查看 当前学员观看列表
 export const getWatchDetailList = (userId: string, courseId: string) => axios.get(`/apis/v2/course/watch/record/${ userId }/${ courseId }`)
 

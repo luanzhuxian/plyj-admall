@@ -105,10 +105,6 @@
                 label="所属账号"
             >
                 <template #default="{ row }">
-                    <template v-if="row.ownedUserMobile">
-                        {{ row.ownedUserMobile }}
-                    </template>
-                    <template v-if="row.ownedUserMobile && row.ownedUser">-</template>
                     <template v-if="row.ownedUser">
                         {{ row.ownedUser }}
                     </template>

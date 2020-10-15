@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { updateTag, getTagList, deleteTag, checkIsTagUsed, addTagToMember } from '../../../../apis/member'
+import { updateTag, getTagList, deleteTag, checkIsTagUsed, addTagToMember, setTagToMember } from '../../../../apis/member'
 
 export default {
     name: 'AddTags',
@@ -259,7 +259,11 @@ export default {
                     return this.$warning(`标签数量不能超过${ this.maxSetTagNum }个`)
                 }
                 const userIds = this.isMultiple ? this.currentMember : [this.currentMember.id]
-                await addTagToMember(userIds, this.selected)
+                if (this.isMultiple) {
+                    await setTagToMember(userIds, this.selected)
+                } else {
+                    await addTagToMember(userIds, this.selected)
+                }
                 this.close()
             } catch (e) {
                 throw e
