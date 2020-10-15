@@ -195,6 +195,7 @@ export default class MemberBuyRecord extends Vue {
         try {
             this.orderListForm.current = 1
             await this.getOrderList()
+            await this.$parent.getMemberOrderCount()
         } catch (e) {
             throw e
         }

@@ -193,6 +193,7 @@ export default class MemberShareRecord extends Vue {
         try {
             this.shareListForm.current = 1
             await this.getShareList()
+            await this.$parent.getMemberOrderCount()
         } catch (e) {
             throw e
         }
