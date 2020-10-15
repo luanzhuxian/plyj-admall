@@ -76,7 +76,7 @@
                     <el-option value="HELPER" label="Helper" />
                 </el-select>
             </el-form-item>
-            <el-form-item label="支付金额：">
+            <el-form-item label="支付总额：">
                 <el-input
                     clearable
                     size="small"

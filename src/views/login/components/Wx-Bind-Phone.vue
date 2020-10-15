@@ -18,8 +18,7 @@
                 <el-form-item prop="identifyingCode">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.identifyingCode" maxlength="4" style="width: 180px" placeholder="请输入验证码" />
-                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}s</div>
-                        <div :class="$style.getCode" v-else @click="getCode()">获取验证码</div>
+                        <get-code ref="child" @errorMobile="errorMobile" :mobile="form.mobile" sms-type="AGENT_USER_LOGIN" />
                     </div>
                 </el-form-item>
             </el-form>
@@ -43,25 +42,19 @@
 </template>
 
 <script lang="ts">
+import GetCode from '@/components/common/Get-Code.vue'
 import { WxBind } from '../../../apis/account-set'
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
-import { getVerifyCodeFunc } from '../../../apis/common'
 import { Getter, namespace } from 'vuex-class'
 import { SessionEnum } from '@/enum/storage'
-// import { GET_ALL_MALL_INFO } from '../../../store/mutation-type'
 const userModule = namespace('user')
 
-@Component
+    @Component({ components: { GetCode } })
 export default class WxBindPhone extends Vue {
         form = {
             mobile: '',
             identifyingCode: ''
-        }
-
-        codeForm = {
-            mobile: '',
-            smsType: 'AGENT_USER_LOGIN' as SmsType
         }
 
         rules = {
@@ -75,9 +68,6 @@ export default class WxBindPhone extends Vue {
             ]
         }
 
-        getCodeing = false
-        time = 60
-        timer: any = null
         loading = false
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @Getter smsType!: string[]
@@ -87,25 +77,16 @@ export default class WxBindPhone extends Vue {
             return true
         }
 
+        errorMobile () {
+            (this.$refs.form as HTMLFormElement).validateField('mobile')
+        }
+
         async getCode () {
-            if (this.getCodeing) return
-            clearInterval(this.timer)
-            let validateField = true
-            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
-                if (mobileError) validateField = false
-            })
-            if (!validateField) return
-            this.codeForm.mobile = this.form.mobile
-            await getVerifyCodeFunc(this.codeForm)
-            this.getCodeing = true
-            this.timer = setInterval(() => {
-                this.time--
-                if (!this.time) {
-                    this.getCodeing = false
-                    this.time = 60
-                    clearInterval(this.timer)
-                }
-            }, 1000)
+            try {
+                await (this.$refs.child as HTMLFormElement).getCode()
+            } catch (e) {
+                throw e
+            }
         }
 
         async login (formName: string) {

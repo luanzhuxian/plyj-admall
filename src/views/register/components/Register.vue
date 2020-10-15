@@ -36,8 +36,7 @@
                 <el-form-item prop="verifyCode">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.verifyCode" maxlength="4" style="width: 220px" placeholder="请输入验证码" />
-                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}s</div>
-                        <div :class="$style.getCode" v-else @click="getCode()">获取验证码</div>
+                        <get-code ref="child" @errorMobile="errorMobile" :mobile="form.bindPhone" sms-type="AGENCY_MOBILE_REGISTER" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="account">
@@ -88,16 +87,16 @@
 <script lang="ts">
 import { testPhone, testAccount } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
-import { getVerifyCodeFunc } from '../../../apis/common'
 import Agreement from '../../../components/register/Agreement.vue'
-import { Getter, namespace } from 'vuex-class'
+import GetCode from '@/components/common/Get-Code.vue'
+import { namespace } from 'vuex-class'
 import { SessionEnum } from '@/enum/storage'
-import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
     @Component({
         components: {
-            Agreement
+            Agreement,
+            GetCode
         }
     })
 export default class Register extends Vue {
@@ -118,11 +117,6 @@ export default class Register extends Vue {
             confirmPassword: '',
             registeredSource: 'PC',
             wxCode: ''
-        }
-
-        codeForm = {
-            mobile: '',
-            smsType: 'AGENCY_MOBILE_REGISTER' as SmsType
         }
 
         agree = false
@@ -156,15 +150,8 @@ export default class Register extends Vue {
 
         }
 
-        getCodeing = false
-        time = 60
-        timer: any = null
         loading = false
-        @userModule.Getter('codePass') codePass!: boolean
-        @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
-        @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
         @userModule.Action('register') register!: (form: Record<string, any>) => void
-        @Getter smsType!: string[]
 
         @Emit('emitLogin')
         emitLogin () {
@@ -173,7 +160,6 @@ export default class Register extends Vue {
 
         mounted (): void {
             this.form.wxCode = sessionStorage.getItem(SessionEnum.redirectCode) || ''
-            this.setCodePass(false)
             document.addEventListener('keydown', this.keyupEnter)
         }
 
@@ -185,34 +171,15 @@ export default class Register extends Vue {
             if (e.keyCode === 13 && this.agree) this.login()
         }
 
+        errorMobile () {
+            (this.$refs.form as HTMLFormElement).validateField('bindPhone')
+        }
+
         async getCode () {
-            let validateField = true
-            await (this.$refs.form as HTMLFormElement).validateField('bindPhone', (mobileError: any) => {
-                if (mobileError) validateField = false
-            })
-            if (!validateField) return
-            if (this.getCodeing) return
-            if (!this.codePass) {
-                this.setCodeShow(true)
-                return
-            }
             try {
-                clearInterval(this.timer)
-                this.codeForm.mobile = this.form.bindPhone
-                await getVerifyCodeFunc(this.codeForm)
-                this.getCodeing = true
-                this.timer = setInterval(() => {
-                    this.time--
-                    if (!this.time) {
-                        this.getCodeing = false
-                        this.time = 60
-                        clearInterval(this.timer)
-                    }
-                }, 1000)
+                await (this.$refs.child as HTMLFormElement).getCode()
             } catch (e) {
                 throw e
-            } finally {
-                this.setCodePass(false)
             }
         }
 

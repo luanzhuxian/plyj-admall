@@ -18,8 +18,8 @@
                 <el-form-item prop="verifyCode">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.verifyCode" maxlength="4" style="width: 220px" placeholder="请输入验证码" />
-                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}s</div>
-                        <div :class="$style.getCode" v-else @click="getCode">获取验证码</div>
+                        <get-code ref="child" @errorMobile="errorMobile" :mobile="form.mobile" sms-type="AGENCY_MOBILE_PASSWD_REST" />
+
                     </div>
                 </el-form-item>
             </el-form>
@@ -40,24 +40,19 @@
 </template>
 
 <script lang="ts">
+import GetCode from '@/components/common/Get-Code.vue'
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
-import { getVerifyCodeFunc } from '../../../apis/common'
 import { forgetPassword } from '../../../apis/base/register'
 import { Getter, namespace } from 'vuex-class'
 import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
-@Component
+    @Component({ components: { GetCode } })
 export default class ForgetPassword extends Vue {
         form = {
             mobile: '',
             verifyCode: ''
-        }
-
-        codeForm = {
-            mobile: '',
-            smsType: 'AGENCY_MOBILE_PASSWD_REST' as SmsType
         }
 
         rules = {
@@ -71,11 +66,7 @@ export default class ForgetPassword extends Vue {
             ]
         }
 
-        getCodeing = false
-        time = 60
-        timer: any = null
         loading = false
-        @userModule.Getter('codePass') codePass!: boolean
         @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
         @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
         @Getter smsType!: string[]
@@ -89,35 +80,15 @@ export default class ForgetPassword extends Vue {
             this.setCodePass(false)
         }
 
+        errorMobile () {
+            (this.$refs.form as HTMLFormElement).validateField('mobile')
+        }
+
         async getCode () {
-            if (this.getCodeing) return
-            clearInterval(this.timer)
-            let validateField = true
-            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
-                if (mobileError) validateField = false
-            })
-            if (!validateField) return
-            if (!this.codePass) {
-                this.setCodeShow(true)
-                return
-            }
             try {
-                clearInterval(this.timer)
-                this.codeForm.mobile = this.form.mobile
-                await getVerifyCodeFunc(this.codeForm)
-                this.getCodeing = true
-                this.timer = setInterval(() => {
-                    this.time--
-                    if (!this.time) {
-                        this.getCodeing = false
-                        this.time = 60
-                        clearInterval(this.timer)
-                    }
-                }, 1000)
+                await (this.$refs.child as HTMLFormElement).getCode()
             } catch (e) {
                 throw e
-            } finally {
-                this.setCodePass(false)
             }
         }
 

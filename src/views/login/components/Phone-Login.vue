@@ -20,8 +20,7 @@
                 <el-form-item prop="identifyingCode">
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.identifyingCode" maxlength="4" style="width: 180px" placeholder="请输入验证码" />
-                        <div :class="$style.getCode" v-if="getCodeing">{{ time }}s</div>
-                        <div :class="$style.getCode" v-else @click="getCode()">获取验证码</div>
+                        <get-code ref="child" @errorMobile="errorMobile" :mobile="form.mobile" sms-type="AGENT_USER_LOGIN" />
                     </div>
                 </el-form-item>
             </el-form>
@@ -43,23 +42,18 @@
 </template>
 
 <script lang="ts">
+import GetCode from '@/components/common/Get-Code.vue'
 import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
-import { getVerifyCodeFunc } from '../../../apis/common'
 import { namespace } from 'vuex-class'
 import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
-@Component
+@Component({ components: { GetCode } })
 export default class PhoneLogin extends Vue {
         form = {
             mobile: '',
             identifyingCode: ''
-        }
-
-        codeForm = {
-            mobile: '',
-            smsType: 'AGENT_USER_LOGIN' as SmsType
         }
 
         rules = {
@@ -73,13 +67,8 @@ export default class PhoneLogin extends Vue {
             ]
         }
 
-        getCodeing = false
-        time = 60
-        timer: any = null
         loading = false
-        @userModule.Getter('codePass') codePass!: boolean
-        @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
-        @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
+
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @userModule.Action(MutationTypes.getAccountInfo) getAccountInfo!: Function
 
@@ -89,7 +78,6 @@ export default class PhoneLogin extends Vue {
         }
 
         mounted (): void {
-            this.setCodePass(false)
             document.addEventListener('keydown', this.keyupEnter)
         }
 
@@ -101,34 +89,15 @@ export default class PhoneLogin extends Vue {
             if (e.keyCode === 13) this.login()
         }
 
+        errorMobile () {
+            (this.$refs.form as HTMLFormElement).validateField('mobile')
+        }
+
         async getCode () {
-            let validateField = true
-            await (this.$refs.form as HTMLFormElement).validateField('mobile', (mobileError: any) => {
-                if (mobileError) validateField = false
-            })
-            if (!validateField) return
-            if (!this.codePass) {
-                this.setCodeShow(true)
-                return
-            }
-            if (this.getCodeing) return
             try {
-                clearInterval(this.timer)
-                this.codeForm.mobile = this.form.mobile
-                await getVerifyCodeFunc(this.codeForm)
-                this.getCodeing = true
-                this.timer = setInterval(() => {
-                    this.time--
-                    if (!this.time) {
-                        this.getCodeing = false
-                        this.time = 60
-                        clearInterval(this.timer)
-                    }
-                }, 1000)
+                await (this.$refs.child as HTMLFormElement).getCode()
             } catch (e) {
                 throw e
-            } finally {
-                this.setCodePass(false)
             }
         }
 
@@ -212,17 +181,6 @@ export default class PhoneLogin extends Vue {
             box-shadow: 0px 1px 0px #E7E7E7;
             input{
                 padding-left: 0;
-            }
-            >.get-code{
-                display: flex;
-                align-items: center;
-                padding: 6px 12px;
-                font-size: 14px;
-                font-weight: 400;
-                color: #4F63FF;
-                border: 1px solid #4F63FF;
-                border-radius: 17px;
-                cursor: pointer;
             }
         }
         .register{
