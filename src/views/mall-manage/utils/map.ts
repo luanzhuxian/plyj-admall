@@ -93,7 +93,8 @@ export enum TemplateTypes {
     // 活动首页模板
     TemplateD = 9,
     // 龙门节主会场
-    TemplateDragonGate = 10
+    TemplateDragonGate = 10,
+    TemplateDouble12 = 11
 }
 
 // 模块id

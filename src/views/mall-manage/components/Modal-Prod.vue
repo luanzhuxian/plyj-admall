@@ -330,7 +330,7 @@ export default class ModalProd extends Vue {
                 size: this.pagination.size,
                 startTime: '',
                 endTime: '',
-                status: '3',
+                status: '1',
                 ...(this.searchHistory ? { condition: this.searchHistory } : null) // 搜索内容
             }
             const { result }: any = await getSpringPloughingList(params)

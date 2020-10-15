@@ -178,7 +178,7 @@ const templateModels = [
         isHover: false,
         isFree: false,
         charge: '双十二用户可用',
-        expire: '12月31日'
+        expire: '2019.12.31'
     }, {
         category: 'template',
         type: 6,
@@ -186,7 +186,7 @@ const templateModels = [
         isHover: false,
         isFree: false,
         charge: '双十二用户可用',
-        expire: '12月31日'
+        expire: '2019.12.31'
     }, {
         category: 'template',
         type: 7,
@@ -194,7 +194,7 @@ const templateModels = [
         isHover: false,
         isFree: false,
         charge: '双十二用户可用',
-        expire: '12月31日'
+        expire: '2019.12.31'
     }, {
         category: 'template',
         type: 8,
@@ -202,7 +202,7 @@ const templateModels = [
         isHover: false,
         isFree: false,
         charge: '新春用户可用',
-        expire: '3月31日'
+        expire: '2020.03.31'
     }, {
         category: 'template',
         type: 9,
@@ -218,7 +218,7 @@ const templateModels = [
         isHover: false,
         isFree: false,
         charge: '龙门节用户可用',
-        expire: '8月31日'
+        expire: '2020.08.31'
     }
 ]
 
@@ -429,7 +429,8 @@ export default class MallThemes extends Vue {
                 this.double12TemplateList = result.filter(item => ~[
                     TemplateTypes.TemplateFengQiang,
                     TemplateTypes.TemplateBaoFa,
-                    TemplateTypes.TemplateFanChang
+                    TemplateTypes.TemplateFanChang,
+                    TemplateTypes.TemplateDouble12
                 ].indexOf(item.type))
 
                 // 新春主会场模版

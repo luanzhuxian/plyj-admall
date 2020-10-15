@@ -2,74 +2,11 @@
     <div :class="$style.mallDecoration">
         <div :class="$style.template" v-if="show">
             <div :class="$style.previewSection">
-                <!-- 首页 -->
-                <TemplateB
-                    v-if="tmplType === 3 || tmplType === 4"
-                    ref="template-b"
+                <components
+                    :is="currentTemplate"
                     :data="moduleModels"
                     :tmpl-type="tmplType"
                     :skin-id="skinId"
-                    :current="currentModule"
-                    @select="onModuleClick"
-                />
-                <TemplateC
-                    v-if="tmplType === -1"
-                    ref="template-c"
-                    :data="moduleModels"
-                    :tmpl-type="tmplType"
-                    :skin-id="skinId"
-                    :current="currentModule"
-                    @select="onModuleClick"
-                />
-                <TemplateD
-                    v-if="tmplType === 9"
-                    ref="template-d"
-                    :data="moduleModels"
-                    :tmpl-type="tmplType"
-                    :skin-id="skinId"
-                    :current="currentModule"
-                    @select="onModuleClick"
-                />
-                <!-- 双十二主会场 -->
-                <TemplateFengqiang
-                    v-if="tmplType === 5"
-                    ref="template-fengqiang"
-                    :data="moduleModels"
-                    :tmpl-type="tmplType"
-                    :current="currentModule"
-                    @select="onModuleClick"
-                />
-                <TemplateBaofa
-                    v-if="tmplType === 6"
-                    ref="template-baofa"
-                    :data="moduleModels"
-                    :tmpl-type="tmplType"
-                    :current="currentModule"
-                    @select="onModuleClick"
-                />
-                <TemplateFanchang
-                    v-if="tmplType === 7"
-                    ref="template-fanchang"
-                    :data="moduleModels"
-                    :tmpl-type="tmplType"
-                    :current="currentModule"
-                    @select="onModuleClick"
-                />
-                <!-- 新春主会场 -->
-                <TemplateXinchun
-                    v-if="tmplType === 8"
-                    ref="template-xinchun"
-                    :data="moduleModels"
-                    :tmpl-type="tmplType"
-                    :current="currentModule"
-                    @select="onModuleClick"
-                />
-                <!-- 龙门节主会场 -->
-                <TemplateDragonGate
-                    v-if="tmplType === 10"
-                    ref="template-dragon-gate"
-                    :data="moduleModels"
-                    :tmpl-type="tmplType"
                     :current="currentModule"
                     @select="onModuleClick"
                 />
@@ -225,7 +162,7 @@
                 is-preview
                 :is-clickable="false"
                 :is-empty-show="false"
-                :render="(h, props) => h(tag, { props })"
+                :render="(h, props) => h(currentTemplate, { props })"
             />
         </TemplatePreview>
         <ModalTimeSetting ref="modal" />
@@ -372,7 +309,7 @@ export default class MallDecoration extends Vue {
     @mall.Getter('currentHome') currentHome!: Template
     @mall.Getter('currentActivity') currentActivity!: Template
 
-    get tag () {
+    get currentTemplate () {
         return tagMap.findTemplateTagById(this.tmplType)
     }
 
@@ -397,7 +334,7 @@ export default class MallDecoration extends Vue {
 
     get isEditorModuleShow () {
         return ['Popular', 'Class', 'Pintuan', 'Yugou', 'Fengqiang', 'Package', 'Distribution'].includes(this.currentModule) ||
-        ([TemplateTypes.TemplateD, TemplateTypes.TemplateDragonGate].includes(this.tmplType) && this.currentModule === 'Miaosha')
+        (this.currentModule === 'Miaosha' && this.tmplType !== TemplateTypes.TemplateBaoFa)
     }
 
     get isEditorVideoShow () {
