@@ -104,7 +104,7 @@
                         width="300"
                     >
                         <template slot-scope="{row}">
-                            <el-button size="mini" @click="showChangeBelongBox(row.userId,row.ownnerUserId)">
+                            <el-button size="mini" @click="showChangeBelongBox(row)">
                                 更改所属账号
                             </el-button>
                             <el-button size="mini" @click="$router.push({ name: 'HelperPromoteDetail', params: { id: row.id, mallUserId: row.mallUserId } })">
@@ -317,7 +317,15 @@
             :show-checkbox="treeEdit"
         />
 
-        <el-dialog
+        <!--更改所属账号-->
+        <ChangeOwnerDialog
+            :show.sync="showChangeDialog"
+            :helper-ids="currentUserIds"
+            :current-user-info="currentUserInfo"
+            @success="showChangeDialog = false; getHelperList()"
+        />
+
+        <!--<el-dialog
             :modal-append-to-body="false"
             :close-on-click-modal="false"
             :close-on-press-escape="false"
@@ -380,7 +388,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-        </el-dialog>
+        </el-dialog>-->
 
         <!-- 导出 -->
         <ExportDialog :show.sync="showExport" @confirm="exportList" @close="exportClose">
@@ -444,10 +452,12 @@ import { getSingleAccount, getSingleAccountHerlerList, getAccounts, getMenuByUse
 import { changeHelpersAccount, getOrderList, exportOrderDetail } from '../../../../apis/member'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import { Vue, Component } from 'vue-property-decorator'
+import ChangeOwnerDialog from '../../../user-center/helper-manage/components/Change-Owner-Dialog.vue'
 @Component({
     components: {
         RoleTree,
-        ExportDialog
+        ExportDialog,
+        ChangeOwnerDialog
     }
 })
 export default class AccountList extends Vue {
@@ -709,10 +719,10 @@ export default class AccountList extends Vue {
                 this.visible = !this.visible
             }
 
-            showChangeBelongBox (id, ownnerUserId) {
+            showChangeBelongBox (row) {
                 this.showChangeDialog = true
-                this.currentUserId = [id]
-                this.ownnerUserId = ownnerUserId
+                this.currentUserInfo = row
+                this.currentUserIds = [row.mallUserId]
             }
 
             async getAccountList () {
