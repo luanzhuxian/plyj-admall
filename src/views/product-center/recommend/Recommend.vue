@@ -1,6 +1,14 @@
 <template>
     <div class="recommend wrap">
-        <div>
+        <search-box>
+            <el-form-item label="榜单类型：">
+                <el-select v-model="searchForm.recommendType" @change="recommendTypeChange">
+                    <el-option :value="1" label="商品推荐榜单" />
+                    <el-option :value="2" label="课程推荐榜单" />
+                </el-select>
+            </el-form-item>
+        </search-box>
+        <div class="mt-24">
             <el-button
                 type="primary"
                 @click="openDialog"
@@ -27,40 +35,22 @@
                 保存
             </el-button>
             <el-button
-                size="mini"
                 plain
                 @click="cancelSortNumber"
+                round
                 v-if="isEdit"
             >
                 取消
             </el-button>
+            <el-button
+                @click="cancelBatchRecommend()"
+                v-if="multipleSelection.length"
+                round
+            >
+                批量取消推荐({{ multipleSelection.length }}条)
+            </el-button>
         </div>
         <div class="recommend-table">
-            <div
-                class="batch-text"
-                v-if="multipleSelection.length"
-            >
-                <div class="batch-num">
-                    已选择{{ multipleSelection.length }}条
-                </div>
-                <el-button
-                    size="mini"
-                    @click="cancelBatchRecommend()"
-                >
-                    批量取消推荐
-                </el-button>
-            </div>
-            <div
-                class="batch-info"
-                v-else
-            >
-                <el-checkbox
-                    :disabled="isEdit"
-                    v-if="isEdit"
-                    style="position: absolute;top: -2px;left: -30px;z-index: 999;"
-                />
-                全选
-            </div>
             <el-table
                 class="batch"
                 :data="recommendTable"
@@ -155,7 +145,6 @@
                     <template slot-scope="{ row }">
                         <el-button
                             type="text"
-                            size="mini"
                             @click="cancelRecommend(row.id)"
                             :disabled="isEdit"
                         >
@@ -326,12 +315,12 @@ export default {
             isEdit: false,
             // 添加推荐弹层
             dialogVisible: false,
-            // 搜索条件
+            // 商品搜索条件
             searchForm: {
                 recommendType: 1,
                 categoryId: '',
                 subCategoryId: '',
-                productType: this.$route.name === 'RecommendGoods' ? 'ALL_GOODS' : 'ALL_CLASS',
+                productType: '',
                 productName: '',
                 current: 1,
                 size: 4
@@ -351,12 +340,6 @@ export default {
         }
     },
     watch: {
-        $route () {
-            this.recommendTable = []
-            this.searchForm.current = 1
-            this.getRecommends()
-            this.getRecommendCurrent()
-        },
         categoryArray (val) {
             if (val.length) {
                 this.searchForm.categoryId = val[0] || ''
@@ -364,41 +347,41 @@ export default {
             }
         }
     },
-    created () {
-        this.getRecommends()
-        this.getRecommendCurrent()
+    async created () {
+        await this.getRecommends()
+        await this.getRecommendCurrent()
     },
     methods: {
-        checkRoute () {
-            if (this.$route.name === 'RecommendGoods') {
-                this.recommendForm.recommendType = 1
-                this.searchForm.recommendType = 1
-                return 1
-            }
-            this.recommendForm.recommendType = 2
-            this.searchForm.recommendType = 2
-            return 2
+        async recommendTypeChange (val) {
+            this.recommendForm.recommendType = val
+            this.searchForm.productType = val === 1 ? 'ALL_GOODS' : 'ALL_CLASS'
+            this.recommendTable = []
+            this.searchForm.current = 1
+            await this.getRecommends()
+            await this.getRecommendCurrent()
+
+            // if (this.$route.name === 'RecommendGoods') {
+            //     this.recommendForm.recommendType = 1
+            //     this.searchForm.recommendType = 1
+            //     return 1
+            // }
+            // this.recommendForm.recommendType = 2
+            // this.searchForm.recommendType = 2
+            // return 2
         },
         // 获取推荐状态
         async getRecommendCurrent () {
-            const { result } = await getCurrentNumber({ recommendType: this.checkRoute() })
-            if (result) {
-                this.recommendNumberInfo = result
-            }
+            const { result } = await getCurrentNumber({ recommendType: this.searchForm.recommendType })
+            this.recommendNumberInfo = result || {}
         },
         // 获取推荐列表
         async getRecommends () {
             try {
-                await this.checkRoute()
-                const data = await getRecommendProduct(this.recommendForm)
-                if (data && data.result && data.result.records && data.result.records.length) {
-                    for (const item of data.result.records) {
-                        item.sort = item.serialNo
-                    }
-                    this.recommendTable = data.result.records
-                } else {
-                    this.recommendTable = []
+                const { result } = await getRecommendProduct(this.recommendForm)
+                for (const item of result.records || []) {
+                    item.sort = item.serialNo
                 }
+                this.recommendTable = result.records || []
             } catch (e) {
                 throw e
             }
@@ -425,7 +408,7 @@ export default {
                 }
             }
             if (array.length) {
-                await modifyRecommend({ list: array, recommendType: this.checkRoute() })
+                await modifyRecommend({ list: array, recommendType: this.searchForm.recommendType })
                 await this.getRecommends()
                 this.isEdit = false
             } else {
@@ -443,7 +426,7 @@ export default {
         async cancelRecommend (id) {
             await this.$confirm(`确定取消该${ this.$route.name === 'RecommendGoods' ? '商品' : '课程' }推荐？`)
             try {
-                await cancelRecommend({ cancelList: [id], recommendType: this.checkRoute() })
+                await cancelRecommend({ cancelList: [id], recommendType: this.searchForm.recommendType })
                 this.$success('取消推荐成功')
                 this.getRecommends()
             } catch (e) {
@@ -469,7 +452,7 @@ export default {
         async cancelBatchRecommend () {
             await this.$confirm(`确定批量取消${ this.$route.name === 'RecommendGoods' ? '商品' : '课程' }推荐？`)
             try {
-                await cancelRecommend({ cancelList: this.multipleSelection, recommendType: this.checkRoute() })
+                await cancelRecommend({ cancelList: this.multipleSelection, recommendType: this.searchForm.recommendType })
                 this.$success('批量取消推荐成功')
                 this.getRecommends()
             } catch (e) {
@@ -503,7 +486,6 @@ export default {
         // 搜索列表以备推荐
         async searchProduct () {
             try {
-                await this.checkRoute()
                 const data = await getAddRecommend(this.searchForm)
                 if (data && data.result && data.result.records) {
                     // 如果当前页面没有数据，且页码大于1，则请求上一页
@@ -567,7 +549,7 @@ export default {
             if (sort <= this.recommendNumberInfo.currentNumber) {
                 await this.$confirm(`该位数已编辑是否继续当前${ this.$route.name === 'RecommendGoods' ? '商品' : '课程' }位数编辑？`)
             }
-            await createAddRecommend({ productId: id, serialNo: sort, recommendType: this.checkRoute() })
+            await createAddRecommend({ productId: id, serialNo: sort, recommendType: this.searchForm.recommendType })
             this.$success('设置推荐成功')
             await this.searchProduct()
         },
