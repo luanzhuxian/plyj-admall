@@ -18,16 +18,28 @@
             />
             <el-table-column
                 label="首次观看时间"
-                prop="firstViewingTime"
-            />
+                prop=""
+            >
+                <template #default="{ row }">
+                    {{ row.firstViewingTime ? row.firstViewingTime: '--' }}
+                </template>
+            </el-table-column>
             <el-table-column
                 label="消耗流量"
                 prop="dataFlowSizeShow"
-            />
+            >
+                <template #default="{ row }">
+                    {{ row.dataFlowSizeShow ? row.dataFlowSizeShow: '0M' }}
+                </template>
+            </el-table-column>
             <el-table-column
                 label="学习进度"
                 prop="learnProgress"
-            />
+            >
+                <template #default="{ row }">
+                    {{ row.learnProgress ? `${row.learnProgress}%`: '0%' }}
+                </template>
+            </el-table-column>
         </el-table>
         <div class="mt-20" style="text-align: center;">
             <el-button type="primary" @click="closeHandler">

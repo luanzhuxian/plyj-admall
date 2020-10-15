@@ -79,13 +79,21 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="firstViewingTime"
                 label="首次观看时间"
-            />
+                prop=""
+            >
+                <template #default="{ row }">
+                    {{ row.firstViewingTime ? row.firstViewingTime: '--' }}
+                </template>
+            </el-table-column>
             <el-table-column
-                prop="dataFlowSizeShow"
                 label="消耗流量"
-            />
+                prop="dataFlowSizeShow"
+            >
+                <template #default="{ row }">
+                    {{ row.dataFlowSizeShow ? row.dataFlowSizeShow: '0M' }}
+                </template>
+            </el-table-column>
             <el-table-column
                 fixed="right"
                 label="学习进度"
@@ -94,7 +102,7 @@
                     <el-button v-if="Number(row.courseType) === 2" type="text" @click="watchDetail(row)">
                         查看
                     </el-button>
-                    <span v-else>{{ row.learnProgress }}</span>
+                    <span v-else>{{ row.learnProgress ? `${row.learnProgress}%`: '0%' }}</span>
                 </template>
             </el-table-column>
         </el-table>
