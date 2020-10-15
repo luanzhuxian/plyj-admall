@@ -9,7 +9,7 @@
     >
         <div
             class="current-account-info"
-            v-if="!helperIds.length && (currentUserInfo.mallUserId || currentUserInfo.id)"
+            v-if="helperIds.length < 2 && (currentUserInfo.mallUserId || currentUserInfo.id)"
         >
             <p>
                 <b>Helper用户</b>
