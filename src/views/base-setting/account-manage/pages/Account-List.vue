@@ -449,7 +449,8 @@ export default class AccountList extends Vue {
         }
         this.$success('删除成功')
         this.filter.current = 1
-        await this.getAccounts()
+        this.getAccounts()
+        this.getAccountInfo()
     }
 
     private async dateRangeChange (value: any) {
