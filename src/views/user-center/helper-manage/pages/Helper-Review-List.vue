@@ -302,6 +302,12 @@ export default class HelperReviewList extends Vue {
       keyword: ''
   }
 
+    USER_TYPE = {
+        1: '家长',
+        2: '学生',
+        3: '其他'
+    }
+
   accountList = []
   routeName = ''
 

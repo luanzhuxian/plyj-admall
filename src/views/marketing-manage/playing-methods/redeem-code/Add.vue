@@ -408,10 +408,6 @@ export default {
 <style scoped lang="scss">
   .add-marketing {
     .marketing-content {
-      width: 1614px;
-      margin: 20px auto 80px auto;
-      background-color: #ffffff;
-      box-shadow: 0 3px 8px rgba(44, 48, 58, 0.08);
       .content-detail {
         ::v-deep .el-form-item__content {
           margin-left: 180px !important;

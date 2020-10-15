@@ -237,6 +237,12 @@ export default class HelperManageList extends Vue {
         HelperList: null
     }
 
+    USER_TYPE = {
+        1: '家长',
+        2: '学生',
+        3: '其他'
+    }
+
     // 所属账号角色类型
     roleType = {
         ENTERPRISE_ADMIN: '企',
