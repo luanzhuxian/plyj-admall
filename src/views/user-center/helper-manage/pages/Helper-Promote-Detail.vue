@@ -493,7 +493,7 @@ export default class HelperPromoteDetail extends Vue {
 
     async getHelperStatistics () {
         try {
-            const { result } = await getHelperStatistics(this.userId)
+            const { result } = await getHelperStatistics(this.mallUserId)
             this.statistics = result || {}
         } catch (e) {
             throw e
