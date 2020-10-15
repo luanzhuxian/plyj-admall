@@ -27,9 +27,9 @@
             <div :class="$style.moduleTitle">Helper推广数据</div>
             <DataBar
                 :data-list="[
-                    { title: '支付订单', data: statistics.totalOrder || 0, tip: `自购${ statistics.selfBuyOrder || 0 } <i class='ml-20'>分享${ statistics.shareOrder || 0 }</i>` },
-                    { title: '支付总额', data: statistics.totalAmount / 100 || 0, tip: `自购${ statistics.selfBuyAmount || 0 } <i class='ml-20'>分享${ statistics.shareAmount || 0 }</i>` },
-                    { title: '获得润笔', data: statistics.rebateAmount / 100 || 0, tip: `未提现润笔${ statistics.pendingWithdrawal || 0 }` }
+                    { title: '支付订单量', data: statistics.totalOrder || 0, tip: `自购${ statistics.selfBuyOrder || 0 } <i class='ml-20'>分享${ statistics.shareOrder || 0 }</i>` },
+                    { title: '支付总额', data: statistics.totalAmount / 100 || 0, tip: `自购${ statistics.selfBuyAmount/100 || 0 } <i class='ml-20'>分享${ statistics.shareAmount/100 || 0 }</i>` },
+                    { title: '获得润笔金额', data: statistics.rebateAmount / 100 || 0, tip: `未提现润笔金额${ statistics.pendingWithdrawal/100 || 0 }` }
                 ]"
             />
         </div>
