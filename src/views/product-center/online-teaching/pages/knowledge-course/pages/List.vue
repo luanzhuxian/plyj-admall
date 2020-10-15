@@ -27,7 +27,6 @@
                         :clearable="true"
                         :init="initTime"
                         @change="dateChange"
-                        type="datetime"
                         range-separator="至"
                     />
                 </el-form-item>
