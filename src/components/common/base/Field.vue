@@ -108,7 +108,6 @@ export default {
         .text {
             display: inline-block;
             line-height: 20px;
-            @include elps-wrap(1);
         }
 
         &:nth-last-of-type(1) {

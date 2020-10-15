@@ -34,9 +34,17 @@
             <Field
                 title="地址："
                 :mb="24"
-                text-width="600px"
-                :text="address || '--'"
-            />
+            >
+                <el-popover
+                    width="500"
+                    placement="bottom-start"
+                    trigger="hover"
+                    :disabled="!address"
+                    :content="address"
+                >
+                    <div slot="reference" :class="$style.address" v-text="address || '--'" />
+                </el-popover>
+            </Field>
             <Field
                 title="来源："
                 :mb="24"
@@ -221,6 +229,10 @@ export default class MemberBaseInfo extends Vue {
             }
         }
         .left {
+            .address {
+                width: 500px;
+                @include elps();
+            }
         }
     }
     .separator {
