@@ -34,6 +34,7 @@
             <Field
                 title="地址："
                 :mb="24"
+                text-width="600px"
                 :text="address || '--'"
             />
             <Field

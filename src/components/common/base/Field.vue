@@ -16,6 +16,7 @@
         <div
             :style="{
                 color: textColor,
+                width: textWidth,
                 ...textStyle
             }"
             class="text"
@@ -70,6 +71,11 @@ export default {
         textColor: {
             type: String,
             default: '#333'
+        },
+        // 定义文本的宽度，超出宽度的将被裁剪
+        textWidth: {
+            type: String,
+            default: null
         }
     }
 }
@@ -102,6 +108,7 @@ export default {
         .text {
             display: inline-block;
             line-height: 20px;
+            @include elps-wrap(1);
         }
 
         &:nth-last-of-type(1) {

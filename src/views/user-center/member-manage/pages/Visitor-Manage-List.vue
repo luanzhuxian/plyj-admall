@@ -1,5 +1,5 @@
 <template>
-    <div class="member-list wrap">
+    <div class="member-list">
         <DataBar
             title="游客数据"
             :data-list="[

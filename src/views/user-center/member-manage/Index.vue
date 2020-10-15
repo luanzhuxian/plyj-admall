@@ -1,12 +1,15 @@
 <template>
-    <div class="member bg-white wrap">
+    <div class="member bg-white">
         <pl-tabs
+            class="wrap pb-0"
             v-show="showTabRouteName.includes($route.name)"
             :value="$route.name"
             :tabs="tabs"
             @tabClick="handleClick"
         />
-        <router-view />
+        <div class="wrap">
+            <router-view />
+        </div>
     </div>
 </template>
 

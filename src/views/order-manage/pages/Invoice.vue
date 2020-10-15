@@ -5,10 +5,15 @@
                 <el-input
                     v-model.trim="form.keywords"
                     placeholder="输入发票单编号/收票人电话/收票人姓名"
-                    style="width: 369px;"
+                    style="width: 350px;"
                     clearable
                     @change="getList"
                 />
+            </el-form-item>
+            <el-form-item label="发票状态：">
+                <el-select v-model="form.status" @change="statusChange">
+                    <el-option v-for="(item,index) in invoiceStatus" :label="orderStatusText[item]" :value="item" :key="index" />
+                </el-select>
             </el-form-item>
             <el-form-item label="申请时间：">
                 <date-range
@@ -20,12 +25,6 @@
                     range-separator="至"
                     end-label=""
                 />
-            </el-form-item>
-            <br>
-            <el-form-item label="发票状态：">
-                <el-select v-model="form.status" @change="statusChange">
-                    <el-option v-for="(item,index) in invoiceStatus" :label="orderStatusText[item]" :value="item" :key="index" />
-                </el-select>
             </el-form-item>
             <el-form-item>
                 <el-button

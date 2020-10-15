@@ -1,7 +1,7 @@
 <template>
     <div
         :class="$style.searchBox"
-        :style="{ '--gapColumn': gapColumn, '--gapRow': gapRow, '--padding': padding }"
+        :style="{ '--gapColumn': gapColumn, '--gapRow': gapRow, '--padding': padding, '--columns': columns }"
     >
         <el-form
             :class="$style.container"
@@ -18,6 +18,7 @@
 
 <script>
 import { getTextWidth } from '../../assets/ts/utils'
+
 export default {
     name: 'SearchBox',
     computed: {
@@ -37,6 +38,11 @@ export default {
         padding: {
             type: String,
             default: '20px 32px'
+        },
+        // 列数
+        columns: {
+            type: Number,
+            default: 3
         }
     },
     async mounted () {
@@ -83,23 +89,24 @@ export default {
 </script>
 
 <style module lang="scss">
-  .search-box {
-    display: flex;
-    padding: var(--padding);
-    background-color: #F5F6FA;
-    border-radius: 10px;
-    > .container {
-      display: inline-grid;
-      grid-template-columns: auto auto auto;
-      grid-gap: var(--gapRow) var(--gapColumn);
+    .search-box {
+        display: flex;
+        padding: var(--padding);
+        background-color: #F5F6FA;
+        border-radius: 10px;
+
+        > .container {
+            display: inline-grid;
+            grid-template-columns: repeat(var(--columns), auto);
+            grid-gap: var(--gapRow) var(--gapColumn);
+        }
     }
-  }
 </style>
 <style scoped lang="scss">
-  ::v-deep {
-    .el-form-item {
-      margin-bottom: 0 !important;
-      margin-right: 0 !important;
+    ::v-deep {
+        .el-form-item {
+            margin-bottom: 0 !important;
+            margin-right: 0 !important;
+        }
     }
-  }
 </style>
