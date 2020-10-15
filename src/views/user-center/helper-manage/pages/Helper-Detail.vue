@@ -17,7 +17,7 @@
             <BaseInfo
                 :avatar="detail.userImage"
                 :nick-name="detail.nickName"
-                role-code="MEMBERSHIP"
+                :role-code="detail.roleCode"
                 :mobile="detail.mobile"
                 :user-name="detail.name"
                 :tags="detail.tags"
