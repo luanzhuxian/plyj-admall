@@ -768,8 +768,8 @@ export default {
                 } = await getResourceInfoById(this.resouceId)
                 this.form.courseName = courseName
                 this.form.courseImg = courseImg
-                this.form.courseMainImg = [courseImg]
-                this.resouceImg = courseImg
+                this.form.courseMainImg = courseImg ? [courseImg] : []
+                this.resouceImg = courseImg || ''
                 this.form.courseBrief = courseBrief
                 this.form.details = details
                 const courseContent = []
