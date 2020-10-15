@@ -465,7 +465,6 @@ export default class ModalProd extends Vue {
         this.$emit('update:range', range)
         await this.$nextTick()
         this.$emit('update:show', true)
-        console.log(2, this.show)
     }
 }
 </script>

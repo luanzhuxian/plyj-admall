@@ -686,7 +686,7 @@ export default class MallDecoration extends Vue {
             this.$refs['editor-module'].$forceUpdate()
         }
         // 组合课
-        if (currentModule === 'PACKAGE') {
+        if (currentModule === 'Package') {
             if (!selectedList.length) return
 
             const result = await Promise.all(selectedList
@@ -696,13 +696,15 @@ export default class MallDecoration extends Vue {
                     return { result: null }
                 })))
 
+            console.log(result)
+
             module.values = result
-                .filter(({ data }) => data)
-                .map(({ data }) => data.result)
+                // .filter(({ data }) => data)
+                .map(({ result }) => result)
                 .slice(0, 8)
         }
         // 分销
-        if (currentModule === 'DISTRIBUTION') {
+        if (currentModule === 'Distribution') {
             if (!selectedList.length) return
             for (const prod of selectedList) {
                 module.values.push({
