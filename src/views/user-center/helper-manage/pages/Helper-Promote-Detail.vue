@@ -369,7 +369,7 @@ import {
     getHelperDetail,
     getHelperStatistics,
     getWithdrawalRecords,
-    getOrderList
+    getHelperOrderList
 } from '../../../../apis/member'
 
   @Component({
@@ -579,7 +579,7 @@ export default class HelperPromoteDetail extends Vue {
     async getOrderList () {
         try {
             this.orderListForm.mallUserId = this.mallUserId
-            const { result: { records, total } } = await getOrderList(this.orderListForm)
+            const { result: { records, total } } = await getHelperOrderList(this.orderListForm)
             this.orderList = records || []
             this.orderListTotal = total || 0
         } catch (e) {
@@ -661,7 +661,7 @@ export default class HelperPromoteDetail extends Vue {
             this.shareListForm.mallUserId = this.userId
             const form = JSON.parse(JSON.stringify(this.orderListForm))
             form.helper = true
-            const { result: { records, total } } = await getOrderList(form)
+            const { result: { records, total } } = await getHelperOrderList(form)
             this.shareList = records || []
             this.shareListTotal = total || 0
         } catch (e) {

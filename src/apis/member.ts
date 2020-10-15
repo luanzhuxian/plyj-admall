@@ -67,8 +67,11 @@ export const exportMemberQuery = (params: any): Promise<Blob> => axios.post(
     }
 )
 
-// 账户中心查看订单数据
-export const getOrderList = (params: any) => axios.get('/apis/v2/user/order/helper', { params })
+// 用户中心会员查看订单数据
+export const getOrderList = (params: any) => axios.get('/apis/v2/user/order', { params })
+
+// 用户中心helper查看订单数据
+export const getHelperOrderList = (params: any) => axios.get('/apis/v2/user/order/helper', { params })
 
 // 账户中心查看订单数据
 export const getLiveWatchList = (params: any) => axios.get('/apis/v2/live/visitor', { params })
