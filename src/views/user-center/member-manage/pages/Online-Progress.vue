@@ -99,10 +99,10 @@
                 label="学习进度"
             >
                 <template #default="{ row }">
-                    <el-button v-if="Number(row.courseType) === 2" type="text" @click="watchDetail(row)">
+                    <el-button v-if="Number(row.courseType) === 2 && row.learnStatus !== '3'" type="text" @click="watchDetail(row)">
                         查看
                     </el-button>
-                    <span v-else>{{ row.learnProgress ? `${row.learnProgress}%`: '0%' }}</span>
+                    <span v-if="Number(row.courseType) !== 2 ">{{ row.learnProgress ? `${row.learnProgress}%`: '0%' }}</span>
                 </template>
             </el-table-column>
         </el-table>

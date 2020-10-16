@@ -1293,7 +1293,7 @@ export default {
                     }
                 ]
                 this.$router.replace({ name: 'AddProduct' })
-                document.querySelector('.main-container').scrollTo(0, 0)
+                // document.querySelector('.main-container').scrollTo(0, 0)
                 this.$router.replace({ name: 'AddProduct' })
             } catch (e) {
                 // 处理失败自定义表单
