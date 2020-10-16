@@ -10,7 +10,7 @@
             ]"
         />
         <!--搜索-->
-        <SearchBox label-width="110px">
+        <SearchBox label-width="110px" gap-column="20px">
             <el-form-item label="关键字：">
                 <el-input
                     clearable
