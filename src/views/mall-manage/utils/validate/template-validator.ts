@@ -30,13 +30,53 @@ import {
     TemplateDragonGate
 } from '../types'
 
+class BaseValidator {
+    // 商品、课程模块
+    async checkProduct (moduleName: string, moduleLength = {}) {
+        const { errList, moduleModels } = this
+        const module = moduleModels[moduleName]
+        const minLength = moduleLength.minLength || 1
+        const maxLength = moduleLength.maxLength || 4
+
+        try {
+            if (module.showStatue !== 1) return
+
+            if (module.goodsSource === 1) {
+                // 分类
+                const max = module.moduleType === 3 ? 12 : 9
+                await new CategoryListValidator(module.moduleName, max, { minLength, maxLength }).validate(module)
+            } else if (module.goodsSource === 2) {
+                // 商品
+                await new ProductListValidator(module.moduleName, 9, { minLength, maxLength }).validate(module)
+            } else if (module.goodsSource === 3) {
+                // 课程
+                await new ProductListValidator(module.moduleName, 12, { minLength, maxLength }).validate(module)
+            }
+        } catch (error) {
+            errList.push(new ErrorMsg(error.message || error, moduleName))
+        }
+    }
+
+    // 精品推荐模块
+    async checkRecommend () {
+        const { errList, moduleModels } = this
+
+        try {
+            await new RecommendValidator(moduleModels.Recommend.moduleName).validate(moduleModels.Recommend)
+        } catch (error) {
+            errList.push(new ErrorMsg(error.message || error, 'Recommend'))
+        }
+    }
+}
+
 // 首页
-class HomeValidator <T extends TemplateB | TemplateC | TemplateD> {
+class HomeValidator <T extends TemplateB | TemplateC | TemplateD> extends BaseValidator {
     errList: ErrorMsg[]
     tmplType: number
     moduleModels: T
 
     constructor (tmplType: number, moduleModels: T) {
+        super()
         this.errList = []
         this.tmplType = tmplType
         this.moduleModels = moduleModels
@@ -69,30 +109,6 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> {
         }
     }
 
-    // 商品、课程模块
-    async checkProduct (moduleName: string) {
-        const { errList, moduleModels } = this
-        const module = moduleModels[moduleName]
-
-        try {
-            if (module.showStatue !== 1) return
-
-            if (module.goodsSource === 1) {
-                // 分类
-                const max = module.moduleType === 3 ? 12 : 9
-                await new CategoryListValidator(module.moduleName, max).validate(module)
-            } else if (module.goodsSource === 2) {
-                // 商品
-                await new ProductListValidator(module.moduleName, 9).validate(module)
-            } else if (module.goodsSource === 3) {
-                // 课程
-                await new ProductListValidator(module.moduleName, 12).validate(module)
-            }
-        } catch (error) {
-            errList.push(new ErrorMsg(error.message || error, moduleName))
-        }
-    }
-
     // 品宣模块
     async checkPropagate () {
         const { errList, moduleModels } = this
@@ -115,17 +131,6 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> {
             }
         } catch (error) {
             errList.push(new ErrorMsg(error.message || error, 'Teachers'))
-        }
-    }
-
-    // 精品推荐模块
-    async checkRecommend () {
-        const { errList, moduleModels } = this
-
-        try {
-            await new RecommendValidator(moduleModels.Recommend.moduleName).validate(moduleModels.Recommend)
-        } catch (error) {
-            errList.push(new ErrorMsg(error.message || error, 'Recommend'))
         }
     }
 
@@ -155,12 +160,13 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> {
 }
 
 // 主会场
-class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateXinChun | TemplateDragonGate> {
+class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateXinChun | TemplateDragonGate> extends BaseValidator {
     errList: ErrorMsg[]
     tmplType: number
     moduleModels: T
 
     constructor (tmplType: number, moduleModels: T) {
+        super()
         this.errList = []
         this.tmplType = tmplType
         this.moduleModels = moduleModels
@@ -201,17 +207,6 @@ class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | Templa
             moduleModels.Miaosha.values = await new MiaoshaListValidator().validate(moduleModels.Miaosha.values)
         } catch (error) {
             errList.push(new ErrorMsg(error.message || error, 'Miaosha'))
-        }
-    }
-
-    // 精品推荐模块
-    async checkRecommend () {
-        const { errList, moduleModels } = this
-
-        try {
-            await new RecommendValidator(moduleModels.Recommend.moduleName).validate(moduleModels.Recommend)
-        } catch (error) {
-            errList.push(new ErrorMsg(error.message || error, 'Recommend'))
         }
     }
 
