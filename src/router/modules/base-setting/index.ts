@@ -6,10 +6,11 @@ export default [
     {
         path: '/base-setting',
         name: 'BaseSetting',
-        redirect: '/base-setting/wechat/wechat-auth',
+        redirect: '/base-setting/account-manage',
         component: () => import('../../../views/base-setting/Index.vue'),
         meta: {
-            index: '7'
+            index: '7',
+            title: '基础设置'
         },
         children: [
             ...importFiles(context)

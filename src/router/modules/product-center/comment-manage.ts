@@ -1,10 +1,10 @@
 export default [
     {
-        path: 'comment',
-        name: 'Comment',
+        path: 'comment-manage',
+        name: 'CommentManage',
         component: () => import('../../../views/product-center/comment-manage/Comment.vue'),
         meta: {
-            title: '商品评价',
+            title: '评价管理',
             index: '2-5'
         }
     }

@@ -10,12 +10,11 @@ export default [
         },
         children: [
             {
-                path: 'my-goods/edit/:id',
-                name: 'EditProduct',
-                props: true,
-                component: () => import('../../../views/product-center/product-manage/pages/Add-Product.vue'),
+                path: 'my-goods',
+                name: 'MyGoods',
+                component: () => import('../../../views/product-center/product-manage/pages/My-Goods.vue'),
                 meta: {
-                    title: '编辑商品'
+                    index: '2-2-1'
                 }
             },
             {
@@ -24,15 +23,18 @@ export default [
                 props: true,
                 component: () => import('../../../views/product-center/product-manage/pages/Add-Product.vue'),
                 meta: {
-                    title: '新增商品'
+                    title: '新增商品',
+                    index: '2-2-2'
                 }
             },
             {
-                path: 'my-goods',
-                name: 'MyGoods',
-                component: () => import('../../../views/product-center/product-manage/pages/My-Goods.vue'),
+                path: 'my-goods/edit/:id',
+                name: 'EditProduct',
+                props: true,
+                component: () => import('../../../views/product-center/product-manage/pages/Add-Product.vue'),
                 meta: {
-                    title: ''
+                    title: '编辑商品',
+                    index: '2-2-3'
                 }
             }
         ]

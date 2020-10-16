@@ -13,7 +13,10 @@ export default [
             {
                 path: 'helper-manage-list',
                 name: 'HelperManageList',
-                component: () => import('../../../views/user-center/helper-manage/pages/Helper-Manage-List.vue')
+                component: () => import('../../../views/user-center/helper-manage/pages/Helper-Manage-List.vue'),
+                meta: {
+                    index: '3-2-1'
+                }
             },
             // helper审核列表
             {
@@ -21,7 +24,8 @@ export default [
                 name: 'HelperReviewList',
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Review-List.vue'),
                 meta: {
-                    title: 'Helper审核'
+                    title: 'Helper审核',
+                    index: '3-2-2'
                 }
             },
             // helper详情
@@ -30,7 +34,8 @@ export default [
                 name: 'HelperDetail',
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Detail.vue'),
                 meta: {
-                    title: 'Helper详情'
+                    title: 'Helper详情',
+                    index: '3-2-3'
                 }
             },
             // helper推广详情
@@ -40,7 +45,8 @@ export default [
                 props: true,
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Promote-Detail.vue'),
                 meta: {
-                    title: 'Helper推广详情'
+                    title: 'Helper推广详情',
+                    index: '3-2-4'
                 }
             }
         ]

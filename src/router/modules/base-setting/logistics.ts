@@ -14,7 +14,8 @@ export default [
                 name: 'Postage',
                 component: () => import('../../../views/base-setting/logistics-manage/pages/Postage.vue'),
                 meta: {
-                    title: '运费模板'
+                    title: '运费模板',
+                    index: '7-4-1'
                 }
             },
             {
@@ -22,24 +23,9 @@ export default [
                 name: 'AddressManager',
                 component: () => import('../../../views/base-setting/logistics-manage/pages/Address-Manager.vue'),
                 meta: {
-                    title: '地址管理'
-                },
-                children: [
-                    {
-                        path: 'delivery-address',
-                        name: 'DeliveryAddress',
-                        meta: {
-                            title: '发货地址'
-                        }
-                    },
-                    {
-                        path: 'shipping-address',
-                        name: 'ShippingAddress',
-                        meta: {
-                            title: '退货地址'
-                        }
-                    }
-                ]
+                    title: '地址管理',
+                    index: '7-4-2'
+                }
             }
         ]
     }

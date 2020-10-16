@@ -10,12 +10,11 @@ export default [
         },
         children: [
             {
-                path: 'my-courses/edit/:id',
-                name: 'EditCourses',
-                props: true,
-                component: () => import('../../../views/product-center/course-manage/pages/Add-Courses.vue'),
+                path: 'my-courses',
+                name: 'MyCourses',
+                component: () => import('../../../views/product-center/course-manage/pages/My-Courses.vue'),
                 meta: {
-                    title: '编辑课程'
+                    index: '2-3-1'
                 }
             },
             {
@@ -24,13 +23,19 @@ export default [
                 props: true,
                 component: () => import('../../../views/product-center/course-manage/pages/Add-Courses.vue'),
                 meta: {
-                    title: '新增课程'
+                    title: '新增课程',
+                    index: '2-3-2'
                 }
             },
             {
-                path: 'my-courses',
-                name: 'MyCourses',
-                component: () => import('../../../views/product-center/course-manage/pages/My-Courses.vue')
+                path: 'my-courses/edit/:id',
+                name: 'EditCourses',
+                props: true,
+                component: () => import('../../../views/product-center/course-manage/pages/Add-Courses.vue'),
+                meta: {
+                    title: '编辑课程',
+                    index: '2-3-3'
+                }
             }
         ]
     }

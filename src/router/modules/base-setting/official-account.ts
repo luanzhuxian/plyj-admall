@@ -14,7 +14,8 @@ export default [
                 name: 'WechatAuth',
                 component: () => import('../../../views/base-setting/official-account/pages/Wechat-Auth.vue'),
                 meta: {
-                    title: '微信服务号授权'
+                    title: '商城授权',
+                    index: '7-3-1'
                 }
             },
             {
@@ -22,7 +23,8 @@ export default [
                 name: 'WechatPay',
                 component: () => import('../../../views/base-setting/official-account/pages/Wechat-Pay.vue'),
                 meta: {
-                    title: '微信支付开通'
+                    title: '微信支付开通',
+                    index: '7-3-2'
                 }
             },
             {
@@ -30,7 +32,8 @@ export default [
                 name: 'YajiAuthenticate',
                 component: () => import('../../../views/base-setting/official-account/pages/Yaji-Auth.vue'),
                 meta: {
-                    title: '雅集认证'
+                    title: '雅集认证',
+                    index: '7-3-3'
                 }
             }
         ]

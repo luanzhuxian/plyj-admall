@@ -10,18 +10,12 @@ export default [
         },
         children: [
             {
-                path: 'manage',
-                name: 'Manage',
-                component: () => import('../../../views/base-setting/account-manage/pages/Account-Manage.vue'),
-                meta: {
-                    title: '账号管理'
-                }
-            },
-            {
                 path: 'list',
                 name: 'AccountList',
+                props: true,
                 component: () => import('../../../views/base-setting/account-manage/pages/Account-List.vue'),
                 meta: {
+                    index: '7-1-1',
                     title: '账号列表'
                 }
             },
@@ -30,6 +24,7 @@ export default [
                 name: 'AddAccount',
                 component: () => import('../../../views/base-setting/account-manage/pages/Add-Account.vue'),
                 meta: {
+                    index: '7-1-2',
                     title: '添加账号'
                 }
             },
@@ -38,6 +33,7 @@ export default [
                 name: 'EditAccount',
                 component: () => import('../../../views/base-setting/account-manage/pages/Add-Account.vue'),
                 meta: {
+                    index: '7-1-3',
                     title: '编辑账号'
                 }
             },
@@ -46,6 +42,7 @@ export default [
                 name: 'AccountDetail',
                 component: () => import('../../../views/base-setting/account-manage/pages/Account-Detail.vue'),
                 meta: {
+                    index: '7-1-4',
                     title: '查看详情'
                 }
             }

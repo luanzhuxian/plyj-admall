@@ -41,6 +41,7 @@ export default [
                 name: 'MallDecoration',
                 component: () => import('../../../views/mall-manage/pages/Decoration.vue'),
                 meta: {
+                    index: '6-4',
                     title: '编辑模板'
                 }
             }

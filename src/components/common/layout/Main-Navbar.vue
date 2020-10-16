@@ -43,7 +43,7 @@
                     <el-menu-item index="2-2" :route="{ name: 'GoodsManage' }">我的商品</el-menu-item>
                     <el-menu-item index="2-3" :route="{ name: 'CoursesManage' }">我的课程</el-menu-item>
                     <el-menu-item index="2-4" :route="{ name: 'CategoryManage' }">分类管理</el-menu-item>
-                    <el-menu-item index="2-5" :route="{ name: 'Comment' }">评价管理</el-menu-item>
+                    <el-menu-item index="2-5" :route="{ name: 'CommentManage' }">评价管理</el-menu-item>
                     <el-menu-item index="2-6" :route="{ name: 'Recommend' }">推荐榜单</el-menu-item>
                 </el-submenu>
 

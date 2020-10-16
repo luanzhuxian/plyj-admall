@@ -60,7 +60,8 @@ export default [
                 component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
                 props: true,
                 meta: {
-                    title: '订单详情'
+                    title: '订单详情',
+                    index: '4-6'
                 }
             },
             {
@@ -69,7 +70,8 @@ export default [
                 component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
                 props: true,
                 meta: {
-                    title: '课程订单详情'
+                    title: '课程订单详情',
+                    index: '4-7'
                 }
             },
             {
@@ -78,7 +80,8 @@ export default [
                 component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
                 props: true,
                 meta: {
-                    title: '网校订单详情'
+                    title: '网校订单详情',
+                    index: '4-8'
                 }
             },
             {
@@ -87,7 +90,8 @@ export default [
                 component: () => import('../../../views/order-manage/pages/Backorder-Detail.vue'),
                 props: true,
                 meta: {
-                    title: '售后详情'
+                    title: '售后详情',
+                    index: '4-9'
                 }
             },
             {
@@ -95,7 +99,8 @@ export default [
                 name: 'ApplyInvoice',
                 component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
                 meta: {
-                    title: '申请发票'
+                    title: '申请发票',
+                    index: '4-10'
                 }
             },
             {
@@ -103,7 +108,8 @@ export default [
                 name: 'EditInvoice',
                 component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
                 meta: {
-                    title: '修改发票'
+                    title: '修改发票',
+                    index: '4-11'
                 }
             }
         ]

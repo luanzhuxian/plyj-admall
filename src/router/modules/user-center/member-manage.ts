@@ -13,7 +13,10 @@ export default [
             {
                 path: 'member-manage-list',
                 name: 'MemberManageList',
-                component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-List.vue')
+                component: () => import('../../../views/user-center/member-manage/pages/Member-Manage-List.vue'),
+                meta: {
+                    index: '3-1-1'
+                }
             },
             // 会员管理详情
             {
@@ -23,7 +26,8 @@ export default [
                 props: true,
                 redirect: 'member-manage-detail/:userId/buy-record',
                 meta: {
-                    title: '会员详情'
+                    title: '会员详情',
+                    index: '3-1-2'
                 },
                 children: [
                     {
@@ -64,7 +68,8 @@ export default [
                 name: 'VistorManageList',
                 component: () => import('../../../views/user-center/member-manage/pages/Visitor-Manage-List.vue'),
                 meta: {
-                    title: '游客管理'
+                    title: '游客管理',
+                    index: '3-1-3'
                 }
             }
         ]

@@ -14,7 +14,8 @@ export default [
                 name: 'LiveServiceOrder',
                 component: () => import('../../../views/base-setting/subscription-service/pages/Live-Service-Order.vue'),
                 meta: {
-                    title: '直播套餐订单'
+                    title: '直播套餐订单',
+                    index: '7-5-1'
                 }
             },
             {
@@ -22,7 +23,8 @@ export default [
                 name: 'SourceServiceOrder',
                 component: () => import('../../../views/base-setting/subscription-service/pages/Source-Service-Order.vue'),
                 meta: {
-                    title: '资源库'
+                    title: '资源库',
+                    index: '7-5-2'
                 }
             },
             {
@@ -30,7 +32,8 @@ export default [
                 name: 'MarketingServiceOrder',
                 component: () => import('../../../views/base-setting/subscription-service/pages/Marketing-Service-Order.vue'),
                 meta: {
-                    title: '营销方案订单'
+                    title: '营销方案订单',
+                    index: '7-5-3'
                 }
             },
             {
@@ -38,7 +41,8 @@ export default [
                 name: 'SourceServiceOrderDetail',
                 component: () => import('../../../views/base-setting/subscription-service/pages/Detail.vue'),
                 meta: {
-                    title: '资源库详情'
+                    title: '资源库详情',
+                    index: '7-5-4'
                 }
             }
         ]
