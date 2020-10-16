@@ -32,11 +32,11 @@ import {
 
 class BaseValidator {
     // 商品、课程模块
-    async checkProduct (moduleName: string, moduleLength = {}) {
+    async checkProduct (moduleName: string, moduleNameLength?: { minLength: number; maxLength: number }) {
         const { errList, moduleModels } = this
         const module = moduleModels[moduleName]
-        const minLength = moduleLength.minLength || 1
-        const maxLength = moduleLength.maxLength || 4
+        const minLength = moduleNameLength?.minLength || 1
+        const maxLength = moduleNameLength?.maxLength || 4
 
         try {
             if (module.showStatue !== 1) return

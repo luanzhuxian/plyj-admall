@@ -85,13 +85,13 @@ class BannerListValidator<T extends Validator> extends Validator {
 // 模块名称校验
 class ModuleNameValidator extends Validator {
     moduleName: Rule[]
-    constructor (moduleName: string, { minLength = 1, maxLength = 4 }) {
-        const min = minLength || 1
-        const max = maxLength || 4
+    constructor (moduleName: string, moduleNameLength?: { minLength: number; maxLength: number }) {
+        const min = moduleNameLength?.minLength || 1
+        const max = moduleNameLength?.maxLength || 4
         super()
         this.moduleName = [
             new Rule('required', `请填写${ moduleName }模块标题`),
-            new Rule('isLength', `${ moduleName }模块的标题最多为${ maxLength }个字`, { min, max })
+            new Rule('isLength', `${ moduleName }模块的标题最多为${ max }个字`, { min, max })
         ]
     }
 }
@@ -99,8 +99,8 @@ class ModuleNameValidator extends Validator {
 // 商品、课程模块校验
 class ProductListValidator extends ModuleNameValidator {
     productValues: Rule[]
-    constructor (moduleName: string, max: number, { minLength, maxLength }: { minLength: number; maxLength: number }) {
-        super(moduleName, { minLength, maxLength })
+    constructor (moduleName: string, max: number, moduleNameLength: { minLength: number; maxLength: number }) {
+        super(moduleName, moduleNameLength)
         this.productValues = [
             new Rule('required', `${ moduleName }至少添加一个${ max === 12 ? '课程' : '商品' }`),
             new Rule('isLength', `${ moduleName }最多添加${ max }个${ max === 12 ? '课程' : '商品' }`, { min: 1, max })
@@ -113,8 +113,8 @@ class CategoryListValidator extends ModuleNameValidator {
     otherValue: Rule[]
     otherInfo: Rule[]
     number: Rule[]
-    constructor (moduleName: string, max: number, { minLength, maxLength }: { minLength: number; maxLength: number }) {
-        super(moduleName, { minLength, maxLength })
+    constructor (moduleName: string, max: number, moduleNameLength: { minLength: number; maxLength: number }) {
+        super(moduleName, moduleNameLength)
         this.otherValue = [new Rule('required', `请选择${ moduleName }商品分组`)]
         this.otherInfo = [new Rule('required', `${ moduleName }商品分组没有跳转路径`)]
         this.number = [new Rule('max', `${ moduleName }显示个数最小为1，最大为${ max }`, max)]
