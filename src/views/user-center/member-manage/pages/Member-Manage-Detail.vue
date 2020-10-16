@@ -131,6 +131,7 @@
                                 width="500"
                                 placement="bottom-start"
                                 trigger="hover"
+                                :disabled="remarkWidth < 220"
                                 :content="memberDetail.remark "
                             >
                                 <span style="line-height: 24px; vertical-align: -8px;" slot="reference" :class="$style.remark" v-text="memberDetail.remark || '--'" />
@@ -178,7 +179,7 @@ import WatchDetailList from '../components/Watch-Detail-List.vue'
 import DataBar from '../../../../components/user-center/Data-Bar.vue'
 import BaseInfo from '../../../../components/user-center/Base-Info.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
-import { copyFields } from '../../../../assets/ts/utils'
+import { copyFields, getTextWidth } from '../../../../assets/ts/utils'
 import {
     isWechatNumber
 } from '../../../../assets/ts/validate'
@@ -329,6 +330,8 @@ export default class MemberManageDetail extends Vue {
         shareOrder: 0
     }
 
+    // 备注文字的长度
+    remarkWidth = 0
     rules = {
         name: [
             { validator: testName, message: '最多可输入16个字符', trigger: 'blur' }
@@ -381,6 +384,7 @@ export default class MemberManageDetail extends Vue {
             this.defaultCity = town ? [province, city, region, town] : [province, city, region]
             if (!result.name) result.name = result.userName
             copyFields(this.addMemberDetailForm, result)
+            this.remarkWidth = getTextWidth(result.remark, 14)
         } catch (e) {
             throw e
         }
@@ -485,7 +489,7 @@ export default class MemberManageDetail extends Vue {
         background-color: #F5F6FA;
         .remark {
             display: inline-block;
-            width: 220px;
+            max-width: 220px;
             @include elps();
         }
     }
