@@ -118,6 +118,7 @@ export default class PhoneLogin extends Vue {
                     return
                 }
                 this.emitLogin()
+                this.removeKeyupEnter()
             } catch (e) {
                 // this.setCodePass(false)
                 // this.refreshSafeCode()
