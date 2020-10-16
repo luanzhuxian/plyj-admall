@@ -104,7 +104,7 @@
                     </h2>
                     <el-menu-item index="6-1" :route="{ name: 'MallMain' }">我的店铺</el-menu-item>
                     <el-menu-item index="6-2" :route="{ name: 'MallThemes' }">模板中心</el-menu-item>
-                    <!--<el-menu-item index="5-3" route="6-3">品宣主页</el-menu-item>-->
+                    <el-menu-item index="6-3" :route="{ name: 'OrgIndex' }">品宣主页</el-menu-item>
                     <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 

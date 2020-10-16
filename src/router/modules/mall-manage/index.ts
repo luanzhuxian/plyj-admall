@@ -17,15 +17,26 @@ export default [
                     title: '我的店铺',
                     index: '6-1'
                 }
-            }, {
+            },
+            {
                 path: 'themes',
                 name: 'MallThemes',
                 component: () => import('../../../views/mall-manage/pages/Themes.vue'),
                 meta: {
-                    title: '店铺主题',
+                    title: '模板中心',
                     index: '6-2'
                 }
-            }, {
+            },
+            {
+                path: 'org-index',
+                name: 'OrgIndex',
+                component: () => import('../../../views/mall-manage/pages/Org-Index.vue'),
+                meta: {
+                    index: '6-3',
+                    title: '品宣主页'
+                }
+            },
+            {
                 path: 'decoration',
                 name: 'MallDecoration',
                 component: () => import('../../../views/mall-manage/pages/Decoration.vue'),

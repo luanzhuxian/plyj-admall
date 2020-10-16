@@ -26,7 +26,7 @@ export default class MallManage extends Vue {
         label: '我的店铺'
     }, {
         name: 'MallThemes',
-        label: '店铺主题'
+        label: '模板中心'
     }]
 
     /* computed */
