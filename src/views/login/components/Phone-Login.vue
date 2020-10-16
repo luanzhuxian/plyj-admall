@@ -82,6 +82,10 @@ export default class PhoneLogin extends Vue {
         }
 
         beforeDestroy (): void {
+            this.removeKeyupEnter()
+        }
+
+        removeKeyupEnter () {
             document.removeEventListener('keydown', this.keyupEnter)
         }
 

@@ -48,6 +48,7 @@ export default class Login extends Vue {
     async login () {
         try {
             await this.getAgencyList()
+            await (this.$refs.child as HTMLFormElement).removeKeyupEnter()
             await this.selectMall()
             await this.getAllMallInfo()
             this.$router.replace({ name: 'Home' })

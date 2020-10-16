@@ -112,6 +112,7 @@
                             <el-input style="width: 260px;" class="ml-10" v-model="addMemberDetailForm.address" placeholder="请输入详细地址" />
                         </div>
                         <el-popover
+                            v-if="memberDetail.addressPath + memberDetail.address"
                             width="500"
                             placement="bottom-start"
                             trigger="hover"
