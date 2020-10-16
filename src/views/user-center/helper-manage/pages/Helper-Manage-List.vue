@@ -296,7 +296,7 @@ export default class HelperManageList extends Vue {
             const filterForm = {
                 mallUserId: '',
                 current: 1,
-                size: 10
+                size: 1000
             }
             const { result } = await getOwnedAccountList(filterForm)
             this.ownedAccountList = result.records

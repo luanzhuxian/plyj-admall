@@ -5,7 +5,7 @@ export default [
         redirect: '/reservation-manage/list',
         component: () => import('../../../views/reservation-manage/Index.vue'),
         meta: {
-            title: '预约信息',
+            title: '预约管理',
             index: '9'
         },
         children: [
