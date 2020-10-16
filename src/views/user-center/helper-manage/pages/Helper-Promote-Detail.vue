@@ -322,9 +322,12 @@
                                 label="微信昵称"
                             />
                             <el-table-column
-                                prop="mobile"
                                 label="手机号"
-                            />
+                            >
+                                <template #default="{ row }">
+                                    {{ row.mobile }}
+                                </template>
+                            </el-table-column>
                             <el-table-column
                                 prop="withdrawalAmount"
                                 label="提现金额（元）">
@@ -332,18 +335,18 @@
                                     {{ row.withdrawalAmount / 100 }}
                                 </template>
                             </el-table-column>
-                            <!-- <el-table-column
+                            <el-table-column
                                 prop="amount"
                                 label="剩余润笔（元）">
                                 <template #default="{ row }">
-                                    {{ row.amount / 100 }}
+                                    {{ (row.balanceAmount || 0) / 100 }}
                                 </template>
-                            </el-table-column> -->
+                            </el-table-column>
                             <el-table-column
-                                label="手机号"
+                                label="提现状态"
                             >
                                 <template #default="{ row }">
-                                    {{ row.mobile }}
+                                    {{ row.status }}
                                 </template>
                             </el-table-column>
                             <el-table-column
