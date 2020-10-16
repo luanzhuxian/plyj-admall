@@ -123,7 +123,7 @@ export const addTagToMember = (userId: string, tags: string[]) => axios.post('/a
 export const setTagToMember = (userId: string, tags: string[]) => axios.post('/apis/v2/user/tag/r/batchInsert', { userId, tags })
 
 // 查看 当前学员观看列表
-export const getWatchDetailList = (userId: string, courseId: string) => axios.get(`/apis/v2/course/watch/record/${ userId }/${ courseId }`)
+export const getWatchDetailList = (userId: string, courseId: string, params: any) => axios.get(`/apis/v2/course/watch/record/${ userId }/${ courseId }`, { params })
 
 // 新增备注信息
 export const saveRemark = (params: any) => axios.post('/apis/v2/user/remark', params)

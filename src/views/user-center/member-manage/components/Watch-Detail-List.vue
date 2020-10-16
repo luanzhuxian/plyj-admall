@@ -41,6 +41,12 @@
                 </template>
             </el-table-column>
         </el-table>
+        <Pagination
+            @change="getList"
+            v-model="form.current"
+            :total="total"
+            :size="form.size"
+        />
         <div class="mt-20" style="text-align: center;">
             <el-button type="primary" @click="closeHandler">
                 确 定
@@ -68,6 +74,10 @@ export default {
     },
     data () {
         return {
+            form: {
+                size: 10,
+                current: 1
+            },
             table: [],
             total: 0
         }
@@ -82,9 +92,9 @@ export default {
     methods: {
         async getList () {
             try {
-                const { result } = await getWatchDetailList(this.userId, this.courseId)
-                this.table = result
-                this.total = result.length
+                const { result } = await getWatchDetailList(this.userId, this.courseId, this.form)
+                this.table = result.records
+                this.total = result.total
             } catch (e) {
                 throw e
             }

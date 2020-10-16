@@ -110,6 +110,7 @@
             @change="getLineLearningList"
             v-model="lineLearningListForm.current"
             :total="lineLearningListTotal"
+            :size="lineLearningListForm.size"
         />
 
         <!--查看学习进度-->
