@@ -184,6 +184,7 @@ export default class MemberShareRecord extends Vue {
             const { result: { records, total } }: DynamicObject = await getOrderList(this.shareListForm)
             this.shareList = records || []
             this.shareListTotal = total || 0
+            this.$emit('search')
         } catch (e) {
             throw e
         }
@@ -193,7 +194,6 @@ export default class MemberShareRecord extends Vue {
         try {
             this.shareListForm.current = 1
             await this.getShareList()
-            await this.$parent.getMemberOrderCount()
         } catch (e) {
             throw e
         }

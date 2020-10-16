@@ -186,6 +186,7 @@ export default class MemberBuyRecord extends Vue {
             const { result: { records, total } } = await getOrderList(this.orderListForm)
             this.orderList = records || []
             this.orderListTotal = total || 0
+            this.$emit('search')
         } catch (e) {
             throw e
         }
@@ -195,7 +196,6 @@ export default class MemberBuyRecord extends Vue {
         try {
             this.orderListForm.current = 1
             await this.getOrderList()
-            await this.$parent.getMemberOrderCount()
         } catch (e) {
             throw e
         }

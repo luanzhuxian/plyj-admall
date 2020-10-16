@@ -155,7 +155,7 @@
         <pl-tabs id="member-tabs" :value="tabName" :tabs="Tab_List" @tabClick="tabClick" />
 
         <keep-alive>
-            <router-view :order-type="Order_Type" :order-status-map="orderStatusMap" @addRemarkSuccess="getMemberDetail" />
+            <router-view :order-type="Order_Type" :order-status-map="orderStatusMap" @addRemarkSuccess="getMemberDetail" @search="getMemberOrderCount" />
         </keep-alive>
         <!-- 添加标签 -->
         <add-tags
