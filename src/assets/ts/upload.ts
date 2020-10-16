@@ -48,7 +48,6 @@ const imgToBlob = (img: HTMLImageElement): Promise<Blob | null> => {
 const getClient = async () => {
     const sts = JSON.parse(localStorage.getItem('sts') || '{}')
     let credentials = null
-    console.log(sts)
     if (!sts.time || STSLIFETIME < Date.now() - sts.time) {
         // sts过期
         let { result } = await getSTS()

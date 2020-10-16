@@ -16,7 +16,7 @@
                     :src="img.url"
                     alt=""
                 >
-                <div>
+                <div :class="$style.usedBtn">
                     <el-button type="text" @click="useHandler(img)">
                         使用
                     </el-button>
@@ -504,15 +504,16 @@ export default {
   }
   .imgs {
     padding: 16px;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+      grid-template-columns: repeat(6, auto);
+      grid-gap: 14px;
   }
   .imgWrap {
     position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 14px;
+      width: 100px;
     border-radius: 4px;
     overflow: hidden;
     > img {
@@ -520,10 +521,13 @@ export default {
       height: 67px;
       border-radius: 4px;
     }
-    > button {
-      margin-top: 8px;
-      padding: 0;
-    }
+      .usedBtn {
+          > button {
+              width: max-content;
+              min-width: auto;
+              padding: 0;
+          }
+      }
     &.used {
       &:before {
         position: absolute;
