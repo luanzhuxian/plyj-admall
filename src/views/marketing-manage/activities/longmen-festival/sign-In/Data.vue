@@ -319,7 +319,7 @@ export default {
         async getList () {
             try {
                 const activityId = this.$route.params.id
-                const { data: { result: { records, total } } } = await queryActivityList(activityId, this.filterForm)
+                const { result: { records, total } } = await queryActivityList(activityId, this.filterForm)
                 this.tableData = records || []
                 this.total = total
             } catch (e) { throw e }

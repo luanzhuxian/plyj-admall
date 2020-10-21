@@ -306,9 +306,9 @@ export default {
         // 获得用户分组标签和活动标签列表
         async getTagList () {
             try {
-                const [{ data: userTagData }, { data: activityTagData }] = await Promise.all([getTagList(), getActivityTagList('XCKXJ')])
-                this.activityTags = activityTagData.result || []
-                this.userGroup = userTagData.result || []
+                const [{ result: userTagData }, { result: activityTagData }] = await Promise.all([getTagList(), getActivityTagList('XCKXJ')])
+                this.activityTags = activityTagData || []
+                this.userGroup = userTagData || []
             } catch (e) {
                 throw e
             }

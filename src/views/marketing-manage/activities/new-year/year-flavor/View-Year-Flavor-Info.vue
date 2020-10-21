@@ -141,7 +141,7 @@ export default {
         try {
             this.getActivityDetail(this.$route.params.id)
             // 获取用户分组,年味列表
-            const [{ data: { result: userTagList } }, { data: { result: yearFlavorList } }] = await Promise.all([getUserTagList(), materialSchemeList({ activityType: 2 })])
+            const [{ result: userTagList }, { result: yearFlavorList }] = await Promise.all([getUserTagList(), materialSchemeList({ activityType: 2 })])
             this.yearFlavorList = yearFlavorList
             this.userTagList = userTagList
         } catch (e) { throw e }

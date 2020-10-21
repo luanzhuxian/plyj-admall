@@ -79,8 +79,8 @@ export default {
     methods: {
         ...mapActions([MutationTypes.getMarketStatusAuth]),
         async getDetail () {
-            const { data: { result: { entity: res } } } = await signinActivityDetail(this.$route.params.id)
-            this.status = res.status
+            const { result } = await signinActivityDetail(this.$route.params.id)
+            this.status = result.entity.status
         }
     }
 }
