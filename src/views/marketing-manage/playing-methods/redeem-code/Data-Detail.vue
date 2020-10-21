@@ -543,7 +543,12 @@ export default {
             try {
                 const data = await getRedeemCodeByActivity(this.id, this.filterForm)
                 data.result.records.forEach(async item => {
-                    item.qrcode = await generateQrcode(300, item.exchangeCodeUrl, 25, '', 10)
+                    item.qrcode = await generateQrcode({
+                        size: 300,
+                        text: item.exchangeCodeUrl,
+                        padding: 25,
+                        centerPadding: 10
+                    })
                 })
                 this.tableData = data.result.records
                 this.total = data.result.total

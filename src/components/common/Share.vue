@@ -69,7 +69,12 @@ export default {
             search.t = Date.now()
             qs.stringify(search)
             this.localUrl = `${ url }?${ qs.stringify(search) }`
-            this.qrcode = await generateQrcode(400, this.localUrl, 0, this.thumbnail, 4)
+            this.qrcode = await generateQrcode({
+                size: 400,
+                text: this.localUrl,
+                image: this.thumbnail,
+                centerPadding: 4
+            })
         },
         // 复制成功
         onCopy () {
