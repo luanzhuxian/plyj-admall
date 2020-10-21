@@ -324,8 +324,8 @@ export default class Gameplay extends Vue {
     }
 
     private async getActivitiesInfo () {
-        const data: unknown = await getActivitiesInfo()
-        this.activitiesInfo = data as ActivityCounts
+        const { result } = await getActivitiesInfo()
+        this.activitiesInfo = result as ActivityCounts
     }
 
     private async getActivityAuth () {

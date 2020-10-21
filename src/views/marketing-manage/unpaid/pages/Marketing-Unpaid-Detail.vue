@@ -34,7 +34,8 @@
             </div>
             <div class="expiration-date">
                 <div>
-                    <span>使用有效期:</span><span class="date-detail">购买后 <span v-if="parseInt(getBaseMarketData.validityNumber/365)">{{ parseInt(getBaseMarketData.validityNumber/365) }} 年</span> <span v-if="getBaseMarketData.validityNumber - 365*parseInt(getBaseMarketData.validityNumber/365)"> {{ getBaseMarketData.validityNumber - 365*parseInt(getBaseMarketData.validityNumber/365) }} 天</span>内可使用</span>
+                    <span>使用有效期:</span>
+                    <span class="date-detail">购买后 <span v-if="parseInt(getBaseMarketData.validityNumber/365)">{{ parseInt(getBaseMarketData.validityNumber/365) }} 年</span> <span v-if="getBaseMarketData.validityNumber - 365*parseInt(getBaseMarketData.validityNumber/365)"> {{ getBaseMarketData.validityNumber - 365*parseInt(getBaseMarketData.validityNumber/365) }} 天</span>内可使用</span>
                 </div>
                 <div class="precautions">
                     <span>注意事项:</span><span>订购成功后，营销活动功能将可直接使用；使用有效期到期后，如未续订服务，则营销工具<span class="date-detail">自动锁定</span></span>
