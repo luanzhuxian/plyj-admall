@@ -240,8 +240,8 @@ export default {
     methods: {
         async getDetail () {
             try {
-                const data = await getSpringPloughingDetail(this.id)
-                const detail = data.result
+                const { result } = await getSpringPloughingDetail(this.id)
+                const detail = result
                 const {
                     activityName,
                     preheatTime,
@@ -271,7 +271,7 @@ export default {
         // 获得用户分组标签列表
         async getTagList () {
             try {
-                const { data: { result = [] } } = await getTagList()
+                const { result } = await getTagList()
                 this.userGroup = result
             } catch (e) {
                 throw e
