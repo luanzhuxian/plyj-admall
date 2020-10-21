@@ -1,18 +1,11 @@
 <template>
     <div class="together">
-        <div class="list-header">
-            <div class="header">
-                <img width="48" class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png">
-                <div>
-                    <div class="font-weight-bold">秒杀</div>
-                    <div class="description">限时抢购，引导用户消费</div>
-                </div>
-            </div>
-            <div class="active-time">
-                <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
-                有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
-            </div>
-        </div>
+        <ListHeader icon="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png"
+                    title="秒杀"
+                    description="限时抢购，引导用户消费"
+                    :start-time="start"
+                    :end-time="end"
+        />
         <el-button type="primary" round @click="$router.push({ name: 'AddSecond' })">
             新建活动
             <i class="el-icon-plus el-icon--right" />
@@ -228,13 +221,15 @@ import { secondActivityPage, duplicateSecondActivity, updateActivityStatus } fro
 import { getSingleGoods } from '../../../../../apis/product-center/goods'
 import Share from '../../../../../components/common/Share'
 import Setting from './Second-Buy-Setting'
+import ListHeader from '../../../components/List-Header'
 import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'SecondBuyList',
     components: {
         GoodsPreview,
         Share,
-        Setting
+        Setting,
+        ListHeader
     },
     data () {
         return {

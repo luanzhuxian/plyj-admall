@@ -1,27 +1,24 @@
 <template>
     <div class="together">
-        <div class="together-top">
-            <div class="together-top-left">
-                <div class="together-top-title">
-                    <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_together.png">
-                    众志成团 <span>- 微信裂变，快速引流</span>
-                </div>
-                <div class="activity-date">
-                    <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
-                </div>
-                <el-button
-                    type="primary"
-                    size="mini"
-                    @click="$router.push({name:'NewYearAddTogether'})"
-                    class="add-btn"
-                    icon="el-icon-plus"
-                >
-                    创建活动
-                </el-button>
-                <u @click="explainFlag = true">活动说明</u>
-            </div>
-        </div>
 
+        <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+                    title="众志成团"
+                    description="微信裂变，快速引流"
+                    :start-time="start"
+                    :end-time="end"
+        />
+
+        <el-button
+            type="primary"
+            round
+            @click="$router.push({name:'NewYearAddTogether'})"
+        >
+            创建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
+        <el-button type="text" @click="explainFlag = true">
+            活动说明
+        </el-button>
         <pl-tabs
             :value="$route.name"
             :tabs="[
@@ -301,12 +298,14 @@ import GoodsPreview from '../../../../components/product-center/goods/Goods-Prev
 import { togetherActivityPage, togetherActivityDetail, deleteActivityStatus, endActivityStatus } from '../../../../apis/marketing-manage/together'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import Share from '../../../../components/common/Share'
+import ListHeader from '../../components/List-Header'
 import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'TogetherBuyList',
     components: {
         GoodsPreview,
-        Share
+        Share,
+        ListHeader
     },
     data () {
         return {

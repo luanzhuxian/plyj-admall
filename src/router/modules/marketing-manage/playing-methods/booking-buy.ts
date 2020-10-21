@@ -2,7 +2,7 @@ export default [
     {
         path: 'booking-buy',
         name: 'BookingBuy',
-        redirect: 'new-year-booking-buy/list',
+        redirect: 'booking-buy/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Index.vue'),
         meta: {
             title: ''
@@ -36,7 +36,7 @@ export default [
                 }
             },
             {
-                path: 'new-year-data/:id',
+                path: 'data/:id',
                 name: 'BookingBuyData',
                 component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Booking-Buy-Data.vue'),
                 props: true,

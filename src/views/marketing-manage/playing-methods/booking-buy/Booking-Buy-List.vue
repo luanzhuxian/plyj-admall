@@ -1,26 +1,22 @@
 <template>
     <div class="together">
-        <div class="together-top">
-            <div class="together-top-left">
-                <div class="together-top-title">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.0.0/77141bbb-be2b-4b39-84ea-7e6fa9e80b78.png">
-                    预购<span>- 分批支付，提前享受</span>
-                </div>
-                <div class="activity-date">
-                    <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" /> 使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
-                </div>
-                <el-button
-                    type="primary"
-                    size="mini"
-                    @click="$router.push({name:'AddBookingBuy'})"
-                    class="add-btn"
-                    icon="el-icon-plus"
-                >
-                    创建活动
-                </el-button>
-                <u @click="explainFlag = true">活动说明</u>
-            </div>
-        </div>
+        <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png"
+                    title="预购"
+                    description="分批支付，提前享受"
+                    :start-time="start"
+                    :end-time="end"
+        />
+        <el-button
+            type="primary"
+            round
+            @click="$router.push({name:'AddBookingBuy'})"
+        >
+            创建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
+        <el-button type="text" @click="explainFlag = true">
+            活动说明
+        </el-button>
 
         <pl-tabs
             :value="$route.name"
@@ -270,6 +266,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
 import Share from '../../../../components/common/Share'
+import ListHeader from '../../components/List-Header'
 import { bookingActivityPage, duplicateBookingActivity, updateActivityStatus } from '../../../../apis/marketing-manage/booking'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import { MutationTypes } from '../../../../store/mutation-type'
@@ -277,7 +274,8 @@ export default {
     name: 'BookingBuyList',
     components: {
         GoodsPreview,
-        Share
+        Share,
+        ListHeader
     },
     data () {
         return {

@@ -1,13 +1,11 @@
 <template>
-    <div class="bg-white">
-        <div class="newcomers-list-header">
-            <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/gift@1x.png">
-            <span class="mr-10 font-weight-bold">新人有礼</span>
-            <span class="items description">- 新人注册&nbsp;送礼活动</span>
-            <div class="active-time">
-                <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" />
-                使用有效期：长期有效
-            </div>
+    <div>
+        <div class="newcomers-list">
+            <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新人有礼.png"
+                        title="新人有礼"
+                        description="新人注册 送礼活动"
+                        :permanent="true"
+            />
             <el-button type="primary" round @click="$router.push({ name: 'NewcomersAdd' })">
                 新建活动
                 <i class="el-icon-plus el-icon--right" />
@@ -15,8 +13,6 @@
             <el-button type="text" @click="showExplanation = true">
                 活动说明
             </el-button>
-        </div>
-        <div class="newcomers-list">
             <search-box class="mt-24">
                 <el-form-item label="搜索内容：">
                     <el-input placeholder="请输入活动名称" v-model="queryFilter.activityName" @change="doQuery" clearable />
@@ -244,6 +240,7 @@ import NewcomersSetting from './Newcomers-Setting'
 import PresentDialog from './PresentDetail'
 import Preview from '../../../../components/common/Preview'
 import NewUserPreview from './components/New-User-Preview.vue'
+import ListHeader from '../../components/List-Header'
 
 export default {
     name: 'NewcomersList',
@@ -253,7 +250,8 @@ export default {
         Share,
         PresentDialog,
         Preview,
-        NewUserPreview
+        NewUserPreview,
+        ListHeader
     },
     data () {
         return {

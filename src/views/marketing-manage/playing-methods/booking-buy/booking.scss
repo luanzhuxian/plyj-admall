@@ -7,56 +7,6 @@
     font-size: 12px;
     font-weight: bold;
   }
-  .together-top{
-    display: flex;
-    height: 52px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-    .together-top-left{
-      display: flex;
-      align-items: center;
-      .together-top-title{
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        color: #333333;
-        font-weight: bold;
-        img{
-          margin-right: 10px;
-        }
-        span{
-          color: #999999;
-        }
-      }
-      .add-btn{
-        width: 106px;
-        height: 35px;
-        border-radius: 121px;
-        margin-left: 32px;
-      }
-      u {
-          margin-left: 24px;
-          color: $--color-primary-blue;
-          cursor: pointer;
-      }
-    }
-    .activity-date{
-      margin-left: 32px;
-      height: 31px;
-      border: 1px solid #cccccc;
-      border-radius: 130px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 16px;
-      color: #666666;
-      padding: 0 10px;
-      i{
-        margin-right: 10px;
-      }
-    }
-  }
   .together-tab{
     height: 55px;
     background: #F6F6F6;

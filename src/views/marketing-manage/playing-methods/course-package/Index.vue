@@ -1,37 +1,25 @@
 <template>
     <div :class="$style.coursePackage" class="wrap">
-        <div
-            :class="$style.statusBar"
+        <ListHeader
             v-show="$route.name !== 'AddCoursePackage' && $route.name !== 'EditCoursePackage'"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png"
+            title="组合聚惠学"
+            :description="activityName"
+            :course-package-status="activityStatus"
+            :start-time="start"
+            :end-time="end"
+        />
+        <el-button
+            v-show="$route.name !== 'CoursePackageDetailInfo' && $route.name !== 'CoursePackageDetailData'"
+            type="primary"
+            round
+            @click="$router.push({ name: 'AddCoursePackage' })"
         >
-            <img class="mr-10" :class="$style.activityIcon" src="https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/course-package.png">
-            <!-- <pl-svg name="icon-chunyun" width="24" height="24" /> -->
-            <span :class="$style.titleAndDesc">
-                <i :class="$style.title">组合聚惠学</i>
-                <i :class="$style.desc"> - {{ activityName }}</i>
-            </span>
-            <div :class="$style.status" v-if="activityStatus !== -1" class="mr-20">
-                <pl-svg name="icon-shijian" width="16" class="mr-10" />
-                <span v-if="activityStatus === 1">进行中...</span>
-                <span v-else-if="activityStatus === 0">未开始</span>
-                <span v-else-if="activityStatus === 2">已结束</span>
-            </div>
-            <div :class="$style.date">
-                <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />
-                <span>使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}</span>
-            </div>
-            <el-button
-                v-show="$route.name !== 'CoursePackageDetailInfo' && $route.name !== 'CoursePackageDetailData'"
-                type="primary"
-                round
-                @click="$router.push({ name: 'AddCoursePackage' })"
-            >
-                新建活动 <i class="el-icon-plus" />
-            </el-button>
-            <el-button class="underline" type="text" @click="explainFlag = true">
-                活动说明
-            </el-button>
-        </div>
+            新建活动 <i class="el-icon-plus" />
+        </el-button>
+        <el-button class="underline" type="text" @click="explainFlag = true">
+            活动说明
+        </el-button>
         <keep-alive :exclude="exclude">
             <router-view />
         </keep-alive>
@@ -79,8 +67,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../store/mutation-type'
+import ListHeader from '../../components/List-Header'
 export default {
     name: 'CoursePackage',
+    components: {
+        ListHeader
+    },
     data () {
         return {
             exclude: ['AddCoursePackage'],

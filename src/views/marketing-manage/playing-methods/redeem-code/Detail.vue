@@ -15,7 +15,7 @@
                     <span v-if="activityDetail.status === 2">进行中</span>
                     <span v-if="activityDetail.status === 3">已停止</span>
                     <span v-if="activityDetail.status === 4">已结束</span>
-                </div>
+                </div>`
                 <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
                 活动时间：{{ activityDetail.startTime | dateFormat('YYYY.MM.DD') }} - {{ activityDetail.endTime | dateFormat('YYYY.MM.DD') }}
             </div>
