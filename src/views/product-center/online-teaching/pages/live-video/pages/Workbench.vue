@@ -118,7 +118,7 @@
         <div :class="$style.liveRooms" class="wrap">
             <div :class="$style.label">
                 <div :class="$style.name">开通房间数</div>
-                <div :class="$style.content">可预约房间数：{{ maxRooms - useRooms }}/{{ maxRooms }}</div>
+                <div :class="$style.content">可开通房间数：{{ maxRooms - useRooms }}/{{ maxRooms }}</div>
             </div>
             <div :class="$style.rooms">
                 <div :class="$style.scrollBar">

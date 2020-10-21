@@ -91,7 +91,7 @@
                 </div>
             </div>
             <Pagination :total="total" v-model="params.current" @change="getTableList" />
-            <div slot="footer">
+            <div slot="footer" style="text-align: center">
                 <el-button type="primary" @click="confirm" :disabled="!currentChecked.id">
                     确定
                 </el-button>

@@ -85,6 +85,7 @@ export default class LiveRoom extends Vue {
     }
     > .live-info {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         margin: 10px 0;
         padding: 10px;
@@ -93,9 +94,6 @@ export default class LiveRoom extends Vue {
         > .room-num {
             display: flex;
             align-items: center;
-        }
-        > .password {
-            margin-left: 20px;
         }
     }
     > .address {
