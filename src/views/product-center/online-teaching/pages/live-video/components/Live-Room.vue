@@ -2,8 +2,14 @@
     <div :class="$style.liveRoom">
         <div :class="$style.label">
             <div>{{ data.roomName }}</div>
-            <div :class="$style.status" :style="{ '--color': data.isLive ? '#F79F1A' : '#2DCA72' }">
-                {{ data.isLive ? '已预约' : '空闲中' }}
+            <div v-if="data.isLive" :class="$style.status" :style="{ '--color': 'red' }">
+                直播中
+            </div>
+            <div v-else-if="data.isReservation" :class="$style.status" :style="{ '--color': '#F79F1A' }">
+                已预约
+            </div>
+            <div v-else :class="$style.status" :style="{ '--color': '#2DCA72' }">
+                空闲中
             </div>
         </div>
         <div :class="$style.liveInfo">
