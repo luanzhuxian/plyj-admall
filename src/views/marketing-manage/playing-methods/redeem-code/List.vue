@@ -1,18 +1,11 @@
 <template>
     <div>
-        <div class="list-header">
-            <div class="header">
-                <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.10.0/redeem_code_icon.png">
-                <div>
-                    <div class="font-weight-bold">兑换码</div>
-                    <div class="description">支持多商品兑换，使用即可减免商品费用</div>
-                </div>
-            </div>
-            <div class="active-time">
-                <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
-                有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}
-            </div>
-        </div>
+        <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png"
+                    title="兑换码"
+                    description="支持多商品兑换，使用即可减免商品费用"
+                    :start-time="start"
+                    :end-time="end"
+        />
         <el-button type="primary" round @click="$router.push({ name: 'AddRedeemCode' })">
             新建活动
             <i class="el-icon-plus el-icon--right" />
@@ -39,10 +32,12 @@
 import Setting from './Setting'
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../store/mutation-type'
+import ListHeader from '../../components/List-Header'
 export default {
     name: 'RedeemCodeList',
     components: {
-        Setting
+        Setting,
+        ListHeader
     },
     data () {
         return {

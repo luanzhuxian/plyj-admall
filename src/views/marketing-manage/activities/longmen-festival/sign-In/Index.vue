@@ -1,15 +1,16 @@
 <template>
     <div class="newcomers-gift-list wrap">
-        <div v-if="activeTab === 'GeneralList' || activeTab === 'GeneralSetting'" class="newcomers-list-header bg-white">
-            <img class="mr-10 activity-icon" src="https://mallcdn.youpenglai.com/static/admall/2.9.0/longmen-sign.png">
-            <span class="mr-10 font-weight-bold">端午佳话粽粽有礼</span>
-            <span class="items description">- 签到参与端午活动，即可参与抽奖，有机会获得粽粽大礼</span>
-            <span class="items description time"><pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" /> 使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ '2020-08-31' | dateFormat('YYYY.MM.DD') }}</span>
-            <el-button type="primary" round @click="add" icon="el-icon-plus">
-                新建活动
-            </el-button>
-        </div>
-
+        <ListHeader
+            v-if="activeTab === 'GeneralList' || activeTab === 'GeneralSetting'"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            title="端午佳话粽粽有礼"
+            description="签到参与端午活动，即可参与抽奖，有机会获得粽粽大礼"
+            :start-time="start"
+            :end-time="end"
+        />
+        <el-button type="primary" round @click="add" icon="el-icon-plus">
+            新建活动
+        </el-button>
         <pl-tabs
             v-if="activeTab === 'GeneralList' || activeTab === 'GeneralSetting'"
             :value="$route.name"
@@ -27,8 +28,10 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../../store/mutation-type'
+import ListHeader from '../../../components/List-Header'
 export default {
     name: 'GeneralIndex',
+    components: { ListHeader },
     data () {
         return {
             showTop: false,

@@ -1,21 +1,16 @@
 <template>
     <div class="coupon-list">
-        <div class="title-box">
-            <img src="https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/category-coupon-tiny.png" height="20">
-            <span class="title">品类券</span> <span class="title-detail">- 支持发放多种品类券，购买减免部分商品和课程金额</span>
-            <el-tooltip class="title-alert" effect="dark" placement="bottom">
-                <div slot="content">
-                    支持发放品类券的发放，用户在商城购买商品满足一定金额，可抵扣优惠金额<br>
-                    例如：设置满2000减200元的品类券，则用户在商城购买只要满足支付2000元<br>
-                    的金额，即可立即减免200元的金额，即用户只需支付1800元即可下单成功。
-                </div>
-                <pl-svg class="pro-type-intro-time" name="icon-jinggao" width="20" />
-            </el-tooltip>
-            <ActiveTime class="mr-20" title="使用有效期" time="长期有效" />
-            <el-button type="primary" round @click="$router.push({name:'AddCategoryCoupon'})" icon="el-icon-plus">
-                新增品类券
-            </el-button>
-        </div>
+        <!--        支持发放品类券的发放，用户在商城购买商品满足一定金额，可抵扣优惠金额<br>-->
+        <!--        例如：设置满2000减200元的品类券，则用户在商城购买只要满足支付2000元<br>-->
+        <!--        的金额，即可立即减免200元的金额，即用户只需支付1800元即可下单成功。-->
+        <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                    title="品类券"
+                    description="支持发放多种品类券，购买减免部分商品和课程金额"
+                    :permanent="true"
+        />
+        <el-button type="primary" round @click="$router.push({name:'AddCategoryCoupon'})" icon="el-icon-plus">
+            新增品类券
+        </el-button>
         <search-box class="mt-24">
             <el-form-item label="搜索内容">
                 <el-input
@@ -236,12 +231,12 @@ import {
     getActivityListUseCoupon,
     deleteCoupon
 } from '../../../../apis/marketing-manage/coupon'
-import ActiveTime from '../../components/Active-Time.vue'
+import ListHeader from '../../components/List-Header.vue'
 
 export default {
     name: 'CouponList',
     components: {
-        ActiveTime
+        ListHeader
     },
     data () {
         return {

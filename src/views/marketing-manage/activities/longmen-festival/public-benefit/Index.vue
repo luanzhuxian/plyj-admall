@@ -1,24 +1,22 @@
 <template>
     <div class="benefit wrap">
-        <div v-if="showTop" class="header bg-white">
-            <img class="mr-10 activity-icon" src="https://mallcdn.youpenglai.com/static/admall/2.9.0/public-benefit.png">
-            <span class="mr-10 font-weight-bold">公益助力</span>
-            <span class="items description">- 公益千挑万选，爱心接力一点，学子共献真情</span>
-            <div class="active-time">
-                <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" />
-                使用有效期：{{ publicBenefitInformation.createTime | dateFormat('YYYY.MM.DD') }} - {{ '2020-08-31' | dateFormat('YYYY.MM.DD') }}
-            </div>
-            <el-button style="margin-left: 10px" type="primary" round
-                       @click="$router.push({ name: 'AddLongmenPublicBenefit' })"
-            >
-                新建活动
-                <i class="el-icon-plus el-icon--right" />
-            </el-button>
-            <el-button class="underline" type="text" @click="explainFlag = true">
-                活动说明
-            </el-button>
-        </div>
-
+        <ListHeader
+            v-if="showTop"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            title="公益助力"
+            description="公益千挑万选，爱心接力一点，学子共献真情"
+            :start-time="publicBenefitInformation.createTime"
+            end-time="2020-08-31"
+        />
+        <el-button style="margin-left: 10px" type="primary" round
+                   @click="$router.push({ name: 'AddLongmenPublicBenefit' })"
+        >
+            新建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
+        <el-button class="underline" type="text" @click="explainFlag = true">
+            活动说明
+        </el-button>
         <pl-tabs
             v-if="showTop"
             :value="$route.name"
@@ -72,8 +70,10 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../../store/mutation-type'
+import ListHeader from '../../../components/List-Header'
 export default {
     name: 'LongmenPublicBenefit',
+    components: { ListHeader },
     data () {
         return {
             explainFlag: false

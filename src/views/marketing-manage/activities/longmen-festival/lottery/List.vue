@@ -1,16 +1,15 @@
 <template>
     <div class="bg-white pb-20">
-        <div :class="$style.header" class="border-bottom">
-            <div :class="$style.activityIcon">
-                <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.9.0/logmen-festival.png">
-                <span class="fz-16 font-weight-bold">龙门抽大奖</span>
-                <span class="fz-12 gray-3 mr-20"> - 回馈新老用户，加享赢大礼</span>
-            </div>
-            <ActiveTime v-if="LongmenLotteryInformation.createTime && LongmenLotteryInformation.validity" title="使用有效期" :time="`${moment(LongmenLotteryInformation.createTime).format('YYYY.MM.DD')} - ${moment('2020-08-31').format('YYYY.MM.DD')}`" />
-            <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">
-                新建活动
-            </el-button>
-        </div>
+        <ListHeader
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            title="龙门抽大奖"
+            description="回馈新老用户，加享赢大礼"
+            :start-time="LongmenLotteryInformation.createTime"
+            end-time="2020-08-31"
+        />
+        <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">
+            新建活动
+        </el-button>
         <search-box inline class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable v-model="form.activityName" placeholder="活动名称" @change="getLottery(1)" />
@@ -134,7 +133,7 @@
 </template>
 
 <script>
-import ActiveTime from '../../../components/Active-Time.vue'
+import ListHeader from '../../../components/List-Header'
 import { mapGetters, mapActions } from 'vuex'
 import Share from '../../../../../components/common/Share.vue'
 import moment from 'moment'
@@ -147,7 +146,7 @@ import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'LongmenLotteryList',
     components: {
-        ActiveTime,
+        ListHeader,
         Share
     },
     data () {
