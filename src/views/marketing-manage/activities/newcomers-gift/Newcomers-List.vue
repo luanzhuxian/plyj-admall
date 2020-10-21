@@ -37,7 +37,7 @@
                     />
                 </el-form-item>
                 <el-form-item>
-                    <el-button round type="primary" @click="doQuery" plain>
+                    <el-button round type="primary" @click="doQuery">
                         查询
                     </el-button>
                     <el-button round type="text" @click="resetFilter">

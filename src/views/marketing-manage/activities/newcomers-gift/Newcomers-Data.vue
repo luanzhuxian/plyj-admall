@@ -25,7 +25,7 @@
             </div>
             <search-box class="mt-24">
                 <el-form-item label="搜索内容：">
-                    <el-input placeholder="搜索用户昵称/联系电话/分享人" v-model="queryFilter.keyWord" @change="doQuery" />
+                    <el-input placeholder="搜索用户昵称/联系电话/分享人" v-model="queryFilter.keyWord" @change="doQuery" style="width: 200px" />
                 </el-form-item>
                 <el-form-item label="注册方式：">
                     <el-select v-model="queryFilter.registerType" @change="handleRegTypeChange">
@@ -52,18 +52,16 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item>
-                    <el-button round type="primary" plain="" @click="doQuery">
+                    <el-button round type="primary" @click="doQuery">
                         查询
                     </el-button>
                     <el-button
-                        round
-                        type="primary"
+                        type="text"
                         @click="handelShowExport"
-                        plain
                     >
                         导出数据
                     </el-button>
-                    <el-button round type="text" @click="resetFilter">
+                    <el-button type="text" @click="resetFilter">
                         清空筛选条件
                     </el-button>
                 </el-form-item>
@@ -217,7 +215,7 @@ import Pagination from '../../../../components/common/Pagination.vue'
 import Verification from '../../../../components/order-center/Verification.vue'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import {
-    getActivityStat,
+    getNewcomerActivitysStat,
     getNewcomersActivityUsersInfo,
     exportNewcomerActivitysDeatil
 } from '../../../../apis/marketing-manage/newcomers'
@@ -332,7 +330,7 @@ export default {
             this.regTime = [this.form.startTime, this.form.endTime]
         },
         async getDetail () {
-            const { result } = await getActivityStat(this.$route.params.id)
+            const { result } = await getNewcomerActivitysStat(this.$route.params.id)
             this.$parent.newcomersInfo = result
             this.newcomersInfo = result
         },

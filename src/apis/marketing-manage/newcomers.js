@@ -29,6 +29,9 @@ export const getNewcomerActivitysDeatil = id => axios.get(`/apis/v2/b/newcomerAc
 // 更新新人活动
 export const updateNewcomerActivitys = (id, data) => axios.put(`/apis/v2/b/newcomerActivitys/${ id }`, data)
 
+// 新人有礼活动数据统计
+export const getNewcomerActivitysStat = id => axios.get(`/apis/v2/b/newcomerActivitys/${ id }/stat`)
+
 // 导出新人有礼活动数据
 export const exportNewcomerActivitysDeatil = (id, params) => axios.get(`/apis/v2/b/newcomerActivitys/${ id }/userAttendInfo/export`, {
     timeout: 0,

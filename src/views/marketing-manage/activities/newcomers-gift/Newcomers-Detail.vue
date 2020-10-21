@@ -153,11 +153,7 @@ export default {
     },
     methods: {
         async getDetail () {
-            const { data: { status, result } } = await getNewcomerActivitysDeatil(this.$route.params.id)
-            if (status !== 200) {
-                // TODO
-                return
-            }
+            const { result } = await getNewcomerActivitysDeatil(this.$route.params.id)
             this.$parent.newcomersInfo = result
             this.newcomersInfo = result
         }

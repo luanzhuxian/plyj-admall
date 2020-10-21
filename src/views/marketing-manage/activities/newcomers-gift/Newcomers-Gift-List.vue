@@ -23,8 +23,8 @@
             v-if="showTop"
             :value="$route.name"
             :tabs="[
-                {label:'活动详情', name:'NewcomersData'},
-                {label:'活动数据', name:'NewcomersDetail'},
+                {label:'活动详情', name:'NewcomersDetail'},
+                {label:'活动数据', name:'NewcomersData'},
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
         />
