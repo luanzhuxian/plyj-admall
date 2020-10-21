@@ -1,16 +1,17 @@
 <template>
     <div class="invite-newcomers-gift-list wrap">
-        <div v-if="showTop" class="invite-newcomers-list-header bg-white">
-            <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/gift@1x.png">
-            <span class="mr-10 font-weight-bold">赢取豪礼</span>
-            <span class="items description">- 邀请新用户助力，获得小礼品</span>
-            <span class="items description">使用有效期 2019.10.28-2020.01.31</span>
-            <el-button type="primary" round @click="add">
-                新建活动
-                <i class="el-icon-plus el-icon--right" />
-            </el-button>
-        </div>
-
+        <ListHeader
+            v-if="showTop"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+            title="赢取豪礼"
+            description="邀请新用户助力，获得小礼品"
+            start-time="2019.10.28"
+            end-time="2020.01.31"
+        />
+        <el-button type="primary" round @click="add">
+            新建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
         <pl-tabs
             v-if="showTop"
             :value="$route.name"
@@ -28,8 +29,10 @@
 </template>
 
 <script>
+import ListHeader from '../../../components/List-Header'
 export default {
     name: 'InviteNewcomersGiftList',
+    components: { ListHeader },
     data () {
         return {
             showTop: false

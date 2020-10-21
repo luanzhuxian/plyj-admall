@@ -1,15 +1,16 @@
 <template>
     <div class="newcomers-gift-list wrap">
-        <div v-if="activeTab === 'YearFlavorList' || activeTab === 'YearFlavorSetting'" class="newcomers-list-header bg-white">
-            <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.0.0/74b79faf-04ae-4507-ae69-85aa63391d4b.png">
-            <span class="mr-10 font-weight-bold">我心中的年味</span>
-            <span class="items description">- 获得我的年味，即可参与抽奖，有机会获得年味大礼</span>
-            <span class="items description time"><pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" /> 使用有效期 2019.12.26-2020.04.30</span>
-            <el-button type="primary" round @click="add" icon="el-icon-plus">
-                新建活动
-            </el-button>
-        </div>
-
+        <ListHeader
+            v-if="activeTab === 'YearFlavorList' || activeTab === 'YearFlavorSetting'"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/年味.png"
+            title="我心中的年味"
+            description="获得我的年味，即可参与抽奖，有机会获得年味大礼"
+            start-time="2019.12.26"
+            end-time="2020.04.30"
+        />
+        <el-button type="primary" round @click="add" icon="el-icon-plus">
+            新建活动
+        </el-button>
         <pl-tabs
             v-if="activeTab === 'YearFlavorList' || activeTab === 'YearFlavorSetting'"
             :value="$route.name"
@@ -27,8 +28,10 @@
 </template>
 
 <script>
+import ListHeader from '../../../components/List-Header'
 export default {
     name: 'FlavorIndex',
+    components: { ListHeader },
     data () {
         return {
             exclude: ['AddYearFlavor']

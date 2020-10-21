@@ -1,31 +1,20 @@
 <template>
     <div class="spring-ploughing wrap">
-        <div
-            :class="$style.statusBar"
+        <ListHeader
             v-show="$route.name !== 'AddSpringPloughing' && $route.name !== 'EditSpringPloughing'"
-        >
-            <pl-svg name="icon-chunyun" width="24" height="24" />
-            <span :class="$style.titleAndDesc">
-                <i :class="$style.title">春耘计划</i>
-                <i :class="$style.desc"> - {{ activityName }}</i>
-            </span>
-            <div :class="$style.status" v-if="activityStatus !== -1" class="mr-20">
-                <pl-svg name="icon-shijian" width="16" class="mr-10" />
-                <span v-if="activityStatus === 1">进行中...</span>
-                <span v-else-if="activityStatus === 0">未开始</span>
-                <span v-else-if="activityStatus === 2">已结束</span>
-            </div>
-            <div :class="$style.date">
-                <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />
-                <span>使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}</span>
-            </div>
-            <el-button size="middle" v-show="$route.name !== 'SpringPloughingDetailInfo' && $route.name !== 'SpringPloughingDetailData'" type="primary" round @click="$router.push({ name: 'AddSpringPloughing' })">
-                新建活动 <i class="el-icon-plus" />
-            </el-button>
-            <el-button class="underline" type="text" @click="explainFlag = true">
-                活动说明
-            </el-button>
-        </div>
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/春耘.png"
+            title="春耘计划"
+            :description="activityName"
+            :course-package-status="activityStatus"
+            :start-time="start"
+            :end-time="end"
+        />
+        <el-button size="middle" v-show="$route.name !== 'SpringPloughingDetailInfo' && $route.name !== 'SpringPloughingDetailData'" type="primary" round @click="$router.push({ name: 'AddSpringPloughing' })">
+            新建活动 <i class="el-icon-plus" />
+        </el-button>
+        <el-button class="underline" type="text" @click="explainFlag = true">
+            活动说明
+        </el-button>
         <keep-alive>
             <router-view />
         </keep-alive>
@@ -70,8 +59,10 @@
     </div>
 </template>
 <script>
+import ListHeader from '../../../components/List-Header'
 export default {
     name: 'SpringPloughing',
+    components: { ListHeader },
     data () {
         return {
             explainFlag: false

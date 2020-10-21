@@ -1,16 +1,16 @@
 <template>
     <div class="road-learning-list wrap">
-        <div class="road-learning-list-header bg-white">
-            <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/gift@1x.png">
-            <span class="mr-10 font-weight-bold">见学之旅</span>
-            <span class="items description">- 签到赢大礼</span>
-            <span class="items description el-icon-date date">使用有效期 2019.10.28-2020.01.31</span>
-            <el-button type="primary" round @click="$router.push({name: 'RoadLearningAdd'})">
-                新建活动
-                <i class="el-icon-plus el-icon--right" />
-            </el-button>
-        </div>
-
+        <ListHeader
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+            title="见学之旅"
+            description="签到赢大礼"
+            start-time="2019.10.28"
+            end-time="2020.01.31"
+        />
+        <el-button type="primary" round @click="$router.push({name: 'RoadLearningAdd'})">
+            新建活动
+            <i class="el-icon-plus el-icon--right" />
+        </el-button>
         <pl-tabs
             :value="$route.name"
             :tabs="[
@@ -27,8 +27,10 @@
 </template>
 
 <script>
+import ListHeader from '../../../components/List-Header'
 export default {
     name: 'RoadLearningList',
+    components: { ListHeader },
     data () {
         return {
             // 是否显示分享页面
