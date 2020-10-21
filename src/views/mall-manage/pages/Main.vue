@@ -103,6 +103,7 @@
                     align="center"
                     column-key="type"
                     :filters="typeFilters"
+                    :filter-multiple="false"
                 >
                     <template slot-scope="{ row }">
                         {{ getTemplateType(row.type) }}
@@ -121,6 +122,7 @@
                     label="状态"
                     column-key="status"
                     :filters="statusFilters"
+                    :filter-multiple="false"
                 />
                 <el-table-column
                     label="操作"
@@ -128,6 +130,7 @@
                 >
                     <template slot-scope="{ row }">
                         <el-button
+                            v-if="row.status === 0 || row.status === 2"
                             type="text"
                             @click="$router.push({
                                 name: 'MallDecoration',
@@ -149,7 +152,14 @@
                         >
                             上架
                         </el-button>
-                        <Operating v-if="row.status !== 1" :class="$style.more">
+                        <el-button
+                            v-if="row.status === 3"
+                            type="text"
+                            @click="deleteTemplate(row.id)"
+                        >
+                            删除
+                        </el-button>
+                        <Operating v-else-if="row.status === 0 || row.status === 2" :class="$style.more">
                             <template slot="button-box">
                                 <button @click="setOnShelfTime(row)">
                                     设置
@@ -267,8 +277,14 @@ export default class MallMain extends Vue {
         text: '已下架',
         value: 0
     }, {
+        text: '已上架',
+        value: 1
+    }, {
         text: '草稿',
         value: 2
+    }, {
+        text: '已过期',
+        value: 3
     }]
 
     /* computed */
@@ -374,15 +390,12 @@ export default class MallMain extends Vue {
             const find = (arr: any[]) => (val: any) => arr.includes(val)
 
             const columnKey = Reflect.ownKeys(filters)[0]
+            console.log(123, filters)
             if (typeof columnKey === 'string') {
-                const values = filters[columnKey]
-
                 // 模板类型筛选
                 if (columnKey === 'type') {
-                    const filterByType = find(values)
-                    if (filterByType(1) && filterByType(2)) {
-                        await this.getDraft({ type: '', current: 1 })
-                    } else if (filterByType(1)) {
+                    const filterByType = find(filters.type)
+                    if (filterByType(1)) {
                         await this.getDraft({ type: 1, current: 1 })
                     } else if (filterByType(2)) {
                         await this.getDraft({ type: 2, current: 1 })
@@ -392,13 +405,15 @@ export default class MallMain extends Vue {
                 }
                 // 模板状态筛选
                 if (columnKey === 'status') {
-                    const filterByStatus = find(values)
-                    if (filterByStatus(TemplateStatus.OffShelf) && filterByStatus(TemplateStatus.Draft)) {
-                        await this.getDraft({ status: '', current: 1 })
-                    } else if (filterByStatus(TemplateStatus.OffShelf)) {
+                    const filterByStatus = find(filters.status)
+                    if (filterByStatus(TemplateStatus.OffShelf)) {
                         await this.getDraft({ status: TemplateStatus.OffShelf, current: 1 })
+                    } else if (filterByStatus(TemplateStatus.OnShelf)) {
+                        await this.getDraft({ status: TemplateStatus.OnShelf, current: 1 })
                     } else if (filterByStatus(TemplateStatus.Draft)) {
                         await this.getDraft({ status: TemplateStatus.Draft, current: 1 })
+                    } else if (filterByStatus(TemplateStatus.Expire)) {
+                        await this.getDraft({ status: TemplateStatus.Expire, current: 1 })
                     } else {
                         await this.getDraft({ status: '', current: 1 })
                     }

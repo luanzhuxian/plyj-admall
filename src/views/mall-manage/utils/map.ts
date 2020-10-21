@@ -39,7 +39,9 @@ export enum TemplateStatus {
     // 上架
     OnShelf,
     // 草稿箱
-    Draft
+    Draft,
+    // 过期
+    Expire
 }
 
 // 弹窗的类型
