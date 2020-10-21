@@ -219,39 +219,39 @@ export default class TemplateDragonGate extends Vue {
     @mall.Getter hasNwEvent!: boolean
 
     get Coupon () {
-        return this.data.Coupon || {}
+        return this.data.Coupon || { values: [] }
     }
 
     get Charity () {
-        return this.data.Charity || {}
+        return this.data.Charity || { values: [] }
     }
 
     get Activity () {
-        return this.data.Activity || {}
+        return this.data.Activity || { values: [] }
     }
 
     get Miaosha () {
-        return this.data.Miaosha || {}
+        return this.data.Miaosha || { values: [] }
     }
 
     get Distribution () {
-        return this.data.Distribution || {}
+        return this.data.Distribution || { values: [] }
     }
 
     get Pintuan () {
-        return this.data.Pintuan || {}
+        return this.data.Pintuan || { values: [] }
     }
 
     get Yugou () {
-        return this.data.Yugou || {}
+        return this.data.Yugou || { values: [] }
     }
 
     get Package () {
-        return this.data.Package || {}
+        return this.data.Package || { values: [] }
     }
 
     get Recommend () {
-        return this.data.Recommend || {}
+        return this.data.Recommend || { values: [] }
     }
 
     get isLiveShow () {

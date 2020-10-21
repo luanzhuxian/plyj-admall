@@ -152,23 +152,23 @@ export default class TemplateBaofa extends Vue {
     @mall.Getter liveInfo!: { liveModel: { statue: number; hasNotice: boolean }[] }
 
     get Miaosha () {
-        return this.data.Miaosha || {}
+        return this.data.Miaosha || { values: [] }
     }
 
     get Pintuan () {
-        return this.data.Pintuan || {}
+        return this.data.Pintuan || { values: [] }
     }
 
     get Maisong () {
-        return this.data.Maisong || {}
+        return this.data.Maisong || { values: [] }
     }
 
     get Coupon () {
-        return this.data.Coupon || {}
+        return this.data.Coupon || { values: [] }
     }
 
     get Fengqiang () {
-        return this.data.Fengqiang || {}
+        return this.data.Fengqiang || { values: [] }
     }
 
     /* methods */

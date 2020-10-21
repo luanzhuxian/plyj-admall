@@ -181,27 +181,27 @@ export default class TemplateXinchun extends Vue {
     @mall.Getter liveInfo!: { liveModel: { statue: number; hasNotice: boolean }[] }
 
     get Propagate () {
-        return this.data.Propagate || {}
+        return this.data.Propagate || { values: [] }
     }
 
     get Coupon () {
-        return this.data.Coupon || {}
+        return this.data.Coupon || { values: [] }
     }
 
     get Chunyun () {
-        return this.data.Chunyun || {}
+        return this.data.Chunyun || { values: [] }
     }
 
     get Pintuan () {
-        return this.data.Pintuan || {}
+        return this.data.Pintuan || { values: [] }
     }
 
     get Yugou () {
-        return this.data.Yugou || {}
+        return this.data.Yugou || { values: [] }
     }
 
     get Fengqiang () {
-        return this.data.Fengqiang || {}
+        return this.data.Fengqiang || { values: [] }
     }
 
     /* methods */

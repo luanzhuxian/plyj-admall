@@ -141,7 +141,7 @@ export default class Live extends Vue {
         height: 213px;
         > label {
             position: absolute;
-            top: -6px;
+            top: -4px;
             left: 10px;
             box-sizing: border-box;
             padding: 6px 10px 0 0;
