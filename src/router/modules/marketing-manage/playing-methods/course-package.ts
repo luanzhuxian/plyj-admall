@@ -12,10 +12,7 @@ export default [
             {
                 path: 'list',
                 name: 'CoursePackageList',
-                component: () => import('../../../../views/marketing-manage/playing-methods/course-package/List.vue'),
-                meta: {
-                    title: ''
-                }
+                component: () => import('../../../../views/marketing-manage/playing-methods/course-package/List.vue')
             },
             {
                 path: 'add',

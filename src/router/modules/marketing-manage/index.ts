@@ -8,16 +8,14 @@ export default [
         name: 'MarketingManage',
         component: () => import('../../../views/marketing-manage/Index.vue'),
         meta: {
-            index: '8'
+            index: '8',
+            title: '营销中心'
         },
         children: [
             {
                 path: 'marketing-gameplay-list',
                 name: 'MarketingGameplayList',
-                component: () => import('../../../views/marketing-manage/gameplay/Gameplay.vue'),
-                meta: {
-                    title: '营销中心'
-                }
+                component: () => import('../../../views/marketing-manage/gameplay/Gameplay.vue')
             },
             ...importFiles(context)
         ]

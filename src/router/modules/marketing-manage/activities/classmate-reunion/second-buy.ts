@@ -20,11 +20,7 @@ export default [
             {
                 path: 'list',
                 name: 'SecondBuyList',
-                component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/second-buy/Second-Buy-List.vue'),
-                meta: {
-                    title: '秒杀',
-                    id: ''
-                }
+                component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/second-buy/Second-Buy-List.vue')
             },
             {
                 path: 'setting',

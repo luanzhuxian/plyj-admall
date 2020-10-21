@@ -11,10 +11,7 @@ export default [
             {
                 path: 'list',
                 name: 'MpWeixinList',
-                component: () => import('../../../../views/marketing-manage/playing-methods/mp-weixin/List.vue'),
-                meta: {
-                    title: '活动列表'
-                }
+                component: () => import('../../../../views/marketing-manage/playing-methods/mp-weixin/List.vue')
             },
             {
                 path: 'add',

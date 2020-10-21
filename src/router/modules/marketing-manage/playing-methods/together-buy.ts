@@ -5,7 +5,7 @@ export default [
         redirect: '/marketing-manage/together-buy/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/together-buy/Index.vue'),
         meta: {
-            title: ''
+            title: '众志成团'
         },
         children: [
             {
@@ -20,10 +20,7 @@ export default [
             {
                 path: 'list',
                 name: 'NewYearTogetherBuyList',
-                component: () => import('../../../../views/marketing-manage/playing-methods/together-buy/Together-Buy-List.vue'),
-                meta: {
-                    title: '众志成团'
-                }
+                component: () => import('../../../../views/marketing-manage/playing-methods/together-buy/Together-Buy-List.vue')
             },
             {
                 path: 'detail/:id',

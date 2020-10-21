@@ -20,10 +20,7 @@ export default [
             {
                 path: 'list',
                 name: 'BookingBuyList',
-                component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Booking-Buy-List.vue'),
-                meta: {
-                    title: '预购'
-                }
+                component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Booking-Buy-List.vue')
             },
             {
                 path: 'detail/:id',
