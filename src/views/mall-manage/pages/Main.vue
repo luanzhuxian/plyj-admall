@@ -390,7 +390,6 @@ export default class MallMain extends Vue {
             const find = (arr: any[]) => (val: any) => arr.includes(val)
 
             const columnKey = Reflect.ownKeys(filters)[0]
-            console.log(123, filters)
             if (typeof columnKey === 'string') {
                 // 模板类型筛选
                 if (columnKey === 'type') {
