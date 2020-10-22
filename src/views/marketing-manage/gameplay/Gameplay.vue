@@ -162,7 +162,7 @@
                 desc="邀请新用户助力，获得小礼品"
                 expired="2019.10.28-2020.01.31"
                 :count="activitiesInfo.invitingActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/赢取豪礼.png"
                 route-info="InviteNewcomersGiftList"
             />
             <SchemePack
@@ -170,7 +170,7 @@
                 desc="签到小活动，点亮赢大奖"
                 expired="2019.10.28-2020.01.31"
                 :count="activitiesInfo.checkinActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/见学之旅.png"
                 route-info="RoadLearningList"
             />
         </div>

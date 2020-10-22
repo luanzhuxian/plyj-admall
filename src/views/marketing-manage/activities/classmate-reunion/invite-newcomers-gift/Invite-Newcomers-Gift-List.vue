@@ -2,7 +2,7 @@
     <div class="invite-newcomers-gift-list wrap">
         <ListHeader
             v-if="showTop"
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/赢取豪礼.png"
             title="赢取豪礼"
             description="邀请新用户助力，获得小礼品"
             start-time="2019.10.28"

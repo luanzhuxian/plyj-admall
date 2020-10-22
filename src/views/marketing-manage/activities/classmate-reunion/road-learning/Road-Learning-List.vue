@@ -1,7 +1,7 @@
 <template>
     <div class="road-learning-list wrap">
         <ListHeader
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/见学之旅.png"
             title="见学之旅"
             description="签到赢大礼"
             start-time="2019.10.28"
