@@ -215,7 +215,7 @@
                         <a v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="$router.push({name: 'EditAccount', query: { userId: row.userId, roleCode: row.roleCode, selfEdit: userId === row.userId, canEdit: (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN')}})" style="color: #4F63FF">
                             编辑
                         </a>
-                        <a style="color: #4F63FF" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
+                        <a style="color: #4F63FF" v-if="row.lockStatus !== 2" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
                             详情
                         </a>
                         <a style="color: #4F63FF" @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
