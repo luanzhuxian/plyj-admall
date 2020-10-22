@@ -52,7 +52,7 @@
                 />
             </el-form-item>
             <el-form-item label="售后状态：">
-                <el-select v-model="exportData.returnStatus" @change="orderStatusChange">
+                <el-select v-model="returnStatus" @change="orderStatusChange">
                     <el-option v-for="(item,index) in routeMap" :label="item" :value="index" :key="index" />
                 </el-select>
             </el-form-item>
@@ -77,7 +77,7 @@
             </el-form-item>
         </search-box>
         <el-table
-            :class="{'batch':(form.returnStatus === 'WAIT_CHECK'||form.returnStatus === 'REFUND_PRODUCT')}"
+            :class="{'batch':(returnStatus === 'WAIT_CHECK'||returnStatus === 'REFUND_PRODUCT')}"
             @selection-change="handleSelectionChange"
             :data="table"
         >
@@ -281,7 +281,7 @@
                 </el-form-item>
 
                 <el-form-item prop="orderStatus" label="售后状态">
-                    <el-select v-model="exportData.returnStatus">
+                    <el-select v-model="returnStatus" @change="orderStatusChange">
                         <el-option v-for="(item,index) in routeMap" :label="item" :value="index" :key="index" />
                     </el-select>
                 </el-form-item>
@@ -340,12 +340,12 @@ export default {
     },
     data () {
         return {
+            // 售后状态
+            returnStatus: 'AllAfter',
             selectedOptions: [''],
             showExport: false,
             exportData: {
                 selectedOptions: [''],
-                // 售后状态
-                returnStatus: '',
                 // 审核状态
                 auditStatus: [],
                 // 业务状态
@@ -450,7 +450,6 @@ export default {
     },
     async created () {
         try {
-            this.exportData.returnStatus = 'AllAfter'
             await this.search()
         } catch (e) {
             throw e
@@ -546,6 +545,7 @@ export default {
             const obj = {
                 keywords: '',
                 orderType: '',
+                // returnStatus: '',
                 startTime: '',
                 endTime: '',
                 categoryName: '',
@@ -621,30 +621,33 @@ export default {
             })
         },
         async orderStatusChange (val) {
-            this.exportData.returnStatus = val
+            this.returnStatus = val
             this.form.businessStatus = this.businessStatusMap[val] || []
             this.form.auditStatus = this.auditStatusMap[val] || []
+
+            this.exportData.auditStatus = this.form.auditStatus.slice()
+            this.exportData.businessStatus = this.form.businessStatus.slice()
             await this.search()
         },
         async exportList () {
             await this.$refs.exportForm.validate()
-            const form = this.exportData
-            const data = {
-                auditStatus: form.auditStatus,
-                businessStatus: form.businessStatus,
-                orderType: form.orderType,
-                keywords: form.keywords,
-                startTime: form.startTime,
-                endTime: form.endTime,
-                categoryName: form.categoryName,
-                subCategoryName: form.subCategoryName
-            }
+            // const form = this.exportData
+            // const data = {
+            //     auditStatus: form.auditStatus,
+            //     businessStatus: form.businessStatus,
+            //     orderType: form.orderType,
+            //     keywords: form.keywords,
+            //     startTime: form.startTime,
+            //     endTime: form.endTime,
+            //     categoryName: form.categoryName,
+            //     subCategoryName: form.subCategoryName
+            // }
             try {
-                const blob = await exportBackOrderQuery(data)
+                const blob = await exportBackOrderQuery(this.exportData)
                 const url = createObjectUrl(blob)
                 const a = document.createElement('a')
                 a.href = url
-                a.download = `${ this.routeMap[this.exportData.returnStatus] }${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+                a.download = `${ this.routeMap[this.returnStatus] }${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
                 a.click()
                 this.exportClose()
             } catch (e) {
