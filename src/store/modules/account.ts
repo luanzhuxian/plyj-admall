@@ -13,7 +13,6 @@ const account: Module<DynamicObject, DynamicObject> = {
     },
     actions: {
         async [MutationTypes.getMarketStatusAuth] ({ commit }) {
-            alert(1)
             try {
                 const { result } = await getmMrketStatuAuth()
                 commit(MutationTypes.getMarketStatusAuth, result)
