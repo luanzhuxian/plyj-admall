@@ -16,7 +16,7 @@
                     clearable
                 >
                     <el-option :value="''" label="全部" />
-                    <el-option :value="1" label="视频单课" />
+                    <el-option :value="1" label="知识课程" />
                     <el-option :value="2" label="系列课" />
                 </el-select>
             </el-form-item>
@@ -67,9 +67,13 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="courseCategory"
                 label="分类"
-            />
+            >
+                <template #default="{ row }">
+                    {{ row.courseCategory }}
+                    <span v-if="row.subCourseCategory">/{{ row.subCourseCategory }}</span>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="learnStatus"
                 label="学习状态"
@@ -100,7 +104,7 @@
             >
                 <template #default="{ row }">
                     <el-button class="button-box" v-if="Number(row.courseType) === 2 && row.learnStatus !== '3'" type="text" @click="watchDetail(row)">
-                        查看123
+                        查看
                     </el-button>
                     <span v-if="Number(row.courseType) !== 2 ">{{ row.learnProgress ? `${row.learnProgress}%`: '0%' }}</span>
                 </template>
@@ -189,7 +193,7 @@ export default class MemberOnlineProgress extends Vue {
     }
 
     changeClassification (val: DynamicObject) {
-        this.lineLearningListForm.courseCategory = val[0] || ''
+        this.lineLearningListForm.courseCategory = val[val.length - 1] || ''
         this.search()
     }
 
