@@ -4,7 +4,7 @@
             <div :class="$style.moduleTitle">用户基本信息</div>
             <BaseInfo
                 :avatar="helperDetail.userImage"
-                :type="Number(helperDetail.type) || 3"
+                :type="Number(helperDetail.type)"
                 :other="helperDetail.other"
                 :nick-name="helperDetail.nickName"
                 :mobile="helperDetail.mobile"
@@ -336,13 +336,13 @@
                                     {{ row.withdrawalAmount / 100 }}
                                 </template>
                             </el-table-column>
-                            <el-table-column
+                            <!-- <el-table-column
                                 prop="amount"
                                 label="剩余润笔（元）">
                                 <template #default="{ row }">
                                     {{ (row.balanceAmount || 0) / 100 }}
                                 </template>
-                            </el-table-column>
+                            </el-table-column> -->
                             <el-table-column
                                 label="提现状态"
                             >

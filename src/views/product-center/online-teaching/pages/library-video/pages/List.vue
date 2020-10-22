@@ -1,41 +1,46 @@
 <template>
     <div :class="$style.lineTeachingVideoLibrary">
         <div :class="$style.content">
-            <div :class="$style.handleVideo">
-                <div>
-                    <el-button @click="inputFileName" type="primary">
-                        上传视频
-                    </el-button>
-                    <el-link style="margin-left: 16px;" type="primary" @click="showImportant = true">
-                        重要说明
-                    </el-link>
-                    <el-link style="margin-left: 16px;" type="primary" @click="strategy = true">
-                        省流量攻略
-                    </el-link>
-                </div>
-                <p class="fz-12 gray-3 mt-10">
-                    *仅支持mp4格式视频文件，请上传格式为MP4，分辨率在720p-1080p的视频到视频库
-                </p>
-                <div class="mt-16" style="display: flex; justify-content: space-between;">
-                    <div :class="$style.capacity">
-                        <span class="fz-20 font-weight-bold">视频库空间：</span>
-                        <span class="fz-33 ml-10 font-weight-bold">{{ teachingInfo.useRemainderStorageSize_G }}/{{ teachingInfo.storageSize_G }}</span>
-                        <span class="fz-18 font-weight-bold" style="align-self: flex-end; line-height: 30px">G</span>
-                        <el-button size="mini" class="ml-16" @click="$router.push({ name: 'PayAndOrder', params: { isRenew: '1', type: '2' } })" type="primary" plain>
-                            去扩容
-                        </el-button>
-                        <i
-                            v-if="teachingInfo.remainderStorageSize_G < 2"
-                            class="ml-20"
-                            style="font-size: 12px; color: #D0423C;"
-                        >
-                            (视频存储空间不足2G，您可进行视频库空间扩容)
-                        </i>
+            <div :class="$style.headTitle">
+                <span :class="$style.title">视频库</span>
+                <el-button type="text" @click="showImportant = true">
+                    重要说明
+                </el-button>
+            </div>
+            <div :class="$style.strategy" @click="strategy = true">
+                <div :class="$style.strategyText">省流量<span :class="$style.high">攻略</span></div>
+            </div>
+            <el-button round plain @click="inputFileName" type="primary">
+                上传视频
+            </el-button>
+            <p class="fz-12 gray-3 mt-10">
+                *仅支持mp4格式视频文件，请上传格式为MP4，分辨率在720p-1080p的视频到视频库
+            </p>
+            <div class="fz-16 font-weight-bold mt-30">视频库存储空间：</div>
+            <div class="mt-16 mb-16">
+                <span class="fz-33 font-weight-bold">{{ teachingInfo.useRemainderStorageSize_G }}<span class="fz-18">G</span></span>
+                <span class="fz-33 font-weight-bold"> / </span>
+                <span class="fz-33 font-weight-bold">{{ teachingInfo.storageSize_G }}<span class="fz-18">G</span></span>
+            </div>
+            <div :class="$style.headBottom">
+                <div :class="$style.capacity">
+                    <div :class="$style.process">
+                        <div :class="$style.high" style="width: 20%" />
                     </div>
-                    <el-button size="mini" style="height: 30px" @click="$router.push({ name: 'RecycleBin'})" type="primary">
-                        回收站({{ teachingInfo.recyleCount }})
-                    </el-button>
+                    <el-link type="primary" @click="$router.push({ name: 'PayAndOrder', params: { isRenew: '1', type: '2' } })">
+                        去扩容
+                    </el-link>
+                    <i
+                        v-if="teachingInfo.remainderStorageSize_G < 2"
+                        class="ml-20"
+                        style="font-size: 12px; color: #D0423C;"
+                    >
+                        (视频存储空间不足2G，您可进行视频库空间扩容)
+                    </i>
                 </div>
+                <el-link type="primary" @click="$router.push({ name: 'RecycleBin'})">
+                    回收站({{ teachingInfo.recyleCount }})
+                </el-link>
             </div>
             <el-table
                 class="video-table"
@@ -469,10 +474,52 @@ export default {
 
 <style module lang='scss'>
 
-.capacity {
+.head-title {
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    .title{
+        font-size: 24px;
+        font-weight: bold;
+        margin-right: 10px;
+    }
 }
+    .strategy{
+        height: 88px;
+        width: 100%;
+        margin: 20px 0 40px;
+        font-weight: bold;
+        font-size: 24px;
+        border-radius: 20px;
+        background: #F5F6FA;
+        cursor: pointer;
+        .strategy-text{
+            padding: 28px 0 0 128px;
+            color: #333;
+            .high{
+                color: #2DCA72;
+            }
+        }
+    }
+    .headBottom{
+        display: flex;
+        justify-content: space-between;
+        .capacity{
+            display: flex;
+            align-items: center;
+            .process{
+                margin-right: 16px;
+                width: 100px;
+                height: 4px;
+                border-radius: 10px;
+                background: #F5F6FA;
+                .high{
+                    height: 4px;
+                    border-radius: 10px;
+                    background: #2DCA72;
+                }
+            }
+        }
+    }
 
 </style>
 
