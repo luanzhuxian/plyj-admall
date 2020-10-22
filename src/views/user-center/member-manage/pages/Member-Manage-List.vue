@@ -724,7 +724,7 @@ export default class MemberManageList extends Vue {
           return this.$warning('当前输入框只支持输入正数')
       }
       let maxNumber: number = Number(this.form.purchasesMaxAmount) || 0
-      this.form.purchasesMinAmount = String(maxNumber || '')
+      this.form.purchasesMaxAmount = String(maxNumber || '')
       if (maxNumber && maxNumber < 0) {
           return this.$warning('当前输入框只支持输入正数')
       }
