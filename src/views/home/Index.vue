@@ -135,7 +135,7 @@
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitShip" />
                 </a>
                 <a class="to-do-panel__item" @click="navigator({ name: 'Backorder', query: { status: 'WaitReview' } })">
-                    <div class="to-do-panel__item-name">待审核订单</div>
+                    <div class="to-do-panel__item-name">待审核售后单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitRefund || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitRefund || 0 }单` }}</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitRefund" />
