@@ -5,7 +5,7 @@
             <div :class="$style.info">
                 <div :class="$style.store">
                     <img :class="$style.headPhoto" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png" alt="">
-                    <div>朋来雅集测试商城</div>
+                    <div>{{ mallName }}</div>
                 </div>
                 <div :class="$style.user">
                     <div>企业管理员：</div>
@@ -20,7 +20,8 @@
                 @click="target(item)"
                 :class="{
                     [$style.menuItem]: true,
-                    [$style.isActive]: isActive(item.route)($route.matched)
+                    [$style.isActive]: isActive(item.route)($route.matched),
+                    [$style.disabled]: !hasLiveModule
                 }"
                 v-for="item in menuList"
                 :key="item.route"
@@ -32,6 +33,8 @@
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
+
+import { getRoomStatus } from './../../../apis/product-center/online-teaching/live'
 const userModule = namespace('user')
 
 interface MenuItem {
@@ -42,7 +45,9 @@ interface MenuItem {
 @Component
 export default class OnlineTeachingNavBar extends Vue {
     @userModule.Getter('idName') idName!: string
+    @userModule.Getter('mallName') mallName!: string
 
+    hasLiveModule = false
     menuList: MenuItem[] = [
         {
             name: '云课堂',
@@ -74,9 +79,16 @@ export default class OnlineTeachingNavBar extends Vue {
         }
     ]
 
+    async created () {
+        const { result: { enable } }: any = await getRoomStatus()
+        // 未开通直播, 先购买房间 3 未开通
+        this.hasLiveModule = enable !== 3
+    }
+
     private isActive = (routeName: string) => (matched: any[]) => matched.some((item: any) => item.name === routeName)
 
     private target ({ route: name }: MenuItem) {
+        if (!this.hasLiveModule) return
         this.$router.push({ name })
     }
 }
@@ -159,6 +171,9 @@ export default class OnlineTeachingNavBar extends Vue {
             &:before {
                 background-color: #4f63ff !important;
             }
+        }
+        > .disabled {
+            cursor: no-drop;
         }
     }
 }

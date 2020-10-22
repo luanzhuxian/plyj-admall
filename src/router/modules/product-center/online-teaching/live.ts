@@ -9,14 +9,6 @@ export default [
         },
         children: [
             {
-                path: '/product-center/online-teaching/live/set-meal/:isRenew',
-                name: 'SetMeal',
-                component: () => import('../../../../views/product-center/online-teaching/pages/Set-Meal.vue'),
-                meta: {
-                    title: '开通直播'
-                }
-            },
-            {
                 path: '/product-center/online-teaching/live/pay-and-order/:isRenew/:type?',
                 name: 'PayAndOrder',
                 props: true,

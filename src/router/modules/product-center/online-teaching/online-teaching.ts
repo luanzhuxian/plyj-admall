@@ -22,6 +22,14 @@ export default [
                     title: '方案包'
                 }
             },
+            {
+                path: '/product-center/online-teaching/set-meal/:isRenew',
+                name: 'SetMeal',
+                component: () => import('../../../../views/product-center/online-teaching/pages/Set-Meal.vue'),
+                meta: {
+                    title: '开通直播'
+                }
+            },
             ...importFiles(context)
         ]
     }
