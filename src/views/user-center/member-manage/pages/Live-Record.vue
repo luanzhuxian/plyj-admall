@@ -111,6 +111,10 @@
                 label="支付优惠"
             />
             <el-table-column
+                prop="sharer"
+                label="分享人"
+            />
+            <el-table-column
                 prop="firstViewingTime"
                 label="首次观看时间"
             />
