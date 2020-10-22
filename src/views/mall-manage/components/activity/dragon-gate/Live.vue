@@ -129,6 +129,7 @@ export default class Live extends Vue {
     justify-content: space-between;
     > li {
         position: relative;
+        box-sizing: border-box;
         margin-top: 8px;
         border: 2px solid #222;
         border-radius: 10px;
@@ -200,6 +201,7 @@ export default class Live extends Vue {
         flex-direction: column;
         width: 160px;
         height: 160px;
+        background-color: #fff;
         overflow: hidden;
         > label {
             position: absolute;
