@@ -141,7 +141,7 @@
             >
                 <template slot-scope="{row}">
                     <template v-if="row.ownedUser">
-                        {{ row.ownedUser }}
+                        {{ row.ownedUserMobile +' - '+ row.nickName }}
                     </template>
                     <span class="acc-label">{{ roleType[row.ownedRoleCode] }}</span>
                 </template>

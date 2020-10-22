@@ -75,7 +75,7 @@
             </Field>
             <br>
             <Field title="记录：" inline style="margin-right: 78px;">
-                <p class="mb-16">{{ createTime }}
+                <p class="mb-16">{{ userCreateTime }}
                     <span class="ml-16" v-if="$route.name === 'HelperPromoteDetail'">加入</span>
                     <span class="ml-16" v-else>注册</span>
                 </p>
@@ -155,6 +155,8 @@ export default class MemberBaseInfo extends Vue {
     @Prop({ type: String }) lastLoginTime!: string
     // 注册时间
     @Prop({ type: String }) createTime!: string
+    // 注册时间
+    @Prop({ type: String }) userCreateTime!: string
     // 会员id
     @Prop({ type: String }) id!: string
     // 所属账号用户名称

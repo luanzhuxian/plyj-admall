@@ -16,6 +16,7 @@
                 :id="helperDetail.id"
                 :source="helperDetail.source"
                 :create-time="helperDetail.createTime"
+                :user-create-time="helperDetail.userCreateTime"
                 :owned-user="helperDetail.ownedUser || helperDetail.ownedMobile"
                 :owned-role="helperDetail.ownedRole"
                 :owned-user-id="helperDetail.ownedUserId"

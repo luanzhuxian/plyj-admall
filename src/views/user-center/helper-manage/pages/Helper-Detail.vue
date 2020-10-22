@@ -27,6 +27,7 @@
                 :source="detail.source"
                 :other="detail.other"
                 :create-time="detail.createTime"
+                :user-create-time="detail.userCreateTime"
                 :edit-tags="false"
             />
         </div>
