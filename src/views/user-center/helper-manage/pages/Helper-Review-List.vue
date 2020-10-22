@@ -168,59 +168,6 @@
         />
 
         <el-dialog
-            :modal-append-to-body="false"
-            :close-on-click-modal="false"
-            :close-on-press-escape="false"
-            :visible.sync="showDialog"
-            title="选择所属账号"
-            width="40%"
-        >
-            <el-form :inline="true">
-                <el-form-item>
-                    <el-input
-                        clearable
-                        @clear="getAccountList"
-                        v-model="searchAccountsForm.keyword"
-                        placeholder="请输入真实姓名/手机号"
-                    />
-                </el-form-item>
-                <el-form-item>
-                    <el-button
-                        @click="getAccountList"
-                        type="primary"
-                    >
-                        查询
-                    </el-button>
-                </el-form-item>
-            </el-form>
-
-            <el-table :data="accountList">
-                <el-table-column
-                    prop="realName"
-                    label="真实姓名"
-                />
-                <el-table-column
-                    prop="mobile"
-                    label="手机号（登录账户）"
-                />
-                <el-table-column
-                    prop="roleName"
-                    label="角色"
-                />
-                <el-table-column label="操作" align="center">
-                    <template slot-scope="scope">
-                        <el-button
-                            type="text"
-                            @click="changeHelperAccount(scope.row)"
-                        >
-                            选择
-                        </el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </el-dialog>
-
-        <el-dialog
             width="480px"
             title="确定驳回该用户的申请吗"
             :visible="dialogAuditVisible"
@@ -262,14 +209,11 @@
 import { Vue, Component } from 'vue-property-decorator'
 import {
     getHelperList,
-    changeHelpersAccount,
     updateBrokerStatus
 } from '../../../../apis/member'
-import { getAccounts } from '../../../../apis/account'
 
 @Component
 export default class HelperReviewList extends Vue {
-  showDialog = false
   form = {
       keyword: '',
       ownnerUserId: '',
@@ -290,21 +234,12 @@ export default class HelperReviewList extends Vue {
       { title: '审核通过', name: 'PASS' },
       { title: '审核驳回', name: 'REJECT' }]
 
-  /* 查询所属账号表单 */
-  searchAccountsForm = {
-      current: 1,
-      size: 200,
-      status: 1,
-      keyword: ''
-  }
-
     USER_TYPE = {
         1: '家长',
         2: '学生',
         3: '其他'
     }
 
-  accountList = []
   routeName = ''
 
   /* 当前正在修改所属账号的数据id */
@@ -320,14 +255,13 @@ export default class HelperReviewList extends Vue {
   currentRoleCode = ''
   currentStatus: any = ''
 
-  async created () {
+  async activated () {
       this.currentStatus = this.$route.query.currentStatus || 'AWAIT'
       this.routeName = this.$route.name || ''
       this.form.auditStatus = this.currentStatus
       this.form.auditFlag = Boolean(this.form.auditStatus)
       try {
           await this.getList()
-          await this.getAccountList()
       } catch (e) {
           throw e
       }
@@ -373,35 +307,6 @@ export default class HelperReviewList extends Vue {
               this.form.current = 1
               this.getList()
           }
-      } catch (e) {
-          throw e
-      }
-  }
-
-  async getAccountList () {
-      try {
-          const { result } = await getAccounts(this.searchAccountsForm)
-          this.accountList = result.records
-      } catch (e) {
-          throw e
-      }
-  }
-
-  showDialogBox (id: string) {
-      this.showDialog = true
-      this.currentUserId = [id]
-  }
-
-  async changeHelperAccount (data: any) {
-      try {
-          await changeHelpersAccount({
-              ownerUserId: data.userId,
-              userId: this.currentUserId
-          })
-          this.showDialog = false
-          this.$success('变更成功！')
-          this.restForm()
-          this.getList()
       } catch (e) {
           throw e
       }
