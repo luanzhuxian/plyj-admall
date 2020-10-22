@@ -2,7 +2,7 @@
     <div class="newcomers-gift-list wrap">
         <ListHeader
             v-if="activeTab === 'GeneralList' || activeTab === 'GeneralSetting'"
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
             title="端午佳话粽粽有礼"
             description="签到参与端午活动，即可参与抽奖，有机会获得粽粽大礼"
             :start-time="start"

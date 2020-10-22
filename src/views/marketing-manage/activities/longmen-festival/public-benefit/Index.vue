@@ -2,7 +2,7 @@
     <div class="benefit wrap">
         <ListHeader
             v-if="showTop"
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公益活动.png"
             title="公益助力"
             description="公益千挑万选，爱心接力一点，学子共献真情"
             :start-time="publicBenefitInformation.createTime"

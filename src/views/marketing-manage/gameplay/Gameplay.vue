@@ -118,7 +118,7 @@
                 :expired="activitys.dumplings.status ? `${getDate(activitys.dumplings.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.dragonBoatSigninActivityCount"
                 :is-lock="!activitys.dumplings.status"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
                 :route-info="{
                     name: 'GeneralCoursePackage',
                     params: {
@@ -132,7 +132,7 @@
                 :expired="activitys.benefit.status ? `${getDate(activitys.benefit.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.commonwealActivityCount"
                 :is-lock="!activitys.benefit.status"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公益行动.png"
                 :route-info="{
                     name: 'LongmenPublicBenefit',
                     params: {
@@ -146,7 +146,7 @@
                 :expired="activitys.LongmenLottery.status ? `${getDate(activitys.LongmenLottery.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.luckDrawActivityCount"
                 :is-lock="!activitys.LongmenLottery.status"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png"
                 :route-info="{
                     name: 'LongmenLottery',
                     params: {

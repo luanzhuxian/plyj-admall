@@ -1,7 +1,7 @@
 <template>
     <div class="bg-white pb-20">
         <ListHeader
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png"
             title="龙门抽大奖"
             description="回馈新老用户，加享赢大礼"
             :start-time="LongmenLotteryInformation.createTime"
