@@ -256,6 +256,14 @@ export default class HelperReviewList extends Vue {
   currentStatus: any = ''
 
   async activated () {
+      this.init()
+  }
+
+  created () {
+      this.init()
+  }
+
+  async init () {
       this.currentStatus = this.$route.query.currentStatus || 'AWAIT'
       this.routeName = this.$route.name || ''
       this.form.auditStatus = this.currentStatus
