@@ -498,14 +498,13 @@ export default {
     margin-left: 26px;
 }
 .active-time {
-    border: 1px solid rgba(204,204,204,1);
-    border-radius: 130px;
-    padding: 2px 10px;
+    margin-left: 100px;
+    font-size:12px;
+    color: #999;
 }
 .data-statistics-box {
     display: flex;
     padding: 23px 16px;
-    border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
     .data-statistics {
         width: 300px;
@@ -537,9 +536,11 @@ export default {
     .title-box {
         display: flex;
         align-items: center;
-        padding: 10px 23px;
-        .title {
-            color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        background: #F5F6FA;
+        .title{
+            color: #333333;
             font-weight: bold;
             font-size: 16px;
             padding-left: 11px;

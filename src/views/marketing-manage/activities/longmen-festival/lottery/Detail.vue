@@ -87,12 +87,12 @@ export default {
 <style scoped lang="scss">
   .detail{
     .header {
-      display: flex;
-      /*justify-content: space-between;*/
-      align-items: center;
-      height: 52px;
-      padding: 0 24px;
-      background-color: #fff;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: #F5F6FA;
+        border-radius: 10px;
+        margin-bottom: 20px;
       button{
         margin-left: 16px;
       }

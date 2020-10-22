@@ -9,10 +9,11 @@
   }
   .together-top{
     display: flex;
-    height: 52px;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
+    padding: 20px;
+    background: #F5F6FA;
+    border-radius: 10px;
+    margin-bottom: 20px;
     .together-top-left{
       display: flex;
       align-items: center;
@@ -78,9 +79,11 @@
   }
   .together-data-top{
     display: flex;
-    height: 52px;
     align-items: center;
-    padding: 0 24px;
+    padding: 20px;
+    background: #F5F6FA;
+    border-radius: 10px;
+    margin-bottom: 20px;
     .together-title{
       display: flex;
       align-items: center;

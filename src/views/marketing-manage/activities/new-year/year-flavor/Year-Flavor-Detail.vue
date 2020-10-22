@@ -1,6 +1,6 @@
 <template>
     <div class="newcomers-gift-list">
-        <div class="newcomers-list-header bg-white">
+        <div class="newcomers-list-header">
             <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.0.0/74b79faf-04ae-4507-ae69-85aa63391d4b.png">
             <span class="mr-10 font-weight-bold">我心中的年味</span>
             <span class="items description">- 获得我的年味，即可参与抽奖，有机会获得年味大礼</span>
@@ -51,12 +51,12 @@ export default {
 <style scoped lang="scss">
   .newcomers-gift-list {
     .newcomers-list-header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      height: 52px;
-      padding-left: 20px;
-      // margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: #F5F6FA;
+        border-radius: 10px;
+        margin-bottom: 20px;
 
       .items {
         margin-right: 24px;
@@ -68,9 +68,9 @@ export default {
       }
 
       .time{
-        border:1px solid rgba(204,204,204,1);
-        border-radius:130px;
-        padding: 2px 10px;
+          margin-left: 100px;
+          font-size:12px;
+          color: #999;
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
     <div class="newcomers-gift-list wrap">
-        <div v-if="showTop" class="newcomers-detail-header bg-white">
+        <div v-if="showTop" class="newcomers-detail-header">
             <div class="flex align-item-center">
                 <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.0.0/c24c82f1-6e4e-43f2-b164-ca8ec65f2ebb.png">
                 <span class="mr-30 font-weight-bold fz-16">{{ newcomersInfo.activityName }}</span>
@@ -77,7 +77,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 52px;
+      padding: 20px;
+      border-radius: 10px;
+      background: #F5F6FA;
+      margin-bottom: 20px;
     .mr-30 {
       margin-right: 30px;
     }
@@ -95,12 +98,9 @@ export default {
     }
 
     .valid-date {
-      display: inline-block;
-      font-weight: bold;
-      height: 30px;
-      line-height: 30px;
-      font-size: 16px;
-      color: #333;
+        margin-left: 100px;
+        font-size:12px;
+        color: #999;
     }
   }
 }

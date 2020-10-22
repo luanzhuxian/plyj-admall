@@ -1,6 +1,6 @@
 <template>
     <div class="invite-newcomers-detail">
-        <div class="invite-newcomers-detail-header bg-white mb-20">
+        <div class="invite-newcomers-detail-header">
             <div class="flex align-item-center">
                 <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/ticket@1x.png">
                 <span class="mr-30 font-weight-bold fz-16">{{ detail.invitingEventsEntity.activityName }}</span>
@@ -389,12 +389,11 @@ export default {
 <style scoped lang="scss">
 .invite-newcomers-detail {
   .invite-newcomers-detail-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 52px;
-    padding-left: 24px;
-    padding-right: 24px;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background: #F5F6FA;
+      border-radius: 10px;
     .mr-30 {
       margin-right: 30px;
     }
@@ -412,15 +411,9 @@ export default {
     }
 
     .valid-date {
-      display: inline-block;
-      box-sizing: border-box;
-      height: 30px;
-      line-height: 28px;
-      padding-left: 10px;
-      border-radius: 15px;
-      border: 1px solid rgb(204, 204, 204);
-      font-size: 16px;
-      color: #666666;
+        margin-left: 100px;
+        font-size:12px;
+        color: #999;
     }
   }
 

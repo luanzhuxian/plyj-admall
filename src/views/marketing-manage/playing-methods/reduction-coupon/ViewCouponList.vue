@@ -475,14 +475,13 @@ export default {
   }
   .right-box{
     display: flex;
+      align-items: center;
     margin-left: 26px;
   }
   .active-time{
-    border:1px solid rgba(204,204,204,1);
-    border-radius:130px;
-    padding: 2px 10px;
-    font-size:16px;
-    color: #666666;
+      margin-left: 100px;
+    font-size:12px;
+    color: #999;
   }
   .data-statistics-box{
     display: flex;
@@ -518,7 +517,9 @@ export default {
     .title-box{
       display: flex;
       align-items: center;
-      padding: 10px 23px;
+      padding: 20px;
+        border-radius: 10px;
+        background: #F5F6FA;
       .title{
         color: #333333;
         font-weight: bold;

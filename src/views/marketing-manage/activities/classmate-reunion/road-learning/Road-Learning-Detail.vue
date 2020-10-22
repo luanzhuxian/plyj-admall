@@ -1,6 +1,6 @@
 <template>
     <div class="road-learning-detail wrap">
-        <div class="road-learning-detail-header bg-white mb-20">
+        <div class="road-learning-detail-header">
             <div class="flex align-item-center">
                 <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/gift@1x.png">
                 <span class="mr-30 font-weight-bold fz-16">见学之旅</span>
@@ -262,12 +262,11 @@ export default {
 <style lang="scss" scoped>
 .road-learning-detail {
   .road-learning-detail-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 52px;
-    padding-left: 24px;
-    padding-right: 24px;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background: #F5F6FA;
+      border-radius: 10px;
     .mr-30 {
       margin-right: 30px;
     }
@@ -285,17 +284,9 @@ export default {
     }
 
     .valid-date {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-around;
-      box-sizing: border-box;
-      height: 30px;
-      width: 320px;
-      padding: 0 10px;
-      border-radius: 15px;
-      border: 1px solid rgb(204, 204, 204);
-      font-size: 16px;
-      color: #666666;
+        margin-left: 100px;
+        font-size:12px;
+        color: #999;
     }
   }
 

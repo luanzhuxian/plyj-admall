@@ -842,9 +842,6 @@ export default {
     color: #999;
   }
   .add-content {
-    margin-top: 20px;
-    margin-left: 80px;
-    margin-right: 26px;
     background-color: #fff;
     .content-title {
       display: flex;
