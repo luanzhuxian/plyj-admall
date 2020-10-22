@@ -107,7 +107,7 @@
                     <br v-show="isEdit">
 
                     <el-form-item label="所在区域：" prop="address">
-                        <div v-show="isEdit">
+                        <div v-if="isEdit">
                             <CityPicker style="width: 260px;" @selected="selectedCity" :default-value="defaultCity" />
                             <el-input style="width: 260px;" class="ml-10" v-model="addMemberDetailForm.address" placeholder="请输入详细地址" />
                         </div>
@@ -448,6 +448,7 @@ export default class MemberManageDetail extends Vue {
     cancelEdit () {
         this.isEdit = false;
         (this.$refs.form as HTMLFormElement).clearValidate()
+        copyFields(this.addMemberDetailForm, this.memberDetail)
     }
 
     async more () {
