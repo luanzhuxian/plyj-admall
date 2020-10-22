@@ -28,9 +28,9 @@
                 <el-button class="buy" type="primary" size="large" :disabled="!(moment(getBaseMarketData.activityStartTime).valueOf() < moment().valueOf() && moment(getBaseMarketData.activityEndTime).valueOf() > moment().valueOf())" @click="$router.replace({ name:'MarketingPay', params: { programId: programId }})">
                     立即订购
                 </el-button>
-                <div v-if="programId === '3' || programId === '4' || programId === '5'">
-                    (龙门节用户免费使用，请联系城市经理或者客服开通)
-                </div>
+                <!--                <div v-if="programId === '3' || programId === '4' || programId === '5'">-->
+                <!--                    (龙门节用户免费使用，请联系城市经理或者客服开通)-->
+                <!--                </div>-->
             </div>
             <div class="expiration-date">
                 <div>
