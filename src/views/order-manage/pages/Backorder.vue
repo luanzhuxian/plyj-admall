@@ -450,6 +450,12 @@ export default {
     },
     async created () {
         try {
+            const query = this.$route.query
+            console.log(query.status)
+            if (query.status) {
+                this.returnStatus = query.status
+                await this.orderStatusChange(this.returnStatus)
+            }
             await this.search()
         } catch (e) {
             throw e
@@ -507,9 +513,13 @@ export default {
                 title: '是否确认已收到退回货品且已检查货品完整，同意退款给用户？',
                 confirmButtonText: '同意'
             })
-            await returnOrdersListSuperRefund({ id })
-            this.$success('操作成功')
-            await this.search()
+            try {
+                await returnOrdersListSuperRefund({ id })
+                this.$success('操作成功')
+                await this.search()
+            } catch (e) {
+                throw e
+            }
         },
         async ordersListAgree (row) {
             let warningText = ''
