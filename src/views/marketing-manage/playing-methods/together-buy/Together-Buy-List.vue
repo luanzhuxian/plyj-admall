@@ -340,8 +340,12 @@ export default {
         const togetherBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '4')
         this.start = togetherBuyInformation.createTime || ''
         this.end = togetherBuyInformation.validity || ''
-        this.getList()
-        this.getList()
+
+        try {
+            await this.getList()
+        } catch (e) {
+            throw e
+        }
     },
     beforeDestroy () {
         this.filterForm = {
