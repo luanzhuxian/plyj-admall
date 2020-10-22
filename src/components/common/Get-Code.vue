@@ -31,13 +31,13 @@ export default class GetCode extends Vue {
         }
 
         created (): void {
-            const lastSendTime = Number(localStorage.getItem('sendTime') || 0)
-            if (Date.now() - lastSendTime < this.fixedTime * 1000) {
-                this.getCodeing = true
-                // 如果上次发送验证码的时间与本次的发送时间间隔小于发送验证码的时间间隔(this.time)
-                const time = parseInt(JSON.stringify(this.fixedTime - (Date.now() - lastSendTime) / 1000))
-                this.countDown(time)
-            }
+            // const lastSendTime = Number(localStorage.getItem('sendTime') || 0)
+            // if (Date.now() - lastSendTime < this.fixedTime * 1000) {
+            //     this.getCodeing = true
+            //     // 如果上次发送验证码的时间与本次的发送时间间隔小于发送验证码的时间间隔(this.time)
+            //     const time = parseInt(JSON.stringify(this.fixedTime - (Date.now() - lastSendTime) / 1000))
+            //     this.countDown(time)
+            // }
             this.setCodePass(false)
         }
 
@@ -68,7 +68,7 @@ export default class GetCode extends Vue {
                 this.getCodeing = true
                 await getVerifyCodeFunc({ mobile: this.mobile, smsType: this.smsType })
                 // 存储本次发送验证码的时间
-                localStorage.setItem('sendTime', JSON.stringify(Date.now()))
+                // localStorage.setItem('sendTime', JSON.stringify(Date.now()))
                 this.countDown()
             } catch (e) {
                 this.getCodeing = false
@@ -82,9 +82,9 @@ export default class GetCode extends Vue {
 
 <style module lang="scss">
     .get-code{
-        display: flex;
-        align-items: center;
-        padding: 6px 12px;
+        width: 100px;
+        text-align: center;
+        padding: 6px 0;
         font-size: 14px;
         font-weight: 400;
         color: #4F63FF;
