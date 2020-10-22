@@ -281,7 +281,7 @@
                 </el-form-item>
 
                 <el-form-item prop="orderStatus" label="售后状态">
-                    <el-select v-model="returnStatus" @change="orderStatusChange">
+                    <el-select v-model="exportReturnStatus" @change="exportOrderStatusChange">
                         <el-option v-for="(item,index) in routeMap" :label="item" :value="index" :key="index" />
                     </el-select>
                 </el-form-item>
@@ -342,6 +342,7 @@ export default {
         return {
             // 售后状态
             returnStatus: 'AllAfter',
+            exportReturnStatus: 'AllAfter',
             selectedOptions: [''],
             showExport: false,
             exportData: {
@@ -451,7 +452,6 @@ export default {
     async created () {
         try {
             const query = this.$route.query
-            console.log(query.status)
             if (query.status) {
                 this.returnStatus = query.status
                 await this.orderStatusChange(this.returnStatus)
@@ -566,6 +566,8 @@ export default {
                 obj[key] = this.form[key]
             }
 
+            this.exportReturnStatus = JSON.parse(JSON.stringify(this.returnStatus))
+
             this.exportData.selectedOptions = this.selectedOptions.slice()
             this.exportData.auditStatus = this.form.auditStatus.slice()
             this.exportData.businessStatus = this.form.businessStatus.slice()
@@ -634,10 +636,12 @@ export default {
             this.returnStatus = val
             this.form.businessStatus = this.businessStatusMap[val] || []
             this.form.auditStatus = this.auditStatusMap[val] || []
-
+            await this.search()
+        },
+        async exportOrderStatusChange (val) {
+            this.exportReturnStatus = val
             this.exportData.auditStatus = this.form.auditStatus.slice()
             this.exportData.businessStatus = this.form.businessStatus.slice()
-            await this.search()
         },
         async exportList () {
             await this.$refs.exportForm.validate()
@@ -657,7 +661,7 @@ export default {
                 const url = createObjectUrl(blob)
                 const a = document.createElement('a')
                 a.href = url
-                a.download = `${ this.routeMap[this.returnStatus] }${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+                a.download = `${ this.routeMap[this.exportReturnStatus] }${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
                 a.click()
                 this.exportClose()
             } catch (e) {
