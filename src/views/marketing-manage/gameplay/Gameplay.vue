@@ -4,6 +4,27 @@
         <SchemeLabel :class="$style.label" name="基础方案包" content="吸粉、老客带新客，提高下单转化率" />
         <div :class="$style.packageContainer">
             <SchemePack
+                name="Helper活动"
+                desc="设置Helper返现活动"
+                :count="activitiesInfo.helperActivityCount"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/Helper.png"
+                route-info="MarketingHelper"
+            />
+            <SchemePack
+                name="满减券"
+                desc="支持发放多种满减券，购买减免商品和课程金额"
+                :count="activitiesInfo.promptCouponActivityCount"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/满减券.png"
+                route-info="ReductionCouponList"
+            />
+            <SchemePack
+                name="品类券"
+                desc="支持发放多种品类券，购买减免商品和课程金额"
+                :count="activitiesInfo.categoryCouponActivityCount"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
+                route-info="CategoryCouponList"
+            />
+            <SchemePack
                 name="新人有礼"
                 desc="新人注册立享豪礼大礼包"
                 :count="activitiesInfo.helperActivityCount"
@@ -75,27 +96,6 @@
                         programId: '5'
                     }
                 }"
-            />
-            <SchemePack
-                name="Helper活动"
-                desc="设置Helper返现活动"
-                :count="activitiesInfo.helperActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/Helper.png"
-                route-info="MarketingHelper"
-            />
-            <SchemePack
-                name="满减券"
-                desc="支持发放多种满减券，购买减免商品和课程金额"
-                :count="activitiesInfo.promptCouponActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/满减券.png"
-                route-info="ReductionCouponList"
-            />
-            <SchemePack
-                name="品类券"
-                desc="支持发放多种品类券，购买减免商品和课程金额"
-                :count="activitiesInfo.categoryCouponActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/品类券.png"
-                route-info="CategoryCouponList"
             />
             <SchemePack
                 name="兑换码"
