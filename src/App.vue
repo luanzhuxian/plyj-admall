@@ -103,6 +103,7 @@ export default class App extends Vue {
     @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('allLoaded') allLoaded!: boolean
     @userModule.Getter('agencyCode') agencyCode!: string
+    @goodsModule.Getter('categoryTree') categoryTree!: any
     @userModule.Action(MutationTypes.setLoginInfo) setLoginInfo!: Function
     @userModule.Action(MutationTypes.getAllMallInfo) getAllMallInfo!: Function
     @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
@@ -140,7 +141,7 @@ export default class App extends Vue {
             await this.getAgencyList()
             await this.getAllMallInfo()
             // this.loaded = true
-            await this.getClassifyTree()
+            if (!this.categoryTree || !this.categoryTree.length) await this.getClassifyTree()
             // startQiankun()
         } catch (e) {
             throw e

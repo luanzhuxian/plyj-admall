@@ -181,6 +181,7 @@ import { getAuthUrl, setAuthCode } from '../../apis/base/register'
 import { MutationTypes } from '@/store/mutation-type'
 
 const user = namespace('user')
+const goodsModule = namespace('goods')
 
 const newAuthMap: DynamicObject = {
     MP_NOT_AUTHORIZED: {
@@ -323,9 +324,11 @@ export default class Home extends Vue {
     @user.Getter mallNumber!: string
     @user.Getter regType!: number
     @user.Getter agencyList!: any
+    @goodsModule.Getter categoryTree!: any
     // @user.Getter vMerchantStatus!: DynamicObject
     @user.Getter upgradeStatus!: DynamicObject
     @user.Getter wechatPayStatus!: DynamicObject
+    @goodsModule.Action(MutationTypes.getClassifyTree) getClassifyTree!: Function
 
     async created () {
         try {
@@ -336,6 +339,7 @@ export default class Home extends Vue {
             // }
             await this.getHomeInfo()
             await this.newCheckStatus()
+            if (!this.categoryTree || !this.categoryTree.length) await this.getClassifyTree()
         } catch (e) {
             throw e
         }
