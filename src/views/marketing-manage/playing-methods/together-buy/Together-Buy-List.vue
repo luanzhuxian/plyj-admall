@@ -19,13 +19,6 @@
         <el-button type="text" @click="explainFlag = true">
             活动说明
         </el-button>
-        <pl-tabs
-            :value="$route.name"
-            :tabs="[
-                {label:'活动列表',name:'NewYearTogetherBuyList'},
-            ]"
-            @tabClick="data => $router.replace({ name: data.name })"
-        />
 
         <search-box class="mt-24">
             <el-form-item label="状态：">

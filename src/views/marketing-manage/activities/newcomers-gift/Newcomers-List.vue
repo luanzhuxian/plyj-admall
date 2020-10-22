@@ -468,7 +468,6 @@ export default {
     color: #666666;
   }
   .newcomers-list {
-    padding: 20px;
     .newcomers-list-content {
       background-color: white;
     }

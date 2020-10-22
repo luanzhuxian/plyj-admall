@@ -18,14 +18,6 @@
             活动说明
         </el-button>
 
-        <pl-tabs
-            :value="$route.name"
-            :tabs="[
-                {label:'活动列表', name:'BookingBuyList'},
-            ]"
-            @tabClick="data => $router.replace({ name: data.name })"
-        />
-
         <search-box class="mt-24">
             <el-form-item label="状态：">
                 <el-select

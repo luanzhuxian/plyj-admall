@@ -20,11 +20,6 @@
                 </el-button>
             </div>
         </div>
-        <div class="together-tab">
-            <div class="tab current">
-                活动列表
-            </div>
-        </div>
         <el-form
             :inline="true"
             :model="filterForm"

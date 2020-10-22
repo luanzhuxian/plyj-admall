@@ -78,8 +78,6 @@ export default {
     align-items: center;
     justify-content: space-between;
     height: 52px;
-    padding-left: 24px;
-    padding-right: 24px;
     .mr-30 {
       margin-right: 30px;
     }

@@ -5,7 +5,7 @@ export default [
         redirect: 'booking-buy/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Index.vue'),
         meta: {
-            title: ''
+            title: '预购'
         },
         children: [
             {
