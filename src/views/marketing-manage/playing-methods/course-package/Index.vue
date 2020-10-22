@@ -93,14 +93,14 @@ export default {
         })
     },
     async activated () {
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const compoundInformation = this.marketStatusAuth.find(({ programId }) => programId === '1')
         this.start = compoundInformation.createTime || ''
         this.end = compoundInformation.validity || ''
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth])
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

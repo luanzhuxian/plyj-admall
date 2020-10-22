@@ -63,11 +63,11 @@ module.exports = {
         proxy: {
             // 测试37 前端服务器196 王恩74 李宾哲132 牛昌昌92 张涛149 刘兵227 任钊64 崔璐115 杜花171
             '/apis/v1': {
-                target: `http://192.168.130.${ SERVER || 156 }`
+                target: `http://192.168.130.${ SERVER || 127 }`
                 // target: 'https://admall.youpenglai.com'
             },
             '/apis/v2': {
-                target: `http://192.168.130.${ SERVER || 156 }`
+                target: `http://192.168.130.${ SERVER || 127 }`
             }
         }
     },

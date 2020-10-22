@@ -336,7 +336,6 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const togetherBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '4')
         this.start = togetherBuyInformation.createTime || ''
@@ -356,7 +355,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth]),
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         iconGengduoEnter (row) {
             row.iconGengduoShow = true
         },

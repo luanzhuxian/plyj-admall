@@ -208,7 +208,7 @@ export default {
         clearInterval(this.timer)
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth]),
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         // 查询年年翻活动详情
         async getBaseMarket () {
             try {

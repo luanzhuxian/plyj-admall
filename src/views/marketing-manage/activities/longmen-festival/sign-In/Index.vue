@@ -52,7 +52,7 @@ export default {
     },
     async created () {
         this.activeTab = this.$route.name
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const dumplingsInformation = this.marketStatusAuth.find(({ programId }) => programId === '2')
         this.start = dumplingsInformation.createTime || ''
@@ -60,7 +60,7 @@ export default {
     },
 
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth]),
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         add () {
             this.$router.push({ name: 'GeneralAdd' })
         }

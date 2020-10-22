@@ -53,7 +53,7 @@ export default {
     },
     async mounted () {
         try {
-            if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
             if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
             const redeemCodeInformation = this.marketStatusAuth.find(({ programId }) => programId === '8')
             this.start = (redeemCodeInformation && redeemCodeInformation.createTime) || ''
@@ -63,7 +63,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth])
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

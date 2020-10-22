@@ -69,7 +69,7 @@ export default {
         } catch (e) {
             throw e
         }
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const dumplingsInformation = this.marketStatusAuth.find(({ programId }) => programId === '2')
         this.start = dumplingsInformation.createTime || ''
@@ -77,7 +77,7 @@ export default {
     },
 
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth]),
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         async getDetail () {
             const { result } = await signinActivityDetail(this.$route.params.id)
             this.status = result.entity.status

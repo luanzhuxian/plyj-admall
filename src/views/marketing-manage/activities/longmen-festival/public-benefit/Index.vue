@@ -81,13 +81,11 @@ export default {
     },
     async created () {
         try {
-            if (!this.marketStatusAuth) {
-                await this[MutationTypes.getMarketStatusAuth]()
-            }
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         } catch (e) { throw e }
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth])
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth])
     },
     computed: {
         ...mapGetters({

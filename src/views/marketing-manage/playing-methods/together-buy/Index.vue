@@ -23,7 +23,7 @@ export default {
         })
     },
     async activated () {
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) {
             this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
             return
@@ -35,7 +35,7 @@ export default {
         if (!status) this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth])
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

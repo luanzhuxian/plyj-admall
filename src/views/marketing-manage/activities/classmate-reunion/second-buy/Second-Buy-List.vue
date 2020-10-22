@@ -215,14 +215,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview.vue'
 import { secondActivityPage, duplicateSecondActivity, updateActivityStatus } from '../../../../../apis/marketing-manage/second'
 import { getSingleGoods } from '../../../../../apis/product-center/goods'
 import Share from '../../../../../components/common/Share'
 import Setting from './Second-Buy-Setting'
 import ListHeader from '../../../components/List-Header'
-import { MutationTypes } from '../../../../../store/mutation-type'
 export default {
     name: 'SecondBuyList',
     components: {
@@ -261,7 +260,6 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const secondBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '3')
         this.start = secondBuyInformation.createTime || ''
@@ -279,7 +277,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth]),
         iconGengduoEnter (row) {
             row.iconGengduoShow = true
         },

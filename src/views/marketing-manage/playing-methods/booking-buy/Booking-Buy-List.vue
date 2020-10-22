@@ -310,7 +310,7 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const bookingBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '5')
         this.start = bookingBuyInformation.createTime || ''
@@ -330,7 +330,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth]),
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         iconGengduoEnter (row) {
             row.iconGengduoShow = true
         },

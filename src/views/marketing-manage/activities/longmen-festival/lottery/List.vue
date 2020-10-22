@@ -174,7 +174,7 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         this.LongmenLotteryInformation = this.marketStatusAuth.find(({ programId }) => programId === '7')
         try {
             await this.getLottery()
@@ -183,7 +183,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth]),
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         async getLottery (page) {
             if (page) {
                 this.form.current = page
