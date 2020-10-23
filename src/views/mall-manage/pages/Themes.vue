@@ -177,7 +177,7 @@ const templateModels = [
         img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-5.jpg',
         isHover: false,
         isFree: false,
-        charge: '双十二用户可用',
+        charge: '已过期',
         expire: '2019.12.31'
     }, {
         category: 'template',
@@ -185,7 +185,7 @@ const templateModels = [
         img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-6.jpg',
         isHover: false,
         isFree: false,
-        charge: '双十二用户可用',
+        charge: '已过期',
         expire: '2019.12.31'
     }, {
         category: 'template',
@@ -193,7 +193,7 @@ const templateModels = [
         img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-7.jpg',
         isHover: false,
         isFree: false,
-        charge: '双十二用户可用',
+        charge: '已过期',
         expire: '2019.12.31'
     }, {
         category: 'template',
@@ -201,7 +201,7 @@ const templateModels = [
         img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/f70ba451-dbc1-4efe-9530-82ab5d94896b.png',
         isHover: false,
         isFree: false,
-        charge: '新春用户可用',
+        charge: '已过期',
         expire: '2020.03.31'
     }, {
         category: 'template',
@@ -217,7 +217,7 @@ const templateModels = [
         img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/template-top.jpg',
         isHover: false,
         isFree: false,
-        charge: '龙门节用户可用',
+        charge: '已过期',
         expire: '2020.08.31'
     }
 ]
