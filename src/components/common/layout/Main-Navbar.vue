@@ -128,7 +128,7 @@
                 <el-menu-item index="9" :disabled="!mallNumber" :route="{ name: 'ReservationManage' }">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
-                            name="icon-shezhi-28924"
+                            name="icon-naozhong-7f36e"
                             width="15"
                             height="15"
                             :class="$style.icon"
