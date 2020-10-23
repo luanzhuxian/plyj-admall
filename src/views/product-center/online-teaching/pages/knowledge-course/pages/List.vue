@@ -46,7 +46,7 @@
                     <el-button
                         round
                         type="primary"
-                        @click="$router.push({ name: 'VideoCourseAdd' })"
+                        @click="$router.push({ name: 'AddKnowledgeCourse' })"
                     >
                         新增
                     </el-button>
@@ -161,7 +161,7 @@
                                     <a @click="showOrder(row.id)">
                                         查看订单
                                     </a>
-                                    <a @click="$router.push({ name: 'VideoCoursePlayDetail', params: { liveId: row.liveIds }, query: { courseResourceId: row.id, isFree: row.priceType === 1? '0': '1'} })">
+                                    <a @click="$router.push({ name: 'KnowledgeCourseDetail', params: { liveId: row.liveIds }, query: { courseResourceId: row.id, isFree: row.priceType === 1? '0': '1'} })">
                                         数据详情
                                     </a>
                                     <!--只有 非免费 && 上架 课程支持送课-->
@@ -403,7 +403,7 @@ export default {
                     })
                     await updateVideoStatus(id, 'OFF')
                 }
-                this.$router.push({ name: 'VideoCourseEdit', params: { id } })
+                this.$router.push({ name: 'EditKnowledgeCourse', params: { id } })
             } catch (e) {
                 throw e
             }

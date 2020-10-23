@@ -10,8 +10,7 @@ export default [
         redirect: '/product-center/online-teaching/function-pack',
         meta: {
             title: '云课堂',
-            index: '2-1',
-            requiresAuth: true
+            index: '2-1'
         },
         children: [
             {
@@ -19,15 +18,16 @@ export default [
                 name: 'FunctionPack',
                 component: () => import('../../../../views/product-center/online-teaching/pages/Function-Pack.vue'),
                 meta: {
-                    title: '方案包'
+                    index: '2-1-1'
                 }
             },
             {
-                path: '/product-center/online-teaching/set-meal/:isRenew',
+                path: 'set-meal/:isRenew',
                 name: 'SetMeal',
                 component: () => import('../../../../views/product-center/online-teaching/pages/Set-Meal.vue'),
                 meta: {
-                    title: '开通直播'
+                    title: '开通直播',
+                    index: '2-1-2'
                 }
             },
             ...importFiles(context)

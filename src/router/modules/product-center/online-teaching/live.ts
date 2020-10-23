@@ -5,16 +5,18 @@ export default [
         component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/Index.vue'),
         redirect: '/product-center/online-teaching/live/workbench',
         meta: {
-            title: '互动直播'
+            title: '互动直播',
+            index: '2-1-3'
         },
         children: [
             {
-                path: '/product-center/online-teaching/live/pay-and-order/:isRenew/:type?',
+                path: 'pay-and-order/:isRenew/:type?',
                 name: 'PayAndOrder',
                 props: true,
                 component: () => import('../../../../views/product-center/online-teaching/pages/Pay-And-Order.vue'),
                 meta: {
-                    title: '流量套餐'
+                    title: '流量套餐',
+                    index: '2-1-3-1'
                 }
             },
             {
@@ -22,7 +24,8 @@ export default [
                 name: 'Workbench',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Workbench.vue'),
                 meta: {
-                    title: '工作台'
+                    title: '工作台',
+                    index: '2-1-3-2'
                 }
             },
             {
@@ -30,7 +33,8 @@ export default [
                 name: 'LivePreviousList',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Live-Previous-List.vue'),
                 meta: {
-                    title: '往期直播' // 往期直播
+                    title: '往期直播',
+                    index: '2-1-3-3'
                 }
             },
             {
@@ -38,7 +42,8 @@ export default [
                 name: 'LiveNowList',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Live-Now-List.vue'),
                 meta: {
-                    title: '直播工作台' // 直播工作台
+                    title: '直播工作台',
+                    index: '2-1-3-4'
                 }
             },
             {
@@ -47,7 +52,8 @@ export default [
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Video-Download.vue'),
                 props: true,
                 meta: {
-                    title: '视频下载'
+                    title: '视频下载',
+                    index: '2-1-3-5'
                 }
             },
             {
@@ -56,7 +62,8 @@ export default [
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Watch-Detail.vue'),
                 props: true,
                 meta: {
-                    title: '数据查看'
+                    title: '数据查看',
+                    index: '2-1-3-6'
                 }
             },
             {
@@ -65,7 +72,8 @@ export default [
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Detail.vue'),
                 props: true,
                 meta: {
-                    title: '直播详情'
+                    title: '直播详情',
+                    index: '2-1-3-7'
                 }
             },
             {
@@ -74,7 +82,8 @@ export default [
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Add-live.vue'),
                 props: true,
                 meta: {
-                    title: '添加直播'
+                    title: '添加直播',
+                    index: '2-1-3-8'
                 }
             },
             {
@@ -83,7 +92,8 @@ export default [
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Add-live.vue'),
                 props: true,
                 meta: {
-                    title: '编辑直播'
+                    title: '编辑直播',
+                    index: '2-1-3-9'
                 }
             },
             {
@@ -92,7 +102,8 @@ export default [
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Live-Statistics.vue'),
                 props: true,
                 meta: {
-                    title: '数据统计'
+                    title: '数据统计',
+                    index: '2-1-3-10'
                 }
             }
         ]

@@ -1,5 +1,5 @@
 <template>
-    <keep-alive :exclude="['VideoCourseAdd']">
+    <keep-alive :exclude="['AddKnowledgeCourse']">
         <router-view />
     </keep-alive>
 </template>

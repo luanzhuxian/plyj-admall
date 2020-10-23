@@ -5,7 +5,8 @@ export default [
         redirect: '/product-center/online-teaching/books-materials/list',
         component: () => import('./../../../../views/product-center/online-teaching/pages/books-materials/Index.vue'),
         meta: {
-            title: '图文资料'
+            title: '图文资料',
+            index: '2-1-6'
         },
         children: [
             {
@@ -13,7 +14,8 @@ export default [
                 name: 'BooksMaterialsList',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/books-materials/pages/List.vue'),
                 meta: {
-                    title: '列表'
+                    title: '列表',
+                    index: '2-1-6-1'
                 }
             },
             {
@@ -21,16 +23,18 @@ export default [
                 name: 'AddBooksMaterials',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/books-materials/pages/Add.vue'),
                 meta: {
-                    title: '新增图文资料'
+                    title: '新增图文资料',
+                    index: '2-1-6-2'
                 }
             },
             {
-                path: '/product-center/online-teaching/books-materials/edit/:id',
+                path: 'edit/:id',
                 name: 'EditBooksMaterials',
                 props: true,
                 component: () => import('./../../../../views/product-center/online-teaching/pages/books-materials/pages/Add.vue'),
                 meta: {
-                    title: '编辑图文资料'
+                    title: '编辑图文资料',
+                    index: '2-1-6-3'
                 }
             },
             {
@@ -39,7 +43,8 @@ export default [
                 props: true,
                 component: () => import('./../../../../views/product-center/online-teaching/pages/books-materials/pages/Data.vue'),
                 meta: {
-                    title: '数据详情'
+                    title: '数据详情',
+                    index: '2-1-6-4'
                 }
             }
         ]

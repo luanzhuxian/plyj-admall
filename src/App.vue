@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="hello-education">
         <!--<section v-show="$route.name">
             <h1 v-text="title" />
             <button @click="alert">alert</button>

@@ -5,7 +5,8 @@ export default [
         redirect: '/product-center/online-teaching/library-repository/list',
         component: () => import('./../../../../views/product-center/online-teaching/pages/library-repository/Index.vue'),
         meta: {
-            title: '资源库'
+            title: '资源库',
+            index: '2-1-8'
         },
         children: [
             {
@@ -13,25 +14,28 @@ export default [
                 name: 'VideoRepository',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/library-repository/pages/List.vue'),
                 meta: {
-                    title: '列表'
+                    title: '列表',
+                    index: '2-1-8-1'
                 }
             },
             {
-                path: '/product-center/online-teaching/library-repository/detail/:id',
+                path: 'detail/:id',
                 name: 'VideoRepositoryDetail',
                 props: true,
                 component: () => import('./../../../../views/product-center/online-teaching/pages/library-repository/pages/Detail.vue'),
                 meta: {
-                    title: '查看详情'
+                    title: '查看详情',
+                    index: '2-1-8-2'
                 }
             },
             {
-                path: '/product-center/online-teaching/library-repository/buy-now/:id',
+                path: 'buy-now/:id',
                 name: 'VideoRepositoryBuyNow',
                 props: true,
                 component: () => import('./../../../../views/product-center/online-teaching/pages/library-repository/pages/Buy-Now.vue'),
                 meta: {
-                    title: '立即购买'
+                    title: '立即购买',
+                    index: '2-1-8-3'
                 }
             }
         ]

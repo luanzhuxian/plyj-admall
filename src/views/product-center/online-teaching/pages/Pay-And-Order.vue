@@ -240,7 +240,7 @@ export default class PayAndOrder extends Vue {
         // 直播间状态
         const { result } = await getRoomStatus()
         this.enable = result.enable
-        // 没有开通直播间，并且type为1，去开通直播间
+        // 没有开通直播间，并且type为0，去开通直播间
         if (this.enable === 3 && this.type === '0') {
             await this.$router.replace({ name: 'SetMeal' })
             return

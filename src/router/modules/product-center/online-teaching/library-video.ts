@@ -5,7 +5,8 @@ export default [
         redirect: '/product-center/online-teaching/library-video/list',
         component: () => import('./../../../../views/product-center/online-teaching/pages/library-video/Index.vue'),
         meta: {
-            title: '视频库'
+            title: '视频库',
+            index: '2-1-7'
         },
         children: [
             {
@@ -13,7 +14,8 @@ export default [
                 name: 'VideoLibraryList',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/library-video/pages/List.vue'),
                 meta: {
-                    title: '列表'
+                    title: '列表',
+                    index: '2-1-7-1'
                 }
             },
             {
@@ -21,7 +23,8 @@ export default [
                 name: 'RecycleBin',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/library-video/pages/Recycle-Bin.vue'),
                 meta: {
-                    title: '回收站'
+                    title: '回收站',
+                    index: '2-1-7-2'
                 }
             }
         ]

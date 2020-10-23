@@ -191,7 +191,65 @@
 
             <menu aclCode="2-2" name="产品中心" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="ProductCenter" roles="0" >
                 <menus>
-                    <menu aclCode="2-2-1" name="云课堂" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="LineTeaching" roles="0" ></menu>
+                    <menu aclCode="2-2-1" name="云课堂" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="LineTeaching" roles="0" >
+                        <menus>
+                            <menu aclCode="2-2-1-1" name="首页" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="FunctionPack" roles="0" ></menu>
+                            <menu aclCode="2-2-1-2" name="开通直播" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SetMeal" roles="0" ></menu>
+                            <menu aclCode="2-2-1-3" name="互动直播" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="Live" roles="0" >
+                                <menus>
+                                    <menu aclCode="2-2-1-3-1" name="流量套餐" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="PayAndOrder" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-2" name="工作台" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="Workbench" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-3" name="往期直播" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LivePreviousList" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-4" name="直播工作台" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LiveNowList" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-5" name="视频下载" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="VideoDownload" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-6" name="数据查看" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="WatchDetail" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-7" name="直播详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LiveDetail" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-8" name="添加直播" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddLive" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-9" name="编辑直播" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditLive" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-3-10" name="数据统计" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LiveStatistics" roles="0" ></menu>
+                                </menus>
+                            </menu>
+                            <menu aclCode="2-2-1-4" name="知识课程管理" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="KnowledgeCourse" roles="0" >
+                                <menus>
+                                    <menu aclCode="2-2-1-4-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="KnowledgeCourseList" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-4-2" name="新建视频课程" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddKnowledgeCourse" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-4-3" name="编辑视频课程" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditKnowledgeCourse" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-4-4" name="数据详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="KnowledgeCourseDetail" roles="0" ></menu>
+                                </menus>
+                            </menu>
+                            <menu aclCode="2-2-1-5" name="系列课" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SeriesOfCourses" roles="0" >
+                                <menus>
+                                    <menu aclCode="2-2-1-5-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="SeriesOfCoursesList" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-5-2" name="新增系列课" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddSeriesOfCourses" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-5-3" name="编辑系列课" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditSeriesOfCourses" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-5-4" name="课程数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="CoursesSeriesOfCoursesData" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-5-5" name="用户数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="UsersSeriesOfCoursesData" roles="0" ></menu>
+                                </menus>
+                            </menu>
+                            <menu aclCode="2-2-1-6" name="图文资料" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BooksMaterials" roles="0" >
+                                <menus>
+                                    <menu aclCode="2-2-1-6-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="BooksMaterialsList" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-6-2" name="新增图文资料" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddBooksMaterials" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-6-3" name="编辑图文资料" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditBooksMaterials" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-6-4" name="数据详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BooksMaterialsData" roles="0" ></menu>
+                                </menus>
+                            </menu>
+                            <menu aclCode="2-2-1-7" name="视频库" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BooksMaterials" roles="0" >
+                                <menus>
+                                    <menu aclCode="2-2-1-7-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="VideoLibraryList" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-7-2" name="回收站" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RecycleBin" roles="0" ></menu>
+                                </menus>
+                            </menu>
+                            <menu aclCode="2-2-1-8" name="资源库" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LibraryRepository" roles="0" >
+                                <menus>
+                                    <menu aclCode="2-2-1-8-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="VideoRepository" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-8-2" name="查看详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="VideoRepositoryDetail" roles="0" ></menu>
+                                    <menu aclCode="2-2-1-8-3" name="立即购买" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="VideoRepositoryBuyNow" roles="0" ></menu>
+                                </menus>
+                            </menu>
+                        </menus>
+                    </menu>
+
                     <menu aclCode="2-2-2" name="我的商品" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="GoodsManage" roles="0" >
                         <menus>
                             <menu aclCode="2-2-2-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MyGoods" roles="0" ></menu>
@@ -199,6 +257,7 @@
                             <menu aclCode="2-2-2-3" name="编辑商品" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditProduct" roles="0" ></menu>
                         </menus>
                     </menu>
+
                     <menu aclCode="2-2-3" name="我的课程" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CoursesManage" roles="0" >
                         <menus>
                             <menu aclCode="2-2-3-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MyCourses" roles="0" ></menu>
@@ -206,6 +265,7 @@
                             <menu aclCode="2-2-3-3" name="编辑课程" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditCourses" roles="0" ></menu>
                         </menus>
                     </menu>
+
                     <menu aclCode="2-2-4" name="分类管理" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CategoryManage" roles="0" ></menu>
                     <menu aclCode="2-2-5" name="评价管理" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CommentManage" roles="0" ></menu>
                     <menu aclCode="2-2-6" name="推荐榜单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Recommend" roles="0" ></menu>

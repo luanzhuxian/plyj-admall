@@ -5,7 +5,7 @@ import NProgress from 'nprogress'
 import Cookie from './../assets/ts/storage-cookie'
 import qs from 'qs'
 import { MessageBox } from 'admall-element'
-// import NotFound from '../views/404.vue'
+import NotFound from '../views/404.vue'
 import { importFiles } from './../assets/ts/utils'
 import { LocalEnum, SessionEnum } from '@/enum/storage'
 
@@ -37,54 +37,18 @@ const NO_AUTH = [
 
 Vue.use(Router)
 
-/**
- * vue-router新版本给push和replace方法新增了回调（Promise）
- * 有时会有错误抛出，但是并不会影响正常跳转
- * 为了能避免错误的打印，以下式vue-router作者给出的解决方案
- */
-const originalPush = Router.prototype.push
-const originalReplace = Router.prototype.replace
-Router.prototype.push = function push (location, onResolve, onReject) {
-    if (typeof location === 'object') {
-        if (location.query) {
-            location.query.t = Date.now()
-        } else {
-            Object.assign(location, {
-                query: {
-                    t: Date.now()
-                }
-            })
-        }
-    }
-    if (onResolve || onReject) { return originalPush.call(this, location, onResolve, onReject) }
-    return originalPush.call(this, location)
-        .catch(err => {
-            console.error(err)
-        })
-}
-Router.prototype.replace = function replace (location, onResolve, onReject) {
-    if (typeof location === 'object') {
-        if (location.query) {
-            location.query.t = Date.now()
-        } else {
-            Object.assign(location, {
-                query: {
-                    t: Date.now()
-                }
-            })
-        }
-    }
-    if (onResolve || onReject) { return originalReplace.call(this, location, onResolve, onReject) }
-    return originalReplace.call(this, location)
-        .catch(err => {
-            console.error(err)
-        })
-}
-
 const context = require.context('./modules', true, /index\.ts$/)
 const importRoutes = importFiles(context)
 
-const routes = [
+const routes: RouteConfig[] = [
+    {
+        path: '*',
+        name: 'NotFound',
+        component: NotFound,
+        meta: {
+            title: '网页带着诗和远方出游了'
+        }
+    },
     {
         path: '/',
         redirect: '/home'
@@ -109,10 +73,10 @@ export const router = new Router({
     }),
     routes
 })
-export const beforeResolve = async (to, from, next) => {
+export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
     if (to.query.code) {
-        sessionStorage.setItem(SessionEnum.redirectState, to.query.state)
-        sessionStorage.setItem(SessionEnum.redirectCode, to.query.code)
+        sessionStorage.setItem(SessionEnum.redirectState, to.query.state as string)
+        sessionStorage.setItem(SessionEnum.redirectCode, to.query.code as string)
         delete to.query.code
         delete to.query.state
         const search = qs.stringify(to.query)
@@ -122,27 +86,22 @@ export const beforeResolve = async (to, from, next) => {
         return next(to.path)
     }
     NProgress.start()
-    // 部分路由没有title，此时就找离它最近的父级title
-    try {
-        document.title = [...to.matched].reverse().find(item => item.meta.title).meta.title
-    } catch (e) {
-        document.title = ''
-    }
+    document.title = to.meta.title || document.title
     const token = Cookie.get(LocalEnum.token) || ''
     // 需要登录，但未登录
-    if (!token && !NOLOGIN.includes(to.name)) {
+    if (!token && !NOLOGIN.includes(to.name as string)) {
         next({ name: 'PhoneLogin' })
         return
     }
     // 已登录，访问不需要登录的页面
-    if (token && NOLOGIN.includes(to.name)) {
+    if (token && NOLOGIN.includes(to.name as string)) {
         next({ name: 'Home' })
         return
     }
     // 访问了需要微信授权的页面
     const appId = localStorage.getItem(LocalEnum.appId)
     const mallId = Cookie.get(LocalEnum.mallId)
-    if (!mallId && !to.matched.some(item => NO_MALL.includes(item.name))) {
+    if (!mallId && !to.matched.some(item => NO_MALL.includes(item.name as string))) {
         NProgress.done()
         MessageBox.alert('创建店铺后才可以进行后续操作，请点击操作指引完成创建', {
             title: '请先创建店铺',
@@ -151,7 +110,7 @@ export const beforeResolve = async (to, from, next) => {
         next({ name: 'Home' })
         return
     }
-    if (!appId && !to.matched.some(item => NO_AUTH.includes(item.name))) {
+    if (!appId && !to.matched.some(item => NO_AUTH.includes(item.name as string))) {
         NProgress.done()
         MessageBox.confirm('进行微信授权即可访问全部页面', {
             title: '请进行微信授权',
@@ -173,4 +132,47 @@ export const afterEach = () => {
 }
 router.beforeResolve(beforeResolve)
 router.afterEach(afterEach)
-window.router = router
+
+/**
+ * vue-router新版本给push和replace方法新增了回调（Promise）
+ * 有时会有错误抛出，但是并不会影响正常跳转
+ * 为了能避免错误的打印，以下式vue-router作者给出的解决方案
+ */
+const originalPush = Router.prototype.push
+const originalReplace = Router.prototype.replace
+Router.prototype.push = function push (location: Route, onResolve: Function, onReject: Function) {
+    if (typeof location === 'object') {
+        if (location.query) {
+            location.query.t = String(Date.now())
+        } else {
+            Object.assign(location, {
+                query: {
+                    t: Date.now()
+                }
+            })
+        }
+    }
+    if (onResolve || onReject) { return originalPush.call(this, location, onResolve, onReject) }
+    return originalPush.call(this, location)
+        .catch(err => {
+            console.error(err)
+        })
+}
+Router.prototype.replace = function replace (location: Route, onResolve: Function, onReject: Function) {
+    if (typeof location === 'object') {
+        if (location.query) {
+            location.query.t = String(Date.now())
+        } else {
+            Object.assign(location, {
+                query: {
+                    t: Date.now()
+                }
+            })
+        }
+    }
+    if (onResolve || onReject) { return originalReplace.call(this, location, onResolve, onReject) }
+    return originalReplace.call(this, location)
+        .catch(err => {
+            console.error(err)
+        })
+}

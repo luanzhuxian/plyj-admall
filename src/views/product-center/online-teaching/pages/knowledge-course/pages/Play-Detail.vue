@@ -207,7 +207,7 @@ import { getPlayDetail, exportDataList, submitSendCourseUsersList } from './../.
 import { getTagList } from './../../../../../../apis/member'
 import { createObjectUrl } from './../../../../../../assets/ts/upload'
 export default {
-    name: 'VideoCoursePlayDetail',
+    name: 'KnowledgeCourseDetail',
     components: {
         ExportDialog
     },

@@ -181,7 +181,7 @@ export default {
                     confirmButtonText: '一键上架'
                 })
                 // 1单课 2系列课
-                const name = isSingle ? 'VideoCourseAdd' : 'AddSeriesOfCourses'
+                const name = isSingle ? 'AddKnowledgeCourse' : 'AddSeriesOfCourses'
                 this.$router.replace({ name, query: { resouceId: this.id } })
             } catch (e) {
                 if (e === 'cancel') {

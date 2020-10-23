@@ -340,7 +340,7 @@ import SelectCategory from './../../../../../../components/category/Select-Categ
 
 import moment from 'moment'
 export default {
-    name: 'VideoCourseAdd',
+    name: 'AddKnowledgeCourse',
     components: {
         PlEditor,
         UploadImage,
@@ -814,13 +814,13 @@ ${ this.form.priceType ? '' : '5.该免费课程如果提前下架，不会影�
                 await addVideoCourse(form)
                 await this.$success('保存成功')
                 this.isSave = true
-                this.$router.push({ name: 'VideoCourse' })
+                this.$router.push({ name: 'KnowledgeCourseList' })
             } catch (e) {
                 if (e) throw e
             }
         },
         cancel () {
-            this.$router.push({ name: 'VideoCourse' })
+            this.$router.push({ name: 'KnowledgeCourseList' })
         },
         async preview () {
             await this.$refs.form.validate()

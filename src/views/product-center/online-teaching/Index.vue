@@ -7,10 +7,15 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 
 @Component
 export default class OnlineTeaching extends Vue {
     exclude = ['AddSeriesOfCourses']
+
+    @Watch('$route', { immediate: true })
+    c (to: any) {
+        console.log(to)
+    }
 }
 </script>
