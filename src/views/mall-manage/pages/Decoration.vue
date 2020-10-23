@@ -458,12 +458,15 @@ export default class MallDecoration extends Vue {
     /* methods */
     @mall.Action('getCurrentTemplate') getCurrentTemplate!: (type: number) => Promise<void>
 
-    // type: 1 首页 2主会场
+    /**
+     * 监听 vuex 中的首页、主会场数据，当数据变化时触发 updateTemplate 更新本地数据
+     * @param {Number} type 1: 首页模板 2：主会场模板
+     */
     setWatcher (type: number) {
-        const path = type === 2 ? 'currentActivity' : 'currentHome'
-        this.unWatch = this.$watch(path, (template: Template) => {
+        const currentTemplate = type === 2 ? 'currentActivity' : 'currentHome'
+        this.unWatch = this.$watch(currentTemplate, (template: Template) => {
             if (template && template.type) {
-                this.getTemplate(type)
+                this.updateTemplate(type)
                 this.loaded = true
             }
         })
@@ -488,7 +491,7 @@ export default class MallDecoration extends Vue {
             const { type, id } = this.$route.query
             // 获取当前使用模板数据
             if (this.from === 'CURRENT') {
-                this.getTemplate(Number(type))
+                this.updateTemplate(Number(type))
             }
             // 装修新模板时的初始数据
             if (this.from === 'THEME') {
@@ -509,7 +512,7 @@ export default class MallDecoration extends Vue {
      * @param {Number} type  1: 首页模板 2：主会场模板
      * @returns {Promise<Number>}
      */
-    getTemplate (type = 1) {
+    updateTemplate (type = 1) {
         const template = type === 2 ? this.currentActivity : this.currentHome
         if (template && template.type) {
             this.tmplType = template.type
