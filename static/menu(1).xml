@@ -194,14 +194,14 @@
                     <menu aclCode="2-2-1" name="云课堂" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="LineTeaching" roles="0" ></menu>
                     <menu aclCode="2-2-2" name="我的商品" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="GoodsManage" roles="0" >
                         <menus>
-                            <menu aclCode="2-2-2-1" name="商品列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MyGoods" roles="0" ></menu>
+                            <menu aclCode="2-2-2-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MyGoods" roles="0" ></menu>
                             <menu aclCode="2-2-2-2" name="新增商品" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddProduct" roles="0" ></menu>
                             <menu aclCode="2-2-2-3" name="编辑商品" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditProduct" roles="0" ></menu>
                         </menus>
                     </menu>
                     <menu aclCode="2-2-3" name="我的课程" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CoursesManage" roles="0" >
                         <menus>
-                            <menu aclCode="2-2-3-1" name="商品列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MyCourses" roles="0" ></menu>
+                            <menu aclCode="2-2-3-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MyCourses" roles="0" ></menu>
                             <menu aclCode="2-2-3-2" name="新增课程" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddCourses" roles="0" ></menu>
                             <menu aclCode="2-2-3-3" name="编辑课程" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditCourses" roles="0" ></menu>
                         </menus>
@@ -234,17 +234,26 @@
 
             <menu aclCode="2-4" name="订单中心" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OrderManage" roles="0">
                 <menus>
-                    <menu aclCode="2-4-1" name="商品订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OrderList" roles="0"></menu>
-                    <menu aclCode="2-4-2" name="课程订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CoursesList" roles="0"></menu>
-                    <menu aclCode="2-4-3" name="网校订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OnlineSchoolOrder" roles="0"></menu>
+                    <menu aclCode="2-4-1" name="商品订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OrderList" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-1-1" name="订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="OrderDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
+                    <menu aclCode="2-4-2" name="课程订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CoursesList" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-2-1" name="订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ClassOrderDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
+                    <menu aclCode="2-4-3" name="网校订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OnlineSchoolOrder" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-3-1" name="订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="OnlineSchoolOrderDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
                     <menu aclCode="2-4-4" name="售后单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Backorder" roles="0"></menu>
                     <menu aclCode="2-4-5" name="发票申请" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Invoice" roles="0"></menu>
-                    <menu aclCode="2-4-6" name="订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="OrderDetail" roles="0"></menu>
-                    <menu aclCode="2-4-7" name="课程订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ClassOrderDetail" roles="0"></menu>
-                    <menu aclCode="2-4-8" name="网校订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="OnlineSchoolOrderDetail" roles="0"></menu>
-                    <menu aclCode="2-4-9" name="售后详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BackorderDetail" roles="0"></menu>
-                    <menu aclCode="2-4-10" name="申请发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ApplyInvoice" roles="0"></menu>
-                    <menu aclCode="2-4-11" name="修改发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditInvoice" roles="0"></menu>
+                    <menu aclCode="2-4-6" name="售后详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BackorderDetail" roles="0"></menu>
+                    <menu aclCode="2-4-7" name="申请发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ApplyInvoice" roles="0"></menu>
+                    <menu aclCode="2-4-8" name="修改发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditInvoice" roles="0"></menu>
                 </menus>
             </menu>
 
@@ -300,7 +309,6 @@
                             <menu aclCode="2-8-1-1" name="Helper活动列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MarketingManageList" roles="0"></menu>
                             <menu aclCode="2-8-1-2" name="新增Helper活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddMarketing" roles="0"></menu>
                             <menu aclCode="2-8-1-3" name="编辑Helper活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditMarketing" roles="0"></menu>
-                            <menu aclCode="2-8-1-4" name="查看数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MarketingManageData" roles="0"></menu>
                         </menus>
                     </menu>
 
@@ -420,6 +428,56 @@
                             <menu aclCode="2-8-13-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditLongmenPublicBenefit" roles="0"></menu>
                             <menu aclCode="2-8-13-4" name="复制活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="CopyLongmenPublicBenefit" roles="0"></menu>
                             <menu aclCode="2-8-13-5" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LongmenPublicBenefitDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
+
+                    <menu aclCode="2-8-14" name="赢取豪礼" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="InviteNewcomersGift" roles="0">
+                        <menus>
+                            <menu aclCode="2-8-14-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="InviteNewcomersList" roles="0"></menu>
+                            <menu aclCode="2-8-14-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="InviteNewcomersAdd" roles="0"></menu>
+                            <menu aclCode="2-8-14-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="InviteNewcomersEdit" roles="0"></menu>
+                            <menu aclCode="2-8-14-4" name="活动设置" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="InviteNewcomersSetting" roles="0"></menu>
+                            <menu aclCode="2-8-14-5" name="复制活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="InviteNewcomersCopy" roles="0"></menu>
+                            <menu aclCode="2-8-14-6" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="InviteNewcomersDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
+
+                    <menu aclCode="2-8-15" name="见学之旅" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RoadLearning" roles="0">
+                        <menus>
+                            <menu aclCode="2-8-15-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RoadLearningList" roles="0"></menu>
+                            <menu aclCode="2-8-15-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RoadLearningAdd" roles="0"></menu>
+                            <menu aclCode="2-8-15-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RoadLearningEdit" roles="0"></menu>
+                            <menu aclCode="2-8-15-4" name="活动设置" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RoadLearningSetting" roles="0"></menu>
+                            <menu aclCode="2-8-15-5" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RoadLearningDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
+
+                    <menu aclCode="2-8-16" name="老带新" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ByOldBeltNewActivity" roles="0">
+                        <menus>
+                            <menu aclCode="2-8-16-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ByOldBeltNewActivityList" roles="0"></menu>
+                            <menu aclCode="2-8-16-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddByOldBeltNewActivity" roles="0"></menu>
+                            <menu aclCode="2-8-16-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditByOldBeltNewActivity" roles="0"></menu>
+                            <menu aclCode="2-8-16-4" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ByOldBeltNewActivityDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
+
+                    <menu aclCode="2-8-17" name="春耘计划" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SpringPloughing" roles="0">
+                        <menus>
+                            <menu aclCode="2-8-17-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SpringPloughingList" roles="0"></menu>
+                            <menu aclCode="2-8-17-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddSpringPloughing" roles="0"></menu>
+                            <menu aclCode="2-8-17-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditSpringPloughing" roles="0"></menu>
+                            <menu aclCode="2-8-17-4" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SpringPloughingDetail" roles="0"></menu>
+                        </menus>
+                    </menu>
+
+                    <menu aclCode="2-8-18" name="我心中的年味" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="YearFlavor" roles="0">
+                        <menus>
+                            <menu aclCode="2-8-18-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="YearFlavorList" roles="0"></menu>
+                            <menu aclCode="2-8-18-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddYearFlavor" roles="0"></menu>
+                            <menu aclCode="2-8-18-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditYearFlavor" roles="0"></menu>
+                            <menu aclCode="2-8-18-4" name="活动设置" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="YearFlavorSetting" roles="0"></menu>
+                            <menu aclCode="2-8-18-5" name="复制活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="CopyYearFlavor" roles="0"></menu>
+                            <menu aclCode="2-8-18-6" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="YearFlavorDetail" roles="0"></menu>
                         </menus>
                     </menu>
                 </menus>

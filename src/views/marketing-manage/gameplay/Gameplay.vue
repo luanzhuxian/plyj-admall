@@ -163,7 +163,7 @@
                 expired="2019.10.28-2020.01.31"
                 :count="activitiesInfo.invitingActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/赢取豪礼.png"
-                route-info="InviteNewcomersGiftList"
+                route-info="InviteNewcomersGift"
             />
             <SchemePack
                 name="见学之旅"
@@ -171,7 +171,7 @@
                 expired="2019.10.28-2020.01.31"
                 :count="activitiesInfo.checkinActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/见学之旅.png"
-                route-info="RoadLearningList"
+                route-info="RoadLearning"
             />
         </div>
         <SchemeLabel :class="$style.label" name="新春开学季" content="吸粉、老客带新客，提高下单转化率" />

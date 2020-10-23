@@ -5,7 +5,8 @@ export default [
         redirect: 'old-belt-new-activity/list',
         component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Index.vue'),
         meta: {
-            title: '老带新'
+            title: '老带新',
+            index: '8-16'
         },
         children: [
             {
@@ -13,7 +14,8 @@ export default [
                 name: 'ByOldBeltNewActivityList',
                 component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/List.vue'),
                 meta: {
-                    title: ''
+                    title: '列表',
+                    index: '8-16-1'
                 }
             },
             {
@@ -21,7 +23,8 @@ export default [
                 name: 'AddByOldBeltNewActivity',
                 component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Add.vue'),
                 meta: {
-                    title: '创建活动'
+                    title: '新建活动',
+                    index: '8-16-2'
                 }
             },
             {
@@ -30,7 +33,8 @@ export default [
                 props: true,
                 component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Add.vue'),
                 meta: {
-                    title: '编辑活动'
+                    title: '编辑活动',
+                    index: '8-16-3'
                 }
             },
             {
@@ -40,20 +44,27 @@ export default [
                 props: true,
                 component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Detail.vue'),
                 meta: {
-                    title: '活动详情'
+                    title: '活动详情',
+                    index: '8-16-4'
                 },
                 children: [
                     // 详情
                     {
                         path: 'info',
                         name: 'ByOldBeltNewActivityDetailInfo',
-                        component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Detail-Info.vue')
+                        component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Detail-Info.vue'),
+                        meta: {
+                            ignore: true
+                        }
                     },
                     // 活动数据
                     {
                         path: 'data',
                         name: 'ByOldBeltNewActivityDetailData',
-                        component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Detail-Data.vue')
+                        component: () => import('../../../../../views/marketing-manage/activities/new-year/by-old-belt-new-activity/Detail-Data.vue'),
+                        meta: {
+                            ignore: true
+                        }
                     }
                 ]
             }

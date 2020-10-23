@@ -1,5 +1,5 @@
 <template>
-    <div class="order-list wrap">
+    <div v-if="$route.name === 'OrderList'" class="order-list wrap">
         <search-box>
             <el-form-item label="搜索内容：">
                 <el-input
@@ -349,6 +349,9 @@
             order-type="product"
         />
     </div>
+    <div v-else>
+        <router-view />
+    </div>
 </template>
 
 <script>
@@ -490,7 +493,7 @@ export default {
         })
     },
     async created () {
-        if (this.$route.params.id) this.form.keywords = this.$route.params.id
+        this.form.keywords = this.$route.query.keyword || ''
         this.form.orderStatus = this.$route.query.status || ''
         this.goodsTypes = this.$route.query.productType || ''
         try {

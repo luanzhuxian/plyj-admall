@@ -10,13 +10,25 @@ export default [
         },
         children: [
             {
-                path: 'order-list/:id?',
+                path: 'order-list',
                 name: 'OrderList',
                 component: () => import('../../../views/order-manage/pages/Goods-List.vue'),
                 meta: {
                     title: '商品订单',
                     index: '4-1'
-                }
+                },
+                children: [
+                    {
+                        path: 'detail/:id',
+                        name: 'OrderDetail',
+                        component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
+                        props: true,
+                        meta: {
+                            title: '订单详情',
+                            index: '4-1-1'
+                        }
+                    }
+                ]
             },
             {
                 path: 'courses-list',
@@ -25,7 +37,19 @@ export default [
                 meta: {
                     title: '课程订单',
                     index: '4-2'
-                }
+                },
+                children: [
+                    {
+                        path: 'detail/:id',
+                        name: 'ClassOrderDetail',
+                        component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
+                        props: true,
+                        meta: {
+                            title: '订单详情',
+                            index: '4-2-1'
+                        }
+                    }
+                ]
             },
             {
                 path: 'online-school-order',
@@ -34,7 +58,19 @@ export default [
                 meta: {
                     title: '网校订单',
                     index: '4-3'
-                }
+                },
+                children: [
+                    {
+                        path: 'detail/:id',
+                        name: 'OnlineSchoolOrderDetail',
+                        component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
+                        props: true,
+                        meta: {
+                            title: '订单详情',
+                            index: '4-3-1'
+                        }
+                    }
+                ]
             },
             {
                 path: 'backorder',
@@ -55,43 +91,13 @@ export default [
                 }
             },
             {
-                path: 'order-detail/:id',
-                name: 'OrderDetail',
-                component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
-                props: true,
-                meta: {
-                    title: '订单详情',
-                    index: '4-6'
-                }
-            },
-            {
-                path: 'class-detail/:id',
-                name: 'ClassOrderDetail',
-                component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
-                props: true,
-                meta: {
-                    title: '课程订单详情',
-                    index: '4-7'
-                }
-            },
-            {
-                path: 'online-school-order-detail/:id',
-                name: 'OnlineSchoolOrderDetail',
-                component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
-                props: true,
-                meta: {
-                    title: '网校订单详情',
-                    index: '4-8'
-                }
-            },
-            {
                 path: 'backorder-detail/:id',
                 name: 'BackorderDetail',
                 component: () => import('../../../views/order-manage/pages/Backorder-Detail.vue'),
                 props: true,
                 meta: {
                     title: '售后详情',
-                    index: '4-9'
+                    index: '4-6'
                 }
             },
             {
@@ -100,7 +106,7 @@ export default [
                 component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
                 meta: {
                     title: '申请发票',
-                    index: '4-10'
+                    index: '4-7'
                 }
             },
             {
@@ -109,7 +115,7 @@ export default [
                 component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
                 meta: {
                     title: '修改发票',
-                    index: '4-11'
+                    index: '4-8'
                 }
             }
         ]

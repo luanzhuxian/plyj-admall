@@ -1,24 +1,26 @@
 <template>
     <div class="road-learning-list wrap">
-        <ListHeader
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/见学之旅.png"
-            title="见学之旅"
-            description="签到赢大礼"
-            start-time="2019.10.28"
-            end-time="2020.01.31"
-        />
-        <el-button type="primary" round @click="$router.push({name: 'RoadLearningAdd'})">
-            新建活动
-            <i class="el-icon-plus el-icon--right" />
-        </el-button>
-        <pl-tabs
-            :value="$route.name"
-            :tabs="[
-                {label:'活动列表',name:'RoadLearning'},
-                {label:'活动设置',name:'RoadLearningSetting'},
-            ]"
-            @tabClick="data => $router.replace({ name: data.name })"
-        />
+        <template v-if="$route.name === 'RoadLearningList' || $route.name === 'RoadLearningSetting'">
+            <ListHeader
+                icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/见学之旅.png"
+                title="见学之旅"
+                description="签到赢大礼"
+                start-time="2019.10.28"
+                end-time="2020.01.31"
+            />
+            <el-button type="primary" round @click="$router.push({name: 'RoadLearningAdd'})">
+                新建活动
+                <i class="el-icon-plus el-icon--right" />
+            </el-button>
+            <pl-tabs
+                :value="$route.name"
+                :tabs="[
+                    { label:'活动列表', name:'RoadLearningList' },
+                    { label:'活动设置', name:'RoadLearningSetting' },
+                ]"
+                @tabClick="data => $router.replace({ name: data.name })"
+            />
+        </template>
 
         <keep-alive>
             <router-view />
@@ -29,7 +31,7 @@
 <script>
 import ListHeader from '../../../components/List-Header'
 export default {
-    name: 'RoadLearningList',
+    name: 'RoadLearning',
     components: { ListHeader },
     data () {
         return {

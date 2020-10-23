@@ -445,7 +445,7 @@ export default {
             this.qrcodeShow = true
         },
         async showOrder (id) {
-            this.$router.push({ name: 'OnlineSchoolOrder', params: { courseId: id } })
+            this.$router.push({ name: 'OnlineSchoolOrder', query: { courseId: id } })
         },
         sendCourse (id) {
             this.selectedCourseId = id

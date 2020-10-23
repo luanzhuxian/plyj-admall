@@ -1,19 +1,39 @@
 export default [
     {
-        path: 'road-learning-list',
-        redirect: 'road-learning-list/list',
-        name: 'RoadLearningList',
-        component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-List.vue'),
+        path: 'road-learning',
+        redirect: 'road-learning/list',
+        name: 'RoadLearning',
+        component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Index.vue'),
         meta: {
-            title: '见学之旅'
+            title: '见学之旅',
+            index: '8-15'
         },
         children: [
             {
                 path: 'list',
-                name: 'RoadLearning',
-                component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning.vue'),
+                name: 'RoadLearningList',
+                component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/List.vue'),
                 meta: {
-                    title: ''
+                    title: '列表',
+                    index: '8-15-1'
+                }
+            },
+            {
+                path: 'add',
+                name: 'RoadLearningAdd',
+                component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-Edit.vue'),
+                meta: {
+                    title: '创建活动',
+                    index: '8-15-2'
+                }
+            },
+            {
+                path: 'edit/:id',
+                name: 'RoadLearningEdit',
+                component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-Edit.vue'),
+                meta: {
+                    title: '编辑活动',
+                    index: '8-15-3'
                 }
             },
             {
@@ -21,33 +41,19 @@ export default [
                 name: 'RoadLearningSetting',
                 component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-Setting.vue'),
                 meta: {
-                    title: '活动设置'
+                    title: '活动设置',
+                    index: '8-15-4'
+                }
+            },
+            {
+                path: 'roadlearning/:id',
+                name: 'RoadLearningDetail',
+                component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-Detail.vue'),
+                meta: {
+                    title: '活动详情',
+                    index: '8-15-5'
                 }
             }
         ]
-    },
-    {
-        path: 'roadlearning/add',
-        name: 'RoadLearningAdd',
-        component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-Edit.vue'),
-        meta: {
-            title: '创建活动'
-        }
-    },
-    {
-        path: 'roadlearning/:id/edit',
-        name: 'RoadLearningEdit',
-        component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-Edit.vue'),
-        meta: {
-            title: '编辑活动'
-        }
-    },
-    {
-        path: 'roadlearning/:id',
-        name: 'RoadLearningDetail',
-        component: () => import('../../../../../views/marketing-manage/activities/classmate-reunion/road-learning/Road-Learning-Detail.vue'),
-        meta: {
-            title: '查看数据'
-        }
     }
 ]

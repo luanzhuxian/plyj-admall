@@ -1,5 +1,5 @@
 <template>
-    <div class="order-list wrap">
+    <div v-if="$route.name === 'CoursesList'" class="order-list wrap">
         <search-box>
             <el-form-item label="搜索内容：">
                 <el-input
@@ -222,7 +222,7 @@
                                 关闭订单
                             </a>
                             <a
-                                @click="$router.push({ name: 'OrderDetail', params: { id: row.orderId } })"
+                                @click="$router.push({ name: 'ClassOrderDetail', params: { id: row.orderId } })"
                             >
                                 查看
                             </a>
@@ -269,6 +269,9 @@
             :classification="classification"
             order-type="course"
         />
+    </div>
+    <div v-else>
+        <router-view />
     </div>
 </template>
 
@@ -408,7 +411,7 @@ export default {
         })
     },
     async created () {
-        if (this.$route.params.id) this.form.keywords = this.$route.params.id
+        this.form.keywords = this.$route.query.keyword || ''
         this.form.orderStatus = this.$route.query.status || ''
         try {
             await this.getList()

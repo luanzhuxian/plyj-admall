@@ -34,40 +34,40 @@ export default [
                     title: '编辑Helper活动',
                     index: '8-1-3'
                 }
-            },
-            {
-                path: 'data/:id',
-                name: 'MarketingManageData',
-                redirect: 'data/:id/product',
-                props: true,
-                component: () => import('../../../../views/marketing-manage/utils/helper-marketing/Data.vue'),
-                meta: {
-                    title: '查看数据',
-                    index: '8-1-4'
-                },
-                children: [
-                    {
-                        path: 'product',
-                        name: 'MarketingManageDataOfProduct',
-                        props: true,
-                        component: () => import('../../../../views/marketing-manage/utils/helper-marketing/Data-Of-Product.vue'),
-                        meta: {
-                            // 商品数据
-                            title: ''
-                        }
-                    },
-                    {
-                        path: 'helper',
-                        name: 'MarketingManageDataOfHelper',
-                        props: true,
-                        component: () => import('../../../../views/marketing-manage/utils/helper-marketing/Data-Of-Helper.vue'),
-                        meta: {
-                            // helper数据
-                            title: ''
-                        }
-                    }
-                ]
             }
+            // {
+            //     path: 'data/:id',
+            //     name: 'MarketingManageData',
+            //     redirect: 'data/:id/product',
+            //     props: true,
+            //     component: () => import('../../../../views/marketing-manage/utils/helper-marketing/Data.vue'),
+            //     meta: {
+            //         title: '查看数据',
+            //         index: '8-1-4'
+            //     },
+            //     children: [
+            //         {
+            //             path: 'product',
+            //             name: 'MarketingManageDataOfProduct',
+            //             props: true,
+            //             component: () => import('../../../../views/marketing-manage/utils/helper-marketing/Data-Of-Product.vue'),
+            //             meta: {
+            //                 // 商品数据
+            //                 title: ''
+            //             }
+            //         },
+            //         {
+            //             path: 'helper',
+            //             name: 'MarketingManageDataOfHelper',
+            //             props: true,
+            //             component: () => import('../../../../views/marketing-manage/utils/helper-marketing/Data-Of-Helper.vue'),
+            //             meta: {
+            //                 // helper数据
+            //                 title: ''
+            //             }
+            //         }
+            //     ]
+            // }
         ]
     }
 ]

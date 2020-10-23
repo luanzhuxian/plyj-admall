@@ -120,12 +120,12 @@
                                     删除
                                 </a>
                                 <!--TODO.后台暂不支持-->
-                                <a
+                                <!--<a
                                     v-if="false"
                                     @click="$router.push({name:'MarketingManageData', params:{id: row.id}})"
                                 >
                                     查看数据
-                                </a>
+                                </a>-->
                             </template>
                         </Operating>
                     </template>

@@ -31,7 +31,7 @@
 <script>
 import ListHeader from '../../../components/List-Header'
 export default {
-    name: 'InviteNewcomersGiftList',
+    name: 'InviteNewcomersGift',
     components: { ListHeader },
     data () {
         return {

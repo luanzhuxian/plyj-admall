@@ -198,7 +198,7 @@
                             <a @click="showShare(row)">
                                 分享
                             </a>
-                            <a @click="$router.push({name:'OnlineSchoolOrder',params:{graphicId:row.id}})">
+                            <a @click="$router.push({name:'OnlineSchoolOrder', query: { graphicId: row.id }})">
                                 查看订单
                             </a>
                             <a @click="$router.push({name:'BooksMaterialsData',params:{id:row.id}})">
