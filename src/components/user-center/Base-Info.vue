@@ -75,7 +75,7 @@
             </Field>
             <br>
             <Field title="记录：" inline style="margin-right: 78px;">
-                <p class="mb-16">{{ userCreateTime }}
+                <p class="mb-16">{{ userCreateTime || createTime }}
                     <span class="ml-16" v-if="$route.name === 'HelperPromoteDetail'">加入</span>
                     <span class="ml-16" v-else>注册</span>
                 </p>
