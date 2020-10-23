@@ -283,11 +283,7 @@ export default {
     },
     methods: {
         async viewCoupon (row) {
-            if (row.distributionMethod) {
-                this.$router.push({ name: 'ViewReductionCouponListActive', params: { id: row.id } })
-            } else {
-                this.$router.push({ name: 'ViewReductionCouponListSelf', params: { id: row.id } })
-            }
+            this.$router.push({ name: 'ViewReductionCouponListActive', params: { id: row.id } })
         },
         async deleteCoupon (id) {
             try {

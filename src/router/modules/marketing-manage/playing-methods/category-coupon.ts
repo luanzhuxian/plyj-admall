@@ -5,7 +5,8 @@ export default [
         redirect: 'category-coupon/category-coupon-list',
         component: () => import('../../../../views/marketing-manage/playing-methods/category-coupon/Index.vue'),
         meta: {
-            title: ''
+            title: '品类券',
+            index: '8-3'
         },
         children: [
             {
@@ -13,7 +14,9 @@ export default [
                 name: 'CategoryCouponList',
                 component: () => import('../../../../views/marketing-manage/playing-methods/category-coupon/Coupon-List.vue'),
                 meta: {
-                    title: '品类券'
+                    title: '品类券列表',
+                    index: '8-3-1'
+
                 }
             },
             {
@@ -21,7 +24,9 @@ export default [
                 name: 'AddCategoryCoupon',
                 component: () => import('../../../../views/marketing-manage/playing-methods/category-coupon/Add-Coupon.vue'),
                 meta: {
-                    title: '新增品类券'
+                    title: '新增品类券',
+                    index: '8-3-2'
+
                 }
             },
             {
@@ -29,7 +34,9 @@ export default [
                 name: 'EditCategoryCoupon',
                 component: () => import('../../../../views/marketing-manage/playing-methods/category-coupon/Add-Coupon.vue'),
                 meta: {
-                    title: '编辑品类券'
+                    title: '编辑品类券',
+                    index: '8-3-3'
+
                 }
             },
             {
@@ -37,15 +44,9 @@ export default [
                 name: 'CopyCategoryCoupon',
                 component: () => import('../../../../views/marketing-manage/playing-methods/category-coupon/Add-Coupon.vue'),
                 meta: {
-                    title: '复制品类券'
-                }
-            },
-            {
-                path: 'view-category-coupon/:id',
-                name: 'ViewCategoryCouponListSelf',
-                component: () => import('../../../../views/marketing-manage/playing-methods/category-coupon/ViewCouponList.vue'),
-                meta: {
-                    title: '查看数据'
+                    title: '复制品类券',
+                    index: '8-3-4'
+
                 }
             },
             {
@@ -53,7 +54,8 @@ export default [
                 name: 'ViewCategoryCouponListActive',
                 component: () => import('../../../../views/marketing-manage/playing-methods/category-coupon/ViewCouponList.vue'),
                 meta: {
-                    title: '查看数据'
+                    title: '查看详情',
+                    index: '8-3-5'
                 }
             }
         ]

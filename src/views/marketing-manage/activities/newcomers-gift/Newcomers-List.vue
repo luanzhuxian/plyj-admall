@@ -243,7 +243,7 @@ import NewUserPreview from './components/New-User-Preview.vue'
 import ListHeader from '../../components/List-Header'
 
 export default {
-    name: 'NewcomersList',
+    name: 'NewcomersGiftList',
     components: {
         NewcomersSetting,
         Pagination,

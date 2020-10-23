@@ -150,15 +150,15 @@
 </template>
 
 <script>
-import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview'
-import ProductRadio from '../../../../../components/product-center/goods/Product-Radio.vue'
-import { getSingleGoods } from '../../../../../apis/product-center/goods'
+import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview'
+import ProductRadio from '../../../../components/product-center/goods/Product-Radio.vue'
+import { getSingleGoods } from '../../../../apis/product-center/goods'
 import {
     createSecondActivity,
     updateSecondActivity,
     secondActivityDetail
-} from '../../../../../apis/marketing-manage/second'
-import { goPage } from '../../../../../assets/ts/utils'
+} from '../../../../apis/marketing-manage/second'
+import { goPage } from '../../../../assets/ts/utils'
 import moment from 'moment/moment'
 const DEFAULT_TIME = ['2019-12-12 00:00:00', '2019-12-12 23:59:59']
 let START_TIME = `${ moment().format('YYYY-MM-DD') } 00:00:00`

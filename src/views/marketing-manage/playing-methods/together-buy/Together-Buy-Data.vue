@@ -13,8 +13,8 @@
         <pl-tabs
             :value="$route.name"
             :tabs="[
-                {label:'活动详情',name:'NewYearTogetherBuyDetail'},
-                {label:'活动数据',name:'NewYearTogetherBuyData'},
+                {label:'活动详情',name:'TogetherBuyDetail'},
+                {label:'活动数据',name:'TogetherBuyData'},
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
         />

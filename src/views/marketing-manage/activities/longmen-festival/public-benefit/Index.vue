@@ -71,6 +71,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../../store/mutation-type'
 import ListHeader from '../../../components/List-Header'
+import moment from 'moment'
 export default {
     name: 'LongmenPublicBenefit',
     components: { ListHeader },
@@ -80,12 +81,14 @@ export default {
         }
     },
     async created () {
-        try {
-            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
-        } catch (e) { throw e }
+        await this[MutationTypes.getMarketStatusAuth]()
+        const info = this.marketStatusAuth.find(({ programId }) => programId === '6')
+        if (!info || moment(info.validity).valueOf() < Date.now()) {
+            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '6' } })
+        }
     },
     methods: {
-        ...mapActions('account', [MutationTypes.getMarketStatusAuth])
+        ...mapActions([MutationTypes.getMarketStatusAuth])
     },
     computed: {
         ...mapGetters({

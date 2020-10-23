@@ -266,13 +266,13 @@
 </template>
 
 <script>
-import Export from './../components/Export'
-import verification from '../../../../../components/order-center/Verification.vue'
-import { getActivityData } from '../../../../../apis/marketing-manage/gameplay'
-import { exportActivityData } from '../../../../../apis/marketing-manage/booking'
-import { activityDataList, redeemUserList } from '../../../../../apis/order'
+import Export from '../../activities/classmate-reunion/components/Export'
+import verification from '../../../../components/order-center/Verification.vue'
+import { getActivityData } from '../../../../apis/marketing-manage/gameplay'
+import { exportActivityData } from '../../../../apis/marketing-manage/booking'
+import { activityDataList, redeemUserList } from '../../../../apis/order'
 import moment from 'moment/moment'
-import { createObjectUrl } from '../../../../../assets/ts/upload'
+import { createObjectUrl } from '../../../../assets/ts/upload'
 export default {
     components: {
         verification,

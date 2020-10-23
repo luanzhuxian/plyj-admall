@@ -39,7 +39,7 @@
 <script>
 import Share from '../../../../components/common/Share.vue'
 export default {
-    name: 'NewcomersGiftList',
+    name: 'NewcomersGift',
     components: {
         Share
     },

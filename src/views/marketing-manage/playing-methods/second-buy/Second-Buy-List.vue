@@ -216,12 +216,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import GoodsPreview from '../../../../../components/product-center/goods/Goods-Preview.vue'
-import { secondActivityPage, duplicateSecondActivity, updateActivityStatus } from '../../../../../apis/marketing-manage/second'
-import { getSingleGoods } from '../../../../../apis/product-center/goods'
-import Share from '../../../../../components/common/Share'
+import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
+import { secondActivityPage, duplicateSecondActivity, updateActivityStatus } from '../../../../apis/marketing-manage/second'
+import { getSingleGoods } from '../../../../apis/product-center/goods'
+import Share from '../../../../components/common/Share'
 import Setting from './Second-Buy-Setting'
-import ListHeader from '../../../components/List-Header'
+import ListHeader from '../../components/List-Header'
 export default {
     name: 'SecondBuyList',
     components: {

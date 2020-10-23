@@ -11,7 +11,7 @@
         <el-button
             type="primary"
             round
-            @click="$router.push({name:'NewYearAddTogether'})"
+            @click="$router.push({name:'AddTogether'})"
         >
             创建活动
             <i class="el-icon-plus el-icon--right" />
@@ -193,12 +193,12 @@
                     <Operating>
                         <template slot="button-box">
                             <a
-                                @click="$router.push({name:'NewYearTogetherBuyDetail', params:{id: row.id}})"
+                                @click="$router.push({name:'TogetherBuyDetail', params:{id: row.id}})"
                             >
                                 详情
                             </a>
                             <a
-                                @click="$router.push({name:'NewYearTogetherBuyData', params:{id: row.id}})"
+                                @click="$router.push({name:'TogetherBuyData', params:{id: row.id}})"
                             >
                                 查看数据
                             </a>
@@ -417,7 +417,7 @@ export default {
                     confirmButtonText: '编辑',
                     showClose: false
                 })
-                this.$router.push({ name: 'NewYearAddTogether', params: { id: data.result.id, type: 'duplicate' } })
+                this.$router.push({ name: 'EditTogether', params: { id: data.result.id, type: 'duplicate' } })
             } catch (e) {
                 throw e
             } finally {

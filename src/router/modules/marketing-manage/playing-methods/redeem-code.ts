@@ -5,7 +5,8 @@ export default [
         redirect: 'redeem-code/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Index.vue'),
         meta: {
-            title: '兑换码'
+            title: '兑换码',
+            index: '8-6'
         },
         children: [
             {
@@ -15,8 +16,8 @@ export default [
                 redirect: 'list/data',
                 component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/List.vue'),
                 meta: {
-                    // 此处会使用 RedeemCode 的title
-                    title: ''
+                    title: '列表',
+                    index: '8-6-1'
                 },
                 children: [
                     {
@@ -24,8 +25,8 @@ export default [
                         name: 'RedeemCodeListData',
                         component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/RedeemCodeList.vue'),
                         meta: {
-                            // 此处会使用 RedeemCode 的title
-                            title: ''
+                            title: '',
+                            ignore: true
                         }
                     },
                     {
@@ -33,8 +34,8 @@ export default [
                         name: 'RedeemCodeSetting',
                         component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Setting.vue'),
                         meta: {
-                            // 此处会使用 RedeemCode 的title
-                            title: ''
+                            title: '',
+                            ignore: true
                         }
                     }
                 ]
@@ -44,7 +45,8 @@ export default [
                 name: 'AddRedeemCode',
                 component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Add.vue'),
                 meta: {
-                    title: '新增'
+                    title: '新增兑换码',
+                    index: '8-6-2'
                 }
             },
             {
@@ -53,7 +55,8 @@ export default [
                 props: true,
                 component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Add.vue'),
                 meta: {
-                    title: '编辑'
+                    title: '编辑兑换码',
+                    index: '8-6-3'
                 }
             },
             {
@@ -62,7 +65,8 @@ export default [
                 props: true,
                 component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Add.vue'),
                 meta: {
-                    title: '复制'
+                    title: '复制兑换码',
+                    index: '8-6-4'
                 }
             },
             {
@@ -71,6 +75,10 @@ export default [
                 props: true,
                 redirect: 'detail/activity/:id',
                 component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Detail.vue'),
+                meta: {
+                    index: '8-6-5',
+                    title: '兑换码详情'
+                },
                 children: [
                     {
                         path: 'data/:id',
@@ -78,7 +86,8 @@ export default [
                         props: true,
                         component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Data-Detail.vue'),
                         meta: {
-                            title: '数据详情'
+                            title: '数据详情',
+                            ignore: true
                         }
                     },
                     {
@@ -87,7 +96,8 @@ export default [
                         props: true,
                         component: () => import('../../../../views/marketing-manage/playing-methods/redeem-code/Activity-Detail.vue'),
                         meta: {
-                            title: '查看详情'
+                            title: '查看详情',
+                            ignore: true
                         }
                     }
                 ]

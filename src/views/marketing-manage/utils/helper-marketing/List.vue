@@ -105,7 +105,7 @@
                         <Operating>
                             <template slot="button-box">
                                 <a
-                                    @click="$router.push({name:'AddMarketing', params:{id: row.id}})"
+                                    @click="$router.push({name:'EditMarketing', params:{id: row.id}})"
                                 >
                                     编辑
                                 </a>

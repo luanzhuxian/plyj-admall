@@ -349,7 +349,7 @@ export default {
         window.removeEventListener('beforeunload', this.beforeunload)
     },
     beforeRouteLeave (to, from, next) {
-        if (to.name !== 'NewYearAddTogether' && to.name !== 'NewYearTogetherBuyList') {
+        if ((to.name !== 'AddTogether' || to.name !== 'EditTogether') && to.name !== 'TogetherBuyList') {
             this.$confirm({
                 title: '确定离开该页面吗？',
                 message: '请确定您所作的修改已经保存！'
@@ -496,11 +496,11 @@ export default {
                         gomMes = await updateTogetherActivity(params)
                         warnMessage = '修改成功'
                     }
-                    goPage(this, gomMes.data.result, warnMessage, 'NewYearTogetherBuyList')
+                    goPage(this, gomMes.data.result, warnMessage, 'TogetherBuyList')
                 } else {
                     gomMes = await createTogetherActivity(params)
                     warnMessage = '创建成功'
-                    goPage(this, gomMes.data.result, warnMessage, 'NewYearTogetherBuyList')
+                    goPage(this, gomMes.data.result, warnMessage, 'TogetherBuyList')
                 }
             } catch (e) { throw e }
         },

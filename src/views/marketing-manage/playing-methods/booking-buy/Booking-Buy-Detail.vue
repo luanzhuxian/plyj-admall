@@ -26,7 +26,7 @@
                 type="primary"
                 plain
                 size="mini"
-                @click="$router.push({name:'AddBookingBuy', params:{id: activityDetail.id}})"
+                @click="$router.push({name:'EditBookingBuy', params:{id: activityDetail.id}})"
                 v-if="activityDetail.status === 0 || activityDetail.status === 1"
             >
                 编辑

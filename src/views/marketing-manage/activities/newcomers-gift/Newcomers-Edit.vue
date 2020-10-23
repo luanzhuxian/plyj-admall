@@ -635,7 +635,7 @@ export default {
         }
     },
     async beforeRouteLeave (to, from, next) {
-        if (to.name !== 'NewcomersList' && to.name !== 'NewcomersDetail' && to.name !== 'AddCategoryCoupon' && to.name !== 'AddReductionCoupon' && to.name !== 'OrgIndex') {
+        if (to.name !== 'NewcomersGiftList' && to.name !== 'NewcomersDetail' && to.name !== 'AddCategoryCoupon' && to.name !== 'AddReductionCoupon' && to.name !== 'OrgIndex') {
             await this.$confirm({
                 title: '放弃编辑？',
                 message: '是否要放弃当前新人有礼编辑，放弃后将不可恢复！'

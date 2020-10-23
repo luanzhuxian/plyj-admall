@@ -23,16 +23,11 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) {
-            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
-            return
+        await this[MutationTypes.getMarketStatusAuth]()
+        const info = this.marketStatusAuth.find(({ programId }) => programId === '5')
+        if (!info || moment(info.validity).valueOf() < Date.now()) {
+            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '5' } })
         }
-        // 团购信息
-        const information = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
-        const status = !!(information && moment(information.validity).valueOf() > moment().valueOf())
-        // 判断当前活动是否购买
-        if (!status) this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
     },
     methods: {
         ...mapActions('account, '[MutationTypes.getMarketStatusAuth])

@@ -5,7 +5,8 @@ export default [
         redirect: 'reduction-coupon/reduction-coupon-list',
         component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/Index.vue'),
         meta: {
-            title: ''
+            title: '满减券',
+            index: '8-7'
         },
         children: [
             {
@@ -13,7 +14,8 @@ export default [
                 name: 'ReductionCouponList',
                 component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/Coupon-List.vue'),
                 meta: {
-                    title: '满减券'
+                    title: '列表',
+                    index: '8-7-1'
                 }
             },
             {
@@ -21,7 +23,8 @@ export default [
                 name: 'AddReductionCoupon',
                 component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/Add-Coupon.vue'),
                 meta: {
-                    title: '新增满减券'
+                    title: '新增满减券',
+                    index: '8-7-2'
                 }
             },
             {
@@ -29,7 +32,8 @@ export default [
                 name: 'EditReductionCoupon',
                 component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/Add-Coupon.vue'),
                 meta: {
-                    title: '编辑满减券'
+                    title: '编辑满减券',
+                    index: '8-7-3'
                 }
             },
             {
@@ -37,15 +41,8 @@ export default [
                 name: 'CopyReductionCoupon',
                 component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/Add-Coupon.vue'),
                 meta: {
-                    title: '复制满减券'
-                }
-            },
-            {
-                path: 'view-reduction-coupon-list/:id',
-                name: 'ViewReductionCouponListSelf',
-                component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/ViewCouponList.vue'),
-                meta: {
-                    title: '查看数据'
+                    title: '复制满减券',
+                    index: '8-7-4'
                 }
             },
             {
@@ -53,7 +50,8 @@ export default [
                 name: 'ViewReductionCouponListActive',
                 component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/ViewCouponList.vue'),
                 meta: {
-                    title: '查看数据'
+                    title: '查看详情',
+                    index: '8-7-5'
                 }
             }
         ]

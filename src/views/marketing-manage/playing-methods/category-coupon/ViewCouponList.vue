@@ -162,8 +162,8 @@
                             :data="row.orders"
                             :cell-style="{ border: 'none' }"
                         >
-                            <el-table-column v-if="routeName === 'ViewCategoryCouponListActive'" width="1200" />
-                            <el-table-column v-if="routeName === 'ViewCategoryCouponListSelf'" width="1050" />
+                            <el-table-column v-if="statisticsData.distributionMethod" width="1200" />
+                            <el-table-column v-else width="1050" />
                             <el-table-column>
                                 <template slot-scope="item">
                                     {{ item.row }}

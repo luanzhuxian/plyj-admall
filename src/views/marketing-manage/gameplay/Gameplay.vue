@@ -29,7 +29,7 @@
                 desc="新人注册立享豪礼大礼包"
                 :count="activitiesInfo.helperActivityCount"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/新人有礼.png"
-                route-info="NewcomersGiftList"
+                route-info="NewcomersGift"
             />
             <SchemePack
                 name="公众号增粉"

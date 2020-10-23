@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { secondActivityDetail } from '../../../../../apis/marketing-manage/second'
+import { secondActivityDetail } from '../../../../apis/marketing-manage/second'
 export default {
     data () {
         return {

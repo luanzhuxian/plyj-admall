@@ -2,23 +2,20 @@ export default [
     {
         path: 'newcomers-gift',
         redirect: '/marketing-manage/newcomers-gift/list/:id?',
-        name: 'NewcomersGiftList',
+        name: 'NewcomersGift',
         component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Gift-List.vue'),
         meta: {
-            title: '新人有礼'
+            title: '新人有礼',
+            index: '8-10'
         },
         children: [
             {
                 path: 'list',
-                name: 'NewcomersList',
-                component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-List.vue')
-            },
-            {
-                path: 'setting',
-                name: 'NewcomersSetting',
-                component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Setting.vue'),
+                name: 'NewcomersGiftList',
+                component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-List.vue'),
                 meta: {
-                    title: '新人有礼设置'
+                    title: '列表',
+                    index: '8-10-1'
                 }
             },
             {
@@ -26,7 +23,8 @@ export default [
                 name: 'NewcomersAdd',
                 component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Edit.vue'),
                 meta: {
-                    title: '新增活动'
+                    title: '新增活动',
+                    index: '8-10-2'
                 }
             },
             {
@@ -35,7 +33,17 @@ export default [
                 props: true,
                 component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Edit.vue'),
                 meta: {
-                    title: '编辑活动'
+                    title: '编辑活动',
+                    index: '8-10-3'
+                }
+            },
+            {
+                path: 'setting',
+                name: 'NewcomersSetting',
+                component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Setting.vue'),
+                meta: {
+                    title: '活动设置',
+                    index: '8-10-4'
                 }
             },
             {
@@ -44,7 +52,8 @@ export default [
                 props: true,
                 component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Edit.vue'),
                 meta: {
-                    title: '复制活动'
+                    title: '复制活动',
+                    index: '8-10-5'
                 }
             },
             {
@@ -53,7 +62,8 @@ export default [
                 props: true,
                 component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Detail.vue'),
                 meta: {
-                    title: '活动详情'
+                    title: '活动详情',
+                    index: '8-10-6'
                 }
             },
             {
@@ -62,7 +72,8 @@ export default [
                 props: true,
                 component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Data.vue'),
                 meta: {
-                    title: '数据详情'
+                    title: '数据详情',
+                    index: '8-10-7'
                 }
             }
         ]

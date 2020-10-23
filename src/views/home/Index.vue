@@ -240,7 +240,7 @@ const functionsPanelTmpl = [
         name: '新人有礼',
         desc: '新人注册立享豪礼大礼包',
         to: {
-            name: 'NewcomersGiftList'
+            name: 'NewcomersGift'
         }
     }, {
         icon: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公众号增粉.png',

@@ -5,16 +5,28 @@ export default [
         redirect: 'booking-buy/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Index.vue'),
         meta: {
-            title: '预购'
+            title: '预购',
+            index: '8-2'
         },
         children: [
             {
-                path: 'add-booking/:id?',
+                path: 'add',
                 name: 'AddBookingBuy',
                 component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Add-Booking.vue'),
                 props: true,
                 meta: {
-                    title: '新增/编辑预购'
+                    title: '新增预购',
+                    index: '8-2-1'
+                }
+            },
+            {
+                path: 'edit/:id',
+                name: 'EditBookingBuy',
+                component: () => import('../../../../views/marketing-manage/playing-methods/booking-buy/Add-Booking.vue'),
+                props: true,
+                meta: {
+                    title: '编辑预购',
+                    index: '8-2-2'
                 }
             },
             {
@@ -29,7 +41,7 @@ export default [
                 props: true,
                 meta: {
                     title: '预购详情',
-                    id: ''
+                    index: '8-2-3'
                 }
             },
             {
@@ -39,7 +51,7 @@ export default [
                 props: true,
                 meta: {
                     title: '活动数据',
-                    id: ''
+                    index: '8-2-4'
                 }
             }
         ]

@@ -284,11 +284,7 @@ export default {
     },
     methods: {
         async viewCoupon (row) {
-            if (row.distributionMethod) {
-                this.$router.push({ name: 'ViewCategoryCouponListActive', params: { id: row.id } })
-            } else {
-                this.$router.push({ name: 'ViewCategoryCouponListSelf', params: { id: row.id } })
-            }
+            this.$router.push({ name: 'ViewCategoryCouponListActive', params: { id: row.id } })
         },
         async deleteCoupon (id) {
             try {

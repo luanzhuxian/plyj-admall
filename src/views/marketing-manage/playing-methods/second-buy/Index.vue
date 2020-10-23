@@ -5,12 +5,11 @@
 </template>
 
 <script>
-
 import moment from 'moment'
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../store/mutation-type'
 export default {
-    name: 'NewYearTogetherBuy',
+    name: 'SecondBuy',
     data () {
         return {}
     },
@@ -21,13 +20,13 @@ export default {
     },
     async activated () {
         await this[MutationTypes.getMarketStatusAuth]()
-        const info = this.marketStatusAuth.find(({ programId }) => programId === '4')
+        const info = this.marketStatusAuth.find(({ programId }) => programId === '3')
         if (!info || moment(info.validity).valueOf() < Date.now()) {
-            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '4' } })
+            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '3' } })
         }
     },
     methods: {
-        ...mapActions([MutationTypes.getMarketStatusAuth])
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth])
     }
 }
 </script>

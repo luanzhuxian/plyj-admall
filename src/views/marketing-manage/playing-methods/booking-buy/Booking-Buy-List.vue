@@ -375,7 +375,7 @@ export default {
                     confirmButtonText: '编辑',
                     showClose: false
                 })
-                this.$router.push({ name: 'AddBookingBuy', params: { id: data.result.id, type: 'duplicate' } })
+                this.$router.push({ name: 'EditBookingBuy', params: { id: data.result.id, type: 'duplicate' } })
             } catch (e) {
                 throw e
             } finally {

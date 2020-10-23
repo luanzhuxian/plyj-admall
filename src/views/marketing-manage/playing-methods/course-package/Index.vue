@@ -68,6 +68,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../store/mutation-type'
 import ListHeader from '../../components/List-Header'
+import moment from 'moment'
 export default {
     name: 'CoursePackage',
     components: {
@@ -93,11 +94,15 @@ export default {
         })
     },
     async activated () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
-        const compoundInformation = this.marketStatusAuth.find(({ programId }) => programId === '1')
-        this.start = compoundInformation.createTime || ''
-        this.end = compoundInformation.validity || ''
+        await this[MutationTypes.getMarketStatusAuth]()
+        const info = this.marketStatusAuth.find(({ programId }) => programId === '1')
+        if (!info || moment(info.validity).valueOf() < Date.now()) {
+            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '1' } })
+            return
+        }
+
+        this.start = info.createTime || ''
+        this.end = info.validity || ''
     },
     methods: {
         ...mapActions('account', [MutationTypes.getMarketStatusAuth])
