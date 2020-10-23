@@ -37,8 +37,9 @@ export default class ModuleWrapper extends Vue {
 
     get isModuleShow () {
         return this.data &&
-      !(this.isPreview && this.data.showStatue !== 1) && // 预览时 showStatue 必须为1，否则不展示该模块
-      ((this.data.values && this.data.values.length && this.data.showStatue === 1) || this.isClickable || this.isEmptyShow)
+        this.data.moduleType &&
+        !(this.isPreview && this.data.showStatue !== 1) && // 预览时 showStatue 必须为1，否则不展示该模块
+        ((this.data.values && this.data.values.length && this.data.showStatue === 1) || this.isClickable || this.isEmptyShow)
     }
 
     get isClickable () {
