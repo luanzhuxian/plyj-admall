@@ -171,30 +171,30 @@ const templateModels = [
         isFree: true,
         charge: '免费',
         expire: '永久使用'
-    }, {
-        category: 'template',
-        type: 5,
-        img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-5.jpg',
-        isHover: false,
-        isFree: false,
-        charge: '已过期',
-        expire: '2019.12.31'
-    }, {
-        category: 'template',
-        type: 6,
-        img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-6.jpg',
-        isHover: false,
-        isFree: false,
-        charge: '已过期',
-        expire: '2019.12.31'
-    }, {
-        category: 'template',
-        type: 7,
-        img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-7.jpg',
-        isHover: false,
-        isFree: false,
-        charge: '已过期',
-        expire: '2019.12.31'
+    // }, {
+    //     category: 'template',
+    //     type: 5,
+    //     img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-5.jpg',
+    //     isHover: false,
+    //     isFree: false,
+    //     charge: '已过期',
+    //     expire: '2019.12.31'
+    // }, {
+    //     category: 'template',
+    //     type: 6,
+    //     img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-6.jpg',
+    //     isHover: false,
+    //     isFree: false,
+    //     charge: '已过期',
+    //     expire: '2019.12.31'
+    // }, {
+    //     category: 'template',
+    //     type: 7,
+    //     img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-7.jpg',
+    //     isHover: false,
+    //     isFree: false,
+    //     charge: '已过期',
+    //     expire: '2019.12.31'
     }, {
         category: 'template',
         type: 8,
@@ -427,9 +427,9 @@ export default class MallThemes extends Vue {
 
                 // 双12主会场模版
                 this.double12TemplateList = result.filter(item => ~[
-                    TemplateTypes.TemplateFengQiang,
-                    TemplateTypes.TemplateBaoFa,
-                    TemplateTypes.TemplateFanChang,
+                    // TemplateTypes.TemplateFengQiang,
+                    // TemplateTypes.TemplateBaoFa,
+                    // TemplateTypes.TemplateFanChang,
                     TemplateTypes.TemplateDouble12
                 ].indexOf(item.type))
 
@@ -498,11 +498,11 @@ export default class MallThemes extends Vue {
 
     // 检查是否有模板使用权限
     check (item: Template) {
-        if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
-            this.modalText = '双十二'
-            this.showAlertModal = true
-            return false
-        }
+        // if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
+        //     this.modalText = '双十二'
+        //     this.showAlertModal = true
+        //     return false
+        // }
         if (item.type === TemplateTypes.TemplateXinChun && !this.isXinchunAvailable) {
             this.modalText = '新春'
             this.showAlertModal = true
