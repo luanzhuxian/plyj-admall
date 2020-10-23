@@ -24,6 +24,20 @@
 
             <!--  主会场  -->
             <div v-show="currentTab === 'ACTIVITY'">
+                <div :class="$style.mallThemesTitle" v-if="double12TemplateList.length">
+                    双十二主会场（仅在主会场按钮下显示）
+                </div>
+                <div :class="$style.mallThemesList" v-if="double12TemplateList.length">
+                    <TemplateItem
+                        v-for="(item, index) of double12TemplateList"
+                        :key="index"
+                        :data="item"
+                        :current="currentActivityType"
+                        @use="compose(toNextPage, check)(item)"
+                        @preview="compose(previewTemplate, check)(item)"
+                    />
+                </div>
+
                 <div :class="$style.mallThemesTitle" v-if="dragonGateTemplateList.length">
                     龙门节主会场（仅在主会场按钮下显示）
                 </div>
@@ -44,20 +58,6 @@
                 <div :class="$style.mallThemesList" v-if="xinchunTemplateList.length">
                     <TemplateItem
                         v-for="(item, index) of xinchunTemplateList"
-                        :key="index"
-                        :data="item"
-                        :current="currentActivityType"
-                        @use="compose(toNextPage, check)(item)"
-                        @preview="compose(previewTemplate, check)(item)"
-                    />
-                </div>
-
-                <div :class="$style.mallThemesTitle" v-if="double12TemplateList.length">
-                    双十二主会场（仅在主会场按钮下显示）
-                </div>
-                <div :class="$style.mallThemesList" v-if="double12TemplateList.length">
-                    <TemplateItem
-                        v-for="(item, index) of double12TemplateList"
                         :key="index"
                         :data="item"
                         :current="currentActivityType"
