@@ -104,7 +104,8 @@
         </TemplatePreview>
         <el-dialog custom-class="warn-12" top="40vh" width="620px" :visible.sync="showAlertModal">
             <div slot="title">
-                {{ `您尚未获取${modalText}授权校权限，请联系您的城市经理和客服开通。` }}
+                <span v-if="modalType === 'EXPIRED'">该主会场模板已过期，不可使用，请选择其他主会场模板吧~</span>
+                <span v-if="modalType === 'UNPAID'">{{ `参与${modalText}的用户，请联系您的城市经理和客服开通使用权限。` }}</span>
             </div>
             <div slot="footer">
                 <el-button @click="showAlertModal = false">
@@ -359,12 +360,13 @@ export default class MallThemes extends Vue {
     previewTmplType = 0 // 预览模板id
     previewSkinId = 0 // 预览皮肤id
 
-    // 使用权限
+    // 模板使用权限: 1 '开启', 2: '过期', 3: '未开启活动'
+    double12LockStatus = 3 // 双十二权限
+    xinchunLockStatus = 3 // 新春权限
+    dragonGateLockStatus = 3 // 龙门节权限
     showAlertModal = false // 提醒弹窗
-    isD12Available = false // 双十二权限
-    isXinchunAvailable = false // 新春权限
-    isDragonGateAvailable = false // 龙门节权限
     modalText = ''
+    modalType = '' // 'EXPIRED': 过期 'UNPAID': 未开启活动
 
     /* computed */
     @mall.Getter('currentHomeType') currentHomeType!: number // 当前首页模板类型
@@ -455,15 +457,25 @@ export default class MallThemes extends Vue {
         }
     }
 
-    // 获取主会场模板使用权限
-    // lockStatus: 1 '开启', 2: '过期', 3: '未开启活动'
+    /**
+     * 获取主会场模板使用权限
+     * lockStatus 1 '开启', 2: '过期', 3: '未开启活动'
+     */
     async getActivityAuth () {
+        type lockStatusInfo = {
+            activityName: string;
+            activityValue: string;
+            lockName: string;
+            lockStatus: number;
+        }
         try {
-            const { result } = await getActivityAuth()
-            const [d12 = {}, xinChun = {}, dragonGate = {}] = result
-            this.isD12Available = d12.lockStatus === 1
-            this.isXinchunAvailable = xinChun.lockStatus === 1
-            this.isDragonGateAvailable = dragonGate.lockStatus === 1
+            const { result }: { result: lockStatusInfo[] } = await getActivityAuth()
+            const double12 = result.find(item => item.activityValue === '4')
+            const xinChun = result.find(item => item.activityValue === '2')
+            const dragonGate = result.find(item => item.activityValue === '3')
+            this.double12LockStatus = double12 ? double12.lockStatus : 3
+            this.xinchunLockStatus = xinChun ? xinChun.lockStatus : 3
+            this.dragonGateLockStatus = dragonGate ? dragonGate.lockStatus : 3
         } catch (error) {
             throw error
         }
@@ -498,22 +510,31 @@ export default class MallThemes extends Vue {
 
     // 检查是否有模板使用权限
     check (item: Template) {
-        // if (~[TemplateTypes.TemplateFengQiang, TemplateTypes.TemplateBaoFa, TemplateTypes.TemplateFanChang].indexOf(item.type) && !this.isD12Available) {
-        //     this.modalText = '双十二'
-        //     this.showAlertModal = true
-        //     return false
-        // }
-        if (item.type === TemplateTypes.TemplateXinChun && !this.isXinchunAvailable) {
+        if (item.type === TemplateTypes.TemplateDouble12) {
+            if (this.double12LockStatus === 1) {
+                return item
+            }
+            this.modalText = '双十二'
+            this.modalType = this.double12LockStatus === 2 ? 'EXPIRED' : 'UNPAID'
+            this.showAlertModal = true
+        }
+        if (item.type === TemplateTypes.TemplateXinChun) {
+            if (this.xinchunLockStatus === 1) {
+                return item
+            }
             this.modalText = '新春'
+            this.modalType = this.xinchunLockStatus === 2 ? 'EXPIRED' : 'UNPAID'
             this.showAlertModal = true
-            return false
         }
-        if (item.type === TemplateTypes.TemplateDragonGate && !this.isDragonGateAvailable) {
+        if (item.type === TemplateTypes.TemplateDragonGate) {
+            if (this.dragonGateLockStatus === 1) {
+                return item
+            }
             this.modalText = '龙门节'
+            this.modalType = this.dragonGateLockStatus === 2 ? 'EXPIRED' : 'UNPAID'
             this.showAlertModal = true
-            return false
         }
-        return item
+        return false
     }
 
     compose (...fns: Function[]) {
