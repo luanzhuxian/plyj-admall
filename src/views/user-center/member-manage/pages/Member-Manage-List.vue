@@ -356,30 +356,81 @@
 
             <!-- 导出 -->
             <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
-                <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
+                <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="110px" label-position="left">
                     <el-form-item label="搜索关键字" prop="keyword">
                         <el-input
                             v-model.trim="exportData.keyword"
                             placeholder="昵称/手机号"
-                            style="width: 369px;"
+                            style="width: 300px;"
                             clearable
                         />
                     </el-form-item>
+                    <el-form-item label="来源：">
+                        <el-select v-model="exportData.userSource" clearable>
+                            <el-option :value="''" label="全部" />
+                            <el-option value="微信H5" label="微信H5" />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="购买次数：">
+                        <el-input
+                            clearable
+                            size="small"
+                            style="width: 116px"
+                            type="number"
+                            placeholder="请输入次数"
+                            v-model="exportData.purchasesMinNumber"
+                        />
+                        至
+                        <el-input
+                            clearable
+                            size="small"
+                            style="width: 116px"
+                            type="number"
+                            placeholder="请输入次数"
+                            v-model="exportData.purchasesMaxNumber"
+                        />
+                    </el-form-item>
                     <el-form-item prop="roleType" label="用户类型">
-                        <el-select v-model="exportData.roleType" clearable>
+                        <el-select v-model="exportData.roleCode" clearable>
                             <el-option :value="''" label="全部" />
                             <el-option value="MEMBERSHIP" label="普通会员" />
                             <el-option value="HELPER" label="Helper" />
                         </el-select>
                     </el-form-item>
-                    <el-form-item prop="tagId" label="用户标签">
-                        <el-select v-model="exportData.tagId" clearable>
-                            <el-option value="" label="全部" />
-                            <el-option :value="0" label="未设置标签" />
-                            <el-option v-for="(item, index) in tagList" :label="item.tagName" :value="item.id" :key="index" />
-                        </el-select>
+                    <el-form-item label="支付总额：">
+                        <el-input
+                            clearable
+                            size="small"
+                            style="width: 116px"
+                            type="number"
+                            placeholder="请输入金额"
+                            v-model.number="exportData.purchasesMinAmount"
+                        />
+                        至
+                        <el-input
+                            clearable
+                            size="small"
+                            style="width: 116px"
+                            type="number"
+                            placeholder="请输入金额"
+                            v-model.number="exportData.purchasesMaxAmount"
+                        />
                     </el-form-item>
-                    <el-form-item label="加入时间" prop="startTime">
+
+                    <el-form-item label="时间类型">
+                        <el-radio-group @change="exportTypeChange" v-model="exportData.dateType">
+                            <el-radio :label="1">
+                                注册时间
+                            </el-radio>
+                            <el-radio :label="2">
+                                最近登录时间
+                            </el-radio>
+                            <el-radio :label="3">
+                                最近购买时间
+                            </el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                    <el-form-item label="选择时间" prop="startTime">
                         <el-radio-group @change="exportRangeChange" v-model="exportData.dateRange">
                             <el-radio :label="1">
                                 7日内
@@ -456,11 +507,11 @@ export default class MemberManageList extends Vue {
       HELPER: 'Helper'
   }
 
-    USER_TYPE = {
-        1: '家长',
-        2: '学生',
-        3: '其他'
-    }
+  USER_TYPE = {
+      1: '家长',
+      2: '学生',
+      3: '其他'
+  }
 
   form = {
       keyword: '',
@@ -519,13 +570,19 @@ export default class MemberManageList extends Vue {
   // 导出数据
   showExport = false
   exportData: {[k: string]: number | string} = {
-      keyword: '',
-      roleType: '',
+      //  1 注册 2 登录 3 购买
+      dateType: 1,
       // 1 7日内 2 30日内 3自选
       dateRange: 3,
       startTime: '',
       endTime: '',
-      tagId: ''
+      keyword: '',
+      roleCode: '',
+      userSource: '',
+      purchasesMinNumber: '',
+      purchasesMaxNumber: '',
+      purchasesMinAmount: '',
+      purchasesMaxAmount: ''
   }
 
   exportRules = {
@@ -578,24 +635,88 @@ export default class MemberManageList extends Vue {
   // 导出
   changeExport () {
       this.exportData = {
-          ...this.exportData,
-          ...this.form
+          //  1 注册 2 登录 3 购买
+          dateType: 1,
+          // 1 7日内 2 30日内 3自选
+          dateRange: 3,
+          startTime: '',
+          endTime: '',
+          keyword: this.form.keyword,
+          roleCode: this.form.roleCode,
+          userSource: this.form.userSource,
+          purchasesMinNumber: this.form.purchasesMinNumber,
+          purchasesMaxNumber: this.form.purchasesMaxNumber,
+          purchasesMinAmount: this.form.purchasesMinAmount,
+          purchasesMaxAmount: this.form.purchasesMaxAmount
       }
+      this.exportTypeChange(Number(this.exportData.dateType))
       this.showExport = true
   }
 
   exportClose () {
       this.exportData = {
-          keyword: '',
-          roleType: '',
+          //  1 注册 2 登录 3 购买
+          dateType: 1,
           // 1 7日内 2 30日内 3自选
           dateRange: 3,
           startTime: '',
           endTime: '',
-          tagId: ''
+          keyword: '',
+          roleCode: '',
+          userSource: '',
+          purchasesMinNumber: '',
+          purchasesMaxNumber: '',
+          purchasesMinAmount: '',
+          purchasesMaxAmount: ''
       };
       (this.$refs.exportForm as ElForm).clearValidate()
       this.showExport = false
+  }
+
+  exportRangeChange (val: number) {
+      const start: string | Date = new Date()
+      const end: string | Date = new Date()
+      const formatType = 'YYYY-MM-DD'
+
+      if (val === 1) {
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      } else if (val === 2) {
+          start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      } else {
+          this.exportTypeChange(this.exportData.dateType as number)
+      }
+
+      this.exportDatechange({
+          start: start && `${ moment(start).format(formatType) } 00:00:00`,
+          end: end && `${ moment(end).format(formatType) } 23:59:59`
+      })
+  }
+
+  async exportTypeChange (type: number) {
+      if (this.exportData.dateRange !== 3) {
+          return
+      }
+
+      await this.$nextTick()
+      //  1 注册 2 登录 3 购买
+      if (type === 1 && this.form.startTime) {
+          this.exportDatechange({
+              start: this.form.startTime,
+              end: this.form.endTime
+          })
+      }
+      if (type === 2 && this.form.loginStartTime) {
+          this.exportDatechange({
+              start: this.form.loginStartTime,
+              end: this.form.loginEndTime
+          })
+      }
+      if (type === 3 && this.form.lastPurchaseStartTime) {
+          this.exportDatechange({
+              start: this.form.lastPurchaseStartTime,
+              end: this.form.lastPurchaseEndTime
+          })
+      }
   }
 
   async exportDatechange ({ start, end }: DynamicObject) {
@@ -608,37 +729,35 @@ export default class MemberManageList extends Vue {
       (this.$refs.exportDatePicker as HTMLFormElement).initDate()
   }
 
-  exportRangeChange (val: number) {
-      let start: string | Date = new Date()
-      let end: string | Date = new Date()
-      const formatType = 'YYYY-MM-DD'
-
-      if (val === 1) {
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-      } else if (val === 2) {
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-      } else {
-          start = this.form.startTime || ''
-          end = this.form.endTime || ''
+  deleteExportDataKeys () {
+      const keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'loginStartTime', 'loginEndTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
+      for (const item of keys) {
+          delete this.exportData[item]
       }
-
-      this.exportDatechange({
-          start: start && `${ moment(start).format(formatType) } 00:00:00`,
-          end: end && `${ moment(end).format(formatType) } 23:59:59`
-      })
   }
 
   async exportList () {
       await (this.$refs.exportForm as HTMLFormElement).validate()
-      const exportData = this.exportData
-      const data = {
-          keyword: exportData.keyword,
-          roleType: exportData.roleType,
-          tagId: exportData.tagId,
-          startTime: exportData.startTime,
-          endTime: exportData.endTime
+      this.deleteExportDataKeys()
+      //  1 注册 2 登录 3 购买
+      switch (this.exportData.dateType) {
+          case 1: {
+              this.exportData.startTime = this.form.startTime
+              this.exportData.endTime = this.form.endTime
+              break
+          }
+          case 2: {
+              this.exportData.loginStartTime = this.form.loginStartTime
+              this.exportData.loginEndTime = this.form.loginEndTime
+              break
+          }
+          case 3: {
+              this.exportData.lastPurchaseStartTime = this.form.lastPurchaseStartTime
+              this.exportData.lastPurchaseEndTime = this.form.lastPurchaseEndTime
+              break
+          }
       }
-      const blob = await exportMemberQuery(data)
+      const blob = await exportMemberQuery(this.exportData)
       const url = createObjectUrl(blob)
       const a = document.createElement('a')
       a.href = url

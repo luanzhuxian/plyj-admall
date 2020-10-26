@@ -57,9 +57,8 @@ export const queryMemberDeposit = (params: any) => axios.get('/apis/v1/agent/use
  * @param params {object}
  * @return {Promise<AxiosResponse<T>>}
  */
-export const exportMemberQuery = (params: any): Promise<Blob> => axios.post(
-    '/apis/v1/systemctl/memberManager/member/list/export',
-    null,
+export const exportMemberQuery = (params: any): Promise<Blob> => axios.get(
+    '/apis/v2/user/download',
     {
         timeout: 0,
         responseType: 'blob',
