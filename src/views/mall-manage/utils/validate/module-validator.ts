@@ -85,22 +85,24 @@ class BannerListValidator<T extends Validator> extends Validator {
 // 模块名称校验
 class ModuleNameValidator extends Validator {
     moduleName: Rule[]
-    constructor (moduleName: string, moduleNameLength?: { minLength: number; maxLength: number }) {
-        const min = moduleNameLength?.minLength || 1
-        const max = moduleNameLength?.maxLength || 4
+    constructor (moduleName: string, option: { minLength: number; maxLength: number }) {
+        const minLength = option?.minLength
+        const maxLength = option?.maxLength
         super()
         this.moduleName = [
-            new Rule('required', `请填写${ moduleName }模块标题`),
-            new Rule('isLength', `${ moduleName }模块的标题最多为${ max }个字`, { min, max })
+            new Rule('required', `请填写${ moduleName }模块标题`)
         ]
+        if (maxLength) {
+            this.moduleName.push(new Rule('isLength', `${ moduleName }模块的标题最多为${ maxLength }个字`, { min: minLength, max: maxLength }))
+        }
     }
 }
 
 // 商品、课程模块校验
 class ProductListValidator extends ModuleNameValidator {
     productValues: Rule[]
-    constructor (moduleName: string, max: number, moduleNameLength: { minLength: number; maxLength: number }) {
-        super(moduleName, moduleNameLength)
+    constructor (moduleName: string, max: number, { minLength, maxLength }: { minLength: number; maxLength: number }) {
+        super(moduleName, { minLength, maxLength })
         this.productValues = [
             new Rule('required', `${ moduleName }至少添加一个${ max === 12 ? '课程' : '商品' }`),
             new Rule('isLength', `${ moduleName }最多添加${ max }个${ max === 12 ? '课程' : '商品' }`, { min: 1, max })
@@ -113,8 +115,8 @@ class CategoryListValidator extends ModuleNameValidator {
     otherValue: Rule[]
     otherInfo: Rule[]
     number: Rule[]
-    constructor (moduleName: string, max: number, moduleNameLength: { minLength: number; maxLength: number }) {
-        super(moduleName, moduleNameLength)
+    constructor (moduleName: string, max: number, { minLength, maxLength }: { minLength: number; maxLength: number }) {
+        super(moduleName, { minLength, maxLength })
         this.otherValue = [new Rule('required', `请选择${ moduleName }商品分组`)]
         this.otherInfo = [new Rule('required', `${ moduleName }商品分组没有跳转路径`)]
         this.number = [new Rule('max', `${ moduleName }显示个数最小为1，最大为${ max }`, max)]
@@ -148,7 +150,7 @@ class TeacherValidator extends Validator {
 class TeacherListValidator extends ModuleNameValidator {
     validator: TeacherValidator
     constructor (moduleName: string) {
-        super(moduleName)
+        super(moduleName, { minLength: 1, maxLength: 4 })
         this.validator = new TeacherValidator(moduleName)
         // this.values = [new Rule('isLength', `${moduleName}模块，最少添加3名老师，最多添加15名老师`, { min: 3, max: 15 })]
     }
@@ -177,7 +179,7 @@ class RecommendValidator extends ModuleNameValidator {
     sortType: Rule[]
     number: Rule[]
     constructor (moduleName: string) {
-        super(moduleName)
+        super(moduleName, { minLength: 1, maxLength: 4 })
         this.sortType = [new Rule('required', `请选择${ moduleName }排序方式`)]
         this.number = [new Rule('max', `${ moduleName }展示数量最小为1，最大为30`, 30)]
     }

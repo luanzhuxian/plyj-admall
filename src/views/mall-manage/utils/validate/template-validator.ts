@@ -32,11 +32,9 @@ import {
 
 class BaseValidator {
     // 商品、课程模块
-    async checkProduct (moduleName: string, moduleNameLength?: { minLength: number; maxLength: number }) {
+    async checkProduct (moduleName: string, { minLength, maxLength } = {}) {
         const { errList, moduleModels } = this
         const module = moduleModels[moduleName]
-        const minLength = moduleNameLength?.minLength || 1
-        const maxLength = moduleNameLength?.maxLength || 4
 
         try {
             if (module.showStatue !== 1) return
@@ -234,8 +232,8 @@ class TemplateBValidator extends HomeValidator<TemplateB> {
         if (this.tmplType === 4) {
             await this.checkAdv()
         }
-        await this.checkProduct('Popular')
-        await this.checkProduct('Class')
+        await this.checkProduct('Popular', { minLength: 1, maxLength: 4 })
+        await this.checkProduct('Class', { minLength: 1, maxLength: 4 })
         await this.checkRecommend()
 
         if (this.errList.length) {
@@ -255,9 +253,9 @@ class TemplateCValidator extends HomeValidator<TemplateC> {
 
     async validate () {
         await this.checkPropagate()
-        await this.checkProduct('Popular')
+        await this.checkProduct('Popular', { minLength: 1, maxLength: 4 })
         await this.checkTeachers()
-        await this.checkProduct('Class')
+        await this.checkProduct('Class', { minLength: 1, maxLength: 4 })
         await this.checkRecommend()
 
         if (this.errList.length) {
@@ -282,8 +280,8 @@ class TemplateDValidator extends HomeValidator<TemplateD> {
         await this.checkList('Package', { min: 1, max: 8 })
         await this.checkList('Pintuan', { min: 1, max: 6 })
         await this.checkList('Yugou', { min: 1, max: 6 })
-        await this.checkProduct('Popular')
-        await this.checkProduct('Class')
+        await this.checkProduct('Popular', { minLength: 1, maxLength: 4 })
+        await this.checkProduct('Class', { minLength: 1, maxLength: 4 })
         await this.checkRecommend()
 
         if (this.errList.length) {
