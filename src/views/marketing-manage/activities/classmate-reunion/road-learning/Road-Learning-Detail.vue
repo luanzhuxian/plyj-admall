@@ -1,5 +1,5 @@
 <template>
-    <div class="road-learning-detail wrap">
+    <div class="road-learning-detail">
         <div class="road-learning-detail-header">
             <div class="flex align-item-center">
                 <img class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/gift@1x.png">
@@ -48,7 +48,7 @@
             </div>
             <search-box class="mt-24">
                 <el-form-item label="搜索内容：">
-                    <el-input placeholder="请输入真实姓名/昵称/联系方式" v-model="filterCondition.keyWord" clearable />
+                    <el-input placeholder="请输入真实姓名/昵称/联系方式" v-model="filterCondition.keyWord" style="width: 240px;" clearable />
                 </el-form-item>
                 <el-form-item label="抽奖时间：">
                     <date-range
@@ -57,7 +57,6 @@
                         @change="formatTimeRange"
                     />
                 </el-form-item>
-                <div />
                 <el-form-item>
                     <el-button round type="primary" @click="getActivityGiftList">
                         查询
@@ -201,6 +200,10 @@ export default {
             } catch (e) {
                 throw e
             }
+        },
+        sizeChange (val) {
+            this.filterCondition.size = val
+            this.init()
         },
         async getActivityStat () {
             const data = await getActivityStat(this.id)

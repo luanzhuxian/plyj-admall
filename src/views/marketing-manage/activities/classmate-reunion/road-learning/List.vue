@@ -70,58 +70,35 @@
                 >
                     <template #default="{row}">
                         <!--   活动'未开始'+'进行中'状态可编辑   -->
-                        <el-button
-                            v-if="row.status"
-                            @click.native.prevent="goEdit(row, row.status)"
-                            plain
-                        >
-                            编辑
-                        </el-button>
-                        <!--   活动所有状态均状态可查看数据   -->
-                        <el-button
-                            @click.native.prevent="viewActivity(row)"
-                            plain
-                        >
-                            查看数据
-                        </el-button>
-                        <!--   活动'未开始'+'已结束'状态均可删除   -->
-                        <el-button
-                            v-if="row.status === 0 || row.status === 1"
-                            @click.native.prevent="deleteActivity(row)"
-                            plain
-                        >
-                            删除
-                        </el-button>
-                        <!--   活动'进行中'+'未开始'状态均可结束   -->
-                        <el-button
-                            v-if="row.status === 1 || row.status === 2"
-                            @click.native.prevent="finish(row)"
-                            plain
-                        >
-                            结束
-                        </el-button>
-                        <!--   活动非'已结束'状态可复制 -->
-                        <el-popover
-                            placement="bottom"
-                            trigger="hover"
-                            style="margin-left:10px;"
-                        >
-                            <el-button
-                                size="mini"
-                                style="margin-bottom:5px;"
-                                @click="copy(row)"
-                            >
-                                复制
-                            </el-button>
-                            <br>
-                            <el-button
-                                size="mini"
-                                @click="share(row)"
-                            >
-                                分享
-                            </el-button>
-                            <i class="el-icon-more" slot="reference" />
-                        </el-popover>
+                        <Operating>
+                            <template slot="button-box">
+                                <a v-if="row.status"
+                                   @click="goEdit(row, row.status)">
+                                    编辑
+                                </a>
+                                <!--   活动所有状态均状态可查看数据   -->
+                                <a @click="viewActivity(row)">
+                                    查看数据
+                                </a>
+                                <!--   活动'未开始'+'已结束'状态均可删除   -->
+                                <a v-if="row.status === 0 || row.status === 1"
+                                   @click="deleteActivity(row)">
+                                    删除
+                                </a>
+                                <!--   活动'进行中'+'未开始'状态均可结束   -->
+                                <a v-if="row.status === 1 || row.status === 2"
+                                   @click="finish(row)">
+                                    结束
+                                </a>
+                                <!--   活动非'已结束'状态可复制 -->
+                                <a @click="copy(row)">
+                                    复制
+                                </a>
+                                <a @click="share(row)">
+                                    分享
+                                </a>
+                            </template>
+                        </Operating>
                     </template>
                 </el-table-column>
             </el-table>

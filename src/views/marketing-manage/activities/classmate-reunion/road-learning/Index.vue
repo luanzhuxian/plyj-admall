@@ -12,33 +12,31 @@
                 新建活动
                 <i class="el-icon-plus el-icon--right" />
             </el-button>
-            <pl-tabs
-                :value="$route.name"
-                :tabs="[
-                    { label:'活动列表', name:'RoadLearningList' },
-                    { label:'活动设置', name:'RoadLearningSetting' },
-                ]"
-                @tabClick="data => $router.replace({ name: data.name })"
-            />
+            <el-button type="text" @click="showExplanation = true" v-show="$route.name !== 'RoadLearningDetail'">
+                活动说明
+            </el-button>
         </template>
 
         <keep-alive>
             <router-view />
         </keep-alive>
+        <Setting :show.sync="showExplanation" />
     </div>
 </template>
 
 <script>
 import ListHeader from '../../../components/List-Header'
+import Setting from './Road-Learning-Setting'
 export default {
     name: 'RoadLearning',
-    components: { ListHeader },
+    components: { Setting, ListHeader },
     data () {
         return {
             // 是否显示分享页面
             isShowShareDialog: false,
             // 是否有正在进行中或未开启的活动，false时不可分享，true可分享
-            hasCanShareActivity: false
+            hasCanShareActivity: false,
+            showExplanation: false
         }
     }
 }

@@ -156,64 +156,43 @@
                         header-align="right"
                     >
                         <template slot-scope="{ row }">
-                            <el-button
-                                v-if="row.status !==0"
-                                size="mini"
-                                type="text"
-
-                                @click="$router.push({name: 'InviteNewcomersEdit',params: { id: row.id}})"
-                            >
-                                编辑
-                            </el-button>
-                            <el-button
-                                size="mini"
-                                type="text"
-
-                                @click="$router.push({name: 'InviteNewcomersDetail',params: { id: row.id}})"
-                            >
-                                查看数据
-                            </el-button>
-                            <el-button
-                                v-if="row.status === 0 || row.status === 1"
-                                size="mini"
-                                type="text"
-
-                                @click="deleteActivity(row)"
-                            >
-                                删除
-                            </el-button>
-                            <el-button
-                                v-if="row.status === 2 || row.status === 1"
-                                size="mini"
-                                type="text"
-
-                                @click="over(row.id)"
-                            >
-                                结束
-                            </el-button>
-                            <el-popover
-                                placement="bottom"
-                                trigger="hover"
-                                style="margin-left:10px;"
-                            >
-                                <el-button
-                                    size="mini"
-                                    type="text"
-                                    class="f-mb5"
-                                    @click="$router.push({name: 'InviteNewcomersCopy',params: { id: row.id }})"
-                                >
-                                    复制
-                                </el-button>
-                                <br>
-                                <el-button
-                                    size="mini"
-                                    type="text"
-                                    @click="share(row.id)"
-                                >
-                                    分享
-                                </el-button>
-                                <i class="el-icon-more" slot="reference" />
-                            </el-popover>
+                            <Operating>
+                                <template slot="button-box">
+                                    <a
+                                        v-if="row.status !==0"
+                                        @click="$router.push({name: 'InviteNewcomersEdit',params: { id: row.id}})"
+                                    >
+                                        编辑
+                                    </a>
+                                    <a
+                                        @click="$router.push({name: 'InviteNewcomersDetail',params: { id: row.id}})"
+                                    >
+                                        查看数据
+                                    </a>
+                                    <a
+                                        v-if="row.status === 0 || row.status === 1"
+                                        @click="deleteActivity(row)"
+                                    >
+                                        删除
+                                    </a>
+                                    <a
+                                        v-if="row.status === 2 || row.status === 1"
+                                        @click="over(row.id)"
+                                    >
+                                        结束
+                                    </a>
+                                    <a
+                                        @click="$router.push({name: 'InviteNewcomersCopy',params: { id: row.id }})"
+                                    >
+                                        复制
+                                    </a>
+                                    <a
+                                        @click="share(row.id)"
+                                    >
+                                        分享
+                                    </a>
+                                </template>
+                            </Operating>
                         </template>
                     </el-table-column>
                 </el-table>

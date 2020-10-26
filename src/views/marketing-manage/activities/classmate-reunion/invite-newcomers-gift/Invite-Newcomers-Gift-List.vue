@@ -8,34 +8,30 @@
             start-time="2019.10.28"
             end-time="2020.01.31"
         />
-        <el-button type="primary" round @click="add">
+        <el-button type="primary" round @click="add" v-show="$route.name !== 'InviteNewcomersDetail'">
             新建活动
             <i class="el-icon-plus el-icon--right" />
         </el-button>
-        <pl-tabs
-            v-if="showTop"
-            :value="$route.name"
-            :tabs="[
-                {label:'活动列表',name:'InviteNewcomersList'},
-                {label:'活动设置',name:'InviteNewcomersSetting'},
-            ]"
-            @tabClick="data => $router.replace({ name: data.name })"
-        />
-
+        <el-button type="text" @click="showExplanation = true" v-show="$route.name !== 'InviteNewcomersDetail'">
+            活动说明
+        </el-button>
         <keep-alive>
             <router-view />
         </keep-alive>
+        <InviteNewcomersSetting :show.sync="showExplanation" />
     </div>
 </template>
 
 <script>
+import InviteNewcomersSetting from './Invite-Newcomers-Setting'
 import ListHeader from '../../../components/List-Header'
 export default {
     name: 'InviteNewcomersGift',
-    components: { ListHeader },
+    components: { ListHeader, InviteNewcomersSetting },
     data () {
         return {
-            showTop: false
+            showTop: false,
+            showExplanation: false
         }
     },
     methods: {
