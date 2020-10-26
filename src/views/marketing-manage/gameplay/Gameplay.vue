@@ -76,7 +76,7 @@
                 :is-lock="!activitys.togetherBuy.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
                 :route-info="{
-                    name: 'NewYearTogetherBuy',
+                    name: 'TogetherBuy',
                     params: {
                         programId: '4'
                     }
