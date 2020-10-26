@@ -17,13 +17,13 @@
         <el-button class="underline" type="text" @click="explainFlag = true">
             活动说明
         </el-button>
-        <pl-tabs
+        <!-- <pl-tabs
             v-if="showTop"
             :value="$route.name"
             :tabs="[
                 {label:'活动列表',name:'LongmenPublicBenefitList'},
             ]"
-        />
+        /> -->
 
         <router-view />
 

@@ -17,7 +17,7 @@
         >
             新建活动 <i class="el-icon-plus" />
         </el-button>
-        <el-button class="underline" type="text" @click="explainFlag = true">
+        <el-button type="text" @click="explainFlag = true" v-show="$route.name !== 'CoursePackageDetailInfo' && $route.name !== 'CoursePackageDetailData'">
             活动说明
         </el-button>
         <keep-alive :exclude="exclude">

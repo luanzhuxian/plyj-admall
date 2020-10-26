@@ -8,35 +8,32 @@
             :start-time="start"
             :end-time="end"
         />
-        <el-button type="primary" round @click="add" icon="el-icon-plus">
+        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name !== 'GeneralInfo' && $route.name !== 'GeneralData' && $route.name !== 'GeneralGiftData'">
             新建活动
         </el-button>
-        <pl-tabs
-            v-if="$route.name === 'GeneralList' || $route.name === 'GeneralSetting'"
-            :value="$route.name"
-            :tabs="[
-                {label:'活动列表',name:'GeneralList'},
-                {label:'活动设置',name:'GeneralSetting'},
-            ]"
-            @tabClick="data => $router.replace({ name: data.name })"
-        />
+        <el-button type="text" @click="showExplanation = true" v-show="$route.name !== 'GeneralInfo' && $route.name !== 'GeneralData' && $route.name !== 'GeneralGiftData'">
+            活动说明
+        </el-button>
         <router-view />
+        <GeneralSetting :show.sync="showExplanation" />
     </div>
 </template>
 
 <script>
+import GeneralSetting from './Setting'
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../../store/mutation-type'
 import ListHeader from '../../../components/List-Header'
 import moment from 'moment'
 export default {
     name: 'GeneralIndex',
-    components: { ListHeader },
+    components: { ListHeader, GeneralSetting },
     data () {
         return {
             showTop: false,
             start: '',
-            end: ''
+            end: '',
+            showExplanation: false
         }
     },
     computed: {
