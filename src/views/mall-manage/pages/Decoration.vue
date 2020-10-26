@@ -817,20 +817,11 @@ export default class MallDecoration extends Vue {
         }
     }
 
-    async submit (model: Template, msg = '上架成功') {
+    async submit (model: Template) {
         try {
             if (isPlainObject<TemplateCrosses>(this.moduleModels)) {
                 model.moduleModels = rebuildBeforeSubmit(this.moduleModels, this.tmplType)
                 await updateCurrentTemplate(model)
-                if (model.status === 1) {
-                    this.$success(msg)
-                    await this.getCurrentTemplate(this.isActivity ? 2 : 1)
-                    setTimeout(() => {
-                        this.$router.push({ name: 'MallMain' })
-                    }, 1000)
-                } else {
-                    this.$success('保存草稿箱成功')
-                }
                 this.currentModule = ''
                 return true
             }
@@ -852,7 +843,8 @@ export default class MallDecoration extends Vue {
                     ...rest,
                     status: 2
                 }
-                return await this.submit(model)
+                await this.submit(model)
+                this.$success('保存草稿箱成功')
             }
         } catch (e) {
             throw e
@@ -860,7 +852,7 @@ export default class MallDecoration extends Vue {
     }
 
     // 上架
-    async stack (e: any, msg: string) {
+    async stack (e: any, msg = '上架成功') {
         try {
             if (isPlainObject<Template>(this.templateModel)) {
                 // eslint-disable-next-line
@@ -873,7 +865,12 @@ export default class MallDecoration extends Vue {
                 const result = await validatorProducer(this.tmplType, this.moduleModels).validate()
 
                 if (result.pass === true) {
-                    await this.submit(model, msg)
+                    await this.submit(model)
+                    this.$success(msg)
+                    setTimeout(() => {
+                        this.$router.push({ name: 'MallMain' })
+                    }, 1000)
+                    await this.getCurrentTemplate(this.isActivity ? 2 : 1)
                 }
                 if (result.pass === false) {
                     const OFFSET = 50
