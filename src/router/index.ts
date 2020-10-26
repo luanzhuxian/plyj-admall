@@ -8,6 +8,30 @@ import { MessageBox } from 'admall-element'
 import NotFound from '../views/404.vue'
 import { importFiles } from './../assets/ts/utils'
 import { LocalEnum, SessionEnum } from '@/enum/storage'
+import store from '../store'
+
+const checkAuth = to => {
+    const routeNames = store.getters['user/routeNames']
+    const currentHasPower = routeNames.has(to.name)
+    const index = routeNames.get(to.name)
+    // 判断是否有权限访问
+    if (currentHasPower) {
+        const routeNameArr = [...routeNames]
+        // 找出当前路由的所有子路由
+        const allChildren = routeNameArr.filter(item => item[1] !== index && item[1].indexOf(`${ index }-`) === 0)
+        if (allChildren.length) {
+            return allChildren[0][0]
+        }
+        return to.name
+    }
+
+    /**
+     * 无权限访问，返回一个重定向路由，并提示用户
+     * 返回路由列表中的第一个路由
+     */
+    MessageBox.alert(`${ to.meta.title ? to.meta.title : '该' }页面暂无权限，请联系管理员`, { title: '暂无权限' })
+    return [...routeNames.keys()][0]
+}
 
 // 无需登录就可以看到的页面
 const NOLOGIN = [
@@ -88,17 +112,30 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
     NProgress.start()
     document.title = to.meta.title || document.title
     const token = Cookie.get(LocalEnum.token) || ''
-    // 需要登录，但未登录
-    if (!token && !NOLOGIN.includes(to.name as string)) {
-        next({ name: 'PhoneLogin' })
-        return
+
+    if (!token) {
+        if (!NOLOGIN.includes(to.name as string)) {
+            next({ name: 'PhoneLogin' })
+            NProgress.done()
+            return
+        }
+        next()
     }
+
     // 已登录，访问不需要登录的页面
-    if (token && NOLOGIN.includes(to.name as string)) {
+    if (NOLOGIN.includes(to.name as string)) {
         next({ name: 'Home' })
+        NProgress.done()
         return
     }
-    // 访问了需要微信授权的页面
+    // 校验页面权限
+    if (!to.meta.ignore) {
+        const newTo = checkAuth(to, from)
+        if (newTo !== to.name) {
+            NProgress.done()
+            return next({ name: newTo })
+        }
+    }
     const appId = localStorage.getItem(LocalEnum.appId)
     const mallId = Cookie.get(LocalEnum.mallId)
     if (!mallId && !to.matched.some(item => NO_MALL.includes(item.name as string))) {

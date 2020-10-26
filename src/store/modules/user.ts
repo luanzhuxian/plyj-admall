@@ -3,7 +3,7 @@ import {
     login,
     mobileLogin,
     getLoginInfo,
-    // getRolePowerList,
+    getRolePowerList,
     getAgencyDetail,
     getAgencyList,
     getAccountInfo
@@ -88,11 +88,10 @@ const user: Module<DynamicObject, DynamicObject> = {
         entWxPayInfoVO: {},
         mallSaveModel: {},
         subAccount: [],
-        menuList: [{
-            children: []
-        }],
-        // 所拥路由名称
-        routeNames: [],
+        // 菜单
+        menuList: [],
+        // 菜单中所拥有的路由名称
+        routeNames: new Map(),
         // 所拥有的机构
         agencyList: [],
         // 当前机构主键
@@ -170,6 +169,7 @@ const user: Module<DynamicObject, DynamicObject> = {
             state.currentStep = 0
             state.token = ''
             state.menuList = []
+            state.routeNames = new Map()
             state.subAccount = []
             state.agencyCode = ''
             state.mallId = ''
@@ -184,39 +184,25 @@ const user: Module<DynamicObject, DynamicObject> = {
             localStorage.removeItem(LocalEnum.appId)
         },
         // 缓存权限列表
-        // [types.SET_POWER_LIST]: (state, payload) => {
-        //     if (!payload) {
-        //         return
-        //     }
-        //     const regType = state.REG_TYPE
-        //     const menus = payload[0] ? payload[0].children || [] : []
-        //     const container = new Set()
-        //     const getMenuName = (menuList: Array<any>) => {
-        //         for (const item of menuList) {
-        //             // 删除老流程菜单
-        //             if (regType === 2 && item.routePath === 'WechatBind') {
-        //                 menuList.splice(menuList.indexOf(item), 1)
-        //                 getMenuName(menuList)
-        //                 break
-        //             }
-        //             // 删除新流程菜单
-        //             if (regType === 1 && item.routePath === 'BindWechat') {
-        //                 menuList.splice(menuList.indexOf(item), 1)
-        //                 getMenuName(menuList)
-        //                 break
-        //             }
-        //             if (item.routePath) {
-        //                 container.add(item.routePath)
-        //             }
-        //             if (item.children.length) {
-        //                 getMenuName(item.children)
-        //             }
-        //         }
-        //     }
-        //     getMenuName(menus)
-        //     state.routeNames = [...container]
-        //     state.menuList = [{ children: menus }]
-        // },
+        [MutationTypes.setPowerList]: (state, payload) => {
+            if (!payload) {
+                return
+            }
+            // const regType = state.REG_TYPE
+            const menus = payload[0] ? payload[0].children || [] : []
+            const container = new Map()
+            const getMenuName = (menuList: Array<any>) => {
+                for (const item of menuList) {
+                    if (item.routePath) {
+                        container.set(item.routePath, item.aclCode)
+                    }
+                    item.children.length ? getMenuName(item.children) : item.children = null
+                }
+            }
+            getMenuName(menus)
+            state.routeNames = container
+            state.menuList = menus
+        },
         // 缓存机构列表
         [MutationTypes.getAgencyList]: (state, payload) => {
             state.agencyList = payload
@@ -368,16 +354,16 @@ const user: Module<DynamicObject, DynamicObject> = {
                 throw e
             }
         },
-        // async [types.SET_POWER_LIST] ({ commit }) {
-        //     try {
-        //         const data = await getRolePowerList()
-        //         commit(types.SET_POWER_LIST, data.result)
-        //         return data.result
-        //     } catch (e) {
-        //         commit(types.LOGOUT)
-        //         throw e
-        //     }
-        // },
+        async [MutationTypes.setPowerList] ({ commit }) {
+            try {
+                const data = await getRolePowerList()
+                commit(MutationTypes.setPowerList, data.result)
+                return data.result
+            } catch (e) {
+                commit(MutationTypes.logout)
+                throw e
+            }
+        },
         // TODO: 已弃用
         // async [types.V_MERCHANT_STATUS] ({ commit }) {
         //     try {
@@ -423,7 +409,7 @@ const user: Module<DynamicObject, DynamicObject> = {
                 await dispatch(MutationTypes.agencyUserInfo)
                 await dispatch(MutationTypes.getAccountInfo)
                 await dispatch(MutationTypes.wechatPayStatus)
-                // await dispatch(types.SET_POWER_LIST)
+                await dispatch(MutationTypes.setPowerList)
                 // if (state.REG_TYPE === 2) {
                 //     // 新流程
                 //     await dispatch(types.WECHAT_PAY_STATUS)
@@ -446,6 +432,9 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 当前登录人的id
         userId: state => state.loginInfo.userId || null,
         accountInfo: state => state.accountInfo,
+        // 菜单
+        menuList: state => state.menuList,
+        routeNames: state => state.routeNames,
         // 注册步骤
         currentStep: state => state.currentStep,
         allLoaded: state => state.allLoaded,

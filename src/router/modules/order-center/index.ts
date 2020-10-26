@@ -9,43 +9,67 @@ export default [
         },
         children: [
             {
-                path: 'order-list',
-                name: 'OrderList',
-                component: () => import('../../../views/order-manage/pages/Goods-List.vue'),
+                path: 'goods',
+                name: 'GoodsOrder',
+                redirect: '/orders-manage/goods/list',
+                component: () => import('../../../views/order-manage/pages/goods-order/Index.vue'),
                 meta: {
                     title: '商品订单',
                     index: '4-1'
                 },
                 children: [
                     {
+                        path: 'list',
+                        name: 'GoodsOrderList',
+                        component: () => import('../../../views/order-manage/pages/goods-order/Goods-List.vue'),
+                        meta: {
+                            title: '列表',
+                            index: '4-1-1',
+                            ignore: true
+                        }
+                    },
+                    {
                         path: 'detail/:id',
-                        name: 'OrderDetail',
+                        name: 'GoodsOrderDetail',
                         component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
                         props: true,
                         meta: {
                             title: '订单详情',
-                            index: '4-1-1'
+                            index: '4-1-2',
+                            ignore: true
                         }
                     }
                 ]
             },
             {
-                path: 'courses-list',
-                name: 'CoursesList',
-                component: () => import('../../../views/order-manage/pages/Course-List.vue'),
+                path: 'course',
+                name: 'CourseOrder',
+                redirect: '/orders-manage/course/list',
+                component: () => import('../../../views/order-manage/pages/goods-order/Index.vue'),
                 meta: {
                     title: '课程订单',
                     index: '4-2'
                 },
                 children: [
                     {
+                        path: 'list',
+                        name: 'CourseOrderList',
+                        component: () => import('../../../views/order-manage/pages/course-order/Course-List.vue'),
+                        meta: {
+                            title: '列表',
+                            index: '4-2-1',
+                            ignore: true
+                        }
+                    },
+                    {
                         path: 'detail/:id',
-                        name: 'ClassOrderDetail',
+                        name: 'CourseOrderDetail',
                         component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
                         props: true,
                         meta: {
                             title: '订单详情',
-                            index: '4-2-1'
+                            index: '4-2-2',
+                            ignore: true
                         }
                     }
                 ]
@@ -53,12 +77,23 @@ export default [
             {
                 path: 'online-school-order',
                 name: 'OnlineSchoolOrder',
-                component: () => import('../../../views/order-manage/pages/Online-School-Order-List.vue'),
+                redirect: '/orders-manage/online-school-order/list',
+                component: () => import('../../../views/order-manage/pages/goods-order/Index.vue'),
                 meta: {
                     title: '网校订单',
                     index: '4-3'
                 },
                 children: [
+                    {
+                        path: 'list',
+                        name: 'OnlineSchoolOrderList',
+                        component: () => import('../../../views/order-manage/pages/online-school-order/Online-School-Order-List.vue'),
+                        meta: {
+                            title: '列表',
+                            index: '4-3-1',
+                            ignore: true
+                        }
+                    },
                     {
                         path: 'detail/:id',
                         name: 'OnlineSchoolOrderDetail',
@@ -66,7 +101,8 @@ export default [
                         props: true,
                         meta: {
                             title: '订单详情',
-                            index: '4-3-1'
+                            index: '4-3-2',
+                            ignore: true
                         }
                     }
                 ]

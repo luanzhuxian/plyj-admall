@@ -188,7 +188,7 @@
                             <template #default="{ row: orderItem }">
                                 <el-button
                                     @click="$router.push({
-                                        name: ['SERIES_OF_COURSE','KNOWLEDGE_COURSE' ].indexOf(orderItem.orderType) !== -1? 'OnlineSchoolOrderDetail' : 'OrderDetail',
+                                        name: ['SERIES_OF_COURSE','KNOWLEDGE_COURSE' ].indexOf(orderItem.orderType) !== -1? 'OnlineSchoolOrderDetail' : 'GoodsOrderDetail',
                                         params: { id: orderItem.orderId }
                                     })"
                                 >

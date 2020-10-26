@@ -493,7 +493,7 @@ import { isMoney } from '../../../assets/ts/validate'
 import InvoiceDetails from '../../../components/order-center/Invoice-Details.vue'
 import BackorderTurndown from '../../../components/order-center/Backorder-Turndown.vue'
 export default {
-    name: 'OrderDetail',
+    name: 'BackOrderDetail',
     components: {
         InvoiceDetails,
         BackorderTurndown

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$route.name === 'OrderList'" class="order-list wrap">
+    <div class="order-list wrap">
         <search-box>
             <el-form-item label="搜索内容：">
                 <el-input
@@ -253,9 +253,7 @@
                             >
                                 申请发票
                             </a>
-                            <a
-                                @click="$router.push({ name: 'OrderDetail', params: { id: row.orderId } })"
-                            >
+                            <a @click="$router.push({ name: 'GoodsOrderDetail', params: { id: row.orderId } })">
                                 查看
                             </a>
                             <a
@@ -349,9 +347,6 @@
             order-type="product"
         />
     </div>
-    <div v-else>
-        <router-view />
-    </div>
 </template>
 
 <script>
@@ -359,18 +354,18 @@ import {
     getOrderQuery,
     exportOrderQuery,
     redeemUserList
-} from '../../../apis/order'
+} from '../../../../apis/order'
 import moment from 'moment'
 import { mapActions, mapGetters } from 'vuex'
-import { createObjectUrl } from '../../../assets/ts/upload'
-import Shipments from '../../../components/order-center/Shipments.vue'
-import ApplyAfter from '../../../components/order-center/Apply-After.vue'
-import Verification from '../../../components/order-center/Verification.vue'
-import UncodedVerification from '../../../components/order-center/Uncoded-Verification.vue'
-import CloseOrder from '../../../components/order-center/Close-Order.vue'
-import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
-import ExportOrder from '../components/Export-Order'
-import { MutationTypes } from '../../../store/mutation-type'
+import { createObjectUrl } from '../../../../assets/ts/upload'
+import Shipments from '../../../../components/order-center/Shipments.vue'
+import ApplyAfter from '../../../../components/order-center/Apply-After.vue'
+import Verification from '../../../../components/order-center/Verification.vue'
+import UncodedVerification from '../../../../components/order-center/Uncoded-Verification.vue'
+import CloseOrder from '../../../../components/order-center/Close-Order.vue'
+import SelectCategoryName from '../../../../components/product-center/category-manage/Select-Category-Name.vue'
+import ExportOrder from '../../components/Export-Order'
+import { MutationTypes } from '../../../../store/mutation-type'
 
 export default {
     name: 'GoodsList',

@@ -44,7 +44,7 @@ Component.registerHooks([
 ])
 
 const userModule = namespace('user')
-const goodsModule = namespace('goods')
+// const goodsModule = namespace('goods')
 
 @Component({
     components: {
@@ -99,15 +99,15 @@ export default class App extends Vue {
 
     @Getter navBarName!: string
 
-    @userModule.Getter('currentStep') currentStep!: number
+    // @userModule.Getter('currentStep') currentStep!: number
     @userModule.Getter('token') tokenFoo!: string
     @userModule.Getter('allLoaded') allLoaded!: boolean
     @userModule.Getter('agencyCode') agencyCode!: string
-    @goodsModule.Getter('categoryTree') categoryTree!: any
-    @userModule.Action(MutationTypes.setLoginInfo) setLoginInfo!: Function
-    @userModule.Action(MutationTypes.getAllMallInfo) getAllMallInfo!: Function
-    @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
-    @goodsModule.Action(MutationTypes.getClassifyTree) getClassifyTree!: Function
+    // @goodsModule.Getter('categoryTree') categoryTree!: any
+    // @userModule.Action(MutationTypes.setLoginInfo) setLoginInfo!: Function
+    // @userModule.Action(MutationTypes.getAllMallInfo) getAllMallInfo!: Function
+    // @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
+    // @goodsModule.Action(MutationTypes.getClassifyTree) getClassifyTree!: Function
 
     @Mutation('changeNavBarName') changeNavBarName!: Function
     @userModule.Mutation(MutationTypes.logout) logout!: Function
@@ -133,19 +133,19 @@ export default class App extends Vue {
         // 没有选中机构
         if (!this.agencyCode && !this.NOLOGIN.includes(this.routeName as string)) {
             this.logout()
-            return
+            // return
         }
-        try {
-            this.setLoginInfo()
-            // 刷新登录信息缓存时效
-            await this.getAgencyList()
-            await this.getAllMallInfo()
-            // this.loaded = true
-            if (!this.categoryTree || !this.categoryTree.length) await this.getClassifyTree()
-            // startQiankun()
-        } catch (e) {
-            throw e
-        }
+        // try {
+        //     this.setLoginInfo()
+        //     // 刷新登录信息缓存时效
+        //     await this.getAgencyList()
+        //     await this.getAllMallInfo()
+        //     // this.loaded = true
+        //     if (!this.categoryTree || !this.categoryTree.length) await this.getClassifyTree()
+        //     // startQiankun()
+        // } catch (e) {
+        //     throw e
+        // }
     }
 }
 </script>

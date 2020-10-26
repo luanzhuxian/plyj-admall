@@ -2,7 +2,6 @@ export default [
     {
         path: 'helper-manage',
         name: 'HelperManage',
-        redirect: '/user-center/helper-manage/list',
         component: () => import('../../../views/user-center/helper-manage/Index.vue'),
         meta: {
             title: 'Helper管理',

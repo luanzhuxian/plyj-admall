@@ -284,7 +284,7 @@ export default {
     },
     methods: {
         target (row) {
-            this.$router.push({ name: 'OrderDetail', params: { id: row.orderId } })
+            this.$router.push({ name: 'GoodsOrderDetail', params: { id: row.orderId } })
             // if (row.type === 1) {
             //   this.$router.push({ name: 'OrderDetail', params: { id: row.orderId } })
             //   return

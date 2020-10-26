@@ -65,13 +65,13 @@
                         <div>虚拟商品</div>
                         <a
                             class="write-off-panel__item-number"
-                            @click="navigator({ name: 'OrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } })"
+                            @click="navigator({ name: 'GoodsOrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } })"
                             v-text="homeInfo.virtualCount || 0"
                         />
                     </div>
                     <a
                         class="write-off-panel__item-link"
-                        @click="navigator({ name: 'OrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } })"
+                        @click="navigator({ name: 'GoodsOrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } })"
                     >
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
@@ -83,13 +83,13 @@
                         <!--<router-link class="write-off-panel__item-number" to="/admall/orders-manage/courses-list?status=WAIT_RECEIVE" v-text="homeInfo.courseCount || 0" />-->
                         <a
                             class="write-off-panel__item-number"
-                            @click="navigator({ name: 'CoursesList', query: { status: 'WAIT_RECEIVE' } })"
+                            @click="navigator({ name: 'CourseOrder', query: { status: 'WAIT_RECEIVE' } })"
                             v-text="homeInfo.courseCount || 0"
                         />
                     </div>
                     <a
                         class="write-off-panel__item-link"
-                        @click="navigator({ name: 'CoursesList', query: { status: 'WAIT_RECEIVE' } })"
+                        @click="navigator({ name: 'CourseOrder', query: { status: 'WAIT_RECEIVE' } })"
                     >
                         <PlSvg name="icon-arrow-right-large-59f85" width="25" />
                         <div>查看详情</div>
@@ -128,7 +128,7 @@
 
             <!-- 待办事宜 -->
             <Panel custom-class="to-do-panel" title="待办事宜">
-                <a class="to-do-panel__item" @click="navigator({ name: 'OrderList', query: { status: 'WAIT_SHIP' } })">
+                <a class="to-do-panel__item" @click="navigator({ name: 'GoodsOrderList', query: { status: 'WAIT_SHIP' } })">
                     <div class="to-do-panel__item-name">待发货订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitShip || 0" />
                     <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitShip || 0 }单` }}</div>

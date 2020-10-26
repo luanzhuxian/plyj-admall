@@ -1,15 +1,18 @@
 <template>
-    <div v-if="$route.name === 'OnlineSchoolOrder'" class="order-list wrap">
+    <div class="order-list wrap">
         <search-box>
             <el-form-item label="搜索内容：">
                 <el-input
                     v-model="form.keywords"
                     placeholder="搜索内容"
                     clearable
-                    @change="goSearch()"
+                    @change="goSearch"
                 />
             </el-form-item>
-            <el-form-item label="下单时间：">
+            <el-form-item
+                class="mb-0"
+                label="下单时间："
+            >
                 <date-range
                     size="small"
                     disable-after
@@ -19,33 +22,30 @@
                     end-label=""
                 />
             </el-form-item>
-            <el-form-item label="课程类型：">
-                <el-select
-                    v-model="goodsTypes"
-                    @change="goodsTypesChange()"
-                >
-                    <el-option
-                        v-for="(item,index) in goodsTypesList"
-                        :value="item.value"
-                        :label="item.label"
-                        :key="index"
-                    />
-                </el-select>
+            <el-form-item label="分类：">
+                <SelectCategoryName v-model="classification" check-strictly show-all @change="categoryChange" />
             </el-form-item>
-            <el-form-item label="订单状态：">
+            <el-form-item
+                class="mb-0"
+                label="核销人员："
+            >
                 <el-select
-                    v-model="form.orderStatus"
+                    clearable
+                    v-model="form.operatorUser"
                     @change="goSearch"
                 >
                     <el-option
-                        v-for="(item, index) of orderStatusList"
+                        v-for="(item,index) of redeemUserList"
                         :key="index"
                         :value="item.value"
                         :label="item.label"
                     />
                 </el-select>
             </el-form-item>
-            <el-form-item label="支付时间：">
+            <el-form-item
+                class="mb-0"
+                label="支付时间："
+            >
                 <date-range
                     size="small"
                     disable-after
@@ -55,7 +55,19 @@
                     end-label=""
                 />
             </el-form-item>
-            <div />
+            <el-form-item label="订单状态：">
+                <el-select
+                    v-model="form.orderStatus"
+                    @change="goSearch"
+                >
+                    <el-option
+                        v-for="item of routeMap"
+                        :key="item.value"
+                        :value="item.value"
+                        :label="item.label"
+                    />
+                </el-select>
+            </el-form-item>
             <el-form-item>
                 <el-button
                     type="primary"
@@ -65,11 +77,18 @@
                     查询
                 </el-button>
                 <el-button
+                    type="primary"
+                    @click="dialogVerificationVisible = true"
+                    round
+                >
+                    立即核销
+                </el-button>
+                <el-button
                     @click="showExport = true"
                     type="primary"
                     plain
-                    round
                     v-if="tableData && tableData.length"
+                    round
                 >
                     导出订单
                 </el-button>
@@ -100,8 +119,8 @@
                         <div class="discount">
                             <span>{{ activeStatusText[row.skuSource] }}</span>
                         </div>
-                        <div class="discount" v-if="row.couponAmount">
-                            <span class="discount-coupon">优惠券</span>
+                        <div class="discount" v-if="row.couponAmount || row.scholarship">
+                            <span class="discount-coupon">优惠</span>
                         </div>
                         <span
                             v-text="row.goodsName"
@@ -110,31 +129,15 @@
                 </template>
             </el-table-column>
             <el-table-column
-                label="课程类型"
-                width="100"
-            >
-                <template #default="{ row }">
-                    {{ orderTypeText[row.orderType] }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="count"
-                label="课节数量"
-                width="100"
-            />
-            <el-table-column
                 prop="sharer"
                 label="分享人"
                 width="100"
             />
             <el-table-column
-                label="单价（元）"
+                prop="count"
+                label="数量"
                 width="100"
-            >
-                <template #default="{ row }">
-                    {{ row.unitPrice/100 }}
-                </template>
-            </el-table-column>
+            />
             <el-table-column
                 label="实付款（元）"
                 width="100"
@@ -148,12 +151,12 @@
             </el-table-column>
             <el-table-column
                 prop="consigneeName"
-                label="联系人"
+                label="收货人"
                 width="100"
             />
             <el-table-column
                 prop="consigneeMobile"
-                label="联系人电话"
+                label="收货人电话"
                 width="120"
             />
             <el-table-column
@@ -161,7 +164,15 @@
                 width="80"
             >
                 <template #default="{ row }">
-                    {{ orderStatusText[row.orderStatus] }}
+                    <span v-if="isAfterSale(row)">
+                        {{ row.aftersaleStatus === 'PROCESSING' ? '售后中': '退款完成' }}
+                    </span>
+                    <span v-else-if="row.orderStatus === 'WAIT_RECEIVE'">
+                        待使用
+                    </span>
+                    <span v-else>
+                        {{ orderStatusText[row.orderStatus] }}
+                    </span>
                 </template>
             </el-table-column>
             <el-table-column
@@ -175,7 +186,7 @@
                 width="80"
             >
                 <template slot-scope="{ row }">
-                    <span v-if="!row.payInvoice">
+                    <span v-if="!row.payInvoice || row.skuSource > 1">
                         不支持
                     </span>
                     <span v-else>
@@ -193,13 +204,33 @@
                     <Operating>
                         <template slot="button-box">
                             <a
+                                v-if="canApplyRefund(row) && !isAfterSale(row)"
+                                @click="ordersListApplyAfter(row)"
+                            >
+                                申请售后
+                            </a>
+                            <a
+                                v-if="canApplyInvoice(row) && !isAfterSale(row)"
+                                @click="$router.push({ name: 'ApplyInvoice', query: { id:row.orderId, userId: row.userId } })"
+                            >
+                                申请发票
+                            </a>
+                            <a
                                 v-if="row.orderStatus === 'WAIT_PAY'"
                                 @click="getCancelOrderData(row.orderId)"
                             >
                                 关闭订单
                             </a>
-                            <a @click="$router.push({ name: 'OnlineSchoolOrderDetail', params: { id: row.orderId } })">
+                            <a
+                                @click="$router.push({ name: 'CourseOrderDetail', params: { id: row.orderId } })"
+                            >
                                 查看
+                            </a>
+                            <a
+                                v-if="row.redeemSize && row.orderStatus === 'WAIT_RECEIVE'"
+                                @click="batchAuditredeemcode(row)"
+                            >
+                                核销
                             </a>
                         </template>
                     </Operating>
@@ -208,11 +239,18 @@
         </el-table>
         <pagination
             @change="getList"
-            @sizechange="sizeChange"
+            @sizeChange="sizeChange"
             v-model="queryPage.current"
             :total="total"
             :sizes="true"
             style="margin-bottom: 70px;"
+        />
+        <!-- 申请售后-->
+        <ApplyAfter
+            :show.sync="afterVisible"
+            :order-id="applyAfterData.orderId"
+            :apply-after-data="applyAfterData"
+            @success="goSearch()"
         />
         <!--关闭订单-->
         <CloseOrder
@@ -221,82 +259,68 @@
             @success="goSearch()"
         />
 
+        <!--  核销功能  -->
+        <Verification :dialog-verification-visible.sync="dialogVerificationVisible" />
+        <UncodedVerification @success="getList(1)" @codeVerification="codeVerification" :redeem-code-num="redeemCodeNum" :order-id="orderId" :show.sync="uncodedVerificationShow" />
         <!-- 订单导出 -->
         <ExportOrder
             :show.sync="showExport"
             :search-form="form"
-            :goods-type="goodsTypes"
             :classification="classification"
-            order-type="networkCourse"
+            order-type="course"
         />
-    </div>
-    <div v-else>
-        <router-view />
     </div>
 </template>
 
 <script>
+import moment from 'moment'
 import {
     getOrderQuery,
-    exportOrderQuery
-} from '../../../apis/order'
+    exportOrderQuery,
+    redeemUserList
+} from '../../../../apis/order'
 import { mapActions, mapState, mapGetters } from 'vuex'
-import { createObjectUrl } from '../../../assets/ts/upload'
-import moment from 'moment'
-import ExportOrder from './../components/Export-Order'
-import CloseOrder from '../../../components/order-center/Close-Order.vue'
-import { MutationTypes } from '../../../store/mutation-type'
-
+import { createObjectUrl } from '../../../../assets/ts/upload'
+import ApplyAfter from '../../../../components/order-center/Apply-After.vue'
+import Verification from '../../../../components/order-center/Verification.vue'
+import UncodedVerification from '../../../../components/order-center/Uncoded-Verification.vue'
+import CloseOrder from '../../../../components/order-center/Close-Order.vue'
+import SelectCategoryName from '../../../../components/product-center/category-manage/Select-Category-Name.vue'
+import ExportOrder from './../../components/Export-Order'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
-    name: 'OnlineSchoolOrder',
+    name: 'CourseList',
     components: {
+        ApplyAfter,
+        Verification,
+        UncodedVerification,
         CloseOrder,
+        SelectCategoryName,
         ExportOrder
     },
     data () {
         return {
             classification: [''],
             showExport: false,
-            goodsTypes: '',
+            showShipBox: false,
+            showShipBox2: false,
+            // 查看预约dialog
+            seeAppointment: false,
             queryPage: {
                 current: 1,
                 size: 10
             },
             form: {
-                goodsTypes: ['KNOWLEDGE_COURSE', 'SERIES_OF_COURSE', 'LIVE_GOODS', 'VIDEO_GOODS', 'GRAPHIC_DATA'],
+                goodsTypes: ['FORMAL_CLASS', 'EXPERIENCE_CLASS'],
                 orderStatus: '',
                 keywords: '',
                 startTime: '',
                 endTime: '',
                 payStartTime: '',
-                payEndTime: ''
+                payEndTime: '',
+                categoryName: '',
+                operatorUser: ''
             },
-            goodsTypesList: [
-                {
-                    value: '',
-                    label: '全部'
-                },
-                {
-                    value: 'KNOWLEDGE_COURSE',
-                    label: '知识课程'
-                },
-                {
-                    value: 'SERIES_OF_COURSE',
-                    label: '系列课程'
-                },
-                {
-                    value: 'GRAPHIC_DATA',
-                    label: '图文资料'
-                },
-                {
-                    value: 'LIVE_GOODS',
-                    label: '直播'
-                },
-                {
-                    value: 'VIDEO_GOODS',
-                    label: '录播'
-                }
-            ],
             orderTypeText: {
                 VIRTUAL_GOODS: '虚拟商品',
                 PHYSICAL_GOODS: '实体商品',
@@ -304,10 +328,30 @@ export default {
                 EXPERIENCE_CLASS: '体验课',
                 KNOWLEDGE_COURSE: '知识课程',
                 SERIES_OF_COURSE: '系列课程',
-                GRAPHIC_DATA: '图文资料',
-                LIVE_GOODS: '直播',
-                VIDEO_GOODS: '录播'
+                LIVE_GOODS: '直播订单'
             },
+            routeMap: [
+                {
+                    label: '全部',
+                    value: ''
+                },
+                {
+                    label: '待使用',
+                    value: 'WAIT_RECEIVE'
+                },
+                {
+                    label: '待付款',
+                    value: 'WAIT_PAY'
+                },
+                {
+                    label: '订单完成',
+                    value: 'FINISHED'
+                },
+                {
+                    label: '订单关闭',
+                    value: 'CLOSED'
+                }
+            ],
             orderStatusText: {
                 ALL_ORDER: '全部订单',
                 WAIT_SHIP: '待发货',
@@ -317,17 +361,12 @@ export default {
                 FINISHED: '订单完成',
                 CLOSED: '订单关闭'
             },
-            orderStatusList: [
-                { value: '', label: '全部' },
-                { value: 'WAIT_PAY', label: '待付款' },
-                { value: 'FINISHED', label: '订单完成' },
-                { value: 'CLOSED', label: '订单关闭' }
-            ],
             invoiceStatusText: {
                 '-1': '未开票',
                 0: '待开票',
                 1: '已开票',
-                2: '已作废'
+                2: '已取消',
+                3: '已作废'
             },
             activeStatusText: [
                 '优惠',
@@ -342,56 +381,69 @@ export default {
             ],
             tableData: [],
             total: 0,
+            // 发货
+            orderShipVisible: false,
+            orderShipData: {},
             // 关闭订单
             closeOrderVisible: false,
-            closeConfirmId: ''
+            closeConfirmId: '',
+            // 售后商品
+            afterVisible: false,
+            applyAfterData: {},
+            // 退款类型
+            dialogVerificationVisible: false,
+            // 核销人
+            redeemUserList: [],
+            uncodedVerificationShow: false,
+            redeemCodeNum: 0,
+            orderId: ''
         }
     },
     computed: {
         ...mapState(['orderStatus']),
+        // ...mapGetters(['bindPhone', 'receiveAddressList'])
         ...mapGetters({
-            categoryTree: 'goods/categoryTree',
             bindPhone: 'user/bindPhone',
             receiveAddressList: 'goods/receiveAddressList'
         })
     },
     async created () {
-        const { keyword, courseId, graphicId } = this.$route.query
-        this.form.keywords = keyword || courseId || graphicId || ''
+        this.form.keywords = this.$route.query.keyword || ''
+        this.form.orderStatus = this.$route.query.status || ''
         try {
             await this.getList()
+            await this.getRedeemUserList()
         } catch (e) {
             throw e
         }
         if (!this.receiveAddressList.length) {
-            await this.getReceiveAddress()
+            await this[MutationTypes.getReceiveAddress]()
+        }
+        if (this.$route.params.verify === 'true') {
+            this.dialogVerificationVisible = true
         }
     },
     methods: {
         ...mapActions({
-            getReceiveAddress: `goods/${ MutationTypes.getReceiveAddress }`
+            [MutationTypes.getReceiveAddress]: `goods/${ MutationTypes.getReceiveAddress }`
         }),
-        async goodsTypesChange () {
-            switch (this.goodsTypes) {
-                case '':
-                    this.form.goodsTypes = ['KNOWLEDGE_COURSE', 'SERIES_OF_COURSE', 'LIVE_GOODS', 'VIDEO_GOODS', 'GRAPHIC_DATA']
-                    break
-                case 'KNOWLEDGE_COURSE':
-                    this.form.goodsTypes = ['KNOWLEDGE_COURSE']
-                    break
-                case 'SERIES_OF_COURSE':
-                    this.form.goodsTypes = ['SERIES_OF_COURSE']
-                    break
-                case 'GRAPHIC_DATA':
-                    this.form.goodsTypes = ['GRAPHIC_DATA']
-                    break
-                case 'LIVE_GOODS':
-                    this.form.goodsTypes = ['LIVE_GOODS']
-                    break
-                case 'VIDEO_GOODS':
-                    this.form.goodsTypes = ['VIDEO_GOODS']
-                    break
+        canApplyRefund (row) {
+            // 申请条件 不等于待付款、订单关闭，订单可申请售后，订单没有申请过售后
+            if (row.orderStatus === 'WAIT_SHIP') {
+                // 0元订单 代发货退运费
+                return !!(row.orderStatus !== 'WAIT_PAY' && row.orderStatus !== 'CLOSED' && row.orderStatus !== 'FINISHED' && !row.redeemCodeOperatorUserName.length && row.supportAfterSales === 1 && row.aftersaleStatus === 'NO_AFTER_SALES' && row.orderAmount > row.freight && row.skuSource < 2)
             }
+            return !!(row.orderStatus !== 'WAIT_PAY' && row.orderStatus !== 'CLOSED' && row.orderStatus !== 'FINISHED' && !row.redeemCodeOperatorUserName.length && row.supportAfterSales === 1 && row.aftersaleStatus === 'NO_AFTER_SALES' && row.skuSource < 2)
+        },
+        canApplyInvoice (row) {
+            // 申请条件 不等于待付款、订单关闭，订单可申请发票，订单没有申请过发票
+            return !!(row.orderStatus !== 'WAIT_PAY' && row.orderStatus !== 'CLOSED' && row.payInvoice && (row.invoiceStatus === -1 || row.invoiceStatus === 2 || row.invoiceStatus === 3) && row.orderAmount > row.freight && row.skuSource < 2)
+        },
+        isAfterSale (row) {
+            return !!(row.aftersaleStatus === 'PROCESSING' || row.aftersaleStatus === 'PROCESSING_COMPLETED')
+        },
+        async categoryChange (value) {
+            this.form.categoryName = value[value.length - 1] || ''
             try {
                 await this.goSearch()
             } catch (e) {
@@ -419,6 +471,21 @@ export default {
                 }
                 this.tableData = result.records || []
                 this.total = result.total
+            } catch (e) {
+                throw e
+            }
+        },
+        // 获取筛选条件
+        async getRedeemUserList () {
+            try {
+                const { result } = await redeemUserList()
+                const array = []
+                if (result && result.length) {
+                    for (const item of result) {
+                        array.push({ label: item, value: item })
+                    }
+                }
+                this.redeemUserList = array
             } catch (e) {
                 throw e
             }
@@ -458,9 +525,27 @@ export default {
                 throw e
             }
         },
+
+        // 发货
+        async sendProduct (row) {
+            this.orderShipData = row
+            this.orderShipVisible = true
+        },
         async getCancelOrderData (id) {
             this.closeConfirmId = id
             this.closeOrderVisible = true
+        },
+        ordersListApplyAfter (row) {
+            this.applyAfterData = row
+            this.afterVisible = true
+        },
+        async batchAuditredeemcode (row) {
+            this.uncodedVerificationShow = true
+            this.redeemCodeNum = row.redeemSize
+            this.orderId = row.orderId
+        },
+        codeVerification (val) {
+            if (val) this.dialogVerificationVisible = true
         }
     }
 }
@@ -472,6 +557,12 @@ export default {
     min-height: calc(100vh - 110px);
     padding-bottom: 30px;
     background-color: #ffffff;
+
+    ::v-deep .el-dialog__body {
+        .el-form-item__label {
+            margin-left: 0;
+        }
+    }
 
     ::v-deep .separator{
       margin: 0 6px;
@@ -514,6 +605,23 @@ export default {
           background-color: #F2B036;
         }
       }
+    }
+
+    ::v-deep .row-expand-cover {
+      .el-table__expand-column {
+        .cell {
+          display: none;
+        }
+      }
+    }
+
+    ::v-deep .el-table__expand-column .cell {
+      display: none;
+    }
+
+    ::v-deep .el-table__expanded-cell {
+      padding: 0;
+      border-bottom: none;
     }
   }
 </style>

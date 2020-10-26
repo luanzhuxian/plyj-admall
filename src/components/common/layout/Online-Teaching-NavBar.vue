@@ -1,7 +1,9 @@
 <template>
     <nav :class="$style.onlineTeaching">
         <div :class="$style.head">
-            <img :class="$style.logo" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png" alt="">
+            <router-link :to="{ name: 'Home' }">
+                <img :class="$style.logo" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png" alt="">
+            </router-link>
             <div :class="$style.info">
                 <div :class="$style.store">
                     <img :class="$style.headPhoto" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png" alt="">
@@ -105,7 +107,7 @@ export default class OnlineTeachingNavBar extends Vue {
         padding: 20px;
         border-bottom: 1px solid #e7e7e7;
         text-align: center;
-        > .logo {
+        .logo {
             width: 100%;
             margin-bottom: 34px;
         }

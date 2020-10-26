@@ -71,8 +71,8 @@
                         />
                         <span>订单中心</span>
                     </h2>
-                    <el-menu-item index="4-1" :route="{ name: 'OrderList' }">商品订单</el-menu-item>
-                    <el-menu-item index="4-2" :route="{ name: 'CoursesList' }">课程订单</el-menu-item>
+                    <el-menu-item index="4-1" :route="{ name: 'GoodsOrder' }">商品订单</el-menu-item>
+                    <el-menu-item index="4-2" :route="{ name: 'CourseOrder' }">课程订单</el-menu-item>
                     <el-menu-item index="4-3" :route="{ name: 'OnlineSchoolOrder' }">网校订单</el-menu-item>
                     <el-menu-item index="4-4" :route="{ name: 'Backorder' }">售后单</el-menu-item>
                     <el-menu-item index="4-5" :route="{ name: 'Invoice' }">发票管理</el-menu-item>

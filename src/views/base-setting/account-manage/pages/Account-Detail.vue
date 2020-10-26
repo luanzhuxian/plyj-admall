@@ -623,7 +623,7 @@ export default class AccountList extends Vue {
             }
 
             orderRowClick ({ orderId: id }) {
-                this.$router.push({ name: 'OrderDetail', params: { id } })
+                this.$router.push({ name: 'GoodsOrderDetail', params: { id } })
             }
 
             async getOrderList () {

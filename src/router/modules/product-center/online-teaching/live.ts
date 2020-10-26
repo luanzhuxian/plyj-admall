@@ -10,21 +10,21 @@ export default [
         },
         children: [
             {
+                path: 'workbench',
+                name: 'Workbench',
+                component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Workbench.vue'),
+                meta: {
+                    title: '工作台',
+                    index: '2-1-3-1'
+                }
+            },
+            {
                 path: 'pay-and-order/:isRenew/:type?',
                 name: 'PayAndOrder',
                 props: true,
                 component: () => import('../../../../views/product-center/online-teaching/pages/Pay-And-Order.vue'),
                 meta: {
                     title: '流量套餐',
-                    index: '2-1-3-1'
-                }
-            },
-            {
-                path: 'workbench',
-                name: 'Workbench',
-                component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Workbench.vue'),
-                meta: {
-                    title: '工作台',
                     index: '2-1-3-2'
                 }
             },

@@ -19,6 +19,7 @@ import filter from './filter'
 
 import './assets/scss/index.scss'
 import './assets/ts/axios-config'
+import { MutationTypes } from '@/store/mutation-type'
 
 Vue.use(VueClipboard)
 Vue.use(VueViewer, {
@@ -62,10 +63,25 @@ Vue.config.errorHandler = function (err, vm) {
     }
 }
 
-/* eslint-disable no-new */
-new Vue({
-    el: '#main-app',
-    router,
-    store,
-    render: h => h(App)
-})
+const render = async () => {
+    const getters = store.getters
+    const dispatch = store.dispatch
+    const token = getters['user/token']
+    const categoryTree = getters['goods/categoryTree']
+    if (token) {
+        await dispatch(`user/${ MutationTypes.setLoginInfo }`)
+        await dispatch(`user/${ MutationTypes.getAgencyList }`)
+        await dispatch(`user/${ MutationTypes.getAllMallInfo }`)
+        if (!categoryTree || !categoryTree.length) await dispatch(`goods/${ MutationTypes.getClassifyTree }`)
+    }
+    console.log(token)
+    /* eslint-disable no-new */
+    new Vue({
+        el: '#main-app',
+        router,
+        store,
+        render: h => h(App)
+    })
+}
+
+render()

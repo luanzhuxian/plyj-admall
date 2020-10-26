@@ -938,10 +938,10 @@ export default {
             throw e
         }
     },
-    mounted () {
+    activated () {
         window.addEventListener('beforeunload', this.beforeunload)
     },
-    beforeDestroy () {
+    deactivated () {
         window.removeEventListener('beforeunload', this.beforeunload)
     },
     methods: {

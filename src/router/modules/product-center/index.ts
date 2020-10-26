@@ -7,10 +7,8 @@ export default [
     {
         path: '/product-center',
         name: 'ProductCenter',
-        redirect: '/product-center/goods-manage/my-goods',
         component: () => import('../../../views/product-center/Index.vue'),
         meta: {
-            title: '产品中心',
             index: '2'
         },
         children: [

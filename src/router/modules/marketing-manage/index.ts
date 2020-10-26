@@ -15,7 +15,10 @@ export default [
             {
                 path: 'marketing-gameplay-list',
                 name: 'MarketingGameplayList',
-                component: () => import('../../../views/marketing-manage/gameplay/Gameplay.vue')
+                component: () => import('../../../views/marketing-manage/gameplay/Gameplay.vue'),
+                meta: {
+                    ignore: true
+                }
             },
             ...importFiles(context)
         ]
