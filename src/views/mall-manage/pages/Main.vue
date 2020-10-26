@@ -377,7 +377,8 @@ export default class MallMain extends Vue {
             TemplateTypes.TemplateBaoFa,
             TemplateTypes.TemplateFanChang,
             TemplateTypes.TemplateXinChun,
-            TemplateTypes.TemplateDragonGate
+            TemplateTypes.TemplateDragonGate,
+            TemplateTypes.TemplateDouble12
         ].includes(id)) {
             return '主会场'
         }
