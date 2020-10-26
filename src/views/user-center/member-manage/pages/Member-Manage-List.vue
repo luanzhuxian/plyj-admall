@@ -468,7 +468,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-
+import { isMoney } from '../../../../assets/ts/validate'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import PlTree from '../../../../components/common/pl-tree'
 import EditMemberTag from '../components/Edit-Member-Tag.vue'
@@ -767,6 +767,8 @@ export default class MemberManageList extends Vue {
       for (const item of keys) {
           delete this.exportData[item]
       }
+      if (this.exportData.purchasesMinAmount) this.exportData.purchasesMinAmount = Number(this.exportData.purchasesMinAmount) * 100
+      if (this.exportData.purchasesMaxAmount) this.exportData.purchasesMaxAmount = Number(this.exportData.purchasesMaxAmount) * 100
       const blob = await exportMemberQuery(this.exportData)
       const url = createObjectUrl(blob)
       const a = document.createElement('a')
@@ -828,15 +830,38 @@ export default class MemberManageList extends Vue {
       await this.search()
   }
 
-  checkPurchasesNumber () {
+  checkPurchasesNumber (type: string | void) {
+      if (type === 'export') {
+          let minNumber: number = Number(this.exportData.purchasesMinNumber) || 0
+          this.exportData.purchasesMinNumber = String(minNumber || '')
+          if (minNumber && (!Number.isInteger(minNumber) || minNumber < 0)) {
+              this.exportData.purchasesMinNumber = ''
+              return this.$warning('当前输入框只支持输入正整数')
+          }
+          let maxNumber: number = Number(this.exportData.purchasesMaxNumber) || 0
+          this.exportData.purchasesMaxNumber = String(maxNumber || '')
+          if (maxNumber && (!Number.isInteger(maxNumber) || maxNumber < 0)) {
+              this.exportData.purchasesMaxNumber = ''
+              return this.$warning('当前输入框只支持输入正整数')
+          }
+          if (minNumber && maxNumber && minNumber > maxNumber) {
+              [minNumber, maxNumber] = [maxNumber, minNumber]
+              this.exportData.purchasesMinNumber = String(minNumber)
+              this.exportData.purchasesMaxNumber = String(maxNumber)
+          }
+          return false
+      }
+
       let minNumber: number = Number(this.form.purchasesMinNumber) || 0
       this.form.purchasesMinNumber = String(minNumber || '')
       if (minNumber && (!Number.isInteger(minNumber) || minNumber < 0)) {
+          this.form.purchasesMinNumber = ''
           return this.$warning('当前输入框只支持输入正整数')
       }
       let maxNumber: number = Number(this.form.purchasesMaxNumber) || 0
       this.form.purchasesMaxNumber = String(maxNumber || '')
       if (maxNumber && (!Number.isInteger(maxNumber) || maxNumber < 0)) {
+          this.form.purchasesMaxNumber = ''
           return this.$warning('当前输入框只支持输入正整数')
       }
       if (minNumber && maxNumber && minNumber > maxNumber) {
@@ -847,21 +872,77 @@ export default class MemberManageList extends Vue {
       return false
   }
 
-  checkPurchasesAmount () {
+  checkPurchasesAmount (type: string | void) {
+      if (type === 'export') {
+          let minNumber: number = Number(this.exportData.purchasesMinAmount) || 0
+          this.exportData.purchasesMinAmount = String(minNumber || '')
+          if (minNumber && minNumber < 0) {
+              this.exportData.purchasesMinAmount = ''
+              return this.$warning('当前输入框只支持输入正数')
+          }
+          let maxNumber: number = Number(this.exportData.purchasesMaxAmount) || 0
+          this.exportData.purchasesMaxAmount = String(maxNumber || '')
+          if (maxNumber && maxNumber < 0) {
+              this.exportData.purchasesMaxAmount = ''
+              return this.$warning('当前输入框只支持输入正数')
+          }
+          if (minNumber && maxNumber && minNumber > maxNumber) {
+              [minNumber, maxNumber] = [maxNumber, minNumber]
+              this.exportData.purchasesMinAmount = String(minNumber)
+              this.exportData.purchasesMaxAmount = String(maxNumber)
+          }
+
+          if (this.exportData.purchasesMinAmount && !isMoney(this.exportData.purchasesMinAmount)) {
+              this.exportData.purchasesMinAmount = Number(this.exportData.purchasesMinAmount).toFixed(2)
+              return this.$warning('请输入包含小数点后两位的金额格式')
+          }
+          if (this.exportData.purchasesMaxAmount && !isMoney(this.exportData.purchasesMaxAmount)) {
+              this.exportData.purchasesMaxAmount = Number(this.exportData.purchasesMaxAmount).toFixed(2)
+              return this.$warning('请输入包含小数点后两位的金额格式')
+          }
+          if (Number(this.exportData.purchasesMinAmount) > 100000) {
+              this.exportData.purchasesMinAmount = '100000'
+              return this.$warning('售价超出最大限额十万')
+          }
+          if (Number(this.exportData.purchasesMaxAmount) > 100000) {
+              this.exportData.purchasesMaxAmount = '100000'
+              return this.$warning('售价超出最大限额十万')
+          }
+          return false
+      }
       let minNumber: number = Number(this.form.purchasesMinAmount) || 0
       this.form.purchasesMinAmount = String(minNumber || '')
       if (minNumber && minNumber < 0) {
+          this.form.purchasesMinAmount = ''
           return this.$warning('当前输入框只支持输入正数')
       }
       let maxNumber: number = Number(this.form.purchasesMaxAmount) || 0
       this.form.purchasesMaxAmount = String(maxNumber || '')
       if (maxNumber && maxNumber < 0) {
+          this.form.purchasesMaxAmount = ''
           return this.$warning('当前输入框只支持输入正数')
       }
       if (minNumber && maxNumber && minNumber > maxNumber) {
           [minNumber, maxNumber] = [maxNumber, minNumber]
           this.form.purchasesMinAmount = String(minNumber)
           this.form.purchasesMaxAmount = String(maxNumber)
+      }
+
+      if (this.form.purchasesMinAmount && !isMoney(this.form.purchasesMinAmount)) {
+          this.form.purchasesMinAmount = Number(this.form.purchasesMinAmount).toFixed(2)
+          return this.$warning('请输入包含小数点后两位的金额格式')
+      }
+      if (this.form.purchasesMaxAmount && !isMoney(this.form.purchasesMaxAmount)) {
+          this.form.purchasesMaxAmount = Number(this.form.purchasesMaxAmount).toFixed(2)
+          return this.$warning('请输入包含小数点后两位的金额格式')
+      }
+      if (Number(this.form.purchasesMinAmount) > 100000) {
+          this.form.purchasesMinAmount = '100000'
+          return this.$warning('售价超出最大限额十万')
+      }
+      if (Number(this.form.purchasesMaxAmount) > 100000) {
+          this.form.purchasesMaxAmount = '100000'
+          return this.$warning('售价超出最大限额十万')
       }
       return false
   }
