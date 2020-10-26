@@ -36,19 +36,23 @@
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="right" header-align="right">
-                <template #default="{ row }">
-                    <a style="color: #4F63FF" @click="handleUpdateStatus(row.id, row.status, 1)" v-if="row.status === 0 || row.status === 2">
-                        开启
-                    </a>
-                    <a style="color: #4F63FF" @click="handleUpdateStatus(row.id, row.status, 2)" v-if="row.status === 1">
-                        关闭
-                    </a>
-                    <a style="color: #4F63FF" @click="$router.push({name: 'MpWeixinEdit', params: {id: row.id}})">
-                        编辑
-                    </a>
-                    <a style="color: #4F63FF" @click="handleUpdateStatus(row.id, row.status, 3)" v-if="row.status !== 3">
-                        删除
-                    </a>
+                <template slot-scope="{ row }">
+                    <Operating>
+                        <template slot="button-box">
+                            <a @click="handleUpdateStatus(row.id, row.status, 1)" v-if="row.status === 0 || row.status === 2">
+                                开启
+                            </a>
+                            <a @click="handleUpdateStatus(row.id, row.status, 2)" v-if="row.status === 1">
+                                关闭
+                            </a>
+                            <a @click="$router.push({name: 'MpWeixinEdit', params: {id: row.id}})">
+                                编辑
+                            </a>
+                            <a @click="handleUpdateStatus(row.id, row.status, 3)" v-if="row.status !== 3">
+                                删除
+                            </a>
+                        </template>
+                    </Operating>
                 </template>
             </el-table-column>
         </el-table>
