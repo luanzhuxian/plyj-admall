@@ -160,6 +160,7 @@ export default {
             }
         },
         closeHandler () {
+            this.filterForm.keyword = ''
             this.$emit('update:show', false)
             this.$emit('close')
         }

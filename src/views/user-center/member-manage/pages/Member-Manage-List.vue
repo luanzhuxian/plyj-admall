@@ -357,10 +357,10 @@
             <!-- 导出 -->
             <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
                 <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="110px" label-position="left">
-                    <el-form-item label="搜索关键字" prop="keyword">
+                    <el-form-item label="关键字" prop="keyword">
                         <el-input
                             v-model.trim="exportData.keyword"
-                            placeholder="昵称/手机号"
+                            placeholder="请输入用户昵称/真实姓名/手机号"
                             style="width: 300px;"
                             clearable
                         />
@@ -369,6 +369,13 @@
                         <el-select v-model="exportData.userSource" clearable>
                             <el-option :value="''" label="全部" />
                             <el-option value="微信H5" label="微信H5" />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item prop="roleType" label="用户类型">
+                        <el-select v-model="exportData.roleCode" clearable>
+                            <el-option :value="''" label="全部" />
+                            <el-option value="MEMBERSHIP" label="普通会员" />
+                            <el-option value="HELPER" label="Helper" />
                         </el-select>
                     </el-form-item>
                     <el-form-item label="购买次数：">
@@ -389,13 +396,6 @@
                             placeholder="请输入次数"
                             v-model="exportData.purchasesMaxNumber"
                         />
-                    </el-form-item>
-                    <el-form-item prop="roleType" label="用户类型">
-                        <el-select v-model="exportData.roleCode" clearable>
-                            <el-option :value="''" label="全部" />
-                            <el-option value="MEMBERSHIP" label="普通会员" />
-                            <el-option value="HELPER" label="Helper" />
-                        </el-select>
                     </el-form-item>
                     <el-form-item label="支付总额：">
                         <el-input
@@ -636,7 +636,7 @@ export default class MemberManageList extends Vue {
   changeExport () {
       this.exportData = {
           //  1 注册 2 登录 3 购买
-          dateType: 1,
+          dateType: '',
           // 1 7日内 2 30日内 3自选
           dateRange: 3,
           startTime: '',
@@ -649,6 +649,16 @@ export default class MemberManageList extends Vue {
           purchasesMinAmount: this.form.purchasesMinAmount,
           purchasesMaxAmount: this.form.purchasesMaxAmount
       }
+      if (this.form.startTime) {
+          this.exportData.dateType = 1
+      } else if (this.form.loginStartTime) {
+          this.exportData.dateType = 2
+      } else if (this.form.lastPurchaseStartTime) {
+          this.exportData.dateType = 3
+      } else {
+          this.exportData.dateType = 1
+      }
+
       this.exportTypeChange(Number(this.exportData.dateType))
       this.showExport = true
   }
@@ -675,8 +685,8 @@ export default class MemberManageList extends Vue {
 
   exportRangeChange (val: number) {
       const start: string | Date = new Date()
-      const end: string | Date = new Date()
-      const formatType = 'YYYY-MM-DD'
+      // const end: string | Date = new Date()
+      // const formatType = 'YYYY-MM-DD'
 
       if (val === 1) {
           start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
@@ -685,11 +695,11 @@ export default class MemberManageList extends Vue {
       } else {
           this.exportTypeChange(this.exportData.dateType as number)
       }
-
-      this.exportDatechange({
-          start: start && `${ moment(start).format(formatType) } 00:00:00`,
-          end: end && `${ moment(end).format(formatType) } 23:59:59`
-      })
+      //
+      // this.exportDatechange({
+      //     start: start && `${ moment(start).format(formatType) } 00:00:00`,
+      //     end: end && `${ moment(end).format(formatType) } 23:59:59`
+      // })
   }
 
   async exportTypeChange (type: number) {
