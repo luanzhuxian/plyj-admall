@@ -9,7 +9,7 @@
                 添加图片
             </label>
             <p>
-                {{ `建议尺寸${width}x${height}，大小小于3MB，最少添加一个，鼠标拖拽调整广告顺序。` }}
+                {{ `建议尺寸${width}x${height}，大小小于3MB，最少添加一个，鼠标拖拽调整顺序。` }}
             </p>
             <Draggable
                 :class="$style.editorBannerList"
@@ -54,7 +54,7 @@
                         <el-input
                             v-if="item.type === 7"
                             v-model.trim="item.value"
-                            placeholder="输入跳转路径"
+                            placeholder="输入自定义跳转路径"
                             :disabled="item.type !== 7"
                         />
                     </div>
