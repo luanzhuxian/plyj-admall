@@ -1,12 +1,5 @@
 <template>
     <div :class="$style.list">
-        <pl-tabs
-            :value="$route.name"
-            :tabs="[
-                {label:'活动列表',name:'SpringPloughingList'},
-            ]"
-        />
-
         <search-box class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable placeholder="请输入活动名称" v-model="filter.condition" @change="getList(1)" />

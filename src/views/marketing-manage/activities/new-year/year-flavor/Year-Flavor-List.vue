@@ -110,60 +110,45 @@
                 >
                     <template slot-scope="{ row }">
                         <!--  除'已结束'以外的，'待开始/进行中/已停止'均可编辑 -->
-                        <el-button
-                            v-if="![2,3].includes(row.status)"
-                            size="mini"
-                            type="text"
-                            @click="$router.push({name: 'EditYearFlavor', params: { id: row.activityId}})"
-                        >
-                            编辑
-                        </el-button>
-                        <!-- 除'已结束'以外的，'待开始/进行中/已停止'均可'结束'活动；与优惠卷领取方式无关 -->
-                        <el-button
-                            v-if="![2,3].includes(row.status)"
-                            size="mini"
-                            type="text"
-                            @click="finish(row)"
-                        >
-                            结束
-                        </el-button>
-                        <el-button
-                            size="mini"
-                            type="text"
-                            @click="viewYearFlavor(row)"
-                        >
-                            查看
-                        </el-button>
-                        <el-button
-                            size="mini"
-                            type="text"
-                            @click="viewYearFlavorData(row)"
-                        >
-                            数据
-                        </el-button>
-                        <el-button
-                            v-if="row.status === 2"
-                            size="mini"
-                            type="text"
-                            @click="deleteYearFlavor(row)"
-                        >
-                            删除
-                        </el-button>
-                        <el-popover
-                            placement="bottom-end"
-                            width="80"
-                            trigger="hover"
-                        >
-                            <div class="popver">
-                                <div @click="$router.push({ name: 'CopyYearFlavor', params: { id: row.activityId }, query: { isCopy: 1 } })">
+                        <Operating>
+                            <template slot="button-box">
+                                <a
+                                    v-if="![2,3].includes(row.status)"
+                                    @click="$router.push({name: 'EditYearFlavor', params: { id: row.activityId}})"
+                                >
+                                    编辑
+                                </a>
+                                <!-- 除'已结束'以外的，'待开始/进行中/已停止'均可'结束'活动；与优惠卷领取方式无关 -->
+                                <a
+                                    v-if="![2,3].includes(row.status)"
+                                    @click="finish(row)"
+                                >
+                                    结束
+                                </a>
+                                <a
+                                    @click="viewYearFlavor(row)"
+                                >
+                                    查看
+                                </a>
+                                <a
+                                    @click="viewYearFlavorData(row)"
+                                >
+                                    数据
+                                </a>
+                                <a
+                                    v-if="row.status === 2"
+                                    @click="deleteYearFlavor(row)"
+                                >
+                                    删除
+                                </a>
+                                <a @click="$router.push({ name: 'CopyYearFlavor', params: { id: row.activityId }, query: { isCopy: 1 } })">
                                     复制
-                                </div>
-                                <div @click="share(row)">
+                                </a>
+                                <a @click="share(row)">
                                     分享
-                                </div>
-                            </div>
-                            <pl-svg :key="7" class="icon-gengduo" slot="reference" name="icon-gengduo" style="cursor: pointer;" width="16" />
-                        </el-popover>
+                                </a>
+                            </template>
+                        </Operating>
                     </template>
                 </el-table-column>
             </el-table>

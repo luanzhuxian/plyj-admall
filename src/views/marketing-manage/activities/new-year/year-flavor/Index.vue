@@ -8,10 +8,13 @@
             start-time="2019.12.26"
             end-time="2020.04.30"
         />
-        <el-button type="primary" round @click="add" icon="el-icon-plus">
+        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name !== 'ViewYearFlavorInfo' && $route.name !== 'ViewYearFlavorData'">
             新建活动
         </el-button>
-        <pl-tabs
+        <el-button type="text" @click="showExplanation = true" v-show="$route.name !== 'ViewYearFlavorInfo' && $route.name !== 'ViewYearFlavorData'">
+            活动说明
+        </el-button>
+        <!-- <pl-tabs
             v-if="activeTab === 'YearFlavorList' || activeTab === 'YearFlavorSetting'"
             :value="$route.name"
             :tabs="[
@@ -19,22 +22,25 @@
                 {label:'活动设置',name:'YearFlavorSetting'},
             ]"
             @tabClick="data => $router.replace({ name: data.name })"
-        />
+        /> -->
 
         <keep-alive :exclude="exclude">
             <router-view />
         </keep-alive>
+        <Setting :show.sync="showExplanation" />
     </div>
 </template>
 
 <script>
 import ListHeader from '../../../components/List-Header'
+import Setting from './Year-Flavor-Setting'
 export default {
     name: 'FlavorIndex',
-    components: { ListHeader },
+    components: { ListHeader, Setting },
     data () {
         return {
-            exclude: ['AddYearFlavor']
+            exclude: ['AddYearFlavor'],
+            showExplanation: false
         }
     },
     watch: {
