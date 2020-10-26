@@ -36,7 +36,6 @@
                             v-model.trim="item.name"
                             placeholder="图片标题"
                             maxlength="10"
-                            style="margin-bottom: 6px;"
                         />
                         <div :class="$style.link">
                             <el-input
@@ -52,6 +51,12 @@
                                 @change="value => onCascaderChange(value, item, index)"
                             />
                         </div>
+                        <el-input
+                            v-if="item.type === 7"
+                            v-model.trim="item.value"
+                            placeholder="输入跳转路径"
+                            :disabled="item.type !== 7"
+                        />
                     </div>
                     <div style="width: 28px;">
                         <i v-if="data.values.length > 1" class="el-icon-delete-solid" @click.stop="remove(index)" />
@@ -149,12 +154,6 @@ export default class EditorBanner extends Vue {
         }, {
             value: 45,
             label: '组合聚惠学'
-        // }, {
-        //     value: 46,
-        //     label: '防疫情报站'
-        // }, {
-        //     value: 47,
-        //     label: '疫情签到'
         }, {
             value: 48,
             label: '公益棕行动'
@@ -171,6 +170,9 @@ export default class EditorBanner extends Vue {
     }, {
         value: 6,
         label: '店铺主页'
+    }, {
+        value: 7,
+        label: '自定义'
     }])
 
     add () {
@@ -391,6 +393,9 @@ export default class EditorBanner extends Vue {
             display: block;
             flex: 1;
             padding: 0 7px 0 10px;
+            > *:not(:nth-of-type(1)) {
+                margin-top: 6px;
+            }
         }
         .link {
             display: flex;

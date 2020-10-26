@@ -148,14 +148,6 @@ export default class EditorAdv extends Vue {
         value: 'newyear',
         label: '我心中的年味',
         disabled: false
-    // }, {
-    //     value: 'report',
-    //     label: '防疫情报站',
-    //     disabled: false
-    // }, {
-    //     value: 'sign',
-    //     label: '抗疫签到',
-    //     disabled: false
     }, {
         value: 'distribution',
         label: '全民来分销',
