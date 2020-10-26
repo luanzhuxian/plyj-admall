@@ -2,7 +2,7 @@
     <div :class="$style.bingWechat">
         <div :class="$style.wechatTitle">公众号服务</div>
         <div :class="$style.progress">
-            <router-link tag="div" :class="$style.stepBox" :to="{ name: 'WechatAuth' }">
+            <div :class="$style.stepBox" @click="nav">
                 <div :class="$style.progressCircle">
                     <pl-svg name="icon-success-8db26" width="16" />
                 </div>
@@ -10,12 +10,11 @@
                     <div :class="$style.title">商城授权 <div :class="$style.line + ' ' + $style.one" /></div>
                     <div class="tip">微信认证服务号授权给雅集</div>
                 </div>
-            </router-link>
+            </div>
 
-            <router-link
+            <div
                 :class="$style.stepBox"
-                tag="div"
-                :to="{ name: (auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') ? 'WechatPay' : $route.name }"
+                @click="nav"
             >
                 <div :class="$style.progressCircle" v-if="auditStatus === 'OPEN_WECHAT_PAYMENT' || auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE'">
                     <pl-svg name="icon-success-8db26" width="16" />
@@ -25,9 +24,9 @@
                     <div :class="$style.title">开通微信支付 <div :class="$style.line + ' ' + $style.two" /></div>
                     <div class="tip">微信认证服务号授权给雅集</div>
                 </div>
-            </router-link>
+            </div>
 
-            <router-link :class="$style.stepBox" tag="div" :to="{ name: applymentState === 'APPLYMENT_STATE_FINISHED' ? 'YajiAuthenticate' : $route.name }">
+            <div :class="$style.stepBox" @click="nav">
                 <div :class="$style.progressCircle" v-if="auditStatus !== 'OPEN_WECHAT_PAYMENT' && auditStatus !== 'MP_NOT_AUTHORIZED' && auditStatus !== 'MALL_NOT_COMPLETED'">
                     <pl-svg name="icon-success-8db26" width="16" />
                 </div>
@@ -36,18 +35,31 @@
                     <div :class="$style.title">雅集认证</div>
                     <div class="tip">微信认证服务号授权给雅集</div>
                 </div>
-            </router-link>
+            </div>
         </div>
         <main>
-            <router-view />
+            <component :is="page" />
         </main>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import WechatAuth from './pages/Wechat-Auth.vue'
+import WechatPay from './pages/Wechat-Pay.vue'
+import YajiAuth from './pages/Yaji-Auth.vue'
 export default {
     name: 'BindWechat',
+    components: {
+        WechatAuth,
+        WechatPay,
+        YajiAuth
+    },
+    data () {
+        return {
+            page: ''
+        }
+    },
     computed: {
         ...mapGetters({
             auditStatus: 'user/auditStatus',
@@ -58,27 +70,27 @@ export default {
             return this.wechatPayStatus.applymentState
         }
     },
-    watch: {
-        $route () {
-            this.nav()
-        }
-    },
-    async mounted () {
+    async created () {
         await this.nav()
     },
     methods: {
         async nav () {
             const auditStatus = this.auditStatus
-            if (this.$route.name !== 'WechatAuth' && auditStatus === 'MP_NOT_AUTHORIZED') {
-                await this.$router.replace({ name: 'WechatAuth', query: this.$route.query })
+            // 微信未授权
+            if (auditStatus === 'MP_NOT_AUTHORIZED') {
+                this.page = 'WechatAuth'
+                // await this.$router.replace({ name: 'WechatAuth', query: this.$route.query })
                 return
             }
-            if (this.$route.name !== 'WechatPay' && auditStatus === 'OPEN_WECHAT_PAYMENT') {
-                await this.$router.replace({ name: 'WechatPay', query: this.$route.query })
+            // 已授权，但是未开通支付
+            if (auditStatus === 'OPEN_WECHAT_PAYMENT') {
+                this.page = 'WechatPay'
+                // await this.$router.replace({ name: 'WechatPay', query: this.$route.query })
                 return
             }
-            if (this.$route.name !== 'YajiAuthenticate' && (auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE')) {
-                await this.$router.replace({ name: 'YajiAuthenticate', query: this.$route.query })
+            if (auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') {
+                this.page = 'YajiAuth'
+                // await this.$router.replace({ name: 'YajiAuthenticate', query: this.$route.query })
             }
         }
     }

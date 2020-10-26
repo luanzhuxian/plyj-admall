@@ -130,7 +130,8 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
     }
     // 校验页面权限
     if (!to.meta.ignore) {
-        const newTo = checkAuth(to, from)
+        const newTo = checkAuth(to)
+        console.log(newTo, to.name)
         if (newTo !== to.name) {
             NProgress.done()
             return next({ name: newTo })

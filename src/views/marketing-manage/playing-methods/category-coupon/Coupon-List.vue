@@ -217,9 +217,10 @@
                 :sizes="true"
             />
         </div>
+        <!-- TODO: 暂时隐藏
         <div class="guide-add" v-if="guideStatus">
             <img :src="`https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/img_step${guideStatus}.jpg`" alt="" @click="guideNext">
-        </div>
+        </div>-->
     </div>
 </template>
 
