@@ -685,21 +685,26 @@ export default class MemberManageList extends Vue {
 
   exportRangeChange (val: number) {
       const start: string | Date = new Date()
-      // const end: string | Date = new Date()
-      // const formatType = 'YYYY-MM-DD'
+      const end: string | Date = new Date()
+      const formatType = 'YYYY-MM-DD'
 
       if (val === 1) {
           start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+          this.exportDatechange({
+              start: start && `${ moment(start).format(formatType) } 00:00:00`,
+              end: end && `${ moment(end).format(formatType) } 23:59:59`
+          })
       } else if (val === 2) {
           start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+          this.exportDatechange({
+              start: start && `${ moment(start).format(formatType) } 00:00:00`,
+              end: end && `${ moment(end).format(formatType) } 23:59:59`
+          })
       } else {
+          this.exportData.startTime = ''
+          this.exportData.endTime = ''
           this.exportTypeChange(this.exportData.dateType as number)
       }
-      //
-      // this.exportDatechange({
-      //     start: start && `${ moment(start).format(formatType) } 00:00:00`,
-      //     end: end && `${ moment(end).format(formatType) } 23:59:59`
-      // })
   }
 
   async exportTypeChange (type: number) {
@@ -739,33 +744,28 @@ export default class MemberManageList extends Vue {
       (this.$refs.exportDatePicker as HTMLFormElement).initDate()
   }
 
-  deleteExportDataKeys () {
-      const keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'loginStartTime', 'loginEndTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
-      for (const item of keys) {
-          delete this.exportData[item]
-      }
-  }
-
   async exportList () {
       await (this.$refs.exportForm as HTMLFormElement).validate()
-      this.deleteExportDataKeys()
+      let keys: string[] = []
       //  1 注册 2 登录 3 购买
       switch (this.exportData.dateType) {
-          case 1: {
-              this.exportData.startTime = this.form.startTime
-              this.exportData.endTime = this.form.endTime
+          case 1: keys = ['dateType', 'dateRange', 'loginStartTime', 'loginEndTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
               break
-          }
           case 2: {
-              this.exportData.loginStartTime = this.form.loginStartTime
-              this.exportData.loginEndTime = this.form.loginEndTime
+              keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
+              this.exportData.loginStartTime = this.exportData.startTime
+              this.exportData.loginEndTime = this.exportData.endTime
               break
           }
           case 3: {
-              this.exportData.lastPurchaseStartTime = this.form.lastPurchaseStartTime
-              this.exportData.lastPurchaseEndTime = this.form.lastPurchaseEndTime
+              keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'loginStartTime', 'loginEndTime']
+              this.exportData.lastPurchaseStartTime = this.exportData.startTime
+              this.exportData.lastPurchaseEndTime = this.exportData.endTime
               break
           }
+      }
+      for (const item of keys) {
+          delete this.exportData[item]
       }
       const blob = await exportMemberQuery(this.exportData)
       const url = createObjectUrl(blob)
@@ -773,6 +773,7 @@ export default class MemberManageList extends Vue {
       a.href = url
       a.download = `会员列表${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
       a.click()
+      this.showExport = false
   }
 
   async getMemberData () {
