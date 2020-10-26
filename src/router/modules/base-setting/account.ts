@@ -16,7 +16,7 @@ export default [
                 component: () => import('../../../views/base-setting/account-manage/pages/Account-List.vue'),
                 meta: {
                     index: '7-1-1',
-                    title: '账号列表'
+                    title: '列表'
                 }
             },
             {

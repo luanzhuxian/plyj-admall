@@ -2,7 +2,7 @@ export default [
     {
         path: 'helper-manage',
         name: 'HelperManage',
-        redirect: '/user-center/helper-manage/helper-manage-list',
+        redirect: '/user-center/helper-manage/list',
         component: () => import('../../../views/user-center/helper-manage/Index.vue'),
         meta: {
             title: 'Helper管理',
@@ -11,7 +11,7 @@ export default [
         children: [
             // Helper管理列表
             {
-                path: 'helper-manage-list',
+                path: 'list',
                 name: 'HelperManageList',
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Manage-List.vue'),
                 meta: {

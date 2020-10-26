@@ -14,6 +14,7 @@ export default [
                 name: 'MyGoods',
                 component: () => import('../../../views/product-center/product-manage/pages/My-Goods.vue'),
                 meta: {
+                    title: '列表',
                     index: '2-2-1'
                 }
             },

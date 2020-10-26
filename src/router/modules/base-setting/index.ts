@@ -6,7 +6,6 @@ export default [
     {
         path: '/base-setting',
         name: 'BaseSetting',
-        redirect: '/base-setting/account-manage',
         component: () => import('../../../views/base-setting/Index.vue'),
         meta: {
             index: '7',

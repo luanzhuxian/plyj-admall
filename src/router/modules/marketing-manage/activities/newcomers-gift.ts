@@ -1,7 +1,7 @@
 export default [
     {
         path: 'newcomers-gift',
-        redirect: '/marketing-manage/newcomers-gift/list/:id?',
+        redirect: '/marketing-manage/newcomers-gift/list',
         name: 'NewcomersGift',
         component: () => import('../../../../views/marketing-manage/activities/newcomers-gift/Newcomers-Gift-List.vue'),
         meta: {

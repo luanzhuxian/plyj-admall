@@ -2,7 +2,6 @@ export default [
     {
         path: '/mall-manage',
         name: 'MallManage',
-        redirect: '/mall-manage/main',
         component: () => import('../../../views/mall-manage/Index.vue'),
         meta: {
             title: '店铺管理',

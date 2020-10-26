@@ -2,7 +2,6 @@ export default [
     {
         path: 'subscription-service',
         name: 'SubscriptionService',
-        redirect: '/base-setting/subscription-service/live-service-order',
         component: () => import('../../../views/base-setting/subscription-service/Index.vue'),
         meta: {
             title: '我的订购服务',
