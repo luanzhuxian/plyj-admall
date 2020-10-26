@@ -15,6 +15,7 @@
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
+import { getActivityAuth } from '../../apis/marketing-manage/gameplay'
 
 const mall = namespace('mall')
 @Component
@@ -50,6 +51,7 @@ export default class MallManage extends Vue {
         const requests = [
             getLiveInfo(),
             getNianweiInfo(),
+            getActivityAuth(), // 进入店铺管理要提前调用 getActivityAuth 接口，通知后端更新草稿箱数据
             this.getCurrentTemplate(1),
             this.getCurrentTemplate(2)
         ]
