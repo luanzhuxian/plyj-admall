@@ -8,7 +8,12 @@
                 </el-button>
             </div>
             <div :class="$style.strategy" @click="strategy = true">
-                <div :class="$style.strategyText">省流量<span :class="$style.high">攻略</span></div>
+                <div :class="$style.strategyLeft">
+                    <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/cloud_banner.png">
+                    <div :class="$style.strategyText">省流量<span :class="$style.high">攻略</span></div>
+                    <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/cloud_banner_view.png" :class="$style.viewImg">
+                </div>
+                <div><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/cloud_banner.png"></div>
             </div>
             <el-button round plain @click="inputFileName" type="primary">
                 上传视频
@@ -16,7 +21,7 @@
             <p class="fz-12 gray-3 mt-10">
                 *仅支持mp4格式视频文件，请上传格式为MP4，分辨率在720p-1080p的视频到视频库
             </p>
-            <div class="fz-16 font-weight-bold mt-30">视频库存储空间：</div>
+            <div class="fz-16 font-weight-bold mt-30">视频库存储空间</div>
             <div class="mt-16 mb-16">
                 <span class="fz-33 font-weight-bold">{{ teachingInfo.useRemainderStorageSize_G }}<span class="fz-18">G</span></span>
                 <span class="fz-33 font-weight-bold"> / </span>
@@ -492,11 +497,21 @@ export default {
         border-radius: 20px;
         background: #F5F6FA;
         cursor: pointer;
-        .strategy-text{
-            padding: 28px 0 0 128px;
-            color: #333;
-            .high{
-                color: #2DCA72;
+        display: flex;
+        justify-content: space-between;
+        .strategy-left{
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+            .strategy-text{
+                padding: 0 28px 0 28px;
+                color: #333;
+                .high{
+                    color: #2DCA72;
+                }
+            }
+            .view-img{
+                margin-top: 20px;
             }
         }
     }
