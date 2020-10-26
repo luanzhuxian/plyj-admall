@@ -487,11 +487,11 @@ export default {
                         gomMes = await updateBookingActivity(params)
                         warnMessage = '修改成功'
                     }
-                    goPage(this, gomMes.data.result, warnMessage, 'BookingBuyList')
+                    goPage(this, gomMes.data, warnMessage, 'BookingBuyList')
                 } else {
                     gomMes = await createBookingActivity(params)
                     warnMessage = '创建成功'
-                    goPage(this, gomMes.data.result, warnMessage, 'BookingBuyList')
+                    goPage(this, gomMes.data, warnMessage, 'BookingBuyList')
                 }
             } catch (e) { throw e }
         },

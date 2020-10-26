@@ -396,11 +396,11 @@ export default {
                         gomMes = await updateSecondActivity(params)
                         warnMessage = '修改成功'
                     }
-                    goPage(this, gomMes.data.result, warnMessage, 'SecondBuyList')
+                    goPage(this, gomMes.data, warnMessage, 'SecondBuyList')
                 } else {
                     gomMes = await createSecondActivity(params)
                     warnMessage = '创建成功'
-                    goPage(this, gomMes.data.result, warnMessage, 'SecondBuyList')
+                    goPage(this, gomMes.data, warnMessage, 'SecondBuyList')
                 }
             } catch (e) {
                 throw e

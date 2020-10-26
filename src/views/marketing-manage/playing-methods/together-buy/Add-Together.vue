@@ -496,11 +496,11 @@ export default {
                         gomMes = await updateTogetherActivity(params)
                         warnMessage = '修改成功'
                     }
-                    goPage(this, gomMes.data.result, warnMessage, 'TogetherBuyList')
+                    goPage(this, gomMes.data, warnMessage, 'TogetherBuyList')
                 } else {
                     gomMes = await createTogetherActivity(params)
                     warnMessage = '创建成功'
-                    goPage(this, gomMes.data.result, warnMessage, 'TogetherBuyList')
+                    goPage(this, gomMes.data, warnMessage, 'TogetherBuyList')
                 }
             } catch (e) { throw e }
         },

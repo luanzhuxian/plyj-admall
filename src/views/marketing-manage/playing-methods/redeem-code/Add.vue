@@ -391,11 +391,11 @@ export default {
                         gomMes = await updateRedeemCodeActivity(params)
                         warnMessage = '修改成功'
                     }
-                    goPage(this, { flag: gomMes.data.result, list: '' }, warnMessage, 'RedeemCodeList')
+                    goPage(this, { flag: gomMes.data, list: '' }, warnMessage, 'RedeemCodeList')
                 } else {
                     gomMes = await createRedeemCodeActivity(params)
                     warnMessage = '创建成功'
-                    goPage(this, { flag: gomMes.data.result, list: '' }, warnMessage, 'RedeemCodeList')
+                    goPage(this, { flag: gomMes.data, list: '' }, warnMessage, 'RedeemCodeList')
                 }
             } catch (e) {
                 throw e
