@@ -128,9 +128,15 @@ export default class HeaderRigtht extends Vue {
 
     async selectMallBtn () {
         await this.getAgencyList(true)
-        const { changed } = await this.selectMall()
-        if (changed) {
+        const data = await this.selectMall()
+        // 商城已切换
+        if (data.changed) {
             location.replace('/')
+            return
+        }
+        // 商城未切换，但是检测到未创建商城，直接弹出创建弹框
+        if (!data.mallId) {
+            this.showCreateMall = true
         }
     }
 
