@@ -192,7 +192,7 @@ export default class RunbiManage extends Vue {
 
     form = {
         keyword: '',
-        status: '',
+        status: 'AWAIT',
         current: 1,
         size: 10,
         startTime: '',
@@ -205,7 +205,7 @@ export default class RunbiManage extends Vue {
 
     async activated () {
         if (this.$route.query.status !== this.form.status) {
-            this.form.status = (this.$route.query.status as string) || ''
+            this.form.status = (this.$route.query.status as string) || 'AWAIT'
             await this.search()
         }
     }

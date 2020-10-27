@@ -289,7 +289,7 @@ export default class WithdrawDepositManage extends Vue {
     form = {
         current: 1,
         size: 10,
-        status: '',
+        status: 'AWAIT',
         startTime: '',
         endTime: '',
         keyword: ''
@@ -301,7 +301,7 @@ export default class WithdrawDepositManage extends Vue {
 
     async activated () {
         if (this.$route.query.status !== this.form.status) {
-            this.form.status = (this.$route.query.status as string) || ''
+            this.form.status = (this.$route.query.status as string) || 'AWAIT'
             await this.search()
         }
     }
