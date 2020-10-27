@@ -23,7 +23,7 @@
                     </div>
 
                     <el-tree
-                        style="margin-bottom: 50px"
+                        class="tree"
                         size="mini"
                         @check="check"
                         ref="tree"
@@ -35,12 +35,14 @@
                         :props="defaultProps"
                     />
 
-                    <el-button type="primary" @click="save" v-if="showCheckbox">
-                        保存
-                    </el-button>
-                    <el-button @click="close" v-if="showCheckbox">
-                        取消
-                    </el-button>
+                    <div class="bottom">
+                        <el-button type="primary" @click="save" v-if="showCheckbox">
+                            保存
+                        </el-button>
+                        <el-button @click="close" v-if="showCheckbox">
+                            取消
+                        </el-button>
+                    </div>
                 </div>
             </transition>
         </div>
@@ -81,11 +83,11 @@ export default {
                 } catch (e) {
                     throw e
                 }
-                window.addEventListener('scroll', this.setPadding)
+                // window.addEventListener('scroll', this.setPadding)
             } else {
                 setTimeout(() => {
                     this.show = false
-                    window.removeEventListener('scroll', this.setPadding)
+                    // window.removeEventListener('scroll', this.setPadding)
                 }, 200)
             }
         }
@@ -116,7 +118,7 @@ export default {
     mounted () {
         this.$nextTick(() => {
             this.RoleTree = this.$refs.RoleTree
-            window.addEventListener('scroll', this.setPadding)
+            // window.addEventListener('scroll', this.setPadding)
         })
     },
     methods: {
@@ -124,16 +126,16 @@ export default {
             this.$emit('update:visible', false)
         },
         setPadding () {
-            if (window.scrollY < 60) {
-                this.RoleTree.style.paddingTop = `${ 60 - window.scrollY }px`
-            } else {
-                this.RoleTree.style.paddingTop = 0
-            }
+            // if (window.scrollY < 60) {
+            //     this.RoleTree.style.paddingTop = `${ 60 - window.scrollY }px`
+            // } else {
+            //     this.RoleTree.style.paddingTop = 0
+            // }
         },
         // 查找已选中的节点的key
         searchKeyOfSelected (list) {
             for (const item of list) {
-                if (item.checked) {
+                if (item.checked || item.status === 0) {
                     if (item.children) {
                         this.searchKeyOfSelected(item.children)
                     } else {
@@ -197,25 +199,31 @@ export default {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
-  padding-top: 60px;
-  z-index: 1000;
+    height: 100vh;
+    z-index: 1000;
   background:rgba(0, 0, 0, 0.25);
   .slide {
     position: absolute;
     right: 0;
     width: 320px;
-    height: 100%;
-    padding: 24px 0 120px 32px;
+    height: 100vh;
+    padding: 24px 0 24px 32px;
     background-color: #fff;
     box-shadow: -5px 0 20px rgba(0, 0, 0, .1);
-    overflow: auto;
   }
+    .tree {
+        height: calc(100vh - 80px - 80px);
+        overflow: auto;
+    }
   .top {
     display: flex;
     flex-direction: column;
     justify-content: center;
+      height: 80px;
   }
+    .bottom {
+        padding: 15px 0;
+    }
   .close {
     font-size: 20px;
     cursor: pointer;
