@@ -70,7 +70,8 @@ const routes: RouteConfig[] = [
         name: 'NotFound',
         component: NotFound,
         meta: {
-            title: '网页带着诗和远方出游了'
+            title: '网页带着诗和远方出游了',
+            ignore: true
         }
     },
     {

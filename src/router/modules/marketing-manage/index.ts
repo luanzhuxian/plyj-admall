@@ -17,7 +17,6 @@ export default [
                 name: 'MarketingGameplayList',
                 component: () => import('../../../views/marketing-manage/gameplay/Gameplay.vue'),
                 meta: {
-                    index: '8-x',
                     ignore: true
                 }
             },
