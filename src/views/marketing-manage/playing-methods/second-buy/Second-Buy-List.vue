@@ -262,8 +262,10 @@ export default {
     async created () {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const secondBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '3')
-        this.start = secondBuyInformation.createTime || ''
-        this.end = secondBuyInformation.validity || ''
+        if (!secondBuyInformation) return
+        const { createTime = '', validity = '' } = secondBuyInformation
+        this.start = createTime
+        this.end = validity
         this.getList()
     },
     deactivated () {

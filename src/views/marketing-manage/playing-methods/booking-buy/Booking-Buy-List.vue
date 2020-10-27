@@ -305,8 +305,10 @@ export default {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const bookingBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '5')
-        this.start = bookingBuyInformation.createTime || ''
-        this.end = bookingBuyInformation.validity || ''
+        if (!bookingBuyInformation) return
+        const { createTime = '', validity = '' } = bookingBuyInformation
+        this.start = createTime
+        this.end = validity
         this.getList()
     },
     beforeDestroy () {

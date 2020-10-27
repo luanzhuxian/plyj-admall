@@ -23,7 +23,7 @@
             </div>
         </div>
         <div :class="$style.tip">
-            <div>有效期：{{ expired }}</div>
+            <div v-if="expired">有效期：{{ expired }}</div>
             <div>当前活动：{{ count }}个</div>
         </div>
         <div

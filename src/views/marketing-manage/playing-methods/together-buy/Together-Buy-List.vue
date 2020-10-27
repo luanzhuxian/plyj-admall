@@ -295,8 +295,10 @@ export default {
     async created () {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const togetherBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '4')
-        this.start = togetherBuyInformation.createTime || ''
-        this.end = togetherBuyInformation.validity || ''
+        if (!togetherBuyInformation) return
+        const { createTime = '', validity = '' } = togetherBuyInformation
+        this.start = createTime
+        this.end = validity
 
         try {
             await this.getList()
