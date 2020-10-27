@@ -198,7 +198,7 @@ export default class AddAccount extends Vue {
 
     created () {
         this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
-        this.query = JSON.parse(localStorage.getItem(LocalEnum.editAccount) || '') || {}
+        this.query = (localStorage.getItem(LocalEnum.editAccount) && JSON.parse(localStorage.getItem(LocalEnum.editAccount))) || {}
         this.detailForm.userId = this.query.userId
         this.detailForm.roleCode = this.query.roleCode
         if (this.query.userId) {
@@ -341,10 +341,10 @@ export default class AddAccount extends Vue {
 
     async getEmployeeDefaultFun () {
         const res = await getEmployeeDefault()
-        res.result[0].children[0].disabled = true
-        res.result[0].children[0].children[0].disabled = true
-        res.result[0].children[0].children[1].disabled = true
-        res.result[0].children[0].children[2].disabled = true
+        res.result[0].children[0] && (res.result[0].children[0].disabled = true)
+        res.result[0].children[0].children[0] && (res.result[0].children[0].children[0].disabled = true)
+        res.result[0].children[0].children[1] && (res.result[0].children[0].children[1].disabled = true)
+        res.result[0].children[0].children[2] && (res.result[0].children[0].children[2].disabled = true)
         this.menuTree = res.result
     }
 }
