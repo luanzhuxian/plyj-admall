@@ -31,8 +31,11 @@
     background-color: $background-color !important;
     @content;
 }
-@mixin search ($background-color: transparent) {
+@mixin search ($margin-bottom: 8.5px, $padding-top: 0, $height: 30px, $background-color: transparent) {
     @content;
+    margin-bottom: $margin-bottom;
+    padding-top: $padding-top !important;
+    height: $height !important;
     background-color: $background-color !important;
     > div {
         width: 282px !important;
@@ -113,7 +116,7 @@
     background-color: #e4d1a3 !important;
     .container {
         $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/yuan-dan/84792abd-69ab-4de4-9e3f-0b00c3123e9c.png';
-        @include container(32px, $background-image);
+        @include container(38px, $background-image);
     }
     .module-search {
         @include search();
@@ -130,7 +133,7 @@
     background-color: #ae1a10 !important;
     .container {
         $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/new-year/32724153-3431-4331-9589-b3018075aed6.png';
-        @include container(32px, $background-image);
+        @include container(38px, $background-image);
         .skin-title {
             margin: 0 -12px;
         }
@@ -150,7 +153,7 @@
     background-color: #ff8401 !important;
     .container {
         $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/xiao-nian/558e1a1d-37a9-428e-9b4a-74b3d9edb9be.png';
-        @include container(45px, $background-image);
+        @include container(51px, $background-image);
     }
     .module-search {
         @include search();
@@ -166,14 +169,7 @@
     background-color: #d6922d !important;
     .container {
         $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/yuan-xiao/b0c4d8b7-ccec-4d96-a571-10c365ff95ea.png';
-        @include container(45px, $background-image);
-        .module-title {
-            padding: 0 12px 13px !important;
-            background: #dfab5f !important;
-            &.module {
-                border-top-color: #d6922d;
-            }
-        }
+        @include container(51px, $background-image);
         .skin-title {
             margin: 0 -12px 7px;
         }
@@ -196,22 +192,12 @@
         > .module.active {
             border-color: #ea615f !important;
         }
-        .module-title {
-            padding: 0 12px 13px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 0 0 5px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 6.5px;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(6.5px);
     }
     .module-copyright {
         @include copyright(45px, #ea615f);
@@ -228,22 +214,12 @@
         > .module.active {
             border-color: #f35815 !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 3px 0 12px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 12px;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(12px);
     }
     .module-copyright {
         @include copyright(45px, #f35815);
@@ -260,22 +236,12 @@
         > .module.active {
             border-color: #19b47b !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 3px 0 10px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 12px;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(12px);
     }
     .module-copyright {
         @include copyright(45px, #19b47b);
@@ -292,22 +258,12 @@
         > .module.active {
             border-color: #efc573 !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 12px 0 15px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 0;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(6px);
     }
     .module-copyright {
         @include copyright(45px, #efc573);
@@ -324,22 +280,12 @@
         > .module.active {
             border-color: #ea615f !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 3px 0 10px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 12px;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(6.5px);
     }
     .module-copyright {
         @include copyright(45px, #ea615f);
@@ -356,22 +302,12 @@
         > .module.active {
             border-color: #fd7803 !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 0 0 9px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 12px;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(6px);
     }
     .module-copyright {
         @include copyright(45px, #fd7803);
@@ -388,22 +324,12 @@
         > .module.active {
             border-color: #1764c7 !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 7px 0 15px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 12px;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(6px);
     }
     .module-copyright {
         @include copyright(45px, #1764c7);
@@ -420,22 +346,12 @@
         > .module.active {
             border-color: #1b8864 !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 0 0 6px;
         }
     }
     .module-search {
         @include search();
-        margin-bottom: 12px;
-        padding-top: 0 !important;
-        height: 30px !important;
     }
     .module-copyright {
         @include copyright(45px, #1b8864);
@@ -452,22 +368,12 @@
         > .module.active {
             border-color: #F9DF55 !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 0 0 10px;
         }
     }
     .module-search {
-        @include search();
-        margin-bottom: 8.5px;
-        padding-top: 0 !important;
-        height: 30px !important;
+        @include search(6px);
     }
     .module-copyright {
         @include copyright(54px, #F9DF55);
@@ -484,22 +390,12 @@
         > .module.active {
             border-color: #FD7803 !important;
         }
-        .module-title {
-            padding: 0 12px 5px !important;
-            background: transparent !important;
-            &.module {
-                border-top-color: transparent;
-            }
-        }
         .skin-title {
             margin: 0 -12px 12px;
         }
     }
     .module-search {
         @include search();
-        margin-bottom: 6px;
-        padding-top: 0 !important;
-        height: 30px !important;
     }
     .module-copyright {
         @include copyright(45px, #FD7803);
