@@ -998,12 +998,12 @@ export default {
     color: #999;
   }
   .add-content {
+      background-color: #fff;
     .content-title {
       display: flex;
       align-items: center;
       margin-bottom: 24px;
       height: 60px;
-      margin-top: 37px;
       padding-left: 30px;
       font-size: 14px;
       font-weight: bold;

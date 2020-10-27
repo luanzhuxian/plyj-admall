@@ -34,7 +34,7 @@ export const getActivityListUseCoupon = id => axios.get(`/apis/v1/coupon/getActi
 // export const getUseCouponActivityType = id => axios.get(`/apis/v1/coupon/byCouponIdQueryActivy/${id}`)
 
 // 查询用户分组
-export const getUserTtagList = () => axios.get('/apis/v1/mall/label/list', {})
+export const getUserTtagList = () => axios.post('/apis/v1/mall/label/list', {})
 
 // 删除优惠券
 export const deleteCoupon = id => axios.put(`/apis/v1/coupon/delete/${ id }`)
