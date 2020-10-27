@@ -125,12 +125,26 @@
                     <el-menu-item :disabled="!appId" index="7-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
                 </el-submenu>
 
-                <el-menu-item index="9" :disabled="!appId" :route="{ name: 'ReservationManage' }">
+                <!--<el-menu-item index="9" :disabled="!appId" :route="{ name: 'ReservationManage' }" style="padding-left: 0;">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
-                            name="icon-naozhong-7f36e"
+                            name="icon-time-8a40e"
                             width="15"
                             height="15"
+                            fill="#fff"
+                            :class="$style.icon"
+                        />
+                        <span>预约管理</span>
+                    </h2>
+                </el-menu-item>-->
+
+                <el-menu-item index="9" :route="{ name: 'ReservationManage' }">
+                    <h2 :class="$style.title">
+                        <pl-svg
+                            name="icon-time-8a40e"
+                            width="15"
+                            height="15"
+                            fill="#fff"
                             :class="$style.icon"
                         />
                         <span>预约管理</span>
@@ -256,20 +270,26 @@ export default class MainNavbar extends Vue {
 ::v-deep {
     .el-menu {
         border: none;
-    }
-    .el-menu-item,
-    .el-submenu__title {
-        line-height: 40px !important;
-        height: 40px !important;
-        min-width: auto !important;
-        svg {
-            opacity: 0.7;
-        }
-        &.is-active {
-            background-color: $--color-primary-blue !important;
+        .el-menu-item,
+        .el-submenu__title {
+            line-height: 40px !important;
+            height: 40px !important;
+            min-width: auto !important;
+            padding-left: 17px !important;
             svg {
-                opacity: 1;
+                opacity: 0.7;
             }
+            &.is-active {
+                background-color: $--color-primary-blue !important;
+                svg {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .el-submenu {
+        .el-menu-item {
+            padding-left: 40px !important;
         }
     }
     .el-submenu__title {
