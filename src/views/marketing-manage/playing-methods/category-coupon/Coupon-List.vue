@@ -8,8 +8,9 @@
                     description="支持发放多种品类券，购买减免部分商品和课程金额"
                     :permanent="true"
         />
-        <el-button type="primary" round @click="$router.push({name:'AddCategoryCoupon'})" icon="el-icon-plus">
+        <el-button type="primary" round @click="$router.push({name:'AddCategoryCoupon'})">
             新增品类券
+            <i class="el-icon-plus el-icon--right" />
         </el-button>
         <search-box class="mt-24">
             <el-form-item label="搜索内容">

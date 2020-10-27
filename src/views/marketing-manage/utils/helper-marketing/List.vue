@@ -47,16 +47,16 @@
                     >
                         查询
                     </el-button>
-                    <el-button
-                        round
-                        type="primary"
-                        @click="$router.push({name:'AddMarketing'})"
-                        style="margin-left: 20px;"
-                    >
-                        新建活动
-                    </el-button>
                 </el-form-item>
             </search-box>
+            <el-button
+                round
+                type="primary"
+                @click="$router.push({name:'AddMarketing'})"
+                style="margin-top: 20px;"
+            >
+                新建活动 <i class="el-icon-plus el-icon--right" />
+            </el-button>
             <el-table
                 :data="tableData"
                 class="mt-10"
