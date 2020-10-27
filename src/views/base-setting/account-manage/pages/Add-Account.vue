@@ -119,7 +119,7 @@
         <role-tree
             :visible.sync="visible"
             :tree-list="menuTree"
-            :show-checkbox="!query.selfEdit && ruleForm.accountRole !== 'ADMIN'"
+            :show-checkbox="!query.selfEdit"
             @changeTree="changeTree"
         />
     </div>
@@ -131,6 +131,7 @@ import { addAccount, getSingleAccount, editAccount, getEmployeeDefault } from '.
 import { testPhone } from '../../../../assets/ts/validate'
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
+import { LocalEnum } from '@/enum/storage'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -197,10 +198,7 @@ export default class AddAccount extends Vue {
 
     created () {
         this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
-        this.query = this.$route.query
-        // console.log(this.$route.query)
-        this.query.selfEdit = Boolean(this.query.selfEdit)
-        this.query.canEdit = Boolean(this.query.canEdit)
+        this.query = JSON.parse(localStorage.getItem(LocalEnum.editAccount) || '') || {}
         this.detailForm.userId = this.query.userId
         this.detailForm.roleCode = this.query.roleCode
         if (this.query.userId) {
@@ -218,13 +216,15 @@ export default class AddAccount extends Vue {
 
     async getData () {
         const { result } = await getSingleAccount(this.detailForm)
-        this.ruleForm.accountRole = result.roleCode
-        this.ruleForm.userId = result.userId
-        this.ruleForm.lockStatus = result.lockStatus
-        this.ruleForm.mobile = result.mobile
-        this.ruleForm.realName = result.realName
-        this.ruleForm.nickName = result.nickName
-        this.ruleForm.position = result.position
+        this.ruleForm = {
+            accountRole: result.roleCode,
+            lockStatus: result.lockStatus,
+            mobile: result.mobile,
+            nickName: result.nickName,
+            realName: result.realName,
+            position: result.position,
+            userId: result.userId
+        }
         const item = result.menuTree[0].children[0]
         this.disableItem(item)
         this.menuTree = result.menuTree

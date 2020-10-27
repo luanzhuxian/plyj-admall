@@ -23,5 +23,7 @@ export enum LocalEnum {
     refreshToken = 'REFRESH_TOKEN',
     mallId = 'MALL_ID',
     appId = 'APPID',
-    agencyCode = 'AGENCY_CODE'
+    agencyCode = 'AGENCY_CODE',
+    // 账号管理-编辑
+    editAccount = 'EDIT_ACCOUNT'
 }

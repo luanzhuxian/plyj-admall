@@ -1,48 +1,50 @@
 <template>
-    <div
-        class="Role-Tree"
-        ref="RoleTree"
-        v-show="show"
-        @click.self="close"
-    >
-        <transition name="slide-right">
-            <div
-                v-show="visible"
-                ref="slide"
-                class="slide"
-            >
-                <div class="top">
-                    <i
-                        class="close el-icon-close"
-                        @click="close"
-                    />
-                    <div style="font-size: 18px; font-weight: bold; margin: 20px 0 15px 0;">
-                        角色权限设置
+    <transition name="fade">
+        <div
+            class="Role-Tree"
+            ref="RoleTree"
+            v-show="show"
+            @click.self="close"
+        >
+            <transition name="slide-right">
+                <div
+                    v-show="visible"
+                    ref="slide"
+                    class="slide"
+                >
+                    <div class="top">
+                        <i
+                            class="close el-icon-close"
+                            @click="close"
+                        />
+                        <div style="font-size: 18px; font-weight: bold; margin: 20px 0 15px 0;">
+                            角色权限设置
+                        </div>
                     </div>
+
+                    <el-tree
+                        style="margin-bottom: 50px"
+                        size="mini"
+                        @check="check"
+                        ref="tree"
+                        :data="roleList"
+                        :default-expand-all="true"
+                        node-key="aclCode"
+                        :show-checkbox="showCheckbox"
+                        :default-checked-keys="defaultSelected"
+                        :props="defaultProps"
+                    />
+
+                    <el-button type="primary" @click="save" v-if="showCheckbox">
+                        保存
+                    </el-button>
+                    <el-button @click="close" v-if="showCheckbox">
+                        取消
+                    </el-button>
                 </div>
-
-                <el-tree
-                    style="margin-bottom: 50px"
-                    size="mini"
-                    @check="check"
-                    ref="tree"
-                    :data="roleList"
-                    :default-expand-all="true"
-                    node-key="aclCode"
-                    :show-checkbox="showCheckbox"
-                    :default-checked-keys="defaultSelected"
-                    :props="defaultProps"
-                />
-
-                <el-button type="primary" @click="save" v-if="showCheckbox">
-                    保存
-                </el-button>
-                <el-button @click="close" v-if="showCheckbox">
-                    取消
-                </el-button>
-            </div>
-        </transition>
-    </div>
+            </transition>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -141,7 +143,14 @@ export default {
             }
         },
         check (current, allChecked) {
+            console.log(current)
+            console.log(allChecked)
             const { checkedKeys, halfCheckedKeys } = allChecked
+            if (current.status === 0 && !checkedKeys.includes(current.aclCode)) {
+                this.$refs.tree.setChecked(current.aclCode, true)
+                this.$warning('该选项为必选项，不可取消')
+                return
+            }
             this.selected = [...checkedKeys, ...halfCheckedKeys]
         },
         changeNode (key, list) {

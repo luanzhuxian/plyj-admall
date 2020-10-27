@@ -113,72 +113,19 @@
                 <el-table-column
                     prop="realName"
                     label="真实姓名"
-                >
-                    <template slot-scope="scope">
-                        <el-input
-                            v-if="isEdit"
-                            v-model="account.realName"
-                        />
-                        <div v-else>
-                            {{ scope.row.realName }}
-                        </div>
-                    </template>
-                </el-table-column>
+                />
                 <el-table-column
                     prop="mobile"
                     label="手机号（登录账户）"
-                >
-                    <template slot-scope="scope">
-                        <el-input
-                            v-if="isEdit"
-                            v-model="account.mobile"
-                        />
-                        <div v-else>
-                            {{ scope.row.mobile }}
-                        </div>
-                    </template>
-                </el-table-column>
+                />
                 <el-table-column
                     prop="position"
                     label="职位"
-                >
-                    <template slot-scope="scope">
-                        <el-input
-                            v-if="isEdit"
-                            v-model="account.position"
-                        />
-                        <div v-else>
-                            {{ scope.row.position }}
-                        </div>
-                    </template>
-                </el-table-column>
+                />
                 <el-table-column
                     prop="roleName"
                     label="角色"
-                >
-                    <template slot-scope="scope">
-                        <el-select
-                            v-if="isEdit"
-                            v-model="account.roleCode"
-                        >
-                            <el-option
-                                label="高级管理员"
-                                value="ADMIN"
-                            />
-                            <el-option
-                                label="普通管理员"
-                                value="ADMIN"
-                            />
-                            <el-option
-                                label="子账号"
-                                value="EMPLOYEE"
-                            />
-                        </el-select>
-                        <div v-else>
-                            {{ scope.row.roleName }}
-                        </div>
-                    </template>
-                </el-table-column>
+                />
                 <el-table-column
                     prop="lockStatusText"
                     label="状态"
@@ -208,13 +155,10 @@
                     <template slot-scope="{ row }">
                         <Operating>
                             <template slot="button-box">
-                                <el-button type="text" v-if="isEdit" @click="toSave">
-                                    保存
-                                </el-button>
-                                <el-button type="text" v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="$router.push({name: 'EditAccount', query: { userId: row.userId, roleCode: row.roleCode, selfEdit: userId === row.userId, canEdit: (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN')}})">
+                                <el-button type="text" v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="edit(row)">
                                     编辑
                                 </el-button>
-                                <el-button type="text" v-if="row.lockStatus !== 2" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
+                                <el-button type="text" v-if="row.lockStatus !== 2" @click="goDetail(row)">
                                     详情
                                 </el-button>
                                 <el-button type="text" @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
@@ -248,11 +192,10 @@ import {
     deleteDeadAccount,
     enableAccount,
     downgradeAccount,
-    editAccount,
     getNotActiveAccounts
 } from '../../../../apis/account'
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
-
+import { LocalEnum } from '@/enum/storage'
 interface AccountData {
     searchContent: string;
     idCard: string;
@@ -300,7 +243,6 @@ export default class AccountList extends Vue {
     ]
 
     total = 0
-    isEdit = false
     currentTab = '1'
     dateRange = []
     table = []
@@ -357,15 +299,6 @@ export default class AccountList extends Vue {
         this.enterpriseAdminModel = enterpriseAdminModel
     }
 
-    private canEdit (row: DynamicObject) {
-        return this.userId === row.userId || (row.roleCode === this.currentRoleCode) || (row.currentRoleCode === 'EMPLOYEE') || (row.roleCode === 'ADMIN' && this.currentRoleCode !== 'ENTERPRISE_ADMIN')
-    }
-
-    private async pageChange (page: number) {
-        this.filter.current = page
-        await this.getAccounts()
-    }
-
     private async getAccounts () {
         const {
             current,
@@ -415,19 +348,26 @@ export default class AccountList extends Vue {
         await this.getAccounts()
     }
 
-    private async goDetail (row: any, selfEdit: boolean, canEdit: boolean) {
+    private async goDetail (row: any) {
         const { mobile, userId, roleCode } = row
-        const data: any = {
-            name: 'AccountDetail',
-            query: {
-                mobile,
-                userId,
-                roleCode,
-                selfEdit,
-                canEdit
-            }
-        }
-        await this.$router.push(data)
+        localStorage.setItem(LocalEnum.editAccount, JSON.stringify({
+            mobile,
+            userId,
+            roleCode,
+            selfEdit: userId === row.userId,
+            canEdit: (row.roleCode === 'EMPLOYEE' && this.currentRoleCode === 'ADMIN') || this.currentRoleCode === 'ENTERPRISE_ADMIN'
+        }))
+        await this.$router.push({ name: 'AccountDetail' })
+    }
+
+    edit (row: DynamicObject) {
+        localStorage.setItem(LocalEnum.editAccount, JSON.stringify({
+            userId: row.userId,
+            roleCode: row.roleCode,
+            selfEdit: this.userId === row.userId,
+            canEdit: (row.roleCode === 'EMPLOYEE' && this.currentRoleCode === 'ADMIN') || (this.currentRoleCode === 'ENTERPRISE_ADMIN')
+        }))
+        this.$router.push({ name: 'EditAccount' })
     }
 
     private async deleteAccount (row: any) {
@@ -476,23 +416,6 @@ export default class AccountList extends Vue {
         this.$success('降级成功')
         this.filter.current = 1
         await this.getAccounts()
-    }
-
-    private editAccount (data: AccountData) {
-        return editAccount(data)
-    }
-
-    private async toSave () {
-        try {
-            await this.editAccount(this.account)
-            this.isEdit = !this.isEdit
-            this.$success('编辑成功')
-            this.filter.current = 1
-            await this.getAccounts()
-        } catch (e) {
-            this.isEdit = !this.isEdit
-            throw e
-        }
     }
 
     private async switchChange (row: any) {
