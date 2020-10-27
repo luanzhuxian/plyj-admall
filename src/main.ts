@@ -74,7 +74,6 @@ const render = async () => {
         await dispatch(`user/${ MutationTypes.getAllMallInfo }`)
         if (!categoryTree || !categoryTree.length) await dispatch(`goods/${ MutationTypes.getClassifyTree }`)
     }
-    console.log(token)
     /* eslint-disable no-new */
     new Vue({
         el: '#main-app',

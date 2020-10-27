@@ -40,7 +40,7 @@ export const relieveHelper = (ids: any) => axios.post('/apis/v2/helper/demote', 
 export const relieveHelperBatched = (ids: any) => axios.post('/apis/v2/helper/demote', ids)
 
 /* helper所属账号变更 */
-export const changeHelpersAccount = ({ ownerUserId, userId }: { ownerUserId: string; userId: string[] }) => axios.put(`/apis/v2/helper/audit/${ ownerUserId }`, userId)
+export const changeHelpersAccount = ({ ownnerUserId, userId }: { ownnerUserId: string; userId: string[] }) => axios.put(`/apis/v2/helper/audit/${ ownnerUserId }`, userId)
 
 /* 修改经纪人审核状态 */
 export const updateBrokerStatus = ({ ids, status, reviewContent }: any) => axios.post('/apis/v2/helper/audit', { ids, status, reviewContent })
@@ -78,7 +78,7 @@ export const getLiveWatchList = (params: any) => axios.get('/apis/v2/live/visito
 // 账户中心查看订单数据
 export const getLineLearningList = (params: any) => axios.post('/apis/v2/course/watch/record', params)
 // 账户中心导出数据
-export const exportOrderDetail = (params: any) => axios.get('/apis/v2/order/agency/employeeOrders/export', {
+export const exportOrderDetail = (params: any): Promise<Blob> => axios.get('/apis/v2/order/agency/employeeOrders/export', {
     timeout: 0,
     responseType: 'blob',
     params

@@ -69,7 +69,6 @@ export default {
         async visible (val) {
             if (val) {
                 this.show = true
-                this.setPadding()
                 try {
                     this.defaultSelected = []
                     if (this.treeList.length) {
@@ -83,11 +82,9 @@ export default {
                 } catch (e) {
                     throw e
                 }
-                // window.addEventListener('scroll', this.setPadding)
             } else {
                 setTimeout(() => {
                     this.show = false
-                    // window.removeEventListener('scroll', this.setPadding)
                 }, 200)
             }
         }
@@ -118,19 +115,11 @@ export default {
     mounted () {
         this.$nextTick(() => {
             this.RoleTree = this.$refs.RoleTree
-            // window.addEventListener('scroll', this.setPadding)
         })
     },
     methods: {
         close () {
             this.$emit('update:visible', false)
-        },
-        setPadding () {
-            // if (window.scrollY < 60) {
-            //     this.RoleTree.style.paddingTop = `${ 60 - window.scrollY }px`
-            // } else {
-            //     this.RoleTree.style.paddingTop = 0
-            // }
         },
         // 查找已选中的节点的key
         searchKeyOfSelected (list) {
@@ -145,8 +134,6 @@ export default {
             }
         },
         check (current, allChecked) {
-            console.log(current)
-            console.log(allChecked)
             const { checkedKeys, halfCheckedKeys } = allChecked
             if (current.status === 0 && !checkedKeys.includes(current.aclCode)) {
                 this.$refs.tree.setChecked(current.aclCode, true)

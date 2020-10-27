@@ -186,7 +186,7 @@ import moment from 'moment'
 import RoleTree from '../../../../components/base-setting/account-manage/Role-Tree.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import { getSingleAccount, getSingleAccountHerlerList, getAccounts, getMenuByUser } from '../../../../apis/account'
-import { changeHelpersAccount, getOrderList, exportOrderDetail } from '../../../../apis/member'
+import { getOrderList, exportOrderDetail } from '../../../../apis/member'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import { Vue, Component } from 'vue-property-decorator'
 import ChangeOwnerDialog from '../../../user-center/helper-manage/components/Change-Owner-Dialog.vue'
@@ -259,7 +259,7 @@ export default class AccountList extends Vue {
             }
 
             currentUserInfo = {}
-            currentUserIds = []
+            currentUserIds: string[] = []
 
             orderStatusText = {
                 WAIT_SHIP: '待发货',
@@ -389,24 +389,24 @@ export default class AccountList extends Vue {
                     dateRange: 3,
                     startTime: '',
                     endTime: ''
-                }
-                this.$refs.exportForm.clearValidate()
+                };
+                (this.$refs.exportForm as HTMLFormElement).clearValidate()
                 this.showExport = false
             }
 
-            async exportDatechange ({ start, end }) {
+            async exportDatechange ({ start, end }: DynamicObject) {
                 this.exportData.startTime = start
                 this.exportData.endTime = end
                 if (!start || !end) {
                     return
                 }
-                await this.$nextTick()
-                this.$refs.exportDatePicker.initDate()
+                await this.$nextTick();
+                (this.$refs.exportDatePicker as HTMLFormElement).initDate()
             }
 
-            exportRangeChange (val) {
-                let start = new Date()
-                let end = new Date()
+            exportRangeChange (val: number) {
+                let start: string | Date = new Date()
+                let end: string | Date = new Date()
                 const formatType = 'YYYY-MM-DD'
 
                 if (val === 1) {
@@ -426,7 +426,7 @@ export default class AccountList extends Vue {
 
             async exportList () {
                 try {
-                    await this.$refs.exportForm.validate()
+                    await (this.$refs.exportForm as HTMLFormElement).validate()
                     const data = {
                         ...this.exportData
                     }
@@ -444,9 +444,9 @@ export default class AccountList extends Vue {
             }
 
             // 展开更多
-            toggleRowExpansion (row) {
-                row.expanded = !row.expanded
-                this.$refs.table.toggleRowExpansion(row, row.expanded)
+            toggleRowExpansion (row: DynamicObject) {
+                row.expanded = !row.expanded;
+                (this.$refs.table as HTMLFormElement).toggleRowExpansion(row, row.expanded)
             }
 
             viewTree () {
@@ -454,7 +454,7 @@ export default class AccountList extends Vue {
                 this.visible = !this.visible
             }
 
-            showChangeBelongBox (row) {
+            showChangeBelongBox (row: DynamicObject) {
                 this.showChangeDialog = true
                 this.currentUserInfo = row
                 this.currentUserIds = [row.mallUserId]
@@ -469,28 +469,13 @@ export default class AccountList extends Vue {
                 }
             }
 
-            async changeHelperAccount (data) {
-                try {
-                    await changeHelpersAccount({
-                        ownnerUserId: data.userId,
-                        ownneName: data.realName,
-                        userId: this.currentUserId
-                    })
-                    this.showChangeDialog = false
-                    this.$success('变更成功！')
-                    this.listForm.current = 1
-                    this.getHelperList()
-                } catch (e) {
-                    throw e
-                }
-            }
-
             edit () {
-                const params = {}
-                params.userId = this.detailForm.userId
-                params.roleCode = this.detailForm.roleCode
-                params.selfEdit = this.selfEdit
-                params.canEdit = this.canEdit
+                const params: DynamicObject = {
+                    userId: this.detailForm.userId,
+                    roleCode: this.detailForm.roleCode,
+                    selfEdit: this.selfEdit,
+                    canEdit: this.canEdit
+                }
                 this.$router.push({ name: 'EditAccount', query: params })
             }
 
