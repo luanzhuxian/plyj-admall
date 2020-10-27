@@ -97,6 +97,9 @@ export default class HeaderRigtht extends Vue {
     async onRouteChange () {
         this.showPop = false
         this.showMallUrl = false
+        if (this.$route.query.showCreateMall) {
+            this.showCreateMall = true
+        }
     }
 
     async mounted () {

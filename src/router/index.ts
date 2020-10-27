@@ -142,11 +142,11 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
     const mallId = Cookie.get(LocalEnum.mallId)
     if (!mallId && !to.matched.some(item => NO_MALL.includes(item.name as string))) {
         NProgress.done()
-        MessageBox.alert('创建店铺后才可以进行后续操作，请点击操作指引完成创建', {
+        await MessageBox.confirm('创建店铺后才可以进行后续操作，请点击操作指引完成创建', {
             title: '请先创建店铺',
-            confirmButtonText: '我知道了'
+            confirmButtonText: '创建店铺'
         })
-        next({ name: 'Home' })
+        next({ path: '/home?showCreateMall=1' })
         return
     }
     if (!appId && !to.matched.some(item => NO_AUTH.includes(item.name as string))) {
