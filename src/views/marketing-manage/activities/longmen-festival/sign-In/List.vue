@@ -109,19 +109,19 @@
                     <template slot-scope="{ row }">
                         <Operating>
                             <template slot="button-box">
-                                <a
-                                    v-if="![2,3].includes(row.status)"
-                                    @click="$router.push({name: 'GeneralEdit', params: { id: row.activityId}})"
-                                >
-                                    编辑
-                                </a>
+                                <!--                                <a-->
+                                <!--                                    v-if="![2,3].includes(row.status)"-->
+                                <!--                                    @click="$router.push({name: 'GeneralEdit', params: { id: row.activityId}})"-->
+                                <!--                                >-->
+                                <!--                                    编辑-->
+                                <!--                                </a>-->
                                 <!-- 除'已结束'以外的，'待开始/进行中/已停止'均可'结束'活动；与优惠卷领取方式无关 -->
-                                <a
-                                    v-if="![2,3].includes(row.status)"
-                                    @click="finish(row)"
-                                >
-                                    结束
-                                </a>
+                                <!--                                <a-->
+                                <!--                                    v-if="![2,3].includes(row.status)"-->
+                                <!--                                    @click="finish(row)"-->
+                                <!--                                >-->
+                                <!--                                    结束-->
+                                <!--                                </a>-->
                                 <a
                                     @click="viewYearFlavor(row)"
                                 >
@@ -138,12 +138,12 @@
                                 >
                                     删除
                                 </a>
-                                <a @click="$router.push({ name: 'GeneralCopy', params: { id: row.activityId }, query: { isCopy: 1 } })">
-                                    复制
-                                </a>
-                                <a @click="share(row)">
-                                    分享
-                                </a>
+                                <!--                                <a @click="$router.push({ name: 'GeneralCopy', params: { id: row.activityId }, query: { isCopy: 1 } })">-->
+                                <!--                                    复制-->
+                                <!--                                </a>-->
+                                <!--                                <a @click="share(row)">-->
+                                <!--                                    分享-->
+                                <!--                                </a>-->
                             </template>
                         </Operating>
                     </template>

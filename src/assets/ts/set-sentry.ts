@@ -34,7 +34,6 @@ export default function (getters: any) {
                 })
             ],
             beforeSend (event: any) {
-                console.log(event)
                 if (!event) {
                     return null
                 }

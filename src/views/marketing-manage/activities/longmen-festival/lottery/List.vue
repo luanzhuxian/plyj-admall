@@ -7,9 +7,9 @@
             :start-time="LongmenLotteryInformation.createTime"
             end-time="2020-08-31"
         />
-        <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">
-            新建活动
-        </el-button>
+        <!--        <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">-->
+        <!--            新建活动-->
+        <!--        </el-button>-->
         <search-box inline class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable v-model="form.activityName" placeholder="活动名称" @change="getLottery(1)" />
@@ -79,16 +79,16 @@
                 <template slot-scope="{ row }">
                     <Operating>
                         <template slot="button-box">
-                            <a
-                                @click="endLottery(row)" v-if="row.status === 1 || row.status === 2"
-                            >
-                                结束
-                            </a>
-                            <a
-                                v-if="row.status === 1 || row.status === 2" @click="$router.push({ name: 'EditLongmenLottery', params: { id: row.id } })"
-                            >
-                                编辑
-                            </a>
+                            <!--                            <a-->
+                            <!--                                @click="endLottery(row)" v-if="row.status === 1 || row.status === 2"-->
+                            <!--                            >-->
+                            <!--                                结束-->
+                            <!--                            </a>-->
+                            <!--                            <a-->
+                            <!--                                v-if="row.status === 1 || row.status === 2" @click="$router.push({ name: 'EditLongmenLottery', params: { id: row.id } })"-->
+                            <!--                            >-->
+                            <!--                                编辑-->
+                            <!--                            </a>-->
                             <a
                                 @click="$router.push({name: 'LongmenLotteryInfo', params: {id : row.id},query: {status: row.status}})"
                             >
@@ -104,16 +104,16 @@
                             >
                                 删除
                             </a>
-                            <a
-                                @click="$router.push({ name: 'AddLongmenLottery', params: { id: row.id }, query: { copy: 1 } })"
-                            >
-                                复制
-                            </a>
-                            <a
-                                v-if="row.status === 1 || row.status === 2" @click="share(row)"
-                            >
-                                分享活动
-                            </a>
+                            <!--                            <a-->
+                            <!--                                @click="$router.push({ name: 'AddLongmenLottery', params: { id: row.id }, query: { copy: 1 } })"-->
+                            <!--                            >-->
+                            <!--                                复制-->
+                            <!--                            </a>-->
+                            <!--                            <a-->
+                            <!--                                v-if="row.status === 1 || row.status === 2" @click="share(row)"-->
+                            <!--                            >-->
+                            <!--                                分享活动-->
+                            <!--                            </a>-->
                         </template>
                     </Operating>
                 </template>

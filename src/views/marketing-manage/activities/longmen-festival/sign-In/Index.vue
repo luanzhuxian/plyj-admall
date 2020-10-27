@@ -8,9 +8,9 @@
             :start-time="start"
             :end-time="end"
         />
-        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name === 'GeneralList'">
-            新建活动
-        </el-button>
+        <!--        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name === 'GeneralList'">-->
+        <!--            新建活动-->
+        <!--        </el-button>-->
         <el-button type="text" @click="showExplanation = true" v-show="$route.name === 'GeneralList'">
             活动说明
         </el-button>

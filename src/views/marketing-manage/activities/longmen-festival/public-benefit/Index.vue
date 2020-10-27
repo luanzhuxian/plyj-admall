@@ -8,13 +8,13 @@
             :start-time="publicBenefitInformation.createTime"
             end-time="2020-08-31"
         />
-        <el-button style="margin-left: 10px" type="primary" round
-                   @click="$router.push({ name: 'AddLongmenPublicBenefit' })"
-                   v-if="$route.name === 'LongmenPublicBenefitList'"
-        >
-            新建活动
-            <i class="el-icon-plus el-icon--right" />
-        </el-button>
+        <!--        <el-button style="margin-left: 10px" type="primary" round-->
+        <!--                   @click="$router.push({ name: 'AddLongmenPublicBenefit' })"-->
+        <!--                   v-if="$route.name === 'LongmenPublicBenefitList'"-->
+        <!--        >-->
+        <!--            新建活动-->
+        <!--            <i class="el-icon-plus el-icon&#45;&#45;right" />-->
+        <!--        </el-button>-->
         <el-button class="underline" type="text" @click="explainFlag = true" v-if="$route.name === 'LongmenPublicBenefitList'">
             活动说明
         </el-button>

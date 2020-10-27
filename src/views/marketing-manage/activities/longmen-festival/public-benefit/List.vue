@@ -43,12 +43,12 @@
                     <template slot-scope="{ row }">
                         <Operating>
                             <template slot="button-box">
-                                <a
-                                    v-if="[1,2].includes(row.definiteStatus)"
-                                    @click="$router.push({ name: 'EditLongmenPublicBenefit', params: { id: row.id } })"
-                                >
-                                    编辑
-                                </a>
+                                <!--                                <a-->
+                                <!--                                    v-if="[1,2].includes(row.definiteStatus)"-->
+                                <!--                                    @click="$router.push({ name: 'EditLongmenPublicBenefit', params: { id: row.id } })"-->
+                                <!--                                >-->
+                                <!--                                    编辑-->
+                                <!--                                </a>-->
                                 <a
                                     @click="$router.push({ name: 'LongmenPublicBenefitDetail', params: { id: row.id } })"
                                 >
@@ -60,29 +60,29 @@
                                     查看数据
                                 </a>
                                 <!-- definiteStatus 1未开始，2进行中，3已过期，4已结束 -->
-                                <a
-                                    v-if="row.definiteStatus === 4"
-                                    @click="deleteActivity(row)"
-                                >
-                                    删除
-                                </a>
-                                <a
-                                    v-if="[1,2,3].indexOf(row.definiteStatus) !== -1"
-                                    @click="overActivity(row.id)"
-                                >
-                                    结束
-                                </a>
-                                <a
-                                    style="margin-bottom:5px;"
-                                    @click="$router.push({ name: 'CopyLongmenPublicBenefit', params: { id: row.id, copy: '1' } })"
-                                >
-                                    复制
-                                </a>
-                                <a
-                                    @click="share(row.id)"
-                                >
-                                    分享
-                                </a>
+                                <!--                                <a-->
+                                <!--                                    v-if="row.definiteStatus === 4"-->
+                                <!--                                    @click="deleteActivity(row)"-->
+                                <!--                                >-->
+                                <!--                                    删除-->
+                                <!--                                </a>-->
+                                <!--                                <a-->
+                                <!--                                    v-if="[1,2,3].indexOf(row.definiteStatus) !== -1"-->
+                                <!--                                    @click="overActivity(row.id)"-->
+                                <!--                                >-->
+                                <!--                                    结束-->
+                                <!--                                </a>-->
+                                <!--                                <a-->
+                                <!--                                    style="margin-bottom:5px;"-->
+                                <!--                                    @click="$router.push({ name: 'CopyLongmenPublicBenefit', params: { id: row.id, copy: '1' } })"-->
+                                <!--                                >-->
+                                <!--                                    复制-->
+                                <!--                                </a>-->
+                                <!--                                <a-->
+                                <!--                                    @click="share(row.id)"-->
+                                <!--                                >-->
+                                <!--                                    分享-->
+                                <!--                                </a>-->
                             </template>
                         </Operating>
                     </template>
