@@ -113,14 +113,13 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
     NProgress.start()
     document.title = to.meta.title || document.title
     const token = Cookie.get(LocalEnum.token) || ''
-
     if (!token) {
         if (!NOLOGIN.includes(to.name as string)) {
             next({ name: 'PhoneLogin' })
             NProgress.done()
-            return
         }
         next()
+        return
     }
 
     // 已登录，访问不需要登录的页面
