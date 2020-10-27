@@ -957,19 +957,11 @@ export default {
         async init () {
             if (this.id) {
                 const classification = []
-                if (this.toName === 'DraftBox') {
-                    this.showDraft = true
-                } else {
-                    this.showDraft = false
-                }
                 const { result: res } = await getSingleGoods(this.id)
-                if (res.shoppingTime && this.isSafari) {
-                    res.shoppingTime = moment(res.shoppingTime).format('YYYY/MM/DD HH:mm:ss')
-                }
+                if (res.productStatus !== 3) this.showDraft = false
+                if (res.shoppingTime && this.isSafari) res.shoppingTime = moment(res.shoppingTime).format('YYYY/MM/DD HH:mm:ss')
                 classification.push(res.categoryId)
-                if (res.subCategoryId) {
-                    classification.push(res.subCategoryId)
-                }
+                if (res.subCategoryId) classification.push(res.subCategoryId)
                 this.classification = classification
                 if (res.validityPeriodStart) {
                     this.daterange.push(new Date(res.validityPeriodStart))
@@ -1027,7 +1019,7 @@ export default {
                         try {
                             this.form.showBranding = 0
                             await this.saveDraft()
-                            this.$router.replace({ name: 'OrgIndex' })
+                            this.$router.replace({ name: 'MyGoods' })
                             this.$warning('编辑内容已保存至草稿箱，请到草稿箱进行查看')
                         } catch (e) {
                             throw e
@@ -1294,7 +1286,7 @@ export default {
                 ]
                 this.$router.replace({ name: 'AddProduct' })
                 // document.querySelector('.main-container').scrollTo(0, 0)
-                this.$router.replace({ name: 'AddProduct' })
+                // this.$router.replace({ name: 'AddProduct' })
             } catch (e) {
                 // 处理失败自定义表单
                 this.processResCustomDate(this.form)
