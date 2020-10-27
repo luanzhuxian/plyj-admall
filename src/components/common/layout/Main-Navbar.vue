@@ -149,7 +149,7 @@
                     </h2>
                 </el-menu-item>
 
-                <el-menu-item @click="showGuid = true" :class="$style.guid">
+                <el-menu-item index="x" @click="showGuid = true" :class="$style.guid">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-tishi-e4fa1"
@@ -194,9 +194,7 @@ export default class MainNavbar extends Vue {
         const activited = indexs[1] || ''
         if (opened) {
             this.defaultOpeneds = [opened]
-            if (activited) {
-                this.defaultActive = activited
-            }
+            this.defaultActive = opened === '8' ? '8' : (activited || opened)
         }
     }
 
