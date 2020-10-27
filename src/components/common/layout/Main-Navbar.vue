@@ -125,7 +125,7 @@
                     <el-menu-item :disabled="!appId" index="7-5" :route="{ name: 'SubscriptionService' }">我订购的服务</el-menu-item>
                 </el-submenu>
 
-                <el-menu-item index="9" :disabled="!mallNumber" :route="{ name: 'ReservationManage' }">
+                <el-menu-item index="9" :disabled="!appId" :route="{ name: 'ReservationManage' }">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-naozhong-7f36e"

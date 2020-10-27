@@ -198,9 +198,9 @@ export default class AddAccount extends Vue {
 
     created () {
         this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
-        this.query = (localStorage.getItem(LocalEnum.editAccount) && JSON.parse(localStorage.getItem(LocalEnum.editAccount))) || {}
-        this.detailForm.userId = this.query.userId
-        this.detailForm.roleCode = this.query.roleCode
+        this.query = JSON.parse(localStorage.getItem(LocalEnum.editAccount) || 'null') || {}
+        this.detailForm.userId = this.query.userId || ''
+        this.detailForm.roleCode = this.query.roleCode || ''
         if (this.query.userId) {
             this.getData()
         } else {
