@@ -274,7 +274,7 @@ const functionsPanelTmpl = [
         name: '众志成团',
         desc: '微信裂变，快速引流',
         to: {
-            name: 'NewYearTogetherBuy',
+            name: 'TogetherBuy',
             params: {
                 programId: '4'
             }

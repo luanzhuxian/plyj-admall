@@ -108,7 +108,7 @@ export default class OnlineTeachingNavBar extends Vue {
         border-bottom: 1px solid #e7e7e7;
         text-align: center;
         .logo {
-            width: 100%;
+            width: 100px;
             margin-bottom: 34px;
         }
         > .info {
