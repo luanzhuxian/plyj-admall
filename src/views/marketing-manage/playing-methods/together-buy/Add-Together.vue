@@ -592,10 +592,6 @@ export default {
         }
     }
     .marketing-content {
-        width: 1614px;
-        margin: 20px auto 80px auto;
-        background-color: #fff;
-        box-shadow: 0 3px 8px rgba(44,48,58,.08);
         .content-detail {
             ::v-deep .el-form-item__content {
                 margin-left: 180px !important;

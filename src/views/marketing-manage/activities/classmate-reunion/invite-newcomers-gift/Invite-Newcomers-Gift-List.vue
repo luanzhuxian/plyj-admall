@@ -8,11 +8,11 @@
             start-time="2019.10.28"
             end-time="2020.01.31"
         />
-        <el-button type="primary" round @click="add" v-show="$route.name !== 'InviteNewcomersDetail'">
+        <el-button type="primary" round @click="add" v-show="$route.name === 'InviteNewcomersList'">
             新建活动
             <i class="el-icon-plus el-icon--right" />
         </el-button>
-        <el-button type="text" @click="showExplanation = true" v-show="$route.name !== 'InviteNewcomersDetail'">
+        <el-button type="text" @click="showExplanation = true" v-show="$route.name === 'InviteNewcomersList'">
             活动说明
         </el-button>
         <keep-alive>

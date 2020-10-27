@@ -10,14 +10,14 @@
             :end-time="end"
         />
         <el-button
-            v-show="$route.name !== 'CoursePackageDetailInfo' && $route.name !== 'CoursePackageDetailData'"
+            v-show="$route.name === 'CoursePackageList'"
             type="primary"
             round
             @click="$router.push({ name: 'AddCoursePackage' })"
         >
             新建活动 <i class="el-icon-plus" />
         </el-button>
-        <el-button type="text" @click="explainFlag = true" v-show="$route.name !== 'CoursePackageDetailInfo' && $route.name !== 'CoursePackageDetailData'">
+        <el-button type="text" @click="explainFlag = true" v-show="$route.name === 'CoursePackageList'">
             活动说明
         </el-button>
         <keep-alive :exclude="exclude">

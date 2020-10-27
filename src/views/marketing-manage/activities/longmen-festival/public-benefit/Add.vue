@@ -543,7 +543,6 @@ export default {
 <style lang="scss" scoped>
 
 .add-content {
-    padding: 24px 80px;
     background-color: #fff;
     > .content-title {
         padding-bottom: 24px;

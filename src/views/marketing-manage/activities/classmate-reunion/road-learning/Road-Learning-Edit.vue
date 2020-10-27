@@ -568,9 +568,6 @@ export default {
   }
   .add-content {
     display: flex;
-    margin-top: 20px;
-    margin-left: 80px;
-    margin-right: 26px;
     background-color: #fff;
     .content-title {
       display: flex;
@@ -580,7 +577,6 @@ export default {
       padding-left: 30px;
       font-size: 14px;
       font-weight: bold;
-      border-top: 1px solid #e7e7e7;
       background-color: #fbfbfb;
     }
 

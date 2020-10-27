@@ -697,9 +697,6 @@ export default {
   }
 
   .add-content {
-    margin: 20px;
-    background: #fff;
-    box-shadow:0px 3px 8px rgba(44,48,58,0.08);
     position: relative;
     .content-title {
       margin-bottom: 24px;

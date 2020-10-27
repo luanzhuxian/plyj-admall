@@ -312,19 +312,14 @@ export default {
 .f-bt1{border-top:1px solid #e7e7e7;}
 .f-cb{clear: both;}
 .add-content {
-  min-width: 1330px;
-  margin: 20px 26px 60px 80px;
-  background-color: #fff;
   .content-title {
     display: flex;
     align-items: center;
     margin-bottom: 24px;
     height: 60px;
-    margin-top: 37px;
     padding-left: 30px;
     font-size: 14px;
     font-weight: bold;
-    border-top: 1px solid #e7e7e7;
     background-color: #fbfbfb;
   }
 }

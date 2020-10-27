@@ -365,7 +365,6 @@ export default {
 
 <style module lang="scss">
 .add {
-    padding: 20px 80px;
     &.readonly {
         padding: 0;
     }

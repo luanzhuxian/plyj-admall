@@ -1,17 +1,17 @@
 <template>
     <div class="newcomers-gift-list wrap">
         <ListHeader
-            v-if="$route.name === 'GeneralList' || $route.name === 'GeneralSetting'"
+            v-if="$route.name === 'GeneralList'"
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
             title="端午佳话粽粽有礼"
             description="签到参与端午活动，即可参与抽奖，有机会获得粽粽大礼"
             :start-time="start"
             :end-time="end"
         />
-        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name !== 'GeneralInfo' && $route.name !== 'GeneralData' && $route.name !== 'GeneralGiftData'">
+        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name === 'GeneralList'">
             新建活动
         </el-button>
-        <el-button type="text" @click="showExplanation = true" v-show="$route.name !== 'GeneralInfo' && $route.name !== 'GeneralData' && $route.name !== 'GeneralGiftData'">
+        <el-button type="text" @click="showExplanation = true" v-show="$route.name === 'GeneralList'">
             活动说明
         </el-button>
         <router-view />

@@ -819,15 +819,11 @@ export default {
     }
 }
 .add-content {
-    margin-top: 20px;
-    margin-left: 80px;
-    margin-right: 26px;
     background-color: #fff;
     .content-title {
         display: flex;
         align-items: center;
         height: 60px;
-        margin-top: 37px;
         padding-left: 30px;
         font-size: 14px;
         font-weight: bold;

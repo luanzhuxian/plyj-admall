@@ -998,7 +998,6 @@ export default {
     color: #999;
   }
   .add-content {
-    background-color: #fff;
     .content-title {
       display: flex;
       align-items: center;

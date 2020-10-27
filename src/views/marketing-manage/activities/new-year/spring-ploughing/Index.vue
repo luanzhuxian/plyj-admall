@@ -9,10 +9,10 @@
             :start-time="start"
             :end-time="end"
         />
-        <el-button size="middle" v-show="$route.name !== 'SpringPloughingDetailInfo' && $route.name !== 'SpringPloughingDetailData'" type="primary" round @click="$router.push({ name: 'AddSpringPloughing' })">
+        <el-button size="middle" v-show="$route.name === 'SpringPloughingList'" type="primary" round @click="$router.push({ name: 'AddSpringPloughing' })">
             新建活动 <i class="el-icon-plus" />
         </el-button>
-        <el-button type="text" @click="explainFlag = true" v-show="$route.name !== 'SpringPloughingDetailInfo' && $route.name !== 'SpringPloughingDetailData'">
+        <el-button type="text" @click="explainFlag = true" v-show="$route.name === 'SpringPloughingList'">
             活动说明
         </el-button>
         <keep-alive>
