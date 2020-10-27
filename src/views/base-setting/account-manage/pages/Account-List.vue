@@ -206,24 +206,25 @@
                     width="200"
                 >
                     <template slot-scope="{ row }">
-                        <!-- <a v-if="!canEdit(row) && row.lockStatus" @click="downgradeAccount(row)">
-                            降级
-                        </a> -->
-                        <a v-if="isEdit" @click="toSave" style="color: #4F63FF">
-                            保存
-                        </a>
-                        <a v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="$router.push({name: 'EditAccount', query: { userId: row.userId, roleCode: row.roleCode, selfEdit: userId === row.userId, canEdit: (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN')}})" style="color: #4F63FF">
-                            编辑
-                        </a>
-                        <a style="color: #4F63FF" v-if="row.lockStatus !== 2" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
-                            详情
-                        </a>
-                        <a style="color: #4F63FF" @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
-                            {{ row.lockStatus ? '禁用' : '启用' }}
-                        </a>
-                        <a style="color: #4F63FF" @click="deleteAccount(row)" v-if="row.lockStatus === 0 || row.lockStatus === 2">
-                            移除
-                        </a>
+                        <Operating>
+                            <template slot="button-box">
+                                <el-button type="text" v-if="isEdit" @click="toSave">
+                                    保存
+                                </el-button>
+                                <el-button type="text" v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="$router.push({name: 'EditAccount', query: { userId: row.userId, roleCode: row.roleCode, selfEdit: userId === row.userId, canEdit: (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN')}})">
+                                    编辑
+                                </el-button>
+                                <el-button type="text" v-if="row.lockStatus !== 2" @click="goDetail(row, userId === row.userId, (row.roleCode === 'EMPLOYEE' && currentRoleCode === 'ADMIN') || (currentRoleCode === 'ENTERPRISE_ADMIN'))">
+                                    详情
+                                </el-button>
+                                <el-button type="text" @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
+                                    {{ row.lockStatus ? '禁用' : '启用' }}
+                                </el-button>
+                                <el-button type="text" @click="deleteAccount(row)" v-if="row.lockStatus === 0 || row.lockStatus === 2">
+                                    移除
+                                </el-button>
+                            </template>
+                        </Operating>
                     </template>
                 </el-table-column>
             </el-table>

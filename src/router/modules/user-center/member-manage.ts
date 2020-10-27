@@ -33,25 +33,37 @@ export default [
                         path: 'buy-record',
                         name: 'MemberBuyRecord',
                         props: true,
-                        component: () => import('../../../views/user-center/member-manage/pages/Buy-Record.vue')
+                        component: () => import('../../../views/user-center/member-manage/pages/Buy-Record.vue'),
+                        meta: {
+                            ignore: true
+                        }
                     },
                     {
                         path: 'share-record',
                         name: 'MemberShareRecord',
                         props: true,
-                        component: () => import('../../../views/user-center/member-manage/pages/Share-Record.vue')
+                        component: () => import('../../../views/user-center/member-manage/pages/Share-Record.vue'),
+                        meta: {
+                            ignore: true
+                        }
                     },
                     {
                         path: 'live-record',
                         name: 'MemberLiveRecord',
                         props: true,
-                        component: () => import('../../../views/user-center/member-manage/pages/Live-Record.vue')
+                        component: () => import('../../../views/user-center/member-manage/pages/Live-Record.vue'),
+                        meta: {
+                            ignore: true
+                        }
                     },
                     {
                         path: 'online-progress',
                         name: 'MemberOnlineProgress',
                         props: true,
-                        component: () => import('../../../views/user-center/member-manage/pages/Online-Progress.vue')
+                        component: () => import('../../../views/user-center/member-manage/pages/Online-Progress.vue'),
+                        meta: {
+                            ignore: true
+                        }
                     },
                     {
                         path: 'remark',
