@@ -122,7 +122,7 @@
                 :route-info="{
                     name: 'GeneralCoursePackage',
                     params: {
-                        programId: '8'
+                        programId: '2'
                     }
                 }"
             />
