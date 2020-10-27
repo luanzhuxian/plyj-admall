@@ -305,13 +305,6 @@ export default class MemberBuyRecord extends Vue {
         }
     }
 
-    changeExportOrderList () {
-        for (const item of Object.keys(this.exportData)) {
-            if (item !== 'dateRange') this.exportData[item] = this.orderListForm[item]
-        }
-        this.showExport = true
-    }
-
     async resetOrderList () {
         this.orderListForm = {
             mallUserId: '',
@@ -325,6 +318,13 @@ export default class MemberBuyRecord extends Vue {
             payEndTime: ''
         }
         await this.search()
+    }
+
+    changeExportOrderList () {
+        for (const item of Object.keys(this.exportData)) {
+            if (item !== 'dateRange') this.exportData[item] = this.orderListForm[item]
+        }
+        this.showExport = true
     }
 
     exportClose () {

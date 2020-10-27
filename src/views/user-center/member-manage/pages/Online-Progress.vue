@@ -123,22 +123,57 @@
             :course-id="courseResourceId"
             :user-id="userId"
         />
+        <!--        导出-->
+        <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
+            <el-form ref="exportForm" :model="exportData" label-width="110px" label-position="left">
+                <el-form-item label="关键字：">
+                    <el-input
+                        clearable
+                        @change="search"
+                        placeholder="请输入课程名称"
+                        v-model="exportData.keyword"
+                    />
+                </el-form-item>
+                <el-form-item label="类型：">
+                    <el-select
+                        v-model="exportData.courseType"
+                        @change="search"
+                        clearable
+                    >
+                        <el-option :value="''" label="全部" />
+                        <el-option :value="1" label="知识课程" />
+                        <el-option :value="2" label="系列课" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="分类：" v-show="exportData.courseType">
+                    <SelectCategory
+                        v-model="classification"
+                        :category-type="exportData.courseType ? exportData.courseType : 0"
+                        @change="changeClassification"
+                    />
+                </el-form-item>
+            </el-form>
+        </ExportDialog>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import {
+    exportMemberQuery,
     getLineLearningList
 } from '../../../../apis/member'
 import { Prop, Component } from 'vue-property-decorator'
 import WatchDetailList from '../components/Watch-Detail-List.vue'
 import SelectCategory from '../../../../components/product-center/category-manage/Select-Category.vue'
-
+import ExportDialog from '../../../../components/common/Export-Dialog.vue'
+import { createObjectUrl } from '@/assets/ts/upload'
+import moment from 'moment'
 @Component({
     components: {
         WatchDetailList,
-        SelectCategory
+        SelectCategory,
+        ExportDialog
     }
 })
 export default class MemberOnlineProgress extends Vue {
@@ -147,7 +182,7 @@ export default class MemberOnlineProgress extends Vue {
     lineLearningListTotal = 0
     showWatchDetailList = false
     courseResourceId = ''
-    lineLearningListForm = {
+    lineLearningListForm: DynamicObject = {
         mallUserId: '',
         current: 1,
         size: 10,
@@ -160,6 +195,16 @@ export default class MemberOnlineProgress extends Vue {
         1: '未学习',
         2: '已学习',
         3: '已过期'
+    }
+
+    // 导出
+    showExport = false
+    exportData: DynamicObject = {
+        mallUserId: '',
+        keyword: '',
+        courseType: '',
+        courseCategory: '',
+        dateRange: 3
     }
 
     @Prop() userId!: string
@@ -215,8 +260,32 @@ export default class MemberOnlineProgress extends Vue {
     }
 
     changeExportLineLearningList () {
-        // todo
-        console.log(1111)
+        for (const item of Object.keys(this.exportData)) {
+            if (item !== 'dateRange') this.exportData[item] = this.lineLearningListForm[item]
+        }
+        this.showExport = true
+    }
+
+    exportClose () {
+        this.exportData = {
+            mallUserId: '',
+            keyword: '',
+            courseType: '',
+            courseCategory: '',
+            dateRange: 3
+        }
+        this.showExport = false
+    }
+
+    async exportList () {
+        await (this.$refs.exportForm as HTMLFormElement).validate()
+        const blob = await exportMemberQuery(this.exportData)
+        const url = createObjectUrl(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `云课堂学习进度${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+        a.click()
+        this.showExport = false
     }
 }
 </script>

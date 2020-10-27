@@ -2,7 +2,7 @@
     <div class="account-new">
         <div class="wrap">
             <div class="title">
-                <span class="float-left">{{ $route.query.userId ? '编辑账号' : '添加账号' }}</span>
+                <span class="float-left">{{ query.userId ? '编辑账号' : '添加账号' }}</span>
             </div>
 
             <el-form
