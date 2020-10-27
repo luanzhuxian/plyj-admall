@@ -380,6 +380,7 @@
                     </el-form-item>
                     <el-form-item label="购买次数：">
                         <el-input
+                            @change="checkPurchasesNumber('export')"
                             clearable
                             size="small"
                             style="width: 116px"
@@ -389,6 +390,7 @@
                         />
                         至
                         <el-input
+                            @change="checkPurchasesNumber('export')"
                             clearable
                             size="small"
                             style="width: 116px"
@@ -399,6 +401,7 @@
                     </el-form-item>
                     <el-form-item label="支付总额：">
                         <el-input
+                            @change="checkPurchasesAmount('export')"
                             clearable
                             size="small"
                             style="width: 116px"
@@ -408,6 +411,7 @@
                         />
                         至
                         <el-input
+                            @change="checkPurchasesAmount('export')"
                             clearable
                             size="small"
                             style="width: 116px"

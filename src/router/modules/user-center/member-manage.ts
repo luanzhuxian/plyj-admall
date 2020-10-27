@@ -69,7 +69,10 @@ export default [
                         path: 'remark',
                         name: 'MemberRemark',
                         props: true,
-                        component: () => import('../../../views/user-center/member-manage/pages/Remark.vue')
+                        component: () => import('../../../views/user-center/member-manage/pages/Remark.vue'),
+                        meta: {
+                            ignore: true
+                        }
                     }
                 ]
             },

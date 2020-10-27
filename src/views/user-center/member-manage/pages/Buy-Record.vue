@@ -140,6 +140,74 @@
             v-model="orderListForm.current"
             :total="orderListTotal"
         />
+        <!-- 导出 -->
+        <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
+            <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="110px" label-position="left">
+                <el-form-item label="关键字" prop="keyword">
+                    <el-input
+                        v-model.trim="exportData.keyword"
+                        placeholder="请输入订单号/产品名称"
+                        style="width: 300px;"
+                        clearable
+                    />
+                </el-form-item>
+
+                <el-form-item label="产品类型：">
+                    <el-select
+                        v-model="exportData.goodsType"
+                        clearable
+                    >
+                        <el-option
+                            v-for="item of orderType"
+                            :key="item.value"
+                            :value="item.value"
+                            :label="item.label"
+                        />
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item label="订单状态：">
+                    <el-select
+                        v-model="exportData.orderStatus"
+                        clearable
+                    >
+                        <el-option
+                            v-for="item of orderStatusMap"
+                            :key="item.value"
+                            :value="item.value"
+                            :label="item.label"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="选择时间" prop="payStartTime">
+                    <el-radio-group @change="exportRangeChange" v-model="exportData.dateRange">
+                        <el-radio :label="1">
+                            7日内
+                        </el-radio>
+                        <el-radio :label="2">
+                            30日内
+                        </el-radio>
+                        <el-radio :label="3">
+                            自选时间
+                        </el-radio>
+                    </el-radio-group>
+                    <date-range
+                        v-if="showExport"
+                        style="margin-top: 20px"
+                        size="small"
+                        ref="exportDatePicker"
+                        :disabled-start-time="exportData.dateRange !== 3"
+                        :disabled-end-time="exportData.dateRange !== 3"
+                        disable-after
+                        :init="exportData.payStartTime ? [exportData.payStartTime,exportData.payEndTime] : []"
+                        :clearable="true"
+                        @change="exportDatechange"
+                        range-separator="至"
+                        end-label=""
+                    />
+                </el-form-item>
+            </el-form>
+        </ExportDialog>
     </div>
 </template>
 
@@ -148,15 +216,22 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 import {
+    exportMemberQuery,
     getOrderList
 } from '../../../../apis/member'
-@Component
+import ExportDialog from '../../../../components/common/Export-Dialog.vue'
+import { ElForm } from 'admall-element/types/form'
+import { createObjectUrl } from '@/assets/ts/upload'
+import moment from 'moment'
+@Component({
+    components: { ExportDialog }
+})
 export default class MemberBuyRecord extends Vue {
     orderList = []
     orderListTotal = 0
     isHelper = false
 
-    orderListForm = {
+    orderListForm: DynamicObject = {
         current: 1,
         size: 10,
         mallUserId: '',
@@ -166,6 +241,25 @@ export default class MemberBuyRecord extends Vue {
         payEndTime: '',
         orderStatus: '',
         helper: false
+    }
+
+    // 导出
+    showExport = false
+    exportData: DynamicObject = {
+        mallUserId: '',
+        keyword: '',
+        goodsType: '',
+        payStartTime: '',
+        payEndTime: '',
+        orderStatus: '',
+        helper: false,
+        dateRange: 3
+    }
+
+    exportRules = {
+        payStartTime: [
+            { required: true, message: '请选择时间', trigger: 'blur' }
+        ]
     }
 
     async activated () {
@@ -212,8 +306,10 @@ export default class MemberBuyRecord extends Vue {
     }
 
     changeExportOrderList () {
-        // todo
-        console.log(1111)
+        for (const item of Object.keys(this.exportData)) {
+            if (item !== 'dateRange') this.exportData[item] = this.orderListForm[item]
+        }
+        this.showExport = true
     }
 
     async resetOrderList () {
@@ -229,6 +325,64 @@ export default class MemberBuyRecord extends Vue {
             payEndTime: ''
         }
         await this.search()
+    }
+
+    exportClose () {
+        this.exportData = {
+            mallUserId: '',
+            keyword: '',
+            goodsType: '',
+            payStartTime: '',
+            payEndTime: '',
+            orderStatus: '',
+            helper: false
+        };
+        (this.$refs.exportForm as ElForm).clearValidate()
+        this.showExport = false
+    }
+
+    async exportList () {
+        await (this.$refs.exportForm as HTMLFormElement).validate()
+        const blob = await exportMemberQuery(this.exportData)
+        const url = createObjectUrl(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `会员购买记录${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+        a.click()
+        this.showExport = false
+    }
+
+    exportRangeChange (val: number) {
+        const start: string | Date = new Date()
+        const end: string | Date = new Date()
+        const formatType = 'YYYY-MM-DD'
+
+        if (val === 1) {
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            this.exportDatechange({
+                start: start && `${ moment(start).format(formatType) } 00:00:00`,
+                end: end && `${ moment(end).format(formatType) } 23:59:59`
+            })
+        } else if (val === 2) {
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            this.exportDatechange({
+                start: start && `${ moment(start).format(formatType) } 00:00:00`,
+                end: end && `${ moment(end).format(formatType) } 23:59:59`
+            })
+        } else {
+            this.exportData.payStartTime = ''
+            this.exportData.payEndTime = ''
+        }
+    }
+
+    async exportDatechange ({ start, end }: DynamicObject) {
+        this.exportData.payStartTime = start
+        this.exportData.payEndTime = end
+        if (!start || !end) {
+            return
+        }
+        await this.$nextTick();
+        (this.$refs.exportDatePicker as HTMLFormElement).initDate()
     }
 }
 </script>
