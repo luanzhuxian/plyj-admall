@@ -1297,12 +1297,10 @@ export default {
         },
         async saveDraft () {
             try {
-                if (this.toName !== 'DraftBox') {
-                    const data = await isAllowSave('GOODS')
-                    if (!data.result) {
-                        this.draftUpperLimit = true
-                        return false
-                    }
+                const { result } = await isAllowSave('GOODS')
+                if (result) {
+                    this.draftUpperLimit = true
+                    return false
                 }
                 await this.saveDrafeRequest()
             } catch (e) {
@@ -1329,7 +1327,7 @@ export default {
                 } else {
                     await createDraft(this.form, 'GOODS')
                 }
-                this.$router.replace({ name: 'DraftBox' })
+                this.$router.replace({ name: 'MyGoods', query: { status: 3 } })
             } catch (e) {
                 // 处理失败自定义表单
                 this.processResCustomDate(this.form)
@@ -1580,7 +1578,7 @@ export default {
         }
     },
     beforeRouteLeave (to, from, next) {
-        if (to.name !== 'AddProduct' && to.name !== 'DraftBox' && to.name !== 'MyGoods' && to.name !== 'OrgIndex') {
+        if (to.name !== 'AddProduct' && to.name !== 'MyGoods' && to.name !== 'OrgIndex') {
             this.$confirm({
                 title: '确定离开该页面吗？',
                 message: '请确定您所作的修改已经保存！'
@@ -1882,24 +1880,20 @@ export default {
 }
 
 .draft-upperLimit{
-  ::v-deep .el-dialog{
-    .el-dialog__header {
-      padding: 16px;
-    }
-    .el-dialog__body {
-      padding-bottom: 0;
-    }
+    ::v-deep .el-dialog{
+        .el-dialog__header {
+            padding: 0;
+            border-bottom: none;
+        }
   }
   .draft-upperLimit-box{
     display: flex;
     justify-content: center;
     .content-text{
       width:323px;
-      height:42px;
       font-size:16px;
       font-weight:bold;
       color: #333333;
-      line-height:21px;
       text-align: center;
     }
   }

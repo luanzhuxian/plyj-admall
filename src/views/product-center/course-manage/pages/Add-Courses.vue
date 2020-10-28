@@ -1082,12 +1082,10 @@ export default {
         },
         async saveDraft () {
             try {
-                if (this.toName !== 'DraftBoxCourses') {
-                    const data = await isAllowSave('CLASS')
-                    if (!data.result) {
-                        this.draftUpperLimit = true
-                        return false
-                    }
+                const { result } = await isAllowSave('CLASS')
+                if (result) {
+                    this.draftUpperLimit = true
+                    return false
                 }
                 await this.saveDrafeRequest()
             } catch (e) {
@@ -1113,7 +1111,7 @@ export default {
                 } else {
                     await createDraft(this.form, 'CLASS')
                 }
-                this.$router.replace({ name: 'DraftBoxCourses' })
+                this.$router.replace({ name: 'MyCourses', query: { status: 3 } })
             } catch (e) {
                 // 处理失败自定义表单
                 this.processResCustomDate(this.form)
@@ -1607,10 +1605,8 @@ export default {
   .draft-upperLimit{
     ::v-deep .el-dialog{
       .el-dialog__header {
-        padding: 16px;
-      }
-      .el-dialog__body {
-        padding-bottom: 0;
+        padding: 0;
+        border-bottom: none;
       }
     }
     .draft-upperLimit-box{
@@ -1618,11 +1614,9 @@ export default {
       justify-content: center;
       .content-text{
         width:323px;
-        height:42px;
         font-size:16px;
         font-weight:bold;
         color: #333333;
-        line-height:21px;
         text-align: center;
       }
     }
