@@ -214,6 +214,10 @@ export const skinClassNameMap = {
     13: 'skinDragonBoat',
     14: 'skinMidAutumnFestival',
     15: 'skinNationalDay',
+    16: 'skinCulture',
+    17: 'skinSports',
+    18: 'skinArts',
+    19: 'skinDouble12',
     has (id: number | string) {
         return Reflect.has(this, id)
     }
@@ -237,6 +241,10 @@ export const navBarMap: DynamicObject = {
     13: 'https://mallcdn.youpenglai.com/static/admall/skin/dragon-boat/bottom.jpg',
     14: 'https://mallcdn.youpenglai.com/static/admall/skin/mid-autumn-festival/bottom.jpg',
     15: 'https://mallcdn.youpenglai.com/static/admall/skin/national-day/bottom.jpg',
+    16: 'https://mallcdn.youpenglai.com/static/admall/skin/culture/bottom.jpg',
+    17: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/bottom.jpg',
+    18: 'https://mallcdn.youpenglai.com/static/admall/skin/art/bottom.jpg',
+    19: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/bottom.jpg',
     get (id: number) {
         return Reflect.has(this, id) ? this[id] : this[0]
     }

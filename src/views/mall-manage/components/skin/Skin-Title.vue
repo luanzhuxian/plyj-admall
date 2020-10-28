@@ -15,6 +15,10 @@
         <TitleDragonBoat v-if="skinId === 13" :data="data" />
         <TitleMidAutumnFestival v-if="skinId === 14" :data="data" />
         <TitleNationalDay v-if="skinId === 15" :data="data" />
+        <TitleCulture v-if="skinId === 16" :data="data" />
+        <TitleSports v-if="skinId === 17" :data="data" />
+        <TitleArts v-if="skinId === 18" :data="data" />
+        <TitleDouble12 v-if="skinId === 19" :data="data" />
     </div>
 </template>
 
@@ -35,6 +39,10 @@ import TitleFathersDay from './Title-Fathers-Day.vue'
 import TitleDragonBoat from './Title-Dragon-Boat.vue'
 import TitleMidAutumnFestival from './Title-Mid-Autumn-Festival.vue'
 import TitleNationalDay from './Title-National-Day.vue'
+import TitleCulture from './Title-Culture.vue'
+import TitleSports from './Title-Sports.vue'
+import TitleArts from './Title-Arts.vue'
+import TitleDouble12 from './Title-Double-12.vue'
 
 @Component({
     components: {
@@ -52,7 +60,11 @@ import TitleNationalDay from './Title-National-Day.vue'
         TitleFathersDay,
         TitleDragonBoat,
         TitleMidAutumnFestival,
-        TitleNationalDay
+        TitleNationalDay,
+        TitleCulture,
+        TitleSports,
+        TitleArts,
+        TitleDouble12
     }
 })
 export default class SkinTitle extends Vue {

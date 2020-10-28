@@ -320,6 +320,42 @@ const skinModels = [
         img: 'https://mallcdn.youpenglai.com/static/admall/skin/national-day/skin-national-day.jpg',
         isHover: false,
         templateName: '喜迎国庆'
+    }, {
+        category: 'skin',
+        skinId: 16,
+        img: 'https://mallcdn.youpenglai.com/static/admall/skin/culture/cover.jpg',
+        isHover: false,
+        templateName: '双十二文化类',
+        charge: '限时免费',
+        chargeTextColor: 'red',
+        expire: '2020.12.31'
+    }, {
+        category: 'skin',
+        skinId: 17,
+        img: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/cover.jpg',
+        isHover: false,
+        templateName: '双十二运动类',
+        charge: '限时免费',
+        chargeTextColor: 'red',
+        expire: '2020.12.31'
+    }, {
+        category: 'skin',
+        skinId: 18,
+        img: 'https://mallcdn.youpenglai.com/static/admall/skin/art/cover.jpg',
+        isHover: false,
+        templateName: '双十二艺术类',
+        charge: '限时免费',
+        chargeTextColor: 'red',
+        expire: '2020.12.31'
+    }, {
+        category: 'skin',
+        skinId: 19,
+        img: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/cover.jpg',
+        isHover: false,
+        templateName: '双十二皮肤',
+        charge: '限时免费',
+        chargeTextColor: 'red',
+        expire: '2020.12.31'
     }
 ]
 
