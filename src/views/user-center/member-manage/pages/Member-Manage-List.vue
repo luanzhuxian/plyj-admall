@@ -248,13 +248,24 @@
                                         </template>
                                     </div>
                                     <div class="tag">
-                                        <template v-if="row.tags && row.tags.length">
+                                        <el-popover
+                                            placement="bottom-end"
+                                            trigger="hover"
+                                        >
+                                            <ul class="tag-list">
+                                                <li v-for="(item, index) of row.tags" :key="index" v-text="item.tagName" />
+                                            </ul>
+                                            <div slot="reference">
+                                                <span v-for="(item, index) in row.tags.slice(0, 3)" :key="index">{{ item && item.tagName }} </span>
+                                            </div>
+                                        </el-popover>
+                                        <!--<template v-if="row.tags && row.tags.length">
                                             <el-tooltip class="item" effect="dark" :content="row.tags.filter(item => item.tagName).map( item => item.tagName).join('  ')" placement="bottom">
                                                 <div>
                                                     <span v-for="(item, index) in row.tags" :key="index">{{ item && item.tagName }} </span>
                                                 </div>
                                             </el-tooltip>
-                                        </template>
+                                        </template>-->
                                     </div>
                                 </div>
                             </div>
@@ -1207,5 +1218,10 @@ export default class MemberManageList extends Vue {
     #color-333{
         color: #333;
     }
+}
+.tag-list {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 6px 12px;
 }
 </style>
