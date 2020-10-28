@@ -216,7 +216,7 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { State } from 'vuex-class'
 import {
-    exportMemberQuery,
+    MemberBuyRecordExport,
     getOrderList
 } from '../../../../apis/member'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
@@ -344,7 +344,7 @@ export default class MemberBuyRecord extends Vue {
 
     async exportList () {
         await (this.$refs.exportForm as HTMLFormElement).validate()
-        const blob = await exportMemberQuery(this.exportData)
+        const blob = await MemberBuyRecordExport(this.exportData)
         const url = createObjectUrl(blob)
         const a = document.createElement('a')
         a.href = url

@@ -66,6 +66,19 @@ export const exportMemberQuery = (params: any): Promise<Blob> => axios.get(
     }
 )
 
+/**
+ * 订单列表-导出用户订单列表
+ * @param params {object}
+ * @return {Promise<AxiosResponse<T>>}
+ */
+export const MemberBuyRecordExport = (params: any): Promise<Blob> => axios.get(
+    '/apis/v2/user/order/export/user/excel',
+    {
+        timeout: 0,
+        responseType: 'blob',
+        params
+    }
+)
 // 用户中心会员查看订单数据
 export const getOrderList = (params: any) => axios.get('/apis/v2/user/order', { params })
 

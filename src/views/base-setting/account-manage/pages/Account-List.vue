@@ -10,7 +10,8 @@
                     <el-button
                         round
                         type="primary"
-                        @click="$router.push({ name: 'AddAccount', params: { mode: 'EMPLOYEE' } })"
+                        v-if="this.currentRoleCode === 'ADMIN' || this.currentRoleCode === 'ENTERPRISE_ADMIN'"
+                        @click="addAccount()"
                     >
                         添加账号
                         <i class="el-icon-plus" />
@@ -354,10 +355,20 @@ export default class AccountList extends Vue {
             mobile,
             userId,
             roleCode,
-            selfEdit: userId === row.userId,
+            selfEdit: this.userId === row.userId,
             canEdit: (row.roleCode === 'EMPLOYEE' && this.currentRoleCode === 'ADMIN') || this.currentRoleCode === 'ENTERPRISE_ADMIN'
         }))
         await this.$router.push({ name: 'AccountDetail' })
+    }
+
+    addAccount () {
+        localStorage.setItem(LocalEnum.editAccount, JSON.stringify({
+            userId: '',
+            roleCode: '',
+            selfEdit: '',
+            canEdit: ''
+        }))
+        this.$router.push({ name: 'AddAccount', params: { mode: 'EMPLOYEE' } })
     }
 
     edit (row: DynamicObject) {

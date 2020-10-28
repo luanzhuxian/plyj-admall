@@ -198,7 +198,7 @@ import { LocalEnum } from '../../../../enum/storage'
         ChangeOwnerDialog
     }
 })
-export default class AccountList extends Vue {
+export default class AccountDetail extends Vue {
             showExport = false
             exportData = {
                 userId: '',

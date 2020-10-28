@@ -24,7 +24,7 @@
                     <el-input
                         class="w250"
                         clearable
-                        :disabled="query.selfEdit || query.canEdit"
+                        :disabled="!canEdit()"
                         v-model.trim="ruleForm.mobile"
                         placeholder="请输入手机号或账号"
                         maxlength="11"
@@ -54,6 +54,7 @@
                     <el-input
                         class="w250"
                         v-model.trim="ruleForm.realName"
+                        :disabled="!canEdit()"
                         placeholder="请输入员工真实姓名"
                         maxlength="16"
                         show-word-limit
@@ -71,29 +72,27 @@
                         class="w250"
                         autocomplete="off"
                         v-model="ruleForm.position"
+                        :disabled="!canEdit()"
                         placeholder="请输入职位信息"
                         maxlength="16"
                         show-word-limit
                     />
                 </el-form-item>
                 <el-form-item label="选择角色：" prop="accountRole">
-                    <el-radio-group v-model="ruleForm.accountRole" @change="handleRadioChange">
-                        <el-radio
-                            label="ADMIN"
-                            :disabled="currentRoleCode!=='ENTERPRISE_ADMIN' || query.selfEdit"
-                        >
+                    <el-radio-group :disabled="!(currentRoleCode==='ENTERPRISE_ADMIN')" v-model="ruleForm.accountRole" @change="handleRadioChange">
+                        <el-radio label="ADMIN">
                             高级管理员
                         </el-radio>
-                        <el-radio label="EMPLOYEE" :disabled="query.selfEdit">
+                        <el-radio label="EMPLOYEE">
                             子账号
                         </el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="权限范围：">
-                    <el-button v-if="ruleForm.accountRole !== 'ADMIN'" type="text" @click="editPermission">
+                <el-form-item label="权限范围：" v-if="canEdit()">
+                    <el-button v-if="this.$route.name === 'AddAccount' || this.query.canEdit" type="text" @click="editPermission">
                         编辑
                     </el-button>
-                    <el-button v-else type="text" @click="editPermission">
+                    <el-button v-if="this.query.selfEdit && (this.currentRoleCode === 'ADMIN' || this.currentRoleCode === 'ENTERPRISE_ADMIN')" type="text" @click="editPermission">
                         查看
                     </el-button>
                 </el-form-item>
@@ -119,7 +118,7 @@
         <role-tree
             :visible.sync="visible"
             :tree-list="menuTree"
-            :show-checkbox="!query.selfEdit"
+            :show-checkbox="!query.selfEdit || query.canEdit"
             @changeTree="changeTree"
         />
     </div>
@@ -196,22 +195,30 @@ export default class AddAccount extends Vue {
         this.rules.realName[0].required = val === 'EMPLOYEE'
     }
 
-    created () {
-        this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
-        this.query = JSON.parse(localStorage.getItem(LocalEnum.editAccount) || 'null') || {}
-        this.detailForm.userId = this.query.userId || ''
-        this.detailForm.roleCode = this.query.roleCode || ''
-        if (this.query.userId) {
-            this.getData()
-        } else {
-            this.getEmployeeDefaultFun()
+    async created () {
+        try {
+            this.ruleForm.accountRole = this.$route.params.mode || 'EMPLOYEE'
+            this.query = JSON.parse(localStorage.getItem(LocalEnum.editAccount) || 'null') || {}
+            this.detailForm.userId = this.query.userId || ''
+            this.detailForm.roleCode = this.query.roleCode || ''
+            if (this.query.userId) {
+                await this.getData()
+            } else {
+                await this.getEmployeeDefaultFun()
+            }
+        } catch (e) {
+            throw e
         }
+    }
+
+    canEdit () {
+        return this.$route.name === 'AddAccount' || this.query.canEdit || (this.query.selfEdit && (this.currentRoleCode === 'ADMIN' || this.currentRoleCode === 'ENTERPRISE_ADMIN'))
     }
 
     changeTree ($event: any) {
         this.menuTree = $event.menuTree
         this.menuCode = $event.menuCode
-        this.submit()
+        // this.submit()
     }
 
     async getData () {

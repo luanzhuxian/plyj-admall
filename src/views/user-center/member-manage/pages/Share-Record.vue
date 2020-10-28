@@ -215,7 +215,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import { exportMemberQuery, getOrderList } from '@/apis/member'
+import { MemberBuyRecordExport, getOrderList } from '@/apis/member'
 import { State } from 'vuex-class'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import { ElForm } from 'admall-element/types/form'
@@ -340,7 +340,7 @@ export default class MemberShareRecord extends Vue {
 
     async exportList () {
         await (this.$refs.exportForm as HTMLFormElement).validate()
-        const blob = await exportMemberQuery(this.exportData)
+        const blob = await MemberBuyRecordExport(this.exportData)
         const url = createObjectUrl(blob)
         const a = document.createElement('a')
         a.href = url
