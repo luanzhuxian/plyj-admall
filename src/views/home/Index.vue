@@ -106,7 +106,7 @@
                 </div>
                 <div class="operation-panel__item" :to="{ name: '' }">
                     <div class="operation-panel__item-name">收益总额</div>
-                    <div class="operation-panel__item-total" v-text="homeInfo.revenueTotal || 0" />
+                    <div class="operation-panel__item-total" v-text="homeInfo.revenueTotal/100 || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.revenueYesterdayAdd/100 || 0}元` }}</div>
                 </div>
                 <div class="operation-panel__item" :to="{ name: '' }">
