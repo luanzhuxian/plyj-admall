@@ -158,7 +158,7 @@
                                 <el-button type="text" v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="edit(row)">
                                     编辑
                                 </el-button>
-                                <el-button type="text" v-if="row.lockStatus !== 2" @click="goDetail(row)">
+                                <el-button type="text" @click="goDetail(row)">
                                     详情
                                 </el-button>
                                 <el-button type="text" @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
