@@ -182,7 +182,12 @@ export default {
                 const arr = Object.keys(this.data)
                 if (arr) {
                     this.form = JSON.parse(JSON.stringify(this.data))
-                    this.addressCode = [this.data.province, this.data.city, this.data.region, this.data.town]
+                    const addressCode = []
+                    addressCode.push(this.data.province)
+                    addressCode.push(this.data.city)
+                    addressCode.push(this.data.region)
+                    this.data.town && addressCode.push(this.data.town)
+                    this.addressCode = addressCode
                 }
             }
         }
