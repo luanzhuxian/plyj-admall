@@ -169,7 +169,7 @@
                         <el-option :value="'private'" label="私享课" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="选择时间" prop="liveWatchStartTime">
+                <el-form-item label="直播时间" prop="liveWatchStartTime">
                     <el-radio-group @change="exportRangeChange" v-model="exportData.dateRange">
                         <el-radio :label="1">
                             7日内

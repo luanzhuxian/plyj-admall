@@ -180,7 +180,7 @@
                         />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="选择时间" prop="payStartTime">
+                <el-form-item label="支付时间" prop="payStartTime">
                     <el-radio-group @change="exportRangeChange" v-model="exportData.dateRange">
                         <el-radio :label="1">
                             7日内

@@ -132,6 +132,7 @@
                         @change="search"
                         placeholder="请输入课程名称"
                         v-model="exportData.keyword"
+                        style="width: 300px;"
                     />
                 </el-form-item>
                 <el-form-item label="类型：">
