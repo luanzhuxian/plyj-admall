@@ -214,6 +214,7 @@ export default {
         }
     },
     async created () {
+        this.category = ['']
         try {
             await this.getGoodsList(1)
         } catch (e) {

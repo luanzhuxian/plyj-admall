@@ -19,7 +19,7 @@
             </el-form-item>
             <el-form-item :error="dateError">
                 <div slot="label">
-                    活动时间<span class="red">*</span>
+                    <span class="red">*</span>活动时间
                 </div>
                 <date-range
                     :init="(form.activityStartTime && form.activityEndTime) ? [form.activityStartTime, form.activityEndTime] : []"
@@ -31,7 +31,7 @@
             </el-form-item>
             <el-form-item>
                 <div slot="label">
-                    活动对象<span class="red">*</span>
+                    <span class="red">*</span>活动对象
                 </div>
                 <div style="display: flex; align-items: center">
                     新注册会员<el-tooltip
@@ -674,6 +674,7 @@ export default {
   }
   .red {
     color: #d0423c;
+    margin-right: 4px;
   }
   .man-l20 {
     margin-left: 20px;
