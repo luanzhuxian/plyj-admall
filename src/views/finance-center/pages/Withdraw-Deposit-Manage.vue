@@ -74,7 +74,7 @@
                 width="100"
             >
                 <template slot-scope="{ row }">
-                    <Operating v-if="form.status === 'AWAIT'">
+                    <Operating v-if="row.status === 'AWAIT'">
                         <template slot="button-box">
                             <a @click="pass(row)">
                                 转账
