@@ -288,6 +288,7 @@ export default {
         clear () {
             this.start = null
             this.end = null
+            this.dateValue = []
             this.$emit('change', {
                 start: null,
                 end: null
