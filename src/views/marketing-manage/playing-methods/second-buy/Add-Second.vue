@@ -184,6 +184,12 @@ export default {
         ProductRadio
     },
     data () {
+        const checkPrice = (rule, value, callBack) => {
+            if (Number(value) < 0.01) {
+                callBack(new Error('秒杀价格最低为0.01'))
+            }
+            callBack()
+        }
         return {
             id: '',
             type: '',
@@ -206,7 +212,8 @@ export default {
             dateError: '',
             rules: {
                 price: [
-                    { required: true, message: '请添加秒杀商品价格', trigger: 'blur' }
+                    { required: true, message: '请添加秒杀商品价格', trigger: 'blur' },
+                    { validator: checkPrice, trigger: 'blur' }
                 ],
                 number: [
                     { required: true, message: '请添加秒杀商品库存', trigger: 'blur' }
@@ -396,11 +403,11 @@ export default {
                         gomMes = await updateSecondActivity(params)
                         warnMessage = '修改成功'
                     }
-                    goPage(this, gomMes.data, warnMessage, 'SecondBuyList')
+                    goPage(this, gomMes.result, warnMessage, 'SecondBuyList')
                 } else {
                     gomMes = await createSecondActivity(params)
                     warnMessage = '创建成功'
-                    goPage(this, gomMes.data, warnMessage, 'SecondBuyList')
+                    goPage(this, gomMes.result, warnMessage, 'SecondBuyList')
                 }
             } catch (e) {
                 throw e

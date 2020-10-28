@@ -5,7 +5,7 @@
                :close-on-click-modal="false"
                :close-on-press-escape="false"
                @close="close"
-               title="兑换码"
+               title="秒杀"
     >
         <div class="setting">
             <div class="setting-title">

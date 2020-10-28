@@ -49,14 +49,14 @@
                     />
                 </el-select>
             </el-form-item>
-            <el-form-item label="用券时间：">
+            <el-form-item label="领取时间：">
                 <date-range
                     ref="dateRange"
                     :clearable="true"
                     @change="dateChange"
                     type="date"
                     size="small"
-                    start-label="用券时间："
+                    start-label="领取时间："
                     range-separator="至"
                     end-label=""
                 />
