@@ -10,7 +10,7 @@ console.table([
     {
         NODE_ENV,
         MODEL,
-        SERVER: `http://192.168.130.${ SERVER }`,
+        SERVER: `http://192.168.50.${ SERVER }`,
         VERSION
     }
 ])
