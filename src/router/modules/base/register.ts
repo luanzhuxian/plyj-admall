@@ -5,7 +5,8 @@ export default [
         name: 'Register',
         component: () => import('../../../views/register/Index.vue'),
         meta: {
-            title: '注册雅集'
+            title: '注册雅集',
+            ignore: true
         },
         children: [
             {
@@ -13,7 +14,8 @@ export default [
                 name: 'RegisterAccount',
                 component: () => import('../../../views/register/components/Register.vue'),
                 meta: {
-                    title: '注册雅集'
+                    title: '注册雅集',
+                    ignore: true
                 }
             },
             {
@@ -21,7 +23,8 @@ export default [
                 name: 'ForgetPassword',
                 component: () => import('../../../views/register/components/Forget-Password.vue'),
                 meta: {
-                    title: '忘记密码'
+                    title: '忘记密码',
+                    ignore: true
                 }
             },
             {
@@ -29,7 +32,8 @@ export default [
                 name: 'ModifyPassword',
                 component: () => import('../../../views/register/components/Modify-Password.vue'),
                 meta: {
-                    title: '修改密码'
+                    title: '修改密码',
+                    ignore: true
                 }
             },
             {
@@ -38,7 +42,8 @@ export default [
                 component: () => import('../../../views/register/components/Reset-Password.vue'),
                 props: true,
                 meta: {
-                    title: '重置密码'
+                    title: '重置密码',
+                    ignore: true
                 }
             }
         ]

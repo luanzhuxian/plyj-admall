@@ -6,7 +6,8 @@ export default [
         name: 'Login',
         component: Login,
         meta: {
-            title: '登录'
+            title: '登录',
+            ignore: true
         },
         children: [
             {
@@ -14,7 +15,8 @@ export default [
                 name: 'WxLogin',
                 component: () => import('../../../views/login/components/Wx-Login.vue'),
                 meta: {
-                    title: '微信登录'
+                    title: '微信登录',
+                    ignore: true
                 }
             },
             {
@@ -22,7 +24,8 @@ export default [
                 name: 'PasswordLogin',
                 component: () => import('../../../views/login/components/Password-Login.vue'),
                 meta: {
-                    title: '密码登录'
+                    title: '密码登录',
+                    ignore: true
                 }
             },
             {
@@ -30,7 +33,8 @@ export default [
                 name: 'PhoneLogin',
                 component: () => import('../../../views/login/components/Phone-Login.vue'),
                 meta: {
-                    title: '验证码登录'
+                    title: '验证码登录',
+                    ignore: true
                 }
             },
             {
@@ -38,7 +42,8 @@ export default [
                 name: 'WxBindPassword',
                 component: () => import('../../../views/login/components/Wx-Bind-Password.vue'),
                 meta: {
-                    title: '账户绑定'
+                    title: '账户绑定',
+                    ignore: true
                 }
             },
             {
@@ -46,7 +51,8 @@ export default [
                 name: 'WxBindPhone',
                 component: () => import('../../../views/login/components/Wx-Bind-Phone.vue'),
                 meta: {
-                    title: '手机绑定'
+                    title: '手机绑定',
+                    ignore: true
                 }
             },
             {
@@ -54,7 +60,8 @@ export default [
                 name: 'CompleteLogin',
                 component: () => import('../../../views/login/components/Complete-Login.vue'),
                 meta: {
-                    title: '完善资料'
+                    title: '完善资料',
+                    ignore: true
                 }
             }
         ]
