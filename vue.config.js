@@ -61,13 +61,13 @@ module.exports = {
         // 如果设置为true，devServer会把编译后的文件存入磁盘，而不是存入内存，这样热刷新会慢一点，但是会节省内存
         writeToDisk: false,
         proxy: {
-            // 测试37 前端服务器196 王恩74 李宾哲132 牛昌昌92 张涛149 刘兵227 任钊64 崔璐115 杜花171
+            // 134 前端服务器
             '/apis/v1': {
-                target: `http://192.168.130.${ SERVER || 92 }`
+                target: `http://192.168.50.${ SERVER || 134 }`
                 // target: 'https://admall.youpenglai.com'
             },
             '/apis/v2': {
-                target: `http://192.168.130.${ SERVER || 92 }`
+                target: `http://192.168.50.${ SERVER || 134 }`
             }
         }
     },
