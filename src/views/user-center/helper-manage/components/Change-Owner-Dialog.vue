@@ -17,7 +17,8 @@
             </p>
             <p>
                 <b>当前所属账号</b>
-                <span>{{ currentUserInfo.ownedUser }}</span>
+                <span v-if="$route.name === 'HelperPromoteDetail'">{{ currentUserInfo.ownedMobile +'-'+ currentUserInfo.ownedUser +'('+ roleType[currentUserInfo.ownedRole]+')' }}</span>
+                <span v-else>{{ currentUserInfo.ownedUser }}</span>
             </p>
         </div>
         <el-form :inline="true">
@@ -116,7 +117,15 @@ export default {
                 size: 10
             },
             table: [],
-            total: 0
+            total: 0,
+            roleType: {
+                SUPER_ADMIN: '超级管理员',
+                ENTERPRISE_ADMIN: '企业级管理',
+                ADMIN: '高级管理员',
+                EMPLOYEE: '子账号',
+                HELPER: 'Helper',
+                MEMBERSHIP: '普通会员'
+            }
         }
     },
     watch: {
