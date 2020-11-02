@@ -26,9 +26,14 @@
             <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" />
             有效期：
             <span class="time">
-                <template v-if="data.validityType === 0">购买后不限观看次数</template>
+                <template v-if="data.priceType === 0">
+                    {{ `购买后${data.validityDate && data.validityDate.split(' ')[0] }前可免费观看学习` }}
+                </template>
+                <template v-else-if="data.validityType === 0">
+                    购买后不限观看次数
+                </template>
                 <template v-else>
-                    {{ data.validity ? `购买后${data.validity}天内学完` : `购买后${data.validityDate && data.validityDate.split(' ')[0] }前可免费观看学习` }}
+                    {{ `购买后${data.validity}天内学完` }}
                 </template>
             </span>
         </div>
@@ -143,7 +148,7 @@ $em: 330 / 750;
     }
 }
 .time {
-    width: 400px* $em;
+    max-width: 500px* $em;
     @include elps();
 }
 .details {
