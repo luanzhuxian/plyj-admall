@@ -884,6 +884,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #F1F4F5;
+      margin-top: -19px;
   }
   .coupon-item {
     margin-top: 10px;
