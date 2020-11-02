@@ -2,7 +2,7 @@
     <div class="together">
         <div class="list-header">
             <div class="header">
-                <img width="48" class="mr-10" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png">
+                <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png">
                 <div>
                     <div class="font-weight-bold">秒杀</div>
                     <div class="description">{{ activityDetail.name }}</div>

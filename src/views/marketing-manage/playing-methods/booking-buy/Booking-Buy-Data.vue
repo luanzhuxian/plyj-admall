@@ -373,7 +373,7 @@ export default {
     created () {
         this.form.businessId = this.id
         redeemUserList().then(res => {
-            this.operatorUser = res.data.result
+            this.operatorUser = res.result
         })
         this.getData()
         this.getList()
