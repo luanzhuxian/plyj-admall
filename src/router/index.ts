@@ -14,9 +14,6 @@ const checkAuth = to => {
     const routeNames = store.getters['user/routeNames']
     const currentHasPower = routeNames.has(to.name)
     const index = routeNames.get(to.name)
-    console.log('routeNames', routeNames)
-    console.log('to.name', to.name)
-    console.log('currentHasPower', currentHasPower)
     // 判断是否有权限访问
     if (currentHasPower) {
         const routeNameArr = [...routeNames]
