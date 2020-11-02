@@ -232,7 +232,7 @@
                             <button @click="goEdit(row)">
                                 编辑
                             </button>
-                            <button :disabled="row.hasOrder === 1 ? false: true" @click="$router.push({name:'GoodsOrderList',params:{id:row.id}})">
+                            <button @click="$router.push({name:'GoodsOrderList',params:{id:row.id}})">
                                 查看订单
                             </button>
                             <button v-if="row.productStatus === 3 || $route.name === 'DraftBox'" @click="updateGoodsStatus(0, row)">
