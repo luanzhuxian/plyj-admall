@@ -175,6 +175,7 @@
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
+import { Route, RouteNext } from 'vue-router'
 
 import Panel from '../../../../components/common/Panel.vue'
 import Agreement from '../../../../components/register/Agreement.vue'
@@ -236,10 +237,29 @@ export default class PayAndOrder extends Vue {
     orderId = ''
     timer = -1
 
+    async beforeRouteEnter (to: Route, from: Route, next: RouteNext) {
+        try {
+            // 直播间状态
+            // result.enable：3 未开通 隐藏面包屑的互动直播
+            const { result } = await getRoomStatus()
+            to.meta.enable = result.enable
+
+            const liveRouteRecord = to.matched.find(item => item.name === 'Live')
+            if (liveRouteRecord && 'meta' in liveRouteRecord) {
+                liveRouteRecord.meta = {
+                    ...liveRouteRecord.meta,
+                    hide: result.enable === 1
+                }
+            }
+        } catch (error) {
+            throw error
+        } finally {
+            next()
+        }
+    }
+
     async activated () {
-        // 直播间状态
-        const { result } = await getRoomStatus()
-        this.enable = result.enable
+        this.enable = this.$router.currentRoute.meta.enable
         // 没有开通直播间，并且type为0，去开通直播间
         if (this.enable === 3 && this.type === '0') {
             await this.$router.replace({ name: 'SetMeal' })

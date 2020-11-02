@@ -30,13 +30,18 @@ import { Location } from 'vue-router'
 })
 export default class Panel extends Vue {
     /* props */
+
+    // 自定义类名
     @Prop(String) readonly customClass!: string
     // @Prop(String) readonly icon!: string
     @Prop(String) readonly title!: string
     @Prop(String) readonly value!: string
     @Prop(Boolean) readonly border!: boolean
+    // 是否可点击跳转
     @Prop(Boolean) readonly isLink!: boolean
+    // 触发点击跳转的元素的类名
     @Prop(String) readonly linkTarget!: string
+    // 点击跳转路由
     @Prop() readonly to!: Location
 
     /* methods */

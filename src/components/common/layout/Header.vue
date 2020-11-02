@@ -4,26 +4,18 @@
             <h1 v-if="$route.name === 'Home'" class="fz-16">
                 {{ mallName }}
             </h1>
-            <el-breadcrumb
-                v-else-if="$route.matched.length"
-                separator-class="el-icon-arrow-right"
-            >
-                <template
-                    v-for="(route, i) of $route.matched"
-                >
+            <el-breadcrumb v-else-if="$route.matched.length" separator-class="el-icon-arrow-right">
+                <template v-for="(route, i) of $route.matched">
                     <el-breadcrumb-item
                         :key="i"
-                        v-if="route.meta && route.meta.title"
+                        v-if="route.meta && route.meta.title && !route.meta.hide"
                         :to="{ path: route.path }"
                     >
                         {{ route.meta.title }}
                     </el-breadcrumb-item>
                 </template>
             </el-breadcrumb>
-            <el-breadcrumb
-                v-else-if="childRoute"
-                separator-class="el-icon-arrow-right"
-            >
+            <el-breadcrumb v-else-if="childRoute" separator-class="el-icon-arrow-right">
                 <template v-for="(route, i) of childRoute.matched">
                     <el-breadcrumb-item
                         :key="i"
