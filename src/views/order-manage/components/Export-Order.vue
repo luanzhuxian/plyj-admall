@@ -20,7 +20,7 @@
             </el-form-item>
             <el-form-item
                 v-if="orderType !== 'course'"
-                label="类型"
+                :label="$route.name === 'GoodsOrderList' ? '商品类型' : '课程类型'"
                 prop="goodsType"
             >
                 <el-select
@@ -30,7 +30,7 @@
                     <el-option v-for="(item,index) in goodsTypes" :label="item" :value="index" :key="index" />
                 </el-select>
             </el-form-item>
-            <el-form-item prop="orderStatus" label="状态">
+            <el-form-item prop="orderStatus" label="订单状态">
                 <el-select v-model="exportData.orderStatus">
                     <el-option v-for="(item,index) in orderStatus" :label="item" :value="index" :key="index" />
                 </el-select>
