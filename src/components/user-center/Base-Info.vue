@@ -39,10 +39,10 @@
                     width="500"
                     placement="bottom-start"
                     trigger="hover"
-                    :disabled="!address"
+                    :disabled="!address || !popoverDisabled"
                     :content="address"
                 >
-                    <div slot="reference" :class="$style.address" v-text="address || '--'" />
+                    <div slot="reference" ref="reference" :class="$style.address" v-text="address || '--'" />
                 </el-popover>
             </Field>
             <Field
@@ -99,7 +99,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 import Field from '../common/base/Field.vue'
 import AddTags from '../../views/user-center/member-manage/components/Add-Tags.vue'
 
@@ -125,6 +125,8 @@ export default class MemberBaseInfo extends Vue {
         2: '学生',
         3: '其他'
     }
+
+    popoverDisabled = false
 
     // props
     // 头像
@@ -169,6 +171,15 @@ export default class MemberBaseInfo extends Vue {
     @Prop({ type: Array, default: [] }) tags!: string[]
     // 是否可以编辑标签
     @Prop({ type: Boolean, default: true }) editTags!: boolean
+
+    @Watch('address', { immediate: true })
+    onChangeValue (newVal: string) {
+        if (newVal) {
+            this.$nextTick(() => {
+                if ((this.$refs.reference as HTMLFormElement).scrollWidth > 500) this.popoverDisabled = true
+            })
+        }
+    }
 
     // 添加标签成功事件
     tagChange () {
