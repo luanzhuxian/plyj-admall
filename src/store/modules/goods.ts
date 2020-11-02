@@ -2,12 +2,15 @@ import { getCategoryTree, getCourseCategory } from '../../apis/product-center/go
 import { getAddress } from '../../apis/address'
 import { Module } from 'vuex'
 import { MutationTypes } from '@/store/mutation-type'
+import { isIterable } from '../../assets/ts/utils'
 
 /**
  * 为树结构数据设置叶子节点标记
  * @param { Array } tree
  */
 const setTreeLeaf = function (tree: any[]) {
+    if (!isIterable(tree)) return
+
     for (const item of tree) {
         if (!item.childs.length) {
             item.leaf = true

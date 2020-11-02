@@ -353,3 +353,10 @@ export const getTextWidth = (text: string, fontSize: number): number => {
     const metrics = context.measureText(text)
     return metrics.width
 }
+
+/**
+ * 是否可迭代
+ * @param obj
+ * @return boolean
+ */
+export const isIterable = (obj: any) => obj != null && typeof obj[Symbol.iterator] === 'function'
