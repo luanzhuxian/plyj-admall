@@ -43,7 +43,7 @@
                     type="number"
                     @change="search"
                     placeholder="请输入次数"
-                    v-model="form.purchasesMinNumber"
+                    v-model.number="form.purchasesMinNumber"
                 />
                 至
                 <el-input
@@ -53,7 +53,7 @@
                     type="number"
                     @change="search"
                     placeholder="请输入次数"
-                    v-model="form.purchasesMaxNumber"
+                    v-model.number="form.purchasesMaxNumber"
                 />
             </el-form-item>
             <el-form-item label="最近登录时间：">
@@ -84,7 +84,7 @@
                     @change="search"
                     type="number"
                     placeholder="请输入金额"
-                    v-model.number="form.purchasesMinAmount"
+                    v-model="form.purchasesMinAmount"
                 />
                 至
                 <el-input
@@ -94,7 +94,7 @@
                     type="number"
                     @change="search"
                     placeholder="请输入金额"
-                    v-model.number="form.purchasesMaxAmount"
+                    v-model="form.purchasesMaxAmount"
                 />
             </el-form-item>
 
@@ -397,7 +397,7 @@
                             style="width: 116px"
                             type="number"
                             placeholder="请输入次数"
-                            v-model="exportData.purchasesMinNumber"
+                            v-model.number="exportData.purchasesMinNumber"
                         />
                         至
                         <el-input
@@ -407,7 +407,7 @@
                             style="width: 116px"
                             type="number"
                             placeholder="请输入次数"
-                            v-model="exportData.purchasesMaxNumber"
+                            v-model.number="exportData.purchasesMaxNumber"
                         />
                     </el-form-item>
                     <el-form-item label="支付总额：">
@@ -418,7 +418,7 @@
                             style="width: 116px"
                             type="number"
                             placeholder="请输入金额"
-                            v-model.number="exportData.purchasesMinAmount"
+                            v-model="exportData.purchasesMinAmount"
                         />
                         至
                         <el-input
@@ -428,7 +428,7 @@
                             style="width: 116px"
                             type="number"
                             placeholder="请输入金额"
-                            v-model.number="exportData.purchasesMaxAmount"
+                            v-model="exportData.purchasesMaxAmount"
                         />
                     </el-form-item>
 
@@ -903,16 +903,19 @@ export default class MemberManageList extends Vue {
           }
           if (minNumber && (maxNumber || maxNumber === 0) && minNumber > maxNumber) {
               [minNumber, maxNumber] = [maxNumber, minNumber]
-              this.form.purchasesMinAmount = String(minNumber)
-              this.form.purchasesMaxAmount = String(maxNumber)
+              this.exportData.purchasesMinAmount = String(minNumber)
+              this.exportData.purchasesMaxAmount = String(maxNumber)
           }
-
+          if (this.exportData.purchasesMinAmount === '0.0') this.exportData.purchasesMinAmount = '0'
+          if (this.exportData.purchasesMaxAmount === '0.0') this.exportData.purchasesMaxAmount = '0'
           if (this.exportData.purchasesMinAmount && !isMoney(String(this.exportData.purchasesMinAmount))) {
               this.exportData.purchasesMinAmount = Number(this.exportData.purchasesMinAmount).toFixed(2)
+              if (this.exportData.purchasesMinAmount === '0.00') this.exportData.purchasesMinAmount = '0'
               return this.$warning('请输入包含小数点后两位的金额格式')
           }
           if (this.exportData.purchasesMaxAmount && !isMoney(String(this.exportData.purchasesMaxAmount))) {
               this.exportData.purchasesMaxAmount = Number(this.exportData.purchasesMaxAmount).toFixed(2)
+              if (this.exportData.purchasesMaxAmount === '0.00') this.exportData.purchasesMaxAmount = '0'
               return this.$warning('请输入包含小数点后两位的金额格式')
           }
           if (Number(this.exportData.purchasesMinAmount) > 100000) {
@@ -942,13 +945,16 @@ export default class MemberManageList extends Vue {
           this.form.purchasesMinAmount = String(minNumber)
           this.form.purchasesMaxAmount = String(maxNumber)
       }
-
+      if (this.form.purchasesMinAmount === '0.0') this.form.purchasesMinAmount = '0'
+      if (this.form.purchasesMaxAmount === '0.0') this.form.purchasesMaxAmount = '0'
       if (this.form.purchasesMinAmount && !isMoney(this.form.purchasesMinAmount)) {
           this.form.purchasesMinAmount = Number(this.form.purchasesMinAmount).toFixed(2)
+          if (this.form.purchasesMinAmount === '0.00') this.form.purchasesMinAmount = '0'
           return this.$warning('请输入包含小数点后两位的金额格式')
       }
       if (this.form.purchasesMaxAmount && !isMoney(this.form.purchasesMaxAmount)) {
           this.form.purchasesMaxAmount = Number(this.form.purchasesMaxAmount).toFixed(2)
+          if (this.form.purchasesMaxAmount === '0.00') this.form.purchasesMaxAmount = '0'
           return this.$warning('请输入包含小数点后两位的金额格式')
       }
       if (Number(this.form.purchasesMinAmount) > 100000) {
