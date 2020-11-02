@@ -86,7 +86,8 @@ export default {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const info = this.marketStatusAuth.find(({ programId }) => programId === '6')
         if (!info || moment(info.validity).valueOf() < Date.now()) {
-            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '6' } })
+            await this.$router.replace({ name: 'MarketingGameplayList' })
+            await this.$alert('龙门节专属活动，若要开通请联系城市经理或者客服')
         }
     },
     methods: {

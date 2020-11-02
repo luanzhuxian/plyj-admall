@@ -40,7 +40,10 @@
 
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
-
+import { MutationTypes } from '@/store/mutation-type'
+import { namespace } from 'vuex-class'
+import moment from 'moment'
+const accountMoudel = namespace('account')
 interface RouteInfo {
     params: {
         programId: string;
@@ -95,11 +98,18 @@ export default class SchemePack extends Vue {
         default: 0
     }) readonly count: string | number | undefined
 
-    private target () {
-        const programId = (this.routeInfo as RouteInfo)?.params?.programId
-        const isLongmen = ['2', '6', '7'].includes(programId)
+    @accountMoudel.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
+    @accountMoudel.Getter('marketStatusAuth') marketStatusAuth!: any
 
-        if (isLongmen) return this.$alert('龙门节专属活动，若要开通请联系城市经理或者客服')
+    private async target () {
+        const schemeProgramId: string = (this.routeInfo as RouteInfo)?.params?.programId
+        const isLongmen = ['2', '6', '7'].includes(schemeProgramId)
+        if (isLongmen) {
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) return this.$alert('龙门节专属活动，若要开通请联系城市经理或者客服')
+            const info = this.marketStatusAuth.find(({ programId }: { programId: string }) => programId === schemeProgramId)
+            if (!info || moment(info.validity).valueOf() < Date.now()) return this.$alert('龙门节专属活动，若要开通请联系城市经理或者客服')
+        }
 
         if (typeof this.routeInfo === 'string') {
             return this.$router.push({ name: this.routeInfo })
