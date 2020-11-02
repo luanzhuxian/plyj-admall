@@ -49,7 +49,7 @@
                             <el-radio :label="2">学生</el-radio>
                             <el-radio :label="3">
                                 <span v-if="addMemberDetailForm.type !== 3">其它</span>
-                                <el-input v-else v-model="addMemberDetailForm.other" />
+                                <el-input maxlength="8" v-else v-model="addMemberDetailForm.other" />
                             </el-radio>
                         </el-radio-group>
                         <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.type === 3 ? memberDetail.other : USER_TYPE[memberDetail.type] || '--'" />
@@ -76,7 +76,7 @@
                     <br v-show="!isEdit">
 
                     <el-form-item label="微信号：" prop="wechatNumber" :required="false">
-                        <el-input v-show="isEdit" :class="$style.width" v-model="addMemberDetailForm.wechatNumber" placeholder="请输入微信号" />
+                        <el-input v-show="isEdit" style="width: 220px;" v-model="addMemberDetailForm.wechatNumber" placeholder="请输入微信号" />
                         <div v-show="!isEdit" :class="$style.width" v-text="memberDetail.wechatNumber || '--'" />
                     </el-form-item>
 
@@ -107,7 +107,7 @@
                     <br v-show="isEdit">
 
                     <el-form-item label="所在区域：" prop="address">
-                        <div v-if="isEdit">
+                        <div style="display: flex" v-if="isEdit">
                             <CityPicker style="width: 260px;" @selected="selectedCity" :default-value="defaultCity" />
                             <el-input style="width: 260px;" class="ml-10" v-model="addMemberDetailForm.address" placeholder="请输入详细地址" />
                         </div>
