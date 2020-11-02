@@ -24,13 +24,15 @@
             </el-form>
             <div
                 slot="footer"
+                class="dialog-footer"
             >
-                <el-button @click="dialogVerificationCancel()">
+                <el-button @click="dialogVerificationCancel()" round>
                     取 消
                 </el-button>
                 <el-button
                     type="primary"
                     @click="dialogVerificationConfirm()"
+                    round
                 >
                     确 定
                 </el-button>
@@ -145,14 +147,16 @@
                 </div>
                 <div
                     slot="footer"
+                    class="dialog-footer"
                 >
                     <div v-if="resData.status === 0">
-                        <el-button @click="invalidVerificationConfirm()">
+                        <el-button @click="invalidVerificationConfirm()" round>
                             取 消
                         </el-button>
                         <el-button
                             type="primary"
                             @click="codeConfirm()"
+                            round
                         >
                             确 定
                         </el-button>
@@ -160,6 +164,7 @@
                     <el-button v-else
                                type="primary"
                                @click="invalidVerificationConfirm()"
+                               round
                     >
                         我知道了
                     </el-button>
@@ -247,14 +252,16 @@
                 </div>
                 <div
                     slot="footer"
+                    class="dialog-footer"
                 >
                     <div v-if="resData.status === 0">
-                        <el-button @click="invalidVerificationConfirm()">
+                        <el-button @click="invalidVerificationConfirm()" round>
                             取 消
                         </el-button>
                         <el-button
                             type="primary"
                             @click="codeConfirm()"
+                            round
                         >
                             确 定
                         </el-button>
@@ -262,6 +269,7 @@
                     <el-button v-else
                                type="primary"
                                @click="invalidVerificationConfirm()"
+                               round
                     >
                         我知道了
                     </el-button>
@@ -290,6 +298,7 @@
                 <el-button
                     type="primary"
                     @click="verificationComplete()"
+                    round
                 >我知道了</el-button>
             </span>
         </el-dialog>
@@ -484,4 +493,7 @@ NOT_STARRED(9,"未到核销开始时间")
   .font-bold{
     font-weight: bold;
   }
+    .dialog-footer{
+        text-align: center;
+    }
 </style>
