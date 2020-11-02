@@ -18,7 +18,7 @@
                         placeholder="请输入优惠券名称"
                         :maxlength="50"
                         @change="search"
-                        style="width: 160px;"
+                        style="width: 170px;"
                     />
                 </el-form-item>
                 <el-form-item v-if="!hideStatus">
@@ -81,6 +81,7 @@
                     type="selection"
                     width="55"
                     :reserve-selection="true"
+                    align="right"
                 />
                 <el-table-column property="couponName" label="优惠券名称" />
                 <el-table-column label="优惠券金额" width="120">
