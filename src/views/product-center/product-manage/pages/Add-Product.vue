@@ -1298,7 +1298,7 @@ export default {
         async saveDraft () {
             try {
                 const { result } = await isAllowSave('GOODS')
-                if (result) {
+                if (result !== true) {
                     this.draftUpperLimit = true
                     return false
                 }

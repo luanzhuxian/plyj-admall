@@ -1083,7 +1083,7 @@ export default {
         async saveDraft () {
             try {
                 const { result } = await isAllowSave('CLASS')
-                if (result) {
+                if (result !== true) {
                     this.draftUpperLimit = true
                     return false
                 }
