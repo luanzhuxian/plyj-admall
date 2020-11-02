@@ -277,6 +277,7 @@ export default {
             startTime: '',
             endTime: ''
         }
+        this.getList()
     },
     methods: {
         iconGengduoEnter (row) {
