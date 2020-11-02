@@ -5,6 +5,7 @@ export default [
         redirect: '/notification/list',
         component: () => import('../../../views/notification-center/Index.vue'),
         meta: {
+            title: '通知中心',
             index: '2-10'
         },
         children: [
@@ -13,7 +14,6 @@ export default [
                 name: 'NotificationList',
                 component: () => import('../../../views/notification-center/pages/List.vue'),
                 meta: {
-                    title: '通知中心',
                     index: '2-10-1'
                 }
             },
