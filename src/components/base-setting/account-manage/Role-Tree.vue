@@ -133,12 +133,26 @@ export default {
                 }
             }
         },
-        check (current, allChecked) {
+        check (currentData, allChecked) {
+            console.log(this.$refs.tree.getNode(currentData))
+            const tree = this.$refs.tree
             const { checkedKeys, halfCheckedKeys } = allChecked
-            if (current.status === 0 && !checkedKeys.includes(current.aclCode)) {
-                this.$refs.tree.setChecked(current.aclCode, true)
+            const currentNode = tree.getNode(currentData)
+            const parent = currentNode.parent
+            if (currentData.status === 0 && !checkedKeys.includes(currentData.aclCode)) {
+                tree.setChecked(currentData.aclCode, true)
                 this.$warning('该选项为必选项，不可取消')
                 return
+            }
+            // 寻找同级别中的必选项，并自动选中
+            if (parent) {
+                const must = parent.data.children.filter(item => Number(item.status) === 0)
+                if (must.length) {
+                    for (const m of must) {
+                        tree.setChecked(m.aclCode, true)
+                        !checkedKeys.includes(m.aclCode) && checkedKeys.push(m.aclCode)
+                    }
+                }
             }
             this.selected = [...checkedKeys, ...halfCheckedKeys]
         },

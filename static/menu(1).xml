@@ -468,7 +468,7 @@
                         </menus>
                     </menu>
 
-                    <menu aclCode="2-8-13" name="公益助力" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LongmenPublicBenefit" roles="0">
+                    <menu aclCode="2-8-13" name="公益行动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="LongmenPublicBenefit" roles="0">
                         <menus>
                             <menu aclCode="2-8-13-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="LongmenPublicBenefitList" roles="0"/>
                             <menu aclCode="2-8-13-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddLongmenPublicBenefit" roles="0"/>
