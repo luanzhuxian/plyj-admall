@@ -75,8 +75,8 @@ const reqHandler = (config: AxiosRequestConfig) => {
         location.reload()
         return Promise.reject(new Error('what?'))
     }
-    console.log(LocalEnum.agencyCode, Cookie.get(LocalEnum.agencyCode))
-    console.log(Cookie.get(LocalEnum.token))
+    // console.log(LocalEnum.agencyCode, Cookie.get(LocalEnum.agencyCode))
+    // console.log(Cookie.get(LocalEnum.token))
     config.headers.token = Cookie.get(LocalEnum.token)
     /* eslint-disable @typescript-eslint/camelcase */
     config.headers.refresh_token = Cookie.get(LocalEnum.refreshToken)

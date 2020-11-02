@@ -9,7 +9,9 @@ import { isIterable } from '../../assets/ts/utils'
  * @param { Array } tree
  */
 const setTreeLeaf = function (tree: any[]) {
-    if (!isIterable(tree)) return
+    if (!isIterable(tree)) {
+        return
+    }
 
     for (const item of tree) {
         if (!item.childs.length) {
