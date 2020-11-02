@@ -148,7 +148,6 @@ export default {
         }
     },
     async activated () {
-        this.$parent.showTop = true
         await this.getDetail()
     },
     methods: {

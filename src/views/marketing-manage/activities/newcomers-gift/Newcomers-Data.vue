@@ -262,7 +262,6 @@ export default {
         }
     },
     async activated () {
-        this.$parent.showTop = true
         await this.getDetail()
         await this.doQuery()
     },
