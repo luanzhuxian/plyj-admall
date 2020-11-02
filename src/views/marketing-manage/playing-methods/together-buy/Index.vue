@@ -21,7 +21,6 @@ export default {
     },
     async activated () {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const info = this.marketStatusAuth.find(({ programId }) => programId === '4')
         if (!info || moment(info.validity).valueOf() < Date.now()) {
             this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '4' } })

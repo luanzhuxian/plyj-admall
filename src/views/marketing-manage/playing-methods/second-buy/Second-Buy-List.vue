@@ -215,7 +215,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
 import { secondActivityPage, duplicateSecondActivity, updateActivityStatus } from '../../../../apis/marketing-manage/second'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
@@ -282,6 +282,7 @@ export default {
         this.getList()
     },
     methods: {
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         iconGengduoEnter (row) {
             row.iconGengduoShow = true
         },
