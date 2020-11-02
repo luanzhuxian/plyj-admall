@@ -84,8 +84,8 @@ export default {
             }
             // 已授权，但是未开通支付
             if (auditStatus === 'OPEN_WECHAT_PAYMENT') {
-                this.page = 'WechatPay'
-                // await this.$router.replace({ name: 'WechatPay', query: this.$route.query })
+                this.page = 'Wechat'
+                // await this.$router.replace({ name: 'Wechat', query: this.$route.query })
                 return
             }
             if (auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') {

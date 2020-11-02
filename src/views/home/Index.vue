@@ -455,7 +455,7 @@ export default class Home extends Vue {
                     this.givePower()
                     return
                 }
-                await this.$router.push({ name: 'WechatPay' })
+                await this.$router.push({ name: 'Wechat' })
             } catch (e) {
                 if (e) throw e
             }
@@ -505,7 +505,7 @@ export default class Home extends Vue {
             const { result } = await setAuthCode(this.mallNumber, encodeURIComponent(authCode))
             if (result.authResult) {
                 this.$success('授权成功!')
-                await this.$router.push({ name: 'WechatPay' })
+                await this.$router.push({ name: 'Wechat' })
             } else {
                 this.repeatAuth('授权失败，请重试')
             }

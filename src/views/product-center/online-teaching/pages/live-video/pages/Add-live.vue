@@ -163,7 +163,7 @@
                             <span v-if="mchId" class="sid-gray">(勾选，用户需支付一定费用观看直播)</span>
                             <span v-else class="sid-gray">
                                 <i>(您还未开通微信支付，请先开通)</i>
-                                <el-button v-if="regType === 2" type="text" class="ml-10" @click="$router.push({ name: 'WechatPay' })">
+                                <el-button v-if="regType === 2" type="text" class="ml-10" @click="$router.push({ name: 'Wechat' })">
                                     立即开通
                                 </el-button>
                                 <el-button v-else type="text" class="ml-10" @click="$router.push({ name: 'WechatBind' })">

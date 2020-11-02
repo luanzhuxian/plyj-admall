@@ -138,7 +138,7 @@ export default {
                     const data = await setAuthCode(this.mallNumber, encodeURIComponent(authCode))
                     if (data.result.authResult) {
                         this.$success('授权成功')
-                        await this.$router.push({ name: 'WechatPay' })
+                        await this.$router.push({ name: 'Wechat' })
                     } else {
                         await this.$alert({
                             title: '授权失败',

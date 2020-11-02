@@ -66,7 +66,7 @@
                             <div slot="content">
                                 点我开通支付
                             </div>
-                            <router-link v-if="regType === 2" tag="p" :to="{ name: 'WechatPay' }" class="fz-12" style="color: red; cursor: pointer;">
+                            <router-link v-if="regType === 2" tag="p" :to="{ name: 'Wechat' }" class="fz-12" style="color: red; cursor: pointer;">
                                 未开通支付，用户将无法支付
                             </router-link>
                             <router-link v-else tag="p" :to="{ name: 'WechatBind' }" class="fz-12" style="color: red; cursor: pointer;">
