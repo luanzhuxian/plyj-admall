@@ -80,7 +80,6 @@
                 <div class="write-off-panel__item">
                     <div>
                         <div>课程商品</div>
-                        <!--<router-link class="write-off-panel__item-number" to="/admall/orders-manage/courses-list?status=WAIT_RECEIVE" v-text="homeInfo.courseCount || 0" />-->
                         <a
                             class="write-off-panel__item-number"
                             @click="navigator({ name: 'CourseOrder', query: { status: 'WAIT_RECEIVE' } })"
@@ -99,27 +98,27 @@
 
             <!-- 经营数据 -->
             <Panel custom-class="operation-panel" title="经营数据">
-                <div class="operation-panel__item" :to="{ name: '' }">
+                <div class="operation-panel__item">
                     <div class="operation-panel__item-name">支付订单量</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.orderTotal || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.orderYesterdayAdd || 0}单` }}</div>
                 </div>
-                <div class="operation-panel__item" :to="{ name: '' }">
+                <div class="operation-panel__item">
                     <div class="operation-panel__item-name">收益总额</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.revenueTotal/100 || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.revenueYesterdayAdd/100 || 0}元` }}</div>
                 </div>
-                <div class="operation-panel__item" :to="{ name: '' }">
+                <div class="operation-panel__item">
                     <div class="operation-panel__item-name">会员数</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.memberTotal || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.memberYesterdayAdds || 0}人` }}</div>
                 </div>
-                <div class="operation-panel__item" :to="{ name: '' }">
+                <div class="operation-panel__item">
                     <div class="operation-panel__item-name">helper数</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.helperTotal || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.helperYesterdayAdd || 0}人` }}</div>
                 </div>
-                <div class="operation-panel__item" :to="{ name: '' }">
+                <div class="operation-panel__item">
                     <div class="operation-panel__item-name">月访客人数</div>
                     <div class="operation-panel__item-total" v-text="homeInfo.visitorTotal || 0" />
                     <div class="operation-panel__item-yesterday">{{ `昨日：${homeInfo.visitorYesterdayAdd || 0}人` }}</div>
@@ -131,31 +130,31 @@
                 <a class="to-do-panel__item" @click="navigator({ name: 'GoodsOrderList', query: { status: 'WAIT_SHIP' } })">
                     <div class="to-do-panel__item-name">待发货订单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitShip || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitShip || 0 }单` }}</div>
+                    <div class="to-do-panel__item-link">查看详情</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitShip" />
                 </a>
                 <a class="to-do-panel__item" @click="navigator({ name: 'Backorder', query: { status: 'WaitReview' } })">
                     <div class="to-do-panel__item-name">待审核售后单</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.waitRefund || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayWaitRefund || 0 }单` }}</div>
+                    <div class="to-do-panel__item-link">查看详情</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.waitRefund" />
                 </a>
                 <a class="to-do-panel__item" @click="navigator({ name: 'HelperReviewList' })">
                     <div class="to-do-panel__item-name">待审核Helper</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingReviewHelper || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayPendingReviewHelper || 0 }人` }}</div>
+                    <div class="to-do-panel__item-link">查看详情</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.pendingReviewHelper" />
                 </a>
                 <a class="to-do-panel__item" @click="navigator({ name: 'RunbiManage', query: { status: 'AWAIT' } })">
                     <div class="to-do-panel__item-name">待审核润笔</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.shareWaitAudit || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${ homeInfo.yesterdayShareWaitAudit || 0 }人` }}</div>
+                    <div class="to-do-panel__item-link">查看详情</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.shareWaitAudit" />
                 </a>
                 <a class="to-do-panel__item" @click="navigator({ name: 'WithdrawDepositManage', query: { status: 'AWAIT' } })">
                     <div class="to-do-panel__item-name">待提现审核</div>
                     <div class="to-do-panel__item-total" v-text="homeInfo.pendingWithdraw || 0" />
-                    <div class="to-do-panel__item-yesterday">{{ `昨日：${homeInfo.yesterdayPendingWithdraw || 0 }人` }}</div>
+                    <div class="to-do-panel__item-link">查看详情</div>
                     <span class="to-do-panel__item-red-dot" v-if="homeInfo.pendingWithdraw" />
                 </a>
             </Panel>
@@ -555,6 +554,7 @@ export default class Home extends Vue {
     box-sizing: border-box;
 
     &-link {
+        color: #4f63ff;
         cursor: pointer;
         &:hover,
         &:focus {
@@ -646,7 +646,6 @@ export default class Home extends Vue {
                 align-items: center;
                 margin-left: 40px;
                 margin-bottom: 13px;
-                color: #4f63ff;
                 @extend .home-link;
                 > svg {
                     margin-bottom: 5px;
@@ -660,7 +659,6 @@ export default class Home extends Vue {
             display: grid;
             grid-template-columns: repeat(5, auto);
             justify-content: space-around;
-            // padding-left: 36px;
         }
         &__item {
             position: relative;
@@ -674,10 +672,9 @@ export default class Home extends Vue {
                 font-weight: 600;
                 line-height: 64px;
             }
-            &-yesterday {
-                margin-top: 8px;
+            &-link {
                 font-size: 16px;
-                color: #999;
+                color: #4f63ff;
             }
             &-red-dot {
                 position: absolute;
@@ -691,6 +688,9 @@ export default class Home extends Vue {
             &:hover {
                 .to-do-panel__item-total {
                     color: #4f63ff;
+                }
+                .to-do-panel__item-link {
+                    color: mix(#fff, #4f63ff, 20%);
                 }
             }
         }
