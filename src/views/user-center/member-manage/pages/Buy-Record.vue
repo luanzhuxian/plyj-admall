@@ -129,7 +129,7 @@
                 label="操作"
             >
                 <template #default="{ row }">
-                    <el-button type="text" @click="$router.push({ name: 'GoodsOrderDetail', params: { id: row.orderId } })">
+                    <el-button type="text" @click="handleClick(row)">
                         订单详情
                     </el-button>
                 </template>
@@ -384,6 +384,16 @@ export default class MemberBuyRecord extends Vue {
         }
         await this.$nextTick();
         (this.$refs.exportDatePicker as HTMLFormElement).initDate()
+    }
+
+    handleClick ({ orderType, orderId }: { orderType: string; orderId: string }) {
+        if (orderType === 'PHYSICAL_GOODS' || orderType === 'VIRTUAL_GOODS') {
+            this.$router.push({ name: 'GoodsOrderDetail', params: { id: orderId } })
+        } else if (orderType === 'FORMAL_CLASS' || orderType === 'EXPERIENCE_CLASS') {
+            this.$router.push({ name: 'CourseOrderDetail', params: { id: orderId } })
+        } else if (orderType === 'KNOWLEDGE_COURSE' || orderType === 'SERIES_OF_COURSE' || orderType === 'LIVE_GOODS') {
+            this.$router.push({ name: 'OnlineSchoolOrderDetail', params: { id: orderId } })
+        }
     }
 }
 </script>
