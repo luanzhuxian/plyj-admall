@@ -260,7 +260,7 @@
             <div class="preview-box">
                 <img style="width: 100%" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/mall/2.0.0/couponPreviewHead.jpg" alt="">
                 <div class="coupon-item">
-                    <div class="wrap">
+                    <div class="coupon-item-wrap">
                         <div class="main">
                             <div class="coupon-item-left">
                                 <div class="left-top">
@@ -891,7 +891,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
-    > .wrap {
+    .coupon-item-wrap {
       position: relative;
       padding: 8px;
       background: url("https://mallcdn.youpenglai.com/static/admall/2.0.0/2f6cee93-2da9-4c28-b2fa-ac1ec3655f6a.png");
@@ -953,15 +953,17 @@ export default {
     font-size: 12px;
     color: #FFFFFF;
     .desc-time{
-      color: #414141;
+        color: #414141;
+        width: 182px;
     }
     .desc-btn{
-      background-color: #E82A4A;
-      margin-right: 5px;
-      color: #fff;
-      font-size: 12px;
-      padding: 0 4px;
-      border-radius: 8px;
+        background-color: #E82A4A;
+        width: 70px;
+        margin-right: 5px;
+        color: #fff;
+        font-size: 12px;
+        padding: 0 4px 2px;
+        border-radius: 8px;
     }
   }
   .coupon-item-right {

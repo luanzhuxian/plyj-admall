@@ -343,7 +343,7 @@
             <div class="preview-box">
                 <img style="width: 100%" src="https://mallcdn.youpenglai.com/static/admall/2.0.0/0e3506df-ff43-41e6-8bca-118f75a21613.png" alt="">
                 <div class="coupon-item">
-                    <div class="wrap">
+                    <div class="coupon-item-wrap">
                         <div class="main">
                             <div class="coupon-item-left">
                                 <div class="left-top">
@@ -1045,7 +1045,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
-    > .wrap {
+    .coupon-item-wrap {
       position: relative;
       padding: 8px;
       background: url("https://mallcdn.youpenglai.com/static/admall/2.0.0/c9d3afd5-d209-40dd-b89d-1313846d561e.png");
@@ -1106,15 +1106,17 @@ export default {
     font-size: 12px;
     color: #FFFFFF;
     .desc-time{
-      color: #414141;
+        color: #414141;
+        width: 182px;
     }
     .desc-btn{
-      background-color: #F9B20F;
-      margin-right: 5px;
-      color: #fff;
-      font-size: 12px;
-      padding: 0 4px;
-      border-radius: 8px;
+        background-color: #F9B20F;
+        width: 70px;
+        margin-right: 5px;
+        color: #fff;
+        font-size: 12px;
+        padding: 0 4px;
+        border-radius: 8px;
     }
   }
   .coupon-item-right {
