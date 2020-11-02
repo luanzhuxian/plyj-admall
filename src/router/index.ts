@@ -49,6 +49,7 @@ const NOLOGIN = [
 const NO_MALL = [
     'Home',
     'CompleteLogin',
+    'AccountSet',
     ...NOLOGIN
 ]
 // 无需进行微信授权就可以访问的页面
