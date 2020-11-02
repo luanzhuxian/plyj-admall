@@ -32,4 +32,4 @@ export const exportActivityData = params => axios.post('/apis/v2/group/buy/expor
 })
 
 // 用户分组标签
-export const getUserTagList = () => axios.post('/apis/v1/mall/label/list', {})
+export const getUserTagList = () => axios.get('/apis/v2/user/tag')

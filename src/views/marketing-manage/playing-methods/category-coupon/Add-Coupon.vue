@@ -172,7 +172,7 @@
                         </el-radio-group>
                         <div v-if="form.receiveLimit === 3" class="user-category">
                             <el-checkbox-group v-model="form.tagIds">
-                                <el-checkbox :disabled="status" v-for="(item,index) in checkListArray" :label="item.id" :key="index">
+                                <el-checkbox :disabled="status" style="width: 120px;" v-for="(item,index) in checkListArray" :label="item.id" :key="index">
                                     {{ item.tagName }}
                                 </el-checkbox>
                             </el-checkbox-group>

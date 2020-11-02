@@ -44,7 +44,7 @@
                             </el-radio-group>
                             <div class="user-box" v-if="marketingForm.receiveLimit === 3 && userTagList.length > 0">
                                 <el-checkbox-group v-model="marketingForm.userTagIdList">
-                                    <el-checkbox v-for="(item,index) in userTagList" :label="item.id" :key="index">
+                                    <el-checkbox v-for="(item,index) in userTagList" style="width: 120px;" :label="item.id" :key="index">
                                         {{ item.tagName }}
                                     </el-checkbox>
                                 </el-checkbox-group>
@@ -577,11 +577,10 @@ export default {
                 }
             }
             .user-box {
-                width: 528px;
-                padding: 10px;
-                box-sizing: border-box;
-                background: #ccc;
+                width: 500px;margin-top: 10px;
+                background-color: #eee;
                 border: 1px solid #ccc;
+                padding-left: 10px;
             }
             .detail-title {
                 display: flex;

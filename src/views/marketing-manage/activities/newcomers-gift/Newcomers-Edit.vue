@@ -113,6 +113,7 @@
                             <el-table-column
                                 type="selection"
                                 width="50"
+                                align="right"
                             />
                             <el-table-column label="优惠券类型">
                                 <template #default="{row}">
@@ -181,6 +182,7 @@
                             <el-table-column
                                 type="selection"
                                 width="50"
+                                align="right"
                             />
                             <el-table-column label="奖学金名称">
                                 新人奖学金
@@ -239,6 +241,7 @@
                             <el-table-column
                                 type="selection"
                                 width="50"
+                                align="right"
                             />
                             <el-table-column label="礼品图片">
                                 <template #default="{row}">

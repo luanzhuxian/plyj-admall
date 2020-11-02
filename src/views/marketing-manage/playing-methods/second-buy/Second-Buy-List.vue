@@ -1,6 +1,6 @@
 <template>
     <div class="together">
-        <ListHeader icon="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_second.png"
+        <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png"
                     title="秒杀"
                     description="限时抢购，引导用户消费"
                     :start-time="start"
