@@ -176,7 +176,11 @@ export default class MemberBaseInfo extends Vue {
     onChangeValue (newVal: string) {
         if (newVal) {
             this.$nextTick(() => {
-                if ((this.$refs.reference as HTMLFormElement).scrollWidth > 500) this.popoverDisabled = true
+                if ((this.$refs.reference as HTMLFormElement).scrollWidth > 500) {
+                    this.popoverDisabled = true
+                } else {
+                    this.popoverDisabled = false
+                }
             })
         }
     }

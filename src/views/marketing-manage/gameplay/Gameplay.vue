@@ -155,46 +155,47 @@
                 }"
             />
         </div>
-        <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />
-        <div :class="$style.packageContainer" @click.capture="tryTo(menuArray[0].lockStatus, '双十二疯狂同学会', $event)">
-            <SchemePack
-                name="赢取豪礼"
-                desc="邀请新用户助力，获得小礼品"
-                expired="2019.10.28-2020.01.31"
-                :count="activitiesInfo.invitingActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/赢取豪礼.png"
-                route-info="InviteNewcomersGift"
-            />
-            <SchemePack
-                name="见学之旅"
-                desc="签到小活动，点亮赢大奖"
-                expired="2019.10.28-2020.01.31"
-                :count="activitiesInfo.checkinActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/见学之旅.png"
-                route-info="RoadLearning"
-            />
-        </div>
-        <SchemeLabel :class="$style.label" name="新春开学季" content="吸粉、老客带新客，提高下单转化率" />
-        <div :class="$style.packageContainer" @click.capture="tryTo(menuArray[1].lockStatus, '新春开学季', $event)">
-            <SchemePack
-                name="我心中的年味"
-                desc="获得我的年味，即可参与抽奖有机会获得年味大礼"
-                expired="2019.12.26-2020.04.30"
-                :count="activitiesInfo.signinActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/年味.png"
-                bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"
-                route-info="YearFlavor"
-            />
-            <SchemePack
-                name="春耘计划"
-                desc="组合购买，打包商品享优惠"
-                expired="2019.12.26-2020.04.30"
-                :count="activitiesInfo.combinationActivityCount"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/春耘.png"
-                bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"
-                route-info="SpringPloughing"
-            />
-        </div>
+        <!--        双十二 新春 隐藏               -->
+        <!--        <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />-->
+        <!--        <div :class="$style.packageContainer" @click.capture="tryTo(menuArray[0].lockStatus, '双十二疯狂同学会', $event)">-->
+        <!--            <SchemePack-->
+        <!--                name="赢取豪礼"-->
+        <!--                desc="邀请新用户助力，获得小礼品"-->
+        <!--                expired="2019.10.28-2020.01.31"-->
+        <!--                :count="activitiesInfo.invitingActivityCount"-->
+        <!--                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/赢取豪礼.png"-->
+        <!--                route-info="InviteNewcomersGift"-->
+        <!--            />-->
+        <!--            <SchemePack-->
+        <!--                name="见学之旅"-->
+        <!--                desc="签到小活动，点亮赢大奖"-->
+        <!--                expired="2019.10.28-2020.01.31"-->
+        <!--                :count="activitiesInfo.checkinActivityCount"-->
+        <!--                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/见学之旅.png"-->
+        <!--                route-info="RoadLearning"-->
+        <!--            />-->
+        <!--        </div>-->
+        <!--        <SchemeLabel :class="$style.label" name="新春开学季" content="吸粉、老客带新客，提高下单转化率" />-->
+        <!--        <div :class="$style.packageContainer" @click.capture="tryTo(menuArray[1].lockStatus, '新春开学季', $event)">-->
+        <!--            <SchemePack-->
+        <!--                name="我心中的年味"-->
+        <!--                desc="获得我的年味，即可参与抽奖有机会获得年味大礼"-->
+        <!--                expired="2019.12.26-2020.04.30"-->
+        <!--                :count="activitiesInfo.signinActivityCount"-->
+        <!--                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/年味.png"-->
+        <!--                bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"-->
+        <!--                route-info="YearFlavor"-->
+        <!--            />-->
+        <!--            <SchemePack-->
+        <!--                name="春耘计划"-->
+        <!--                desc="组合购买，打包商品享优惠"-->
+        <!--                expired="2019.12.26-2020.04.30"-->
+        <!--                :count="activitiesInfo.combinationActivityCount"-->
+        <!--                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/春耘.png"-->
+        <!--                bg-img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/方案包背景.png"-->
+        <!--                route-info="SpringPloughing"-->
+        <!--            />-->
+        <!--        </div>-->
         <el-dialog top="40vh" custom-class="warn-12" width="620px" :visible.sync="dlgUnOpened">
             <div slot="title">
                 您尚未获取{{ activityName }}授权校权限，请联系您的咨询师和客服开通。
@@ -369,6 +370,7 @@ export default class Gameplay extends Vue {
 <style module lang="scss">
 
 .gameplay {
+    height: 100%;
     box-sizing: border-box;
     padding: 36px;
     overflow-y: auto;

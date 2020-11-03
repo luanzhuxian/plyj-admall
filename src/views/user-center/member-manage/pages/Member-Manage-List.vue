@@ -35,7 +35,7 @@
                     <el-option value="微信H5" label="微信H5" />
                 </el-select>
             </el-form-item>
-            <el-form-item label="购买次数：">
+            <el-form-item label="购买订单量：">
                 <el-input
                     clearable
                     size="small"

@@ -35,14 +35,14 @@
                         @check="check"
                     />
 
-                    <div class="bottom">
-                        <el-button type="primary" @click="save" v-if="showCheckbox">
-                            保存
-                        </el-button>
-                        <el-button @click="close" v-if="showCheckbox">
-                            取消
-                        </el-button>
-                    </div>
+                    <!--                    <div class="bottom">-->
+                    <!--                        <el-button type="primary" @click="save" v-if="showCheckbox">-->
+                    <!--                            保存-->
+                    <!--                        </el-button>-->
+                    <!--                        <el-button @click="close" v-if="showCheckbox">-->
+                    <!--                            取消-->
+                    <!--                        </el-button>-->
+                    <!--                    </div>-->
                 </div>
             </transition>
         </div>
@@ -155,6 +155,18 @@ export default {
                 }
             }
             this.selected = [...checkedKeys, ...halfCheckedKeys]
+
+            if (!this.selected.length) {
+                this.close()
+                return
+            }
+            this.changeNode(this.selected, this.roleList)
+            const changeTreeData = {
+                menuCode: this.selected,
+                menuTree: this.roleList
+            }
+            this.$emit('changeTree', changeTreeData)
+            // this.close()
         },
         changeNode (key, list) {
             for (const item of list) {
@@ -170,26 +182,27 @@ export default {
                     }
                 }
             }
-        },
-        async save () {
-            if (!this.selected.length) {
-                this.close()
-                return
-            }
-            this.changeNode(this.selected, this.roleList)
-            const changeTreeData = {
-                menuCode: this.selected,
-                menuTree: this.roleList
-            }
-            this.$emit('changeTree', changeTreeData)
-            this.close()
-            // try {
-            //   // await updateRolePower(data)
-            //   // this.close()
-            // } catch (e) {
-            //   throw e
-            // }
         }
+        // async save () {
+        //     if (!this.selected.length) {
+        //         this.close()
+        //         return
+        //     }
+        //     this.changeNode(this.selected, this.roleList)
+        //     const changeTreeData = {
+        //         menuCode: this.selected,
+        //         menuTree: this.roleList
+        //     }
+        //     this.$emit('changeTree', changeTreeData)
+        //     this.close()
+        //
+        //     // try {
+        //     //   // await updateRolePower(data)
+        //     //   // this.close()
+        //     // } catch (e) {
+        //     //   throw e
+        //     // }
+        // }
     }
 }
 </script>
