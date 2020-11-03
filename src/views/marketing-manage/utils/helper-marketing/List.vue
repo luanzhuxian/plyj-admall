@@ -1,142 +1,140 @@
 <template>
-    <div>
-        <div class="marketing-management">
-            <search-box>
-                <el-form-item label="搜索内容：">
-                    <el-input
-                        v-model="filterForm.keyword"
-                        placeholder="请输入活动名称"
-                        clearable
-                        @input="nameInput"
+    <div class="wrap">
+        <search-box>
+            <el-form-item label="搜索内容：">
+                <el-input
+                    v-model="filterForm.keyword"
+                    placeholder="请输入活动名称"
+                    clearable
+                    @input="nameInput"
+                />
+            </el-form-item>
+            <el-form-item label="活动状态：">
+                <el-select
+                    v-model="filterForm.activityStatus"
+                    placeholder="请选择"
+                    @change="search"
+                >
+                    <el-option
+                        key="全部"
+                        label="全部"
+                        value=""
                     />
-                </el-form-item>
-                <el-form-item label="活动状态：">
-                    <el-select
-                        v-model="filterForm.activityStatus"
-                        placeholder="请选择"
-                        @change="search"
-                    >
-                        <el-option
-                            key="全部"
-                            label="全部"
-                            value=""
-                        />
-                        <el-option
-                            key="暂停"
-                            label="暂停"
-                            value="PAUSE"
-                        />
-                        <el-option
-                            key="开启"
-                            label="开启"
-                            value="OPEN"
-                        />
-                        <el-option
-                            key="结束"
-                            label="结束"
-                            value="END"
-                        />
-                    </el-select>
-                </el-form-item>
-                <br>
-                <el-form-item>
-                    <el-button
-                        round
-                        type="primary"
-                        @click="search"
-                    >
-                        查询
-                    </el-button>
-                </el-form-item>
-            </search-box>
-            <el-button
-                round
-                type="primary"
-                @click="$router.push({name:'AddMarketing'})"
-                style="margin-top: 20px;"
-            >
-                新建活动 <i class="el-icon-plus el-icon--right" />
-            </el-button>
-            <el-table
-                :data="tableData"
-                class="mt-10"
-                stripe
-            >
-                <el-table-column
-                    prop="activityName"
-                    label="活动名称"
-                    size="small"
-                />
-                <el-table-column
-                    prop="activityStartTime"
-                    label="开始时间"
-                    width="250"
-                />
-                <el-table-column
-                    prop="activityEndTime"
-                    label="结束时间"
-                    width="250"
-                />
-                <el-table-column
-                    prop="activeObject"
-                    label="活动对象"
-                    width="150"
-                />
-                <el-table-column
-                    label="活动状态"
-                    width="120"
+                    <el-option
+                        key="暂停"
+                        label="暂停"
+                        value="PAUSE"
+                    />
+                    <el-option
+                        key="开启"
+                        label="开启"
+                        value="OPEN"
+                    />
+                    <el-option
+                        key="结束"
+                        label="结束"
+                        value="END"
+                    />
+                </el-select>
+            </el-form-item>
+            <br>
+            <el-form-item>
+                <el-button
+                    round
+                    type="primary"
+                    @click="search"
                 >
-                    <template slot-scope="scope">
-                        <span v-text="statusMap[scope.row.activityStatus]" />
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="productNum"
-                    label="已添加商品数"
-                    width="150"
-                />
-                <el-table-column
-                    label="操作"
-                    align="right"
-                    header-align="right"
-                    width="100"
-                >
-                    <template slot-scope="{ row }">
-                        <Operating>
-                            <template slot="button-box">
-                                <a
-                                    @click="$router.push({name:'EditMarketing', params:{id: row.id}})"
-                                >
-                                    编辑
-                                </a>
-                                <a
-                                    @click="changeStatus(row.id, row.activityStatus)"
-                                >
-                                    {{ row.activityStatus === 'OPEN' ? '暂停活动' : '开启活动' }}
-                                </a>
-                                <a
-                                    @click="removeActive(row.id)"
-                                >
-                                    删除
-                                </a>
-                                <!--TODO.后台暂不支持-->
-                                <!--<a
-                                    v-if="false"
-                                    @click="$router.push({name:'MarketingManageData', params:{id: row.id}})"
-                                >
-                                    查看数据
-                                </a>-->
-                            </template>
-                        </Operating>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <pagination
-                @change="getList"
-                :total="total"
-                v-model="filterForm.current"
+                    查询
+                </el-button>
+            </el-form-item>
+        </search-box>
+        <el-button
+            round
+            type="primary"
+            @click="$router.push({name:'AddMarketing'})"
+            style="margin-top: 20px;"
+        >
+            新建活动 <i class="el-icon-plus el-icon--right" />
+        </el-button>
+        <el-table
+            :data="tableData"
+            class="mt-10"
+            stripe
+        >
+            <el-table-column
+                prop="activityName"
+                label="活动名称"
+                size="small"
             />
-        </div>
+            <el-table-column
+                prop="activityStartTime"
+                label="开始时间"
+                width="250"
+            />
+            <el-table-column
+                prop="activityEndTime"
+                label="结束时间"
+                width="250"
+            />
+            <el-table-column
+                prop="activeObject"
+                label="活动对象"
+                width="150"
+            />
+            <el-table-column
+                label="活动状态"
+                width="120"
+            >
+                <template slot-scope="scope">
+                    <span v-text="statusMap[scope.row.activityStatus]" />
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="productNum"
+                label="已添加商品数"
+                width="150"
+            />
+            <el-table-column
+                label="操作"
+                align="right"
+                header-align="right"
+                width="100"
+            >
+                <template slot-scope="{ row }">
+                    <Operating>
+                        <template slot="button-box">
+                            <a
+                                @click="$router.push({name:'EditMarketing', params:{id: row.id}})"
+                            >
+                                编辑
+                            </a>
+                            <a
+                                @click="changeStatus(row.id, row.activityStatus)"
+                            >
+                                {{ row.activityStatus === 'OPEN' ? '暂停活动' : '开启活动' }}
+                            </a>
+                            <a
+                                @click="removeActive(row.id)"
+                            >
+                                删除
+                            </a>
+                            <!--TODO.后台暂不支持-->
+                            <!--<a
+                                v-if="false"
+                                @click="$router.push({name:'MarketingManageData', params:{id: row.id}})"
+                            >
+                                查看数据
+                            </a>-->
+                        </template>
+                    </Operating>
+                </template>
+            </el-table-column>
+        </el-table>
+        <pagination
+            @change="getList"
+            :total="total"
+            v-model="filterForm.current"
+        />
     </div>
 </template>
 

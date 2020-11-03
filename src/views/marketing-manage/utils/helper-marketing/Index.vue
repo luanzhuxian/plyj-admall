@@ -1,5 +1,5 @@
 <template>
-    <div class="marketingManage wrap">
+    <div>
         <keep-alive :exclude="['AddHelperMarketing']">
             <router-view />
         </keep-alive>

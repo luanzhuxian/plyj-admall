@@ -330,23 +330,23 @@
                     </div>
                 </el-form>
             </div>
-            <div class="content-btn">
-                <el-button
-                    type="default"
-                    @click="$router.push({name: 'MarketingManageList'})"
-                    style="width: 80px;"
-                >
-                    取消
-                </el-button>
-                <el-button
-                    type="primary"
-                    plain
-                    @click="submitForm"
-                    style="width: 80px;margin-left: 20px;"
-                >
-                    保存
-                </el-button>
-            </div>
+        </div>
+        <div class="add-btn-wrap">
+            <el-button
+                type="default"
+                plain
+                round
+                @click="$router.push({name: 'MarketingManageList'})"
+            >
+                取消
+            </el-button>
+            <el-button
+                type="primary"
+                round
+                @click="submitForm"
+            >
+                保存
+            </el-button>
         </div>
         <!--添加普通商品-->
         <el-dialog
@@ -423,11 +423,11 @@
                                 />
                             </el-select>
                         </el-form-item>
-                        <el-form-item style="margin: 0 0 0 60px;">
+                        <el-form-item>
                             <el-input
                                 prefix-icon="el-icon-search"
                                 placeholder="请输入商品名称"
-                                style="width: 200px;"
+                                style="width: 180px;"
                                 v-model="goodsListForm.productName"
                             />
                             <el-button
@@ -452,6 +452,7 @@
                         <el-table-column
                             type="selection"
                             width="55"
+                            align="right"
                         />
                         <el-table-column>
                             <template slot-scope="{ row }">
@@ -1146,6 +1147,7 @@ export default {
 
 <style scoped lang="scss">
   .add-marketing{
+      padding-bottom: 100px;
     .marketing-top {
       display: flex;
       align-items: center;
@@ -1168,7 +1170,9 @@ export default {
       }
     }
     .marketing-content{
+        background: #fff;
       .content-detail{
+          padding: 30px;
         ::v-deep .el-form-item__content{
           margin-left: 180px !important;
         }

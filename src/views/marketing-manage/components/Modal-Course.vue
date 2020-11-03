@@ -48,8 +48,9 @@
             >
                 <el-table-column
                     type="selection"
-                    width="60"
+                    width="55"
                     :reserve-selection="true"
+                    align="right"
                 />
                 <el-table-column
                     width="100"
