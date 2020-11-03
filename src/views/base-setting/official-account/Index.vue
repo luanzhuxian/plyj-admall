@@ -52,7 +52,7 @@ const statusPages = {
     WechatPay: ['OPEN_WECHAT_PAYMENT', 'AUDITING', 'AUTHENTICATE'],
     YajiAuth: ['AUDITING', 'AUTHENTICATE']
 }
-type PageType = 'WechatAuth' | 'WechatPay' | 'YajiAuth' | ''
+type PageType = 'WechatAuth' | 'WechatPay' | 'YajiAuth'
 
 @Component({
     components: {
@@ -62,7 +62,7 @@ type PageType = 'WechatAuth' | 'WechatPay' | 'YajiAuth' | ''
     }
 })
 export default class BindWechat extends Vue {
-    page: PageType = ''
+    page!: PageType
 
     @userModule.Getter('auditStatus') auditStatus!: string;
     @userModule.Getter('currentStep') currentStep!: number;
@@ -82,7 +82,6 @@ export default class BindWechat extends Vue {
         if (statusPages[page].includes(auditStatus)) {
             this.page = page
         }
-        console.log(auditStatus, page)
         // 微信未授权
         // if (auditStatus === 'MP_NOT_AUTHORIZED' && page === 'WechatAuth') {
         //     this.page = 'WechatAuth'
