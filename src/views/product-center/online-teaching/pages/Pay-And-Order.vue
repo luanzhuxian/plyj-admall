@@ -175,7 +175,6 @@
 <script lang='ts'>
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
-import { Route, RouteNext } from 'vue-router'
 
 import Panel from '../../../../components/common/Panel.vue'
 import Agreement from '../../../../components/register/Agreement.vue'
@@ -240,16 +239,14 @@ export default class PayAndOrder extends Vue {
     async beforeRouteEnter (to: Route, from: Route, next: RouteNext) {
         try {
             // 直播间状态
-            // result.enable：3 未开通 隐藏面包屑的互动直播
+            // result.enable：3 未开通
             const { result } = await getRoomStatus()
             to.meta.enable = result.enable
 
             const liveRouteRecord = to.matched.find(item => item.name === 'Live')
             if (liveRouteRecord && 'meta' in liveRouteRecord) {
-                liveRouteRecord.meta = {
-                    ...liveRouteRecord.meta,
-                    hide: result.enable === 1
-                }
+                // 未开通直播隐藏面包屑的互动直播
+                liveRouteRecord.meta.hide = (this.isRenew === '0' || result.enable === 3)
             }
         } catch (error) {
             throw error
