@@ -28,6 +28,22 @@
   padding: 30px 40px !important;
   background-color: #fff !important;
 }
+.add-wrap {
+  padding-bottom: 100px;
+}
+.add-btn-wrap {
+  position: fixed;
+  left: 140px;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  padding: 16px 0;
+  background: #fff;
+  text-align: center;
+  button{
+    min-width: 90px;
+  }
+}
 // 横向包裹
 .wrap-row {
   padding-left: 20px;

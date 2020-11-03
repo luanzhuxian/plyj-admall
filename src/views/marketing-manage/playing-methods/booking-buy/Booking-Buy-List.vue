@@ -1,5 +1,5 @@
 <template>
-    <div class="together">
+    <div class="wrap">
         <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png"
                     title="预购"
                     description="分批支付，提前享受"

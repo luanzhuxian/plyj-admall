@@ -238,23 +238,23 @@
                     </div>
                 </el-form-item>
             </el-form>
-            <div class="btn-box" :style="{marginTop: form.distributionMethod ? '40px': '40px'}">
-                <el-button size="mini" plain style="width: 90px;margin-left: 20px" @click="cancel">
-                    取消
-                </el-button>
-                <el-button size="mini" type="primary" plain @click="preview">
-                    预览
-                </el-button>
-                <el-button size="mini" type="primary" plain @click="save">
-                    保存
-                </el-button>
-            </div>
             <div class="newcomer-example">
                 <div class="newcomer-example-title">
                     满减券示例
                 </div>
                 <img src="https://mallcdn.youpenglai.com/static/admall/2.0.0/f7bddf63-f487-4c98-bda6-9d1057c28f70.jpeg">
             </div>
+        </div>
+        <div class="add-btn-wrap">
+            <el-button plain round @click="cancel">
+                取消
+            </el-button>
+            <el-button type="primary" plain round @click="preview">
+                预览
+            </el-button>
+            <el-button type="primary" round @click="save">
+                保存
+            </el-button>
         </div>
         <Preview :show.sync="previewShow">
             <div class="preview-box">
@@ -783,9 +783,7 @@ export default {
   }
 
   .add-product {
-    min-width: 1600px;
-    position: relative;
-    background-color: #f5f6f7;
+    padding-bottom: 100px;
   }
   /* 商品类型 */
   .pro-type {
@@ -842,6 +840,7 @@ export default {
     color: #999;
   }
   .add-content {
+      padding-bottom: 10px;
     background-color: #fff;
     .content-title {
       display: flex;

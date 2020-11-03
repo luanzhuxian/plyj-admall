@@ -1,5 +1,5 @@
 <template>
-    <div class="redeem-code wrap">
+    <div class="redeem-code">
         <!-- 作为兑换码页面的总入口文件 -->
         <router-view />
         <el-dialog title="如何创建兑换码" />
@@ -111,9 +111,6 @@ export default {
 </script>
 <style lang="scss" scoped>
   .redeem-code {
-    min-height: calc(100vh - 52px);
-    background-color: #fff;
-    padding-bottom: 30px;
     .guide-title{
       color: #333;
       font-size: 24px;

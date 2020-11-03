@@ -1,5 +1,5 @@
 <template>
-    <div class="detail">
+    <div class="detail wrap">
         <pl-tabs
             :value="$route.name"
             :tabs="[

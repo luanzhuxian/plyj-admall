@@ -130,19 +130,19 @@
                 <div class="tips">
                     （所有营销活动均不支持使用兑换码兑换）
                 </div>
-                <div class="btns">
-                    <el-button type="default" @click="cancel" style="width: 80px;">
-                        取消
-                    </el-button>
-                    <el-button
-                        type="primary"
-                        @click="submitForm('marketingForm')"
-                        style="width: 80px;margin-left: 20px;"
-                    >
-                        保存
-                    </el-button>
-                </div>
             </div>
+        </div>
+        <div class="add-btn-wrap">
+            <el-button type="default" round @click="cancel">
+                取消
+            </el-button>
+            <el-button
+                type="primary"
+                round
+                @click="submitForm('marketingForm')"
+            >
+                保存
+            </el-button>
         </div>
         <!-- 选择知识课程 -->
         <KnowledgeProduct
@@ -407,7 +407,10 @@ export default {
 
 <style scoped lang="scss">
   .add-marketing {
+      padding-bottom: 100px;
     .marketing-content {
+        background: #fff;
+        padding-bottom: 20px;
       .content-detail {
         ::v-deep .el-form-item__content {
           margin-left: 180px !important;

@@ -1,5 +1,5 @@
 <template>
-    <div class="together">
+    <div class="together wrap">
 
         <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png"
                     title="众志成团"

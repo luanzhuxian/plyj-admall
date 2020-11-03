@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="wrap">
         <div class="list-header">
             <div class="header">
-                <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.10.0/redeem_code_icon.png">
+                <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png">
                 <div>
                     <div class="font-weight-bold">兑换码</div>
                     <div class="description">{{ activityDetail.name }}</div>

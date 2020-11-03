@@ -123,26 +123,26 @@
                     </el-form-item>
                 </el-form>
             </div>
-            <div class="content-btn">
-                <el-button type="default" @click="cancel" style="width: 80px;">
-                    取消
-                </el-button>
-                <el-button
-                    type="primary"
-                    plain
-                    @click="handlePreview('marketingForm')"
-                    style="width: 80px;margin-left: 20px;"
-                >
-                    预览
-                </el-button>
-                <el-button
-                    type="primary"
-                    @click="submitForm('marketingForm')"
-                    style="width: 80px;margin-left: 20px;"
-                >
-                    保存
-                </el-button>
-            </div>
+        </div>
+        <div class="add-btn-wrap">
+            <el-button type="default" round @click="cancel">
+                取消
+            </el-button>
+            <el-button
+                type="primary"
+                round
+                plain
+                @click="handlePreview('marketingForm')"
+            >
+                预览
+            </el-button>
+            <el-button
+                type="primary"
+                round
+                @click="submitForm('marketingForm')"
+            >
+                保存
+            </el-button>
         </div>
         <GoodsPreview :show.sync="showPreview" :data="singleGoods" />
         <ProductRadio activity-type="SECKILLACTIVITY" :visible.sync="addVisible" @confirm="confirmGoods" />
@@ -419,6 +419,7 @@ export default {
 
 <style scoped lang="scss">
 .add-marketing {
+    padding-bottom: 100px;
   .marketing-top {
     display: flex;
     align-items: center;
@@ -441,7 +442,9 @@ export default {
     }
   }
   .marketing-content {
+      background: #fff;
     .content-detail {
+        padding-bottom: 20px;
       ::v-deep .el-form-item__content {
         margin-left: 180px !important;
       }

@@ -114,12 +114,11 @@
                     </div>
                 </el-form>
             </div>
-            <hr v-if="!readonly" class="hr mt-10">
-            <div v-if="!readonly" class="wrap">
-                <el-button @click="$router.push({ name: 'CoursePackageList' })">
+            <div v-if="!readonly" class="add-btn-wrap">
+                <el-button round @click="$router.push({ name: 'CoursePackageList' })">
                     取消
                 </el-button>
-                <el-button type="primary" @click="confirm">
+                <el-button type="primary" round @click="confirm">
                     确定并上架
                 </el-button>
             </div>
@@ -353,9 +352,11 @@ export default {
     &.readonly {
         padding: 0;
     }
+    padding-bottom: 100px;
 }
 .content {
     background-color: #fff;
+    padding: 0 30px;
 }
 .top {
     padding: 0 30px;

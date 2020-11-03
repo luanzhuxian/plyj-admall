@@ -1,5 +1,5 @@
 <template>
-    <div class="coupon-index wrap">
+    <div>
         <keep-alive>
             <router-view />
         </keep-alive>

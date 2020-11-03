@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrap">
         <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png"
                     title="兑换码"
                     description="支持多商品兑换，使用即可减免商品费用"

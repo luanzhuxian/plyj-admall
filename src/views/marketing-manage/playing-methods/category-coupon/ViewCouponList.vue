@@ -1,5 +1,5 @@
 <template>
-    <div class="coupon-list">
+    <div class="coupon-list wrap">
         <div class="title-box">
             <span class="title">{{ statisticsData.couponName }} -</span>
             <div class="right-box">

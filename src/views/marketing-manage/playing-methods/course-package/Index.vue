@@ -1,25 +1,27 @@
 <template>
-    <div :class="$style.coursePackage" class="wrap">
-        <ListHeader
-            v-show="$route.name !== 'AddCoursePackage' && $route.name !== 'EditCoursePackage'"
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png"
-            title="组合聚惠学"
-            :description="activityName"
-            :course-package-status="activityStatus"
-            :start-time="start"
-            :end-time="end"
-        />
-        <el-button
-            v-show="$route.name === 'CoursePackageList'"
-            type="primary"
-            round
-            @click="$router.push({ name: 'AddCoursePackage' })"
-        >
-            新建活动 <i class="el-icon-plus" />
-        </el-button>
-        <el-button type="text" @click="explainFlag = true" v-show="$route.name === 'CoursePackageList'">
-            活动说明
-        </el-button>
+    <div :class="$style.coursePackage">
+        <div style="background: #fff; padding: 30px 30px 0">
+            <ListHeader
+                v-show="$route.name !== 'AddCoursePackage' && $route.name !== 'EditCoursePackage'"
+                icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png"
+                title="组合聚惠学"
+                :description="activityName"
+                :course-package-status="activityStatus"
+                :start-time="start"
+                :end-time="end"
+            />
+            <el-button
+                v-show="$route.name === 'CoursePackageList'"
+                type="primary"
+                round
+                @click="$router.push({ name: 'AddCoursePackage' })"
+            >
+                新建活动 <i class="el-icon-plus" />
+            </el-button>
+            <el-button type="text" @click="explainFlag = true" v-show="$route.name === 'CoursePackageList'">
+                活动说明
+            </el-button>
+        </div>
         <keep-alive :exclude="exclude">
             <router-view />
         </keep-alive>

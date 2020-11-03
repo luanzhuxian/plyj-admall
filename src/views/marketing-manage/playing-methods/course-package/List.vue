@@ -242,6 +242,7 @@ export default {
 .list {
     background-color: #fff;
     min-height: 80vh;
+    padding: 1px 30px 0;
 }
 .popver {
     line-height: 30px;

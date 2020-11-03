@@ -1,5 +1,5 @@
 <template>
-    <div class="coupon-list">
+    <div class="coupon-list wrap">
         <!--        支持发放满减券的发放，用户在商城购买商品满足一定金额，可抵扣优惠金额<br>-->
         <!--        例如：设置满2000减200元的满减券，则用户在商城购买只要满足支付2000元<br>-->
         <!--        的金额，即可立即减免200元的金额，即用户只需支付1800元即可下单成功。-->
@@ -217,10 +217,10 @@
                 :sizes="true"
             />
         </div>
-        <!--TODO: 暂时隐藏
+        <!--TODO: 暂时隐藏 -->
         <div class="guide-add" v-if="guideStatus">
             <img :src="`https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/img_step${guideStatus}.jpg`" alt="" @click="guideNext">
-        </div>-->
+        </div>
     </div>
 </template>
 

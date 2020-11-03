@@ -1,5 +1,5 @@
 <template>
-    <div class="together">
+    <div class="together wrap">
         <div class="list-header">
             <div class="header">
                 <img width="48" class="mr-10" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png">

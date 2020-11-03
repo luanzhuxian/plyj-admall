@@ -1,6 +1,6 @@
 <template>
-    <div class="add-product">
-        <div class="add-content">
+    <div class="add-content">
+        <div class="wrap">
             <div class="content-title" id="basic" ref="basic">
                 基本信息
                 <div style="margin-left: 20px" class="purchase-sort-description">
@@ -321,23 +321,23 @@
                     </div>
                 </el-form-item>
             </el-form>
-            <div class="btn-box" :style="{marginTop: form.distributionMethod ? '40': '40'}">
-                <el-button size="mini" plain style="width: 90px;margin-left: 20px" @click="cancel">
-                    取消
-                </el-button>
-                <el-button size="mini" type="primary" plain @click="preview">
-                    预览
-                </el-button>
-                <el-button size="mini" type="primary" plain @click="save">
-                    保存
-                </el-button>
-            </div>
             <div class="newcomer-example">
                 <div class="newcomer-example-title">
                     品类券示例
                 </div>
                 <img src="https://mallcdn.youpenglai.com/static/admall/2.0.0/ba5e52bc-8df0-4390-813f-a01dc5efd781.jpeg">
             </div>
+        </div>
+        <div class="add-btn-wrap" :style="{marginTop: form.distributionMethod ? '40': '40'}">
+            <el-button plain round @click="cancel">
+                取消
+            </el-button>
+            <el-button type="primary" plain round @click="preview">
+                预览
+            </el-button>
+            <el-button type="primary" round @click="save">
+                保存
+            </el-button>
         </div>
         <Preview :show.sync="previewShow">
             <div class="preview-box">
@@ -911,6 +911,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+    .add-content{
+        padding-bottom: 100px;
+    }
   .flex-align {
     display: flex;
     align-items: center;
@@ -934,12 +937,6 @@ export default {
     color: #598bf8;
     font-size: 12px;
     text-decoration-line: underline;
-  }
-
-  .add-product {
-    min-width: 1600px;
-    position: relative;
-    background-color: #f5f6f7;
   }
   /* 商品类型 */
   .pro-type {
@@ -997,9 +994,7 @@ export default {
     font-size: 14px;
     color: #999;
   }
-  .add-content {
-      background-color: #fff;
-    .content-title {
+  .content-title {
       display: flex;
       align-items: center;
       margin-bottom: 24px;
@@ -1008,17 +1003,12 @@ export default {
       font-size: 14px;
       font-weight: bold;
       background-color: #fbfbfb;
-    }
-    .user-category{
+  }
+  .user-category{
       width: 500px;margin-top: 10px;
       background-color: #eee;
       border: 1px solid #ccc;
       padding-left: 10px;
-    }
-    .btn-box {
-      border-top: 1px solid #e7e7e7;
-      padding: 24px;
-    }
   }
 
   .newcomer-example{

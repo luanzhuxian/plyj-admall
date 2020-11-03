@@ -63,7 +63,7 @@
                 </el-form-item>
             </el-form>
         </div>
-        <div class="btn-box">
+        <div class="add-btn-wrap">
             <el-button round @click="cancel">
                 取消
             </el-button>

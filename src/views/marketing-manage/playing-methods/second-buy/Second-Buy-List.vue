@@ -1,5 +1,5 @@
 <template>
-    <div class="together">
+    <div class="together wrap">
         <ListHeader icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png"
                     title="秒杀"
                     description="限时抢购，引导用户消费"
