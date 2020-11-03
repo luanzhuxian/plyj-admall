@@ -149,8 +149,8 @@
                                         <el-table-column property="goodsName" label="商品名称" />
                                         <el-table-column property="count" label="商品数量" />
                                         <el-table-column label="商品规格">
-                                            <template #default="{ row_ }">
-                                                {{ row_.sku }}<span v-if="row_.subSku">,</span>{{ row_.subSku }}
+                                            <template>
+                                                {{ row.sku }}<span v-if="row.subSku">,</span>{{ row.subSku }}
                                             </template>
                                         </el-table-column>
                                     </el-table>
