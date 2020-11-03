@@ -238,6 +238,7 @@ export default class PayAndOrder extends Vue {
 
     async beforeRouteEnter (to: Route, from: Route, next: RouteNext) {
         try {
+            const { isRenew } = to.params
             // 直播间状态
             // result.enable：3 未开通
             const { result } = await getRoomStatus()
@@ -246,7 +247,7 @@ export default class PayAndOrder extends Vue {
             const liveRouteRecord = to.matched.find(item => item.name === 'Live')
             if (liveRouteRecord && 'meta' in liveRouteRecord) {
                 // 未开通直播隐藏面包屑的互动直播
-                liveRouteRecord.meta.hide = (this.isRenew === '0' || result.enable === 3)
+                liveRouteRecord.meta.hide = (isRenew === '0' || result.enable === 3)
             }
         } catch (error) {
             throw error
