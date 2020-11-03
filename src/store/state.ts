@@ -45,6 +45,7 @@ export default {
         VIDEO_GOODS: '录播课'
     },
     orderStatus: {
+        ALL_ORDER: '全部订单',
         NEW: '待提交',
         WAIT_PAY: '待支付',
         WAIT_SHIP: '待发货',
@@ -60,7 +61,8 @@ export default {
         // 待收货的待退款
         WAIT_RECEIVE_REFUND: '待退款',
         // 订单完成的待退款
-        FINISHED_REFUND: '待退款'
+        FINISHED_REFUND: '待退款',
+        WAIT_PAY_TAIL_MONEY: '待付尾款'
     },
     // 不允许支付的商城
     theMallForbiddenPay: [
