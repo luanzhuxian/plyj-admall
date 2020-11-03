@@ -75,7 +75,7 @@ export default {
     },
     methods: {
         async nav () {
-            const auditStatus = this.auditStatus
+            const { auditStatus } = this
             // 微信未授权
             if (auditStatus === 'MP_NOT_AUTHORIZED') {
                 this.page = 'WechatAuth'
@@ -84,7 +84,7 @@ export default {
             }
             // 已授权，但是未开通支付
             if (auditStatus === 'OPEN_WECHAT_PAYMENT') {
-                this.page = 'Wechat'
+                this.page = 'WechatPay'
                 // await this.$router.replace({ name: 'Wechat', query: this.$route.query })
                 return
             }
