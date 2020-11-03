@@ -59,7 +59,7 @@
                         管理权限:
                     </div>
                     <div class="font-16">
-                        <el-button type="text" @click="viewTree" v-if="canEdit">
+                        <el-button type="text" @click="viewTree" v-if="canEdit || (selfEdit && currentRoleCode === 'ADMIN')">
                             查看
                         </el-button>
                     </div>
@@ -191,6 +191,8 @@ import { createObjectUrl } from '../../../../assets/ts/upload'
 import { Vue, Component } from 'vue-property-decorator'
 import ChangeOwnerDialog from '../../../user-center/helper-manage/components/Change-Owner-Dialog.vue'
 import { LocalEnum } from '../../../../enum/storage'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
 @Component({
     components: {
         RoleTree,
@@ -317,6 +319,9 @@ export default class AccountDetail extends Vue {
 
             selfEdit = false
             canEdit = false
+
+            @userModule.Getter('currentRoleCode') currentRoleCode!: string
+
             async created () {
                 await this.getAccountList()
                 const query = JSON.parse(localStorage.getItem(LocalEnum.editAccount) || '')
