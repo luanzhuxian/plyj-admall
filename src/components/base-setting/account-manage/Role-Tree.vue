@@ -155,18 +155,7 @@ export default {
                 }
             }
             this.selected = [...checkedKeys, ...halfCheckedKeys]
-
-            if (!this.selected.length) {
-                this.close()
-                return
-            }
-            this.changeNode(this.selected, this.roleList)
-            const changeTreeData = {
-                menuCode: this.selected,
-                menuTree: this.roleList
-            }
-            this.$emit('changeTree', changeTreeData)
-            // this.close()
+            this.save()
         },
         changeNode (key, list) {
             for (const item of list) {
@@ -182,27 +171,27 @@ export default {
                     }
                 }
             }
+        },
+        async save () {
+            if (!this.selected.length) {
+                // this.close()
+                return
+            }
+            this.changeNode(this.selected, this.roleList)
+            const changeTreeData = {
+                menuCode: this.selected,
+                menuTree: this.roleList
+            }
+            this.$emit('changeTree', changeTreeData)
+            // this.close()
+
+            // try {
+            //   // await updateRolePower(data)
+            //   // this.close()
+            // } catch (e) {
+            //   throw e
+            // }
         }
-        // async save () {
-        //     if (!this.selected.length) {
-        //         this.close()
-        //         return
-        //     }
-        //     this.changeNode(this.selected, this.roleList)
-        //     const changeTreeData = {
-        //         menuCode: this.selected,
-        //         menuTree: this.roleList
-        //     }
-        //     this.$emit('changeTree', changeTreeData)
-        //     this.close()
-        //
-        //     // try {
-        //     //   // await updateRolePower(data)
-        //     //   // this.close()
-        //     // } catch (e) {
-        //     //   throw e
-        //     // }
-        // }
     }
 }
 </script>

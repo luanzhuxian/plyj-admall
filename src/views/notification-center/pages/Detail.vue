@@ -1,6 +1,5 @@
 <template>
     <div class="detail">
-        <top-back />
         <div class="detail-box">
             <div class="title1">
                 {{ detail.title }}
