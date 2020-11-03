@@ -100,15 +100,6 @@ export default {
             throw e
         }
     },
-    async beforeRouteUpdate (to, from, next) {
-        next()
-        try {
-            await this.setAuthCode()
-            await this.getWexinInfo()
-        } catch (e) {
-            throw e
-        }
-    },
     methods: {
         ...mapActions([MutationTypes.wechatPayStatus, MutationTypes.agencyUserInfo]),
         async auth (flag) {
