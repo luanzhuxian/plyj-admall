@@ -121,7 +121,7 @@
                 label="订单状态"
             >
                 <template #default="{ row }">
-                    <span v-text="orderStatus[row.orderStatus]" />
+                    {{ row.orderStatus === 'WAIT_RECEIVE' && (row.orderType === 'VIRTUAL_GOODS' || row.orderType === 'FORMAL_CLASS' || row.orderType === 'EXPERIENCE_CLASS') ? '待使用' : orderStatus[row.orderStatus] }}
                 </template>
             </el-table-column>
             <el-table-column
