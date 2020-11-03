@@ -146,7 +146,8 @@ export default {
             }
             // 寻找同级别中的必选项，并自动选中
             if (parent) {
-                const must = parent.data.children.filter(item => Number(item.status) === 0)
+                const nodes = parent.level ? parent.data.children : parent.data[0].children
+                const must = nodes.filter(item => Number(item.status) === 0)
                 if (must.length) {
                     for (const m of must) {
                         tree.setChecked(m.aclCode, true)
