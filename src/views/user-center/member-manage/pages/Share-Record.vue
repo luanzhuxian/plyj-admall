@@ -83,9 +83,12 @@
                 label="产品名称"
             />
             <el-table-column
-                prop="categoryName"
                 label="产品类型"
-            />
+            >
+                <template #default="{ row }">
+                    <span v-text="productTypeMap[row.orderType]" />
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="orderNumber"
                 label="数量"
@@ -264,7 +267,7 @@ export default class MemberShareRecord extends Vue {
     @Prop({ type: Array }) orderType!: DynamicObject[]
     @Prop({ type: Array }) orderStatusMap!: DynamicObject[]
     @State('orderStatus') orderStatus!: DynamicObject
-
+    @State('productTypeMap') productTypeMap!: DynamicObject
     async activated () {
         this.isHelper = Number(this.$route.query.isHelper) === 1
         await this.search()

@@ -83,7 +83,6 @@
                 label="产品名称"
             />
             <el-table-column
-                prop="categoryName"
                 label="产品类型"
             >
                 <template #default="{ row }">
