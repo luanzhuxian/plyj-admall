@@ -291,7 +291,7 @@
                     />
                     <el-table-column
                         prop="purchasesNumber"
-                        label="购买次数"
+                        label="购买订单量"
                     />
                     <el-table-column label="支付总额（元）" width="120">
                         <template #default="{ row }">
