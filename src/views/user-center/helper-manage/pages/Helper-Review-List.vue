@@ -328,7 +328,11 @@ export default class HelperReviewList extends Vue {
   async batchAudit () {
       try {
           await this.$confirm('您确定通过所选用户的申请吗')
-          updateBrokerStatus({ ids: this.currentSelect, status: 'PASS', reviewContent: '' })
+          const ids = []
+          for (const { id } of this.currentSelect) {
+              ids.push(id)
+          }
+          updateBrokerStatus({ ids, status: 'PASS', reviewContent: '' })
           await this.getList()
       } catch (e) {
           if (e) throw e
