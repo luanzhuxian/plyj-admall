@@ -253,7 +253,7 @@ export default class MemberShareRecord extends Vue {
         payStartTime: '',
         payEndTime: '',
         orderStatus: '',
-        helper: false,
+        helper: true,
         dateRange: 3
     }
 

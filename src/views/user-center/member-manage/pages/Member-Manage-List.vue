@@ -761,37 +761,43 @@ export default class MemberManageList extends Vue {
 
   async exportList () {
       await (this.$refs.exportForm as HTMLFormElement).validate()
-      // let keys: string[] = []
+      let keys: string[] = []
       //  1 注册 2 登录 3 购买
       switch (this.exportData.dateType) {
-          // case 1: keys = ['dateType', 'dateRange', 'loginStartTime', 'loginEndTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
-          //     break
+          case 1: keys = ['dateType', 'dateRange', 'loginStartTime', 'loginEndTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
+              break
           case 2: {
-              // keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
+              keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'lastPurchaseStartTime', 'lastPurchaseEndTime']
               this.exportData.loginStartTime = this.exportData.startTime
               this.exportData.loginEndTime = this.exportData.endTime
               break
           }
           case 3: {
-              // keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'loginStartTime', 'loginEndTime']
+              keys = ['dateType', 'dateRange', 'startTime', 'endTime', 'loginStartTime', 'loginEndTime']
               this.exportData.lastPurchaseStartTime = this.exportData.startTime
               this.exportData.lastPurchaseEndTime = this.exportData.endTime
               break
           }
       }
-      // console.log(keys)
-      // for (const item of keys) {
-      //     delete this.exportData[item]
-      // }
-      if (this.exportData.purchasesMinAmount) this.exportData.purchasesMinAmount = Number(this.exportData.purchasesMinAmount) * 100
-      if (this.exportData.purchasesMaxAmount) this.exportData.purchasesMaxAmount = Number(this.exportData.purchasesMaxAmount) * 100
-      const blob = await exportMemberQuery(this.exportData)
-      const url = createObjectUrl(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `会员列表${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
-      a.click()
-      this.showExport = false
+
+      const form = JSON.parse(JSON.stringify(this.exportData))
+      for (const item of keys) {
+          delete form[item]
+      }
+
+      if (form.purchasesMinAmount) form.purchasesMinAmount = Number(form.purchasesMinAmount) * 100
+      if (form.purchasesMaxAmount) form.purchasesMaxAmount = Number(form.purchasesMaxAmount) * 100
+      try {
+          const blob = await exportMemberQuery(form)
+          const url = createObjectUrl(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = `会员列表${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+          a.click()
+          this.showExport = false
+      } catch (e) {
+          throw e
+      }
   }
 
   async getMemberData () {
