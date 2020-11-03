@@ -2,7 +2,7 @@
     <div class="together">
         <div class="together-data-top">
             <div class="together-title">
-                <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/marketing-gameplay/icon_together.png">
+                <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png">
                 众志成团
             </div>
             <div class="activity-status">
