@@ -163,7 +163,7 @@
                     </h2>
                 </el-menu-item>
 
-                <el-menu-item index="999" :router="false" @click="showGuid = true" :class="$style.guid">
+                <el-menu-item index="" @click="showGuid = true" :class="$style.guid">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-tishi-e4fa1"
