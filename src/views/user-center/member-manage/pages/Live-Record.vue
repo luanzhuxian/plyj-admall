@@ -205,7 +205,7 @@
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
 import {
-    exportMemberQuery,
+    exportLiveQuery,
     getLiveWatchList
 } from '../../../../apis/member'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
@@ -325,7 +325,7 @@ export default class MemberLiveRecord extends Vue {
 
     async exportList () {
         await (this.$refs.exportForm as HTMLFormElement).validate()
-        const blob = await exportMemberQuery(this.exportData)
+        const blob = await exportLiveQuery(this.exportData)
         const url = createObjectUrl(blob)
         const a = document.createElement('a')
         a.href = url

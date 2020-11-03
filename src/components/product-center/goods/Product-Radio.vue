@@ -10,7 +10,7 @@
         class="product-selector"
     >
         <el-form
-            :inline="true"
+            inline
             :model="goodsListForm"
         >
             <el-form-item>
@@ -49,18 +49,18 @@
                     @change="getGoodsList(1)"
                 />
             </el-form-item>
-            <el-form-item style="margin: 0 0 0 60px;">
+            <el-form-item>
                 <el-input
                     prefix-icon="el-icon-search"
                     placeholder="请输入商品名称"
-                    style="width: 200px;"
+                    style="width: 180px;"
                     v-model="goodsListForm.searchContent"
                     @change="getGoodsList(1)"
                     clearable
                 />
                 <el-button
                     type="primary"
-                    style="width: 98px;margin-left: 28px;"
+                    style="margin-left: 10px;"
                     @click="getGoodsList(1)"
                 >
                     查询

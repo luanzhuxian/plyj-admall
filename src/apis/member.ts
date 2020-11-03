@@ -66,6 +66,22 @@ export const exportMemberQuery = (params: any): Promise<Blob> => axios.get(
     }
 )
 
+// 直播观看进度
+export const exportWatchQuery = (params: any): Promise<Blob> => axios.post('/apis/v2/course/watch/record/excel', params, {
+    timeout: 0,
+    responseType: 'blob'
+})
+
+// 直播观看记录
+export const exportLiveQuery = (params: any): Promise<Blob> => axios.get(
+    '/apis/v2/live/visitor/download',
+    {
+        timeout: 0,
+        responseType: 'blob',
+        params
+    }
+)
+
 /**
  * 订单列表-导出用户订单列表
  * @param params {object}

@@ -161,7 +161,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import {
-    exportMemberQuery,
+    exportWatchQuery,
     getLineLearningList
 } from '../../../../apis/member'
 import { Prop, Component } from 'vue-property-decorator'
@@ -204,8 +204,7 @@ export default class MemberOnlineProgress extends Vue {
         mallUserId: '',
         keyword: '',
         courseType: '',
-        courseCategory: '',
-        dateRange: 3
+        courseCategory: ''
     }
 
     @Prop() userId!: string
@@ -262,7 +261,7 @@ export default class MemberOnlineProgress extends Vue {
 
     changeExportLineLearningList () {
         for (const item of Object.keys(this.exportData)) {
-            if (item !== 'dateRange') this.exportData[item] = this.lineLearningListForm[item]
+            this.exportData[item] = this.lineLearningListForm[item]
         }
         this.showExport = true
     }
@@ -272,15 +271,14 @@ export default class MemberOnlineProgress extends Vue {
             mallUserId: '',
             keyword: '',
             courseType: '',
-            courseCategory: '',
-            dateRange: 3
+            courseCategory: ''
         }
         this.showExport = false
     }
 
     async exportList () {
         await (this.$refs.exportForm as HTMLFormElement).validate()
-        const blob = await exportMemberQuery(this.exportData)
+        const blob = await exportWatchQuery(this.exportData)
         const url = createObjectUrl(blob)
         const a = document.createElement('a')
         a.href = url

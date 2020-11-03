@@ -88,7 +88,7 @@
                 </el-form-item>
                 <el-form-item>
                     <div slot="label">
-                        可领取礼品<span class="red">*</span>
+                        <span class="red">*</span>可领取礼品
                     </div>
                     <div class="form-item-setting">
                         新人有礼活动可赠送优惠券、奖学金和礼品，可根据实际情况进行组合赠送<br>用户满足条件即可一键获取已添加的新人优惠大礼包。

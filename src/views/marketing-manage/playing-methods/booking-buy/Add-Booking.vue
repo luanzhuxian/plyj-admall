@@ -168,7 +168,6 @@
                         <el-input
                             style="width: 120px;"
                             :maxlength="8"
-                            v-range="{min:0.01,fixed:2}"
                             v-model="marketingForm.price"
                             :disabled="activityStatus === 1"
                         /> 元
@@ -249,6 +248,12 @@ export default {
         ProductRadio
     },
     data () {
+        const checkPrice = (rule, value, callBack) => {
+            if (Number(value) < 0.01) {
+                callBack(new Error('秒杀价格最低为0.01'))
+            }
+            callBack()
+        }
         return {
             id: '',
             type: '',
@@ -290,7 +295,8 @@ export default {
             singleGoods: null,
             rules: {
                 price: [
-                    { required: true, message: '请添加定金价位', trigger: 'blur' }
+                    { required: true, message: '请添加定金价位', trigger: 'blur' },
+                    { validator: checkPrice, trigger: 'blur' }
                 ],
                 brief: [
                     { required: true, message: '请添加活动备注', trigger: 'blur' }
@@ -566,9 +572,6 @@ export default {
 <style scoped lang="scss">
     .marketing-content {
         padding-bottom: 100px;
-        ::v-deep .el-form-item__content {
-            margin-left: 180px !important;
-        }
         ::v-deep .el-form-item {
             margin-bottom: 32px;
             .el-form-item__label {

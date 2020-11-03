@@ -29,8 +29,8 @@
                 </el-form-item>
                 <el-form-item>
                     <span slot="label">
-                        <span>适用方式</span>
                         <span class="red">*</span>
+                        <span>适用方式</span>
                     </span>
                     <div class="man-l20">
                         <el-radio v-model="form.applicableGoods" :label="0">
@@ -44,8 +44,8 @@
                 </div>
                 <el-form-item>
                     <span slot="label">
-                        <span>领取方式</span>
                         <span class="red">*</span>
+                        <span>领取方式</span>
                         <el-tooltip class="item" effect="dark" placement="bottom">
                             <div slot="content">
                                 自行领取：用户可在商品详情页或领取<br>
@@ -69,8 +69,8 @@
                 </el-form-item>
                 <el-form-item v-if="!form.distributionMethod">
                     <span slot="label">
-                        <span>适用用户</span>
                         <span class="red">*</span>
+                        <span>适用用户</span>
                     </span>
                     <div class="man-l20">
                         <el-radio-group v-model="form.receiveLimit">
@@ -112,8 +112,8 @@
                 </el-form-item>
                 <el-form-item v-if="!form.distributionMethod && !status" label-width="170px">
                     <span slot="label">
-                        <span>领取时间</span>
                         <span class="red">*</span>
+                        <span>领取时间</span>
                     </span>
                     <el-date-picker
                         v-model="receiveDaterange"
@@ -131,8 +131,8 @@
                 </el-form-item>
                 <el-form-item v-if="!form.distributionMethod && status" label-width="170px">
                     <span slot="label">
-                        <span>领取时间</span>
                         <span class="red">*</span>
+                        <span>领取时间</span>
                     </span>
                     <el-date-picker
                         :disabled="true"
@@ -154,8 +154,8 @@
 
                 <el-form-item v-if="!status" label-width="170px">
                     <span slot="label">
-                        <span>用券时间</span>
                         <span class="red">*</span>
+                        <span>用券时间</span>
                     </span>
                     <el-date-picker
                         v-model="useDaterange"
@@ -174,8 +174,8 @@
 
                 <el-form-item v-else label-width="170px">
                     <span slot="label">
-                        <span>用券时间</span>
                         <span class="red">*</span>
+                        <span>用券时间</span>
                     </span>
                     <el-date-picker
                         :disabled="true"
@@ -217,8 +217,8 @@
                 </div>
                 <el-form-item>
                     <span slot="label">
-                        <span>使用限制</span>
                         <span class="red">*</span>
+                        <span>使用限制</span>
                     </span>
                     <div class="man-l20">
                         <el-radio-group v-model="form.scholarship">
