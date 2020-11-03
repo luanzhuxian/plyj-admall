@@ -22,7 +22,7 @@
                 <div :class="$style.progressCircleDisabled" v-else />
                 <div :class="$style.text" class="bing-wechat-step">
                     <div :class="$style.title">开通微信支付 <div :class="$style.line + ' ' + $style.two" /></div>
-                    <div class="tip">微信认证服务号授权给雅集</div>
+                    <div class="tip">填写信息完成认证开通支付功能</div>
                 </div>
             </div>
 
@@ -33,7 +33,7 @@
                 <div :class="$style.progressCircleDisabled" v-else />
                 <div :class="$style.text" class="bing-wechat-step">
                     <div :class="$style.title">雅集认证</div>
-                    <div class="tip">微信认证服务号授权给雅集</div>
+                    <div class="tip">人工审核后即可完成雅集认证</div>
                 </div>
             </div>
         </div>
