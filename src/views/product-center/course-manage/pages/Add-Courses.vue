@@ -1070,8 +1070,8 @@ export default {
                     }
                 ]
                 this.$router.replace({ name: 'AddCourses' })
-                document.querySelector('.main-container').scrollTo(0, 0)
-                this.$router.replace({ name: 'AddCourses' })
+                document.querySelector('.add-product').scrollTo(0, 0)
+                // this.$router.replace({ name: 'AddCourses' })
             } catch (e) {
                 // 处理失败自定义表单
                 this.processResCustomDate(this.form)
@@ -1296,7 +1296,7 @@ export default {
         }
     },
     beforeRouteLeave (to, from, next) {
-        if (to.name !== 'AddCourses' && to.name !== 'DraftBoxCourses' && to.name !== 'MyCourses' && to.name !== 'OrgIndex') {
+        if (to.name !== 'AddCourses' && to.name !== 'DraftBoxCourses' && to.name !== 'MyCourses' && to.name !== 'OrgIndex' && to.name !== 'Home') {
             this.$confirm({
                 title: '确定离开该页面吗？',
                 message: '请确定您所作的修改已经保存！'

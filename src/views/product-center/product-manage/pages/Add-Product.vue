@@ -1285,7 +1285,7 @@ export default {
                     }
                 ]
                 this.$router.replace({ name: 'AddProduct' })
-                // document.querySelector('.main-container').scrollTo(0, 0)
+                document.querySelector('.add-product').scrollTo(0, 0)
                 // this.$router.replace({ name: 'AddProduct' })
             } catch (e) {
                 // 处理失败自定义表单
@@ -1578,7 +1578,7 @@ export default {
         }
     },
     beforeRouteLeave (to, from, next) {
-        if (to.name !== 'AddProduct' && to.name !== 'MyGoods' && to.name !== 'OrgIndex') {
+        if (to.name !== 'AddProduct' && to.name !== 'MyGoods' && to.name !== 'OrgIndex' && to.name !== 'Home') {
             this.$confirm({
                 title: '确定离开该页面吗？',
                 message: '请确定您所作的修改已经保存！'
