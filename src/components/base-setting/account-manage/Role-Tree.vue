@@ -24,15 +24,15 @@
 
                     <el-tree
                         class="tree"
-                        size="mini"
-                        @check="check"
                         ref="tree"
+                        size="mini"
                         :data="roleList"
                         :default-expand-all="true"
+                        :default-checked-keys="defaultSelected"
                         node-key="aclCode"
                         :show-checkbox="showCheckbox"
-                        :default-checked-keys="defaultSelected"
                         :props="defaultProps"
+                        @check="check"
                     />
 
                     <div class="bottom">
@@ -134,8 +134,8 @@ export default {
             }
         },
         check (currentData, allChecked) {
-            console.log(this.$refs.tree.getNode(currentData))
-            const tree = this.$refs.tree
+            // console.log(this.$refs.tree.getNode(currentData))
+            const { tree } = this.$refs
             const { checkedKeys, halfCheckedKeys } = allChecked
             const currentNode = tree.getNode(currentData)
             const parent = currentNode.parent

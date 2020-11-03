@@ -119,6 +119,7 @@
             :visible.sync="visible"
             :tree-list="menuTree"
             :show-checkbox="!query.selfEdit || query.canEdit"
+            :role-code="currentRoleCode"
             @changeTree="changeTree"
         />
     </div>
@@ -166,15 +167,6 @@ export default class AddAccount extends Vue {
         accountRole: [
             { required: true, message: '请选择角色', trigger: 'blur' }
         ]
-    }
-
-    converRoleCode = {
-        ADMIN: '高级管理员',
-        EMPLOYEE: '子账号',
-        HELPER: 'Helper',
-        MEMBERSHIP: '普通会员',
-        ENTERPRISE_ADMIN: '企业管理管理员',
-        VISITOR: '游客'
     }
 
     visible = false
@@ -232,16 +224,21 @@ export default class AddAccount extends Vue {
             position: result.position,
             userId: result.userId
         }
-        const item = result.menuTree[0].children[0]
-        this.disableItem(item)
+        // 找到必选的一级节点
+        const defaultSelectedNodes = result.menuTree[0].children.filter((node: { status: number }) => node.status === 0)
+        if (defaultSelectedNodes.length) {
+            for (const node of defaultSelectedNodes) {
+                this.disableItem(node)
+            }
+        }
         this.menuTree = result.menuTree
     }
 
     disableItem (item: any) {
         item.disabled = true
         if (item.children && item.children.length > 0) {
-            for (const c of item.children) {
-                this.disableItem(c)
+            for (const child of item.children) {
+                this.disableItem(child)
             }
         }
     }

@@ -27,3 +27,20 @@ export enum LocalEnum {
     // 账号管理-编辑
     editAccount = 'EDIT_ACCOUNT'
 }
+
+export enum RoleEnum {
+    // 超级管理员
+    superAdmin = 'SUPER_ADMIN',
+    // 企业级管理
+    enterpriseAdmin = 'ENTERPRISE_ADMIN',
+    // 高级管理员
+    admin = 'ADMIN',
+    // 子账号
+    employee = 'EMPLOYEE',
+    // Helper
+    helper = 'HELPER',
+    // 普通会员
+    menmbership = 'MEMBERSHIP',
+    // 游客
+    visitor = 'VISITOR'
+}
