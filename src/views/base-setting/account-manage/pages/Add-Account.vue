@@ -224,14 +224,28 @@ export default class AddAccount extends Vue {
             position: result.position,
             userId: result.userId
         }
+        this.setDefaultNode(result.menuTree[0])
+        this.menuTree = result.menuTree
+    }
+
+    async getEmployeeDefaultFun () {
+        const res = await getEmployeeDefault()
+        this.setDefaultNode(res.result[0])
+        // res.result[0].children[0] && (res.result[0].children[0].disabled = true)
+        // res.result[0].children[0].children[0] && (res.result[0].children[0].children[0].disabled = true)
+        // res.result[0].children[0].children[1] && (res.result[0].children[0].children[1].disabled = true)
+        // res.result[0].children[0].children[2] && (res.result[0].children[0].children[2].disabled = true)
+        this.menuTree = res.result
+    }
+
+    setDefaultNode (tree: { children: any[] }) {
         // 找到必选的一级节点
-        const defaultSelectedNodes = result.menuTree[0].children.filter((node: { status: number }) => node.status === 0)
+        const defaultSelectedNodes = tree.children.filter((node: { status: number }) => node.status === 0)
         if (defaultSelectedNodes.length) {
             for (const node of defaultSelectedNodes) {
                 this.disableItem(node)
             }
         }
-        this.menuTree = result.menuTree
     }
 
     disableItem (item: any) {
@@ -341,15 +355,6 @@ export default class AddAccount extends Vue {
                 }
             }
         }
-    }
-
-    async getEmployeeDefaultFun () {
-        const res = await getEmployeeDefault()
-        res.result[0].children[0] && (res.result[0].children[0].disabled = true)
-        res.result[0].children[0].children[0] && (res.result[0].children[0].children[0].disabled = true)
-        res.result[0].children[0].children[1] && (res.result[0].children[0].children[1].disabled = true)
-        res.result[0].children[0].children[2] && (res.result[0].children[0].children[2].disabled = true)
-        this.menuTree = res.result
     }
 }
 
