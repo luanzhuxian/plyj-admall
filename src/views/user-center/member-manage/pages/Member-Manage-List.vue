@@ -130,10 +130,7 @@
         </SearchBox>
         <div class="member-info">
             <!-- 左侧标签列表 -->
-            <div
-                ref="tag-list"
-                class="tag-list"
-            >
+            <div ref="tag-list" class="tag-list">
                 <div class="tag-list-top">
                     <template v-if="!isShowTagSearch">
                         <el-button icon="el-icon-plus" @click="editTag" style="color: #333333; border-radius: 20px;">
@@ -198,7 +195,6 @@
                         </div>
                     </template>
                 </pl-tree>
-
                 <div class="category-drop-tip">
                     <i>（拖动即可调整同级分类的顺序）</i>
                 </div>
@@ -1080,6 +1076,8 @@ export default class MemberManageList extends Vue {
         height: 800px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         background-color: #F5F5F5;
+        display: flex;
+        flex-direction: column;
         overflow: auto;
 
         .tag-list-top {
@@ -1087,7 +1085,7 @@ export default class MemberManageList extends Vue {
             align-items: center;
             justify-content: space-between;
             height: 61px;
-            padding: 0 16px;
+            padding: 16px;
             border-bottom: 1px solid #ddd;
             .el-icon-search {
                 font-size: 16px;
@@ -1139,6 +1137,7 @@ export default class MemberManageList extends Vue {
         .category-drop-tip {
             height: 100px;
             margin-top: 50px;
+            margin-bottom: 50px;
             padding: 100px 20px 0;
             text-align: center;
             color: #4C88D6;
