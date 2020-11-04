@@ -4,6 +4,7 @@
         <SearchBox>
             <el-form-item label="关键字：">
                 <el-input
+                    style="width: 230px"
                     clearable
                     @change="search"
                     placeholder="请输入订单号/产品名称/分享人"
@@ -34,6 +35,7 @@
             </el-form-item>
             <el-form-item label="订单状态：">
                 <el-select
+                    style="width: 230px"
                     v-model="shareListForm.orderStatus"
                     @change="search"
                     clearable
