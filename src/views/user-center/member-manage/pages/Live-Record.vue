@@ -169,7 +169,7 @@
                         <el-option :value="'private'" label="私享课" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="直播时间" prop="liveWatchStartTime">
+                <el-form-item label="直播时间" prop="liveStartTime">
                     <el-radio-group @change="exportRangeChange" v-model="exportData.dateRange">
                         <el-radio :label="1">
                             7日内
@@ -189,7 +189,7 @@
                         :disabled-start-time="exportData.dateRange !== 3"
                         :disabled-end-time="exportData.dateRange !== 3"
                         disable-after
-                        :init="exportData.liveWatchStartTime ? [exportData.liveWatchStartTime,exportData.liveWatchEndTime] : []"
+                        :init="exportData.liveStartTime ? [exportData.liveStartTime,exportData.liveEndTime] : []"
                         :clearable="true"
                         @change="exportDatechange"
                         range-separator="至"
@@ -226,7 +226,7 @@ export default class MemberLiveRecord extends Vue {
         keyword: '',
         liveMode: '',
         liveType: '',
-        liveWatchStartTime: '',
+        liveStartTime: '',
         liveWatchEndTime: ''
     }
 
@@ -237,13 +237,13 @@ export default class MemberLiveRecord extends Vue {
         keyword: '',
         liveMode: '',
         liveType: '',
-        liveWatchStartTime: '',
+        liveStartTime: '',
         liveWatchEndTime: '',
         dateRange: 3
     }
 
     exportRules = {
-        liveWatchStartTime: [
+        liveStartTime: [
             { required: true, message: '请选择时间', trigger: 'blur' }
         ]
     }
@@ -280,8 +280,8 @@ export default class MemberLiveRecord extends Vue {
 
     async formatLiveWatchListTimeRange ({ start, end }: DynamicObject) {
         try {
-            this.liveWatchListForm.liveWatchStartTime = start
-            this.liveWatchListForm.liveWatchEndTime = end
+            this.liveWatchListForm.liveStartTime = start
+            this.liveWatchListForm.liveEndTime = end
             await this.search()
         } catch (e) {
             throw e
@@ -296,9 +296,10 @@ export default class MemberLiveRecord extends Vue {
             keyword: '',
             liveMode: '',
             liveType: '',
-            liveWatchStartTime: '',
-            liveWatchEndTime: ''
+            liveStartTime: '',
+            liveEndTime: ''
         }
+        this.$refs.dateRange.clear()
         await this.getLiveWatchList()
     }
 
@@ -315,8 +316,8 @@ export default class MemberLiveRecord extends Vue {
             keyword: '',
             liveMode: '',
             liveType: '',
-            liveWatchStartTime: '',
-            liveWatchEndTime: '',
+            liveStartTime: '',
+            liveEndTime: '',
             dateRange: 3
         };
         (this.$refs.exportForm as ElForm).clearValidate()
@@ -352,13 +353,13 @@ export default class MemberLiveRecord extends Vue {
                 end: end && `${ moment(end).format(formatType) } 23:59:59`
             })
         } else {
-            this.exportData.liveWatchStartTime = ''
+            this.exportData.liveStartTime = ''
             this.exportData.liveWatchEndTime = ''
         }
     }
 
     async exportDatechange ({ start, end }: DynamicObject) {
-        this.exportData.liveWatchStartTime = start
+        this.exportData.liveStartTime = start
         this.exportData.liveWatchEndTime = end
         if (!start || !end) {
             return
