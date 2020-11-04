@@ -1,9 +1,9 @@
 <template>
     <div :class="$style.phoneLogin">
-        <img @click="$router.push({name:'WxLogin'})" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
+        <img @click="$router.replace({name:'WxLogin'})" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/QRLogin.png" alt="">
         <div :class="$style.loginType">
             <div :class="$style.typePassword">密码登录</div>
-            <div :class="$style.typeCode" @click="$router.push({name:'PhoneLogin'})">验证码登录</div>
+            <div :class="$style.typeCode" @click="$router.replace({name:'PhoneLogin'})">验证码登录</div>
         </div>
         <div :class="$style.accountMessage">
             <el-form
@@ -37,8 +37,8 @@
                 登录
             </el-button>
             <div :class="$style.register">
-                <el-button type="text" @click="$router.push({name:'ForgetPassword'})"><span :class="$style.c999">忘记密码</span></el-button>
-                <el-button type="text" @click="$router.push({name:'Register'})"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
+                <el-button type="text" @click="$router.replace({name:'ForgetPassword'})"><span :class="$style.c999">忘记密码</span></el-button>
+                <el-button type="text" @click="$router.replace({name:'Register'})"><span :class="$style.c999">还没注册？</span>立即注册</el-button>
             </div>
         </div>
     </div>

@@ -67,8 +67,9 @@ const render = async () => {
     const getters = store.getters
     const dispatch = store.dispatch
     const token = getters['user/token']
+    const agencyCode = getters['user/agencyCode']
     const categoryTree = getters['goods/categoryTree']
-    if (token) {
+    if (token && agencyCode) {
         await dispatch(`user/${ MutationTypes.setLoginInfo }`)
         await dispatch(`user/${ MutationTypes.getAgencyList }`)
         await dispatch(`user/${ MutationTypes.getAllMallInfo }`)

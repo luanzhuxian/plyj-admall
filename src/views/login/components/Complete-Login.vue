@@ -56,7 +56,9 @@ import { namespace } from 'vuex-class'
 import { testAccount } from '@/assets/ts/validate'
 import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
-
+Component.registerHooks([
+    'beforeRouteLeave'
+])
     @Component({
         components: {
             Agreement
@@ -123,6 +125,11 @@ export default class CompleteLogin extends Vue {
             } finally {
                 this.loading = false
             }
+        }
+
+        async beforeRouteLeave (to: any, from: any, next: any) {
+            if (!this.isComplete) await this.logout()
+            next()
         }
 
         async beforeDestroy () {

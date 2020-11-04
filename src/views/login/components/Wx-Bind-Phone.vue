@@ -34,7 +34,7 @@
                 登录
             </el-button>
             <div :class="$style.register">
-                <el-button type="text" @click="$router.push({name:'WxBindPassword'})">账号绑定</el-button>
+                <el-button type="text" @click="$router.replace({name:'WxBindPassword'})">账号绑定</el-button>
                 <el-button type="text" @click="goLogin()">已有账号，马上跳转登陆</el-button>
             </div>
         </div>
@@ -110,7 +110,7 @@ export default class WxBindPhone extends Vue {
 
         goLogin () {
             this.clearCode()
-            this.$router.push({ name: 'PhoneLogin' })
+            this.$router.replace({ name: 'PhoneLogin' })
         }
 
         clearCode () {
