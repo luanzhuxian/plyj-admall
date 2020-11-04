@@ -59,7 +59,7 @@ export default {
         },
         sizeChange (size) {
             this.$emit('update:size', size)
-            this.$emit('size-change', size)
+            this.$emit('sizeChange', size)
         }
     }
 }
