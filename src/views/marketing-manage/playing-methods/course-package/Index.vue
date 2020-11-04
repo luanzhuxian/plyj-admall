@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.coursePackage">
-        <div style="background: #fff; padding: 30px 30px 0">
+        <div style="background: #fff; padding: 30px 30px 1px">
             <ListHeader
                 v-show="$route.name !== 'AddCoursePackage' && $route.name !== 'EditCoursePackage'"
                 icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png"

@@ -113,7 +113,14 @@ export default {
   }
 }
 .download {
-    display: inline-block;width: 140px;height: 34px;line-height: 34px;background-color: #598bf8;border: 1px solid #598bf8;color: #fff;text-align: center;
+    display: inline-block;
+    width: 140px;
+    height: 34px;
+    line-height: 34px;
+    background-color: #4F63FF;
+    border: 1px solid #4F63FF;
+    color: #fff;
+    text-align: center;
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="detail wrap">
+    <div :class="$style.detail">
         <pl-tabs
             :value="$route.name"
             :tabs="[
@@ -33,7 +33,8 @@ export default {
 </script>
 
 <style module lang="scss">
-  .content {
-    background-color: #fff;
+  .detail {
+    background: #fff;
+      padding: 0 30px 30px;
   }
 </style>
