@@ -102,17 +102,6 @@
                 :render="(h, props) => h(tag, { props })"
             />
         </TemplatePreview>
-        <el-dialog custom-class="warn-12" top="40vh" width="620px" :visible.sync="showAlertModal">
-            <div slot="title">
-                <span v-if="modalType === 'EXPIRED'">该主会场模板已过期，不可使用，请选择其他主会场模板吧~</span>
-                <span v-if="modalType === 'UNPAID'">{{ `参与${modalText}的用户，请联系您的城市经理和客服开通使用权限。` }}</span>
-            </div>
-            <div slot="footer">
-                <el-button @click="showAlertModal = false">
-                    朕知道了
-                </el-button>
-            </div>
-        </el-dialog>
     </div>
 </template>
 
@@ -406,9 +395,6 @@ export default class MallThemes extends Vue {
     double12LockStatus = 3 // 双十二权限
     xinchunLockStatus = 3 // 新春权限
     dragonGateLockStatus = 3 // 龙门节权限
-    showAlertModal = false // 提醒弹窗
-    modalText = ''
-    modalType = '' // 'EXPIRED': 过期 'UNPAID': 未开启活动
 
     /* computed */
     @mall.Getter('currentHomeType') currentHomeType!: number // 当前首页模板类型
@@ -552,44 +538,52 @@ export default class MallThemes extends Vue {
 
     // 检查是否有模板使用权限
     check (item: Template) {
+        // 双十二
         if (item.type === TemplateTypes.TemplateDouble12) {
-            // if (this.double12LockStatus === 1) {
-            //     return item
-            // }
-            // this.modalText = '双十二'
-            // this.modalType = this.double12LockStatus === 2 ? 'EXPIRED' : 'UNPAID'
-            // this.showAlertModal = true
-            return item
+            if (this.double12LockStatus === 1) {
+                return item
+            }
+
+            const modalText = this.double12LockStatus === 2
+                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+                : '参与双十二的用户，请联系您的城市经理和客服开通使用权限。'
+            this.$confirm({
+                title: modalText,
+                confirmButtonText: '朕知道了',
+                showCancelButton: false
+            })
         }
+        // 新春
         if (item.type === TemplateTypes.TemplateXinChun) {
             if (this.xinchunLockStatus === 1) {
                 return item
             }
-            this.modalText = '新春'
-            this.modalType = this.xinchunLockStatus === 2 ? 'EXPIRED' : 'UNPAID'
-            this.showAlertModal = true
+
+            const modalText = this.xinchunLockStatus === 2
+                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+                : '参与新春的用户，请联系您的城市经理和客服开通使用权限。'
+            this.$confirm({
+                title: modalText,
+                confirmButtonText: '朕知道了',
+                showCancelButton: false
+            })
         }
+        // 龙门节
         if (item.type === TemplateTypes.TemplateDragonGate) {
             if (this.dragonGateLockStatus === 1) {
                 return item
             }
-            this.modalText = '龙门节'
-            this.modalType = this.dragonGateLockStatus === 2 ? 'EXPIRED' : 'UNPAID'
-            this.showAlertModal = true
+
+            const modalText = this.dragonGateLockStatus === 2
+                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+                : '参与龙门节的用户，请联系您的城市经理和客服开通使用权限。'
+            this.$confirm({
+                title: modalText,
+                confirmButtonText: '朕知道了',
+                showCancelButton: false
+            })
         }
         return false
-    }
-
-    compose (...fns: Function[]) {
-        return (...args: any) => fns.reduceRight((val, fn) => fn.apply(null, [].concat(val)), args)
-    }
-
-    asyncCompose (...fns: Function[]) {
-        return (...args: any) => fns.reduceRight(async (promise, fn) => {
-            const val = await promise
-            const result = await fn.apply(null, [].concat(val))
-            return result
-        }, Promise.resolve(args))
     }
 
     // 皮肤是否过期
@@ -614,6 +608,18 @@ export default class MallThemes extends Vue {
         } catch (error) {
             throw error
         }
+    }
+
+    compose (...fns: Function[]) {
+        return (...args: any) => fns.reduceRight((val, fn) => fn.apply(null, [].concat(val)), args)
+    }
+
+    asyncCompose (...fns: Function[]) {
+        return (...args: any) => fns.reduceRight(async (promise, fn) => {
+            const val = await promise
+            const result = await fn.apply(null, [].concat(val))
+            return result
+        }, Promise.resolve(args))
     }
 
     // 换肤
@@ -656,16 +662,6 @@ export default class MallThemes extends Vue {
 }
 </script>
 
-<style lang="scss">
-.warn-12 {
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 24px;
-    .el-dialog__body {
-        padding: 0;
-    }
-}
-</style>
 <style module lang="scss">
 .mall-themes {
     min-height: calc(100vh - 160px);
