@@ -72,21 +72,21 @@
             <el-table-column
                 prop="exchangeCodeTotal"
                 label="生成兑换码数"
-                width="100"
+                width="120"
             />
             <el-table-column
                 prop="activeTotal"
                 label="激活兑换码数"
-                width="100"
+                width="120"
             />
             <el-table-column
                 prop="useExchangeCodeTotal"
                 label="已使用兑换码数"
-                width="110"
+                width="120"
             />
             <el-table-column
                 label="适用商品"
-                width="115"
+                width="120"
             >
                 <template #default="scope">
                     {{ scope.row.productList.length }}
@@ -98,7 +98,7 @@
             <el-table-column
                 prop="useTotal"
                 label="已兑换商品数量"
-                width="110"
+                width="120"
             />
             <el-table-column
                 prop="userTotal"
