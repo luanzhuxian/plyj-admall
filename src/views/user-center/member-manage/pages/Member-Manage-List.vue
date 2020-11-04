@@ -17,7 +17,7 @@
                     @change="search"
                     placeholder="请输入用户昵称/真实姓名/手机号"
                     v-model.trim="form.keyword"
-                    style="width: 254px;"
+                    style="width: 282px;"
                 />
             </el-form-item>
             <el-form-item label="注册时间：">
@@ -39,7 +39,7 @@
                 <el-input
                     clearable
                     size="small"
-                    style="width: 116px"
+                    style="width: 130px"
                     type="number"
                     @change="search"
                     placeholder="请输入订单量"
@@ -49,7 +49,7 @@
                 <el-input
                     clearable
                     size="small"
-                    style="width: 116px"
+                    style="width: 130px"
                     type="number"
                     @change="search"
                     placeholder="请输入订单量"
@@ -80,7 +80,7 @@
                 <el-input
                     clearable
                     size="small"
-                    style="width: 116px"
+                    style="width: 130px"
                     @change="search"
                     type="number"
                     placeholder="请输入金额"
@@ -90,7 +90,7 @@
                 <el-input
                     clearable
                     size="small"
-                    style="width: 116px"
+                    style="width: 130px"
                     type="number"
                     @change="search"
                     placeholder="请输入金额"
@@ -390,7 +390,7 @@
                             @change="checkPurchasesNumber('export')"
                             clearable
                             size="small"
-                            style="width: 116px"
+                            style="width: 130px"
                             type="number"
                             placeholder="请输入订单量"
                             v-model.number="exportData.purchasesMinNumber"
@@ -400,7 +400,7 @@
                             @change="checkPurchasesNumber('export')"
                             clearable
                             size="small"
-                            style="width: 116px"
+                            style="width: 130px"
                             type="number"
                             placeholder="请输入订单量"
                             v-model.number="exportData.purchasesMaxNumber"
@@ -411,7 +411,7 @@
                             @change="checkPurchasesAmount('export')"
                             clearable
                             size="small"
-                            style="width: 116px"
+                            style="width: 130px"
                             type="number"
                             placeholder="请输入金额"
                             v-model="exportData.purchasesMinAmount"
@@ -421,7 +421,7 @@
                             @change="checkPurchasesAmount('export')"
                             clearable
                             size="small"
-                            style="width: 116px"
+                            style="width: 130px"
                             type="number"
                             placeholder="请输入金额"
                             v-model="exportData.purchasesMaxAmount"
