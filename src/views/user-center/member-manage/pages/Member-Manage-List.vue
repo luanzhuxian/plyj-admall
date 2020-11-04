@@ -42,7 +42,7 @@
                     style="width: 116px"
                     type="number"
                     @change="search"
-                    placeholder="请输入次数"
+                    placeholder="请输入订单量"
                     v-model.number="form.purchasesMinNumber"
                 />
                 至
@@ -52,7 +52,7 @@
                     style="width: 116px"
                     type="number"
                     @change="search"
-                    placeholder="请输入次数"
+                    placeholder="请输入订单量"
                     v-model.number="form.purchasesMaxNumber"
                 />
             </el-form-item>
@@ -385,14 +385,14 @@
                             <el-option value="HELPER" label="Helper" />
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="购买次数：">
+                    <el-form-item label="购买订单量：">
                         <el-input
                             @change="checkPurchasesNumber('export')"
                             clearable
                             size="small"
                             style="width: 116px"
                             type="number"
-                            placeholder="请输入次数"
+                            placeholder="请输入订单量"
                             v-model.number="exportData.purchasesMinNumber"
                         />
                         至
@@ -402,7 +402,7 @@
                             size="small"
                             style="width: 116px"
                             type="number"
-                            placeholder="请输入次数"
+                            placeholder="请输入订单量"
                             v-model.number="exportData.purchasesMaxNumber"
                         />
                     </el-form-item>
