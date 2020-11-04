@@ -50,6 +50,7 @@
                 <el-input
                     v-model="filterForm.keyword"
                     placeholder="请输入兑换码/使用人/电话"
+                    style="width: 220px;"
                     clearable
                 />
             </el-form-item>
