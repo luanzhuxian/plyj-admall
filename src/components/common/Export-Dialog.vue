@@ -17,10 +17,10 @@
         <slot />
 
         <div :class="$style.footer">
-            <el-button @click="close">
+            <el-button round @click="close">
                 取消
             </el-button>
-            <el-button @click="confirm" type="primary">
+            <el-button round @click="confirm" type="primary">
                 确定导出
             </el-button>
         </div>
