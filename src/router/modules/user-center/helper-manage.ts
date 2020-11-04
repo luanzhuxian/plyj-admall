@@ -33,7 +33,7 @@ export default [
                 name: 'HelperDetail',
                 component: () => import('../../../views/user-center/helper-manage/pages/Helper-Detail.vue'),
                 meta: {
-                    title: 'Helper详情',
+                    title: 'Helper审核详情',
                     index: '3-2-3'
                 }
             },
