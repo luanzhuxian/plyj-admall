@@ -52,6 +52,7 @@ const userModule = namespace('user')
 
     @Component({ components: { GetCode } })
 export default class WxBindPhone extends Vue {
+        toName = ''
         form = {
             mobile: '',
             identifyingCode: ''
@@ -117,6 +118,15 @@ export default class WxBindPhone extends Vue {
             sessionStorage.removeItem(SessionEnum.redirectCode)
             sessionStorage.removeItem(SessionEnum.redirectState)
             sessionStorage.removeItem(SessionEnum.loginState)
+        }
+
+        beforeRouteLeave (to: any, from: any, next: any): void {
+            this.toName = to.name
+            next()
+        }
+
+        destroyed (): void {
+            if (this.toName !== 'WxBindPhone' && this.toName !== 'WxBindPassword' && this.toName !== 'RegisterAccount') this.clearCode()
         }
 }
 </script>

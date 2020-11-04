@@ -51,6 +51,7 @@ const userModule = namespace('user')
 
 @Component
 export default class WxBindPassword extends Vue {
+        toName = ''
         form = {
             account: '',
             password: ''
@@ -107,6 +108,15 @@ export default class WxBindPassword extends Vue {
             sessionStorage.removeItem(SessionEnum.redirectCode)
             sessionStorage.removeItem(SessionEnum.redirectState)
             sessionStorage.removeItem(SessionEnum.loginState)
+        }
+
+        beforeRouteLeave (to: any, from: any, next: any): void {
+            this.toName = to.name
+            next()
+        }
+
+        destroyed (): void {
+            if (this.toName !== 'WxBindPhone' && this.toName !== 'WxBindPassword' && this.toName !== 'RegisterAccount') this.clearCode()
         }
 }
 </script>

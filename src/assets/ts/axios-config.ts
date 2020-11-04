@@ -112,7 +112,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         await router.push({ name: 'PhoneLogin' })
         return Promise.reject(false)
     }
-    if (data.code === EXCEPTION_CODE) {
+    if (data.code >= EXCEPTION_CODE) {
         if (data && data.password) data.password = '******'
         const { devMessage = '', message = '' } = data
         const { method, url, data: reqData, params } = config
