@@ -15,8 +15,6 @@ import {
 import {
     register,
     getWechatPaytStatus
-    // getUpgradeStatus,
-    // getVstatus
 } from '../../apis/base/register'
 import { resetForm } from '../../assets/ts/utils'
 import Cookie from '../../assets/ts/storage-cookie'
@@ -193,13 +191,12 @@ const user: Module<DynamicObject, DynamicObject> = {
             const container = new Map()
             const getMenuName = (menuList: Array<any>) => {
                 for (const item of menuList) {
-                    if (!item.checked) {
-                        continue
+                    if (item.checked) {
+                        if (item.routePath && item.checked) {
+                            container.set(item.routePath, item.aclCode)
+                        }
+                        item.children.length ? getMenuName(item.children) : item.children = null
                     }
-                    if (item.routePath) {
-                        container.set(item.routePath, item.aclCode)
-                    }
-                    item.children.length ? getMenuName(item.children) : item.children = null
                 }
             }
             getMenuName(menus)
@@ -295,7 +292,7 @@ const user: Module<DynamicObject, DynamicObject> = {
         },
 
         // 切换商城, 在 GET_AGENCY_LIST 之后调用
-        async selectMall  ({ commit, state, rootState }) {
+        async selectMall ({ commit, state, rootState }) {
             const { mallId, agencyCode } = await selectMall(state.agencyList, rootState.roleMap)
             if (mallId !== state.mallId) {
                 commit(MutationTypes.setCurrentAgency, {

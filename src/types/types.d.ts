@@ -13,7 +13,7 @@ declare global {
         props?: boolean;
         redirect?: string;
         component?: () => Promise<any>;
-        matched?: RouteConfig[],
+        matched?: RouteConfig[];
         meta?: {
             // 路由标题
             title?: string;
