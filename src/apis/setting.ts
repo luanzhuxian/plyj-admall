@@ -12,7 +12,7 @@ export const deleteReminder = id => axios.delete(`/apis/v1/agency/reminder/${ id
 export const editReminder = ({ id, data }) => axios.put(`/apis/v1/agency/reminder/${ id }`, data)
 
 // 获取权限树
-export const getAllRolesByCode = roleCode => axios.patch(`/apis/v1/menu/role/${ roleCode }`)
+export const getAllRolesByCode = roleCode => axios.patch(`/apis/v2/menu/role/${ roleCode }`)
 
 // 修改店铺名称
 export const mendShopName = params => axios.put('/apis/v1/agency/AgencyMall/mallName/modified', null, { params })
