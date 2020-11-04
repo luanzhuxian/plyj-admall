@@ -14,6 +14,7 @@ export default [
                 name: 'MyCourses',
                 component: () => import('../../../views/product-center/course-manage/pages/My-Courses.vue'),
                 meta: {
+                    title: '列表',
                     index: '2-3-1'
                 }
             },

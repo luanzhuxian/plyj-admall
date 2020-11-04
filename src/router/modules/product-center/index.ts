@@ -10,7 +10,8 @@ export default [
         component: () => import('../../../views/product-center/Index.vue'),
         meta: {
             title: '产品中心',
-            index: '2'
+            index: '2',
+            noClick: true
         },
         children: [
             ...importFiles(context),

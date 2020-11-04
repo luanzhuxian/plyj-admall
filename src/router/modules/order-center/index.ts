@@ -5,7 +5,8 @@ export default [
         component: () => import('../../../views/order-manage/Index.vue'),
         meta: {
             title: '订单中心',
-            index: '4'
+            index: '4',
+            noClick: true
         },
         children: [
             {

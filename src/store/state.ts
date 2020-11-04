@@ -10,7 +10,6 @@ export default {
     bindWechatInfo,
     // 微信绑定二维码样式文件
     weChatStyle: 'https://mallcdn.youpenglai.com/static/admall-new/weChatLoginStyle/index.css',
-    childRoute: null,
     productType: [
         {
             label: '全部',
