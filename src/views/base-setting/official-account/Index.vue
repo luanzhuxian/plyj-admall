@@ -47,12 +47,12 @@ import YajiAuth from './pages/Yaji-Auth.vue'
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')
-const statusPages = {
-    WechatAuth: ['MP_NOT_AUTHORIZED', 'OPEN_WECHAT_PAYMENT', 'AUDITING', 'AUTHENTICATE'],
-    WechatPay: ['OPEN_WECHAT_PAYMENT', 'AUDITING', 'AUTHENTICATE'],
-    YajiAuth: ['AUDITING', 'AUTHENTICATE']
-}
 type PageType = 'WechatAuth' | 'WechatPay' | 'YajiAuth'
+const statusPages: Map<string[], PageType> = new Map([
+    [['MP_NOT_AUTHORIZED', 'OPEN_WECHAT_PAYMENT', 'AUDITING', 'AUTHENTICATE'], 'WechatAuth'],
+    [['OPEN_WECHAT_PAYMENT', 'AUDITING', 'AUTHENTICATE'], 'WechatPay'],
+    [['AUDITING', 'AUTHENTICATE'], 'YajiAuth']
+])
 
 @Component({
     components: {
@@ -62,7 +62,7 @@ type PageType = 'WechatAuth' | 'WechatPay' | 'YajiAuth'
     }
 })
 export default class BindWechat extends Vue {
-    page!: PageType
+    page: PageType = 'WechatAuth'
 
     @userModule.Getter('auditStatus') auditStatus!: string;
     @userModule.Getter('currentStep') currentStep!: number;
@@ -73,69 +73,27 @@ export default class BindWechat extends Vue {
     }
 
     async created () {
-        await this.nav('WechatAuth')
+        // 根据注册状态切换到不同的页面
+        const { auditStatus } = this
+        for (const statusKeys of [...statusPages.keys()].reverse()) {
+            if (statusKeys.includes(auditStatus)) {
+                this.nav(statusPages.get(statusKeys) as PageType)
+                break
+            }
+        }
     }
 
     // methods
-    async nav (page: PageType) {
+    nav (page: PageType) {
         const { auditStatus } = this
-        if (statusPages[page].includes(auditStatus)) {
-            this.page = page
+        for (const statusPage of statusPages) {
+            if (statusPage.includes(page) && statusPage[0].includes(auditStatus)) {
+                this.page = page
+                break
+            }
         }
-        // 微信未授权
-        // if (auditStatus === 'MP_NOT_AUTHORIZED' && page === 'WechatAuth') {
-        //     this.page = 'WechatAuth'
-        //     await this.$router.replace({ name: 'WechatAuth', query: this.$route.query })
-        // }
-        // 已授权
-        // if (auditStatus === 'OPEN_WECHAT_PAYMENT' && page === 'WechatPay') {
-        //     this.page = 'WechatPay'
-        // await this.$router.replace({ name: 'Wechat', query: this.$route.query })
-        // }
-        // 已开通支付
-        // if ((auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') && page === 'YajiAuth') {
-        //     this.page = 'YajiAuth'
-        // await this.$router.replace({ name: 'YajiAuthenticate', query: this.$route.query })
-        // }
     }
 }
-
-// export default {
-//     computed: {
-//         ...mapGetters({
-//             auditStatus: 'user/auditStatus',
-//             wechatPayStatus: 'user/wechatPayStatus',
-//             currentStep: 'user/currentStep'
-//         }),
-//         applymentState () {
-//             return this.wechatPayStatus.applymentState
-//         }
-//     },
-//     async created () {
-//         await this.nav('WechatAuth')
-//     },
-//     methods: {
-//         async nav (page) {
-//             const { auditStatus } = this
-//             console.log(auditStatus, page)
-//             // 微信未授权
-//             if (auditStatus === 'MP_NOT_AUTHORIZED' && page === 'WechatAuth') {
-//                 this.page = 'WechatAuth'
-//                 // await this.$router.replace({ name: 'WechatAuth', query: this.$route.query })
-//             }
-//             // 已授权
-//             if (auditStatus === 'OPEN_WECHAT_PAYMENT' && page === 'WechatPay') {
-//                 this.page = 'WechatPay'
-//                 // await this.$router.replace({ name: 'Wechat', query: this.$route.query })
-//             }
-//             // 已开通支付
-//             if ((auditStatus === 'AUDITING' || auditStatus === 'AUTHENTICATE') && page === 'YajiAuth') {
-//                 this.page = 'YajiAuth'
-//                 // await this.$router.replace({ name: 'YajiAuthenticate', query: this.$route.query })
-//             }
-//         }
-//     }
-// }
 </script>
 
 <style module lang="scss">
