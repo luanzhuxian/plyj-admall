@@ -137,6 +137,7 @@ import TemplateBaofa from '../components/templates/Template-Baofa.vue'
 import TemplateFanchang from '../components/templates/Template-Fanchang.vue'
 import TemplateXinchun from '../components/templates/Template-Xinchun.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
+import TemplateDouble12 from '../components/templates/Template-Double-12.vue'
 import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
@@ -147,31 +148,30 @@ import { Template, TemplateSkinModel } from '../utils/types'
 
 const mall = namespace('mall')
 
-const templateModels = [
-    {
-        category: 'template',
-        type: -1,
-        img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/0f6361c5-9706-4cfe-9417-5018ca8dd83f.png',
-        isHover: false,
-        isFree: true,
-        charge: '免费',
-        expire: '永久使用'
-    }, {
-        category: 'template',
-        type: 3,
-        img: 'https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/add-product-example/template/template-top-2.png',
-        isHover: false,
-        isFree: true,
-        charge: '免费',
-        expire: '永久使用'
-    }, {
-        category: 'template',
-        type: 4,
-        img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-4.png',
-        isHover: false,
-        isFree: true,
-        charge: '免费',
-        expire: '永久使用'
+const templateModels = [{
+    category: 'template',
+    type: -1,
+    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/0f6361c5-9706-4cfe-9417-5018ca8dd83f.png',
+    isHover: false,
+    isFree: true,
+    charge: '免费',
+    expire: '永久使用'
+}, {
+    category: 'template',
+    type: 3,
+    img: 'https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/add-product-example/template/template-top-2.png',
+    isHover: false,
+    isFree: true,
+    charge: '免费',
+    expire: '永久使用'
+}, {
+    category: 'template',
+    type: 4,
+    img: 'http://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/template-top-4.png',
+    isHover: false,
+    isFree: true,
+    charge: '免费',
+    expire: '永久使用'
     // }, {
     //     category: 'template',
     //     type: 5,
@@ -196,168 +196,173 @@ const templateModels = [
     //     isFree: false,
     //     charge: '已过期',
     //     expire: '2019.12.31'
-    }, {
-        category: 'template',
-        type: 8,
-        img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/f70ba451-dbc1-4efe-9530-82ab5d94896b.png',
-        isHover: false,
-        isFree: false,
-        charge: '已过期',
-        expire: '2020.03.31'
-    }, {
-        category: 'template',
-        type: 9,
-        img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/template-d.jpg',
-        isHover: false,
-        isFree: false,
-        charge: '免费',
-        expire: '永久使用'
-    }, {
-        category: 'template',
-        type: 10,
-        img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/template-top.jpg',
-        isHover: false,
-        isFree: false,
-        charge: '已过期',
-        expire: '2020.08.31'
-    }
-]
+}, {
+    category: 'template',
+    type: 8,
+    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/f70ba451-dbc1-4efe-9530-82ab5d94896b.png',
+    isHover: false,
+    isFree: false,
+    charge: '已过期',
+    expire: '2020.03.31'
+}, {
+    category: 'template',
+    type: 9,
+    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/template-d.jpg',
+    isHover: false,
+    isFree: false,
+    charge: '免费',
+    expire: '永久使用'
+}, {
+    category: 'template',
+    type: 10,
+    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/dragon-gate/template-top.jpg',
+    isHover: false,
+    isFree: false,
+    charge: '已过期',
+    expire: '2020.08.31'
+}, {
+    category: 'template',
+    type: 11,
+    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/template-top.png',
+    isHover: false,
+    isFree: false,
+    charge: '双十二用户可用',
+    expire: '2020.12.31'
+}]
 
-const skinModels = [
-    {
-        category: 'skin',
-        skinId: 1,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/5974a66e-2638-4023-b520-441d776feba7.jpeg',
-        isHover: false,
-        templateName: '圣诞皮肤'
-    }, {
-        category: 'skin',
-        skinId: 2,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/2a7871e3-d5d7-4801-ab2d-86cf7b532418.jpeg',
-        isHover: false,
-        templateName: '元旦皮肤'
-    }, {
-        category: 'skin',
-        skinId: 3,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/2d8b1945-12d4-4bca-aacc-0e0ce9a8af5e.jpeg',
-        isHover: false,
-        templateName: '新春皮肤'
-    }, {
-        category: 'skin',
-        skinId: 4,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/cf839390-03a3-43dc-8ec3-9bddbb40daa4.jpeg',
-        isHover: false,
-        templateName: '小年皮肤'
-    }, {
-        category: 'skin',
-        skinId: 5,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/2ae956b0-5490-4ba4-a836-e21a4768e470.png',
-        isHover: false,
-        templateName: '元宵皮肤'
-    }, {
-        category: 'skin',
-        skinId: 6,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-women-day.jpg',
-        isHover: false,
-        templateName: '妇女节皮肤'
-    }, {
-        category: 'skin',
-        skinId: 7,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-nnf.jpg',
-        isHover: false,
-        templateName: '年年翻皮肤'
-    }, {
-        category: 'skin',
-        skinId: 8,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-earth-day.jpg',
-        isHover: false,
-        templateName: '世界地球日皮肤'
-    }, {
-        category: 'skin',
-        skinId: 9,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-labour-day.jpg',
-        isHover: false,
-        templateName: '劳动节皮肤'
-    }, {
-        category: 'skin',
-        skinId: 10,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-mothers-day.jpg',
-        isHover: false,
-        templateName: '母亲节皮肤'
-    }, {
-        category: 'skin',
-        skinId: 11,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-children-day.jpg',
-        isHover: false,
-        templateName: '儿童节皮肤'
-    }, {
-        category: 'skin',
-        skinId: 12,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-fathers-day.jpg',
-        isHover: false,
-        templateName: '父爱如山',
-        charge: '限时免费',
-        chargeTextColor: 'red',
-        expire: '2020.08.31'
-    }, {
-        category: 'skin',
-        skinId: 13,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-dragon-boat.jpg',
-        isHover: false,
-        templateName: '粽情端午',
-        charge: '限时免费',
-        chargeTextColor: 'red',
-        expire: '2020.08.31'
-    }, {
-        category: 'skin',
-        skinId: 14,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/mid-autumn-festival/skin-mid-autumn.jpg',
-        isHover: false,
-        templateName: '中秋佳节'
-    }, {
-        category: 'skin',
-        skinId: 15,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/national-day/skin-national-day.jpg',
-        isHover: false,
-        templateName: '喜迎国庆'
-    }, {
-        category: 'skin',
-        skinId: 16,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/culture/cover.jpg',
-        isHover: false,
-        templateName: '双十二文化类',
-        charge: '限时免费',
-        chargeTextColor: 'red',
-        expire: '2020.12.31'
-    }, {
-        category: 'skin',
-        skinId: 17,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/cover.jpg',
-        isHover: false,
-        templateName: '双十二运动类',
-        charge: '限时免费',
-        chargeTextColor: 'red',
-        expire: '2020.12.31'
-    }, {
-        category: 'skin',
-        skinId: 18,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/art/cover.jpg',
-        isHover: false,
-        templateName: '双十二艺术类',
-        charge: '限时免费',
-        chargeTextColor: 'red',
-        expire: '2020.12.31'
-    }, {
-        category: 'skin',
-        skinId: 19,
-        img: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/cover.jpg',
-        isHover: false,
-        templateName: '双十二皮肤',
-        charge: '限时免费',
-        chargeTextColor: 'red',
-        expire: '2020.12.31'
-    }
-]
+const skinModels = [{
+    category: 'skin',
+    skinId: 1,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/5974a66e-2638-4023-b520-441d776feba7.jpeg',
+    isHover: false,
+    templateName: '圣诞皮肤'
+}, {
+    category: 'skin',
+    skinId: 2,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/2a7871e3-d5d7-4801-ab2d-86cf7b532418.jpeg',
+    isHover: false,
+    templateName: '元旦皮肤'
+}, {
+    category: 'skin',
+    skinId: 3,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/2d8b1945-12d4-4bca-aacc-0e0ce9a8af5e.jpeg',
+    isHover: false,
+    templateName: '新春皮肤'
+}, {
+    category: 'skin',
+    skinId: 4,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/cf839390-03a3-43dc-8ec3-9bddbb40daa4.jpeg',
+    isHover: false,
+    templateName: '小年皮肤'
+}, {
+    category: 'skin',
+    skinId: 5,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/2ae956b0-5490-4ba4-a836-e21a4768e470.png',
+    isHover: false,
+    templateName: '元宵皮肤'
+}, {
+    category: 'skin',
+    skinId: 6,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-women-day.jpg',
+    isHover: false,
+    templateName: '妇女节皮肤'
+}, {
+    category: 'skin',
+    skinId: 7,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-nnf.jpg',
+    isHover: false,
+    templateName: '年年翻皮肤'
+}, {
+    category: 'skin',
+    skinId: 8,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-earth-day.jpg',
+    isHover: false,
+    templateName: '世界地球日皮肤'
+}, {
+    category: 'skin',
+    skinId: 9,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-labour-day.jpg',
+    isHover: false,
+    templateName: '劳动节皮肤'
+}, {
+    category: 'skin',
+    skinId: 10,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-mothers-day.jpg',
+    isHover: false,
+    templateName: '母亲节皮肤'
+}, {
+    category: 'skin',
+    skinId: 11,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-children-day.jpg',
+    isHover: false,
+    templateName: '儿童节皮肤'
+}, {
+    category: 'skin',
+    skinId: 12,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-fathers-day.jpg',
+    isHover: false,
+    templateName: '父爱如山',
+    charge: '限时免费',
+    chargeTextColor: 'red',
+    expire: '2020.08.31'
+}, {
+    category: 'skin',
+    skinId: 13,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/skin-dragon-boat.jpg',
+    isHover: false,
+    templateName: '粽情端午',
+    charge: '限时免费',
+    chargeTextColor: 'red',
+    expire: '2020.08.31'
+}, {
+    category: 'skin',
+    skinId: 14,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/mid-autumn-festival/skin-mid-autumn.jpg',
+    isHover: false,
+    templateName: '中秋佳节'
+}, {
+    category: 'skin',
+    skinId: 15,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/national-day/skin-national-day.jpg',
+    isHover: false,
+    templateName: '喜迎国庆'
+}, {
+    category: 'skin',
+    skinId: 16,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/culture/cover.jpg',
+    isHover: false,
+    templateName: '双十二文化类',
+    charge: '限时免费',
+    chargeTextColor: 'red',
+    expire: '2020.12.31'
+}, {
+    category: 'skin',
+    skinId: 17,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/cover.jpg',
+    isHover: false,
+    templateName: '双十二运动类',
+    charge: '限时免费',
+    chargeTextColor: 'red',
+    expire: '2020.12.31'
+}, {
+    category: 'skin',
+    skinId: 18,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/art/cover.jpg',
+    isHover: false,
+    templateName: '双十二艺术类',
+    charge: '限时免费',
+    chargeTextColor: 'red',
+    expire: '2020.12.31'
+}, {
+    category: 'skin',
+    skinId: 19,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/cover.jpg',
+    isHover: false,
+    templateName: '双十二皮肤',
+    charge: '限时免费',
+    chargeTextColor: 'red',
+    expire: '2020.12.31'
+}]
 
 @Component({
     components: {
@@ -369,6 +374,7 @@ const skinModels = [
         TemplateFanchang,
         TemplateXinchun,
         TemplateDragonGate,
+        TemplateDouble12,
         TemplateItem,
         TemplatePreview,
         Render
@@ -547,12 +553,13 @@ export default class MallThemes extends Vue {
     // 检查是否有模板使用权限
     check (item: Template) {
         if (item.type === TemplateTypes.TemplateDouble12) {
-            if (this.double12LockStatus === 1) {
-                return item
-            }
-            this.modalText = '双十二'
-            this.modalType = this.double12LockStatus === 2 ? 'EXPIRED' : 'UNPAID'
-            this.showAlertModal = true
+            // if (this.double12LockStatus === 1) {
+            //     return item
+            // }
+            // this.modalText = '双十二'
+            // this.modalType = this.double12LockStatus === 2 ? 'EXPIRED' : 'UNPAID'
+            // this.showAlertModal = true
+            return item
         }
         if (item.type === TemplateTypes.TemplateXinChun) {
             if (this.xinchunLockStatus === 1) {

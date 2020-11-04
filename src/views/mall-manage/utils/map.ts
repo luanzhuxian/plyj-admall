@@ -96,6 +96,7 @@ export enum TemplateTypes {
     TemplateD = 9,
     // 龙门节主会场
     TemplateDragonGate = 10,
+    // 双十二 2020
     TemplateDouble12 = 11
 }
 
@@ -156,6 +157,7 @@ export const tagMap: DynamicObject = {
     8: 'template-xinchun',
     9: 'template-d',
     10: 'template-dragon-gate',
+    11: 'template-double-12',
     findTemplateTagById (id: string) {
         return this[id]
     }

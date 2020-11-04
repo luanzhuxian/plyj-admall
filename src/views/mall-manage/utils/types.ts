@@ -155,6 +155,15 @@ export interface TemplateDragonGate {
     Recommend: TemplateModule | undefined;
 }
 
+export interface TemplateDouble12 {
+    Coupon: TemplateModule | undefined;
+    Miaosha: TemplateModule | undefined;
+    Pintuan: TemplateModule | undefined;
+    Yugou: TemplateModule | undefined;
+    Package: TemplateModule | undefined;
+    Popular: TemplateModule | undefined;
+}
+
 export interface DraftTableRow {
     createTime: string;
     id: string;

@@ -1,7 +1,12 @@
 <template>
-    <ul :class="$style.liveList">
+    <ul :class="$style.liveList" class="live-list">
         <template v-for="(live, index) of liveModel.slice(0, 3)">
-            <li :class="$style.first" :key="index" v-if="~(liveModel.length > 2 ? [0] : [0, 1]).indexOf(index)">
+            <li
+                v-if="~(liveModel.length > 2 ? [0] : [0, 1]).indexOf(index)"
+                class="first"
+                :class="$style.first"
+                :key="index"
+            >
                 <label>
                     <span v-if="live.isNoticeShow">即将开始</span>
                     <span v-if="live.statue === 4">直播中</span>
@@ -27,7 +32,12 @@
                     </p>
                 </div>
             </li>
-            <li :class="$style.others" :key="index" v-else>
+            <li
+                v-else
+                class="others"
+                :class="$style.others"
+                :key="index"
+            >
                 <label>
                     <span v-if="live.isNoticeShow">即将开始</span>
                     <span v-if="live.statue === 4">直播中</span>

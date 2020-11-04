@@ -374,6 +374,28 @@ class TemplateDragonGateValidator extends ActivityValidator<TemplateDragonGate> 
     }
 }
 
+// 双12
+class TemplateDouble12Validator extends ActivityValidator {
+    constructor (tmplType: number, moduleModels: TemplateDragonGate) {
+        super(tmplType, moduleModels)
+    }
+
+    async validate () {
+        await this.checkList('Miaosha', { min: 1, max: 6 })
+        await this.checkList('Pintuan', { min: 1, max: 6 })
+        await this.checkList('Yugou', { min: 1, max: 6 })
+        await this.checkList('Package', { min: 1, max: 6 })
+        await this.checkProduct('Popular')
+
+        if (this.errList.length) {
+            return this.errList[0]
+        }
+        return {
+            pass: true
+        }
+    }
+}
+
 export {
     TemplateBValidator,
     TemplateCValidator,
@@ -381,5 +403,6 @@ export {
     TemplateFengqiangValidator,
     TemplateBaofaValidator,
     TemplateXinchunValidator,
-    TemplateDragonGateValidator
+    TemplateDragonGateValidator,
+    TemplateDouble12Validator
 }

@@ -5,7 +5,8 @@ import {
     TemplateFengqiangValidator,
     TemplateBaofaValidator,
     TemplateXinchunValidator,
-    TemplateDragonGateValidator
+    TemplateDragonGateValidator,
+    TemplateDouble12Validator
 } from './template-validator'
 import { TemplateCrosses } from '../types'
 
@@ -20,6 +21,7 @@ const validatorProducer = (tmplType: number, moduleModels: TemplateCrosses | obj
         8: TemplateXinchunValidator,
         9: TemplateDValidator,
         10: TemplateDragonGateValidator,
+        11: TemplateDouble12Validator,
         findValidatorByType (id: string) {
             return this[id]
         }

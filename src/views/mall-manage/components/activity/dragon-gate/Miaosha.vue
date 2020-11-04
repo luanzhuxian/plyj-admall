@@ -147,7 +147,7 @@ export default class Miaosha extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss" module>
 .miaosha {
     &-list-item {
         display: flex;

@@ -1,0 +1,319 @@
+<template>
+    <Panel custom-class="miaosha-panel" title="福利秒杀" subtitle="双十二福利来袭，限时秒杀">
+        <ul :class="$style.miaoshaList" v-if="data.values.length">
+            <template v-for="(item, index) of data.values">
+                <li
+                    v-if="item.goodsInfo && item.goodsInfo.activityInfo"
+                    :class="$style.miaoshaListItem"
+                    :key="index"
+                >
+                    <div :class="$style.miaoshaListItemBack">
+                        <div :class="$style.miaoshaListItemFront">
+                            <div :class="$style.imgWrapper">
+                                <img :src="item.goodsInfo.productMainImage + '?x-oss-process=style/thum-middle'">
+                            </div>
+                            <div :class="$style.info">
+                                <div :class="$style.name">
+                                    {{ item.goodsInfo.productName }}
+                                </div>
+                                <div :class="$style.middle">
+                                    <label for="price">秒杀价:</label>
+                                    <b :class="$style.price">{{ item.goodsInfo.activityInfo.activityPrice }}</b>
+                                    <del :class="$style.original" v-if="item.goodsInfo.productSkuModels && item.goodsInfo.productSkuModels.length && getPrice(item.goodsInfo.productSkuModels)('originalPrice')">
+                                        {{ `原价:${getPrice(item.goodsInfo.productSkuModels)('originalPrice')}元` }}
+                                    </del>
+                                </div>
+
+                                <div :class="$style.progress">
+                                    <div :class="$style.progressInner" :style="{ width: `${(Number(item.goodsInfo.activityInfo.number) - Number(item.goodsInfo.activityInfo.activityStock)) / Number(item.goodsInfo.activityInfo.number) * 100}%` }" />
+                                </div>
+                                <div :class="$style.saled" v-if="item.goodsInfo.activityInfo.status === 0">
+                                    {{ `${item.goodsInfo.pageviews}人已关注` }}
+                                </div>
+                                <div :class="$style.saled" v-if="item.goodsInfo.activityInfo.status > 0 && item.goodsInfo.activityInfo.activityStock > 0">
+                                    {{ `已抢购${Number(item.goodsInfo.activityInfo.number) - Number(item.goodsInfo.activityInfo.activityStock)}件` }}
+                                </div>
+                                <div :class="$style.saled" v-if="item.goodsInfo.activityInfo.status > 0 && item.goodsInfo.activityInfo.activityStock === 0" style="color: #999999;">
+                                    已抢完
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div :class="$style.miaoshaListItemBottom">
+                        <div :class="$style.countdownWrapper">
+                            <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 0">距离活动开始还剩</span>
+                            <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 1">距离活动结束还剩</span>
+                            <span :class="$style.text" v-if="item.goodsInfo.activityInfo.status === 2">已结束</span>
+                            <Countdown
+                                v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)"
+                                :duration="getDuration(item.goodsInfo.activityInfo)"
+                                @finish="() => item.goodsInfo.activityInfo.status += 1"
+                            >
+                                <template #default="{time}">
+                                    <i :class="$style.block">{{ String(time.days).padStart(2, '0') }}</i>
+                                    <span :class="$style.colon">天</span>
+                                    <i :class="$style.block">{{ String(time.hours).padStart(2, '0') }}</i>
+                                    <span :class="$style.colon">:</span>
+                                    <i :class="$style.block">{{ String(time.minutes).padStart(2, '0') }}</i>
+                                    <span :class="$style.colon">:</span>
+                                    <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
+                                </template>
+                            </Countdown>
+                        </div>
+                        <div :class="{
+                            [$style.miaoshaListItemBtn]: true,
+                            [$style.disabled]: item.goodsInfo.activityInfo.status !== 1
+                        }">
+                            <span>抢</span>
+                        </div>
+                    </div>
+                </li>
+            </template>
+        </ul>
+        <ul :class="$style.miaoshaList" v-else>
+            <li :class="$style.miaoshaListItem" v-for="(item, i) of 2" :key="i">
+                <div :class="$style.miaoshaListItemBack">
+                    <div :class="$style.miaoshaListItemFront">
+                        <div :class="$style.imgWrapper">
+                            <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
+                        </div>
+                        <div :class="$style.info">
+                            <div :class="$style.name">
+                                高中数学 选修4-4
+                            </div>
+                            <div :class="$style.middle">
+                                <label for="price">秒杀价:</label>
+                                <b :class="$style.price">99.9</b>
+                                <del :class="$style.original">原价:150元</del>
+                            </div>
+                            <div :class="$style.progress">
+                                <div :class="$style.progressInner" :style="{ width: '50%' }" />
+                            </div>
+                            <div :class="$style.saled">
+                                已抢购100件
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div :class="$style.miaoshaListItemBottom">
+                    <div :class="$style.countdownWrapper">
+                        <span :class="$style.text">距离活动开始还剩</span>
+                        <i :class="$style.block">02</i>
+                        <span :class="$style.colon">天</span>
+                        <i :class="$style.block">23</i>
+                        <span :class="$style.colon">:</span>
+                        <i :class="$style.block">59</i>
+                        <span :class="$style.colon">:</span>
+                        <i :class="$style.block">59</i>
+                    </div>
+                    <div :class="$style.miaoshaListItemBtn">
+                        <span>抢</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </Panel>
+</template>
+
+<script lang="ts">
+import { Vue, Component, Prop } from 'vue-property-decorator'
+import { TemplateModule } from '../../../utils/types'
+import Panel from './Panel.vue'
+import Countdown from '../../Countdown.vue'
+import { getPrice, getDuration } from '../../../utils/helper'
+
+@Component({
+    components: {
+        Panel,
+        Countdown
+    }
+})
+export default class Miaosha extends Vue {
+    /* props */
+    @Prop({
+        type: Object,
+        default () {
+            return { values: [] }
+        }
+    }) readonly data!: TemplateModule
+
+    /* methods */
+    getPrice = getPrice
+    getDuration = getDuration
+}
+</script>
+
+<style lang="scss">
+.miaosha-panel {
+    .double-12-panel-container {
+        background-color: #D00C03;
+    }
+}
+</style>
+
+<style lang="scss" module>
+.miaosha {
+    &-list-item {
+        position: relative;
+        box-sizing: border-box;
+        margin-top: 20px;
+        padding-top: 10px;
+        height: 162px;
+        &:nth-of-type(1) {
+            margin-top: 0;
+        }
+        &-back {
+            padding: 0 4px;
+            height: 100%;
+            background: #A76933;
+            border-radius: 6px;
+        }
+        &-front {
+            box-sizing: border-box;
+            position: relative;
+            top: -10px;
+            display: flex;
+            padding: 15px 6px;
+            height: 100%;
+            background: #FFEFCC;
+            border-radius: 6px;
+        }
+        &-bottom {
+            display: flex;
+            align-items: flex-end;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 63px;
+            background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/bar.png') no-repeat;
+            background-size: 100%;
+            box-sizing: border-box;
+            padding: 0 12px 8px 0;
+            z-index: 1;
+        }
+        &-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 44px;
+            background: linear-gradient(0deg, #EF1C1C 0%, #AA1C1C 100%);
+            border: none;
+            border-radius: 4px;
+            font-size: 28px;
+            color: #FFFFFF;
+            &.disabled {
+                background: linear-gradient(231deg, rgba(204, 204, 204, 1) 0%, rgba(153, 153, 153, 1) 100%);
+            }
+            &::after {
+                position: relative;
+                top: 2px;
+                content: '';
+                margin-left: 8px;
+                width: 11px;
+                height: 17px;
+                background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/thunder.png') no-repeat;
+                background-size: 100%;
+            }
+        }
+        .countdown-wrapper {
+            flex: 1;
+            font-size: 10px;
+            color: #BA9E61;
+            padding-bottom: 4px;
+            .text,
+            .colon {
+                display: inline-block;
+                padding: 0 4px;
+                transform: scale(0.8);
+            }
+            .block {
+                display: inline-block;
+                box-sizing: border-box;
+                padding: 0 2px;
+                width: 24px;
+                line-height: 23px;
+                background: #FFFFFF;
+                font-size: 14px;
+                font-family: Microsoft YaHei;
+                font-weight: 600;
+                color: #333333;
+                text-align: center;
+            }
+        }
+
+        .img-wrapper {
+            margin-right: 7px;
+            width: 120px;
+            height: 80px;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .info {
+            position: relative;
+            flex: 1;
+            width: 0;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+        }
+        .name {
+            margin-top: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 20px;
+            color: #333333;
+            @include elps();
+        }
+        .middle {
+            margin-top: 4px;
+            display: flex;
+            align-items: baseline;
+            font-size: 14px;
+            color: #A58B54;
+            @include elps();
+            .price {
+                flex: 1;
+                width: 0;
+                margin-left: 2px;
+                font-size: 20px;
+                line-height: 27px;
+                color: #D80000;
+                @include elps();
+                &:before {
+                    content: '￥';
+                    font-size: 16px;
+                }
+            }
+            .original {
+                font-size: 12px;
+                @include elps();
+            }
+        }
+        .progress {
+            margin-top: auto;
+            width: 120px;
+            height: 4px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            &-inner {
+                height: 4px;
+                background: #D80000;
+                border-radius: 10px;
+            }
+        }
+        .saled {
+            margin-top: 4px;
+            font-size: 10px;
+            color: #A58B54;
+        }
+    }
+}
+
+</style>

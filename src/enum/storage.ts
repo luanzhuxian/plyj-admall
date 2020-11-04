@@ -44,3 +44,12 @@ export enum RoleEnum {
     // 游客
     visitor = 'VISITOR'
 }
+
+export enum ProductTypeEnum {
+    PHYSICAL_GOODS = '实体商品',
+    VIRTUAL_GOODS = '虚拟商品',
+    FORMAL_CLASS = '正式课',
+    EXPERIENCE_CLASS = '体验课',
+    KNOWLEDGE_COURSE = '知识课程',
+    SERIES_OF_COURSE = '系列课'
+}

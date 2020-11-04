@@ -95,7 +95,7 @@ export default class Yugou extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss" module>
 .yugou {
     &-list-item {
         position: relative;

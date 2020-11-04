@@ -9,6 +9,7 @@ import {
     TemplateBaoFa,
     TemplateXinChun,
     TemplateDragonGate,
+    TemplateDouble12,
     TemplateModule,
     TemplateModuleItem
 } from './types'
@@ -235,6 +236,15 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Yugou = reset(findModuleById(11), 'Yugou')
         templateModel.Package = reset(findModuleById(16), 'Package')
         templateModel.Recommend = reset(findModuleById(4), 'Recommend')
+    }
+    if (tmplType === TemplateTypes.TemplateDouble12) {
+        templateModel = {} as TemplateDouble12
+        templateModel.Coupon = reset(findModuleById(9), 'Coupon')
+        templateModel.Miaosha = reset(findModuleById(10), 'Miaosha')
+        templateModel.Pintuan = reset(findModuleById(8), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(11), 'Yugou')
+        templateModel.Package = reset(findModuleById(16), 'Package')
+        templateModel.Popular = reset(findModuleById(2), 'Popular')
     }
     return templateModel || {}
 }

@@ -74,7 +74,7 @@ export default class Coupon extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss" module>
 .coupon {
     .bg {
         box-sizing: border-box;

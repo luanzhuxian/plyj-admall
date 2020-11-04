@@ -86,7 +86,7 @@ export default class Distribution extends Vue {
     }
 }
 </style>
-<style module lang="scss">
+<style lang="scss" module>
 .distribution {
     &-list-item {
         display: flex;

@@ -182,6 +182,7 @@ import TemplateBaofa from '../components/templates/Template-Baofa.vue'
 import TemplateFanchang from '../components/templates/Template-Fanchang.vue'
 import TemplateXinchun from '../components/templates/Template-Xinchun.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
+import TemplateDouble12 from '../components/templates/Template-Double-12.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import EditorBanner from '../components/Editor-Banner.vue'
 import EditorAdv from '../components/Editor-Adv.vue'
@@ -234,6 +235,7 @@ const mall = namespace('mall')
         TemplateFanchang,
         TemplateXinchun,
         TemplateDragonGate,
+        TemplateDouble12,
         TemplatePreview,
         EditorBanner,
         EditorAdv,
@@ -320,7 +322,8 @@ export default class MallDecoration extends Vue {
             TemplateTypes.TemplateBaoFa,
             TemplateTypes.TemplateFanChang,
             TemplateTypes.TemplateXinChun,
-            TemplateTypes.TemplateDragonGate
+            TemplateTypes.TemplateDragonGate,
+            TemplateTypes.TemplateDouble12
         ].includes(this.tmplType)
     }
 
@@ -635,8 +638,6 @@ export default class MallDecoration extends Vue {
                     console.error(e)
                     return { result: null }
                 })))
-
-            console.log(result)
 
             module.values = result
                 // .filter(({ data }) => data)

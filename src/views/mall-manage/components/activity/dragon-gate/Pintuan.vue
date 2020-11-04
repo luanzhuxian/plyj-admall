@@ -126,7 +126,7 @@ export default class Pintuan extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss" module>
 .pintuan {
     &-list-item {
         position: relative;
