@@ -3,7 +3,7 @@
         <ListHeader
             v-if="showTop"
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公益活动.png"
-            title="公益助力"
+            title="公益活动"
             description="公益千挑万选，爱心接力一点，学子共献真情"
             :start-time="publicBenefitInformation.createTime"
             end-time="2020-08-31"

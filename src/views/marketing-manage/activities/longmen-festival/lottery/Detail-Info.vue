@@ -115,8 +115,8 @@ export default {
     methods: {
         async getDetail () {
             try {
-                const { data: { result: res } } = await getLotteryDetail(this.id)
-                this.form = res
+                const { result } = await getLotteryDetail(this.id)
+                this.form = result
                 this.winningProbability = 0
                 for (const item of this.form.gifts) {
                     this.winningProbability += item.winningProbability * 1000

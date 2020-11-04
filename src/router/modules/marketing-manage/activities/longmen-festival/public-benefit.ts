@@ -5,7 +5,7 @@ export default [
         redirect: 'public-benefit/list',
         component: () => import('../../../../../views/marketing-manage/activities/longmen-festival/public-benefit/Index.vue'),
         meta: {
-            title: '公益助力',
+            title: '公益活动',
             index: '8-13'
         },
         children: [

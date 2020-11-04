@@ -220,7 +220,7 @@
 
         <!-- 预览组件 -->
         <Preview :show.sync="showPreview">
-            <img style="width: 100%" src="https://mallcdn.youpenglai.com/static/admall/2.9.0/公益助力预览.png" alt="">
+            <img style="width: 100%" src="https://mallcdn.youpenglai.com/static/admall/2.9.0/公益活动预览.png" alt="">
         </Preview>
 
         <!-- 选择商品 -->
