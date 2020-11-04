@@ -2,7 +2,7 @@
     <div class="benefit wrap">
         <ListHeader
             v-if="showTop"
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公益活动.png"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公益行动.png"
             title="公益活动"
             description="公益千挑万选，爱心接力一点，学子共献真情"
             :start-time="publicBenefitInformation.createTime"
@@ -15,7 +15,7 @@
         <!--            新建活动-->
         <!--            <i class="el-icon-plus el-icon&#45;&#45;right" />-->
         <!--        </el-button>-->
-        <el-button class="underline" type="text" @click="explainFlag = true" v-if="$route.name === 'LongmenPublicBenefitList'">
+        <el-button type="text" @click="explainFlag = true" v-if="$route.name === 'LongmenPublicBenefitList'">
             活动说明
         </el-button>
         <!-- <pl-tabs
@@ -60,7 +60,7 @@
                 </ul>
             </div>
             <div class="footer">
-                <el-button type="primary" @click="explainFlag = false">
+                <el-button type="primary" round @click="explainFlag = false">
                     我知道了
                 </el-button>
             </div>

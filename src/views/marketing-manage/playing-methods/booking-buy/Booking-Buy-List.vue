@@ -247,7 +247,7 @@
                 </ul>
             </div>
             <div class="footer">
-                <el-button type="primary" @click="explainFlag = false">
+                <el-button type="primary" round @click="explainFlag = false">
                     我知道了
                 </el-button>
             </div>

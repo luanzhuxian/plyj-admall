@@ -1,7 +1,7 @@
 
 <template>
-    <div class="newcomers-list bg-white">
-        <search-box class="mt-24">
+    <div>
+        <search-box class="mt-20">
             <el-form-item label="搜索内容：">
                 <el-input placeholder="活动名称/活动ID" v-model.trim="form.keyword" clearable @change="search" />
             </el-form-item>
@@ -204,12 +204,4 @@ export default {
 </script>
 
 <style lang="scss" scoped >
-
-.newcomers-list {
-    padding: 20px 0;
-    .newcomers-list-content {
-        background-color: white;
-    }
-}
-
 </style>

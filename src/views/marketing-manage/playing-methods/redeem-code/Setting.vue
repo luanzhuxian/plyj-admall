@@ -75,4 +75,7 @@ export default {
             }
         }
     }
+    .dialog-footer {
+        text-align: center;
+    }
 </style>
