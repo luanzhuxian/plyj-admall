@@ -193,9 +193,10 @@ const user: Module<DynamicObject, DynamicObject> = {
             const container = new Map()
             const getMenuName = (menuList: Array<any>) => {
                 for (const item of menuList) {
-                    if (item.routePath) {
-                        container.set(item.routePath, item.aclCode)
+                    if (!item.routePath || !item.checked) {
+                        continue
                     }
+                    container.set(item.routePath, item.aclCode)
                     item.children.length ? getMenuName(item.children) : item.children = null
                 }
             }

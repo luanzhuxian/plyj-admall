@@ -25,8 +25,8 @@ export default [
                         component: () => import('../../../views/order-manage/pages/goods-order/Goods-List.vue'),
                         meta: {
                             title: '列表',
-                            index: '4-1-1',
-                            ignore: true
+                            index: '4-1-1'
+                            // ignore: true
                         }
                     },
                     {
@@ -36,8 +36,8 @@ export default [
                         props: true,
                         meta: {
                             title: '订单详情',
-                            index: '4-1-2',
-                            ignore: true
+                            index: '4-1-2'
+                            // ignore: true
                         }
                     }
                 ]
@@ -58,8 +58,8 @@ export default [
                         component: () => import('../../../views/order-manage/pages/course-order/Course-List.vue'),
                         meta: {
                             title: '列表',
-                            index: '4-2-1',
-                            ignore: true
+                            index: '4-2-1'
+                            // ignore: true
                         }
                     },
                     {
@@ -69,8 +69,8 @@ export default [
                         props: true,
                         meta: {
                             title: '订单详情',
-                            index: '4-2-2',
-                            ignore: true
+                            index: '4-2-2'
+                            // ignore: true
                         }
                     }
                 ]
@@ -91,8 +91,8 @@ export default [
                         component: () => import('../../../views/order-manage/pages/online-school-order/Online-School-Order-List.vue'),
                         meta: {
                             title: '列表',
-                            index: '4-3-1',
-                            ignore: true
+                            index: '4-3-1'
+                            // ignore: true
                         }
                     },
                     {
@@ -102,8 +102,8 @@ export default [
                         props: true,
                         meta: {
                             title: '订单详情',
-                            index: '4-3-2',
-                            ignore: true
+                            index: '4-3-2'
+                            // ignore: true
                         }
                     }
                 ]
