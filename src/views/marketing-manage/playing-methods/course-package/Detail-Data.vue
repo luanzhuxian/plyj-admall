@@ -183,8 +183,7 @@
                                 </template>
                             </template>
                         </el-table-column>
-                        <el-table-column width="140" />
-                        <el-table-column>
+                        <el-table-column align="right">
                             <template #default="{ row: orderItem }">
                                 <el-button
                                     @click="$router.push({
@@ -497,6 +496,7 @@ export default {
 <style scoped lang="scss">
 .child-table {
     margin-left: 250px;
+    width: calc(100% - 200px);
     &:before {
         display: none;
     }
