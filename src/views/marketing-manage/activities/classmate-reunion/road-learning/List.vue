@@ -5,7 +5,7 @@
                 <el-input placeholder="请输入活动奖品" v-model.trim="filterCondition.keyWord" class="mr-40" clearable />
             </el-form-item>
             <el-form-item label="状态：">
-                <el-select v-model="filterCondition.status">
+                <el-select v-model="filterCondition.status" clearable>
                     <el-option :value="''" label="全部" />
                     <el-option v-for="(item, key) in activityStatus" :key="key" :value="key" :label="item" />
                 </el-select>

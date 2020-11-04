@@ -14,6 +14,7 @@
                     placeholder="请选择"
                     @change="search"
                     style="width: 128px;"
+                    clearable
                 >
                     <el-option
                         key="全部活动"

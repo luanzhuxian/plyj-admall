@@ -8,6 +8,7 @@
                 <el-select
                     v-model="filter.status"
                     @change="getList(1)"
+                    clearable
                 >
                     <el-option
                         :key="-1"

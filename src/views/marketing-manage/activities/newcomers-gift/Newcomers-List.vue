@@ -18,7 +18,7 @@
                     <el-input placeholder="请输入活动名称" v-model="queryFilter.activityName" @change="doQuery" clearable />
                 </el-form-item>
                 <el-form-item label="状态：">
-                    <el-select v-model="queryFilter.status" @change="doQuery">
+                    <el-select v-model="queryFilter.status" @change="doQuery" clearable>
                         <el-option label="全部" :value="-1" />
                         <el-option label="已结束" :value="0" />
                         <el-option label="未开始" :value="1" />

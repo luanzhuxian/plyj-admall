@@ -8,7 +8,7 @@
                 <el-input style="width: 220px;" placeholder="活动名称/活动奖励" />
             </el-form-item>
             <el-form-item class="mb-0" label="状态: ">
-                <el-select v-model="status">
+                <el-select v-model="status" clearable>
                     <el-option value="1" label="所有活动" />
                     <el-option value="2" label="未开始" />
                     <el-option value="3" label="进行中" />

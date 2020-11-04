@@ -26,6 +26,7 @@
                     v-model="filterForm.status"
                     placeholder="请选择"
                     @change="search"
+                    clearable
                 >
                     <el-option
                         key="全部活动"

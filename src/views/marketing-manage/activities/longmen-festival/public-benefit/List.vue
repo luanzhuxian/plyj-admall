@@ -6,7 +6,7 @@
                 <el-input placeholder="活动名称/活动ID" v-model.trim="form.keyword" clearable @change="search" />
             </el-form-item>
             <el-form-item label="状态：">
-                <el-select v-model="form.status" @change="search">
+                <el-select v-model="form.status" @change="search" clearable>
                     <el-option v-for="(item,index) in activityStatus" :label="item.label" :value="item.value" :key="index" />
                 </el-select>
             </el-form-item>
