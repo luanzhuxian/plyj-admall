@@ -490,20 +490,20 @@ export default {
                     this.form.tagIds.push(item.userTagId)
                 }
                 if (this.form.receiveStartTime) {
-                    // if ((moment(this.form.receiveStartTime).valueOf() < Date.now()) && this.isCopy) {
-                    //   this.form.receiveStartTime = ''
-                    //   this.form.receiveEndTime = ''
-                    // } else {
-                    this.receiveDaterange = [new Date(this.form.receiveStartTime), new Date(this.form.receiveEndTime)]
-                    // }
+                    if ((moment(this.form.receiveStartTime).valueOf() < Date.now()) && this.isCopy) {
+                        this.form.receiveStartTime = ''
+                        this.form.receiveEndTime = ''
+                    } else {
+                        this.receiveDaterange = [new Date(this.form.receiveStartTime), new Date(this.form.receiveEndTime)]
+                    }
                 }
                 if (this.form.useStartTime) {
-                    // if ((moment(this.form.useStartTime).valueOf() < Date.now()) && this.isCopy) {
-                    //   this.form.useStartTime = ''
-                    //   this.form.useEndTime = ''
-                    // } else {
-                    this.useDaterange = [new Date(this.form.useStartTime), new Date(this.form.useEndTime)]
-                    // }
+                    if ((moment(this.form.useStartTime).valueOf() < Date.now()) && this.isCopy) {
+                        this.form.useStartTime = ''
+                        this.form.useEndTime = ''
+                    } else {
+                        this.useDaterange = [new Date(this.form.useStartTime), new Date(this.form.useEndTime)]
+                    }
                 }
                 if (this.isCopy) {
                     // 复制状态下，因为在前面两个同级条件判断中，将开始时间和结束时间置空了，需要手动触发赋值
