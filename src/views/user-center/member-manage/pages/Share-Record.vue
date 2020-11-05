@@ -301,6 +301,7 @@ export default class MemberShareRecord extends Vue {
         try {
             this.shareListForm.payStartTime = start
             this.shareListForm.payEndTime = end
+            await this.search()
         } catch (e) {
             throw e
         }
