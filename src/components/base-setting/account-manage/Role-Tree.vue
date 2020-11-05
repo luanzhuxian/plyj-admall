@@ -75,7 +75,7 @@ export default {
                         this.roleList = this.treeList
                         this.searchKeyOfSelected(this.treeList)
                     } else if (this.roleCode) {
-                        const { result } = await getAllRolesByCode(this.roleCode)
+                        const { result } = await this.getAllRolesByCode()
                         this.roleList = result
                         this.searchKeyOfSelected(result)
                     }
@@ -118,12 +118,22 @@ export default {
         })
     },
     methods: {
+        async getAllRolesByCode () {
+            const { result } = await getAllRolesByCode(this.roleCode)
+            return result
+        },
         close () {
             this.$emit('update:visible', false)
         },
+
         // 查找已选中的节点的key
         searchKeyOfSelected (list) {
             for (const item of list) {
+                // status=2时必选且不可取消
+                if (Number(item.status) === 2) {
+                    item.checked = true
+                    item.disabled = true
+                }
                 if (item.checked || item.status === 0) {
                     if (item.children) {
                         this.searchKeyOfSelected(item.children)
