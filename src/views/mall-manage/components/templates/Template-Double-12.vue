@@ -11,7 +11,7 @@
         <div :class="$style.background">
             <div :class="$style.container">
                 <!-- 直播 -->
-                <section :class="[$style.moduleLive]" v-if="isLiveShow">
+                <section :class="[$style.moduleLive, $style.module]" v-if="isLiveShow">
                     <Panel custom-class="live-panel" title="直播放映室">
                         <Live :data="liveInfo" />
                     </Panel>
@@ -295,13 +295,11 @@ export default class TemplateDouble12 extends Vue {
         border: 2px solid #FEECC7;
     }
     &:nth-child(1) {
-        padding-top: 0 !important;
+        padding-top: 20px !important;
     }
 }
 
-.module-live {
-    padding: 20px 12px 10px;
-}
+.module-live,
 .module-coupon {
     padding: 10px 12px;
 }
