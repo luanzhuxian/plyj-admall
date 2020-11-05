@@ -167,7 +167,7 @@
                                     <a @click="showOrder(row.id)">
                                         查看订单
                                     </a>
-                                    <a @click="$router.push({ name: 'CoursesSeriesOfCoursesData', params: { id: row.id }, query: { isFree: row.priceType === 1? '0': '1'} })">
+                                    <a @click="$router.push({ name: 'CoursesSeriesDataDetail', params: { id: row.id }, query: { isFree: row.priceType === 1? '0': '1'} })">
                                         数据详情
                                     </a>
                                     <!--只有 非免费 && 上架 课程支持送课-->

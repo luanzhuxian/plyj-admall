@@ -1,5 +1,13 @@
 <template>
-    <div>
+    <div class="wrap">
+        <PlTabs
+            :value="$route.name"
+            :tabs="[
+                { label: '课程数据', name: 'CoursesSeriesOfCoursesData' },
+                { label: '用户数据', name: 'UsersSeriesOfCoursesData' },
+            ]"
+            @tabClick="data => $router.push({ name: data.name })"
+        />
         <router-view />
     </div>
 </template>
