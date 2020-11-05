@@ -16,7 +16,9 @@
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" style="width: 20px" alt="">微信注册
             </div>
         </el-button>
-        <div :class="$style.loginOr">
+        <div
+            v-if="!form.wxCode"
+            :class="$style.loginOr">
             <div />
             <span>或</span>
             <div />
@@ -73,8 +75,12 @@
             >
                 完成入驻，进入雅集
             </el-button>
-            <div @click="goLogin()" :class="$style.register">
-                <el-button type="text"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
+            <div :class="{
+                [$style.register]: true,
+                [$style.bindRegister]: !form.wxCode
+            }">
+                <el-button v-if="form.wxCode" type="text" @click="$router.replace({name: 'WxBindPhone'})">立即绑定账号</el-button>
+                <el-button type="text" @click="$router.replace({name: 'PhoneLogin'})"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
             </div>
             <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
             <!--                <div :class="$style.wechatText"><img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" alt="">微信一键登录</div>-->
@@ -199,14 +205,6 @@ export default class Register extends Vue {
                 this.loading = false
             }
         }
-
-        goLogin () {
-            if (this.form.wxCode) {
-                this.$router.push({ name: 'WxBindPhone' })
-            } else {
-                this.$router.push({ name: 'PhoneLogin' })
-            }
-        }
 }
 </script>
 
@@ -307,11 +305,14 @@ export default class Register extends Vue {
             }
             .register{
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
                 margin-top: 20px;
                 >button{
                     margin: 0;
                 }
+            }
+            .bind-register{
+                justify-content: center;
             }
         }
     }

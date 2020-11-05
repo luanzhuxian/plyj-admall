@@ -23,6 +23,7 @@ const { VUE_APP_MODEL } = process.env
 /* code码 */
 const SUCCESS_CODE = 2000
 const EXCEPTION_CODE = 5000
+const WX_UNREGISTERED_CODE = 5001
 const TOKEN_TIME_OUT = 4002
 
 let reqCount = 0
@@ -102,7 +103,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         }
         return data
     }
-    if (data.code === SUCCESS_CODE) {
+    if (data.code === SUCCESS_CODE || data.code === WX_UNREGISTERED_CODE) {
         response.data.result = response.data.data
         delete response.data.data
         return response.data
@@ -112,7 +113,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         await router.push({ name: 'PhoneLogin' })
         return Promise.reject(false)
     }
-    if (data.code >= EXCEPTION_CODE) {
+    if (data.code === EXCEPTION_CODE) {
         if (data && data.password) data.password = '******'
         const { devMessage = '', message = '' } = data
         const { method, url, data: reqData, params } = config

@@ -7,9 +7,9 @@
             <div id="login-container" style="height: 280px;width: 270px;overflow: hidden" />
         </div>
         <div :class="$style.loginMthods">
-            <el-button @click="$router.replace({name:'PhoneLogin'})" type="text">手机号登录</el-button>
+            <el-button @click="$router.push({name:'PhoneLogin'})" type="text">手机号登录</el-button>
             |
-            <el-button @click="$router.replace({name:'PasswordLogin'})" type="text">账号密码登录</el-button>
+            <el-button @click="$router.push({name:'PasswordLogin'})" type="text">账号密码登录</el-button>
         </div>
     </div>
 </template>
@@ -46,15 +46,20 @@ export default class WxLogin extends Vue {
                 if (data.code === 2000) {
                     await this.setLoginInfo(data.result)
                     this.emitLogin()
-                }
-                this.clearCode()
-            } catch (e) {
-                const ResponseError = JSON.parse(e.message)
-                if (ResponseError.resCode === 5001) {
-                    await this.$router.replace({ name: 'WxBindPhone' })
+                    this.clearCode()
+                } else if (data.code === 5001) {
+                    await this.$router.push({ name: 'RegisterAccount' })
+                    this.emitLogin()
                 } else {
                     this.clearCode()
                 }
+            } catch (e) {
+                // const ResponseError = JSON.parse(e.message)
+                // if (ResponseError.resCode === 5001) {
+                //     await this.$router.push({ name: 'WxBindPhone' })
+                // } else {
+                //     this.clearCode()
+                // }
                 throw e
             }
         }
