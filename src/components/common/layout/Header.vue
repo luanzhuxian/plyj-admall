@@ -8,7 +8,7 @@
                 <template v-for="(route, i) of matchedRoutes">
                     <el-breadcrumb-item
                         :key="i"
-                        v-if="route.meta && route.meta.title"
+                        v-if="route.meta && route.meta.title && !route.meta.hide"
                         :to="route.meta.noClick ? null : { path: route.path }"
                     >
                         {{ route.meta.title }}
