@@ -9,12 +9,14 @@ import NotFound from '../views/404.vue'
 import { importFiles } from './../assets/ts/utils'
 import { LocalEnum, SessionEnum } from '@/enum/storage'
 import store from '../store'
-
-const checkAuth = to => {
-    const routeNames = store.getters['user/routeNames']
+let routeNames = null
+const checkAuth = (to, from) => {
+    if (!routeNames) {
+        routeNames = store.getters['user/routeNames']
+    }
     const currentHasPower = routeNames.has(to.name)
     const index = routeNames.get(to.name)
-    // 判断是否有权限访问
+    // 有权限
     if (currentHasPower) {
         const routeNameArr = [...routeNames]
         // 找出当前路由的所有子路由
@@ -22,7 +24,7 @@ const checkAuth = to => {
         if (allChildren.length) {
             return allChildren[0][0]
         }
-        return to.name
+        return to
     }
 
     /**
@@ -30,7 +32,7 @@ const checkAuth = to => {
      * 返回路由列表中的第一个路由
      */
     MessageBox.alert(`${ to.meta.title ? to.meta.title : '该' }页面暂无权限，请联系管理员`, { title: '暂无权限' })
-    return [...routeNames.keys()][0]
+    return from || { name: routeNames.keys().next().value }
 }
 
 // 无需登录就可以看到的页面
@@ -138,10 +140,10 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
      * 如果页面被忽略，则不校验
      */
     if (!to.meta.ignore) {
-        const newTo = checkAuth(to)
-        if (newTo !== to.name) {
+        const newTo = checkAuth(to, from)
+        if (newTo.name !== to.name) {
             NProgress.done()
-            return next({ name: newTo })
+            return next(newTo)
         }
     }
 
