@@ -178,6 +178,7 @@ import { getWaitWarrantyResource } from '../../apis/product-center/online-teachi
 import { getNotificationList, markReaded } from '../../apis/base/message'
 import { getAuthUrl, setAuthCode } from '../../apis/base/register'
 import { MutationTypes } from '@/store/mutation-type'
+import { findBrothersComponents } from '../mall-manage/utils/helper'
 
 const user = namespace('user')
 const goodsModule = namespace('goods')
@@ -331,21 +332,12 @@ export default class Home extends Vue {
 
     async created () {
         try {
-            // if (this.regType === 2) {
-            //     await this.newCheckStatus()
-            // } else {
-            //     this.checkStatus()
-            // }
             await this.getHomeInfo()
             await this.newCheckStatus()
-            if (!this.categoryTree || !this.categoryTree.length) await this.getClassifyTree()
-        } catch (e) {
-            throw e
-        }
-    }
+            if (!this.categoryTree || !this.categoryTree.length) {
+                await this.getClassifyTree()
+            }
 
-    async activated () {
-        try {
             await Promise.all([
                 this.getWaitWarrantyResource(),
                 this.getNotificationList()
@@ -355,6 +347,14 @@ export default class Home extends Vue {
             })))
         } catch (e) {
             throw e
+        }
+    }
+
+    beforeDestroy () {
+        const list = findBrothersComponents(this, 'MainNavbar')
+        if (list.length) {
+            // @ts-ignore
+            list[0].showGuid = false
         }
     }
 
