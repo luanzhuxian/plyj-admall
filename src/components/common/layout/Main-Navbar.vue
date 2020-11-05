@@ -163,7 +163,7 @@
                     </h2>
                 </el-menu-item>
 
-                <el-menu-item @click="showGuid = true" :class="$style.guid">
+                <div :class="$style.showGuid" @click="showGuid = true">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
                             name="icon-tishi-e4fa1"
@@ -171,9 +171,9 @@
                             height="15"
                             :class="$style.icon"
                         />
-                        <span>操作引导</span>
+                        <span class="el-menu-item__title">操作引导</span>
                     </h2>
-                </el-menu-item>
+                </div>
             </el-menu>
         </div>
 
@@ -249,12 +249,6 @@ export default class MainNavbar extends Vue {
         top: 530px;
         width: 140px;
     }
-    .guid {
-        position: absolute;
-        left: 0;
-        top: 570px;
-        width: 140px;
-    }
     .icon {
         vertical-align: -3px;
         margin-right: 8px;
@@ -262,6 +256,16 @@ export default class MainNavbar extends Vue {
     .title {
         font-size: 14px;
         font-weight: normal;
+    }
+    .show-guid {
+        position: absolute;
+        left: 0;
+        top: 570px;
+        width: 140px;
+        padding-left: 17px;
+        line-height: 42px;
+        color: rgb(179, 185, 191);
+        cursor: pointer;
     }
 }
 

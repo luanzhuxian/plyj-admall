@@ -30,7 +30,17 @@ export default [
                     index: '2-1-2'
                 }
             },
-            ...importFiles(context)
+            ...importFiles(context),
+            {
+                path: 'pay-and-order/:isRenew/:type?',
+                name: 'PayAndOrder',
+                props: true,
+                component: () => import('../../../../views/product-center/online-teaching/pages/Pay-And-Order.vue'),
+                meta: {
+                    title: '流量套餐',
+                    index: '2-1-9'
+                }
+            }
         ]
     }
 ]

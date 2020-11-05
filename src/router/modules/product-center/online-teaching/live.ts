@@ -19,22 +19,12 @@ export default [
                 }
             },
             {
-                path: 'pay-and-order/:isRenew/:type?',
-                name: 'PayAndOrder',
-                props: true,
-                component: () => import('../../../../views/product-center/online-teaching/pages/Pay-And-Order.vue'),
-                meta: {
-                    title: '流量套餐',
-                    index: '2-1-3-2'
-                }
-            },
-            {
                 path: 'previous-list',
                 name: 'LivePreviousList',
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Live-Previous-List.vue'),
                 meta: {
                     title: '往期直播',
-                    index: '2-1-3-3'
+                    index: '2-1-3-2'
                 }
             },
             {
@@ -43,7 +33,7 @@ export default [
                 component: () => import('./../../../../views/product-center/online-teaching/pages/live-video/pages/Live-Now-List.vue'),
                 meta: {
                     title: '直播工作台',
-                    index: '2-1-3-4'
+                    index: '2-1-3-3'
                 }
             },
             {
@@ -53,7 +43,7 @@ export default [
                 props: true,
                 meta: {
                     title: '视频下载',
-                    index: '2-1-3-5'
+                    index: '2-1-3-4'
                 }
             },
             {
@@ -63,7 +53,7 @@ export default [
                 props: true,
                 meta: {
                     title: '数据查看',
-                    index: '2-1-3-6'
+                    index: '2-1-3-5'
                 }
             },
             {
@@ -73,7 +63,7 @@ export default [
                 props: true,
                 meta: {
                     title: '直播详情',
-                    index: '2-1-3-7'
+                    index: '2-1-3-6'
                 }
             },
             {
@@ -83,7 +73,7 @@ export default [
                 props: true,
                 meta: {
                     title: '添加直播',
-                    index: '2-1-3-8'
+                    index: '2-1-3-7'
                 }
             },
             {
@@ -93,7 +83,7 @@ export default [
                 props: true,
                 meta: {
                     title: '编辑直播',
-                    index: '2-1-3-9'
+                    index: '2-1-3-8'
                 }
             },
             {
@@ -103,7 +93,7 @@ export default [
                 props: true,
                 meta: {
                     title: '数据统计',
-                    index: '2-1-3-10'
+                    index: '2-1-3-9'
                 }
             }
         ]

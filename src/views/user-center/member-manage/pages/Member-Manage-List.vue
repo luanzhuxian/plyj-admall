@@ -1117,7 +1117,7 @@ export default class MemberManageList extends Vue {
         }
 
         .tag-list-options {
-            /*line-height: 50px;*/
+            line-height: 34px;
             position: relative;
             .tag-ctrl {
                 position: absolute;
@@ -1126,7 +1126,7 @@ export default class MemberManageList extends Vue {
                 display: inline-flex;
                 justify-content: flex-end;
                 align-items: center;
-                height: 50px;
+                height: 34px;
                 > .icon {
                     margin-left: 10px;
                 }
