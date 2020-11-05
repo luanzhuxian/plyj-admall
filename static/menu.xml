@@ -292,9 +292,24 @@
 
             <menu aclCode="2-4" name="订单中心" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OrderManage" roles="0">
                 <menus>
-                    <menu aclCode="2-4-1" name="商品订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="GoodsOrder" roles="0" />
-                    <menu aclCode="2-4-2" name="课程订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CourseOrder" roles="0" />
-                    <menu aclCode="2-4-3" name="网校订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OnlineSchoolOrder" roles="0" />
+                    <menu aclCode="2-4-1" name="商品订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="GoodsOrder" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-1-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="0" operator="system" routePath="GoodsOrderList" roles="0" />
+                            <menu aclCode="2-4-1-2" name="订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="GoodsOrderDetail" roles="0" />
+                        </menus>
+                    </menu>
+                    <menu aclCode="2-4-2" name="课程订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CourseOrder" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-2-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="0" operator="system" routePath="CourseOrderList" roles="0" />
+                            <menu aclCode="2-4-2-2" name="订单详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="CourseOrderDetail" roles="0" />
+                        </menus>
+                    </menu>
+                    <menu aclCode="2-4-3" name="网校订单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OnlineSchoolOrder" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-1-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="0" operator="system" routePath="OnlineSchoolOrderList" roles="0" />
+                            <menu aclCode="2-4-1-2" name="详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OnlineSchoolOrderDetail" roles="0" />
+                        </menus>
+                    </menu>
                     <menu aclCode="2-4-4" name="售后单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Backorder" roles="0"/>
                     <menu aclCode="2-4-5" name="发票列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Invoice" roles="0"/>
                     <menu aclCode="2-4-6" name="售后详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BackorderDetail" roles="0"/>
@@ -535,7 +550,7 @@
             <menu aclCode="2-10" name="通知中心" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="Notification" roles="0">
                 <menus>
                     <menu aclCode="2-10-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="NotificationList" roles="0"/>
-                    <menu aclCode="2-10-2" name="公告详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="NotificationDetail" roles="0"/>
+                    <menu aclCode="2-10-2" name="公告详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="NotificationDetail" roles="0"/>
                 </menus>
             </menu>
 

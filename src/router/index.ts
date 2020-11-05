@@ -100,6 +100,7 @@ export const router = new Router({
     routes
 })
 export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
+    // 存储微信登录code
     if (to.query.code) {
         sessionStorage.setItem(SessionEnum.redirectState, to.query.state as string)
         sessionStorage.setItem(SessionEnum.redirectCode, to.query.code as string)
@@ -114,6 +115,8 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
     NProgress.start()
     document.title = to.meta.title || document.title
     const token = Cookie.get(LocalEnum.token) || ''
+
+    // 未登录
     if (!token) {
         if (!NOLOGIN.includes(to.name as string)) {
             next({ name: 'PhoneLogin' })
@@ -129,7 +132,11 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
         NProgress.done()
         return
     }
-    // 校验页面权限
+
+    /**
+     * 校验页面权限
+     * 如果页面被忽略，则不校验
+     */
     if (!to.meta.ignore) {
         const newTo = checkAuth(to)
         if (newTo !== to.name) {
@@ -137,6 +144,7 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
             return next({ name: newTo })
         }
     }
+
     const appId = localStorage.getItem(LocalEnum.appId)
     const mallId = Cookie.get(LocalEnum.mallId)
     if (!mallId && !to.matched.some(item => NO_MALL.includes(item.name as string))) {

@@ -26,7 +26,6 @@ export default [
                         meta: {
                             title: '列表',
                             index: '4-1-1'
-                            // ignore: true
                         }
                     },
                     {
@@ -37,7 +36,6 @@ export default [
                         meta: {
                             title: '订单详情',
                             index: '4-1-2'
-                            // ignore: true
                         }
                     }
                 ]
@@ -59,7 +57,6 @@ export default [
                         meta: {
                             title: '列表',
                             index: '4-2-1'
-                            // ignore: true
                         }
                     },
                     {
@@ -70,7 +67,6 @@ export default [
                         meta: {
                             title: '订单详情',
                             index: '4-2-2'
-                            // ignore: true
                         }
                     }
                 ]
@@ -92,7 +88,6 @@ export default [
                         meta: {
                             title: '列表',
                             index: '4-3-1'
-                            // ignore: true
                         }
                     },
                     {
@@ -103,7 +98,6 @@ export default [
                         meta: {
                             title: '订单详情',
                             index: '4-3-2'
-                            // ignore: true
                         }
                     }
                 ]
