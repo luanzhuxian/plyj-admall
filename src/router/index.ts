@@ -109,7 +109,7 @@ const checkAuth = to => {
     } catch (e) {
         pageName = ''
     }
-    pageName = pageName || to.meta?.title || '该'
+    pageName = pageName || to.meta?.title || ''
 
     /**
      * 无权限访问，返回一个重定向路由，并提示用户
@@ -160,7 +160,7 @@ const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
         const newTo = checkAuth(to, from)
         if (newTo.name !== to.name) {
             NProgress.done()
-            return newTo.noAuth ? next(new NoAuthError('无权限')) : next(newTo)
+            return newTo.noAuth && from.name ? next(new NoAuthError('无权限')) : next(newTo)
         }
     }
 
