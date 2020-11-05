@@ -10,6 +10,14 @@ import { importFiles } from './../assets/ts/utils'
 import { LocalEnum, SessionEnum } from '@/enum/storage'
 import store from '../store'
 
+class NoAuthError extends Error {
+    constructor (msg) {
+        super(msg)
+        this.name = 'NoAuthError'
+        this.message = msg
+    }
+}
+
 // 无需登录就可以看到的页面
 const NOLOGIN = [
     'WxLogin',
@@ -77,7 +85,7 @@ export const router = new Router({
     routes
 })
 let routeNames = null
-const checkAuth = (to, from) => {
+const checkAuth = to => {
     if (!routeNames) {
         routeNames = store.getters['user/routeNames']
     }
@@ -108,9 +116,9 @@ const checkAuth = (to, from) => {
      * 返回路由列表中的第一个路由
      */
     MessageBox.alert(`<strong>${ pageName }</strong> 页面暂无权限，请联系管理员`, { title: '暂无权限', dangerouslyUseHTMLString: true })
-    return from || { name: routeNames.keys().next().value }
+    return { name: routeNames.keys().next().value, noAuth: true }
 }
-export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
+const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
     // 存储微信登录code
     if (to.query.code) {
         sessionStorage.setItem(SessionEnum.redirectState, to.query.state as string)
@@ -152,7 +160,7 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
         const newTo = checkAuth(to, from)
         if (newTo.name !== to.name) {
             NProgress.done()
-            return next(newTo)
+            return newTo.noAuth ? next(new NoAuthError('无权限')) : next(newTo)
         }
     }
 
@@ -184,11 +192,15 @@ export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => 
     next()
 }
 
-export const afterEach = () => {
+const afterEach = () => {
     NProgress.done()
+}
+const onError = err => {
+    console.error(err)
 }
 router.beforeResolve(beforeResolve)
 router.afterEach(afterEach)
+router.onError(onError)
 
 /**
  * vue-router新版本给push和replace方法新增了回调（Promise）
@@ -211,9 +223,6 @@ Router.prototype.push = function push (location: Route, onResolve: Function, onR
     }
     if (onResolve || onReject) { return originalPush.call(this, location, onResolve, onReject) }
     return originalPush.call(this, location)
-        .catch(err => {
-            console.error(err)
-        })
 }
 Router.prototype.replace = function replace (location: Route, onResolve: Function, onReject: Function) {
     if (typeof location === 'object') {
@@ -229,7 +238,4 @@ Router.prototype.replace = function replace (location: Route, onResolve: Functio
     }
     if (onResolve || onReject) { return originalReplace.call(this, location, onResolve, onReject) }
     return originalReplace.call(this, location)
-        .catch(err => {
-            console.error(err)
-        })
 }

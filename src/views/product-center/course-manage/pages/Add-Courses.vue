@@ -1014,6 +1014,7 @@ export default {
                 } else {
                     await addGoods(this.form)
                 }
+                await this.$router.replace({ name: 'AddCourses' })
                 // 初始化数据
                 this.form = {
                     productType: 'FORMAL_CLASS',
@@ -1069,7 +1070,6 @@ export default {
                         required: 1
                     }
                 ]
-                this.$router.replace({ name: 'AddCourses' })
                 document.querySelector('.add-product').scrollTo(0, 0)
                 // this.$router.replace({ name: 'AddCourses' })
             } catch (e) {

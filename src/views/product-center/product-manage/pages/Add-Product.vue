@@ -21,7 +21,8 @@
                     <el-radio v-model="form.productType" label="VIRTUAL_GOODS" border class="pro-type el-icon-check">
                         虚拟商品
                     </el-radio>
-                    <el-tooltip class="item" effect="dark" content="可添加无需物流配送服务，线上购买，线下提供服务的相关商品，例如线路，门票等虚拟商品。 " placement="bottom">
+                    <el-tooltip class="item" effect="dark" content="可添加无需物流配送服务，线上购买，线下提供服务的相关商品，例如线路，门票等虚拟商品。 "
+                                placement="bottom">
                         <i class="pro-type-intro el-icon-warning-outline fz-18" style="color: #333;" />
                     </el-tooltip>
                 </el-form-item>
@@ -181,7 +182,8 @@
                     物流信息
                 </div>
 
-                <el-form-item label="物流方式" prop="logisticsType" id="logisticsType" v-if="form.productType === 'PHYSICAL_GOODS'">
+                <el-form-item label="物流方式" prop="logisticsType" id="logisticsType"
+                              v-if="form.productType === 'PHYSICAL_GOODS'">
                     <el-radio-group v-model="logisticsType">
                         <el-radio :label="1" name="普通快递">
                             普通快递
@@ -189,7 +191,8 @@
                     </el-radio-group>
                 </el-form-item>
 
-                <el-form-item label="运费模板" prop="shippingTemplateId" id="shippingTemplateId" v-if="form.productType === 'PHYSICAL_GOODS'">
+                <el-form-item label="运费模板" prop="shippingTemplateId" id="shippingTemplateId"
+                              v-if="form.productType === 'PHYSICAL_GOODS'">
                     <el-select placeholder="请选择运费模板" v-model="form.shippingTemplateId">
                         <el-option
                             v-for="(item, index) of templateList"
@@ -221,7 +224,8 @@
                     </div>
                     <div v-if="form.purchaseLimit">
                         <span style="font-size: 16px; color: #666; margin-right: 10px;">每个账号可购买的数量为</span>
-                        <el-input :type="'number'" v-model="form.purchaseQuantity" @blur="purchaseQuantityChange()" :disabled="!form.purchaseLimit" style="width: 136px;" />
+                        <el-input :type="'number'" v-model="form.purchaseQuantity" @blur="purchaseQuantityChange()"
+                                  :disabled="!form.purchaseLimit" style="width: 136px;" />
                     </div>
                 </el-form-item>
 
@@ -248,7 +252,8 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item v-if="form.supportRefund && form.productType === 'PHYSICAL_GOODS'" label-width="170px" id="supportRefund">
+                <el-form-item v-if="form.supportRefund && form.productType === 'PHYSICAL_GOODS'" label-width="170px"
+                              id="supportRefund">
                     <el-select
                         placeholder="请选择退货地址"
                         v-model="form.afterSalesAddress"
@@ -262,7 +267,8 @@
                             :value="item.sequenceNbr"
                         />
                     </el-select>
-                    <el-button type="text" class="text-underline" style="color: #007bff; margin-left: 20px;" @click="showAddAddress = true">
+                    <el-button type="text" class="text-underline" style="color: #007bff; margin-left: 20px;"
+                               @click="showAddAddress = true">
                         新建
                     </el-button>
                 </el-form-item>
@@ -276,7 +282,8 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="学员信息" v-if="form.productType === 'VIRTUAL_GOODS'" label-width="170px" id="needStudentInfo">
+                <el-form-item label="学员信息" v-if="form.productType === 'VIRTUAL_GOODS'" label-width="170px"
+                              id="needStudentInfo">
                     <div>
                         <el-checkbox v-model="form.needStudentInfo" :true-label="1" :false-label="0">
                             获取学员信息
@@ -328,9 +335,12 @@
                                         操作
                                     </div>
                                 </div>
-                                <div class="head-title tabel-content" v-for="(item,index) of studentInfoModels" :key="index">
+                                <div class="head-title tabel-content" v-for="(item,index) of studentInfoModels"
+                                     :key="index">
                                     <div class="custom-name">
-                                        <el-input style="width: 200px" v-model="item.fieldName" @blur="customValue($event,item)" maxlength="10" placeholder="请输入10字单文本标题" />
+                                        <el-input style="width: 200px" v-model="item.fieldName"
+                                                  @blur="customValue($event,item)" maxlength="10"
+                                                  placeholder="请输入10字单文本标题" />
                                     </div>
                                     <div class="custom-num">
                                         <el-checkbox v-model="item.required" :true-label="1" :false-label="0">
@@ -377,7 +387,8 @@
 
                 <el-form-item label="自定义表单" label-width="170px" v-if="form.productType === 'PHYSICAL_GOODS'">
                     <div>
-                        <el-checkbox v-model="customFormStatus" @change="customFormChange" :true-label="1" :false-label="0">
+                        <el-checkbox v-model="customFormStatus" @change="customFormChange" :true-label="1"
+                                     :false-label="0">
                             开启设置自定义备注信息
                         </el-checkbox>
                         <span class="purchase-sort-description"> (勾选后，用户购买商品时，在确定订单时需要填写相应的自定义信息)</span>
@@ -397,7 +408,9 @@
                             </div>
                             <div class="head-title tabel-content" v-for="(item,index) of customFormModels" :key="index">
                                 <div class="custom-name">
-                                    <el-input style="width: 200px" v-model="item.fieldName" @blur="customValue($event,item)" maxlength="10" placeholder="请输入10字单文本标题" />
+                                    <el-input style="width: 200px" v-model="item.fieldName"
+                                              @blur="customValue($event,item)" maxlength="10"
+                                              placeholder="请输入10字单文本标题" />
                                 </div>
                                 <div class="custom-num">
                                     <el-checkbox v-model="item.required" :true-label="1" :false-label="0">
@@ -493,7 +506,7 @@
                 </div>
             </div>
             <footer>
-                <el-button :loading="loading" round plain style="width: 90px;margin-left: 20px" @click="saveAndOnline">
+                <el-button :loading="loading" round plain @click="saveAndOnline">
                     保存
                 </el-button>
                 <el-button :loading="loading" round type="primary" plain @click="saveAndAdd">
@@ -679,6 +692,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { deleteImage } from '../../../../assets/ts/upload'
 import moment from 'moment'
 import { MutationTypes } from '../../../../store/mutation-type'
+
 export default {
     name: 'AddProduct',
     components: {
@@ -776,34 +790,82 @@ export default {
                     { required: true }
                 ],
                 productName: [
-                    { required: true, message: '商品名称不能为空', trigger: 'blur' },
-                    { max: 50, message: '商品名称不能超过50个字符', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '商品名称不能为空',
+                        trigger: 'blur'
+                    },
+                    {
+                        max: 50,
+                        message: '商品名称不能超过50个字符',
+                        trigger: 'blur'
+                    }
                 ],
                 productMainImage: [
-                    { required: true, message: '上传图片不能为空', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '上传图片不能为空',
+                        trigger: 'blur'
+                    }
                 ],
                 productDesc: [
-                    { required: true, message: '商品描述不能为空', trigger: 'blur' },
-                    { max: 50, message: '商品描述不能超过50个字符', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '商品描述不能为空',
+                        trigger: 'blur'
+                    },
+                    {
+                        max: 50,
+                        message: '商品描述不能超过50个字符',
+                        trigger: 'blur'
+                    }
                 ],
                 categoryId: [
-                    { required: true, message: '商品分类不能为空', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '商品分类不能为空',
+                        trigger: 'blur'
+                    }
                 ],
                 productSkuModels: [
-                    { required: true, message: '商品规格不能为空', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '商品规格不能为空',
+                        trigger: 'blur'
+                    }
                 ],
                 logisticsType: [
-                    { required: true, message: '物流方式不能为空', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '物流方式不能为空',
+                        trigger: 'blur'
+                    }
                 ],
                 shippingTemplateId: [
-                    { required: true, message: '运费模板不能为空', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '运费模板不能为空',
+                        trigger: 'blur'
+                    }
                 ],
                 useDesc: [
-                    { required: true, message: '使用须知不能为空', trigger: 'blur' },
-                    { max: 200, message: '使用须知不能超过200个字符', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '使用须知不能为空',
+                        trigger: 'blur'
+                    },
+                    {
+                        max: 200,
+                        message: '使用须知不能超过200个字符',
+                        trigger: 'blur'
+                    }
                 ],
                 detail: [
-                    { required: true, message: '商品详情不能为空', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '商品详情不能为空',
+                        trigger: 'blur'
+                    }
                 ]
             },
             // 标签回显
@@ -934,14 +996,12 @@ export default {
                     this.form.showBranding = 0
                 }
             }
+            window.addEventListener('beforeunload', this.beforeunload)
         } catch (e) {
             throw e
         }
     },
-    activated () {
-        window.addEventListener('beforeunload', this.beforeunload)
-    },
-    deactivated () {
+    beforeDestroy () {
         window.removeEventListener('beforeunload', this.beforeunload)
     },
     methods: {
@@ -959,7 +1019,10 @@ export default {
                 const classification = []
                 const { result: res } = await getSingleGoods(this.id)
                 if (res.productStatus !== 3) this.showDraft = false
-                if (res.shoppingTime && this.isSafari) res.shoppingTime = moment(res.shoppingTime).format('YYYY/MM/DD HH:mm:ss')
+                if (res.shoppingTime && this.isSafari) {
+                    res.shoppingTime = moment(res.shoppingTime)
+                        .format('YYYY/MM/DD HH:mm:ss')
+                }
                 classification.push(res.categoryId)
                 if (res.subCategoryId) classification.push(res.subCategoryId)
                 this.classification = classification
@@ -1089,8 +1152,10 @@ export default {
                 this.form.validityPeriodEnd = ''
             }
             if (this.daterange && this.daterange.length === 2) {
-                this.form.validityPeriodStart = `${ moment(this.daterange[0]).format('YYYY-MM-DD') } 00:00:00`
-                this.form.validityPeriodEnd = `${ moment(this.daterange[1]).format('YYYY-MM-DD') } 23:59:59`
+                this.form.validityPeriodStart = `${ moment(this.daterange[0])
+                    .format('YYYY-MM-DD') } 00:00:00`
+                this.form.validityPeriodEnd = `${ moment(this.daterange[1])
+                    .format('YYYY-MM-DD') } 23:59:59`
             }
         },
         addCustom () {
@@ -1114,10 +1179,20 @@ export default {
             }
         },
         customFormChange () {
-            if (this.customFormStatus && !this.customFormModels.length) this.customFormModels.push({ fieldName: '', required: 1 })
+            if (this.customFormStatus && !this.customFormModels.length) {
+                this.customFormModels.push({
+                    fieldName: '',
+                    required: 1
+                })
+            }
         },
         studentFormChange () {
-            if (this.form.needStudentInfo && this.customFormType && !this.studentInfoModels.length) this.studentInfoModels.push({ fieldName: '', required: 1 })
+            if (this.form.needStudentInfo && this.customFormType && !this.studentInfoModels.length) {
+                this.studentInfoModels.push({
+                    fieldName: '',
+                    required: 1
+                })
+            }
         },
         deleteCustom (index) {
             this.customFormModels.splice(index, 1)
@@ -1163,12 +1238,16 @@ export default {
                     item.realRebate = Number(item.realRebate)
                     item.rebate = Number(item.rebate)
                 }
-                form.shoppingTime = form.shoppingStatus ? moment(form.shoppingTime).format('YYYY-MM-DD HH:mm:ss') : ''
+                form.shoppingTime = form.shoppingStatus ? moment(form.shoppingTime)
+                    .format('YYYY-MM-DD HH:mm:ss') : ''
                 form.categoryId = this.classification[0]
                 form.subCategoryId = this.classification[1] || ''
                 if (this.id) {
                     delete form.id
-                    await modifyGoods({ productId: this.id, data: form })
+                    await modifyGoods({
+                        productId: this.id,
+                        data: form
+                    })
                     if (type === 'online') {
                         await updateGoodsStatus(2, [this.id])
                     }
@@ -1204,15 +1283,20 @@ export default {
                 for (const item of this.form.productSkuModels) {
                     item.status = Number(item.status)
                 }
-                this.form.shoppingTime = this.form.shoppingStatus ? moment(this.form.shoppingTime).format('YYYY-MM-DD HH:mm:ss') : ''
+                this.form.shoppingTime = this.form.shoppingStatus ? moment(this.form.shoppingTime)
+                    .format('YYYY-MM-DD HH:mm:ss') : ''
                 // 自定义表单处理
                 this.processCustomDate()
                 if (this.id) {
                     delete this.form.id
-                    await modifyGoods({ productId: this.id, data: this.form })
+                    await modifyGoods({
+                        productId: this.id,
+                        data: this.form
+                    })
                 } else {
                     await addGoods(this.form)
                 }
+                await this.$router.replace({ name: 'AddProduct' })
                 this.form = {
                     isShow: 1,
                     productType: 'PHYSICAL_GOODS',
@@ -1284,9 +1368,9 @@ export default {
                         required: 1
                     }
                 ]
-                this.$router.replace({ name: 'AddProduct' })
-                document.querySelector('.add-product').scrollTo(0, 0)
-                // this.$router.replace({ name: 'AddProduct' })
+                document.querySelector('.add-product')
+                    .scrollTo(0, 0)
+                    // this.$router.replace({ name: 'AddProduct' })
             } catch (e) {
                 // 处理失败自定义表单
                 this.processResCustomDate(this.form)
@@ -1317,17 +1401,24 @@ export default {
             for (const item of this.form.productSkuModels) {
                 item.status = Number(item.status)
             }
-            this.form.shoppingTime = this.form.shoppingStatus ? moment(this.form.shoppingTime).format('YYYY-MM-DD HH:mm:ss') : ''
+            this.form.shoppingTime = this.form.shoppingStatus ? moment(this.form.shoppingTime)
+                .format('YYYY-MM-DD HH:mm:ss') : ''
             // 自定义表单处理
             this.processCustomDate()
             try {
                 if (this.id) {
                     delete this.form.id
-                    await modifyDraft({ productId: this.id, data: this.form })
+                    await modifyDraft({
+                        productId: this.id,
+                        data: this.form
+                    })
                 } else {
                     await createDraft(this.form, 'GOODS')
                 }
-                this.$router.replace({ name: 'MyGoods', query: { status: 3 } })
+                await this.$router.replace({
+                    name: 'MyGoods',
+                    query: { status: 3 }
+                })
             } catch (e) {
                 // 处理失败自定义表单
                 this.processResCustomDate(this.form)
@@ -1554,9 +1645,9 @@ export default {
         },
 
         /**
-     * 表单校验事件
-     * @param id {String} 错误项的id
-     */
+             * 表单校验事件
+             * @param id {String} 错误项的id
+             */
         formValidateHandler (id) {
             const el = document.getElementById(id)
             if (el) {
@@ -1593,332 +1684,368 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.font-12c{
-  font-size: 12px;
-  color: #cccccc;
-}
-.main-form {
-  ::v-deep .el-form-item__label {
-    padding-left: 30px !important;
-  }
-}
-
-.add-product {
-  background-color: #f5f6f7;
-}
-/* 商品类型 */
-.pro-type {
-  position: relative;
-  margin: 0;
-  padding: 0 13px !important;
-  line-height: 30px;
-  overflow: hidden;
-  border-radius: 6px;
-  ::v-deep .el-radio__input {
-    display: none !important;
-  }
-  ::v-deep .el-radio__label {
-    padding-left: 0;
-  }
-  &.is-checked.el-icon-check:after {
-    position: absolute;
-    right: 0;
-    content: '';
-    font-size: 12px;
-    border-top: 16px solid #4F63FF;
-    border-left: 26px solid transparent;
-    z-index: 1;
-  }
-  &.el-icon-check:before {
-    display: none;
-  }
-  &.is-checked {
-    &.el-icon-check:before {
-      display: inline;
-      position: absolute;
-      right: 0;
-      top: 0;
-      line-height: 12px;
-      font-size: 12px;
-      color: #fff;
-      z-index: 2;
-    }
-  }
-}
-.pro-type-intro {
-  display: inline-block;
-  margin-left: 6px;
-  margin-right: 30px;
-  transform: translateY(-8px);
-  &:hover {
-    color: #EC742E;
-  }
-}
-.pro-type-intro-time {
-  display: inline-block;
-  margin-left: 6px;
-  &:hover {
-    color: #EC742E;
-  }
-}
-.purchase-sort-description {
-  font-size: 12px;
-  color: #999;
-}
-.add-content {
-  margin-top: 20px;
-  margin-left: 80px;
-  margin-right: 26px;
-  background-color: #fff;
-  .content-title {
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
-    height: 60px;
-    margin-top: 37px;
-    padding-left: 30px;
-    font-size: 14px;
-    font-weight: bold;
-    border-top: 1px solid #e7e7e7;
-    background-color: #fbfbfb;
-  }
-
-  .specify-student{
-    display: inline-flex;
-    padding: 10px;
-    border: 1px solid #e7e7e7;
-    >div{
-      display: flex;
-      flex-direction: column;
-      margin-right: 15px;
-      font-size: 14px;
-      color: #606266;
-    }
-  }
-
-  .btn-box {
-    border-top: 1px solid #e7e7e7;
-    padding: 24px;
-
-    .btn-description {
-      padding-top: 24px;
-      padding-bottom: 67px;
-
-      > div {
-        padding-bottom: 10px;
+    .font-12c {
         font-size: 12px;
-        color: #999999;
-      }
+        color: #cccccc;
     }
-  }
 
-  .tabel-box{
-    width: 640px;
-    margin-top: 12px;
-    border-top: 1px solid #CCCCCC;
-    border-right: 1px solid #CCCCCC;
-    border-left: 1px solid #CCCCCC;
-    .head-title{
-      display: flex;
-      padding: 10px;
-      border-bottom: 1px solid #CCCCCC;
-      font-size: 12px;
-      color: #333333;
-      font-weight: bold;
-      .custom-name{
-        width: 260px;
-      }
-      .custom-num{
-        width: 160px;
-      }
-      .custom-button{
-        width: 70px;
-      }
+    .main-form {
+        ::v-deep .el-form-item__label {
+            padding-left: 30px !important;
+        }
     }
-    .tabel-content{
-      font-weight: normal;
-      .choose-btn{
-        width: 90px;
+
+    .add-product {
+        background-color: #f5f6f7;
+    }
+
+    /* 商品类型 */
+    .pro-type {
+        position: relative;
+        margin: 0;
+        padding: 0 13px !important;
+        line-height: 30px;
+        overflow: hidden;
+        border-radius: 6px;
+
+        ::v-deep .el-radio__input {
+            display: none !important;
+        }
+
+        ::v-deep .el-radio__label {
+            padding-left: 0;
+        }
+
+        &.is-checked.el-icon-check:after {
+            position: absolute;
+            right: 0;
+            content: '';
+            font-size: 12px;
+            border-top: 16px solid #4F63FF;
+            border-left: 26px solid transparent;
+            z-index: 1;
+        }
+
+        &.el-icon-check:before {
+            display: none;
+        }
+
+        &.is-checked {
+            &.el-icon-check:before {
+                display: inline;
+                position: absolute;
+                right: 0;
+                top: 0;
+                line-height: 12px;
+                font-size: 12px;
+                color: #fff;
+                z-index: 2;
+            }
+        }
+    }
+
+    .pro-type-intro {
+        display: inline-block;
+        margin-left: 6px;
+        margin-right: 30px;
+        transform: translateY(-8px);
+
+        &:hover {
+            color: #EC742E;
+        }
+    }
+
+    .pro-type-intro-time {
+        display: inline-block;
+        margin-left: 6px;
+
+        &:hover {
+            color: #EC742E;
+        }
+    }
+
+    .purchase-sort-description {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .add-content {
+        margin-top: 20px;
+        margin-left: 80px;
+        margin-right: 26px;
+        background-color: #fff;
+
+        .content-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            height: 60px;
+            margin-top: 37px;
+            padding-left: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            border-top: 1px solid #e7e7e7;
+            background-color: #fbfbfb;
+        }
+
+        .specify-student {
+            display: inline-flex;
+            padding: 10px;
+            border: 1px solid #e7e7e7;
+
+            > div {
+                display: flex;
+                flex-direction: column;
+                margin-right: 15px;
+                font-size: 14px;
+                color: #606266;
+            }
+        }
+
+        .btn-box {
+            border-top: 1px solid #e7e7e7;
+            padding: 24px;
+
+            .btn-description {
+                padding-top: 24px;
+                padding-bottom: 67px;
+
+                > div {
+                    padding-bottom: 10px;
+                    font-size: 12px;
+                    color: #999999;
+                }
+            }
+        }
+
+        .tabel-box {
+            width: 640px;
+            margin-top: 12px;
+            border-top: 1px solid #CCCCCC;
+            border-right: 1px solid #CCCCCC;
+            border-left: 1px solid #CCCCCC;
+
+            .head-title {
+                display: flex;
+                padding: 10px;
+                border-bottom: 1px solid #CCCCCC;
+                font-size: 12px;
+                color: #333333;
+                font-weight: bold;
+
+                .custom-name {
+                    width: 260px;
+                }
+
+                .custom-num {
+                    width: 160px;
+                }
+
+                .custom-button {
+                    width: 70px;
+                }
+            }
+
+            .tabel-content {
+                font-weight: normal;
+
+                .choose-btn {
+                    width: 90px;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .custom-add {
+            font-size: 14px;
+            margin-top: 5px;
+            margin-right: 15px;
+        }
+    }
+
+    /* 标签管理 */
+    .product-label {
+        font-size: 14px;
+        color: #999;
+
+        &__list {
+            margin-bottom: 10px;
+        }
+
+        &__item {
+            display: inline-block;
+            box-sizing: border-box;
+            position: relative;
+            height: 30px;
+            line-height: 28px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            padding: 0 16px;
+            font-size: 12px;
+            color: #666666;
+            margin-right: 10px;
+            cursor: pointer;
+
+            &:hover {
+                .icon-close {
+                    transform: scale(1, 1);
+                }
+            }
+
+            .icon-close {
+                position: absolute;
+                right: -8px;
+                top: -8px;
+                font-size: 16px;
+                line-height: 16px;
+                cursor: pointer;
+                transform: scale(0, 0);
+                transition: transform .2s ease-in-out;
+
+                &:before {
+                    color: #333;
+                }
+            }
+        }
+
+        &__button {
+            margin-right: 10px;
+            color: #999999;
+            background-color: #f8f8f8;
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+
+        &__suggestion {
+            font-size: 12px;
+            line-height: 16px;
+        }
+    }
+
+    /* 规格 */
+    .sku-btn {
+        .is-disabled {
+            color: #cccccc;
+            border-color: #cccccc;
+        }
+
+        span {
+            color: #999999;
+            font-size: 14px;
+        }
+    }
+
+    /* 图片列表 */
+    .description-dialog {
+        ::v-deep .el-dialog__header {
+            display: flex;
+            align-items: center;
+        }
+
+        .description-dialog-box {
+            display: flex;
+            flex-direction: row;
+
+            > div {
+                width: 50%;
+                padding-left: 35px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                span {
+                    display: block;
+                    width: 274px;
+                    color: #4F63FF;
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                }
+
+                div {
+                    width: 274px;
+                    height: 66px;
+                    margin-bottom: 40px;
+                    color: #999999;
+                }
+
+                img {
+                    width: 200px;
+                }
+            }
+        }
+
+        .useDesc-dialog-box {
+            padding: 0 50px;
+
+            > p {
+                font-size: 16px;
+                line-height: 32px;
+                color: #999999;
+            }
+        }
+    }
+
+    .sku-dialog {
+        ::v-deep .el-dialog__header {
+            display: flex;
+            align-items: center;
+        }
+
+        .sku-dialog-box {
+            display: flex;
+            flex-direction: column;
+            padding-left: 35px;
+
+            span {
+                display: block;
+                color: #4F63FF;
+                font-size: 14px;
+                margin: 24px 0;
+            }
+
+            i {
+                display: block;
+                margin: 14px 0 0 8px;
+                color: #D2524C;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .draft-upperLimit {
+        ::v-deep .el-dialog {
+            .el-dialog__header {
+                padding: 0;
+                border-bottom: none;
+            }
+        }
+
+        .draft-upperLimit-box {
+            display: flex;
+            justify-content: center;
+
+            .content-text {
+                width: 323px;
+                font-size: 16px;
+                font-weight: bold;
+                color: #333333;
+                text-align: center;
+            }
+        }
+    }
+
+    footer {
+        position: fixed;
+        left: 150px;
+        right: 0;
+        bottom: 0;
         display: flex;
         justify-content: center;
-      }
+        align-items: center;
+        height: 64px;
+        min-width: 800px;
+        background-color: #fff;
+        border-top: 1px solid #e7e7e7;
+        z-index: 99;
     }
-  }
-  .custom-add{
-    font-size: 14px;
-    margin-top: 5px;
-    margin-right: 15px;
-  }
-}
-
-/* 标签管理 */
-.product-label {
-  font-size: 14px;
-  color: #999;
-  &__list {
-    margin-bottom: 10px;
-  }
-  &__item {
-    display: inline-block;
-    box-sizing: border-box;
-    position: relative;
-    height: 30px;
-    line-height: 28px;
-    border: 1px solid rgba(204, 204, 204, 1);
-    padding: 0 16px;
-    font-size: 12px;
-    color: #666666;
-    margin-right: 10px;
-    cursor: pointer;
-    &:hover {
-      .icon-close {
-        transform: scale(1, 1);
-      }
-    }
-    .icon-close {
-      position: absolute;
-      right: -8px;
-      top: -8px;
-      font-size: 16px;
-      line-height: 16px;
-      cursor: pointer;
-      transform: scale(0, 0);
-      transition: transform .2s ease-in-out;
-      &:before {
-        color: #333;
-      }
-    }
-  }
-  &__button {
-    margin-right: 10px;
-    color: #999999;
-    background-color: #f8f8f8;
-    border: 1px solid rgba(204, 204, 204, 1);
-  }
-  &__suggestion {
-    font-size: 12px;
-    line-height: 16px;
-  }
-}
-/* 规格 */
-.sku-btn{
-  .is-disabled{
-    color: #cccccc;
-    border-color: #cccccc;
-  }
-  span{
-    color: #999999;
-    font-size: 14px;
-  }
-}
-/* 图片列表 */
-.description-dialog {
-  ::v-deep .el-dialog__header{
-    display: flex;
-    align-items: center;
-  }
-  .description-dialog-box{
-    display: flex;
-    flex-direction: row;
-    > div{
-      width: 50%;
-      padding-left: 35px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      span{
-        display: block;
-        width:274px;
-        color: #4F63FF;
-        font-size: 14px;
-        margin-bottom: 10px;
-      }
-      div{
-        width:274px;
-        height:66px;
-        margin-bottom: 40px;
-        color: #999999;
-      }
-      img{
-        width: 200px;
-      }
-    }
-  }
-
-  .useDesc-dialog-box{
-    padding: 0 50px;
-    >p{
-      font-size: 16px;
-      line-height: 32px;
-      color: #999999;
-    }
-  }
-}
-
-.sku-dialog{
-  ::v-deep .el-dialog__header{
-    display: flex;
-    align-items: center;
-  }
-  .sku-dialog-box{
-    display: flex;
-    flex-direction: column;
-    padding-left: 35px;
-    span{
-      display: block;
-      color: #4F63FF;
-      font-size: 14px;
-      margin: 24px 0;
-    }
-    i{
-      display: block;
-      margin: 14px 0 0 8px;
-      color: #D2524C;
-      font-size: 12px;
-    }
-  }
-}
-
-.draft-upperLimit{
-    ::v-deep .el-dialog{
-        .el-dialog__header {
-            padding: 0;
-            border-bottom: none;
-        }
-  }
-  .draft-upperLimit-box{
-    display: flex;
-    justify-content: center;
-    .content-text{
-      width:323px;
-      font-size:16px;
-      font-weight:bold;
-      color: #333333;
-      text-align: center;
-    }
-  }
-}
-
-footer {
-    position: fixed;
-    left: 150px;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 64px;
-    min-width: 800px;
-    background-color: #fff;
-    border-top: 1px solid #e7e7e7;
-    z-index: 99;
-    > button {
-        margin-left: 20px !important;
-        padding-left: 0;
-        padding-right: 0;
-        width: 100px;
-        text-align: center;
-    }
-}
 
 </style>
