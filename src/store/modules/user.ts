@@ -294,12 +294,14 @@ const user: Module<DynamicObject, DynamicObject> = {
         // 切换商城, 在 GET_AGENCY_LIST 之后调用
         async selectMall ({ commit, state, rootState }) {
             const { mallId, agencyCode } = await selectMall(state.agencyList, rootState.roleMap)
+            // 选中的商城不是当前商城
             if (mallId !== state.mallId) {
                 commit(MutationTypes.setCurrentAgency, {
                     mallId, agencyCode
                 })
                 return { mallId, agencyCode, changed: true }
             }
+            // 选中的商城是当前商城
             commit(MutationTypes.setCurrentAgency, {
                 mallId, agencyCode
             })

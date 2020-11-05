@@ -8,7 +8,14 @@
         @close="close"
         :append-to-body="appendToBody"
     >
-        <el-form ref="mallInfoForm" :model="mallInfoForm" :rules="mallInfoFormRules" style="padding: 0 54px;" label-width="95px" label-position="left">
+        <el-form
+            ref="mallInfoForm"
+            :model="mallInfoForm"
+            :rules="mallInfoFormRules"
+            style="padding: 0 54px;"
+            label-width="95px"
+            label-position="right"
+        >
             <el-form-item label="店铺名称：" prop="mallName">
                 <el-input v-model="mallInfoForm.mallName" placeholder="请输入15字以内的中英文字符" />
             </el-form-item>
