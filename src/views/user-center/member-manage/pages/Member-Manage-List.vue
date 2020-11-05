@@ -288,6 +288,7 @@
                     <el-table-column
                         prop="purchasesNumber"
                         label="购买订单量"
+                        width="90"
                     />
                     <el-table-column label="支付总额（元）" width="120">
                         <template #default="{ row }">
@@ -1086,7 +1087,7 @@ export default class MemberManageList extends Vue {
             justify-content: space-between;
             height: 61px;
             padding: 16px;
-            border-bottom: 1px solid #ddd;
+            /*border-bottom: 1px solid #ddd;*/
             .el-icon-search {
                 font-size: 16px;
                 cursor: pointer;
@@ -1101,8 +1102,8 @@ export default class MemberManageList extends Vue {
             justify-content: space-between;
             align-items: center;
             font-size: 14px;
-            line-height: 50px;
-            border-bottom: 1px solid #e7e7e7;
+            line-height: 34px;
+            /*border-bottom: 1px solid #e7e7e7;*/
             cursor: pointer;
 
             > span {
@@ -1116,7 +1117,7 @@ export default class MemberManageList extends Vue {
         }
 
         .tag-list-options {
-            line-height: 50px;
+            /*line-height: 50px;*/
             position: relative;
             .tag-ctrl {
                 position: absolute;
