@@ -11,7 +11,7 @@
         <div :class="$style.background">
             <div :class="$style.container">
                 <!-- 直播 -->
-                <section :class="$style.moduleLive" v-if="isLiveShow">
+                <section :class="[$style.moduleLive]" v-if="isLiveShow">
                     <Panel custom-class="live-panel" title="直播放映室">
                         <Live :data="liveInfo" />
                     </Panel>
@@ -19,7 +19,7 @@
                 <!-- 优惠券 -->
                 <section
                     id="Coupon"
-                    v-if="data && data.COUPON && (data.COUPON.values.length || isClickable || isEmptyShow)"
+                    v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleCoupon]: true,
