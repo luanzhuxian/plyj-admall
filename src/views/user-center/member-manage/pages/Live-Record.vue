@@ -227,7 +227,7 @@ export default class MemberLiveRecord extends Vue {
         liveMode: '',
         liveType: '',
         liveStartTime: '',
-        liveWatchEndTime: ''
+        liveEndTime: ''
     }
 
     // 导出
@@ -238,7 +238,7 @@ export default class MemberLiveRecord extends Vue {
         liveMode: '',
         liveType: '',
         liveStartTime: '',
-        liveWatchEndTime: '',
+        liveEndTime: '',
         dateRange: 3
     }
 
@@ -339,7 +339,6 @@ export default class MemberLiveRecord extends Vue {
         const start: string | Date = new Date()
         const end: string | Date = new Date()
         const formatType = 'YYYY-MM-DD'
-
         if (val === 1) {
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
             this.exportDatechange({
@@ -354,13 +353,13 @@ export default class MemberLiveRecord extends Vue {
             })
         } else {
             this.exportData.liveStartTime = ''
-            this.exportData.liveWatchEndTime = ''
+            this.exportData.liveEndTime = ''
         }
     }
 
     async exportDatechange ({ start, end }: DynamicObject) {
         this.exportData.liveStartTime = start
-        this.exportData.liveWatchEndTime = end
+        this.exportData.liveEndTime = end
         if (!start || !end) {
             return
         }
