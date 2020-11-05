@@ -332,7 +332,7 @@ import SelectCategoryName from '../../../components/product-center/category-mana
 import ExportDialog from '../../../components/common/Export-Dialog'
 
 export default {
-    name: 'Backorder',
+    name: 'BackorderList',
     components: {
         BackorderTurndown,
         SelectCategoryName,
@@ -673,29 +673,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .backorder{
-    min-height: calc(100vh - 110px);
-    padding-bottom: 30px;
-    background-color: #ffffff;
-    .right-btn {
-      position: absolute;
-      right: 40px;
-    }
+    .backorder{
+        min-height: calc(100vh - 110px);
+        padding-bottom: 30px;
+        background-color: #ffffff;
+        .right-btn {
+            position: absolute;
+            right: 40px;
+        }
 
-    .empty{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img{
-        width: 12px;
-        margin-right: 8px;
-      }
-    }
+        .empty{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 12px;
+                margin-right: 8px;
+            }
+        }
 
-    ::v-deep .el-table {
-      .cell {
-        padding: 0 !important;
-      }
+        ::v-deep .el-table {
+            .cell {
+                padding: 0 !important;
+            }
+        }
     }
-  }
 </style>

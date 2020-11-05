@@ -105,48 +105,72 @@ export default [
             {
                 path: 'backorder',
                 name: 'Backorder',
-                component: () => import('../../../views/order-manage/pages/Backorder.vue'),
+                redirect: '/orders-manage/backorder/list',
+                component: () => import('../../../views/order-manage/pages/backorder/Index.vue'),
                 meta: {
                     title: '售后单',
                     index: '4-4'
-                }
+                },
+                children: [
+                    {
+                        path: 'list',
+                        name: 'BackorderList',
+                        component: () => import('../../../views/order-manage/pages/backorder/List.vue'),
+                        meta: {
+                            title: '列表',
+                            index: '4-4-1'
+                        }
+                    },
+                    {
+                        path: 'backorder-detail/:id',
+                        name: 'BackorderDetail',
+                        component: () => import('../../../views/order-manage/pages/backorder/Backorder-Detail.vue'),
+                        props: true,
+                        meta: {
+                            title: '售后详情',
+                            index: '4-4-2'
+                        }
+                    }
+                ]
             },
             {
                 path: 'invoice',
                 name: 'Invoice',
-                component: () => import('../../../views/order-manage/pages/Invoice.vue'),
+                redirect: '/orders-manage/invoice/list',
+                component: () => import('../../../views/order-manage/pages/invoice/Index.vue'),
                 meta: {
-                    title: '发票申请',
+                    title: '发票管理',
                     index: '4-5'
-                }
-            },
-            {
-                path: 'backorder-detail/:id',
-                name: 'BackorderDetail',
-                component: () => import('../../../views/order-manage/pages/Backorder-Detail.vue'),
-                props: true,
-                meta: {
-                    title: '售后详情',
-                    index: '4-6'
-                }
-            },
-            {
-                path: '/orders/invoice/apply-invoice',
-                name: 'ApplyInvoice',
-                component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
-                meta: {
-                    title: '申请发票',
-                    index: '4-7'
-                }
-            },
-            {
-                path: '/orders/invoice/edit-invoice',
-                name: 'EditInvoice',
-                component: () => import('../../../views/order-manage/pages/Apply-Invoice.vue'),
-                meta: {
-                    title: '修改发票',
-                    index: '4-8'
-                }
+                },
+                children: [
+                    {
+                        path: 'list',
+                        name: 'InvoiceList',
+                        component: () => import('../../../views/order-manage/pages/invoice/List.vue'),
+                        meta: {
+                            title: '列表',
+                            index: '4-5-1'
+                        }
+                    },
+                    {
+                        path: 'apply',
+                        name: 'ApplyInvoice',
+                        component: () => import('../../../views/order-manage/pages/invoice/Apply-Invoice.vue'),
+                        meta: {
+                            title: '申请发票',
+                            index: '4-5-2'
+                        }
+                    },
+                    {
+                        path: 'edit',
+                        name: 'EditInvoice',
+                        component: () => import('../../../views/order-manage/pages/invoice/Apply-Invoice.vue'),
+                        meta: {
+                            title: '修改发票',
+                            index: '4-5-3'
+                        }
+                    }
+                ]
             }
         ]
     }

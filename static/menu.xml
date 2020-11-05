@@ -310,11 +310,19 @@
                             <menu aclCode="2-4-3-2" name="详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="OnlineSchoolOrderDetail" roles="0" />
                         </menus>
                     </menu>
-                    <menu aclCode="2-4-4" name="售后单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Backorder" roles="0"/>
-                    <menu aclCode="2-4-5" name="发票列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Invoice" roles="0"/>
-                    <menu aclCode="2-4-6" name="售后详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BackorderDetail" roles="0"/>
-                    <menu aclCode="2-4-7" name="申请发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ApplyInvoice" roles="0"/>
-                    <menu aclCode="2-4-8" name="修改发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditInvoice" roles="0"/>
+                    <menu aclCode="2-4-4" name="售后单" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Backorder" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-4-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="BackorderList" roles="0"/>
+                            <menu aclCode="2-4-4-2" name="售后详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BackorderDetail" roles="0"/>
+                        </menus>
+                    </menu>
+                    <menu aclCode="2-4-5" name="发票管理" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="Invoice" roles="0">
+                        <menus>
+                            <menu aclCode="2-4-5-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="InvoiceList" roles="0"/>
+                            <menu aclCode="2-4-5-2" name="申请发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="ApplyInvoice" roles="0"/>
+                            <menu aclCode="2-4-5-3" name="修改发票" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditInvoice" roles="0"/>
+                        </menus>
+                    </menu>
                 </menus>
             </menu>
 

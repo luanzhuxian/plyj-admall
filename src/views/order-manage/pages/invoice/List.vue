@@ -383,8 +383,8 @@
     </div>
 </template>
 <script>
-import Pagination from '../../../components/common/Pagination.vue'
-import InvoiceDetails from '../../../components/order-center/Invoice-Details.vue'
+import Pagination from '../../../../components/common/Pagination.vue'
+import InvoiceDetails from '../../../../components/order-center/Invoice-Details.vue'
 import {
     getInvoiceList,
     confirmModifyInvoiceStatus,
@@ -393,13 +393,13 @@ import {
     invalidInvoiceStatus,
     exportInvoiceQuery,
     confirmInvoice
-} from '../../../apis/order'
-import { createObjectUrl } from '../../../assets/ts/upload'
+} from '../../../../apis/order'
+import { createObjectUrl } from '../../../../assets/ts/upload'
 import moment from 'moment'
-import ExportDialog from '../../../components/common/Export-Dialog'
+import ExportDialog from '../../../../components/common/Export-Dialog'
 
 export default {
-    name: 'Invoice',
+    name: 'InvoiceList',
     components: {
         Pagination,
         InvoiceDetails,
@@ -744,69 +744,69 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .flex-align {
-    display: flex;
-    align-items: center;
-  }
-  .invoice{
-    min-height: calc(100vh - 120px);
-    padding-bottom: 30px;
-    background-color: #ffffff;
-    .right-btn {
-      position: absolute;
-      right: 40px;
-    }
-
-    .ml-40 {
-      margin-left: 40px;
-    }
-
-    .empty{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img{
-        width: 12px;
-        margin-right: 8px;
-      }
-    }
-
-    ::v-deep .content-table {
-      .el-table-column--selection > .cell {
-        padding-left: 10px;
-      }
-
-      .el-table__expand-column {
-        .cell {
-          display: none;
-        }
-      }
-
-      .el-table__expanded-cell {
-        padding: 0;
-
-        .table-expand {
-          display: flex;
-          flex-direction: column;
-          padding-left: 244px;
-
-          .el-form-item {
-            margin: 12px 0;
-          }
-        }
-      }
-    }
-
-    .more {
-      display: flex;
-      flex-direction: column;
-      >div {
+    .flex-align {
         display: flex;
-        flex-direction: row;
-        padding: 10px 0 10px 200px;
-        font-size: 12px;
-        color: #222222;
-      }
+        align-items: center;
     }
-  }
+    .invoice{
+        min-height: calc(100vh - 120px);
+        padding-bottom: 30px;
+        background-color: #ffffff;
+        .right-btn {
+            position: absolute;
+            right: 40px;
+        }
+
+        .ml-40 {
+            margin-left: 40px;
+        }
+
+        .empty{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 12px;
+                margin-right: 8px;
+            }
+        }
+
+        ::v-deep .content-table {
+            .el-table-column--selection > .cell {
+                padding-left: 10px;
+            }
+
+            .el-table__expand-column {
+                .cell {
+                    display: none;
+                }
+            }
+
+            .el-table__expanded-cell {
+                padding: 0;
+
+                .table-expand {
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: 244px;
+
+                    .el-form-item {
+                        margin: 12px 0;
+                    }
+                }
+            }
+        }
+
+        .more {
+            display: flex;
+            flex-direction: column;
+            >div {
+                display: flex;
+                flex-direction: row;
+                padding: 10px 0 10px 200px;
+                font-size: 12px;
+                color: #222222;
+            }
+        }
+    }
 </style>
