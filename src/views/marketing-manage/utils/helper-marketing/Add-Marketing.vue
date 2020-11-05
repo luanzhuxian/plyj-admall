@@ -927,6 +927,7 @@ export default {
                             // 添加新的商品时，默认设置为百分比返利类型，且返利值为1%
                             value.rebateType = 'PERCENTAGE'
                             value.percentRebate = 1
+                            value.fixedRebate = ''
                         }
                     }
                     this.marketingForm.productList.push(item)
@@ -946,7 +947,8 @@ export default {
                     sellingPrice: item.sellingPrice,
                     // 添加新的商品时，默认设置为百分比返利类型，且返利值为1%
                     rebateType: 'PERCENTAGE',
-                    percentRebate: 1
+                    percentRebate: 1,
+                    fixedRebate: ''
                 })
             }
             this.marketingForm.courseModelList = list
