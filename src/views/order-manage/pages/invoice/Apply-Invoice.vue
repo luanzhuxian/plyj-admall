@@ -417,9 +417,9 @@
 </template>
 
 <script>
-import { isCreditNumber, isPhone } from '../../../assets/ts/validate'
-import { getDataDictionary } from '../../../apis/common'
-import { getEinList, addEinList, getAddressList, addAddressList, getLocation, selectOrderForInvoice, selectDetailInvoice, applyInvoice, editInvoice, getInvoiceDetail } from '../../../apis/order'
+import { isCreditNumber, isPhone } from '../../../../assets/ts/validate'
+import { getDataDictionary } from '../../../../apis/common'
+import { getEinList, addEinList, getAddressList, addAddressList, getLocation, selectOrderForInvoice, selectDetailInvoice, applyInvoice, editInvoice, getInvoiceDetail } from '../../../../apis/order'
 
 export default {
     name: 'ApplyInvoice',

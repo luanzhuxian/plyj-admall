@@ -318,18 +318,18 @@
     </div>
 </template>
 <script>
-import BackorderTurndown from '../../../components/order-center/Backorder-Turndown.vue'
+import BackorderTurndown from '../../../../components/order-center/Backorder-Turndown.vue'
 import {
     getReturnOrdersList,
     returnOrdersListAgree,
     returnOrdersListSuperRefund,
     exportBackOrderQuery,
     returnOrdersListConfirmGoods
-} from '../../../apis/order'
-import { createObjectUrl } from '../../../assets/ts/upload'
+} from '../../../../apis/order'
+import { createObjectUrl } from '../../../../assets/ts/upload'
 import moment from 'moment'
-import SelectCategoryName from '../../../components/product-center/category-manage/Select-Category-Name.vue'
-import ExportDialog from '../../../components/common/Export-Dialog'
+import SelectCategoryName from '../../../../components/product-center/category-manage/Select-Category-Name.vue'
+import ExportDialog from '../../../../components/common/Export-Dialog'
 
 export default {
     name: 'BackorderList',
