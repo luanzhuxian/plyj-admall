@@ -137,9 +137,7 @@ export default class HeaderRigtht extends Vue {
         // 商城未切换，但是检测到未创建商城，直接弹出创建弹框
         if (!data.mallId) {
             this.showCreateMall = true
-            return
         }
-        this.$info('暂无可切换店铺')
     }
 
     closeShopModal () {

@@ -282,9 +282,9 @@
                     <menu aclCode="2-3-2" name="Helper管理" aliasName="" permission="" clientType="merchant_mall_manager" type="1" status="1" operator="system" routePath="HelperManage" roles="0" >
                         <menus>
                             <menu aclCode="2-3-2-1" name="Helper列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="HelperManageList" roles="0" />
-                            <menu aclCode="2-3-2-2" name="Helper审核" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="HelperReviewList" roles="0" />
-                            <menu aclCode="2-3-2-3" name="Helper审核详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HelperDetail" roles="0" />
-                            <menu aclCode="2-3-2-4" name="Helper推广详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HelperPromoteDetail" roles="0" />
+                            <menu aclCode="2-3-2-2" name="Helper推广详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HelperPromoteDetail" roles="0" />
+                            <menu aclCode="2-3-2-3" name="Helper审核" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="HelperReviewList" roles="0" />
+                            <menu aclCode="2-3-2-4" name="Helper审核详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HelperDetail" roles="0" />
                         </menus>
                     </menu>
                 </menus>
