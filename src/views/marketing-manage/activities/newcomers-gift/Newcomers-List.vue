@@ -190,10 +190,10 @@
                     大家快去创建新活动，体验一下新功能吧~~
                 </div>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dlgCreate = false">
+                    <el-button round @click="dlgCreate = false">
                         我知道了
                     </el-button>
-                    <el-button type="primary" @click="dlgCreate = false;$router.push({ name: 'NewcomersAdd' })">
+                    <el-button type="primary" round @click="$router.push({ name: 'NewcomersAdd' })">
                         去创建活动
                     </el-button>
                 </div>
@@ -214,7 +214,7 @@
                         <div class="desc">
                             引导新人注册成为会员，即可获得相应的新人优惠 大礼包，包括可设置优惠券、奖学金和礼品，并可 起到拉新，扩大用户池的作用。
                         </div>
-                        <el-button type="primary" class="create-btn" @click="$router.push({ name: 'NewcomersAdd' })">
+                        <el-button type="primary" round class="create-btn" @click="$router.push({ name: 'NewcomersAdd' })">
                             创建活动
                         </el-button>
                     </div>
@@ -301,6 +301,11 @@ export default {
     },
     deactivated () {
         this.resetFilter()
+    },
+    beforeRouteLeave (to, from, next) {
+        this.dlgCreate = false
+        this.newcomersDialog = false
+        next()
     },
     methods: {
         handleViewPresent (val) {
