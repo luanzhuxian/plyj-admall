@@ -285,7 +285,7 @@ export default class TemplateDouble12 extends Vue {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 227px 0 0;
+    padding: 247px 0 0;
 }
 
 .module {
@@ -295,7 +295,7 @@ export default class TemplateDouble12 extends Vue {
         border: 2px solid #FEECC7;
     }
     &:nth-child(1) {
-        padding-top: 20px !important;
+        padding-top: 0px !important;
     }
 }
 
