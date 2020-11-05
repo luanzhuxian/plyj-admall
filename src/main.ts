@@ -51,7 +51,7 @@ Vue.config.productionTip = false
 
 /* 处理所有组件抛出的错误 */
 Vue.config.errorHandler = function (err, vm) {
-    if (err && typeof err !== 'string') {
+    if (err && typeof err !== 'string' && err.name !== 'NoAuthError') {
         // 响应出错
         if (err.name === 'ResponseError') {
             const error = JSON.parse(err.message)
