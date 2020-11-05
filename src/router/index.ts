@@ -84,11 +84,8 @@ export const router = new Router({
     }),
     routes
 })
-let routeNames = null
 const checkAuth = to => {
-    if (!routeNames) {
-        routeNames = store.getters['user/routeNames']
-    }
+    const routeNames = store.getters['user/routeNames']
     const currentHasPower = routeNames.has(to.name)
     const index = routeNames.get(to.name)
     // 有权限
