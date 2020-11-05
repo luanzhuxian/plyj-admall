@@ -63,7 +63,7 @@
                 label="类型"
             >
                 <template #default="{ row }">
-                    {{ Number(row.courseType) === 1 ? '单课程' : '系列课' }}
+                    {{ Number(row.courseType) === 1 ? '知识课程' : '系列课' }}
                 </template>
             </el-table-column>
             <el-table-column
