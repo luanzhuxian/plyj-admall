@@ -219,6 +219,7 @@ import TemplateBaofa from '../components/templates/Template-Baofa.vue'
 import TemplateFanchang from '../components/templates/Template-Fanchang.vue'
 import TemplateXinchun from '../components/templates/Template-Xinchun.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
+import TemplateDouble12 from '../components/templates/Template-Double-12.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import Render from '../components/Render'
@@ -239,6 +240,7 @@ const mall = namespace('mall')
         TemplateFanchang,
         TemplateXinchun,
         TemplateDragonGate,
+        TemplateDouble12,
         TemplatePreview,
         ModalTimeSetting,
         Render
