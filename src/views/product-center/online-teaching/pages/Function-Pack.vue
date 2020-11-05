@@ -36,9 +36,8 @@
                     <Progress
                         show-text
                         :text="`${statisticsInfo.totalMinute}分钟`"
-                        color="#4F63FF"
-                        percentage-color="#FFFFFF"
                         :percentage="livePercentage"
+                        color="#FFFFFF"
                     />
                     <div :class="$style.desc">观看总时长=观看人数x平均每人观看时长</div>
                 </div>
@@ -56,9 +55,8 @@
                     <Progress
                         show-text
                         :text="`${statisticsInfo.dataFlowSize_G}G`"
-                        color="#4F63FF"
-                        percentage-color="#FFFFFF"
                         :percentage="handPercentage"
+                        color="#FFFFFF"
                     />
                 </div>
                 <div :class="$style.infoItem">
@@ -67,9 +65,8 @@
                     <Progress
                         show-text
                         :text="`${statisticsInfo.storageSize_G}G`"
-                        color="#4F63FF"
-                        percentage-color="#FFFFFF"
                         :percentage="videoSpacePercentage"
+                        color="#FFFFFF"
                     />
                 </div>
             </div>

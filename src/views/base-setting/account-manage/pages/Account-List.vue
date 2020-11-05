@@ -52,8 +52,6 @@
                     <Progress
                         show-text
                         :text="`${currentCount}/${maxCount}`"
-                        color="#4F63FF"
-                        percentage-color="#FFFFFF"
                         :percentage="currentCount / maxCount * 100"
                         style="margin-top: 18px"
                     />
