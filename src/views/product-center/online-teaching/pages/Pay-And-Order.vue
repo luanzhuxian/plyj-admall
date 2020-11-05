@@ -274,7 +274,7 @@ export default class PayAndOrder extends Vue {
         }
     }
 
-    decreated () {
+    beforeDestroy () {
         this.loading = true
         this.showPayCode = false
         clearInterval(this.timer)

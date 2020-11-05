@@ -25,9 +25,6 @@ export default {
     components: {
         ResourceWarranty
     },
-    decreated () {
-        this.giveResourceList = []
-    },
     data () {
         return {
             showGiveResource: false,

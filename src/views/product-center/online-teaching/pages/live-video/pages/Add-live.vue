@@ -611,9 +611,6 @@ export default {
             }
         } catch (e) { throw e }
     },
-    decreated () {
-        this.$destroy()
-    },
     methods: {
     // 选择学员
         checkStudents (list) {

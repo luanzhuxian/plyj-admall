@@ -184,17 +184,6 @@ export default {
             throw e
         }
     },
-    decreated () {
-        this.filter = {
-            current: 1,
-            size: 10,
-            condition: '',
-            startTime: '',
-            endTime: '',
-            status: '',
-            batchType: 1
-        }
-    },
     methods: {
         async getList (page = this.filter.current) {
             this.filter.current = page

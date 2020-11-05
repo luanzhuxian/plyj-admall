@@ -226,17 +226,6 @@ export default {
             throw e
         }
     },
-    // decreated () {
-    //   this.userGroup = []
-    //   this.activityStatus = -1
-    //   resetForm(this.form, {
-    //     preheatTime: 1,
-    //     receiveLimit: 0,
-    //     combinationDetailList: [new CombinationDetail()],
-    //     batchType: 1
-    //   })
-    //   this.$refs.addForm.clearValidate()
-    // },
     methods: {
         async getDetail () {
             try {

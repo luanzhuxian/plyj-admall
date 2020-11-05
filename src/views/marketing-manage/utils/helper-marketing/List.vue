@@ -176,16 +176,7 @@ export default {
         }
     },
     async created () {
-        this.getList()
-    },
-    decreated () {
-    // 重置搜索条件
-        this.filterForm = {
-            current: 1,
-            size: 10,
-            keyword: '',
-            activityStatus: ''
-        }
+        await this.getList()
     },
     methods: {
         search () {

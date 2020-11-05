@@ -40,7 +40,7 @@ export default {
     created () {
         this.isShowDetail = true
     },
-    decreated () {
+    beforeDestroy () {
         this.isShowDetail = false
     },
     methods: {

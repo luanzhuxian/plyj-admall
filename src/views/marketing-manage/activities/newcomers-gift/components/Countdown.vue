@@ -56,9 +56,6 @@ export default {
     created () {
         this.start()
     },
-    decreated () {
-        this.stop()
-    },
     beforeDestroy () {
         this.stop()
     },

@@ -299,9 +299,6 @@ export default {
             throw e
         }
     },
-    decreated () {
-        this.resetFilter()
-    },
     beforeRouteLeave (to, from, next) {
         this.dlgCreate = false
         this.newcomersDialog = false
@@ -394,19 +391,6 @@ export default {
             } catch (e) {
                 throw e
             }
-        },
-        resetFilter () {
-            this.queryFilter = {
-                activityName: '',
-                time: [],
-                status: -1
-            }
-            this.pagination = {
-                current: 1,
-                size: 10,
-                total: 0
-            }
-            this.doQuery()
         },
         async sizeChange (val) {
             this.pagination.current = 1

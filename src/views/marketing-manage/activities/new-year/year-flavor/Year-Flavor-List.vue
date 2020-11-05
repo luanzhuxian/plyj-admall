@@ -205,15 +205,6 @@ export default {
     created () {
         this.getList()
     },
-    decreated () {
-        this.form = {
-            status: '',
-            startTime: '',
-            endTime: '',
-            current: 1,
-            size: 10
-        }
-    },
     methods: {
         async viewYearFlavor (row) {
             this.$router.push({ name: 'ViewYearFlavorInfo', params: { id: row.activityId } })

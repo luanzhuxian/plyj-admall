@@ -270,18 +270,6 @@ export default {
         if (result) this.guideStatus = 1
         await this.getList()
     },
-    decreated () {
-        this.$refs.dateRange.clear()
-        this.form = {
-            couponType: 2,
-            name: '',
-            status: '',
-            startTime: '',
-            endTime: '',
-            current: 1,
-            size: 10
-        }
-    },
     methods: {
         async viewCoupon (row) {
             this.$router.push({ name: 'ViewCategoryCouponListActive', params: { id: row.id } })

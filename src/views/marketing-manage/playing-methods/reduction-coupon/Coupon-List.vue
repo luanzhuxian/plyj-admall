@@ -260,27 +260,9 @@ export default {
         try {
             const { result } = await coupleIsFirstTime()
             if (result) this.guideStatus = 1
-        } catch (e) {
-            throw e
-        }
-    },
-    async created () {
-        try {
             await this.getList()
         } catch (e) {
             throw e
-        }
-    },
-    decreated () {
-        this.$refs.dateRange.clear()
-        this.form = {
-            couponType: 1,
-            name: '',
-            status: '',
-            startTime: '',
-            endTime: '',
-            current: 1,
-            size: 10
         }
     },
     methods: {

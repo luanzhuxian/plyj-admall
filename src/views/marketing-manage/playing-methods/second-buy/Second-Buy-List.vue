@@ -269,18 +269,7 @@ export default {
         const { createTime = '', validity = '' } = secondBuyInformation
         this.start = createTime
         this.end = validity
-        this.getList()
-    },
-    decreated () {
-        this.filterForm = {
-            current: 1,
-            size: 10,
-            condition: '',
-            status: '',
-            startTime: '',
-            endTime: ''
-        }
-        this.getList()
+        await this.getList()
     },
     methods: {
         ...mapActions('account', [MutationTypes.getMarketStatusAuth]),

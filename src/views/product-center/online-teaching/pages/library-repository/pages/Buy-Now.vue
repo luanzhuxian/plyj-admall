@@ -157,7 +157,7 @@ export default {
             await this.getBuyDetails()
         } catch (e) { throw e }
     },
-    decreated () {
+    beforeDestroy () {
         this.loading = true
         this.showPayCode = false
         clearInterval(this.timer)

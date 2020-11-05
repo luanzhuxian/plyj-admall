@@ -260,18 +260,6 @@ export default {
             throw e
         }
     },
-    decreated () {
-        this.filterForm = {
-            current: 1,
-            size: 10,
-            courseType: 2,
-            searchParam: '',
-            categoryId: '',
-            status: '',
-            startTime: '',
-            endTime: ''
-        }
-    },
     methods: {
     // C 端显示隐藏
         async showCourse ({ id, isShow }) {

@@ -251,17 +251,6 @@ export default {
             await this.getList()
         } catch (e) { throw e }
     },
-    decreated () {
-        this.form = {
-            type: 1, // 1公开课 2 私享课
-            isApply: '',
-            isWatch: '',
-            isGive: '',
-            searchContent: '',
-            current: 1,
-            size: 10
-        }
-    },
     methods: {
     // 取消送课
         async cancelGive ({ id, activityId }) {

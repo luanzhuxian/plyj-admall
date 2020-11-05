@@ -265,14 +265,6 @@ export default {
         await this.getDetail()
         await this.doQuery()
     },
-    decreated () {
-        this.queryFilter = {
-            keyWord: '',
-            claimStatus: '',
-            time: [],
-            registerType: ''
-        }
-    },
     methods: {
         handleViewPresent (val) {
             this.presentDialog = true

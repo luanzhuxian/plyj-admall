@@ -201,7 +201,7 @@ export default {
                 break
         }
     },
-    decreated () {
+    beforeDestroy () {
         this.loading = true
         this.showPayCode = false
         this.bgClass = ''

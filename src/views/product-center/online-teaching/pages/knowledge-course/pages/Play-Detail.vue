@@ -251,11 +251,6 @@ export default {
             await this.getTagList()
         } catch (e) { throw e }
     },
-    async decreated () {
-        try {
-            await this.clearData()
-        } catch (e) { throw e }
-    },
     methods: {
         async search () {
             try {

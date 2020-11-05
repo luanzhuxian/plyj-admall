@@ -243,7 +243,7 @@ export default {
             await this.getRepositoryDetail()
         } catch (e) { throw e }
     },
-    decreated () {
+    beforeDestroy () {
         this.expand = false
     },
     methods: {

@@ -254,18 +254,6 @@ export default {
             throw e
         }
     },
-    decreated () {
-        this.filterForm = {
-            current: 1,
-            size: 10,
-            courseType: 1,
-            searchParam: '',
-            categoryId: '',
-            status: '',
-            startTime: '',
-            endTime: ''
-        }
-    },
     computed: {
         ...mapGetters('goods', ['categoryTree']),
         localCategoryTree () {

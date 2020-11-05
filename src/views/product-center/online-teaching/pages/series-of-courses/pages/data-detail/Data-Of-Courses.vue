@@ -155,9 +155,6 @@ export default {
             throw e
         }
     },
-    decreated () {
-        this.clearData()
-    },
     methods: {
         async getList () {
             try {

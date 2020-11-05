@@ -335,14 +335,6 @@ export default {
         this.getList()
         this.getStatistics()
     },
-    decreated () {
-        resetForm(this.form, {
-            current: 1,
-            size: 10
-        })
-        this.form.status = ''
-        this.$refs.dateRange.clear()
-    },
     methods: {
     // 展开更多订单
         toggleRowExpansion (row) {

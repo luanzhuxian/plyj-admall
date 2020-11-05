@@ -170,16 +170,6 @@ export default {
             await this.search()
         } catch (e) { throw e }
     },
-    decreated () {
-        this.params = {
-            resouceType: '',
-            current: 1,
-            size: 10,
-            keyword: '',
-            tagName: '',
-            resouceSources: ''
-        }
-    },
     methods: {
         async search () {
             try {
