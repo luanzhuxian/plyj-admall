@@ -217,7 +217,7 @@
                             <a @click="goEdit(row)">
                                 编辑
                             </a>
-                            <a @click="$router.push({name:'CoursesAllOrder',params:{id:row.id}})">
+                            <a @click="$router.push({ name: 'OnlineSchoolOrderDetail', params:{id:row.id} })">
                                 查看订单
                             </a>
                             <a v-if="row.productStatus === 3 || $route.name === 'DraftBoxCourses'" @click="updateGoodsStatus(0, row)">
