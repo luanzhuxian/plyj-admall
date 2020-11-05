@@ -992,10 +992,10 @@ ${ this.form.priceType ? '' : '5.该免费课程如果提前下架，不会影�
         },
 
         /**
-     * 保存
-     * @param flag {Boolean} 是否上架
-     * @return {Promise<void>}
-     */
+         * 保存
+         * @param flag {Boolean} 是否上架
+         * @return {Promise<void>}
+         */
         async save (flag) {
             this.submiting = true // 标记正在提交
             try {

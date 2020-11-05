@@ -220,8 +220,12 @@
                                     <menu aclCode="2-2-1-5-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="SeriesOfCoursesList" roles="0" />
                                     <menu aclCode="2-2-1-5-2" name="新增系列课" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddSeriesOfCourses" roles="0" />
                                     <menu aclCode="2-2-1-5-3" name="编辑系列课" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditSeriesOfCourses" roles="0" />
-                                    <menu aclCode="2-2-1-5-4" name="课程数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="CoursesSeriesOfCoursesData" roles="0" />
-                                    <menu aclCode="2-2-1-5-5" name="用户数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="UsersSeriesOfCoursesData" roles="0" />
+                                    <menu aclCode="2-2-1-5-4" name="数据详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="CoursesSeriesDataDetail" roles="0">
+                                        <menus>
+                                            <menu aclCode="2-2-1-5-4-1" name="课程数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="CoursesSeriesOfCoursesData" roles="0" />
+                                            <menu aclCode="2-2-1-5-4-2" name="用户数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="UsersSeriesOfCoursesData" roles="0" />
+                                        </menus>
+                                    </menu>
                                 </menus>
                             </menu>
                             <menu aclCode="2-2-1-6" name="图文资料" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="BooksMaterials" roles="0" >

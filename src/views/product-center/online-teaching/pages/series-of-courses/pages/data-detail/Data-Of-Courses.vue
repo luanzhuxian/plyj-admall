@@ -120,10 +120,10 @@
 
 <script>
 import moment from 'moment'
-import ExportData from './../components/Export-Data'
-import { getCourseList, exportCourseDataList } from './../../../../../../apis/product-center/online-teaching/series-of-courses'
-import { createObjectUrl } from './../../../../../../assets/ts/upload'
-import WatchStudentList from './../components/Watch-Students-List'
+import ExportData from '../../components/Export-Data'
+import { getCourseList, exportCourseDataList } from '../../../../../../../apis/product-center/online-teaching/series-of-courses'
+import { createObjectUrl } from '../../../../../../../assets/ts/upload'
+import WatchStudentList from '../../components/Watch-Students-List'
 export default {
     name: 'CoursesSeriesOfCoursesData',
     data () {

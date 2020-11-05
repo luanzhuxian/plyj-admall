@@ -39,21 +39,32 @@ export default [
             },
             {
                 path: 'data/courses/:id',
-                name: 'CoursesSeriesOfCoursesData',
-                component: () => import('./../../../../views/product-center/online-teaching/pages/series-of-courses/pages/Data-Of-Courses.vue'),
+                name: 'CoursesSeriesDataDetail',
+                component: () => import('../../../../views/product-center/online-teaching/pages/series-of-courses/pages/data-detail/Index.vue'),
                 meta: {
-                    title: '课程数据',
+                    title: '数据详情',
                     index: '2-1-5-4'
-                }
-            },
-            {
-                path: 'data/users/:id',
-                name: 'UsersSeriesOfCoursesData',
-                component: () => import('./../../../../views/product-center/online-teaching/pages/series-of-courses/pages/Data-Of-Users.vue'),
-                meta: {
-                    title: '用户数据',
-                    index: '2-1-5-5'
-                }
+                },
+                children: [
+                    {
+                        path: 'data/courses/:id',
+                        name: 'CoursesSeriesOfCoursesData',
+                        component: () => import('../../../../views/product-center/online-teaching/pages/series-of-courses/pages/data-detail/Data-Of-Courses.vue'),
+                        meta: {
+                            title: '课程数据',
+                            index: '2-1-5-4-1'
+                        }
+                    },
+                    {
+                        path: 'data/users/:id',
+                        name: 'UsersSeriesOfCoursesData',
+                        component: () => import('../../../../views/product-center/online-teaching/pages/series-of-courses/pages/data-detail/Data-Of-Users.vue'),
+                        meta: {
+                            title: '用户数据',
+                            index: '2-1-5-4-2'
+                        }
+                    }
+                ]
             }
         ]
     }
