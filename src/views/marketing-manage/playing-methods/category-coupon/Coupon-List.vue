@@ -220,7 +220,7 @@
         </div>
         <!-- TODO: 暂时隐藏 -->
         <div class="guide-add" v-if="guideStatus">
-            <img :src="`https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/2.0.0/img_step${guideStatus}.jpg`" alt="" @click="guideNext">
+            <img :src="`https://mallcdn.youpenglai.com/static/admall-new/3.0.0/img_step${guideStatus}.png`" alt="" @click="guideNext">
         </div>
     </div>
 </template>
@@ -604,11 +604,15 @@ export default {
     }
   }
   .guide-add {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 60px;
-    z-index: 11;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 140px;
+      z-index: 11;
+      img{
+          width: calc(100% - 140px);
+      }
   }
 
   .user-category-dropdown {
