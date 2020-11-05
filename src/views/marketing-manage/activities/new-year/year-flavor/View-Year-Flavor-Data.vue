@@ -215,18 +215,9 @@ export default {
             }
         }
     },
-    activated () {
+    created () {
         this.getData()
         this.getList()
-    },
-    deactivated () {
-        this.filterForm = {
-            startTime: '',
-            endTime: '',
-            condition: '',
-            current: 1,
-            size: 10
-        }
     },
     methods: {
         async search () {

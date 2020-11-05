@@ -172,7 +172,7 @@ export default {
             return this.$route.name === 'InviteNewcomersCopy'
         }
     },
-    async activated () {
+    async created () {
         this.form.invitingEventsEntity.status = ''
         this.$refs.gift.remove = true
         this.$refs.ticket.remove = true

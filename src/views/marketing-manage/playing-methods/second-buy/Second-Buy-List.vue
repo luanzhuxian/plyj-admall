@@ -271,7 +271,7 @@ export default {
         this.end = validity
         this.getList()
     },
-    deactivated () {
+    decreated () {
         this.filterForm = {
             current: 1,
             size: 10,

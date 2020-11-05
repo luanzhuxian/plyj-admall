@@ -242,7 +242,7 @@ export default {
             userGroup: []
         }
     },
-    async activated () {
+    async created () {
         try {
             this.filterForm.courseResourceId = this.$route.query.courseResourceId || ''
             this.filterForm.liveId = this.$route.params.liveId || ''
@@ -251,7 +251,7 @@ export default {
             await this.getTagList()
         } catch (e) { throw e }
     },
-    async deactivated () {
+    async decreated () {
         try {
             await this.clearData()
         } catch (e) { throw e }

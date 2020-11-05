@@ -138,7 +138,7 @@ export default {
             }
         }
     },
-    async activated () {
+    async created () {
         try {
             this.realTimer = setInterval(() => {
                 this.getCountInTwoMinute()
@@ -147,7 +147,7 @@ export default {
             throw e
         }
     },
-    deactivated () {
+    beforeDestroy () {
         clearInterval(this.realTimer)
     },
     methods: {

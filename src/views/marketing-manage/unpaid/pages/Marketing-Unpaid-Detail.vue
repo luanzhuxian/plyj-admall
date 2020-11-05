@@ -74,7 +74,7 @@ export default {
             moment
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getBaseMarket(this.programId)
         } catch (e) {

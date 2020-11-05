@@ -750,6 +750,7 @@ export default {
         }
     },
     async created () {
+        window.addEventListener('beforeunload', this.beforeunload)
         try {
             await this.init()
             await this.getTemplateList()
@@ -769,10 +770,7 @@ export default {
             throw e
         }
     },
-    activated () {
-        window.addEventListener('beforeunload', this.beforeunload)
-    },
-    deactivated () {
+    beforeDestroy () {
         window.removeEventListener('beforeunload', this.beforeunload)
     },
     methods: {

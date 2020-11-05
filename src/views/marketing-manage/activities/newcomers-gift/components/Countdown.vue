@@ -53,10 +53,10 @@ export default {
     },
     computed: {
     },
-    activated () {
+    created () {
         this.start()
     },
-    deactivated () {
+    decreated () {
         this.stop()
     },
     beforeDestroy () {

@@ -30,9 +30,7 @@
         />
 
         <Share :show.sync="qrcodeShow" :qrcode-text="qrcodeText" ref="share" />
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <router-view />
     </div>
 </template>
 

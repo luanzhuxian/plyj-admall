@@ -284,7 +284,7 @@ export default {
             roomList: []
         }
     },
-    async activated () {
+    async created () {
         try {
             this.clearFrom()
             await this.getAllRooms()

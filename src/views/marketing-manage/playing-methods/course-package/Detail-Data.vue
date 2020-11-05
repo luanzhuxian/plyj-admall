@@ -360,7 +360,7 @@ export default {
             default: ''
         }
     },
-    async activated () {
+    async created () {
         this.queryPage = {
             current: 1,
             size: 10

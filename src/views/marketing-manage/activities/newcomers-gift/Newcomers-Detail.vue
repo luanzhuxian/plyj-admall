@@ -147,7 +147,7 @@ export default {
             newcomersInfo: {}
         }
     },
-    async activated () {
+    async created () {
         await this.getDetail()
     },
     methods: {

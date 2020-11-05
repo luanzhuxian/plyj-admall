@@ -306,7 +306,7 @@ export default {
     //   this.getList()
     // }
     },
-    activated () {
+    created () {
         this.routeName = this.$route.name
         const params = this.$route.params
         this.form.couponId = params.id
@@ -315,7 +315,7 @@ export default {
         this.getList()
         this.getStatistics()
     },
-    deactivated () {
+    decreated () {
         resetForm(this.form, {
             current: 1,
             size: 10

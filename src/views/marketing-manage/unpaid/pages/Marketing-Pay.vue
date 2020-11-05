@@ -174,7 +174,7 @@ export default {
             bgClass: ''
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getBaseMarket()
         } catch (e) {
@@ -201,7 +201,7 @@ export default {
                 break
         }
     },
-    deactivated () {
+    decreated () {
         this.loading = true
         this.showPayCode = false
         this.bgClass = ''

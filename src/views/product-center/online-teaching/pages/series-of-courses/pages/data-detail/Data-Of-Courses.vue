@@ -146,7 +146,7 @@ export default {
         WatchStudentList,
         ExportData
     },
-    async activated () {
+    async created () {
         try {
             this.id = this.$route.params.id
             this.filterForm.courseResourceId = this.id
@@ -155,7 +155,7 @@ export default {
             throw e
         }
     },
-    deactivated () {
+    decreated () {
         this.clearData()
     },
     methods: {

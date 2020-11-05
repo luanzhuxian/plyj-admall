@@ -238,12 +238,12 @@ export default {
             }
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getRepositoryDetail()
         } catch (e) { throw e }
     },
-    deactivated () {
+    decreated () {
         this.expand = false
     },
     methods: {

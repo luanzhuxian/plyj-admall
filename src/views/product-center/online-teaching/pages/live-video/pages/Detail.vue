@@ -262,7 +262,7 @@ export default {
             default: ''
         }
     },
-    async activated () {
+    async created () {
         await this.handleLiveVideoDetailData()
         await this.getUserTagList()
     },

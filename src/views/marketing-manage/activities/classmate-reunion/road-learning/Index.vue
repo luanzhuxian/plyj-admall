@@ -17,9 +17,7 @@
             </el-button>
         </template>
 
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <router-view />
         <Setting :show.sync="showExplanation" />
     </div>
 </template>

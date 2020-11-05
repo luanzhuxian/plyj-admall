@@ -323,7 +323,7 @@ export default {
             defaultCategory: 'goods/defaultCategory'
         })
     },
-    async activated () {
+    async created () {
         await this.getTree()
         await this.getDefaultCategory()
     },

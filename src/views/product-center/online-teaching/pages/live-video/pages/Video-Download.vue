@@ -156,7 +156,7 @@ export default {
             }
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getAllRooms()
             await this.getTableList()

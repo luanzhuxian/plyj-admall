@@ -178,22 +178,11 @@ export default {
             qrcodeShow: false
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getList()
         } catch (e) {
             throw e
-        }
-    },
-    deactivated () {
-        this.filter = {
-            current: 1,
-            size: 10,
-            condition: '',
-            startTime: '',
-            endTime: '',
-            status: '',
-            batchType: 2
         }
     },
     methods: {

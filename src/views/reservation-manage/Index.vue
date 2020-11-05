@@ -393,7 +393,7 @@ export default class ReservationManage extends Vue {
             ]
         }
 
-        async activated () {
+        async created () {
             await this.search()
             await this.getBaseUserInfo()
         }

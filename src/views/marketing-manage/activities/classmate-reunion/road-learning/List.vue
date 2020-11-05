@@ -146,18 +146,8 @@ export default {
             qrcodeShow: false
         }
     },
-    async activated () {
+    async created () {
         await this.getActivityList()
-    },
-    async deactivated () {
-        this.filterCondition = {
-            keyWord: '',
-            status: '',
-            startTime: '',
-            endTime: '',
-            current: 1,
-            size: 10
-        }
     },
     methods: {
         formatTimeRange ({ start, end }) {

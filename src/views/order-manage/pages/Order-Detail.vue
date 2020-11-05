@@ -713,7 +713,7 @@ export default {
     //   return this.productDetailModels.filter(item => item.needStudentInfo === 2).length
     // }
     },
-    async activated () {
+    async created () {
         try {
             await this.getOrderDetail()
         } catch (e) {

@@ -18,9 +18,7 @@
             @tabClick="data => $router.replace({ name: data.name })"
         />
 
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <router-view />
     </div>
 </template>
 

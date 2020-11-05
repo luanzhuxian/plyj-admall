@@ -249,7 +249,7 @@ export default class PayAndOrder extends Vue {
         }
     }
 
-    async activated () {
+    async created () {
         this.enable = this.$router.currentRoute.meta.enable
         // 没有开通直播间，并且type为0，去开通直播间
         if (this.enable === 3 && this.type === '0') {
@@ -274,7 +274,7 @@ export default class PayAndOrder extends Vue {
         }
     }
 
-    deactivated () {
+    decreated () {
         this.loading = true
         this.showPayCode = false
         clearInterval(this.timer)

@@ -137,7 +137,7 @@ export default {
             return []
         }
     },
-    async activated () {
+    async created () {
         try {
             this.getActivityDetail(this.$route.params.id)
             // 获取用户分组,年味列表

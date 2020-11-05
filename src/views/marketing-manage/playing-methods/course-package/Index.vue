@@ -22,9 +22,7 @@
                 活动说明
             </el-button>
         </div>
-        <keep-alive :exclude="exclude">
-            <router-view />
-        </keep-alive>
+        <router-view />
 
         <!--活动说明弹窗-->
         <el-dialog
@@ -78,7 +76,6 @@ export default {
     },
     data () {
         return {
-            exclude: ['AddCoursePackage'],
             explainFlag: false,
             start: '',
             end: ''
@@ -95,7 +92,7 @@ export default {
             marketStatusAuth: 'account/marketStatusAuth'
         })
     },
-    async activated () {
+    async created () {
         await this[MutationTypes.getMarketStatusAuth]()
         const info = this.marketStatusAuth.find(({ programId }) => programId === '1')
         if (!info || moment(info.validity).valueOf() < Date.now()) {

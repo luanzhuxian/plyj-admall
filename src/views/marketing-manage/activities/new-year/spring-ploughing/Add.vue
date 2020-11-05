@@ -143,7 +143,6 @@ import moment from 'moment'
 import Combination from './components/Combination.vue'
 import { getDataDictionary as getActivityTagList } from '../../../../../apis/common'
 import { getTagList } from '../../../../../apis/member'
-import { resetForm } from '../../../../../assets/ts/utils'
 import {
     addSpringPloughing,
     getSpringPloughingDetail,
@@ -255,7 +254,7 @@ export default {
             return Boolean(this.$route.query.copy)
         }
     },
-    async activated () {
+    async created () {
         try {
             if (this.id) {
                 await this.getDetail()
@@ -266,15 +265,6 @@ export default {
         } catch (e) {
             throw e
         }
-    },
-    deactivated () {
-        this.userGroup = []
-        this.form.status = 0
-        resetForm(this.form, {
-            preheatTime: 1,
-            receiveLimit: 0,
-            batchType: 2
-        })
     },
     methods: {
         async getDetail () {

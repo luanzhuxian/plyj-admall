@@ -1,8 +1,6 @@
 <template>
     <div class="online-school-order">
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <router-view />
     </div>
 </template>
 

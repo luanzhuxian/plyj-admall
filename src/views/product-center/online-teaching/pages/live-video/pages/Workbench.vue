@@ -257,7 +257,7 @@ export default class Workbench extends Vue {
         used: 1
     }
 
-    async activated () {
+    async created () {
         await Promise.all([
             this.getSurplusMinute(),
             this.getChanneStatistics(),

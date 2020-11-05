@@ -1,8 +1,6 @@
 <template>
     <div class="goods-order">
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <router-view />
     </div>
 </template>
 

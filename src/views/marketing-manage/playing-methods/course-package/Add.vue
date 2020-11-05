@@ -226,7 +226,7 @@ export default {
             throw e
         }
     },
-    // deactivated () {
+    // decreated () {
     //   this.userGroup = []
     //   this.activityStatus = -1
     //   resetForm(this.form, {

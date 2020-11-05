@@ -24,9 +24,7 @@
             @tabClick="data => $router.replace({ name: data.name })"
         /> -->
 
-        <keep-alive :exclude="exclude">
-            <router-view />
-        </keep-alive>
+        <router-view />
         <Setting :show.sync="showExplanation" />
     </div>
 </template>
@@ -39,7 +37,6 @@ export default {
     components: { ListHeader, Setting },
     data () {
         return {
-            exclude: ['AddYearFlavor'],
             showExplanation: false
         }
     },

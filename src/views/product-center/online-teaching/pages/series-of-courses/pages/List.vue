@@ -253,14 +253,14 @@ export default {
             total: 0
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getList()
         } catch (e) {
             throw e
         }
     },
-    deactivated () {
+    decreated () {
         this.filterForm = {
             current: 1,
             size: 10,

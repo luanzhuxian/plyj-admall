@@ -127,7 +127,11 @@ export default class HeaderRigtht extends Vue {
     }
 
     async selectMallBtn () {
-        await this.getAgencyList(true)
+        const list = await this.getAgencyList(true)
+        if (list.length === 1 && list.some((item: any) => item.roleCode === 'ENTERPRISE_ADMIN')) {
+            this.$warning('暂无可切换店铺')
+            return
+        }
         const data = await this.selectMall()
         // 商城已切换
         if (data.changed) {

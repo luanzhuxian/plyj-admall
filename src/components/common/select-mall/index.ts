@@ -1,6 +1,5 @@
 import SelectMall from './Main.vue'
 import Vue from 'vue'
-import { Message } from 'admall-element'
 
 const SelectMallClass = Vue.extend(SelectMall)
 interface SelectMallInterface {
@@ -23,7 +22,6 @@ const select = (agencyList: any[], roleMap: DynamicObject): Promise<DynamicObjec
     if (agencyList.length === 1 && agencyList.some(item => item.roleCode === 'ENTERPRISE_ADMIN')) {
         const mallList = Instance.formatAgencyList()
         resolve(mallList[0])
-        Message('暂无可切换店铺')
         return
     }
     document.body.appendChild(Instance.$el)

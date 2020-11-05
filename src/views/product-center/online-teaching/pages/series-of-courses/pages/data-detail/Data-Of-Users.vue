@@ -222,7 +222,7 @@ export default {
         WatchDetailList,
         ExportData
     },
-    async activated () {
+    async created () {
         try {
             this.filterForm.courseResourceId = this.$route.params.id || ''
             this.isFree = this.$route.query.isFree === '1'
@@ -230,7 +230,7 @@ export default {
             await this.getTagList()
         } catch (e) { throw e }
     },
-    deactivated () {
+    decreated () {
         this.clearData()
     },
     methods: {

@@ -15,9 +15,7 @@
         <el-button type="text" @click="explainFlag = true" v-show="$route.name === 'SpringPloughingList'">
             活动说明
         </el-button>
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <router-view />
 
         <!--活动说明弹窗-->
         <Setting :show.sync="explainFlag" />

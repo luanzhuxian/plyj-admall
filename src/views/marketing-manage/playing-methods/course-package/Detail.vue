@@ -10,9 +10,7 @@
         />
 
         <div :class="$style.content">
-            <keep-alive>
-                <router-view />
-            </keep-alive>
+            <router-view />
         </div>
     </div>
 </template>

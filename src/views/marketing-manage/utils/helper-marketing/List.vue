@@ -175,10 +175,10 @@ export default {
             total: 0
         }
     },
-    async activated () {
+    async created () {
         this.getList()
     },
-    deactivated () {
+    decreated () {
     // 重置搜索条件
         this.filterForm = {
             current: 1,

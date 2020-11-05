@@ -265,10 +265,12 @@ export default {
     //   this.getList()
     // }
     },
-    activated () {
-        this.getList()
+    async created () {
+        const { result } = await coupleIsFirstTime()
+        if (result) this.guideStatus = 1
+        await this.getList()
     },
-    deactivated () {
+    decreated () {
         this.$refs.dateRange.clear()
         this.form = {
             couponType: 2,
@@ -279,10 +281,6 @@ export default {
             current: 1,
             size: 10
         }
-    },
-    async created () {
-        const { result } = await coupleIsFirstTime()
-        if (result) this.guideStatus = 1
     },
     methods: {
         async viewCoupon (row) {

@@ -261,7 +261,7 @@ export default class MemberBuyRecord extends Vue {
         ]
     }
 
-    async activated () {
+    async created () {
         this.isHelper = Number(this.$route.query.isHelper) === 1
         await this.search()
     }

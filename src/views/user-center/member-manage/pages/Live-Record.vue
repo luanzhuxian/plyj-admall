@@ -252,7 +252,7 @@ export default class MemberLiveRecord extends Vue {
     @Prop({ type: Array }) orderType!: DynamicObject[]
     @Prop({ type: Array }) orderStatusMap!: DynamicObject[]
 
-    async activated () {
+    async created () {
         await this.search()
     }
 

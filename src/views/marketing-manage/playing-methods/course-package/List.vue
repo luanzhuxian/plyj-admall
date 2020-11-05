@@ -177,14 +177,14 @@ export default {
             qrcodeShow: false// 分享开关
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getList()
         } catch (e) {
             throw e
         }
     },
-    deactivated () {
+    decreated () {
         this.filter = {
             current: 1,
             size: 10,

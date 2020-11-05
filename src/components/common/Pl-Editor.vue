@@ -186,7 +186,7 @@ export default {
         this.init()
         this.toolbar.classList.remove('toolbarFloat')
     },
-    activated () {
+    created () {
         this.toolbar.classList.remove('toolbarFloat')
     },
     beforeDestroy () {

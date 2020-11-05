@@ -113,7 +113,7 @@ export default class MemberRemark extends Vue {
 
     @Prop() userId!: string
 
-    async activated () {
+    async created () {
         await this.getRemarkList()
     }
 

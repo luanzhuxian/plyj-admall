@@ -1,7 +1,5 @@
 <template>
-    <keep-alive :exclude="['AddKnowledgeCourse']">
-        <router-view />
-    </keep-alive>
+    <router-view />
 </template>
 
 <script lang='ts'>

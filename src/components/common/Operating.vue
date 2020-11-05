@@ -25,7 +25,7 @@ import { Vue, Component } from 'vue-property-decorator'
 @Component
 export default class Operating extends Vue {
     isShow = false
-    deactivated () {
+    beforeDestroy () {
         this.isShow = false
     }
 }

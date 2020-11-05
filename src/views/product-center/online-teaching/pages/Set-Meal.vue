@@ -157,7 +157,7 @@ export default {
             }
         }
     },
-    async activated () {
+    async created () {
     // getChanneStatistics({
     //   startDate: '',
     //   endDate: ''

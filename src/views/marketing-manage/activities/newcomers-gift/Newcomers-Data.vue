@@ -261,11 +261,11 @@ export default {
             presentDetail: {}
         }
     },
-    async activated () {
+    async created () {
         await this.getDetail()
         await this.doQuery()
     },
-    deactivated () {
+    decreated () {
         this.queryFilter = {
             keyWord: '',
             claimStatus: '',

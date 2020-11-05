@@ -37,10 +37,10 @@ export default {
             default: ''
         }
     },
-    activated () {
+    created () {
         this.isShowDetail = true
     },
-    deactivated () {
+    decreated () {
         this.isShowDetail = false
     },
     methods: {

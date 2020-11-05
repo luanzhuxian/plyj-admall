@@ -164,13 +164,13 @@ export default {
             }
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getDataDictionary()
             await this.search()
         } catch (e) { throw e }
     },
-    deactivated () {
+    decreated () {
         this.params = {
             resouceType: '',
             current: 1,

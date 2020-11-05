@@ -122,7 +122,7 @@ export default {
             }
         }
     },
-    activated () {
+    created () {
         this.getList()
     },
     methods: {

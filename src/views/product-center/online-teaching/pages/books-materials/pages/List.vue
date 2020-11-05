@@ -283,13 +283,6 @@ export default {
             throw e
         }
     },
-    async activated () {
-        try {
-            await this.init()
-        } catch (e) {
-            throw e
-        }
-    },
     methods: {
         async init () {
             resetForm(this.form, {

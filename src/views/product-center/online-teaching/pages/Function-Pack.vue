@@ -190,7 +190,7 @@ export default class FunctionPack extends Vue {
         numberOfResources: 0
     }
 
-    async activated () {
+    async created () {
         await this.checkIsGoToSetMeal()
     }
 

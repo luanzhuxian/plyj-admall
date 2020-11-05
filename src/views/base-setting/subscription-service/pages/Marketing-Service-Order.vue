@@ -134,7 +134,7 @@ export default class LiveServiceOrder extends Vue {
     total = 0
 
     async created () {
-        this.getList()
+        await this.getList()
     }
 
     async getList () {

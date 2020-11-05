@@ -57,13 +57,6 @@ export default {
         // 是否启用查看模式
         lookOver: Boolean
     },
-    async activated () {
-        try {
-            await this.getTagList()
-        } catch (e) {
-            throw e
-        }
-    },
     async mounted () {
         try {
             await this.getTagList()

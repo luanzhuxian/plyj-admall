@@ -309,22 +309,11 @@ export default {
             qrcodeShow: false
         }
     },
-    async activated () {
+    async created () {
         this.params.activityId = this.$route.params.id
-        this.getInvitingDetail()
-        this.getInvitingDetailList()
+        await this.getInvitingDetail()
+        await this.getInvitingDetailList()
         this.$parent.showTop = false
-    },
-    deactivated () {
-        this.params = {
-            activityId: '',
-            keyWord: '',
-            status: '',
-            startTime: '',
-            endTime: '',
-            current: 1,
-            size: 10
-        }
     },
     methods: {
         async getInvitingDetail () {

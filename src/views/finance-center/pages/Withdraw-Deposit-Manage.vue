@@ -296,14 +296,8 @@ export default class WithdrawDepositManage extends Vue {
     }
 
     async created () {
+        this.form.status = (this.$route.query.status as string) || 'AWAIT'
         await this.search()
-    }
-
-    async activated () {
-        if (this.$route.query.status !== this.form.status) {
-            this.form.status = (this.$route.query.status as string) || 'AWAIT'
-            await this.search()
-        }
     }
 
     // methods

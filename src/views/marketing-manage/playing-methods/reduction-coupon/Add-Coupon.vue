@@ -432,7 +432,7 @@ export default {
             return this.$route.name === 'CopyReductionCoupon'
         }
     },
-    async activated () {
+    async created () {
     // 此数据是用来告诉选择优惠券页面，新建的优惠券数据，必须手动清空，不然会有数据残留
         this.resultData = {}
         await this.getUserTtagListFun()

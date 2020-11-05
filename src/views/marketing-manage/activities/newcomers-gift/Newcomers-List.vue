@@ -279,7 +279,7 @@ export default {
             presentDetail: {}
         }
     },
-    async activated () {
+    async created () {
         this.$parent.showTop = false
         try {
             // await this.getCouponList()
@@ -299,7 +299,7 @@ export default {
             throw e
         }
     },
-    deactivated () {
+    decreated () {
         this.resetFilter()
     },
     beforeRouteLeave (to, from, next) {

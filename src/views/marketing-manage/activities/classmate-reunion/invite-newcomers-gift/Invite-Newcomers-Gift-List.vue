@@ -15,9 +15,7 @@
         <el-button type="text" @click="showExplanation = true" v-show="$route.name === 'InviteNewcomersList'">
             活动说明
         </el-button>
-        <keep-alive>
-            <router-view />
-        </keep-alive>
+        <router-view />
         <InviteNewcomersSetting :show.sync="showExplanation" />
     </div>
 </template>

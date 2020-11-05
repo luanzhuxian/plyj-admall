@@ -435,7 +435,7 @@ export default {
             default: ''
         }
     },
-    async activated () {
+    async created () {
         this.$parent.showTop = false
         this.form.status = ''
         this.dateError = ''

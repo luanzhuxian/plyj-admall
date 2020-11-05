@@ -50,9 +50,7 @@
                 </div>
             </div>
         </div>
-        <keep-alive exclude="AddSeriesOfCourses">
-            <router-view />
-        </keep-alive>
+        <router-view />
     </div>
 </template>
 
@@ -67,7 +65,7 @@ export default {
             warn: true
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getStatistics()
             if (this.warn) {

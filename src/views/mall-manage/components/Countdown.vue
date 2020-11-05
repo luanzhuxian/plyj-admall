@@ -143,7 +143,7 @@ export default class Countdown extends Vue {
         this.reset(newVal)
     }
 
-    activated () {
+    created () {
         if (this.isKeepAlivePaused) {
             this.isCounting = true
             this.isKeepAlivePaused = false
@@ -151,16 +151,16 @@ export default class Countdown extends Vue {
         }
     }
 
-    deactivated () {
+    beforeDestroy () {
         if (this.isCounting) {
             this.pause()
             this.isKeepAlivePaused = true
         }
     }
 
-    beforeDestroy () {
-        this.pause()
-    }
+    // beforeDestroy () {
+    //     this.pause()
+    // }
 
     /* methods */
 

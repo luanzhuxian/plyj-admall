@@ -138,7 +138,7 @@ export default {
             default: ''
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getData()
         } catch (e) {

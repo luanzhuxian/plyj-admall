@@ -90,7 +90,7 @@ export default {
             useRemainderStorageSize: 0
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.query()
             await this.getVideoLibInfo()

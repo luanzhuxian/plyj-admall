@@ -73,7 +73,7 @@ export default {
             statistics: {} // 统计数据
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getStatistics()
             await this.notice()

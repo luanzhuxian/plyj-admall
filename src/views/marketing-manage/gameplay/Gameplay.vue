@@ -301,7 +301,7 @@ export default class Gameplay extends Vue {
         }
     }
 
-    async activated () {
+    async created () {
         await Promise.all([
             this.getActivitiesInfo(),
             this.getActivityAuth()

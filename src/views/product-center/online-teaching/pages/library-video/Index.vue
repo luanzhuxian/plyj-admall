@@ -1,10 +1,6 @@
 <template>
     <div :class="$style.library" class="wrap">
-
-        <keep-alive>
-            <router-view :key="$route.path" :class="$style.libraryContainer" />
-        </keep-alive>
-
+        <router-view :key="$route.path" :class="$style.libraryContainer" />
     </div>
 </template>
 

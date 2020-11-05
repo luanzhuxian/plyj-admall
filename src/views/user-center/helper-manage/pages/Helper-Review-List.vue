@@ -255,12 +255,8 @@ export default class HelperReviewList extends Vue {
   currentRoleCode = ''
   currentStatus: any = ''
 
-  async activated () {
-      this.init()
-  }
-
-  created () {
-      this.init()
+  async created () {
+      await this.init()
   }
 
   async init () {

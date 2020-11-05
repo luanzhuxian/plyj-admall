@@ -590,7 +590,7 @@ export default {
             this.form.coverImg = val[0] || ''
         }
     },
-    async activated () {
+    async created () {
         try {
             // 获取需要的公共数据
             await Promise.all([
@@ -611,7 +611,7 @@ export default {
             }
         } catch (e) { throw e }
     },
-    deactivated () {
+    decreated () {
         this.$destroy()
     },
     methods: {

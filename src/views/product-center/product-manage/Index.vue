@@ -1,8 +1,6 @@
 <template>
     <div class="product-manage">
-        <keep-alive :exclude="['AddProduct']">
-            <router-view />
-        </keep-alive>
+        <router-view />
     </div>
 </template>
 

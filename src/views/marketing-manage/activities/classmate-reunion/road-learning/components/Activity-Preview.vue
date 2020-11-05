@@ -61,7 +61,7 @@ export default {
             default: ''
         }
     },
-    deactivated () {
+    beforeDestroy () {
         clearInterval(this.timer)
     },
     methods: {

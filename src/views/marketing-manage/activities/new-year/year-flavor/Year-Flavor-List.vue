@@ -202,10 +202,10 @@ export default {
     //   this.getList()
     // }
     },
-    activated () {
+    created () {
         this.getList()
     },
-    deactivated () {
+    decreated () {
         this.form = {
             status: '',
             startTime: '',

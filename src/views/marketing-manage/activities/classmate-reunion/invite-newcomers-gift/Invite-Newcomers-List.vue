@@ -244,19 +244,9 @@ export default {
             shareId: ''
         }
     },
-    activated () {
+    created () {
         this.getInviting()
         this.$parent.showTop = true
-    },
-    deactivated () {
-        this.params = {
-            keyWord: '',
-            status: '',
-            startTime: '',
-            endTime: '',
-            current: 1,
-            size: 10
-        }
     },
     methods: {
     // 时间格式转换

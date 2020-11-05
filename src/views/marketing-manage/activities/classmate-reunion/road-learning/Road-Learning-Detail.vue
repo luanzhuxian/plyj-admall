@@ -176,20 +176,11 @@ export default {
             isShowVerificationDialog: false
         }
     },
-    async activated () {
+    async created () {
         const params = this.$route.params
         if (params.id) this.id = params.id
         if (this.id) {
             await this.init()
-        }
-    },
-    async deactivated () {
-        this.filterCondition = {
-            keyWord: '',
-            startTime: '',
-            endTime: '',
-            current: 1,
-            size: 10
         }
     },
     methods: {

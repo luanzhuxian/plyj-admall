@@ -73,8 +73,8 @@ export default {
             data: [{}]
         }
     },
-    activated () {
-        this.getList()
+    async created () {
+        await this.getList()
     },
     methods: {
         async getList () {

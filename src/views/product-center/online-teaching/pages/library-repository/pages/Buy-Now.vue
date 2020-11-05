@@ -151,13 +151,13 @@ export default {
             detail: {}
         }
     },
-    async activated () {
+    async created () {
         try {
             this.checked = false
             await this.getBuyDetails()
         } catch (e) { throw e }
     },
-    deactivated () {
+    decreated () {
         this.loading = true
         this.showPayCode = false
         clearInterval(this.timer)

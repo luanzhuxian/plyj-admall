@@ -314,7 +314,7 @@ export default {
             default: ''
         }
     },
-    async activated () {
+    async created () {
         this.filter.activityId = this.id
         try {
             await Promise.all([
@@ -323,15 +323,6 @@ export default {
             ])
         } catch (e) {
             throw e
-        }
-    },
-    deactivated () {
-        this.filter = {
-            condition: '',
-            orderStatus: '',
-            activityId: '',
-            current: 1,
-            size: 10
         }
     },
     methods: {

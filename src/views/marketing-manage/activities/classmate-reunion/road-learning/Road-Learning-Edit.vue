@@ -339,7 +339,7 @@ export default {
             isShowPreviewDialog: false
         }
     },
-    async activated () {
+    async created () {
     // 获取当前奖品的ID,有ID的话就为编辑，反之亦然
         const params = this.$route.params
         this.id = params.id || ''
@@ -350,9 +350,6 @@ export default {
         } else {
             this.clearData()
         }
-    },
-    async deactivated () {
-        await this.clearData()
     },
     methods: {
         async init () {
@@ -497,29 +494,6 @@ export default {
                 return false
             }
             return true
-        },
-        async clearData () {
-            // 还原默认值
-            this.form = {
-                // 使用说明, string
-                activityBrief: '1.在活动有效期内，累计签到满10次，即可开启见学之旅，开启大奖；\n' +
-          '2.每人仅有1次抽取奖品的机会；\n' +
-          '3.奖品：用户抽奖采用先到先到的方式，奖品派发完毕，则活动结束；\n' +
-          '4.获得的奖品将自动存入“我的礼品”中，使用有效期内用户可随时查看使用；\n' +
-          '5.“我的礼品”中存放的礼品需在该礼品使用有效期内到店兑换；过期或未到兑换时间使用时不予兑换，请妥善保管。',
-                // 活动结束时间 2019-10-22T02:53:47.339Z
-                activityEndTime: '',
-                // 活动开始时间 2019-10-22T02:53:47.339Z
-                activityStartTime: '',
-                mallCheckinActivityGiftEntities: []
-            }
-            this.activityTimeRange = []
-            this.hasConsolationPrize = 1
-            this.giftList = []
-            this.consolationPrizeList = []
-            this.canConsolationPrize = true
-            // 清除校验
-            await this.$refs.ruleForm.clearValidate()
         }
     },
     watch: {

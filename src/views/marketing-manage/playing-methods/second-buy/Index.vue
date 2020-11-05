@@ -18,7 +18,7 @@ export default {
             marketStatusAuth: 'account/marketStatusAuth'
         })
     },
-    async activated () {
+    async created () {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         const info = this.marketStatusAuth.find(({ programId }) => programId === '3')
         if (!info || moment(info.validity).valueOf() < Date.now()) {

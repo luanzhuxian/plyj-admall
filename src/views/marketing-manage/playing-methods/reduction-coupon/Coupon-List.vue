@@ -264,14 +264,14 @@ export default {
             throw e
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getList()
         } catch (e) {
             throw e
         }
     },
-    deactivated () {
+    decreated () {
         this.$refs.dateRange.clear()
         this.form = {
             couponType: 1,

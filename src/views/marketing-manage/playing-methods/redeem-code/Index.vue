@@ -89,7 +89,7 @@ export default {
             throw e
         }
     },
-    async activated () {
+    async created () {
         const routeName = this.$route
         if (routeName.path.indexOf('redeem-code/') !== -1) {
             this.programId = '8'

@@ -10,9 +10,7 @@
             </div>
         </transition>
 
-        <keep-alive>
-            <router-view :key="$route.path" :class="$style.libraryContainer" />
-        </keep-alive>
+        <router-view :key="$route.path" :class="$style.libraryContainer" />
 
         <!-- 赠送资源弹窗 -->
         <ResourceWarranty :show.sync="showGiveResource" :list="giveResourceList" />
@@ -27,7 +25,7 @@ export default {
     components: {
         ResourceWarranty
     },
-    deactivated () {
+    decreated () {
         this.giveResourceList = []
     },
     data () {

@@ -327,7 +327,7 @@ export default {
             remainingSpaceSize: Infinity
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getList()
             await this.getVideoLibInfo()

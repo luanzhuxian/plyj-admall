@@ -478,7 +478,7 @@ export default {
             return this.$route.query.isCopy
         }
     },
-    async activated () {
+    async created () {
         try {
             await this.getTagListFun()
             await this.getDetail()

@@ -201,13 +201,8 @@ export default class RunbiManage extends Vue {
 
     async created () {
         await this.search()
-    }
-
-    async activated () {
-        if (this.$route.query.status !== this.form.status) {
-            this.form.status = (this.$route.query.status as string) || 'AWAIT'
-            await this.search()
-        }
+        this.form.status = (this.$route.query.status as string) || 'AWAIT'
+        await this.search()
     }
 
     // methods

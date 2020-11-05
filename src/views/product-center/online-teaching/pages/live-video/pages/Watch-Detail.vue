@@ -244,14 +244,14 @@ export default {
             signInCourse: [{ label: '全部用户', value: '' }, { label: '报名用户', value: 1 }, { label: '无需报名用户', value: 0 }]
         }
     },
-    async activated () {
+    async created () {
         try {
             this.form.type = this.liveMode
             await this.getActiveCompleteInfo()
             await this.getList()
         } catch (e) { throw e }
     },
-    deactivated () {
+    decreated () {
         this.form = {
             type: 1, // 1公开课 2 私享课
             isApply: '',

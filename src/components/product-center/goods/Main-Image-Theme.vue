@@ -246,13 +246,6 @@ export default {
       this.themeChanged = true
     }
   },
-  async activated () {
-    try {
-      await this.init()
-    } catch (e) {
-      throw e
-    }
-  },
   async created () {
     try {
       await this.init()
