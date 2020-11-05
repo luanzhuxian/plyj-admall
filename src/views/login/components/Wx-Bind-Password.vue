@@ -81,13 +81,10 @@ export default class WxBindPassword extends Vue {
         }
 
         async login (formName: string) {
-            // 防止连续敲击回车
-            if (this.loading) return
             try {
                 await (this.$refs[formName] as HTMLFormElement).validate()
                 this.loading = true
                 await this.LOGIN(this.form)
-
                 const code = sessionStorage.getItem(SessionEnum.redirectCode) as string
                 await WxBind(code)
                 this.clearCode()
@@ -95,7 +92,9 @@ export default class WxBindPassword extends Vue {
             } catch (e) {
                 throw e
             } finally {
-                this.loading = false
+                setTimeout(() => {
+                    this.loading = false
+                }, 1000)
             }
         }
 

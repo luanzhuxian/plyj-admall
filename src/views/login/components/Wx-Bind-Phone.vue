@@ -91,8 +91,6 @@ export default class WxBindPhone extends Vue {
         }
 
         async login (formName: string) {
-            // 防止连续敲击回车
-            if (this.loading) return
             try {
                 await (this.$refs[formName] as HTMLFormElement).validate()
                 this.loading = true
@@ -105,7 +103,9 @@ export default class WxBindPhone extends Vue {
                 // this.refreshSafeCode()
                 throw e
             } finally {
-                this.loading = false
+                setTimeout(() => {
+                    this.loading = false
+                }, 1000)
             }
         }
 

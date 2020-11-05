@@ -31,6 +31,7 @@ Component.registerHooks([
 export default class Login extends Vue {
     toName= ''
     routerName = ''
+    loading = false
     @userModule.Mutation(MutationTypes.logout) logout!: Function
     @userModule.Mutation(MutationTypes.setCodePass) setCodePass!: Function
     @userModule.Mutation(MutationTypes.setCodeShow) setCodeShow!: Function
@@ -47,6 +48,7 @@ export default class Login extends Vue {
 
     async login () {
         try {
+            if (this.loading) return
             await this.getAgencyList()
             await this.selectMall()
             await this.getAllMallInfo()
@@ -54,6 +56,8 @@ export default class Login extends Vue {
         } catch (e) {
             this.logout()
             throw e
+        } finally {
+            this.loading = false
         }
     }
 

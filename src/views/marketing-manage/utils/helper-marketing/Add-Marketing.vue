@@ -343,6 +343,7 @@
             <el-button
                 type="primary"
                 round
+                :loading="loading"
                 @click="submitForm"
             >
                 保存
@@ -630,6 +631,7 @@ export default {
             callBack()
         }
         return {
+            loading: false,
             // 活动id，为空时是创建活动，否则为编辑活动
             id: '',
             // 发送数据对象及页面展示数据
@@ -1128,6 +1130,7 @@ export default {
                 if (!await this.checkData(marketingForm)) {
                     return
                 }
+                this.loading = true
                 if (this.id) {
                     // 修改
                     await updateMarketingActivity({ id: this.id, data: marketingForm })
@@ -1141,6 +1144,8 @@ export default {
                 }
             } catch (e) {
                 throw e
+            } finally {
+                this.loading = false
             }
         }
     }

@@ -113,7 +113,9 @@ export default class PasswordLogin extends Vue {
             throw e
         } finally {
             this.setCodePass(false)
-            this.loading = false
+            setTimeout(() => {
+                this.loading = false
+            }, 1000)
         }
     }
 }

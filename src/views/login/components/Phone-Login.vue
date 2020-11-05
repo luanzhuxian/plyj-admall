@@ -107,10 +107,9 @@ export default class PhoneLogin extends Vue {
 
         async login () {
         // 防止连续敲击回车
-            if (this.loading) return
             try {
-                await (this.$refs.form as HTMLFormElement).validate()
                 this.loading = true
+                await (this.$refs.form as HTMLFormElement).validate()
                 await this.LOGIN(this.form)
                 const result = await this.getAccountInfo()
                 if (!result.account) {
@@ -124,7 +123,9 @@ export default class PhoneLogin extends Vue {
                 // this.refreshSafeCode()
                 throw e
             } finally {
-                this.loading = false
+                setTimeout(() => {
+                    this.loading = false
+                }, 1000)
             }
         }
 }

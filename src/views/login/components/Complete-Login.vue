@@ -112,8 +112,6 @@ export default class CompleteLogin extends Vue {
         }
 
         async login () {
-            // 防止连续敲击回车
-            if (this.loading) return
             try {
                 await (this.$refs.form as HTMLFormElement).validate()
                 if (!this.agree) return this.$error('请阅读并同意《朋来雅集服务协议》')
@@ -123,7 +121,9 @@ export default class CompleteLogin extends Vue {
             } catch (e) {
                 throw e
             } finally {
-                this.loading = false
+                setTimeout(() => {
+                    this.loading = false
+                }, 1000)
             }
         }
 
