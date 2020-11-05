@@ -298,8 +298,8 @@ export default class MemberLiveRecord extends Vue {
             liveType: '',
             liveStartTime: '',
             liveEndTime: ''
-        }
-        this.$refs.dateRange.clear()
+        };
+        (this.$refs.dateRange as HTMLFormElement).clear()
         await this.getLiveWatchList()
     }
 

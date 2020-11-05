@@ -9,31 +9,6 @@ import NotFound from '../views/404.vue'
 import { importFiles } from './../assets/ts/utils'
 import { LocalEnum, SessionEnum } from '@/enum/storage'
 import store from '../store'
-let routeNames = null
-const checkAuth = (to, from) => {
-    if (!routeNames) {
-        routeNames = store.getters['user/routeNames']
-    }
-    const currentHasPower = routeNames.has(to.name)
-    const index = routeNames.get(to.name)
-    // 有权限
-    if (currentHasPower) {
-        const routeNameArr = [...routeNames]
-        // 找出当前路由的所有子路由
-        const allChildren = routeNameArr.filter(item => item[1] !== index && item[1].indexOf(`${ index }-`) === 0)
-        if (allChildren.length) {
-            return { name: allChildren[0][0] }
-        }
-        return to
-    }
-
-    /**
-     * 无权限访问，返回一个重定向路由，并提示用户
-     * 返回路由列表中的第一个路由
-     */
-    MessageBox.alert(`${ to.meta.title ? to.meta.title : '该' }页面暂无权限，请联系管理员`, { title: '暂无权限' })
-    return from || { name: routeNames.keys().next().value }
-}
 
 // 无需登录就可以看到的页面
 const NOLOGIN = [
@@ -101,6 +76,40 @@ export const router = new Router({
     }),
     routes
 })
+let routeNames = null
+const checkAuth = (to, from) => {
+    if (!routeNames) {
+        routeNames = store.getters['user/routeNames']
+    }
+    const currentHasPower = routeNames.has(to.name)
+    const index = routeNames.get(to.name)
+    // 有权限
+    if (currentHasPower) {
+        const routeNameArr = [...routeNames]
+        // 找出当前路由的所有子路由
+        const allChildren = routeNameArr.filter(item => item[1] !== index && item[1].indexOf(`${ index }-`) === 0)
+        if (allChildren.length) {
+            return { name: allChildren[0][0] }
+        }
+        return to
+    }
+    // 此处是判断当前路由是否是从另一个路由重定向而来的，如果是，则显示重定向之前的路由title
+    const currentRoute = to.matched && to.matched[to.matched.length - 1]
+    let pageName = ''
+    try {
+        pageName = currentRoute?.regex.test(currentRoute.parent.redirect) && currentRoute.parent?.meta?.title
+    } catch (e) {
+        pageName = ''
+    }
+    pageName = pageName || to.meta?.title || '该'
+
+    /**
+     * 无权限访问，返回一个重定向路由，并提示用户
+     * 返回路由列表中的第一个路由
+     */
+    MessageBox.alert(`<strong>${ pageName }</strong> 页面暂无权限，请联系管理员`, { title: '暂无权限', dangerouslyUseHTMLString: true })
+    return from || { name: routeNames.keys().next().value }
+}
 export const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
     // 存储微信登录code
     if (to.query.code) {
