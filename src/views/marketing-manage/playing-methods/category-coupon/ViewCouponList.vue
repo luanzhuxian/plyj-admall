@@ -272,7 +272,6 @@
 
 <script>
 import { selectCouponDetail, getCouponstatistics, exportReductionCoupon } from '../../../../apis/marketing-manage/coupon'
-import { resetForm } from '../../../../assets/ts/utils'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import moment from 'moment'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
