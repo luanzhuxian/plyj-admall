@@ -248,7 +248,7 @@
                                             placement="bottom-end"
                                             trigger="hover"
                                         >
-                                            <ul class="tag-user-list">
+                                            <ul class="tag-list">
                                                 <li v-for="(item, index) of row.tags" :key="index" v-text="item.tagName" />
                                             </ul>
                                             <div slot="reference">
@@ -321,7 +321,7 @@
                             <Operating>
                                 <template slot="button-box">
                                     <a @click="$router.push({
-                                        name: 'MemberManageDetail',
+                                        name: 'MemberBuyRecord',
                                         params: { userId: row.id },
                                         query:{isHelper: row.roleCode === 'HELPER'? '1' : '0' }
                                     })">
@@ -1077,6 +1077,8 @@ export default class MemberManageList extends Vue {
         height: 800px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         background-color: #F5F5F5;
+        display: flex;
+        flex-direction: column;
         overflow: auto;
 
         .tag-list-top {
@@ -1201,9 +1203,9 @@ export default class MemberManageList extends Vue {
                 }
                 .tag {
                     margin-top: 8px;
-                    // width: 110px;
+                    width: 110px;
                     color: #999999;
-                    // @include elps;
+                    @include elps-wrap(1);
                 }
             }
         }
@@ -1230,7 +1232,7 @@ export default class MemberManageList extends Vue {
         color: #333;
     }
 }
-.tag-user-list {
+.tag-list {
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-gap: 6px 12px;
