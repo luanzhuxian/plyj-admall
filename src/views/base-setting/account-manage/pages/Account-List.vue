@@ -50,9 +50,11 @@
                         <span style="font-size: 12px; color: #999999">至多可设置4个高级管理员</span>
                     </div>
                     <Progress
-                        :percentage="currentCount / maxCount * 100"
-                        :show-text="true"
+                        show-text
                         :text="`${currentCount}/${maxCount}`"
+                        color="#4F63FF"
+                        percentage-color="#FFFFFF"
+                        :percentage="currentCount / maxCount * 100"
                         style="margin-top: 18px"
                     />
                 </div>
