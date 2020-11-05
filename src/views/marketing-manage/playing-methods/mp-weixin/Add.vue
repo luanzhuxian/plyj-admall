@@ -67,7 +67,7 @@
             <el-button round @click="cancel">
                 取消
             </el-button>
-            <el-button round type="primary" @click="save">
+            <el-button round type="primary" :loading="loading" @click="save">
                 保存
             </el-button>
         </div>
@@ -107,6 +107,7 @@ export default {
             }
         }
         return {
+            loading: false,
             form: {
                 id: '',
                 name: '',
@@ -154,15 +155,22 @@ export default {
             this.$refs.ruleForm.clearValidate('qrCodeImgUrl')
         },
         async save () {
-            await this.$refs.ruleForm.validate()
-            this.form.regionScope = this.form.regionScope.length ? this.form.regionScope.join(',') : ''
-            if (this.id) {
-                await updateMmpWeixin(this.form)
-            } else {
-                await addMmpWeixin(this.form)
+            try {
+                this.loading = true
+                await this.$refs.ruleForm.validate()
+                this.form.regionScope = this.form.regionScope.length ? this.form.regionScope.join(',') : ''
+                if (this.id) {
+                    await updateMmpWeixin(this.form)
+                } else {
+                    await addMmpWeixin(this.form)
+                }
+                this.$router.back()
+                this.$success('保存成功')
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
             }
-            this.$router.back()
-            this.$success('保存成功')
         },
         cancel () {
             this.$router.back()

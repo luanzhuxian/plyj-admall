@@ -301,7 +301,7 @@
                 <el-button @click="$router.push({ name: 'LongmenLotteryList' })">
                     取消
                 </el-button>
-                <el-button type="primary" @click="save">
+                <el-button type="primary" :loading="loading" @click="save">
                     保存
                 </el-button>
             </div>
@@ -449,6 +449,7 @@ export default {
         this.checkGroup = checkGroup
         this.checkGifts = checkGifts
         return {
+            loading: false,
             // 显示礼品弹框
             showPresent: false,
             // 显示奖学金弹框
@@ -754,6 +755,7 @@ export default {
         // 保存
         async save () {
             try {
+                this.loading = true
                 await this.$refs.form.validate()
                 if (this.checkAwards()) {
                     // 深拷贝数据 防止数据修改提交失败
@@ -808,7 +810,9 @@ export default {
                     this.$router.push({ name: 'LongmenLotteryList' })
                 }
             } catch (e) {
-                if (e) throw e
+                throw e
+            } finally {
+                this.loading = false
             }
         },
         // 校验奖品设置

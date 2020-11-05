@@ -118,7 +118,7 @@
                 <el-button round @click="$router.push({ name: 'CoursePackageList' })">
                     取消
                 </el-button>
-                <el-button type="primary" round @click="confirm">
+                <el-button type="primary" round :loading="loading" @click="confirm">
                     确定并上架
                 </el-button>
             </div>
@@ -170,6 +170,7 @@ export default {
             }
         }
         return {
+            loading: false,
             userGroup: [],
             activityStatus: -1, // 0：未开始 1：进行中 2：已结束
             form: {
@@ -301,6 +302,7 @@ export default {
             //   delete item.oldEndTime
             // }
             try {
+                this.loading = true
                 await this.$refs.addForm.validate()
                 // 校验组合表单
                 for (const item of this.$refs.combinations) {
@@ -341,6 +343,8 @@ export default {
             } catch (e) {
                 if (!e.message) return this.$error('信息填写有误，请检查')
                 throw e
+            } finally {
+                this.loading = false
             }
         }
     }

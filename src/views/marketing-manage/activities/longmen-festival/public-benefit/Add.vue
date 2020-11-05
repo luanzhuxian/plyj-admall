@@ -209,7 +209,7 @@
                 <el-button size="mini" plain style="width: 90px" @click="cancle">
                     取消
                 </el-button>
-                <el-button size="mini" type="primary" plain @click="save(2)">
+                <el-button size="mini" type="primary" plain :loading="loading" @click="save(2)">
                     保存
                 </el-button>
                 <el-button size="mini" plain style="width: 90px; margin-left: 20px" @click="showPreview = true">
@@ -479,6 +479,7 @@ export default {
         },
         async save () {
             try {
+                this.loading = true
                 await this.$refs.form.validate()
                 const form = this.form
                 if (form.userScope !== 3) {
@@ -506,7 +507,11 @@ export default {
                     this.$success('修改成功')
                 }
                 this.$router.push({ name: 'LongmenPublicBenefitList' })
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
+            }
         },
         cancle () {
             this.$router.push({ name: 'LongmenPublicBenefitList' })

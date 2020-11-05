@@ -139,6 +139,7 @@
             <el-button
                 type="primary"
                 round
+                :loading="loading"
                 @click="submitForm('marketingForm')"
             >
                 保存
@@ -193,6 +194,7 @@ export default {
             callBack()
         }
         return {
+            loading: false,
             id: '',
             type: '',
             marketingForm: {
@@ -359,28 +361,19 @@ export default {
                 this.$error('请选择商品')
                 return false
             }
-            if (
-                !this.marketingForm.activityStartTime ||
-        !this.marketingForm.activityEndTime
-            ) {
+            if (!this.marketingForm.activityStartTime || !this.marketingForm.activityEndTime) {
                 this.dateError = '请选择活动时间'
                 return false
             }
-            if (
-                this.activityStatus !== 1 &&
-        moment(this.marketingForm.activityStartTime).valueOf() <
-          moment().valueOf()
-            ) {
+            if (this.activityStatus !== 1 && moment(this.marketingForm.activityStartTime).valueOf() < moment().valueOf()) {
                 this.$error('活动开始时间不能小于当前时间')
                 return false
             }
-            if (
-                moment(this.marketingForm.activityEndTime).valueOf() <
-        moment(this.marketingForm.activityStartTime).valueOf()
-            ) {
+            if (moment(this.marketingForm.activityEndTime).valueOf() < moment(this.marketingForm.activityStartTime).valueOf()) {
                 this.$error('活动结束时间不能小于开始时间')
                 return false
             }
+            this.loading = true
             try {
                 await this.$refs[formName].validate()
                 const params = {
@@ -413,6 +406,8 @@ export default {
                 }
             } catch (e) {
                 throw e
+            } finally {
+                this.loading = false
             }
         }
     }

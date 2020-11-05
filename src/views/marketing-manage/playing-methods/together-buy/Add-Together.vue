@@ -240,6 +240,7 @@
             <el-button
                 type="primary"
                 round
+                :loading="loading"
                 @click="submitForm('marketingForm')"
             >
                 保存
@@ -273,6 +274,7 @@ export default {
     },
     data () {
         return {
+            loading: false,
             id: '',
             type: '',
             marketingForm: {
@@ -461,6 +463,7 @@ export default {
             const provideValidate = this.provideValidate()
             if (!provideValidate) return
             try {
+                this.loading = true
                 await this.$refs[formName].validate()
                 const Form = this.marketingForm
                 const params = {
@@ -502,7 +505,11 @@ export default {
                     warnMessage = '创建成功'
                     goPage(this, gomMes.result, warnMessage, 'TogetherBuyList')
                 }
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
+            }
         },
         // 校验函数
         provideValidate () {

@@ -42,7 +42,7 @@
                 <el-button @click="close">
                     取消
                 </el-button>
-                <el-button type="primary" @click="submitForm('form')">
+                <el-button type="primary" :loading="loading" @click="submitForm('form')">
                     保存
                 </el-button>
             </el-form-item>
@@ -85,6 +85,7 @@ export default {
             }
         }
         return {
+            loading: false,
             rules: {
                 scholarshipPrice: [{ validator: validatePass, trigger: 'blur' }],
                 scholarshipEffectiveTime: [{ validator: validatePass2, trigger: 'blur' }]
@@ -97,15 +98,22 @@ export default {
             this.$refs.form.clearValidate()
         },
         async submitForm (formName) {
-            await this.$refs[formName].validate()
-            if (this.form.scholarshipId) {
-                const data = JSON.parse(JSON.stringify(this.$parent.form.scholarships))
-                data[this.form.scholarshipId] = this.form
-                this.$parent.form.scholarships = data
-            } else {
-                this.$parent.form.scholarships.push(this.form)
+            try {
+                this.loading = true
+                await this.$refs[formName].validate()
+                if (this.form.scholarshipId) {
+                    const data = JSON.parse(JSON.stringify(this.$parent.form.scholarships))
+                    data[this.form.scholarshipId] = this.form
+                    this.$parent.form.scholarships = data
+                } else {
+                    this.$parent.form.scholarships.push(this.form)
+                }
+                this.close()
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
             }
-            this.close()
         }
     }
 }

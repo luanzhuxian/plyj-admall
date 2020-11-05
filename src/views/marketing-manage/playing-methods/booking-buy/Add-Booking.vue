@@ -219,6 +219,7 @@
                 type="primary"
                 @click="submitForm('marketingForm')"
                 round
+                :loading="loading"
             >
                 保存
             </el-button>
@@ -257,6 +258,7 @@ export default {
             callBack()
         }
         return {
+            loading: false,
             id: '',
             type: '',
             marketingForm: {
@@ -454,6 +456,7 @@ export default {
             const provideValidate = this.provideValidate()
             if (!provideValidate) return
             try {
+                this.loading = true
                 await this.$refs[formName].validate()
                 const Form = this.marketingForm
                 const params = {
@@ -501,7 +504,11 @@ export default {
                     warnMessage = '创建成功'
                     goPage(this, gomMes.result, warnMessage, 'BookingBuyList')
                 }
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
+            }
         },
         // 校验函数
         provideValidate () {

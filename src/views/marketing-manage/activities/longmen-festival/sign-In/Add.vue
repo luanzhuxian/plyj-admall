@@ -272,7 +272,7 @@
                 <!--<el-button size="mini" type="primary" plain @click="preview">
           预览
         </el-button>-->
-                <el-button size="mini" type="primary" plain @click="save">
+                <el-button size="mini" type="primary" plain :loading="loading" @click="save">
                     保存
                 </el-button>
             </div>
@@ -384,6 +384,7 @@ export default {
             }
         }
         return {
+            loading: false,
             checkAll: true,
             // 是否可以编辑细则
             briefEdit: false,
@@ -726,6 +727,7 @@ export default {
         },
         async save () {
             try {
+                this.loading = true
                 await this.$refs.form.validate()
                 if (!this.checkData()) return
                 // 参数变化  深拷贝数据，防止提交失败，原始数据被修改
@@ -754,7 +756,9 @@ export default {
                 }
                 await this.$router.push({ name: 'GeneralList' })
             } catch (e) {
-                if (e) throw e
+                throw e
+            } finally {
+                this.loading = false
             }
         },
         async preview () {

@@ -38,7 +38,7 @@
                 <el-button @click="close">
                     取消
                 </el-button>
-                <el-button type="primary" @click="submitForm">
+                <el-button type="primary" :loading="loading" @click="submitForm">
                     保存
                 </el-button>
             </el-form-item>
@@ -122,6 +122,7 @@ export default {
             callBack()
         }
         return {
+            loading: false,
             currentForm: {
                 giftId: '',
                 giftName: '',
@@ -168,16 +169,23 @@ export default {
             }
         },
         async submitForm () {
-            await this.$refs.form.validate()
-            if (this.currentForm.giftId) {
-                const data = JSON.parse(JSON.stringify(this.$parent.form.gifts))
-                this.currentForm.giftImage = this.imageList[0] || ''
-                data[this.currentForm.giftId] = this.currentForm
-                this.$parent.form.gifts = data
-            } else {
-                this.$parent.form.gifts.push(this.currentForm)
+            try {
+                this.loading = true
+                await this.$refs.form.validate()
+                if (this.currentForm.giftId) {
+                    const data = JSON.parse(JSON.stringify(this.$parent.form.gifts))
+                    this.currentForm.giftImage = this.imageList[0] || ''
+                    data[this.currentForm.giftId] = this.currentForm
+                    this.$parent.form.gifts = data
+                } else {
+                    this.$parent.form.gifts.push(this.currentForm)
+                }
+                this.close()
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
             }
-            this.close()
         }
     }
 }

@@ -139,6 +139,7 @@
             <el-button
                 type="primary"
                 round
+                :loading="loading"
                 @click="submitForm('marketingForm')"
             >
                 保存
@@ -172,6 +173,7 @@ export default {
     },
     data () {
         return {
+            loading: false,
             type: '',
             marketingForm: {
                 startTime: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -340,6 +342,7 @@ export default {
         },
         async submitForm (formName) {
             try {
+                this.loading = true
                 await this.$refs[formName].validate()
                 const {
                     startTime,
@@ -399,6 +402,8 @@ export default {
                 }
             } catch (e) {
                 throw e
+            } finally {
+                this.loading = false
             }
         }
     }

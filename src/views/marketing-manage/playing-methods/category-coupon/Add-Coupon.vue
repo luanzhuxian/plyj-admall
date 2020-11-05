@@ -335,7 +335,7 @@
             <el-button type="primary" plain round @click="preview">
                 预览
             </el-button>
-            <el-button type="primary" round @click="save">
+            <el-button type="primary" round :loading="loading" @click="save">
                 保存
             </el-button>
         </div>
@@ -434,6 +434,7 @@ export default {
     },
     data () {
         return {
+            loading: false,
             productTypeMap: {
                 PHYSICAL_GOODS: '实体商品',
                 VIRTUAL_GOODS: '虚拟商品',
@@ -720,45 +721,42 @@ export default {
                     this.$router.back()
                 })
         },
-        save () {
-            this.$refs.ruleForm.validate(valid => {
-                if (valid) {
-                    this.saveCoupon()
+        async save () {
+            try {
+                this.loading = true
+                await this.$refs.ruleForm.validate()
+                if (!this.checkData()) return false
+                if (this.form.distributionMethod) {
+                    // this.receiveLimit.member = false
+                    // this.receiveLimit.helper = false
+                    this.form.receiveLimit = null
+                    this.form.activityLimit = null
+                    this.form.quantityLimit = null
+                    this.receiveDaterange = null
+                    this.form.receiveStartTime = null
+                    this.form.receiveEndTime = null
+                }
+                const array = []
+                for (const item of this.form.applicableGoodsId) {
+                    array.push(item.id)
+                }
+                this.form.applicableGoodsId = array
+                if (this.id && !this.isCopy) {
+                    await updateCoupon(this.form)
                 } else {
-                    return false
+                    if (this.isCopy) {
+                        delete this.form.id
+                    }
+                    const { result } = await saveCoupon(this.form)
+                    this.resultData = result
                 }
-            })
-        },
-        async saveCoupon () {
-            if (!this.checkData()) {
-                return
+                this.$router.back()
+                this.$success('保存成功')
+            } catch (e) {
+                throw e
+            } finally {
+                this.loading = false
             }
-            if (this.form.distributionMethod) {
-                // this.receiveLimit.member = false
-                // this.receiveLimit.helper = false
-                this.form.receiveLimit = null
-                this.form.activityLimit = null
-                this.form.quantityLimit = null
-                this.receiveDaterange = null
-                this.form.receiveStartTime = null
-                this.form.receiveEndTime = null
-            }
-            const array = []
-            for (const item of this.form.applicableGoodsId) {
-                array.push(item.id)
-            }
-            this.form.applicableGoodsId = array
-            if (this.id && !this.isCopy) {
-                await updateCoupon(this.form)
-            } else {
-                if (this.isCopy) {
-                    delete this.form.id
-                }
-                const { result } = await saveCoupon(this.form)
-                this.resultData = result
-            }
-            this.$router.back()
-            this.$success('保存成功')
         },
         preview () {
             if (!this.checkData()) {
