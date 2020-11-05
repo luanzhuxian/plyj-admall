@@ -79,7 +79,7 @@
                 [$style.register]: true,
                 [$style.bindRegister]: !form.wxCode
             }">
-                <el-button v-if="form.wxCode" type="text" @click="$router.replace({name: 'WxBindPhone'})">立即绑定账号</el-button>
+                <el-button v-if="form.wxCode" type="text" @click="$router.replace({name: 'WxBindPhone'})">绑定已有账号</el-button>
                 <el-button type="text" @click="$router.replace({name: 'PhoneLogin'})"><span :class="$style.c999">已有账号？</span>马上登录</el-button>
             </div>
             <!--            <el-button @click="WxLogin" type="text" style="width: 100%">-->
