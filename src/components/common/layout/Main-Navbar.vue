@@ -108,6 +108,19 @@
                     <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 
+                <el-menu-item index="9" :route="{ name: 'ReservationManage' }">
+                    <h2 :class="$style.title">
+                        <pl-svg
+                            name="icon-time-8a40e"
+                            width="15"
+                            height="15"
+                            fill="#fff"
+                            :class="$style.icon"
+                        />
+                        <span>预约管理</span>
+                    </h2>
+                </el-menu-item>
+
                 <el-submenu index="7" :disabled="!mallNumber">
                     <h2 :class="$style.title" slot="title">
                         <pl-svg
@@ -137,19 +150,6 @@
                         <span>预约管理</span>
                     </h2>
                 </el-menu-item>-->
-
-                <el-menu-item index="9" :route="{ name: 'ReservationManage' }">
-                    <h2 :class="$style.title">
-                        <pl-svg
-                            name="icon-time-8a40e"
-                            width="15"
-                            height="15"
-                            fill="#fff"
-                            :class="$style.icon"
-                        />
-                        <span>预约管理</span>
-                    </h2>
-                </el-menu-item>
 
                 <el-menu-item index="8" :route="{ name: 'MarketingManage' }" :class="$style.marketing" :disabled="!appId">
                     <h2 :class="$style.title">
