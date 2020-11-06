@@ -318,7 +318,7 @@ const skinModels = [{
 }, {
     category: 'skin',
     skinId: 16,
-    img: 'https://mallcdn.youpenglai.com/static/admall/skin/culture/cover.jpg',
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/culture/cover-new.jpg',
     isHover: false,
     templateName: '双十二文化类',
     charge: '限时免费',
@@ -327,7 +327,7 @@ const skinModels = [{
 }, {
     category: 'skin',
     skinId: 17,
-    img: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/cover.jpg',
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/cover-new.jpg',
     isHover: false,
     templateName: '双十二运动类',
     charge: '限时免费',
@@ -336,7 +336,7 @@ const skinModels = [{
 }, {
     category: 'skin',
     skinId: 18,
-    img: 'https://mallcdn.youpenglai.com/static/admall/skin/art/cover.jpg',
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/art/cover-new.jpg',
     isHover: false,
     templateName: '双十二艺术类',
     charge: '限时免费',
@@ -345,7 +345,7 @@ const skinModels = [{
 }, {
     category: 'skin',
     skinId: 19,
-    img: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/cover.jpg',
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/cover-new.jpg',
     isHover: false,
     templateName: '双十二皮肤',
     charge: '限时免费',
