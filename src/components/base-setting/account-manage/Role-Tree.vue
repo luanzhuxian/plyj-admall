@@ -144,27 +144,44 @@ export default {
             }
         },
         check (currentData, allChecked) {
-            // console.log(this.$refs.tree.getNode(currentData))
             const { tree } = this.$refs
             const { checkedKeys, halfCheckedKeys } = allChecked
             const currentNode = tree.getNode(currentData)
-            const parent = currentNode.parent
+
+            /**
+             * 判断当前取消勾选的是不是必选项，如果时则提示不可取消
+             * 如果当前项的同级节点没有任何已勾选的项，则可以取消勾选
+             */
             if (currentData.status === 0 && !checkedKeys.includes(currentData.aclCode)) {
-                tree.setChecked(currentData.aclCode, true)
-                this.$warning('该选项为必选项，不可取消')
-                return
+                // 当前项的同级节点是否全部被取消，须排除当前选项和其它统计必须项（有些模块一个级别有两个以上的必选项，如：helper管理）
+                const anotherAllCancel = currentNode.parent.data.children.filter(item => currentData.aclCode !== item.aclCode && Number(item.status) !== 0).every(item => !item.checked)
+                if (!anotherAllCancel) {
+                    tree.setChecked(currentData.aclCode, true)
+                    !checkedKeys.includes(currentData.aclCode) && checkedKeys.push(currentData.aclCode)
+                    this.$warning('请先取消其它同级权限，再取消此权限')
+                    return
+                }
             }
-            // 寻找同级别中的必选项，并自动选中
-            if (parent) {
-                const nodes = parent.level ? parent.data.children : parent.data[0].children
-                const must = nodes.filter(item => Number(item.status) === 0)
+
+            /**
+             * 寻找同级别中的必选项，并自动选中
+             * 此操作要一直向上延申，确保与(当前节点的父级同级的节点中的必选节点)被选中
+             * 上面的解释比较拗口，如果不能确切的理解，不要轻易修改下面代码
+             */
+            let parent = currentNode.parent
+            while (parent && parent.data.children && currentNode.checked) {
+                // 找到当前级别的必选项，须排除当前项
+                const must = parent.data.children.filter(item => Number(item.status) === 0 && currentData.aclCode !== item.aclCode)
                 if (must.length) {
                     for (const m of must) {
                         tree.setChecked(m.aclCode, true)
                         !checkedKeys.includes(m.aclCode) && checkedKeys.push(m.aclCode)
                     }
                 }
+                parent = parent.parent
             }
+
+            // 全部已选和半选
             this.selected = [...checkedKeys, ...halfCheckedKeys]
             this.save()
         },

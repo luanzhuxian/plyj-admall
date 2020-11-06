@@ -377,7 +377,7 @@
 
             <menu aclCode="2-8" name="营销中心" aliasName="" permission="" clientType="merchant_mall_manager"  type="1" status="1" operator="system" routePath="MarketingManage" roles="0">
                 <menus>
-                    <menu aclCode="2-8-1" name="活动方案包" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="MarketingManageList" roles="0"/>
+                    <menu aclCode="2-8-1" name="活动方案包" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="MarketingGameplayList" roles="0"/>
                     <menu aclCode="2-8-2" name="Helper活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="MarketingHelper" roles="0">
                         <menus>
                             <menu aclCode="2-8-2-1" name="Helper活动列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="MarketingManageList" roles="0"/>
