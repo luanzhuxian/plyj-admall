@@ -200,6 +200,7 @@ export default class MainNavbar extends Vue {
     @userModule.Getter mchId!: string
     @userModule.Getter appId!: string
     @userModule.Getter mallNumber!: string
+    @userModule.Getter routeNames!: Map<string, string>
 
     @Watch('$route', { immediate: true })
     onRouteChange (route: Route) {
@@ -217,6 +218,24 @@ export default class MainNavbar extends Vue {
             // 未开通支付，一直弹操作引导
             this.showGuid = true
         }
+
+        // 隐藏没有权限的菜单
+        this.$nextTick(() => {
+            const keys = [...this.routeNames.values()]
+            const { submenus, items: menuItems } = this.$refs.menu as any
+            for (const k of Object.keys(submenus)) {
+                const submenu = submenus[k]
+                if (!keys.includes(`2-${ submenu.index }`)) {
+                    submenu.$el.style.display = 'none'
+                }
+            }
+            for (const k of Object.keys(menuItems)) {
+                const menuItem = menuItems[k]
+                if (!keys.includes(`2-${ menuItem.index }`)) {
+                    menuItem.$el.style.display = 'none'
+                }
+            }
+        })
     }
 }
 </script>
