@@ -16,7 +16,7 @@ console.log('version:', VUE_APP_VERSION)
 export default function (getters: any) {
     if (!getters) return
     // 只有生产环境才启用日志
-    if (NODE_ENV === VUE_APP_MODEL) {
+    if (NODE_ENV !== VUE_APP_MODEL) {
         Sentry.init({
             dsn: 'https://ccd60edf247e405589fa32a3c1e4d6d9@frontlog.youpenglai.com/3',
             // 对应发布的版本号，这个版本号取自package.json中配置的版本号
@@ -38,9 +38,6 @@ export default function (getters: any) {
                     return null
                 }
                 if ('message' in event && (!event.message || event.message === 'cancel')) {
-                    return null
-                }
-                if (event.exception.values.some((item: any) => item.value.match('登录信息失效，请重新获取') || item.type === 'UnhandledRejection')) {
                     return null
                 }
                 if (event.exception.values.some((item: any) => item.type === 'ResponseError')) {
