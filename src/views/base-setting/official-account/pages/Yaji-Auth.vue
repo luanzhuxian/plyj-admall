@@ -5,7 +5,7 @@
                 <div :class="$style.dot" />
                 <div>
                     您的企业认证资料已提交，请耐心等待1个工作日雅集认证审核
-                    <p :class="$style.subTip">如有问题联系雅集客服清风 029-84046883</p>
+                    <p :class="$style.subTip">如有问题联系雅集客服清风 400-833-0529</p>
                 </div>
             </div>
             <img src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/qingfeng-weixin.png" alt="">
@@ -21,7 +21,7 @@
             <p :class="$style.iconText">认证已通过</p>
             <div :class="$style.tip">
                 您的雅集认证已通过，可以开始正常使用机构功能
-                <p :class="$style.subTip">如有问题联系雅集客服清风 029-84046883</p>
+                <p :class="$style.subTip">如有问题联系雅集客服清风 400-833-0529</p>
             </div>
             <el-button class="mt-24 mb-24" plain round @click="showDetail = !showDetail">
                 查看提交资料

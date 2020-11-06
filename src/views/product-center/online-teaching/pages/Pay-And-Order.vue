@@ -124,7 +124,7 @@
                         </el-button>
                     </el-form-item>
                     <el-form-item label="">
-                        <span class="help-view">目前仅支持线下开票，若有需要订单，完成后联系我们029-84046883，<br>若有问题请联系我们，我们会及时响应</span>
+                        <span class="help-view">目前仅支持线下开票，若有需要订单，完成后联系我们400-833-0529，<br>若有问题请联系我们，我们会及时响应</span>
                     </el-form-item>
                 </el-form>
             </div>

@@ -10,7 +10,7 @@
         <div :class="$style.statusText" v-if="applymentState === 'APPLYMENT_STATE_EDITTING'">
             <strong class="mb-24">微信支付开通失败</strong>
             <br>
-            <strong>提交申请发生错误，请尝试重新提交，如有任何问题可致电朋来雅集  029-84046883</strong>
+            <strong>提交申请发生错误，请尝试重新提交，如有任何问题可致电朋来雅集  400-833-0529</strong>
             <br>
             <el-button class="mt-24" type="primary" @click="again">
                 重新提交申请
@@ -22,7 +22,7 @@
             <br>
             <strong>{{ auditDetailModels.rejectReason || applymentStateMsg }}</strong>
             <br>
-            <strong>如有任何问题可致电朋来雅集  029-84046883</strong>
+            <strong>如有任何问题可致电朋来雅集  400-833-0529</strong>
             <br>
             <el-button class="mt-24" type="primary" @click="again">
                 重新提交申请
@@ -32,7 +32,7 @@
         <div :class="$style.statusText" v-if="applymentState === 'APPLYMENT_STATE_CANCELED'">
             <strong class="mb-24">已撤销</strong>
             <br>
-            <strong>申请单已被撤销， 如有任何问题可致电朋来雅集  029-84046883</strong>
+            <strong>申请单已被撤销， 如有任何问题可致电朋来雅集  400-833-0529</strong>
             <br>
             <el-button class="mt-24" type="primary" @click="again">
                 重新提交申请
