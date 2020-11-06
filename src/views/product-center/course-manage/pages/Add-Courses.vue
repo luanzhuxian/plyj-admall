@@ -10,13 +10,13 @@
                         正式课
                     </el-radio>
                     <el-tooltip class="item" effect="dark" content="正式开办的课程，如“暑期课”、“寒假课”等。" placement="bottom">
-                        <i class="el-icon-warning-outline fz-18" style="color: #333;" />
+                        <i class="pro-type-intro el-icon-warning-outline fz-18" style="color: #333;" />
                     </el-tooltip>
                     <el-radio v-model="form.productType" label="EXPERIENCE_CLASS" border class="pro-type el-icon-check">
                         体验课
                     </el-radio>
                     <el-tooltip class="item" effect="dark" content="体验课是免费或者价格优惠的引流课，例如“9.9体验课”，“免费体验课”等。" placement="bottom">
-                        <i class="el-icon-warning-outline fz-18" style="color: #333;" />
+                        <i class="pro-type-intro el-icon-warning-outline fz-18" style="color: #333;" />
                     </el-tooltip>
                 </el-form-item>
                 <el-form-item label="课程名称" prop="productName" id="productName">
@@ -372,15 +372,6 @@
                 </el-form-item>
             </el-form>
             <div class="btn-box">
-                <el-button :loading="loading" size="mini" plain style="width: 90px;margin-left: 20px" @click="saveAndOnline">
-                    保存
-                </el-button>
-                <el-button :loading="loading" size="mini" type="primary" plain @click="saveAndAdd">
-                    保存并新增
-                </el-button>
-                <el-button :loading="loading" size="mini" type="primary" plain @click="saveAndOnline('online')">
-                    保存并上架
-                </el-button>
                 <div class="btn-description">
                     <div>
                         保存后的课程，不上架到商铺中展示，可在已下架的课程列表中查看；
@@ -390,6 +381,17 @@
                     </div>
                 </div>
             </div>
+            <footer>
+                <el-button :loading="loading" round plain @click="saveAndOnline">
+                    保存
+                </el-button>
+                <el-button :loading="loading" round plain type="primary" @click="saveAndAdd">
+                    保存并新增
+                </el-button>
+                <el-button :loading="loading" round plain type="primary" @click="saveAndOnline('online')">
+                    保存并上架
+                </el-button>
+            </footer>
         </div>
         <point :activities="activities" @saveDraft="saveDraft" :show-draft="showDraft" />
         <ShippingTemplate :template-detail="templateDetail" :show.sync="showShippingTemplate" />
@@ -1618,5 +1620,19 @@ export default {
         text-align: center;
       }
     }
+  }
+  footer {
+      position: fixed;
+      left: 150px;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 64px;
+      min-width: 800px;
+      background-color: #fff;
+      border-top: 1px solid #e7e7e7;
+      z-index: 99;
   }
 </style>

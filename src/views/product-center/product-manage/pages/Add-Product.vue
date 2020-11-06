@@ -495,7 +495,6 @@
                 </el-form-item>
             </el-form>
             <div class="btn-box">
-
                 <div class="btn-description">
                     <div>
                         保存后的商品，不上架到商铺中展示，可在已下架的商品列表中查看；
