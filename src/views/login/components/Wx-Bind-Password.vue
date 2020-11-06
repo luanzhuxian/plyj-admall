@@ -87,6 +87,11 @@ export default class WxBindPassword extends Vue {
                 this.loading = true
                 await this.LOGIN(this.form)
                 const code = sessionStorage.getItem(SessionEnum.redirectCode) as string
+                if (!code) {
+                    this.$alert('CODE已失效，请重新扫码登陆')
+                    await this.$router.replace({ name: 'WxLogin' })
+                    return false
+                }
                 await WxBind(code)
                 this.clearCode()
                 this.emitLogin()
