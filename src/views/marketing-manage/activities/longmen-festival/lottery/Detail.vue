@@ -1,9 +1,11 @@
 <template>
     <div class="detail">
-        <div class="header border-bottom" v-show="Object.keys(statistics).length">
-            <div>
-                <span class="fz-16 font-weight-bold">{{ statistics.name }}</span>
-            </div>
+        <div class="header" v-show="Object.keys(statistics).length">
+            <img class="mr-10"
+                 width="48"
+                 src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png"
+            >
+            <span class="fz-16 font-weight-bold">{{ statistics.name }}</span>
             <div v-if="statistics.status === 2" class="coupon-status active-coupon">
                 <pl-svg width="16" name="icon-shijian1" fill="#fff" />
                 {{ activeStatus[statistics.status] }}...

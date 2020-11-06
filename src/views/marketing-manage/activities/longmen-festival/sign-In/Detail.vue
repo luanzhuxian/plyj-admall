@@ -2,7 +2,8 @@
     <div class="newcomers-gift-list">
         <div class="newcomers-list-header">
             <img class="mr-10"
-                 src="https://mallcdn.youpenglai.com/static/admall/2.0.0/74b79faf-04ae-4507-ae69-85aa63391d4b.png"
+                 width="48"
+                 src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
             >
             <span class="mr-10 font-weight-bold">端午佳话粽粽有礼</span>
             <div v-if="status === 1" class="coupon-status active-coupon">
