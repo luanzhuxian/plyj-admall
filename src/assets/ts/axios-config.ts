@@ -5,7 +5,6 @@ import { router } from '../../router'
 import { Loading } from 'admall-element'
 import { LocalEnum } from '@/enum/storage'
 import { MutationTypes } from '@/store/mutation-type'
-
 interface ResData {
     message: string;
     data: object;
@@ -20,25 +19,25 @@ interface MyRes extends AxiosResponse {
 
 const { VUE_APP_MODEL } = process.env
 
-/* code码 */
+// 每个请求都包含一个独一无二的 hash code, 如果下次请求生成的hash code已存在，则终止此请求，已起到节流的效果
+const REQ_HASH: Array<string | undefined> = []
+// 允许的最大请求间隔
+const REQ_DURATION = 100
+// code码
 const SUCCESS_CODE = 2000
 const EXCEPTION_CODE = 5000
 const WX_UNREGISTERED_CODE = 5001
 const TOKEN_TIME_OUT = 4002
 
-let reqCount = 0
-let loadingInstance: any = null
-const close = function () {
-    reqCount--
-    if (reqCount === 0) {
-        loadingInstance.close()
-    }
-}
 // 存到全局，临时关闭全局 loading
 const LoadingConfig = {
     background: 'transparent',
     text: '拼命加载中...',
-    fullscreen: false
+    fullscreen: true
+}
+let loadingInstance: any = null
+const close = function () {
+    loadingInstance.close()
 }
 
 class ResponseError extends Error {
@@ -61,11 +60,23 @@ const parseBlobError = (blob: Blob): Promise<{ message?: string; code: number }>
     reader.readAsText(blob)
 })
 
-const reqHandler = (config: AxiosRequestConfig) => {
-    if (reqCount === 0) {
-        loadingInstance = Loading.service(LoadingConfig)
+interface ReqConfig extends AxiosRequestConfig {
+    hash?: string;
+}
+const reqHandler = (config: ReqConfig) => {
+    /**
+     * 为每个请求生成一个独一无二的hash，并存储在REQ_HASH中
+     * 请求完成后从REQ_HASH删除
+     * 如果某个hash在REQ_HASH依然存在，说明该请求还未完成，此时终止请求
+     */
+    config.hash = window.md5(JSON.stringify({ ...config.params || {}, ...config.data, url: config.url }))
+    if (REQ_HASH.includes(config.hash || '')) {
+        return Promise.reject(new Error('abort'))
     }
-    reqCount++
+    REQ_HASH.push(config.hash)
+
+    loadingInstance = Loading.service(LoadingConfig)
+
     // 比对cookie中的mallId和内存中的mallId是否一致
     const cookieMallId = Cookie.get(LocalEnum.mallId)
     const memoryMallId = store.state.user.mallId
@@ -85,11 +96,18 @@ const reqHandler = (config: AxiosRequestConfig) => {
     config.headers.mallId = cookieMallId
     return config
 }
+
 const reqErrorHandler = (error: AxiosError) => {
     close()
+    REQ_HASH.length = 0
     return Promise.reject(error)
 }
+
 const resHandler = async (response: AxiosResponse): Promise<any> => {
+    setTimeout(() => {
+        REQ_HASH.splice(REQ_HASH.indexOf((response.config as ReqConfig).hash || ''), 1)
+    }, REQ_DURATION)
+
     close()
     const { data, config } = response as MyRes
 
@@ -128,7 +146,13 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
         }, null, 4)))
     }
 }
+
 const resError = async (error: any) => {
+    if (error.message === 'abort') {
+        console.warn('request was aborted!')
+        return Promise.reject(error)
+    }
+    REQ_HASH.length = 0
     close()
     let msg = error.message
     if (msg.indexOf('timeout') > -1) {

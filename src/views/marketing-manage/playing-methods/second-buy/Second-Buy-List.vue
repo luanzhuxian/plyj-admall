@@ -93,43 +93,31 @@
             <el-table-column
                 prop="productName"
                 label="秒杀商品"
-                header-align="center"
-                align="center"
             />
             <el-table-column
                 prop="productType"
                 label="类型"
                 width="100"
-                header-align="center"
-                align="center"
             />
             <el-table-column
                 prop="categoryName"
                 label="商品分类"
                 width="100"
-                header-align="center"
-                align="center"
             />
             <el-table-column
                 prop="overStock"
                 label="剩余库存"
                 width="100"
-                header-align="center"
-                align="center"
             />
             <el-table-column
                 prop="activityTime"
                 label="活动时间"
                 width="300"
-                header-align="center"
-                align="center"
             />
             <el-table-column
                 prop="status"
                 label="活动状态"
                 width="100"
-                header-align="center"
-                align="center"
             >
                 <template #default="scope">
                     <span v-if="scope.row.status === 0">未开始</span>
@@ -141,14 +129,10 @@
                 prop="payCount"
                 label="购买人数"
                 width="100"
-                header-align="center"
-                align="center"
             />
             <el-table-column
                 label="购买订单总额/元"
                 width="120"
-                header-align="center"
-                align="center"
             >
                 <template #default="{row}">
                     {{ row.payAmount/100 }}
