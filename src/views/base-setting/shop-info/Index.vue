@@ -301,7 +301,7 @@
                     >
                         修改
                     </el-button>
-                    <div style="color: #999; font-size: 12px">（分享校园链接给好友，将以校园介绍作为宣传语 ）</div>
+                    <div style="color: #999; font-size: 12px">（分享店铺链接给好友，将以店铺介绍作为宣传语 ）</div>
                 </el-form-item>
             </el-form>
         </div>

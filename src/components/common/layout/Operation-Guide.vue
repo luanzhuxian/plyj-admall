@@ -21,7 +21,7 @@
                     </div>
                     <div :class="$style.step">
                         <i class="fz-16 font-weight-bold">02.绑定支付</i>
-                        <span>让校园有支付功能</span>
+                        <span>让店铺有支付功能</span>
                         <el-button v-if="!appId && mallNumber" plain round type="primary" @click="guid('Wechat')">去认证</el-button>
                     </div>
                     <div :class="$style.step">
