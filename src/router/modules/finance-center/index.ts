@@ -7,7 +7,8 @@ export default [
         component: () => import('../../../views/finance-center/Index.vue'),
         meta: {
             title: '财务中心',
-            index: '5'
+            index: '5',
+            noClick: true
         },
         children: [
             ...importFiles(context)

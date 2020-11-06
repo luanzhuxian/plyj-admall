@@ -17,7 +17,8 @@ export default [
                 name: 'MarketingGameplayList',
                 component: () => import('../../../views/marketing-manage/gameplay/Gameplay.vue'),
                 meta: {
-                    ignore: true
+                    index: '8-1',
+                    title: '活动方案包'
                 }
             },
             ...importFiles(context)

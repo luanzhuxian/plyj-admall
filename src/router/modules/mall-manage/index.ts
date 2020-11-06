@@ -5,7 +5,8 @@ export default [
         component: () => import('../../../views/mall-manage/Index.vue'),
         meta: {
             title: '店铺管理',
-            index: '6'
+            index: '6',
+            noClick: true
         },
         children: [
             {
