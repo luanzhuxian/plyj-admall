@@ -183,14 +183,12 @@ export default {
         }
     },
     mounted () {
+        this.mainContainer = document.getElementById('main')
         this.init()
         this.toolbar.classList.remove('toolbarFloat')
     },
-    created () {
-        this.toolbar.classList.remove('toolbarFloat')
-    },
     beforeDestroy () {
-        removeEventListener('scroll', this.watchScroll, {
+        this.mainContainer.removeEventListener('scroll', this.watchScroll, {
             capture: true,
             passive: true
         })
@@ -216,7 +214,8 @@ export default {
             this.editor = this.quill.editor
             this.editorDom = document.querySelector('#pl-quill-editor .ql-editor')
             this.toolbar = this.$refs.toolbar
-            window.addEventListener('scroll', this.watchScroll, {
+            console.log(this.mainContainer)
+            this.mainContainer.addEventListener('scroll', this.watchScroll, {
                 capture: true,
                 passive: true
             })
@@ -283,9 +282,9 @@ export default {
                 this.selectFormat = this.quill.getFormat(this.selectIndex, this.selectLength)
             }
         },
-        watchScroll (e) {
-            if (!e.target.classList.contains('main-container')) return
+        watchScroll () {
             const top = this.editorDom.getBoundingClientRect().top
+            console.log(top)
             if (top - 120 <= 0) {
                 this.toolbar.classList.add('toolbarFloat')
             }
