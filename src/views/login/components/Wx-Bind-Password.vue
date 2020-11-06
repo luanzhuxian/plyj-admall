@@ -47,6 +47,7 @@ import { WxBind } from '../../../apis/account-set'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
 import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
 @Component
@@ -71,7 +72,7 @@ export default class WxBindPassword extends Vue {
 
         loading = false
         passwordType = 'password'
-
+        @userModule.Mutation(MutationTypes.logout) logout!: Function
         @userModule.Action('login') LOGIN!: (form: { account: string; password: string }) => void
         @Getter smsType!: string[]
 
@@ -90,6 +91,7 @@ export default class WxBindPassword extends Vue {
                 this.clearCode()
                 this.emitLogin()
             } catch (e) {
+                this.logout()
                 throw e
             } finally {
                 setTimeout(() => {

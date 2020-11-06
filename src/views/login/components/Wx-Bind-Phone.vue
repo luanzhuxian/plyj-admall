@@ -48,6 +48,7 @@ import { testPhone } from '../../../assets/ts/validate'
 import { Component, Vue, Emit } from 'vue-property-decorator'
 import { Getter, namespace } from 'vuex-class'
 import { SessionEnum } from '@/enum/storage'
+import { MutationTypes } from '@/store/mutation-type'
 const userModule = namespace('user')
 
     @Component({ components: { GetCode } })
@@ -70,6 +71,7 @@ export default class WxBindPhone extends Vue {
         }
 
         loading = false
+        @userModule.Mutation(MutationTypes.logout) logout!: Function
         @userModule.Action('mobileLogin') LOGIN!: (form: { mobile: string; identifyingCode: string }) => void
         @Getter smsType!: string[]
 
@@ -100,6 +102,7 @@ export default class WxBindPhone extends Vue {
                 this.clearCode()
                 this.emitLogin()
             } catch (e) {
+                this.logout()
                 // this.refreshSafeCode()
                 throw e
             } finally {
