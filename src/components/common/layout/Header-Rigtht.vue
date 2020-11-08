@@ -93,20 +93,19 @@ export default class HeaderRigtht extends Vue {
     @userModule.Getter('mallNumber') mallNumber!: number
     @Getter('roleMap') roleMap!: any
 
-    @Watch('$route')
-    async onRouteChange () {
+    @Watch('$route', { immediate: true })
+    async onRouteChange (to: Route) {
         this.showPop = false
         this.showMallUrl = false
-        if (this.$route.query.showCreateMall) {
+        if (to.query.showCreateMall) {
             this.showCreateMall = true
         }
     }
 
     async mounted () {
         await this.getMessageCount()
-        if (!this.mallNumber) {
-            this.showCreateMall = true
-        }
+        await this.$nextTick()
+        this.showCreateMall = !this.mallNumber
     }
 
     // 退出登录

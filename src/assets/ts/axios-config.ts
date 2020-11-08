@@ -71,7 +71,7 @@ const reqHandler = (config: ReqConfig) => {
      */
     config.hash = window.md5(JSON.stringify({ ...(config.params || {}), ...(config.data || {}), url: config.url }))
     if (REQ_HASH.includes(config.hash || '')) {
-        return Promise.reject(new Error('abort'))
+        return Promise.reject(new Error(`this request has aborted: ${ config.url }`))
     }
     REQ_HASH.push(config.hash)
 
