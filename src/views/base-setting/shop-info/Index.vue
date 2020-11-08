@@ -309,8 +309,7 @@
 </template>
 <script>
 import {
-    setWechat,
-    setPhone
+    setWechat
 } from '../../../apis/setting'
 import CityPicker from '../../../components/common/base/City-Picker.vue'
 import UploadImage from '../../../components/common/file/Image-Manager.vue'
@@ -562,7 +561,7 @@ export default {
             try {
                 if (item.id) {
                     // 修改
-                    await setPhone(item)
+                    await setWechat(item)
                 } else {
                     // 添加
                     const servicePhoneModels = JSON.parse(JSON.stringify(this.mallSaveModel.servicePhoneModels))

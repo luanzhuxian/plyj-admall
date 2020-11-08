@@ -29,7 +29,5 @@ export const brandingQuery = () => axios.get('/apis/v1/brand/branding/query')
 // 获取机构主页
 export const brandingUpdate = data => axios.post('/apis/v1/brand/branding/saveOrUpdate', data)
 
-// 设置公众号
+// 设置公众号,设置客服
 export const setWechat = data => axios.put('/apis/v2/mall/wechat', data)
-// 设置客服
-export const setPhone = data => axios.post('/apis/v1/service/phone/update', data)

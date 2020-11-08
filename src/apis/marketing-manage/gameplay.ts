@@ -10,7 +10,7 @@ export const getActivityAuth = () => axios.get('/apis/v1/mall/doublet/twelve/loc
 export const getDblTwelveOpenFlag = () => axios.post('/apis/v1/mall/doublet/twelve/popups')
 
 // 查询我的活动权限（年年翻）
-export const getmMrketStatuAuth = () => axios.get('/apis/v1/mall/market/marketStatu')
+export const getmMrketStatuAuth = () => axios.get('/apis/v1/mall/market/marketStatu', { params: { t: Date.now() } })
 
 // 查询我的活动详情（年年翻）
 export const getBaseMarket = id => axios.get(`/apis/v1/mall/market/baseMarket?id=${ id }`)
