@@ -118,7 +118,7 @@
         <role-tree
             :visible.sync="visible"
             :tree-list="menuTree"
-            :show-checkbox="!query.selfEdit || query.canEdit"
+            :show-checkbox="ruleForm.accountRole === 'ADMIN' ? false : !query.selfEdit || query.canEdit"
             :role-code="currentRoleCode"
             @changeTree="changeTree"
         />
