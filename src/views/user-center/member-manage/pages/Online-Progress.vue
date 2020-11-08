@@ -211,9 +211,10 @@ export default class MemberOnlineProgress extends Vue {
     @Prop({ type: Array }) orderType!: DynamicObject[]
     @Prop({ type: Array }) orderStatusMap!: DynamicObject[]
 
-    async created () {
-        await this.search()
-    }
+    // async created () {
+    //     await this.search()
+    // }
+    // changeClassification会执行
 
     // methods
     async getLineLearningList () {

@@ -21,7 +21,7 @@ export const getHelperList = ({ keyword, ownedUser, current, size, auditFlag, au
 export const getMemberDetail = (id: any) => axios.get(`/apis/v2/user/${ id }`)
 
 // 统计用户订单数
-export const getMemberOrderCount = (id: any) => axios.get(`/apis/v2/user/order/${ id }`)
+export const getMemberOrderCount = (id: any) => axios.get(`/apis/v2/user/order/${ id }`, { params: { t: Date.now() } })
 
 export const saveMemberInfo = (params: any) => axios.put('/apis/v2/user', params)
 
@@ -105,7 +105,7 @@ export const getHelperOrderList = (params: any) => axios.get('/apis/v2/user/orde
 export const getLiveWatchList = (params: any) => axios.get('/apis/v2/live/visitor', { params })
 
 // 账户中心查看订单数据
-export const getLineLearningList = (params: any) => axios.post('/apis/v2/course/watch/record', params)
+export const getLineLearningList = (data: any) => axios.post('/apis/v2/course/watch/record', data)
 // 账户中心导出数据
 export const exportOrderDetail = (params: any): Promise<Blob> => axios.get('/apis/v2/order/agency/employeeOrders/export', {
     timeout: 0,
