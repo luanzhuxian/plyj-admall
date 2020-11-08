@@ -86,7 +86,7 @@ export default class BindWechat extends Vue {
     // methods
     nav (page: PageType) {
         const { auditStatus } = this
-        for (const statusPage of statusPages) {
+        for (const statusPage of [...statusPages].reverse()) {
             if (statusPage.includes(page) && statusPage[0].includes(auditStatus)) {
                 this.page = page
                 break

@@ -20,7 +20,9 @@
             </transition>
             <Header />
             <main id="main" :class="$style.main">
-                <router-view />
+                <keep-alive :include="includes">
+                    <router-view />
+                </keep-alive>
             </main>
         </div>
     </div>
@@ -53,6 +55,10 @@ const userModule = namespace('user')
     }
 })
 export default class App extends Vue {
+    includes: string[] = [
+        'Home'
+    ]
+
     // 不显示菜单的页面
     noMenu: Array<string> = [
         'WxLogin',

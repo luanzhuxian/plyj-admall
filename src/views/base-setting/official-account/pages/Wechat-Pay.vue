@@ -8,11 +8,7 @@
                 <i :class="{ [$style.active]: step >= 4 }">④ 超级管理员</i>
             </div>
             <main :class="$style.main">
-                <Step1 ref="step1" :detail="detail" v-show="step === 1" />
-                <Step2 ref="step2" :detail="detail" v-show="step === 2" />
-                <step3 ref="step3" :detail="detail" v-show="step === 3" />
-                <step4 ref="step4" :detail="detail" v-show="step === 4" />
-                <confirm ref="step5" :detail="detail" v-show="step === 5" />
+                <components :is="`Step${ step }`" :ref="`step${ step }`" />
             </main>
         </div>
         <status ref="step6" :detail="detail" v-else v-show="!loading" @again="step = 1" />
@@ -44,7 +40,7 @@ import Step1 from '../components/Pay-Step1.vue'
 import Step2 from '../components/Pay-Step2.vue'
 import Step3 from '../components/Pay-Step3.vue'
 import Step4 from '../components/Pay-Step4.vue'
-import Confirm from '../components/Confirm.vue'
+import Step5 from '../components/Pay-Step5.vue'
 import Status from '../components/Status.vue'
 import { getWchatPayInfo } from '../../../../apis/base/register'
 import { mapGetters } from 'vuex'
@@ -55,7 +51,7 @@ export default {
         Step2,
         Step3,
         Step4,
-        Confirm,
+        Step5,
         Status
     },
     data () {
@@ -86,8 +82,7 @@ export default {
                 } catch (e) {
                     throw e
                 }
-            },
-            immediate: true
+            }
         }
     },
     async created () {

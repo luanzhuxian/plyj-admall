@@ -31,7 +31,9 @@ export default {
         async submit () {
             try {
                 const businessLicenseData = await this.$refs.businessLicense.submit()
+                if (!businessLicenseData) return
                 const legalPersonData = await this.$refs.legalPerson.submit()
+                if (!legalPersonData) return
                 const { result } = await wechatPayStep1({ ...businessLicenseData, ...legalPersonData })
                 return result
             } catch (e) {

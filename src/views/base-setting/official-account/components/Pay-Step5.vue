@@ -12,7 +12,7 @@ import Detail from './Detail.vue'
 import { mapActions } from 'vuex'
 import { MutationTypes } from '../../../../store/mutation-type'
 export default {
-    name: 'Confirm',
+    name: 'WechatPayStep5',
     components: {
         Detail
     },
