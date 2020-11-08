@@ -499,11 +499,11 @@ export default class MallThemes extends Vue {
         try {
             const { result }: { result: lockStatusInfo[] } = await getActivityAuth()
             const double12 = result.find(item => item.activityValue === '4')
-            const xinChun = result.find(item => item.activityValue === '2')
-            const dragonGate = result.find(item => item.activityValue === '3')
+            // const xinChun = result.find(item => item.activityValue === '2')
+            // const dragonGate = result.find(item => item.activityValue === '3')
             this.double12LockStatus = double12 ? double12.lockStatus : 3
-            this.xinchunLockStatus = xinChun ? xinChun.lockStatus : 3
-            this.dragonGateLockStatus = dragonGate ? dragonGate.lockStatus : 3
+            // this.xinchunLockStatus = xinChun ? xinChun.lockStatus : 3
+            // this.dragonGateLockStatus = dragonGate ? dragonGate.lockStatus : 3
         } catch (error) {
             throw error
         }
@@ -555,30 +555,30 @@ export default class MallThemes extends Vue {
         }
         // 新春
         if (item.type === TemplateTypes.TemplateXinChun) {
-            if (this.xinchunLockStatus === 1) {
-                return item
-            }
+            // if (this.xinchunLockStatus === 1) {
+            //     return item
+            // }
 
-            const modalText = this.xinchunLockStatus === 2
-                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-                : '参与新春的用户，请联系您的城市经理和客服开通使用权限。'
+            // const modalText = this.xinchunLockStatus === 2
+            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+            //     : '参与新春的用户，请联系您的城市经理和客服开通使用权限。'
             this.$confirm({
-                title: modalText,
+                title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
                 confirmButtonText: '朕知道了',
                 showCancelButton: false
             })
         }
         // 龙门节
         if (item.type === TemplateTypes.TemplateDragonGate) {
-            if (this.dragonGateLockStatus === 1) {
-                return item
-            }
+            // if (this.dragonGateLockStatus === 1) {
+            //     return item
+            // }
 
-            const modalText = this.dragonGateLockStatus === 2
-                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-                : '参与龙门节的用户，请联系您的城市经理和客服开通使用权限。'
+            // const modalText = this.dragonGateLockStatus === 2
+            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+            //     : '参与龙门节的用户，请联系您的城市经理和客服开通使用权限。'
             this.$confirm({
-                title: modalText,
+                title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
                 confirmButtonText: '朕知道了',
                 showCancelButton: false
             })
