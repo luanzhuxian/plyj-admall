@@ -393,13 +393,13 @@ import KnowledgeProduct from './../../../../../marketing-manage/activities/longm
 import {
     addLive,
     updateLive,
-    getRoomStatus,
     getActiveCompleteInfo,
     getFreeRooms as getRoomsInfo // 获取可以创建直播活动的直播房间
 } from './../../../../../../apis/product-center/online-teaching/live'
 import { getTagList } from './../../../../../../apis/member'
 import { copyFields } from './../../../../../../assets/ts/utils'
 import { mapGetters } from 'vuex'
+
 import moment from 'moment'
 export default {
     name: 'AddLive',
@@ -561,6 +561,8 @@ export default {
     },
     computed: {
         ...mapGetters('user', ['mchId', 'regType']),
+        ...mapGetters('onlineTeaching', ['hasLiveModule']),
+
         // 直播中
         isLiveStart () {
             return this.detail.particularStatue === 4
@@ -604,8 +606,7 @@ export default {
 
             // 是否有权限
             if (this.id) {
-                const { result: { enable } } = await getRoomStatus(this.form.roomId)
-                if (enable === 3) {
+                if (!this.hasLiveModule) {
                     this.$router.go(-1)
                 }
             }
@@ -618,9 +619,7 @@ export default {
         },
         // 新增房间成功
         async roomCreated () {
-            try {
-                await this.getRoomsInfo()
-            } catch (e) { throw e }
+            await this.getRoomsInfo()
         },
         // 选择房间
         checkRoom (val) {

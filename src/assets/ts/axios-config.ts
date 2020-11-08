@@ -22,7 +22,7 @@ const { VUE_APP_MODEL } = process.env
 // 每个请求都包含一个独一无二的 hash code, 如果下次请求生成的hash code已存在，则终止此请求，已起到节流的效果
 const REQ_HASH: Array<string | undefined> = []
 // 允许的最大请求间隔
-const REQ_DURATION = 100
+// const REQ_DURATION = 0
 // code码
 const SUCCESS_CODE = 2000
 const EXCEPTION_CODE = 5000
@@ -70,6 +70,7 @@ const reqHandler = (config: ReqConfig) => {
      * 如果某个hash在REQ_HASH依然存在，说明该请求还未完成，此时终止请求
      */
     config.hash = window.md5(JSON.stringify({ ...(config.params || {}), ...(config.data || {}), url: config.url }))
+    console.log(config.hash, config.url)
     if (REQ_HASH.includes(config.hash || '')) {
         return Promise.reject(new Error('abort'))
     }
@@ -104,10 +105,6 @@ const reqErrorHandler = (error: AxiosError) => {
 }
 
 const resHandler = async (response: AxiosResponse): Promise<any> => {
-    setTimeout(() => {
-        REQ_HASH.splice(REQ_HASH.indexOf((response.config as ReqConfig).hash || ''), 1)
-    }, REQ_DURATION)
-
     close()
     const { data, config } = response as MyRes
 
@@ -119,22 +116,26 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
                 message
             }, null, 4)))
         }
+        REQ_HASH.splice(REQ_HASH.indexOf((response.config as ReqConfig).hash || ''), 1)
         return data
     }
     if (data.code === SUCCESS_CODE || data.code === WX_UNREGISTERED_CODE) {
         response.data.result = response.data.data
         delete response.data.data
+        REQ_HASH.splice(REQ_HASH.indexOf((response.config as ReqConfig).hash || ''), 1)
         return response.data
     }
     if (data.code === TOKEN_TIME_OUT) {
         store.commit(`user/${ MutationTypes.logout }`)
         await router.push({ name: 'PhoneLogin' })
+        REQ_HASH.splice(REQ_HASH.indexOf((response.config as ReqConfig).hash || ''), 1)
         return Promise.reject(false)
     }
     if (data.code === EXCEPTION_CODE) {
         if (data && data.password) data.password = '******'
         const { devMessage = '', message = '' } = data
         const { method, url, data: reqData, params } = config
+        REQ_HASH.splice(REQ_HASH.indexOf((response.config as ReqConfig).hash || ''), 1)
         return Promise.reject(new ResponseError(JSON.stringify({
             method,
             url,
