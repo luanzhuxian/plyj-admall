@@ -390,7 +390,7 @@ export default class MemberBuyRecord extends Vue {
             this.$router.push({ name: 'GoodsOrderDetail', params: { id: orderId } })
         } else if (orderType === 'FORMAL_CLASS' || orderType === 'EXPERIENCE_CLASS') {
             this.$router.push({ name: 'CourseOrderDetail', params: { id: orderId } })
-        } else if (orderType === 'KNOWLEDGE_COURSE' || orderType === 'SERIES_OF_COURSE' || orderType === 'LIVE_GOODS' || orderType === 'GRAPHIC_DATA') {
+        } else if (orderType === 'KNOWLEDGE_COURSE' || orderType === 'SERIES_OF_COURSE' || orderType === 'LIVE_GOODS' || orderType === 'GRAPHIC_DATA' || orderType === 'VIDEO_GOODS') {
             this.$router.push({ name: 'OnlineSchoolOrderDetail', params: { id: orderId } })
         }
     }
