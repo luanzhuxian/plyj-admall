@@ -84,11 +84,9 @@
                     label="用户分组"
                 >
                     <template #default="{row}">
-                        <template v-if="row.userTags.length">
-                            <div :class="$style.tag" v-for="(item,index) in row.userTags" :key="index">
-                                {{ item }}
-                            </div>
-                        </template>
+                        <div v-if="row.userTags.length" :class="$style.tag">
+                            {{ row.userTags.join('，') }}
+                        </div>
                         <div v-else>
                             无
                         </div>
@@ -350,16 +348,7 @@ export default {
         padding-bottom: 0 !important;
     }
     .tag {
-        display: inline-block;
-        min-width: 78px;
-        margin: 0 4px 4px 0;
-        padding: 0 4px;
-        border: 1px solid #ec742e;
-        line-height: 24px;
-        font-size: 12px;
-        white-space: nowrap;
-        text-align: center;
-        color: #ec742e;
+        color: #999;
     }
     .isHelper {
         &:before {
