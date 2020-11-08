@@ -153,7 +153,7 @@ export default class MemberManageDetail extends Vue {
                     this.dialogAuditVisible = true
                 } else {
                     await this.$confirm('确定通过该用户的申请吗？')
-                    await updateBrokerStatus({ ids: [id], status, reviewContent: '' })
+                    await updateBrokerStatus({ ids: [this.id], status, reviewContent: '' })
                     this.$success('审核成功')
                     this.getHelperDetail()
                 }
