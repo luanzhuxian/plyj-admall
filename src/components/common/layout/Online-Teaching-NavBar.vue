@@ -33,7 +33,6 @@
 </template>
 
 <script lang='ts'>
-import { MutationTypes } from '@/store/mutation-type'
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 
@@ -50,7 +49,6 @@ export default class OnlineTeachingNavBar extends Vue {
     @userModule.Getter('idName') idName!: string
     @userModule.Getter('mallName') mallName!: string
     @onlineTeaching.Getter('hasLiveModule') hasLiveModule!: boolean
-    @onlineTeaching.Action(MutationTypes.hasLiveModule) getHasLiveModule!: Function
 
     menuList: MenuItem[] = [
         {
@@ -82,10 +80,6 @@ export default class OnlineTeachingNavBar extends Vue {
             route: 'LibraryRepository'
         }
     ]
-
-    async mounted () {
-        await this.getHasLiveModule()
-    }
 
     private isActive = (routeName: string) => (matched: any[]) => matched.some((item: any) => item.name === routeName)
 

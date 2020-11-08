@@ -149,12 +149,12 @@
 
 <script lang='ts'>
 /* eslint-disable @typescript-eslint/camelcase */
-import { Vue, Component, Watch } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import SchemeLabel from './../../../marketing-manage/components/Scheme-Label.vue'
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 import OnlinePack from './../compoonents/Online-Pack.vue'
-
+import { MutationTypes } from '@/store/mutation-type'
 import { getLineTeachingInfo } from './../../../../apis/product-center/online-teaching/knowledge-course'
 
 const onlineTeaching = namespace('onlineTeaching')
@@ -192,18 +192,14 @@ export default class FunctionPack extends Vue {
 
     // 是否开通了直播
     @onlineTeaching.Getter('hasLiveModule') hasLiveModule!: boolean
-    @Watch('hasLiveModule')
-    async onHasLiveModuleChange (val: boolean) {
-        this.showGotoSetMealPage = !val
-        if (val) {
-            await this.getLineTeachingInfo()
-        }
-    }
+    @onlineTeaching.Action(MutationTypes.hasLiveModule) getHasLiveModule!: Function
 
     async created () {
+        await this.getHasLiveModule()
         if (this.hasLiveModule) {
             await this.getLineTeachingInfo()
         }
+        this.showGotoSetMealPage = !this.hasLiveModule
     }
 
     private async gotoSetMealPage () {
