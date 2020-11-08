@@ -89,10 +89,10 @@
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="权限范围：" v-if="canEdit()">
-                    <el-button v-if="this.$route.name === 'AddAccount' || this.query.canEdit" type="text" @click="editPermission">
+                    <el-button v-if="(this.$route.name === 'AddAccount' || this.query.canEdit) && ruleForm.accountRole !== 'ADMIN'" type="text" @click="editPermission">
                         编辑
                     </el-button>
-                    <el-button v-if="this.query.selfEdit && (this.currentRoleCode === 'ADMIN' || this.currentRoleCode === 'ENTERPRISE_ADMIN')" type="text" @click="editPermission">
+                    <el-button v-if="ruleForm.accountRole === 'ADMIN' || this.query.selfEdit && (this.currentRoleCode === 'ADMIN' || this.currentRoleCode === 'ENTERPRISE_ADMIN')" type="text" @click="editPermission">
                         查看
                     </el-button>
                 </el-form-item>
