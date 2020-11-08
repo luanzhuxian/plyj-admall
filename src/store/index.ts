@@ -4,6 +4,7 @@ import user from './modules/user'
 import goods from './modules/goods'
 import mall from './modules/mall'
 import account from './modules/account'
+import onlineTeaching from './modules/online-teaching'
 
 import state from './state'
 import mutations from './mutations'
@@ -17,7 +18,8 @@ const option: StoreOptions<DynamicObject> = {
         user,
         goods,
         mall,
-        account
+        account,
+        onlineTeaching
     },
     state,
     mutations,

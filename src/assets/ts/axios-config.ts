@@ -69,7 +69,7 @@ const reqHandler = (config: ReqConfig) => {
      * 请求完成后从REQ_HASH删除
      * 如果某个hash在REQ_HASH依然存在，说明该请求还未完成，此时终止请求
      */
-    config.hash = window.md5(JSON.stringify({ ...config.params || {}, ...config.data, url: config.url }))
+    config.hash = window.md5(JSON.stringify({ ...(config.params || {}), ...(config.data || {}), url: config.url }))
     if (REQ_HASH.includes(config.hash || '')) {
         return Promise.reject(new Error('abort'))
     }

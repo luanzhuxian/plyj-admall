@@ -23,4 +23,7 @@ export enum MutationTypes {
     // setAuthCode = 'SET_AUTH_CODE',
     // 营销中心活动信息
     getMarketStatusAuth = 'GET_MARKET_STATUS_AUTH',
+
+    // 线上课
+    hasLiveModule = 'HAS_LIVE_MODULE'
 }

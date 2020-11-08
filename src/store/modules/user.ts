@@ -31,7 +31,8 @@ const token = Cookie.get(LocalEnum.token) || ''
 // 本地cookie较服务器提前一小时过期
 const CalcCookieTime = (expire: number) => Number(new Date(Date.now() + expire * 1000 - 60000000))
 
-const user: Module<DynamicObject, DynamicObject> = {
+export default {
+    namespaced: true,
     state: {
         codeImg: [
             'https://mallcdn.youpenglai.com/static/admall-new/CodeImg/1.png',
@@ -477,10 +478,4 @@ const user: Module<DynamicObject, DynamicObject> = {
             return auditDetailModels
         }
     }
-}
-
-// export default user
-export default {
-    namespaced: true,
-    ...user
-}
+} as Module<DynamicObject, DynamicObject>

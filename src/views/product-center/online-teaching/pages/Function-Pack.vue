@@ -149,15 +149,15 @@
 
 <script lang='ts'>
 /* eslint-disable @typescript-eslint/camelcase */
-import { Vue, Component } from 'vue-property-decorator'
-
+import { Vue, Component, Watch } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import SchemeLabel from './../../../marketing-manage/components/Scheme-Label.vue'
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 import OnlinePack from './../compoonents/Online-Pack.vue'
 
-import { getRoomStatus } from './../../../../apis/product-center/online-teaching/live'
 import { getLineTeachingInfo } from './../../../../apis/product-center/online-teaching/knowledge-course'
 
+const onlineTeaching = namespace('onlineTeaching')
 @Component({
     components: {
         SchemeLabel,
@@ -190,19 +190,20 @@ export default class FunctionPack extends Vue {
         numberOfResources: 0
     }
 
-    async created () {
-        await this.checkIsGoToSetMeal()
+    // 是否开通了直播
+    @onlineTeaching.Getter('hasLiveModule') hasLiveModule!: boolean
+    @Watch('hasLiveModule')
+    async onHasLiveModuleChange (val: boolean) {
+        this.showGotoSetMealPage = !val
+        if (val) {
+            await this.getLineTeachingInfo()
+        }
     }
 
-    // 检测是否购买过直播，未购买-直接进入开通直播页面； 购买过-正常请求数据
-    private async checkIsGoToSetMeal () {
-        const { result: { enable } }: any = await getRoomStatus()
-        // 未开通直播, 先购买房间
-        if (enable === 3) {
-            this.showGotoSetMealPage = true
-            return
+    async created () {
+        if (this.hasLiveModule) {
+            await this.getLineTeachingInfo()
         }
-        await this.getLineTeachingInfo()
     }
 
     private async gotoSetMealPage () {

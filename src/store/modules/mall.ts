@@ -1,7 +1,8 @@
 import { Module } from 'vuex'
 import { getCurrentTemplate } from '../../apis/mall'
 
-const mall: Module<DynamicObject, DynamicObject> = {
+export default {
+    namespaced: true,
     state: {
         // 直播
         liveInfo: {},
@@ -50,9 +51,4 @@ const mall: Module<DynamicObject, DynamicObject> = {
             }
         }
     }
-}
-
-export default {
-    namespaced: true,
-    ...mall
-}
+} as Module<DynamicObject, DynamicObject>

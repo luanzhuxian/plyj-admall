@@ -2,7 +2,8 @@ import { getmMrketStatuAuth } from '../../apis/marketing-manage/gameplay'
 import { Module } from 'vuex'
 import { MutationTypes } from '@/store/mutation-type'
 
-const account: Module<DynamicObject, DynamicObject> = {
+export default {
+    namespaced: true,
     state: {
         marketStatusAuth: []
     },
@@ -25,8 +26,4 @@ const account: Module<DynamicObject, DynamicObject> = {
     // 营销中心公共活动信息及状态
         marketStatusAuth: state => state.marketStatusAuth
     }
-}
-export default {
-    namespaced: true,
-    ...account
-}
+} as Module<DynamicObject, DynamicObject>

@@ -33,11 +33,12 @@
 </template>
 
 <script lang='ts'>
+import { MutationTypes } from '@/store/mutation-type'
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 
-import { getRoomStatus } from './../../../apis/product-center/online-teaching/live'
 const userModule = namespace('user')
+const onlineTeaching = namespace('onlineTeaching')
 
 interface MenuItem {
     name: string;
@@ -48,8 +49,9 @@ interface MenuItem {
 export default class OnlineTeachingNavBar extends Vue {
     @userModule.Getter('idName') idName!: string
     @userModule.Getter('mallName') mallName!: string
+    @onlineTeaching.Getter('hasLiveModule') hasLiveModule!: boolean
+    @onlineTeaching.Action(MutationTypes.hasLiveModule) getHasLiveModule!: Function
 
-    hasLiveModule = false
     menuList: MenuItem[] = [
         {
             name: '云课堂',
@@ -81,10 +83,8 @@ export default class OnlineTeachingNavBar extends Vue {
         }
     ]
 
-    async created () {
-        const { result: { enable } }: any = await getRoomStatus()
-        // 未开通直播, 先购买房间 3 未开通
-        this.hasLiveModule = enable !== 3
+    async mounted () {
+        await this.getHasLiveModule()
     }
 
     private isActive = (routeName: string) => (matched: any[]) => matched.some((item: any) => item.name === routeName)

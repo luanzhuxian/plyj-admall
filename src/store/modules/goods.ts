@@ -22,7 +22,8 @@ const setTreeLeaf = function (tree: any[]) {
         }
     }
 }
-const goodsManage: Module<DynamicObject, DynamicObject> = {
+export default {
+    namespaced: true,
     state: {
         categoryTree: [],
         courseCategoryTree: [],
@@ -109,9 +110,4 @@ const goodsManage: Module<DynamicObject, DynamicObject> = {
             return temp.filter((item: any) => item.categoryName !== '默认分类')
         }
     }
-}
-
-export default {
-    namespaced: true,
-    ...goodsManage
-}
+} as Module<DynamicObject, DynamicObject>

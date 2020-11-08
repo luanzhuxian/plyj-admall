@@ -29,7 +29,7 @@ export const getRoomInfo = () => axios.get('/apis/v1/mall/live/manager/account/r
  * 获取房间状态
  * @returns {Promise<AxiosResponse<T>>}
  */
-export const getRoomStatus = (roomId?: string) => axios.get(`/apis/v1/mall/live/room/statue?roomId=${ roomId }`)
+export const getRoomStatus = () => axios.get('/apis/v1/mall/live/room/statue')
 
 /**
  * 查询房间最近2分钟实时统计人数
