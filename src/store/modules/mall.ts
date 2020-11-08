@@ -9,7 +9,11 @@ export default {
         // 是否展示年味活动
         hasNwEvent: false,
         currentHome: {},
-        currentActivity: {}
+        currentActivity: {},
+        // 模板使用权限: 1 '开启', 2: '过期', 3: '未开启活动'
+        double12LockStatus: 3 // 双十二权限
+        // xinchunLockStatus = 3 // 新春权限
+        // dragonGateLockStatus = 3 // 龙门节权限
     },
     getters: {
         liveInfo: state => state.liveInfo,
@@ -17,7 +21,8 @@ export default {
         currentHome: state => state.currentHome,
         currentActivity: state => state.currentActivity,
         currentHomeType: state => state.currentHome.type,
-        currentActivityType: state => state.currentActivity.type
+        currentActivityType: state => state.currentActivity.type,
+        double12LockStatus: state => state.double12LockStatus
     },
     mutations: {
         setLiveInfo: (state, payload) => {
@@ -31,6 +36,9 @@ export default {
         },
         setCurrentActivity: (state, payload) => {
             state.currentActivity = payload
+        },
+        setDouble12LockStatus: (state, payload) => {
+            state.double12LockStatus = payload
         }
     },
     actions: {

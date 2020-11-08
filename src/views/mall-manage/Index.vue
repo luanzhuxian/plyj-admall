@@ -18,6 +18,14 @@ import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
 import { getActivityAuth } from '../../apis/marketing-manage/gameplay'
 
 const mall = namespace('mall')
+
+type lockStatusInfo = {
+    activityName: string;
+    activityValue: string;
+    lockName: string;
+    lockStatus: number;
+}
+
 @Component
 export default class MallManage extends Vue {
     /* data */
@@ -33,6 +41,7 @@ export default class MallManage extends Vue {
     /* computed */
     @mall.Mutation setLiveInfo!: (payload: {}) => void
     @mall.Mutation setNwEvent!: (payload: {}) => void
+    @mall.Mutation setDouble12LockStatus!: (payload: {}) => void
     get showTabs () {
         return !!this.$route.name && this.tabs.map(tab => tab.name).includes(this.$route.name)
     }
@@ -51,17 +60,27 @@ export default class MallManage extends Vue {
         const requests = [
             getLiveInfo(),
             getNianweiInfo(),
-            getActivityAuth(), // 进入店铺管理要提前调用 getActivityAuth 接口，通知后端更新草稿箱数据
+            getActivityAuth(), // 进入店铺管理要提前调用 getActivityAuth 主会场模板使用权限接口，通知后端更新草稿箱数据
             this.getCurrentTemplate(1),
             this.getCurrentTemplate(2)
         ]
-        const [{ result: live = {} }, { result: nianwei = [] }] = await Promise.all(requests.map((p: Promise<any>) => p.catch(e => {
+        const [{
+            result: live = {}
+        }, {
+            result: nianwei = []
+        }, {
+            result: lockStatusInfo = []
+        }] = await Promise.all(requests.map((p: Promise<any>) => p.catch(e => {
             console.error(e)
             return { result: null }
         })))
 
+        const double12 = lockStatusInfo.find(item => item.activityValue === '4')
+
         this.setLiveInfo(live)
         this.setNwEvent(nianwei.length ? nianwei[0] : {})
+        // lockStatus 1 '开启', 2: '过期', 3: '未开启活动'
+        this.setDouble12LockStatus(double12 ? double12.lockStatus : 3)
     }
 
     /* methods */

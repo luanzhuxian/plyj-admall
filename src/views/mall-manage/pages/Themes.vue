@@ -117,7 +117,6 @@ import {
     getSkinStatus,
     getServerTime
 } from '../../../apis/mall'
-import { getActivityAuth } from '../../../apis/marketing-manage/gameplay'
 import TemplateB from '../components/templates/Template-B.vue'
 import TemplateC from '../components/templates/Template-C.vue'
 import TemplateD from '../components/templates/Template-D.vue'
@@ -391,14 +390,10 @@ export default class MallThemes extends Vue {
     previewTmplType = 0 // 预览模板id
     previewSkinId = 0 // 预览皮肤id
 
-    // 模板使用权限: 1 '开启', 2: '过期', 3: '未开启活动'
-    double12LockStatus = 3 // 双十二权限
-    xinchunLockStatus = 3 // 新春权限
-    dragonGateLockStatus = 3 // 龙门节权限
-
     /* computed */
     @mall.Getter('currentHomeType') currentHomeType!: number // 当前首页模板类型
     @mall.Getter('currentActivityType') currentActivityType!: number // 当前主会场模板类型
+    @mall.Getter('double12LockStatus') double12LockStatus!: number // 双十二主会场使用权限
 
     get tag () {
         return tagMap[this.previewTmplType]
@@ -413,7 +408,6 @@ export default class MallThemes extends Vue {
 
             const requests = [
                 this.getDefaultTemplate(),
-                this.getActivityAuth(),
                 this.getSkinStatus()
             ]
 
@@ -485,30 +479,6 @@ export default class MallThemes extends Vue {
         }
     }
 
-    /**
-     * 获取主会场模板使用权限
-     * lockStatus 1 '开启', 2: '过期', 3: '未开启活动'
-     */
-    async getActivityAuth () {
-        type lockStatusInfo = {
-            activityName: string;
-            activityValue: string;
-            lockName: string;
-            lockStatus: number;
-        }
-        try {
-            const { result }: { result: lockStatusInfo[] } = await getActivityAuth()
-            const double12 = result.find(item => item.activityValue === '4')
-            // const xinChun = result.find(item => item.activityValue === '2')
-            // const dragonGate = result.find(item => item.activityValue === '3')
-            this.double12LockStatus = double12 ? double12.lockStatus : 3
-            // this.xinchunLockStatus = xinChun ? xinChun.lockStatus : 3
-            // this.dragonGateLockStatus = dragonGate ? dragonGate.lockStatus : 3
-        } catch (error) {
-            throw error
-        }
-    }
-
     // 获取当前皮肤
     async getSkinStatus () {
         try {
@@ -553,30 +523,8 @@ export default class MallThemes extends Vue {
                 showCancelButton: false
             })
         }
-        // 新春
-        if (item.type === TemplateTypes.TemplateXinChun) {
-            // if (this.xinchunLockStatus === 1) {
-            //     return item
-            // }
-
-            // const modalText = this.xinchunLockStatus === 2
-            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-            //     : '参与新春的用户，请联系您的城市经理和客服开通使用权限。'
-            this.$confirm({
-                title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
-                confirmButtonText: '朕知道了',
-                showCancelButton: false
-            })
-        }
-        // 龙门节
-        if (item.type === TemplateTypes.TemplateDragonGate) {
-            // if (this.dragonGateLockStatus === 1) {
-            //     return item
-            // }
-
-            // const modalText = this.dragonGateLockStatus === 2
-            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-            //     : '参与龙门节的用户，请联系您的城市经理和客服开通使用权限。'
+        // 新春、龙门节
+        if (item.type === TemplateTypes.TemplateXinChun || item.type === TemplateTypes.TemplateDragonGate) {
             this.$confirm({
                 title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
                 confirmButtonText: '朕知道了',
