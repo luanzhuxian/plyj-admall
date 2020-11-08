@@ -72,7 +72,7 @@
                     <div :class="$style.comboBtn">
                         <div>
                             <el-button round type="primary" @click="$router.push({ name: 'PayAndOrder', params: { isRenew: '1', type: '1' } })">续费</el-button>
-                            <el-button round @click="$router.push({ name: 'SubscriptionService' })">订单记录</el-button>
+                            <el-button round @click="$router.push({ name: 'LiveServiceOrder' })">订单记录</el-button>
                         </div>
                         <div><el-button type="text" @click="$router.push({ name: 'VideoDownload' })">视频下载</el-button></div>
                     </div>

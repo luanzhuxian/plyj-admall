@@ -154,7 +154,8 @@ const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
      * 如果页面被忽略，则不校验
      */
     if (!to.meta.ignore) {
-        const newTo = checkAuth(to, from)
+        const newTo = checkAuth(to)
+        console.log(newTo)
         if (newTo.name !== to.name) {
             NProgress.done()
             return newTo.noAuth && from.name ? next(new NoAuthError('无权限')) : next(newTo)
