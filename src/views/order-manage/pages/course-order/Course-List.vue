@@ -140,7 +140,7 @@
             />
             <el-table-column
                 label="实付款（元）"
-                width="100"
+                width="110"
             >
                 <template #default="{ row }">
                     <span v-if="row.orderStatus !== 'WAIT_PAY' && row.orderStatus !== 'CLOSED'">
