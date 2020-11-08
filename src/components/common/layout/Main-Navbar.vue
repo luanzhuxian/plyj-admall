@@ -108,7 +108,7 @@
                     <!--<el-menu-item index="5-4" route="6-4">草稿箱</el-menu-item>-->
                 </el-submenu>
 
-                <el-menu-item index="9" :route="{ name: 'ReservationManage' }">
+                <el-menu-item index="9" :disabled="!appId" :route="{ name: 'ReservationManage' }">
                     <h2 :class="$style.title">
                         <pl-svg
                             name="icon-time-8a40e"
