@@ -6,7 +6,7 @@
                           clearable
                           v-model="form.keyword"
                           placeholder="请输入订单编号/方案套餐"
-                          @keyup.enter.native="search"
+                          @change="search"
                 />
             </el-form-item>
             <el-form-item label="开通方式">
@@ -173,9 +173,9 @@ export default class LiveServiceOrder extends Vue {
         } catch (e) { throw e }
     }
 
-    search () {
+    async search () {
         this.form.current = 1
-        this.getList()
+        await this.getList()
     }
 
     dateChange ({ start, end }) {

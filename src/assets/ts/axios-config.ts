@@ -47,6 +47,13 @@ class ResponseError extends Error {
         this.name = 'ResponseError'
     }
 }
+class AbortError extends Error {
+    constructor (message: string) {
+        super(message)
+        this.message = message
+        this.name = 'AbortError'
+    }
+}
 const parseBlobError = (blob: Blob): Promise<{ message?: string; code: number }> => new Promise(resolve => {
     const reader: FileReader = new FileReader()
     reader.onload = () => {
@@ -71,7 +78,7 @@ const reqHandler = (config: ReqConfig) => {
      */
     config.hash = window.md5(JSON.stringify({ ...(config.params || {}), ...(config.data || {}), url: config.url }))
     if (REQ_HASH.includes(config.hash || '')) {
-        return Promise.reject(new Error(`this request has aborted: ${ config.url }`))
+        return Promise.reject(new AbortError(`the request has aborted: ${ config.url }`))
     }
     REQ_HASH.push(config.hash)
 
@@ -148,12 +155,12 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
 }
 
 const resError = async (error: any) => {
-    if (error.message === 'abort') {
-        console.warn('request was aborted!')
-        return Promise.reject(error)
-    }
     REQ_HASH.length = 0
     close()
+    if (error.name === 'AbortError') {
+        console.warn(error.message)
+        return Promise.reject(new AbortError('您的操作太频繁了~'))
+    }
     let msg = error.message
     if (msg.indexOf('timeout') > -1) {
         msg = '请求超时◔̯◔'
@@ -167,7 +174,7 @@ const resError = async (error: any) => {
     if (msg.indexOf('Network Error') > -1) {
         msg = '网络不给力'
     }
-    if (error && error.response.data instanceof Blob) {
+    if (error?.response?.data instanceof Blob) {
         const { message } = await parseBlobError(error.response.data)
         msg = message || '蓬莱岛消失在了迷雾中~( ˶‾᷄࿀‾᷅˵ )'
     }

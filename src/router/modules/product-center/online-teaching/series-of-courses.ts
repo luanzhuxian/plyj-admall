@@ -38,7 +38,7 @@ export default [
                 }
             },
             {
-                path: 'data/courses/:id',
+                path: 'data/:id',
                 name: 'CoursesSeriesDataDetail',
                 component: () => import('../../../../views/product-center/online-teaching/pages/series-of-courses/pages/data-detail/Index.vue'),
                 meta: {
@@ -47,7 +47,7 @@ export default [
                 },
                 children: [
                     {
-                        path: 'data/courses/:id',
+                        path: 'courses',
                         name: 'CoursesSeriesOfCoursesData',
                         component: () => import('../../../../views/product-center/online-teaching/pages/series-of-courses/pages/data-detail/Data-Of-Courses.vue'),
                         meta: {
@@ -57,7 +57,7 @@ export default [
                         }
                     },
                     {
-                        path: 'data/users/:id',
+                        path: 'users',
                         name: 'UsersSeriesOfCoursesData',
                         component: () => import('../../../../views/product-center/online-teaching/pages/series-of-courses/pages/data-detail/Data-Of-Users.vue'),
                         meta: {

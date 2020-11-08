@@ -10,14 +10,6 @@ import { importFiles } from './../assets/ts/utils'
 import { LocalEnum, SessionEnum } from '@/enum/storage'
 import store from '../store'
 
-class NoAuthError extends Error {
-    constructor (msg) {
-        super(msg)
-        this.name = 'NoAuthError'
-        this.message = msg
-    }
-}
-
 // 无需登录就可以看到的页面
 const NOLOGIN = [
     'WxLogin',
@@ -155,10 +147,10 @@ const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
      */
     if (!to.meta.ignore) {
         const newTo = checkAuth(to)
-        console.log(newTo)
         if (newTo.name !== to.name) {
             NProgress.done()
-            return newTo.noAuth && from.name ? next(new NoAuthError('无权限')) : next(newTo)
+            newTo.replace = true
+            return newTo.noAuth && from.name ? next(false) : next(newTo)
         }
     }
 

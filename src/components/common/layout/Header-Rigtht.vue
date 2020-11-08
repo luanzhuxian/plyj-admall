@@ -94,12 +94,9 @@ export default class HeaderRigtht extends Vue {
     @Getter('roleMap') roleMap!: any
 
     @Watch('$route', { immediate: true })
-    async onRouteChange (to: Route) {
+    async onRouteChange () {
         this.showPop = false
         this.showMallUrl = false
-        if (to.query.showCreateMall) {
-            this.showCreateMall = true
-        }
     }
 
     async mounted () {
