@@ -179,6 +179,7 @@ export default {
             Cookie.remove(LocalEnum.refreshToken)
             Cookie.remove(LocalEnum.agencyCode)
             Cookie.remove(LocalEnum.mallId)
+            sessionStorage.removeItem(SessionEnum.validateIdentityTime)
             sessionStorage.removeItem(SessionEnum.currentStep)
             localStorage.removeItem(LocalEnum.appId)
         },
