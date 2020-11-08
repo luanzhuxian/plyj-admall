@@ -308,9 +308,7 @@
     </div>
 </template>
 <script>
-import {
-    setWechat
-} from '../../../apis/setting'
+import { setWechat } from '../../../apis/setting'
 import CityPicker from '../../../components/common/base/City-Picker.vue'
 import UploadImage from '../../../components/common/file/Image-Manager.vue'
 import ShopModal from '../../../components/common/layout/Shop-Modal.vue'
