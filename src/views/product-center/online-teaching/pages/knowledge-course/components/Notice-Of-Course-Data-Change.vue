@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :visible.sync="show"
+        :visible="show"
         :close-on-click-modal="false"
         width="800px"
         @close="close"
