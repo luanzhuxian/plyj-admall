@@ -28,7 +28,7 @@
             </el-form-item>
         </SearchBox>
 
-        <el-table :data="commentData" size="small">
+        <el-table :data="commentData" style="min-widht: 1100px;">
             <el-table-column
                 prop="id"
                 label="编号"

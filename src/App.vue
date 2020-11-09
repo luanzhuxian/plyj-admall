@@ -157,7 +157,7 @@ export default class App extends Vue {
     grid-template-columns: 140px auto;
     grid-template-rows: 60px auto;
     > .main {
-        min-width: 1300px;
+        min-width: 1200px;
         height: calc(100vh - 60px);
         padding: 10px;
         background-color: #f4f5f8;

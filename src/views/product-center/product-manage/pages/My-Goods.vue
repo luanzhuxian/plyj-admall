@@ -95,7 +95,7 @@
             :data="table"
             @selection-change="handleSelectionChange"
             ref="table"
-            size="small"
+            style="min-width: 1100px"
         >
             <span
                 slot="empty"
@@ -126,7 +126,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column prop="productName" label="商品名称">
+            <el-table-column prop="productName" label="商品名称" min-width="200">
                 <template slot-scope="{ row }">
                     <p :style="{color:row.productStatus === 1 ? '#999' : ''}" v-text="row.productName" />
                     <ul class="tag-list">
@@ -215,7 +215,8 @@
             <el-table-column
                 label="操作"
                 align="center"
-                width="90"
+                width="120"
+                fixed="right"
             >
                 <template slot-scope="{ row }">
                     <Operating>

@@ -56,6 +56,7 @@
                 :data="recommendTable"
                 @selection-change="setSelectionChange"
                 ref="recommendTable"
+                style="min-width: 1100px"
             >
                 <span
                     slot="empty"

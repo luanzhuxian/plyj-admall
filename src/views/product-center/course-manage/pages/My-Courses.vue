@@ -88,7 +88,12 @@
             <Sort :data="sortData" v-model="filter.sortCondition" @change="getGoods" />
         </div>
 
-        <el-table :data="table" @selection-change="handleSelectionChange" ref="table">
+        <el-table
+            :data="table"
+            @selection-change="handleSelectionChange"
+            ref="table"
+            style="min-width: 1100px;"
+        >
             <span
                 slot="empty"
                 class="empty"
@@ -119,7 +124,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column prop="productName" label="课程名称">
+            <el-table-column prop="productName" label="课程名称" min-width="200">
                 <template slot-scope="{ row }">
                     <p :style="{color:row.productStatus === 1 ? '#999' : ''}" v-text="row.productName" />
                     <ul class="tag-list">
@@ -200,7 +205,8 @@
                 label="操作"
                 align="center"
                 header-align="center"
-                width="100"
+                width="120"
+                fixed="right"
             >
                 <template slot-scope="{ row }">
                     <Operating>

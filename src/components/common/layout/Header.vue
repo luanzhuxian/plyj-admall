@@ -82,6 +82,7 @@ export default class Header extends Vue {
         align-items: center;
         height: 60px;
         padding: 0 24px;
+        min-width: 900px;
         border-left: 1px solid #E7E7E7;
         background-color: #fff;
     }
