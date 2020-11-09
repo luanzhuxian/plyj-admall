@@ -13,11 +13,13 @@
                 size="large"
             >
                 <el-form-item prop="mobile">
+                    <div v-show="form.mobile" :class="$style.label">手机号</div>
                     <div :class="$style.phoneNumber">
                         +86 <el-input v-model="form.mobile" type="number" maxlength="11" style="width: 200px" placeholder="请输入手机号" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="identifyingCode">
+                    <div v-show="form.identifyingCode" :class="$style.label" style="top: -12px">验证码</div>
                     <div :class="$style.phoneCode">
                         <el-input v-model="form.identifyingCode" maxlength="4" style="width: 180px" placeholder="请输入验证码" />
                         <get-code ref="child" @errorMobile="errorMobile" :mobile="form.mobile" sms-type="AGENT_USER_LOGIN" />
@@ -145,6 +147,7 @@ export default class PhoneLogin extends Vue {
     }
     .login-type{
         display: flex;
+        line-height: 32px;
         .type-password{
             padding-right: 32px;
             font-size: 20px;
@@ -160,6 +163,15 @@ export default class PhoneLogin extends Vue {
     .account-message{
         margin-top: 36px;
         border-radius: 10px;
+
+        .label{
+            color: #333333;
+            font-size: 12px;
+            position: absolute;
+            top: -22px;
+            z-index: 1;
+        }
+
         input{
             border: none;
         }

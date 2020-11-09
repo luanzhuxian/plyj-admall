@@ -13,12 +13,14 @@
                 size="large"
             >
                 <el-form-item prop="account">
+                    <div v-show="form.account" :class="$style.label" style="top:-22px">账号</div>
                     <div :class="$style.phoneNumber">
                         <el-input v-model="form.account" maxlength="50" style="width: 300px" placeholder="请输入账号" />
                     </div>
                 </el-form-item>
                 <el-form-item prop="password">
                     <div :class="$style.phoneCode">
+                        <div v-show="form.password" :class="$style.label">密码</div>
                         <el-input v-model="form.password" :type="passwordType" min="6" max="12" style="width: 300px" placeholder="请输入密码" />
                         <img :class="$style.hidePassword" @click="passwordType = 'text'" v-show="passwordType === 'password'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hide-password.png" alt="">
                         <img :class="$style.showPassword" @click="passwordType = 'password'" v-show="passwordType === 'text'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/see-password.png" alt="">
@@ -135,6 +137,7 @@ export default class PasswordLogin extends Vue {
         }
         .login-type{
             display: flex;
+            line-height: 32px;
             .type-password{
                 padding-right: 32px;
                 font-size: 24px;
@@ -142,7 +145,6 @@ export default class PasswordLogin extends Vue {
                 color: #333333;
             }
             .type-code{
-                padding-top: 6px;
                 font-size: 20px;
                 font-weight: 400;
                 color: #999999;
@@ -153,6 +155,15 @@ export default class PasswordLogin extends Vue {
             input{
                 border: none;
             }
+
+            .label{
+                color: #333333;
+                font-size: 12px;
+                position: absolute;
+                top: -18px;
+                z-index: 1;
+            }
+
             .phone-number{
                 width: 100%;
                 display: flex;
@@ -175,7 +186,7 @@ export default class PasswordLogin extends Vue {
                 width: 100%;
                 display: flex;
                 align-items: center;
-                padding-top: 10px;
+                padding-top: 4px;
                 padding-bottom: 8px;
                 box-shadow: 0px 1px 0px #E7E7E7;
                 input{
