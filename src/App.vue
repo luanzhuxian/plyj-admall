@@ -19,11 +19,13 @@
                 <components :is="navBarName" />
             </transition>
             <Header />
-            <main id="main" :class="$style.main">
-                <keep-alive :include="includes">
-                    <router-view />
-                </keep-alive>
-            </main>
+            <div :class="$style.container">
+                <main id="main" :class="$style.main">
+                    <keep-alive :include="includes">
+                        <router-view />
+                    </keep-alive>
+                </main>
+            </div>
         </div>
     </div>
 </template>
@@ -156,19 +158,31 @@ export default class App extends Vue {
     display: grid;
     grid-template-columns: 140px auto;
     grid-template-rows: 60px auto;
-    > .main {
-        min-width: 1200px;
-        height: calc(100vh - 60px);
-        padding: 10px;
-        background-color: #f4f5f8;
+
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    > .container {
         grid-column-start: 2;
-        box-sizing: border-box;
-        overflow: auto;
+        width: calc(100vw - 140px);
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        > .main {
+
+            min-width: 1300px;
+            height: calc(100vh - 60px);
+            padding: 10px;
+            background-color: #f4f5f8;
+            box-sizing: border-box;
+            overflow: auto;
+        }
         // > div {
         //     height: 100%;
         //     overflow: auto;
         // }
     }
+
 }
 
 </style>

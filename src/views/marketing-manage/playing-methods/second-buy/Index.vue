@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view />
+        <router-view v-if="loaded" />
     </div>
 </template>
 
@@ -11,7 +11,9 @@ import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'SecondBuy',
     data () {
-        return {}
+        return {
+            loaded: false
+        }
     },
     computed: {
         ...mapGetters({
@@ -20,6 +22,7 @@ export default {
     },
     async created () {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
+        this.loaded = true
         const info = this.marketStatusAuth.find(({ programId }) => programId === '3')
         if (!info || moment(info.validity).valueOf() < Date.now()) {
             this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '3' } })

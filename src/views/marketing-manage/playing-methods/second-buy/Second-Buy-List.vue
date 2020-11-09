@@ -246,7 +246,6 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const secondBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '3')
         if (!secondBuyInformation) return
