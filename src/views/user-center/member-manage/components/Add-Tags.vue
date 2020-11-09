@@ -265,6 +265,7 @@ export default {
                     await addTagToMember(userIds, this.selected)
                 }
                 this.close()
+                this.$emit('confirm')
             } catch (e) {
                 throw e
             }
@@ -272,7 +273,6 @@ export default {
         // 关闭弹框
         close () {
             this.$emit('update:show', false)
-            this.$emit('confirm')
         },
         // 检查是否可以选择标签
         onCheckboxClick (id) {
