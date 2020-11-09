@@ -305,6 +305,19 @@ export default {
         next()
     },
     methods: {
+        resetFilter () {
+            this.queryFilter = {
+                activityName: '',
+                time: [],
+                status: -1
+            }
+            this.pagination = {
+                current: 1,
+                size: 10,
+                total: 0
+            }
+            this.doQuery()
+        },
         handleViewPresent (val) {
             this.presentDialog = true
             this.presentDetail = val
