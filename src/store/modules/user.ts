@@ -435,7 +435,11 @@ export default {
         token: state => state.token || null,
         // 当前登录人的id
         userId: state => state.loginInfo.userId || null,
+
         accountInfo: state => state.accountInfo,
+        bindPhone: state => state.accountInfo.mobile,
+        headImgUrl: state => state.accountInfo.headImgUrl,
+
         // 菜单
         menuList: state => state.menuList,
         routeNames: state => state.routeNames,
@@ -466,7 +470,6 @@ export default {
         mallUrl: state => state.mallSaveModel.mallUrl,
         mallSaveModel: state => state.mallSaveModel,
         mallName: state => state.mallSaveModel.mallName,
-        bindPhone: state => state.accountInfo.mobile,
         // vMerchantStatus: state => state.vMerchantStatus,
         upgradeStatus: state => state.upgradeStatus,
         wechatPayStatus: state => state.wechatPayStatus,

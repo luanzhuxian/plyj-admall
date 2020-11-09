@@ -1,24 +1,21 @@
 <template>
-    <transition name="fade">
-        <div v-show="showMallUrl" :class="$style.visitShopBox">
-            <i class="el-icon-close" @click="$emit('close')" />
-            <div :class="$style.title">访问店铺</div>
-            <div :class="$style.content">
-                <div style="text-align: center">H5店铺</div>
-                <div :class="$style.shopUrl">
-                    <div :class="$style.input" v-text="mallUrl" />
-                    <button @click.stop.prevent="" v-clipboard:copy="mallUrl" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</button>
-                </div>
-                <img :src="mallQrcode" alt="">
-                <div style="text-align: center; margin-bottom: 40px;">
-                    <p>
-                        <el-button type="text" @click="downloadQrcode">下载二维码</el-button>
-                    </p>
-                    <p>微信扫描可直接查看店铺</p>
-                </div>
+    <div :class="$style.visitShopBox">
+        <div :class="$style.title">访问店铺</div>
+        <div :class="$style.content">
+            <div style="text-align: center">H5店铺</div>
+            <div :class="$style.shopUrl">
+                <div :class="$style.input" v-text="mallUrl" />
+                <button @click.stop.prevent="" v-clipboard:copy="mallUrl" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</button>
+            </div>
+            <img :src="mallQrcode" alt="">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <p>
+                    <el-button type="text" @click="downloadQrcode">下载二维码</el-button>
+                </p>
+                <p>微信扫描可直接查看店铺</p>
             </div>
         </div>
-    </transition>
+    </div>
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -66,13 +63,16 @@ export default class ShopModal extends Vue {
 <style module lang="scss">
     .visit-shop-box {
         position: absolute;
-        top: 40px;
+        top: 0;
         right: 0;
         width: 376px;
         background-color: #fff;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
         border-radius: 2px;
         z-index: 10;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: opacity .1s ease-in, transform .3s ease-out;
         > i {
             top: 25px;
             right: 25px;

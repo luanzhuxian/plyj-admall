@@ -4,8 +4,14 @@
             <!-- 访问店铺 -->
             <div :class="$style.visitShop">
                 <img @click="showMallUrl = true" width="15" class="pointer" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/shangchengguanli.png" alt="">
-                <span @click="visitMall" class="pointer">访问店铺</span>
-                <shop-modal :show-mall-url="showMallUrl" @close="closeShopModal" />
+                <span
+                    :class="$style.visitMall"
+                    @clise="visitMall"
+                    class="pointer"
+                >
+                    访问店铺
+                </span>
+                <shop-modal v-if="this.mallNumber" :show-mall-url="showMallUrl" />
             </div>
 
             <!-- 通知中心按钮 -->
@@ -28,7 +34,7 @@
             <div :class="$style.user" @mouseenter="showPop = true" @mouseleave="showPop = false">
                 <img
                     :class="$style.avatar"
-                    src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png"
+                    :src="headImgUrl || 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png'"
                     alt="avatar"
                 >
                 <span :class="$style.mobile">{{ bindPhone | formatAccount }}</span>
@@ -40,7 +46,7 @@
                             切换店铺
                         </div>
                         <div :class="$style.popItem" class="pointer" @click="setAccount">
-                            <div>登录账户</div>
+                            <div>查看账户</div>
                             <div>
                                 <div>{{ roleMap[currentRoleCode] }}</div>
                                 <div>{{ bindPhone | formatAccount }}</div>
@@ -93,6 +99,8 @@ export default class HeaderRigtht extends Vue {
     @userModule.Getter('currentRoleCode') currentRoleCode!: string
     @userModule.Getter('agencyCode') agencyCode!: string
     @userModule.Getter('mallNumber') mallNumber!: number
+    @userModule.Getter('headImgUrl') headImgUrl!: string
+
     @Getter('roleMap') roleMap!: any
 
     @Watch('$route', { immediate: true })
@@ -143,12 +151,8 @@ export default class HeaderRigtht extends Vue {
         }
     }
 
-    closeShopModal () {
-        this.showMallUrl = false
-    }
-
     visitMall () {
-        this.mallNumber ? this.showMallUrl = true : this.showCreateMall = true
+        if (!this.mallNumber) this.showCreateMall = true
     }
 
     async getMessageCount () {
@@ -185,6 +189,9 @@ export default class HeaderRigtht extends Vue {
                 background-color: $--color-red-1;
                 border-radius: 2px;
             }
+            &:hover {
+                color: $--color-primary-blue;
+            }
         }
         .user {
             position: relative;
@@ -198,6 +205,8 @@ export default class HeaderRigtht extends Vue {
             width: 20px;
             height: 20px;
             margin-right: 4px;
+            border-radius: 10px;
+            object-fit: cover;
         }
         .mobile {
             font-size: 14px;
@@ -233,9 +242,22 @@ export default class HeaderRigtht extends Vue {
         position: relative;
         display: inline-flex;
         align-items: center;
+        width: 376px;
+        height: 60px;
+        justify-content: flex-end;
         margin-right: 32px;
         > img {
             margin-right: 6px;
+        }
+        &:hover {
+            .visit-mall {
+                color: $--color-primary-blue;
+            }
+            > div {
+                display: block;
+                opacity: 1;
+                transform: translateY(60px);
+            }
         }
     }
 </style>
