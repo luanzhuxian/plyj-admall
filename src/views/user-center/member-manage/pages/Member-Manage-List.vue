@@ -1241,9 +1241,4 @@ export default class MemberManageList extends Vue {
         color: #333;
     }
 }
-.tag-user-list {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-gap: 6px 12px;
-}
 </style>

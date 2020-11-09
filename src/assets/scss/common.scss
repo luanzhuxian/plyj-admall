@@ -279,3 +279,10 @@
   background-color: #EC742E !important;
   border-color: #EC742E !important;
 }
+
+/** 全局用户，标签分组浮窗查看样式 **/
+.tag-user-list {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 6px 12px;
+}

@@ -63,7 +63,7 @@
             <el-table
                 :data="tableData"
             >
-                <el-table-column prop="name" label="图片" width="140">
+                <el-table-column prop="name" label="图片" width="160">
                     <template #default="{row}">
                         <div style="position: relative">
                             <div
@@ -76,12 +76,24 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="courseName" label="课程资源名称" width="240" />
-                <el-table-column align="left" prop="createTime" label="标签">
-                    <template #default="{ row }">
-                        <div :class="$style.tag" v-for="(item,index) in row.tags" :key="index">
-                            {{ item }}
-                        </div>
+                <el-table-column prop="courseName" label="课程资源名称" />
+                <el-table-column width="320" align="left" label="标签">
+                    <template #default="{row}">
+                        <template v-if="row.tags && row.tags.length">
+                            <div class="tag">
+                                <el-popover
+                                    placement="bottom"
+                                    trigger="hover"
+                                >
+                                    <ul class="tag-user-list">
+                                        <li v-for="(item, index) of row.tags" :key="index" v-text="item" />
+                                    </ul>
+                                    <div slot="reference">
+                                        <span v-for="(item, index) in row.tags.slice(0, 3)" :key="index">{{ item }} </span>
+                                    </div>
+                                </el-popover>
+                            </div>
+                        </template>
                     </template>
                 </el-table-column>
                 <el-table-column prop="videoCount" label="资源数量" width="120" />
@@ -95,7 +107,7 @@
                         {{ (row.priceType === 0 || row.giveRecordId !== '0') ? '免费' : (row.sellingPrice || 0) }}
                     </template>
                 </el-table-column>
-                <el-table-column prop="validity" label="使用有效期（天）" width="120" />
+                <el-table-column prop="validity" label="使用有效期（天）" width="150" />
                 <el-table-column
                     label="操作"
                     align="right"

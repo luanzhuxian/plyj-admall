@@ -79,14 +79,23 @@
                     prop="mobile"
                     label="手机号"
                 />
-                <el-table-column
-                    prop="userTags"
-                    label="用户分组"
-                >
+                <el-table-column prop="userTags" label="用户分组">
                     <template #default="{row}">
-                        <div v-if="row.userTags.length" :class="$style.tag">
-                            {{ row.userTags.join('，') }}
-                        </div>
+                        <template v-if="row.userTags && row.userTags.length">
+                            <div class="tag">
+                                <el-popover
+                                    placement="bottom-end"
+                                    trigger="hover"
+                                >
+                                    <ul class="tag-user-list">
+                                        <li v-for="(item, index) of row.userTags" :key="index" v-text="item" />
+                                    </ul>
+                                    <div slot="reference">
+                                        <span v-for="(item, index) in row.userTags.slice(0, 3)" :key="index">{{ item }} </span>
+                                    </div>
+                                </el-popover>
+                            </div>
+                        </template>
                         <div v-else>
                             无
                         </div>

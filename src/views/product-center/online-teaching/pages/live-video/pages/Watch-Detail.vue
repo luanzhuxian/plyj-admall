@@ -73,8 +73,18 @@
             <el-table-column prop="userTags" label="用户分组">
                 <template #default="{row}">
                     <template v-if="row.userTags && row.userTags.length">
-                        <div class="tag" v-for="(item,index) in row.userTags" :key="index">
-                            {{ item }}
+                        <div class="tag">
+                            <el-popover
+                                placement="bottom-end"
+                                trigger="hover"
+                            >
+                                <ul class="tag-user-list">
+                                    <li v-for="(item, index) of row.userTags" :key="index" v-text="item" />
+                                </ul>
+                                <div slot="reference">
+                                    <span v-for="(item, index) in row.userTags.slice(0, 3)" :key="index">{{ item }} </span>
+                                </div>
+                            </el-popover>
                         </div>
                     </template>
                     <div v-else>
@@ -364,18 +374,6 @@ export default {
             }
         }
     }
-}
-.tag {
-    display: inline-block;
-    min-width: 78px;
-    margin: 0 4px 4px 0;
-    padding: 0 4px;
-    border: 1px solid #ec742e;
-    line-height: 24px;
-    font-size: 12px;
-    white-space: nowrap;
-    text-align: center;
-    color: #ec742e;
 }
 .operations {
     color: #598bf8;

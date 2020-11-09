@@ -142,6 +142,7 @@
                 />
                 <el-table-column
                     label="创建时间"
+                    width="200"
                 >
                     <template #default="{row}">
                         {{ row.createTime | dateFormat("YYYY-MM-DD hh:mm:ss") }}
