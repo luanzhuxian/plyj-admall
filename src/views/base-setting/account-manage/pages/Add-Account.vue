@@ -303,8 +303,8 @@ export default class AddAccount extends Vue {
                     }
                 }
                 delete this.ruleForm.lockStatus
-                const res = await addAccount(this.ruleForm)
-                if (!res.result) {
+                const { result } = await addAccount(this.ruleForm)
+                if (!result.result) {
                     this.$alert({
                         title: '名额已满',
                         message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`,
@@ -312,7 +312,19 @@ export default class AddAccount extends Vue {
                     })
                     return
                 }
-                this.$success('新增成功')
+                if (result.accountStatus === 2) {
+                    await this.$confirm({
+                        title: '账号已添加成功',
+                        message: `（${ this.ruleForm.mobile }）暂无雅集账号，用户通过手机验证码登录朋来雅集机构管理平台即可激活账号`,
+                        showCancelButton: false
+                    })
+                } else {
+                    await this.$confirm({
+                        title: '账号已添加成功',
+                        message: `（${ this.ruleForm.mobile }）通过手机验证码登录朋来雅集机构管理平台即可正常进入店铺进行管理`,
+                        showCancelButton: false
+                    })
+                }
                 this.$router.push({ name: 'AccountList' })
             } catch (e) {
                 throw e
