@@ -216,7 +216,8 @@ export default class HeaderRigtht extends Vue {
             width: 226px;
             background-color: #fff;
             z-index: 10;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
         }
         .pop-item {
             display: flex;

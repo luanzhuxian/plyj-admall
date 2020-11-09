@@ -158,8 +158,7 @@ const resError = async (error: any) => {
     REQ_HASH.length = 0
     close()
     if (error.name === 'AbortError') {
-        console.warn(error.message)
-        return Promise.reject(new AbortError('您的操作太频繁了~'))
+        return Promise.reject(error)
     }
     let msg = error.message
     if (msg.indexOf('timeout') > -1) {
