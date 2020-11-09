@@ -336,6 +336,24 @@ export default {
                 this.loading = false
             }
         }
+    },
+    beforeRouteLeave (to, from, next) {
+        if (to.name === 'ReductionCouponList') {
+            // 多重模态框不隐藏，遮罩层会有问题，所以再去下个页面前先隐藏，回来之后在手动显示
+            this.$refs.combinations.showCouponBox = false
+            sessionStorage.setItem('courseForm', JSON.stringify(this.form))
+        }
+        next()
+    },
+    beforeRouteEnter (to, from, next) {
+        next(async vm => {
+            if (from.name === 'ReductionCouponList') {
+                vm.$refs.combinations.showCouponBox = true
+                vm.form = JSON.parse(sessionStorage.getItem('courseForm'))
+                vm.form.combinationDetailList.haveGift = vm.form.combinationDetailList.giftModelList && vm.form.combinationDetailList.giftModelList.length > 0
+                sessionStorage.removeItem('courseForm')
+            }
+        })
     }
 }
 </script>

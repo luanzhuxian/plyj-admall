@@ -604,6 +604,7 @@ export default {
                 array.push(models)
             }
             this.form.couponModels = array
+            this.checkbox1 = array.length > 0
         },
         // 清除当前数据，还原到页面的初始数据
         clearData () {
@@ -657,6 +658,7 @@ export default {
             if (to.name === 'AddReductionCoupon' || to.name === 'AddCategoryCoupon') {
                 // 多重模态框不隐藏，遮罩层会有问题，所以再去下个页面前先隐藏，回来之后在手动显示
                 this.chooseCouponShow = false
+                sessionStorage.setItem('newComesForm', JSON.stringify(this.form))
             }
             next()
         }
@@ -665,7 +667,12 @@ export default {
         next(async vm => {
             if (from.name === 'AddReductionCoupon' || from.name === 'AddCategoryCoupon') {
                 vm.chooseCouponShow = true
+                vm.form = JSON.parse(sessionStorage.getItem('newComesForm'))
+                vm.checkbox1 = vm.form.couponModels.length > 0
+                vm.checkbox2 = vm.form.scholarships.length > 0
+                vm.checkbox3 = vm.form.gifts.length > 0
                 await vm.$refs.chooseCoupon.getList()
+                sessionStorage.removeItem('newComesForm')
             }
         })
     }
