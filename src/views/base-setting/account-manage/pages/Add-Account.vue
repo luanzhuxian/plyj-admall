@@ -79,11 +79,11 @@
                     />
                 </el-form-item>
                 <el-form-item label="选择角色：" prop="accountRole">
-                    <el-radio-group :disabled="!(currentRoleCode==='ENTERPRISE_ADMIN')" v-model="ruleForm.accountRole" @change="handleRadioChange">
-                        <el-radio label="ADMIN">
+                    <el-radio-group v-model="ruleForm.accountRole" @change="handleRadioChange">
+                        <el-radio :disabled="!(currentRoleCode==='ENTERPRISE_ADMIN')" label="ADMIN">
                             高级管理员
                         </el-radio>
-                        <el-radio label="EMPLOYEE">
+                        <el-radio :disabled="!(currentRoleCode==='ADMIN' && ruleForm.accountRole === 'EMPLOYEE' || currentRoleCode==='ENTERPRISE_ADMIN')" label="EMPLOYEE">
                             子账号
                         </el-radio>
                     </el-radio-group>

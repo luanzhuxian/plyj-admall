@@ -203,7 +203,7 @@ export default {
 
         &:first-of-type {
           margin-bottom: 33px;
-
+        /*
           &::after {
             width: 368px;
             border-bottom: 1px solid #E7E7E7;
@@ -211,6 +211,8 @@ export default {
             right: -108px;
             top: 16px;
           }
+        */
+
         }
 
         .el-form-item__label{

@@ -94,6 +94,7 @@
             <el-form-item label=" ">
                 <el-button
                     round
+                    :loading="loading"
                     type="primary"
                     @click="search"
                 >
@@ -232,6 +233,8 @@ export default class AccountList extends Vue {
     @user.Getter userId!: string;
     @user.Getter currentRoleCode!: string;
 
+    loading = false
+
     tabs = [
         { label: '已启用', name: '1' },
         { label: '已禁用', name: '0' },
@@ -346,8 +349,15 @@ export default class AccountList extends Vue {
     }
 
     private async search () {
-        this.filter.current = 1
-        await this.getAccounts()
+        try {
+            this.loading = true
+            this.filter.current = 1
+            await this.getAccounts()
+        } catch (e) {
+            throw e
+        } finally {
+            this.loading = false
+        }
     }
 
     private async goDetail (row: any) {
