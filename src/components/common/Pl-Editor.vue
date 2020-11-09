@@ -214,7 +214,6 @@ export default {
             this.editor = this.quill.editor
             this.editorDom = document.querySelector('#pl-quill-editor .ql-editor')
             this.toolbar = this.$refs.toolbar
-            console.log(this.mainContainer)
             this.mainContainer.addEventListener('scroll', this.watchScroll, {
                 capture: true,
                 passive: true
@@ -284,7 +283,6 @@ export default {
         },
         watchScroll () {
             const top = this.editorDom.getBoundingClientRect().top
-            console.log(top)
             if (top - 120 <= 0) {
                 this.toolbar.classList.add('toolbarFloat')
             }

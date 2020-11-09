@@ -928,14 +928,14 @@ ${ this.form.priceType ? '' : '5.该免费课程如果提前下架，不会影�
         },
 
         /**
-     * 表单校验事件
-     * 校验错误时，页面滚动至错误目标处
-     * 错误目标用已经设置的元素id获取
-     * 元素id时当前字段属性，因此可以用 prop 获取
-     * @param prop {String} 错误的字段属性
-     * @param isPass {Boolean} 是否校验通过
-     * @param message {String} 错误消息（没有时为null）
-     */
+         * 表单校验事件
+         * 校验错误时，页面滚动至错误目标处
+         * 错误目标用已经设置的元素id获取
+         * 元素id时当前字段属性，因此可以用 prop 获取
+         * @param prop {String} 错误的字段属性
+         * @param isPass {Boolean} 是否校验通过
+         * @param message {String} 错误消息（没有时为null）
+         */
         formValidateHandler (prop, isPass, message) {
             if (!isPass && message && !this.hasValidate && this.submiting) {
                 const el = document.getElementById(prop)

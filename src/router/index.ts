@@ -86,7 +86,7 @@ const checkAuth = to => {
         // 找出当前路由的所有子路由
         const allChildren = routeNameArr.filter(item => item[1] !== index && item[1].indexOf(`${ index }-`) === 0)
         if (allChildren.length) {
-            return { name: allChildren[0][0] }
+            return { name: allChildren[0][0], params: to.params, query: to.query }
         }
         return to
     }

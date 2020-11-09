@@ -139,7 +139,7 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
     }
     if (data.code === EXCEPTION_CODE) {
         if (data && data.password) data.password = '******'
-        const { devMessage = '', message = '' } = data
+        const { devMessage = '', message = '', code } = data
         const { method, url, data: reqData, params } = config
         REQ_HASH.splice(REQ_HASH.indexOf((response.config as ReqConfig).hash || ''), 1)
         return Promise.reject(new ResponseError(JSON.stringify({
@@ -149,13 +149,16 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
             params,
             devMessage,
             message,
-            resCode: data.code
+            resCode: code
         }, null, 4)))
     }
 }
 
 const resError = async (error: any) => {
-    REQ_HASH.length = 0
+    const { method, url, data: reqData, params } = error.config
+    const { data: { devMessage, code } } = error.response
+
+    REQ_HASH.splice(REQ_HASH.indexOf((error.config as ReqConfig).hash || ''), 1)
     close()
     if (error.name === 'AbortError') {
         return Promise.reject(error)
@@ -178,7 +181,13 @@ const resError = async (error: any) => {
         msg = message || '蓬莱岛消失在了迷雾中~( ˶‾᷄࿀‾᷅˵ )'
     }
     return Promise.reject(new ResponseError(JSON.stringify({
-        message: msg
+        message: msg,
+        method,
+        url,
+        data: reqData,
+        params,
+        devMessage,
+        resCode: code
     }, null, 4)))
 }
 axios.defaults.timeout = 200000
