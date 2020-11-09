@@ -198,6 +198,7 @@
                 label="操作"
                 align="right"
                 header-align="right"
+                fixed="right"
                 width="100"
             >
                 <template slot-scope="{ row }">
