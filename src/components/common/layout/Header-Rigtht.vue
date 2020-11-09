@@ -69,6 +69,7 @@ import { Watch } from 'vue-property-decorator'
 import ShopModal from '@/components/common/layout/Shop-Modal.vue'
 import { MutationTypes } from '@/store/mutation-type'
 import { getNotificationSmallMark } from '../../../apis/base/message'
+import Cookie from '../../../assets/ts/storage-cookie'
 const userModule = namespace('user')
 @Component({
     components: {
@@ -150,14 +151,15 @@ export default class HeaderRigtht extends Vue {
     }
 
     async getMessageCount () {
-        if (this.loaded) {
-            return
+        if (!Cookie.get('NOTICE_MARK_TIME')) {
+            Cookie.set('NOTICE_MARK_TIME', 1, {
+                expires: Date.now() + 2000
+            })
+            const { result } = await getNotificationSmallMark({
+                toAgencyCode: this.agencyCode
+            })
+            this.messageCount = Number(result) || 0
         }
-        this.loaded = true
-        const { result } = await getNotificationSmallMark({
-            toAgencyCode: this.agencyCode
-        })
-        this.messageCount = Number(result) || 0
     }
 }
 </script>
