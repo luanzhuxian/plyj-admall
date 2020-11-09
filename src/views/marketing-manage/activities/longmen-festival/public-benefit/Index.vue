@@ -3,7 +3,7 @@
         <ListHeader
             v-if="showTop"
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公益行动.png"
-            title="公益活动"
+            title="公益行动"
             description="公益千挑万选，爱心接力一点，学子共献真情"
             :start-time="publicBenefitInformation.createTime"
             end-time="2020-08-31"
@@ -41,7 +41,7 @@
             <div class="explain-content" slot="">
                 <ul>
                     <li>活动说明：</li>
-                    <li>1.设置选择参与公益活动的商品，支持普通商品，视频单课和系列课，机构可自由选择相应的商品参与活动；</li>
+                    <li>1.设置选择参与公益行动的商品，支持普通商品，视频单课和系列课，机构可自由选择相应的商品参与活动；</li>
                     <li>2.活动期间，所有商品默认不支持退款，不支持线上发票；</li>
                     <li>3.家长购买相应的商品，可捐赠相应的公益金，放入整个活动的公益池进行累加；</li>
                     <li>4.活动结束后，活动期间累积的公益金将由机构统一进行捐赠；</li>

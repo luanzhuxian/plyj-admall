@@ -330,7 +330,7 @@ export default {
                 const url = createObjectUrl(result)
                 const a = document.createElement('a')
                 a.href = url
-                a.download = `公益活动${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+                a.download = `公益行动${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
                 a.click()
                 a.remove()
                 this.exportClose()
