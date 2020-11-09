@@ -1,66 +1,64 @@
 <template>
     <div :class="$style.headerRight">
-        <div :class="$style.right">
-            <!-- 访问店铺 -->
-            <div :class="$style.visitShop">
-                <img @click="showMallUrl = true" width="15" class="pointer" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/shangchengguanli.png" alt="">
-                <span
-                    :class="$style.visitMall"
-                    @clise="visitMall"
-                    class="pointer"
-                >
-                    访问店铺
-                </span>
-                <shop-modal v-if="this.mallNumber" :show-mall-url="showMallUrl" />
-            </div>
-
-            <!-- 通知中心按钮 -->
-            <router-link
-                tag="div"
-                :class="$style.notice"
+        <!-- 访问店铺 -->
+        <div :class="$style.visitShop">
+            <img @click="showMallUrl = true" width="15" class="pointer" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/shangchengguanli.png" alt="">
+            <span
+                :class="$style.visitMall"
+                @clise="visitMall"
                 class="pointer"
-                to="/notification"
             >
-                <pl-svg
-                    :class="$style.icon"
-                    name="icon-tongzhi-bfcfa"
-                    width="15"
-                    height="18"
-                />
-                <span>通知中心</span>
-                <i v-if="messageCount" :class="$style.mark" />
-            </router-link>
+                访问店铺
+            </span>
+            <shop-modal v-if="this.mallNumber" :show-mall-url="showMallUrl" />
+        </div>
 
-            <div :class="$style.user" @mouseenter="showPop = true" @mouseleave="showPop = false">
-                <img
-                    :class="$style.avatar"
-                    :src="headImgUrl || 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png'"
-                    alt="avatar"
-                >
-                <span :class="$style.mobile">{{ bindPhone | formatAccount }}</span>
-                <span class="el-icon-arrow-right fz-12" />
+        <!-- 通知中心按钮 -->
+        <router-link
+            tag="div"
+            :class="$style.notice"
+            class="pointer"
+            to="/notification"
+        >
+            <pl-svg
+                :class="$style.icon"
+                name="icon-tongzhi-bfcfa"
+                width="15"
+                height="18"
+            />
+            <span>通知中心</span>
+            <i v-if="messageCount" :class="$style.mark" />
+        </router-link>
 
-                <transition name="fade">
-                    <div v-show="showPop" :class="$style.pop">
-                        <div :class="$style.popItem" class="pointer" @click="selectMallBtn">
-                            切换店铺
+        <div :class="$style.user" @mouseenter="showPop = true" @mouseleave="showPop = false">
+            <img
+                :class="$style.avatar"
+                :src="headImgUrl || 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yonghu.png'"
+                alt="avatar"
+            >
+            <span :class="$style.mobile">{{ bindPhone | formatAccount }}</span>
+            <span class="el-icon-arrow-right fz-12" />
+
+            <transition name="fade">
+                <div v-show="showPop" :class="$style.pop">
+                    <div :class="$style.popItem" class="pointer" @click="selectMallBtn">
+                        切换店铺
+                    </div>
+                    <div :class="$style.popItem" class="pointer" @click="setAccount">
+                        <div>查看账户</div>
+                        <div>
+                            <div>{{ roleMap[currentRoleCode] }}</div>
+                            <div>{{ bindPhone | formatAccount }}</div>
                         </div>
-                        <div :class="$style.popItem" class="pointer" @click="setAccount">
-                            <div>查看账户</div>
-                            <div>
-                                <div>{{ roleMap[currentRoleCode] }}</div>
-                                <div>{{ bindPhone | formatAccount }}</div>
-                            </div>
-                        </div>
-                        <div :class="$style.popItem" class="pointer" @click="logout">
-                            退出登录
-                        </div>
-                        <!--<div :class="$style.popItem" class="pointer" @click="modify">
+                    </div>
+                    <div :class="$style.popItem" class="pointer" @click="logout">
+                        退出登录
+                    </div>
+                    <!--<div :class="$style.popItem" class="pointer" @click="modify">
                             修改密码
                         </div>-->
-                    </div>
-                </transition>
-            </div>
+                </div>
+            </transition>
         </div>
         <CreateMall :created-mall-show.sync="showCreateMall" />
     </div>
@@ -202,10 +200,10 @@ export default class HeaderRigtht extends Vue {
             border-left: 1px solid $--color-gray-5;
         }
         .avatar {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             margin-right: 4px;
-            border-radius: 10px;
+            border-radius: 15px;
             object-fit: cover;
         }
         .mobile {
@@ -214,7 +212,7 @@ export default class HeaderRigtht extends Vue {
         .pop {
             position: absolute;
             right: 0;
-            top: 26px;
+            top: 40px;
             width: 226px;
             background-color: #fff;
             z-index: 10;
