@@ -67,7 +67,8 @@ export default class ShopModal extends Vue {
         right: 0;
         width: 376px;
         background-color: #fff;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 3px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
         border-radius: 2px;
         z-index: 10;
         transform: translateY(-100%);
