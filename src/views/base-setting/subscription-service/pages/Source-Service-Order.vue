@@ -56,18 +56,19 @@
                 >
                     查询
                 </el-button>
-                <!-- <el-button
-                  type="primary"
-                  plain
-                  @click="reset"
-                >
-                  清空筛选条件
-                </el-button> -->
                 <el-button
-                    type="text"
+                    type="primary"
+                    plain
                     @click="exportRepositoryOrder"
+                    round
                 >
                     导出订单
+                </el-button>
+                <el-button
+                    type="text"
+                    @click="reset"
+                >
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>

@@ -51,11 +51,19 @@
                     查询
                 </el-button>
                 <el-button
-                    type="text"
+                    plain
+                    type="primary"
                     :disabled="!tableData || !tableData.length"
                     @click="exportOrders"
+                    round
                 >
                     导出订单
+                </el-button>
+                <el-button
+                    type="text"
+                    @click="resetFilter"
+                >
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -182,6 +190,20 @@ export default class LiveServiceOrder extends Vue {
         this.form.payStartTime = start
         this.form.payEndTime = end
         this.search()
+    }
+
+    async resetFilter () {
+        this.form = {
+            keyword: '',
+            status: 'FINISHED',
+            current: 1,
+            size: 10,
+            payStartTime: '',
+            payEndTime: '',
+            openWay: ''
+        }
+        await this.getList()
+        this.$refs.dateRange.clear()
     }
 
     async exportOrders () {

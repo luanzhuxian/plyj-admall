@@ -35,18 +35,16 @@
                     type="primary"
                     plain
                     round
-                    @click="resetState"
-                >
-                    清空筛选条件
-                </el-button>
-                <el-button
-                    type="primary"
-                    plain
-                    round
                     @click="changeExport"
                     v-if="table && table.length"
                 >
                     导出表单
+                </el-button>
+                <el-button
+                    type="text"
+                    @click="resetState"
+                >
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>

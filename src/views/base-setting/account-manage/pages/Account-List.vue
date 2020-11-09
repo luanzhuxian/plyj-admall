@@ -89,6 +89,7 @@
                     separator="至"
                     start-label="创建时间:"
                     end-label=""
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item label=" ">
@@ -99,6 +100,12 @@
                     @click="search"
                 >
                     查询
+                </el-button>
+                <el-button
+                    type="text"
+                    @click="resetFilter"
+                >
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -358,6 +365,21 @@ export default class AccountList extends Vue {
         } finally {
             this.loading = false
         }
+    }
+
+    private async resetFilter () {
+        this.filter = {
+            current: 1,
+            size: 10,
+            status: '1',
+            roleCode: '',
+            createdTime: '',
+            searchContent: '',
+            startTime: '',
+            endTime: ''
+        }
+        await this.getAccounts();
+        (this.$refs.dateRange as HTMLFormElement).clear()
     }
 
     private async goDetail (row: any) {
