@@ -161,10 +161,10 @@ export default class LiveServiceOrder extends Vue {
         }
     }
 
-    dateChange ({ start, end }) {
+    async dateChange ({ start, end }) {
         this.query.payStartTime = start
         this.query.payEndTime = end
-        this.search()
+        await this.search()
     }
 
     async sizeChange (val) {
@@ -172,18 +172,19 @@ export default class LiveServiceOrder extends Vue {
         this.search()
     }
 
-    search () {
+    async search () {
         this.query.current = 1
-        this.getList()
+        await this.getList()
     }
 
-    clear () {
-        this.query.current = 1
-        this.query.searchContent = ''
-        this.query.payStartTime = ''
-        this.query.payEndTime = ''
-        this.$refs['date-range'].clear()
-        this.search()
+    async clear () {
+        this.query = {
+            current: 1,
+            searchContent: '',
+            payStartTime: '',
+            payEndTime: ''
+        }
+        this.$refs.dateRange.clear()
     }
 }
 </script>

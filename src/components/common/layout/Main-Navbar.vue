@@ -248,7 +248,7 @@ export default class MainNavbar extends Vue {
     color: #fff;
     font-size: 20px;
     background-color: #001629;
-    overflow: auto;
+
     > .logo {
         display: block;
         width: 100%;
@@ -261,7 +261,8 @@ export default class MainNavbar extends Vue {
     > .menu-wrap {
         position: relative;
         height: calc(100vh - 80px);
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .marketing {
         position: absolute;
