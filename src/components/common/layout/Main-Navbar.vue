@@ -211,6 +211,7 @@ export default class MainNavbar extends Vue {
             this.defaultOpeneds = [opened]
             this.defaultActive = opened === '8' ? '8' : (activited || opened)
         }
+        this.showGuid = false
     }
 
     mounted () {
