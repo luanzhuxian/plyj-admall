@@ -112,6 +112,7 @@
                 <el-button
                     round
                     type="primary"
+                    :loading="loading"
                     @click="search"
                 >
                     查询
@@ -514,6 +515,7 @@ import { ElForm } from 'admall-element/types/form'
 })
 
 export default class MemberManageList extends Vue {
+  loading = false
   ROLE_TYPE = {
       MEMBERSHIP: '普通会员',
       HELPER: 'Helper'
@@ -973,11 +975,18 @@ export default class MemberManageList extends Vue {
   }
 
   async search () {
-      if (this.checkPurchasesNumber()) return
-      if (this.checkPurchasesAmount()) return
-      this.form.current = 1
-      await this.getMemberData()
-      await this.getMemberList()
+      try {
+          if (this.checkPurchasesNumber()) return
+          if (this.checkPurchasesAmount()) return
+          this.loading = true
+          this.form.current = 1
+          await this.getMemberData()
+          await this.getMemberList()
+      } catch (e) {
+          throw e
+      } finally {
+          this.loading = false
+      }
   }
 
   async reset () {
