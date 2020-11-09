@@ -392,7 +392,7 @@ export default class Workbench extends Vue {
         justify-content: center;
         align-items: center;
         height: 120px;
-        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/互动直播背景.jpg') no-repeat;
+        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/hudongzhibo.png') no-repeat;
         background-size: cover;
         > .detail {
             display: flex;

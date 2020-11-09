@@ -54,10 +54,6 @@
                     </el-button>
                 </el-form-item>
                 <el-form-item label="企业管理员" style="width:30%">{{ entPersonSaveModel.name + ' - ' + entPersonSaveModel.mobile }}</el-form-item>
-                <el-form-item style="width:30%">
-                    <el-button type="primary" plain round @click="showShopCode = true">访问店铺</el-button>
-                    <shop-modal :show-mall-url="showShopCode" @close="showShopCode = false" />
-                </el-form-item>
             </el-form>
         </div>
         <div class="base-info">
@@ -311,7 +307,6 @@
 import { setWechat } from '../../../apis/setting'
 import CityPicker from '../../../components/common/base/City-Picker.vue'
 import UploadImage from '../../../components/common/file/Image-Manager.vue'
-import ShopModal from '../../../components/common/layout/Shop-Modal.vue'
 import { isPhone, isTelNumber } from '../../../assets/ts/validate'
 import { mapGetters, mapActions } from 'vuex'
 import { getDataDictionary } from '../../../apis/common'
@@ -321,8 +316,7 @@ export default {
     name: 'ShopBaseInfo',
     components: {
         CityPicker,
-        UploadImage,
-        ShopModal
+        UploadImage
     },
     data: () => ({
         form: {

@@ -1130,7 +1130,7 @@ export default class MemberManageList extends Vue {
             position: relative;
             .tag-ctrl {
                 position: absolute;
-                top: -8px;
+                top: 0;
                 right: 15px;
                 display: inline-flex;
                 justify-content: flex-end;

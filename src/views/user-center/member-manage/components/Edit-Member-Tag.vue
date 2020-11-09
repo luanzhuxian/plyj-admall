@@ -49,7 +49,7 @@ export default {
     name: 'EditMemberTag',
     data () {
         return {
-            title: '添加标签',
+            title: '新建标签',
             form: {
                 tagName: ''
             },
@@ -80,7 +80,7 @@ export default {
                 this.title = '编辑标签'
             } else {
                 this.clearFrom()
-                this.title = '添加标签'
+                this.title = '新建标签'
             }
         },
         show (val) {
@@ -105,7 +105,7 @@ export default {
                 } else {
                     // 添加
                     await updateTag({ tagName: this.form.tagName })
-                    this.$success('添加标签成功')
+                    this.$success('新建标签成功')
                 }
                 this.$emit('editTag')
                 this.close()

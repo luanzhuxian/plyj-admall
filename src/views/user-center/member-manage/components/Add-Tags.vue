@@ -195,13 +195,13 @@ export default {
                 if (!this.inputAdd) return this.$warning('用户标签名称不能为空')
                 if (this.inputAdd.length < this.minTagNameLength) return this.$warning('用户标签名称为2到8个字')
                 const { result } = await updateTag({ tagName: this.inputAdd })
-                // 在添加标签中新建标签，用户选中时，自动选中
+                // 在新建标签中新建标签，用户选中时，自动选中
                 if (this.selected.length < this.maxSetTagNum) {
                     const id = result && result.id
                     this.selected.push(id)
                 }
                 this.getTagList()
-                this.$success('添加标签成功')
+                this.$success('新建标签成功')
                 this.showAddInput = false
                 this.inputAdd = ''
             } catch (e) {
