@@ -160,7 +160,7 @@ export default {
     data () {
         return {
             goodsList: [],
-            category: [],
+            category: [''],
             goodsPageSize: {
                 current: 1,
                 size: 5,
@@ -213,32 +213,14 @@ export default {
             default: Number.MAX_VALUE
         }
     },
-    async created () {
-        this.category = ['']
-        try {
-            await this.getGoodsList(1)
-        } catch (e) {
-            throw e
-        }
-    },
-    watch: {
-        async visible (val) {
-            if (!val) return
-            try {
-                await this.getGoodsList(1)
-            } catch (e) {
-                throw e
-            }
-        }
-    },
     methods: {
 
         /**
-     * 获取列表
-     * @param [page] {number} 页码
-     * @param [type] {string} 商品类型
-     * @return {Promise<void>}
-     */
+         * 获取列表
+         * @param [page] {number} 页码
+         * @param [type] {string} 商品类型
+         * @return {Promise<void>}
+         */
         async getGoodsList (page = 1, type) {
             this.goodsListForm.current = page || 1
             type = type || this.goodsListForm.productType

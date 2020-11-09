@@ -82,6 +82,7 @@ export default class HeaderRigtht extends Vue {
     private showMallUrl = false
     private showPop = false
     private messageCount = 0
+    private loaded = false
 
     @userModule.Mutation(MutationTypes.logout) LOGOUT!: Function
     @userModule.Action(MutationTypes.getAgencyList) getAgencyList!: Function
@@ -149,6 +150,10 @@ export default class HeaderRigtht extends Vue {
     }
 
     async getMessageCount () {
+        if (this.loaded) {
+            return
+        }
+        this.loaded = true
         const { result } = await getNotificationSmallMark({
             toAgencyCode: this.agencyCode
         })
