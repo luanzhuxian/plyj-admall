@@ -162,7 +162,7 @@ const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
             title: '请先创建店铺',
             confirmButtonText: '创建店铺'
         })
-        next({ path: '/home?showCreateMall=1' })
+        next({ path: `/home?showCreateMall=${ Date.now() }` })
         return
     }
     if (!appId && !to.matched.some(item => NO_AUTH.includes(item.name as string))) {
