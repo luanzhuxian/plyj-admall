@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view />
+        <router-view v-if="loading" />
     </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
     name: 'BookingBuy',
     data () {
         return {
+            loading: false,
             programId: '5'
             // 5代表预购
         }
@@ -23,10 +24,15 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
-        const info = this.marketStatusAuth.find(({ programId }) => programId === '5')
-        if (!info || moment(info.validity).valueOf() < Date.now()) {
-            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '5' } })
+        try {
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
+            this.loading = true
+            const info = this.marketStatusAuth.find(({ programId }) => programId === '5')
+            if (!info || moment(info.validity).valueOf() < Date.now()) {
+                this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '5' } })
+            }
+        } catch (e) {
+            throw e
         }
     },
     methods: {

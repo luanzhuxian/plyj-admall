@@ -21,11 +21,15 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
-        this.loaded = true
-        const info = this.marketStatusAuth.find(({ programId }) => programId === '3')
-        if (!info || moment(info.validity).valueOf() < Date.now()) {
-            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '3' } })
+        try {
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
+            this.loaded = true
+            const info = this.marketStatusAuth.find(({ programId }) => programId === '3')
+            if (!info || moment(info.validity).valueOf() < Date.now()) {
+                this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '3' } })
+            }
+        } catch (e) {
+            throw e
         }
     },
     methods: {

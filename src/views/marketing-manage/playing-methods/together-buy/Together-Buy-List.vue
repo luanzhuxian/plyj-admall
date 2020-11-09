@@ -294,7 +294,6 @@ export default {
         })
     },
     async created () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const togetherBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '4')
         if (!togetherBuyInformation) return
