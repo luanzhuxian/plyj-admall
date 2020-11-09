@@ -64,7 +64,6 @@ export default {
                     j += 3
                 }
             }
-            console.log(formItemColumns)
             for (const col of formItemColumns) {
             // 找出每一列中label最大宽度
                 const labelWidthList = col.map(item => {
