@@ -253,7 +253,6 @@
             <div class="btn-box">
                 <el-button
                     @click="$router.back()"
-                    size="mini"
                     style="width: 90px"
                     plain
                 >
@@ -261,7 +260,6 @@
                 </el-button>
                 <el-button
                     @click="save(2)"
-                    size="mini"
                     type="primary"
                     style="width: 90px"
                     plain
@@ -270,7 +268,6 @@
                 </el-button>
                 <el-button
                     @click="save(1)"
-                    size="mini"
                     type="primary"
                     plain
                 >
@@ -278,8 +275,6 @@
                 </el-button>
                 <el-button
                     @click="preview()"
-                    size="mini"
-                    type="primary"
                     style="width: 90px"
                     plain
                 >
