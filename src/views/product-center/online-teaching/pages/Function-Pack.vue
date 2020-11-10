@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.functionPack">
         <div :class="$style.banner">
-            <img :class="$style.titleImg" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/logo.png" alt="">
+            <img :class="$style.titleImg" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yajiyun_logo.png" alt="">
             <div :class="$style.desc">支持进行视频课程、互动直播等多种类型的课程模式 为您保驾护航</div>
             <div>
                 <el-button
@@ -277,7 +277,7 @@ export default class FunctionPack extends Vue {
         height: 274px;
         text-align: center;
         color: #fff;
-        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yun_bg.jpg') no-repeat;
+        background: url('https://mallcdn.youpenglai.com/static/admall-new/3.0.0/cloudy_bg.png') no-repeat;
         background-size: 100% 100%;
         > .title-img {
             height: 35px;
