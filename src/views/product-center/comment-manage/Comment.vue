@@ -57,11 +57,25 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="content"
                 label="评论内容"
                 min-width="200"
-                class-name="nowrap"
-            />
+            >
+                <template slot-scope="{ row }">
+                    <el-popover
+                        placement="bottom"
+                        trigger="hover"
+                        width="300"
+                        :disabled="!row.content"
+                        :content="row.content"
+                    >
+                        <div slot="reference">
+                            <div class="comment-content">
+                                {{ row.content }}
+                            </div>
+                        </div>
+                    </el-popover>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="nickName"
                 label="买家昵称"
@@ -379,6 +393,9 @@ export default {
           }
         }
       }
+    }
+    .comment-content{
+        @include elps-wrap(2)
     }
   }
 </style>
