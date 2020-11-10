@@ -1,7 +1,7 @@
 <template>
     <div class="detail-info">
         <div class="wrap">
-            <el-button type="primary" @click="$router.push({ name: 'EditSpringPloughing', params: { id } })">
+            <el-button type="primary" round @click="$router.push({ name: 'EditSpringPloughing', params: { id } })">
                 编 辑
             </el-button>
         </div>

@@ -285,16 +285,12 @@
                                     <!-- <template v-if="!scope.row.giftId"> -->
                                     <el-button
                                         type="text"
-                                        size="mini"
-
                                         @click="editPresent(scope.row, scope.$index)"
                                     >
                                         编辑
                                     </el-button>
                                     <el-button
                                         type="text"
-                                        size="mini"
-
                                         @click="removePresent(scope.row)"
                                     >
                                         删除

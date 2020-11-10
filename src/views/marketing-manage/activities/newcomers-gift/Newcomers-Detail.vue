@@ -4,6 +4,7 @@
             <el-button
                 v-if="newcomersInfo.status === 1 || newcomersInfo.status === 2"
                 type="primary"
+                round
                 @click="$router.push({ name: 'NewcomersEdit', params: { id: newcomersInfo.id } })"
             >
                 编 辑

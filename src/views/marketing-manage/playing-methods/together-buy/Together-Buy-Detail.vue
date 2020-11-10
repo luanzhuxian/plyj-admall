@@ -25,8 +25,7 @@
         <div class="detail">
             <el-button
                 type="primary"
-                plain
-                size="mini"
+                round
                 @click="$router.push({name:'EditTogether', params:{id: activityDetail.id}})"
                 v-if="activityDetail.status === 0 || activityDetail.status === 1"
             >
@@ -41,7 +40,7 @@
                     <label>适用用户：</label>
                     <div class="value">
                         <span>{{ userTag[activityDetail.receiveLimit] || '' }}</span>
-                        <el-button v-if="activityDetail.receiveLimit === 3" @click="showUserTags" type="primary" class="ml-10">
+                        <el-button v-if="activityDetail.receiveLimit === 3" @click="showUserTags" type="primary" round class="ml-10">
                             查看
                         </el-button>
                     </div>

@@ -5,6 +5,7 @@
                 <el-button
                     v-if="detail.status !== 4 && detail.status !== 3"
                     type="primary"
+                    round
                     @click="$router.push({ name: 'EditRedeemCode', params: { id } })"
                 >
                     编 辑

@@ -1,7 +1,7 @@
 <template>
     <div class="detail-info">
         <div class="wrap">
-            <el-button class="btn" type="primary" :disabled="!([1,2].includes(detail.definiteStatus))" @click="$router.push({ name: 'EditLongmenPublicBenefit', params: { id } })">
+            <el-button class="btn" round type="primary" :disabled="!([1,2].includes(detail.definiteStatus))" @click="$router.push({ name: 'EditLongmenPublicBenefit', params: { id } })">
                 编 辑
             </el-button>
         </div>

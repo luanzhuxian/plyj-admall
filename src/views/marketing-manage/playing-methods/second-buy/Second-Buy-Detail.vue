@@ -31,8 +31,7 @@
         <div class="detail">
             <el-button
                 type="primary"
-                plain
-                size="mini"
+                round
                 @click="$router.push({name:'AddSecond', params:{id: activityDetail.id}})"
                 v-if="activityDetail.status === 0 || activityDetail.status === 1"
             >

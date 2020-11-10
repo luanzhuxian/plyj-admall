@@ -3,8 +3,8 @@
         <div class="wrap">
             <el-button
                 :disabled="Number($route.query.status) > 2"
-                plain
                 type="primary"
+                round
                 @click="$router.push({ name: 'EditLongmenLottery', params: { id } })"
             >
                 编 辑

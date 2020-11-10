@@ -106,6 +106,8 @@
                 </el-button>
                 <el-button
                     round
+                    type="primary"
+                    plain
                     @click="showExportRedeemCode = true"
                     :disabled="total === 0"
                 >

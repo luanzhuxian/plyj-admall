@@ -2,8 +2,7 @@
     <div :class="$style.container">
         <el-button
             type="primary"
-            plain
-            size="mini"
+            round
             @click="$router.push({name:'EditYearFlavor', params:{id: activityDetail.entity.id}})"
             v-if="activityDetail.entity.activityStatus === 0 || activityDetail.entity.activityStatus === 1"
         >

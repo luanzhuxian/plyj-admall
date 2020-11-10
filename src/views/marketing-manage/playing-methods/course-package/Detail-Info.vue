@@ -4,6 +4,7 @@
             <el-button
                 v-if="status !== 2"
                 type="primary"
+                round
                 @click="$router.push({ name: 'EditCoursePackage', params: { id } })"
             >
                 编 辑
