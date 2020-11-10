@@ -261,7 +261,7 @@ export default class AddAccount extends Vue {
 
     async submit () {
         if (this.query.userId) {
-            if (this.originalRoles !== this.ruleForm.accountRole) await this.$confirm({ title: '确定保存账号信息骂？', message: '您已更改了该账号的角色，保存后影响该员工的操作权限' })
+            if (this.originalRoles !== this.ruleForm.accountRole) await this.$confirm({ title: '确定保存账号信息吗？', message: '您已更改了该账号的角色，保存后影响该员工的操作权限' })
             delete this.ruleForm.mobile
             if (this.query.canEdit && this.ruleForm.accountRole === 'EMPLOYEE') {
                 this.ruleForm.menuCode = []
@@ -275,11 +275,12 @@ export default class AddAccount extends Vue {
                 this.ruleForm.menuCode = []
             }
             try {
-                const res = await editAccount(this.ruleForm)
-                if (!res.result) {
+                const { result } = await editAccount(this.ruleForm)
+                if (!result.result) {
                     this.$alert({
                         title: '名额已满',
-                        message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`
+                        message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先移除其他管理员。`,
+                        cancelButtonText: ''
                     })
                     return
                 }
