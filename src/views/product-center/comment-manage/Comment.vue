@@ -14,6 +14,7 @@
                     @change="dateChange"
                     :clearable="true"
                     :init="[filter.startTime, filter.endTime]"
+                    ref="dateRange"
                 />
             </el-form-item>
             <br>
@@ -24,6 +25,9 @@
                     @click="handleSearch"
                 >
                     查询
+                </el-button>
+                <el-button type="text" @click="clear">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </SearchBox>
@@ -234,11 +238,18 @@ export default {
         },
         async handleSearch () {
             this.filter.current = 1
-            try {
-                await this.getCommentList()
-            } catch (e) {
-                throw e
+            await this.getCommentList()
+        },
+        async clear () {
+            this.filter = {
+                productName: '',
+                startTime: '',
+                endTime: '',
+                current: 1,
+                size: 10
             }
+            this.$refs.dateRange.clear()
+            await this.getCommentList()
         },
         indexMethod () {
             return Number(Comment + 1) + this.filter.size * (this.filter.current - 1)

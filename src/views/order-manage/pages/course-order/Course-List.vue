@@ -6,7 +6,7 @@
                     v-model="form.keywords"
                     placeholder="搜索内容"
                     clearable
-                    @change="goSearch"
+                    @change="search"
                 />
             </el-form-item>
             <el-form-item
@@ -19,7 +19,7 @@
                     :clearable="true"
                     @change="dateChange"
                     range-separator="至"
-                    end-label=""
+                    ref="submitDate"
                 />
             </el-form-item>
             <el-form-item label="分类：">
@@ -32,7 +32,7 @@
                 <el-select
                     clearable
                     v-model="form.operatorUser"
-                    @change="goSearch"
+                    @change="search"
                 >
                     <el-option
                         v-for="(item,index) of redeemUserList"
@@ -52,13 +52,13 @@
                     :clearable="true"
                     @change="datePayChange"
                     range-separator="至"
-                    end-label=""
+                    ref="payDate"
                 />
             </el-form-item>
             <el-form-item label="订单状态：">
                 <el-select
                     v-model="form.orderStatus"
-                    @change="goSearch"
+                    @change="search"
                 >
                     <el-option
                         v-for="item of routeMap"
@@ -71,7 +71,7 @@
             <el-form-item>
                 <el-button
                     type="primary"
-                    @click="goSearch"
+                    @click="search"
                     round
                 >
                     查询
@@ -91,6 +91,9 @@
                     round
                 >
                     导出订单
+                </el-button>
+                <el-button type="text" @click="clear">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -251,13 +254,13 @@
             :show.sync="afterVisible"
             :order-id="applyAfterData.orderId"
             :apply-after-data="applyAfterData"
-            @success="goSearch()"
+            @success="search()"
         />
         <!--关闭订单-->
         <CloseOrder
             :show.sync="closeOrderVisible"
             :order-id="closeConfirmId"
-            @success="goSearch()"
+            @success="search()"
         />
 
         <!--  核销功能  -->
@@ -446,7 +449,7 @@ export default {
         async categoryChange (value) {
             this.form.categoryName = value[value.length - 1] || ''
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
@@ -495,7 +498,7 @@ export default {
             this.form.startTime = val.start
             this.form.endTime = val.end
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
@@ -504,7 +507,7 @@ export default {
             this.form.payStartTime = val.start
             this.form.payEndTime = val.end
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
@@ -512,21 +515,37 @@ export default {
         async sizeChange (val) {
             this.queryPage.size = val
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
         },
         // 按钮搜索时，需要重置当前的分页
-        async goSearch () {
+        async search () {
             this.queryPage.current = 1
-            try {
-                await this.getList()
-            } catch (e) {
-                throw e
-            }
+            await this.getList()
         },
-
+        async clear () {
+            this.queryPage = {
+                current: 1,
+                size: 10
+            }
+            this.form = {
+                goodsTypes: ['FORMAL_CLASS', 'EXPERIENCE_CLASS'],
+                orderStatus: '',
+                keywords: '',
+                startTime: '',
+                endTime: '',
+                payStartTime: '',
+                payEndTime: '',
+                categoryName: '',
+                operatorUser: ''
+            }
+            this.classification = ['']
+            this.$refs.payDate.clear()
+            this.$refs.submitDate.clear()
+            await this.getList()
+        },
         // 发货
         async sendProduct (row) {
             this.orderShipData = row

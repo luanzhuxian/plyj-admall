@@ -289,10 +289,6 @@ export default {
             this.start = null
             this.end = null
             this.dateValue = []
-            this.$emit('change', {
-                start: null,
-                end: null
-            })
         },
         // 禁用此刻按钮
         async focus (e) {

@@ -24,6 +24,7 @@
                     start-label="申请时间："
                     range-separator="至"
                     end-label=""
+                    ref="reqDate"
                 />
             </el-form-item>
             <el-form-item>
@@ -49,6 +50,9 @@
                     v-if="table && table.length"
                 >
                     导出发票单
+                </el-button>
+                <el-button type="text" @click="clear">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -483,9 +487,21 @@ export default {
             row.expanded = !row.expanded
             this.$refs.table.toggleRowExpansion(row, row.expanded)
         },
-        search () {
+        async search () {
             this.form.current = 1
-            this.getList()
+            await this.getList()
+        },
+        async clear () {
+            this.form = {
+                keywords: '',
+                status: '',
+                startTime: '',
+                endTime: '',
+                current: 1,
+                size: 10
+            }
+            this.$refs.reqDate.clear()
+            await this.getList()
         },
         handleSelectionChange (val) {
             this.multipleSelection = val

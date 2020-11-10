@@ -49,6 +49,7 @@
                     @change="dateChange"
                     start-label="申请时间："
                     range-separator="至"
+                    ref="reqDate"
                 />
             </el-form-item>
             <el-form-item label="售后状态：">
@@ -73,6 +74,9 @@
                     v-if="table && table.length"
                 >
                     导出售后单
+                </el-button>
+                <el-button type="text" @click="clear">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -481,6 +485,43 @@ export default {
         },
         async search () {
             this.queryPage.current = 1
+            await this.getList()
+        },
+        async clear () {
+            this.queryPage = {
+                current: 1,
+                size: 10
+            }
+            this.form = {
+                auditStatus: [],
+                businessStatus: [],
+                orderType: '',
+                keywords: '',
+                startTime: '',
+                endTime: '',
+                categoryName: '',
+                subCategoryName: ''
+            }
+            this.exportData = {
+                selectedOptions: [''],
+                // 审核状态
+                auditStatus: [],
+                // 业务状态
+                businessStatus: [],
+                orderType: '',
+                keywords: '',
+                startTime: '',
+                endTime: '',
+                categoryName: '',
+                subCategoryName: '',
+                // 1 7日内 2 30日内 3自选
+                dateRange: 3
+            }
+            this.returnStatus = 'AllAfter'
+            this.exportReturnStatus = 'AllAfter'
+            this.goodsTypes = ''
+            this.selectedOptions = ['']
+            this.$refs.reqDate.clear()
             await this.getList()
         },
         async sizeChange (val) {

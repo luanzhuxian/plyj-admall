@@ -187,6 +187,7 @@ export default class LiveServiceOrder extends Vue {
             payEndTime: ''
         }
         this.$refs.dateRange.clear()
+        await this.getList()
     }
 }
 </script>

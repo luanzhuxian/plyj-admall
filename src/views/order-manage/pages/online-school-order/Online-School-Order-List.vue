@@ -6,7 +6,7 @@
                     v-model="form.keywords"
                     placeholder="搜索内容"
                     clearable
-                    @change="goSearch()"
+                    @change="search()"
                 />
             </el-form-item>
             <el-form-item label="下单时间：">
@@ -16,7 +16,7 @@
                     :clearable="true"
                     @change="dateChange"
                     range-separator="至"
-                    end-label=""
+                    ref="submitDate"
                 />
             </el-form-item>
             <el-form-item label="课程类型：">
@@ -35,7 +35,7 @@
             <el-form-item label="订单状态：">
                 <el-select
                     v-model="form.orderStatus"
-                    @change="goSearch"
+                    @change="search"
                 >
                     <el-option
                         v-for="(item, index) of orderStatusList"
@@ -52,14 +52,14 @@
                     :clearable="true"
                     @change="datePayChange"
                     range-separator="至"
-                    end-label=""
+                    ref="payDate"
                 />
             </el-form-item>
             <div />
             <el-form-item>
                 <el-button
                     type="primary"
-                    @click="goSearch"
+                    @click="search"
                     round
                 >
                     查询
@@ -72,6 +72,9 @@
                     v-if="tableData && tableData.length"
                 >
                     导出订单
+                </el-button>
+                <el-button type="text" @click="clear">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -219,7 +222,7 @@
         <CloseOrder
             :show.sync="closeOrderVisible"
             :order-id="closeConfirmId"
-            @success="goSearch()"
+            @success="search()"
         />
 
         <!-- 订单导出 -->
@@ -391,7 +394,7 @@ export default {
                     break
             }
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
@@ -425,7 +428,7 @@ export default {
             this.form.startTime = val.start
             this.form.endTime = val.end
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
@@ -434,7 +437,7 @@ export default {
             this.form.payStartTime = val.start
             this.form.payEndTime = val.end
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
@@ -442,19 +445,35 @@ export default {
         async sizeChange (val) {
             this.queryPage.size = val
             try {
-                await this.goSearch()
+                await this.search()
             } catch (e) {
                 throw e
             }
         },
         // 按钮搜索时，需要重置当前的分页
-        async goSearch () {
+        async search () {
             this.queryPage.current = 1
-            try {
-                await this.getList()
-            } catch (e) {
-                throw e
+            await this.getList()
+        },
+        async clear () {
+            this.queryPage = {
+                current: 1,
+                size: 10
             }
+            this.form = {
+                goodsTypes: ['KNOWLEDGE_COURSE', 'SERIES_OF_COURSE', 'LIVE_GOODS', 'VIDEO_GOODS', 'GRAPHIC_DATA'],
+                orderStatus: '',
+                keywords: '',
+                startTime: '',
+                endTime: '',
+                payStartTime: '',
+                payEndTime: ''
+            }
+            this.goodsTypes = ''
+            this.classification = ['']
+            this.$refs.payDate.clear()
+            this.$refs.submitDate.clear()
+            await this.getList()
         },
         async getCancelOrderData (id) {
             this.closeConfirmId = id

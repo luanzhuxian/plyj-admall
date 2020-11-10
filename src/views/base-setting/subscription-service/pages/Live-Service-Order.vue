@@ -202,8 +202,8 @@ export default class LiveServiceOrder extends Vue {
             payEndTime: '',
             openWay: ''
         }
-        await this.getList()
         this.$refs.dateRange.clear()
+        await this.getList()
     }
 
     async exportOrders () {

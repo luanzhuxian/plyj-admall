@@ -13,6 +13,7 @@
                 <date-range
                     clearable
                     @change="dateChange"
+                    ref="date"
                 />
             </el-form-item>
             <el-form-item label="审核状态：">
@@ -32,6 +33,12 @@
                     @click="search"
                 >
                     查询
+                </el-button>
+                <el-button
+                    type="text"
+                    @click="clear"
+                >
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -313,6 +320,19 @@ export default class WithdrawDepositManage extends Vue {
 
     async search () {
         this.form.current = 1
+        await this.getList()
+    }
+
+    async clear () {
+        this.form = {
+            keyword: '',
+            status: 'AWAIT',
+            current: 1,
+            size: 10,
+            startTime: '',
+            endTime: ''
+        };
+        (this.$refs.date as HTMLFormElement).clear()
         await this.getList()
     }
 

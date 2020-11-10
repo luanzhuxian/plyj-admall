@@ -58,6 +58,9 @@
                 <el-button type="primary" @click="search" round>
                     查询
                 </el-button>
+                <el-button type="text" @click="clear">
+                    清空筛选条件
+                </el-button>
             </el-form-item>
         </search-box>
         <div class="mt-24" style="display: flex; justify-content: space-between; align-items: center;">
@@ -767,6 +770,24 @@ export default {
         async search () {
             this.emptyText = '未搜索到相关商品'
             this.filter.current = 1
+            await this.getGoods()
+        },
+        async clear () {
+            this.filter = {
+                type: 'GOODS',
+                categoryId: '',
+                subCategoryId: '',
+                productType: '',
+                productName: '',
+                recommendStatus: '',
+                startTime: '',
+                endTime: '',
+                productStatus: '',
+                sortCondition: '',
+                current: 1,
+                size: 10
+            }
+            this.$refs.dateRange.clear()
             await this.getGoods()
         },
         async goEdit (row) {
