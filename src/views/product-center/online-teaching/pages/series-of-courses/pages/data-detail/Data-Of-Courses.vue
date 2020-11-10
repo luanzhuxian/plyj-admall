@@ -17,9 +17,6 @@
                     >
                         查询
                     </el-button>
-                    <el-button type="text" @click="resetFilterForm">
-                        清空筛选条件
-                    </el-button>
                     <el-button
                         round
                         class="button"
@@ -29,6 +26,9 @@
                         @click="showExport = true"
                     >
                         导出数据
+                    </el-button>
+                    <el-button type="text" @click="resetFilterForm">
+                        清空筛选条件
                     </el-button>
                 </el-form-item>
             </search-box>

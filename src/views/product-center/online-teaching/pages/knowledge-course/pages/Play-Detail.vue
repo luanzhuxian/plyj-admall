@@ -42,11 +42,6 @@
                     查询
                 </el-button>
                 <el-button
-                    type="text"
-                    @click="resetFilterForm">
-                    清空筛选条件
-                </el-button>
-                <el-button
                     round
                     type="primary"
                     :disabled="!tableData.length"
@@ -54,6 +49,11 @@
                     @click="changeExport"
                 >
                     导出数据
+                </el-button>
+                <el-button
+                    type="text"
+                    @click="resetFilterForm">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>

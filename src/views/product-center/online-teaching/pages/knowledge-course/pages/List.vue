@@ -41,16 +41,16 @@
                         查询
                     </el-button>
                     <el-button
-                        type="text"
-                        @click="resetFilterForm">
-                        清空筛选条件
-                    </el-button>
-                    <el-button
                         round
                         type="primary"
                         @click="$router.push({ name: 'AddKnowledgeCourse' })"
                     >
                         新增
+                    </el-button>
+                    <el-button
+                        type="text"
+                        @click="resetFilterForm">
+                        清空筛选条件
                     </el-button>
                 </el-form-item>
             </search-box>
