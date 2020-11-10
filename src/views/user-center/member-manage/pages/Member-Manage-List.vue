@@ -1211,6 +1211,7 @@ export default class MemberManageList extends Vue {
                     .name {
                         max-width: 81px;
                         margin-right: 6px;
+                        height: 20px;
                         @include elps-wrap(1);
                     }
                     >svg {
