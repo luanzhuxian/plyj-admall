@@ -25,7 +25,7 @@
                 />
             </el-form-item>
             <el-form-item class="mb-0">
-                <el-button @click="getData" type="primary">
+                <el-button @click="getData" type="primary" round>
                     查询
                 </el-button>
             </el-form-item>

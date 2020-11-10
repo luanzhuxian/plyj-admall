@@ -20,7 +20,7 @@
                 <date-range />
             </el-form-item>
             <el-form-item class="mb-0">
-                <el-button type="primary">
+                <el-button type="primary" round>
                     查询
                 </el-button>
             </el-form-item>

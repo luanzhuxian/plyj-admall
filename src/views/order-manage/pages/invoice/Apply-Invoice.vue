@@ -351,6 +351,7 @@
                     <el-button
                         type="primary"
                         style="width: 98px;margin-left: 10px;"
+                        round
                         @click="searchOrder"
                     >
                         查询

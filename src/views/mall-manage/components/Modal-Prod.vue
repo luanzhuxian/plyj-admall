@@ -20,7 +20,7 @@
                         @keyup.enter.native="search"
                         @clear="search"
                     />
-                    <el-button type="primary" @click="search">
+                    <el-button round type="primary" @click="search">
                         查询
                     </el-button>
                 </div>

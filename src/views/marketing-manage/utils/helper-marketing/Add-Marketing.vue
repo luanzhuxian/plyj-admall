@@ -434,6 +434,7 @@
                             <el-button
                                 type="primary"
                                 style="width: 98px;margin-left: 28px;"
+                                round
                                 @click="getGoodsList(1)"
                             >
                                 查询
@@ -532,6 +533,7 @@
                             <el-button
                                 type="primary"
                                 style="width: 98px;margin-left: 20px;"
+                                round
                                 @click="getClassifyList(1)"
                             >
                                 查询

@@ -10,6 +10,7 @@
                 <el-button
                     type="primary"
                     style="width: 98px;"
+                    round
                     @click="getCountInTwoMinute"
                 >
                     查询
