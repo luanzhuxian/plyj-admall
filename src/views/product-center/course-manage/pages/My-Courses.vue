@@ -746,7 +746,7 @@ export default {
                     row.showSales = 1
                     await this.$confirm({
                         title: '确定要隐藏该课程的实际销量？',
-                        message: '隐藏后订购量再商城的列表页和详情页中均不展示'
+                        message: '隐藏后订购量在商城的列表页和详情页中均不展示'
                     })
                     row.showSales = 0
                     await showProductSales({ productId: row.id, status: row.showSales })
