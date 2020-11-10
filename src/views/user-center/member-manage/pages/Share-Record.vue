@@ -66,9 +66,7 @@
                     导出数据
                 </el-button>
                 <el-button
-                    round
-                    type="primary"
-                    plain
+                    type="text"
                     @click="resetShareList">清空筛选条件</el-button>
             </el-form-item>
         </SearchBox>

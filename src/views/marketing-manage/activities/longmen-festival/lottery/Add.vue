@@ -136,7 +136,7 @@
                                     <el-button @click="removeAward(item)">
                                         移除
                                     </el-button>
-                                    <el-button type="primary" icon="el-icon-circle-plus-outline" @click="selectAward(item, i)">
+                                    <el-button round type="primary" icon="el-icon-circle-plus-outline" @click="selectAward(item, i)">
                                         添加奖品
                                     </el-button>
                                 </div>
@@ -232,7 +232,7 @@
                         <i>{{ Number((100 - totalProbability).toFixed(2)) }}%</i>
                     </div>
                     <div>
-                        <el-button plain type="primary" @click="addAward" :disabled="awards.length === 7">
+                        <el-button round plain type="primary" @click="addAward" :disabled="awards.length === 7">
                             新增奖项
                         </el-button>
                         <span class="fz-12 gray-3">（至多设置7个奖品，最少添加3个奖品，1个奖项是谢谢参与）</span>
@@ -240,7 +240,7 @@
                 </el-form-item>
                 <el-form-item label="设置抽奖条件">
                     <div>
-                        <el-button plain type="primary" @click="addCondition" :disabled="form.terms.length >= 6">
+                        <el-button round plain type="primary" @click="addCondition" :disabled="form.terms.length >= 6">
                             添加条件
                         </el-button>
                         <span class="tip">（最多可添加6个）</span>
@@ -298,10 +298,10 @@
             </el-form>
             <hr class="hr">
             <div class="wrap">
-                <el-button @click="$router.push({ name: 'LongmenLotteryList' })">
+                <el-button round @click="$router.push({ name: 'LongmenLotteryList' })">
                     取消
                 </el-button>
-                <el-button type="primary" :loading="loading" @click="save">
+                <el-button round type="primary" :loading="loading" @click="save">
                     保存
                 </el-button>
             </div>

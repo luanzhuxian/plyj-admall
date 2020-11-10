@@ -294,7 +294,7 @@
                     <el-button
                         size="mini"
                         type="text"
-
+                        round
                         @click="$router.push({name:'GoodsOrderDetail', params:{id: scope.row.orderId}})"
                     >
                         查看订单

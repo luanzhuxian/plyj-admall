@@ -83,9 +83,7 @@
                                 查询
                             </el-button>
                             <el-button
-                                round
-                                type="primary"
-                                plain
+                                type="text"
                                 @click="resetOrderList">清空筛选条件</el-button>
                         </el-form-item>
                     </SearchBox>
@@ -204,9 +202,7 @@
                                 查询
                             </el-button>
                             <el-button
-                                round
-                                type="primary"
-                                plain
+                                type="text"
                                 @click="resetShareList">清空筛选条件</el-button>
                         </el-form-item>
                     </SearchBox>
@@ -306,9 +302,7 @@
                                 查询
                             </el-button>
                             <el-button
-                                round
-                                type="primary"
-                                plain
+                                type="text"
                                 @click="resetWithdrawalRecords">清空筛选条件</el-button>
                         </el-form-item>
                     </SearchBox>

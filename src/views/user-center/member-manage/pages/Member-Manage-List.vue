@@ -127,9 +127,7 @@
                     导出数据
                 </el-button>
                 <el-button
-                    round
-                    type="primary"
-                    plain
+                    type="text"
                     @click="reset"
                 >
                     清空筛选条件

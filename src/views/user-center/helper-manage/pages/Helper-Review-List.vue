@@ -33,9 +33,7 @@
                     查询
                 </el-button>
                 <el-button
-                    round
-                    type="primary"
-                    plain
+                    type="text"
                     @click="restForm"
                 >
                     清空筛选条件

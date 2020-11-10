@@ -26,6 +26,7 @@
                 type="primary"
                 plain
                 size="mini"
+                round
                 @click="$router.push({name:'EditBookingBuy', params:{id: activityDetail.id}})"
                 v-if="activityDetail.status === 0 || activityDetail.status === 1"
             >
@@ -40,7 +41,7 @@
                     <label>适用用户：</label>
                     <div class="value">
                         <span>{{ userTag[activityDetail.receiveLimit] || '' }}</span>
-                        <el-button v-if="activityDetail.receiveLimit === 3" @click="showUserTags" type="primary" class="ml-10">
+                        <el-button round v-if="activityDetail.receiveLimit === 3" @click="showUserTags" type="primary" class="ml-10">
                             查看
                         </el-button>
                     </div>

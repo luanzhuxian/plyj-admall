@@ -178,7 +178,7 @@
                         <el-table-column width="140" />
                         <el-table-column>
                             <template #default="{ row: orderItem }">
-                                <el-button @click="$router.push({ name: 'GoodsOrderDetail', params: { id: orderItem.orderId } })">
+                                <el-button round @click="$router.push({ name: 'GoodsOrderDetail', params: { id: orderItem.orderId } })">
                                     订单详情
                                 </el-button>
                             </template>
