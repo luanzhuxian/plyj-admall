@@ -112,6 +112,7 @@ export default {
     data () {
         return {
             filterForm: {
+                keyword: '',
                 mallUserId: '',
                 current: 1,
                 size: 10
@@ -149,6 +150,7 @@ export default {
         },
         restForm () {
             this.filterForm = {
+                keyword: '',
                 mallUserId: '',
                 current: 1,
                 size: 10
