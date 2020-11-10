@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.functionalContainer">
         <search-box>
-            <el-form-item>
+            <el-form-item label="搜索内容">
                 <el-input style="width:350px"
                           clearable
                           v-model="params.keyword"
@@ -65,9 +65,7 @@
                     导出订单
                 </el-button>
                 <el-button
-                    round
-                    type="primary"
-                    plain
+                    type="text"
                     @click="reset"
                 >
                     清空筛选条件
@@ -100,7 +98,7 @@
                     <span v-text="statusMap[row.payStatus]" />
                 </template>
             </el-table-column>
-            <el-table-column prop="payTime" label="支付日期" />
+            <el-table-column prop="payTime" label="支付时间" />
             <el-table-column align="right" header-align="right" width="100" prop="createTime" label="操作">
                 <template #default="{row}">
                     <a style="color:#4F63FF;" @click="$router.push({ name: 'SourceServiceOrderDetail', params:{ id: row.id } })">

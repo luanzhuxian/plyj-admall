@@ -163,7 +163,7 @@
         <!-- 导出 -->
         <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportDetail" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" label-width="100px" label-position="left">
-                <el-form-item label="搜索关键词" prop="searchContent">
+                <el-form-item label="搜索内容" prop="searchContent">
                     <el-input
                         v-model.trim="exportData.searchContent"
                         placeholder="用户名称/电话/来源"

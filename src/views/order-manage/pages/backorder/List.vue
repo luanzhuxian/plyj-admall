@@ -245,7 +245,7 @@
         <!-- 导出 -->
         <ExportDialog :show.sync="showExport" @confirm="exportList" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
-                <el-form-item prop="keywords" label="搜索关键词">
+                <el-form-item prop="keywords" label="搜索内容">
                     <el-input
                         v-model="exportData.keywords"
                         style="width: 369px"

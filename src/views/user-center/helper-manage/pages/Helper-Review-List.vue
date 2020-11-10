@@ -9,7 +9,7 @@
             />
         </el-tabs>
         <search-box>
-            <el-form-item label="关键字：">
+            <el-form-item label="搜索内容：">
                 <el-input
                     clearable
                     v-model.trim="form.keyword"

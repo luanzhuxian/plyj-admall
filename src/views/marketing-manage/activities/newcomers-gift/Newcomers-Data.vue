@@ -62,9 +62,7 @@
                         导出数据
                     </el-button>
                     <el-button
-                        round
-                        type="primary"
-                        plain
+                        type="text"
                         @click="resetFilter">
                         清空筛选条件
                     </el-button>
@@ -159,7 +157,7 @@
         <Verification :dialog-verification-visible.sync="isShowVerificationDialog" />
         <el-dialog :visible="showExport" width="484px" title="导出数据" @close="showExport = false">
             <el-form label-width="90px">
-                <el-form-item label="搜索关键词">
+                <el-form-item label="搜索内容">
                     <el-input placeholder="请输入用户昵称/联系电话/分享人" v-model="form.keyWord" style="width: 280px" />
                 </el-form-item>
                 <el-form-item label="注册方式">

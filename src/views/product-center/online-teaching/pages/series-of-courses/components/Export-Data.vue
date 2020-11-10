@@ -1,10 +1,10 @@
 <template>
     <ExportDialog :show="show" title="导出数据" @open="open" @confirm="confirm" @close="exportClose">
         <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
-            <el-form-item label="搜索关键词" prop="keyword">
+            <el-form-item label="搜索内容" prop="keyword">
                 <el-input
                     v-model.trim="exportData.keyword"
-                    placeholder="搜索关键词"
+                    placeholder="请输入搜索内容"
                     style="width: 369px;"
                     clearable
                 />

@@ -256,10 +256,10 @@
         <!-- 导出 -->
         <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" label-width="100px" label-position="left">
-                <el-form-item label="搜索关键词" prop="condition">
+                <el-form-item label="搜索内容" prop="condition">
                     <el-input
                         v-model.trim="exportData.condition"
-                        placeholder="输入关键字"
+                        placeholder="输入搜索内容"
                         style="width: 369px;"
                         clearable
                     />

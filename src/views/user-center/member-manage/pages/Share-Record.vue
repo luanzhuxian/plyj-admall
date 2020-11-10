@@ -2,7 +2,7 @@
     <!-- 分享记录 -->
     <div>
         <SearchBox>
-            <el-form-item label="关键字：">
+            <el-form-item label="搜索内容：">
                 <el-input
                     style="width: 230px"
                     clearable
@@ -151,7 +151,7 @@
         <!--        导出-->
         <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="110px" label-position="left">
-                <el-form-item label="关键字" prop="keyword">
+                <el-form-item label="搜索内容" prop="keyword">
                     <el-input
                         v-model.trim="exportData.keyword"
                         placeholder="请输入订单号/产品名称"

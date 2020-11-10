@@ -207,7 +207,7 @@
         <!-- 导出 -->
         <ExportDialog :show.sync="showExport" @confirm="exportList" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
-                <el-form-item label="搜索关键词" prop="searchValue">
+                <el-form-item label="搜索内容" prop="searchValue">
                     <el-input
                         v-model.trim="exportData.name"
                         placeholder="请输入订单编号/领取人/电话"

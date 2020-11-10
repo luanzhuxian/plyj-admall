@@ -1,7 +1,7 @@
 <template>
     <div>
         <search-box>
-            <el-form-item>
+            <el-form-item label="搜索内容">
                 <el-input
                     v-model="query.searchContent"
                     placeholder="请输入订单编号/营销方案/套餐名"
@@ -40,9 +40,7 @@
                     导出订单
                 </el-button>
                 <el-button
-                    round
-                    type="primary"
-                    plain
+                    type="text"
                     @click="clear"
                 >
                     清空筛选条件

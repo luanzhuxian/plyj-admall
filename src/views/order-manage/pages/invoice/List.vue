@@ -343,7 +343,7 @@
         <!-- 导出 -->
         <ExportDialog title="导出发票" :show.sync="showExport" @confirm="exportList" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
-                <el-form-item label="搜索关键词" prop="keywords">
+                <el-form-item label="搜索内容" prop="keywords">
                     <el-input
                         v-model.trim="exportData.keywords"
                         placeholder="输入发票单编号/收票人电话/收票人姓名"

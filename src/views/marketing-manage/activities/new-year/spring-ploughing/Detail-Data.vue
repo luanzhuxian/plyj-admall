@@ -53,7 +53,7 @@
 
         <search-box class="mt-24">
             <el-form-item label="搜索内容：">
-                <el-input style="width: 280px;" v-model="filter.condition" @change="getList(1)" placeholder="输入关键字" />
+                <el-input style="width: 280px;" v-model="filter.condition" @change="getList(1)" placeholder="输入搜索内容" />
             </el-form-item>
             <el-form-item label="状态：">
                 <el-select v-model="filter.orderStatus" @change="getList(1)">
@@ -230,10 +230,10 @@
         <!-- 导出 -->
         <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" label-width="100px" label-position="left">
-                <el-form-item label="搜索关键词" prop="condition">
+                <el-form-item label="搜索内容" prop="condition">
                     <el-input
                         v-model.trim="exportData.condition"
-                        placeholder="搜索关键词"
+                        placeholder="请输入搜索内容"
                         style="width: 369px;"
                         clearable
                     />

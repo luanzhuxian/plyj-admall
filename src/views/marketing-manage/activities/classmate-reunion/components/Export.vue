@@ -1,7 +1,7 @@
 <template>
     <ExportDialog v-bind="$attrs" @open="open" @confirm="confirm" @close="close">
         <el-form ref="exportForm" :model="exportData" label-width="100px" label-position="left">
-            <el-form-item label="搜索关键词" prop="searchContent">
+            <el-form-item label="搜索内容" prop="searchContent">
                 <el-input
                     v-model.trim="exportData.searchContent"
                     placeholder="请输入搜索内容"

@@ -41,7 +41,7 @@
                 <!--自购订单-->
                 <template v-if="tabName === ORDER_LIST">
                     <SearchBox>
-                        <el-form-item label="关键字：">
+                        <el-form-item label="搜索内容：">
                             <el-input
                                 clearable
                                 style="width: 300px;"
@@ -160,7 +160,7 @@
                 <!--分享订单-->
                 <template v-if="tabName === SHARE_LIST">
                     <SearchBox>
-                        <el-form-item label="关键字：">
+                        <el-form-item label="搜索内容：">
                             <el-input
                                 clearable
                                 style="width: 300px;"

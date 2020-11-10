@@ -40,7 +40,7 @@
                 >
                     查询
                 </el-button>
-                <el-button round type="primary" plain @click="resetFilterForm">
+                <el-button type="text" @click="resetFilterForm">
                     清空筛选条件
                 </el-button>
                 <el-button

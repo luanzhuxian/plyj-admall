@@ -1,7 +1,7 @@
 <template>
     <div>
         <SearchBox>
-            <el-form-item label="关键字：">
+            <el-form-item label="搜索内容：">
                 <el-input
                     clearable
                     @change="search"
@@ -128,7 +128,7 @@
         <!--        导出-->
         <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
             <el-form ref="exportForm" :model="exportData" label-width="110px" label-position="left">
-                <el-form-item label="关键字：">
+                <el-form-item label="搜索内容：">
                     <el-input
                         clearable
                         @change="search"
