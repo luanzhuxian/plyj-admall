@@ -323,6 +323,8 @@ export default class AccountDetail extends Vue {
             @userModule.Getter('currentRoleCode') currentRoleCode!: string
 
             async created () {
+                const scrollWrap = document.querySelector('#main');
+                (scrollWrap as HTMLFormElement).scrollTo(0, 0)
                 await this.getAccountList()
                 const query = JSON.parse(localStorage.getItem(LocalEnum.editAccount) || '')
                 this.orderForm.userId = query.userId
