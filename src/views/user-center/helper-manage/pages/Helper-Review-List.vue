@@ -196,11 +196,12 @@
             <div
                 slot="footer"
             >
-                <el-button @click="dialogAuditCancel()">
+                <el-button round @click="dialogAuditCancel()">
                     取 消
                 </el-button>
                 <el-button
                     type="primary"
+                    round
                     @click="dialogAuditConfirm()"
                 >
                     确 定

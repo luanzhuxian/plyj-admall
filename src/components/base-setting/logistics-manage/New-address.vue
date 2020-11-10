@@ -79,12 +79,14 @@
             >
                 <el-button
                     @click="close()"
+                    round
                 >
                     取 消
                 </el-button>
                 <el-button
                     type="primary"
                     @click="save"
+                    round
                 >
                     提 交
                 </el-button>

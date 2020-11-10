@@ -75,7 +75,7 @@
                     @change="onPageChange"
                 />
                 <div :class="$style.btnGroup">
-                    <el-button type="primary" @click="confirm">
+                    <el-button type="primary" @click="confirm" round>
                         确定
                     </el-button>
                 </div>

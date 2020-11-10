@@ -148,7 +148,7 @@
                     </el-form-item>
                 </template>
                 <el-form-item>
-                    <el-button type="primary" @click="close">
+                    <el-button type="primary" @click="close" round>
                         确定
                     </el-button>
                 </el-form-item>

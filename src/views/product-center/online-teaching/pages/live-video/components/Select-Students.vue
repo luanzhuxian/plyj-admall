@@ -58,10 +58,10 @@
                     暂无用户
                 </div>
                 <div class="bottom">
-                    <el-button @click="close">
+                    <el-button @click="close" round>
                         取消
                     </el-button>
-                    <el-button type="primary" :disabled="!isUpdate" @click="confirm">
+                    <el-button type="primary" :disabled="!isUpdate" @click="confirm" round>
                         确认
                     </el-button>
                 </div>

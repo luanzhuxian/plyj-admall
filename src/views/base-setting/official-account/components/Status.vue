@@ -12,7 +12,7 @@
             <br>
             <strong>提交申请发生错误，请尝试重新提交，如有任何问题可致电朋来雅集  400-833-0529</strong>
             <br>
-            <el-button class="mt-24" type="primary" @click="again">
+            <el-button class="mt-24" type="primary" @click="again" round>
                 重新提交申请
             </el-button>
         </div>
@@ -24,7 +24,7 @@
             <br>
             <strong>如有任何问题可致电朋来雅集  400-833-0529</strong>
             <br>
-            <el-button class="mt-24" type="primary" @click="again">
+            <el-button class="mt-24" type="primary" @click="again" round>
                 重新提交申请
             </el-button>
         </div>
@@ -34,7 +34,7 @@
             <br>
             <strong>申请单已被撤销， 如有任何问题可致电朋来雅集  400-833-0529</strong>
             <br>
-            <el-button class="mt-24" type="primary" @click="again">
+            <el-button class="mt-24" type="primary" @click="again" round>
                 重新提交申请
             </el-button>
         </div>
@@ -69,7 +69,7 @@
         </div>
 
         <div style="margin: 44px 0;">
-            <el-button type="primary" @click="showDetail = !showDetail">
+            <el-button type="primary" @click="showDetail = !showDetail" round>
                 {{ showDetail ? '收起查看' : '查看资料' }}
             </el-button>
         </div>

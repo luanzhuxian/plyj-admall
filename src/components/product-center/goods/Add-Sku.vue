@@ -46,11 +46,12 @@
                 <span class="btn-tips">（至多可添加{{ MAX_PRODUCT_ATTRIBUTE_VALUES }}个规格类型内容）</span>
             </el-form-item>
             <div class="text-center">
-                <el-button @click="cancelAddSkuList">
+                <el-button round @click="cancelAddSkuList">
                     取消
                 </el-button>
                 <el-button
                     type="primary"
+                    round
                     @click="createSkuTable"
                 >
                     保存

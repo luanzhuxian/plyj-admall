@@ -14,10 +14,10 @@
             <transition name="fade">
                 <div :class="$style.topMask" v-if="data.isHover">
                     <slot name="buttons">
-                        <el-button plain @click="use">
+                        <el-button plain @click="use" round>
                             使用模板
                         </el-button>
-                        <el-button plain @click="preview">
+                        <el-button plain @click="preview" round>
                             预览模板
                         </el-button>
                     </slot>

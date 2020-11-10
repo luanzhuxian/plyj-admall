@@ -194,10 +194,10 @@
             <template v-if="selectedLiveInfo.roomToken" #liveWord>
                 <el-form-item :error="roomTokenError" label="直播间口令：">
                     <el-input style="width: 125px; margin-right: 50px" disabled :value="selectedLiveInfo.roomToken" />
-                    <el-button type="primary" v-clipboard:copy="selectedLiveInfo.roomToken" v-clipboard:success="copyWord">
+                    <el-button round type="primary" v-clipboard:copy="selectedLiveInfo.roomToken" v-clipboard:success="copyWord">
                         复制
                     </el-button>
-                    <el-button class="ml-10" @click="updateRoomToken">
+                    <el-button round class="ml-10" @click="updateRoomToken">
                         更换
                     </el-button>
                 </el-form-item>

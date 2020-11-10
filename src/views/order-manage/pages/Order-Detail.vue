@@ -27,18 +27,21 @@
                     <el-button
                         @click="shipmentsVisible = true"
                         v-if="detailInfo.orderType === 'PHYSICAL_GOODS' && detailInfo.status === 'WAIT_SHIP' && detailInfo.aftersaleStatus !== 'PROCESSING'"
+                        round
                     >
                         发货
                     </el-button>
                     <el-button
                         @click="afterVisible = true"
                         v-if="canApplyRefund"
+                        round
                     >
                         申请售后
                     </el-button>
                     <el-button
                         @click="closeOrderVisible = true"
                         v-if="detailInfo.status === 'WAIT_PAY'"
+                        round
                     >
                         关闭订单
                     </el-button>

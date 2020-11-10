@@ -139,7 +139,7 @@
             <div ref="tag-list" class="tag-list">
                 <div class="tag-list-top">
                     <template v-if="!isShowTagSearch">
-                        <el-button icon="el-icon-plus" @click="editTag" style="color: #333333; border-radius: 20px;">
+                        <el-button icon="el-icon-plus" round @click="editTag" style="color: #333333; border-radius: 20px;">
                             新建标签
                         </el-button>
                         <i class="el-icon-search" @click="showTagSearch" />

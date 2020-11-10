@@ -19,8 +19,8 @@
                 请选择时间
             </span>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="onClose">取 消</el-button>
-                <el-button type="primary" @click="onConfirm">确 定</el-button>
+                <el-button @click="onClose" round>取 消</el-button>
+                <el-button type="primary" @click="onConfirm" round>确 定</el-button>
             </span>
             <template />
         </template>
