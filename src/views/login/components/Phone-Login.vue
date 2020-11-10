@@ -165,7 +165,7 @@ export default class PhoneLogin extends Vue {
         border-radius: 10px;
 
         .label{
-            color: #333333;
+            color: #999;
             font-size: 12px;
             position: absolute;
             top: -22px;

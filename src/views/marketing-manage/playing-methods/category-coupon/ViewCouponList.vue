@@ -90,6 +90,8 @@
                 <el-button
                     v-if="table && table.length"
                     round
+                    type="primary"
+                    plain
                     @click="changeExport"
                 >
                     导出数据

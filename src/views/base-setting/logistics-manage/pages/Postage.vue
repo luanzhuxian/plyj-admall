@@ -25,9 +25,10 @@
                     查询
                 </el-button>
                 <el-button
-                    type="text"
-                    @click="resetFilter"
                     round
+                    type="primary"
+                    plain
+                    @click="resetFilter"
                 >
                     清空筛选条件
                 </el-button>

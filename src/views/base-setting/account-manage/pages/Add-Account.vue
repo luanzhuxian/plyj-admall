@@ -307,7 +307,7 @@ export default class AddAccount extends Vue {
                 if (!result.result) {
                     this.$alert({
                         title: '名额已满',
-                        message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先禁用其他管理员。`,
+                        message: `当前${ this.ruleForm.accountRole === 'ADMIN' ? '高级管理员' : '子账号' }名额已满，如若设置请先移除其他管理员。`,
                         cancelButtonText: ''
                     })
                     return

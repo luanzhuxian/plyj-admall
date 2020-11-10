@@ -57,15 +57,17 @@
                     查询
                 </el-button>
                 <el-button
+                    round
                     type="primary"
                     plain
                     @click="exportRepositoryOrder"
-                    round
                 >
                     导出订单
                 </el-button>
                 <el-button
-                    type="text"
+                    round
+                    type="primary"
+                    plain
                     @click="reset"
                 >
                     清空筛选条件

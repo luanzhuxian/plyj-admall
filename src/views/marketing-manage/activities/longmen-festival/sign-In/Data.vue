@@ -77,6 +77,7 @@
                 </el-button>
                 <el-button
                     round
+                    type="primary"
                     plain
                     @click="changeExport"
                     :disabled="total === 0"

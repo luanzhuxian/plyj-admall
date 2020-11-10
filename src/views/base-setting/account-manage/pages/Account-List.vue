@@ -102,7 +102,9 @@
                     查询
                 </el-button>
                 <el-button
-                    type="text"
+                    type="primary"
+                    round
+                    plain
                     @click="resetFilter"
                 >
                     清空筛选条件

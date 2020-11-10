@@ -39,7 +39,8 @@
                 </el-button>
                 <el-button
                     round
-                    type="text"
+                    type="primary"
+                    plain
                     @click="clearForm()"
                 >
                     清空筛选条件

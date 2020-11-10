@@ -51,16 +51,18 @@
                     查询
                 </el-button>
                 <el-button
-                    plain
+                    round
                     type="primary"
+                    plain
                     :disabled="!tableData || !tableData.length"
                     @click="exportOrders"
-                    round
                 >
                     导出订单
                 </el-button>
                 <el-button
-                    type="text"
+                    round
+                    type="primary"
+                    plain
                     @click="resetFilter"
                 >
                     清空筛选条件

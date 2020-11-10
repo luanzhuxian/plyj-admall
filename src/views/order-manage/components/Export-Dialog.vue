@@ -20,7 +20,11 @@
             <el-button @click="close">
                 取消
             </el-button>
-            <el-button @click="confirm" type="primary">
+            <el-button
+                round
+                type="primary"
+                plain
+                @click="confirm">
                 确定导出
             </el-button>
         </div>

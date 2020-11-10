@@ -58,7 +58,9 @@
                     导出数据
                 </el-button> -->
                 <el-button
-                    type="text"
+                    round
+                    type="primary"
+                    plain
                     @click="restForm"
                 >
                     清空筛选条件

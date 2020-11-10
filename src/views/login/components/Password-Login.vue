@@ -157,7 +157,7 @@ export default class PasswordLogin extends Vue {
             }
 
             .label{
-                color: #333333;
+                color: #999;
                 font-size: 12px;
                 position: absolute;
                 top: -18px;
