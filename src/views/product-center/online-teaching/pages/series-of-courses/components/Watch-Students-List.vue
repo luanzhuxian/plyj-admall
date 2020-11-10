@@ -64,7 +64,7 @@
         />
 
         <div class="mt-20" style="text-align: center;">
-            <el-button type="primary" @click="closeHandler">
+            <el-button type="primary" round @click="closeHandler">
                 确 定
             </el-button>
         </div>
