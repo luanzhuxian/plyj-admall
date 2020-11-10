@@ -23,7 +23,7 @@
             </el-form-item>
         </el-form>
         <div class="mt-20" style="text-align: center;">
-            <el-button type="primary" @click="save">
+            <el-button type="primary" round @click="save">
                 保 存
             </el-button>
         </div>
