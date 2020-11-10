@@ -37,15 +37,13 @@
                     />
                 </el-select>
             </el-form-item>
-            <el-form-item>
+            <el-form-item label="支付时间">
                 <date-range
                     :clearable="true"
                     @change="dateChange"
                     type="date"
                     size="small"
-                    start-label="下单时间："
                     range-separator="至"
-                    end-label=""
                 />
             </el-form-item>
             <el-form-item>
