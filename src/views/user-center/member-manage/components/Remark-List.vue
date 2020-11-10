@@ -12,6 +12,7 @@
                 @click="addRemark"
                 type="primary"
                 plain
+                round
             >
                 添加备注
             </el-button>
@@ -57,7 +58,7 @@
         />
 
         <div class="mt-20" style="text-align: center;">
-            <el-button type="primary" @click="closeHandler">
+            <el-button type="primary" round @click="closeHandler">
                 确 定
             </el-button>
         </div>

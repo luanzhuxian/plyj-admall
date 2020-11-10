@@ -9,7 +9,7 @@
                     :content="item.content"
                     placement="top-start"
                 >
-                    <i class="el-icon-info" />
+                    <div class="desc-tip">?</div>
                 </el-tooltip>
             </span>
         </el-tab-pane>
@@ -36,3 +36,18 @@ export default class PlTabs extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+    .desc-tip {
+        display: inline-block;
+        margin: 0 20px 0 10px;
+        width: 16px;
+        line-height: 16px;
+        border-radius: 50%;
+        font-size: 12px;
+        text-align: center;
+        color: #fff;
+        background-color: #999;
+        cursor: pointer;
+    }
+</style>

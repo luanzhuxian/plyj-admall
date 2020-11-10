@@ -1150,8 +1150,8 @@ export default class MemberManageList extends Vue {
             margin-bottom: 50px;
             padding: 100px 20px 0;
             text-align: center;
-            color: #4C88D6;
-            background:  transparent url("https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/roate.png") center top/65px auto no-repeat;
+            color: #4F63FF;
+            background:  transparent url("https://mallcdn.youpenglai.com/static/admall-new/3.0.0/roate.png") center top/65px auto no-repeat;
         }
     }
 

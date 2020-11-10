@@ -85,11 +85,17 @@
                             </div>
                             <div class="tag">
                                 <template v-if="row.userTags && row.userTags.length">
-                                    <el-tooltip class="item" effect="dark" :content="row.userTags.join('  ')" placement="bottom">
+                                    <el-popover
+                                        placement="bottom-end"
+                                        trigger="hover"
+                                    >
                                         <div>
                                             <span v-for="(item, index) in row.userTags" :key="index">{{ item && item }} </span>
                                         </div>
-                                    </el-tooltip>
+                                        <div slot="reference">
+                                            {{ row.userTags.join('  ') }}
+                                        </div>
+                                    </el-popover>
                                 </template>
                             </div>
                         </div>
