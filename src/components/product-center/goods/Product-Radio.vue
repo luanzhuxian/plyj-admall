@@ -62,6 +62,7 @@
                     type="primary"
                     style="margin-left: 10px;"
                     @click="getGoodsList(1)"
+                    round
                 >
                     查询
                 </el-button>

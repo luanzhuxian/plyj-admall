@@ -73,8 +73,8 @@
             <el-form-item class="mb-0">
                 <el-button
                     type="primary"
-                    plain
                     @click="search"
+                    round
                 >
                     查询
                 </el-button>

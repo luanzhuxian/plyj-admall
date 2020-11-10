@@ -66,6 +66,7 @@
                     type="primary"
                     @click="search"
                     style="width: 98px;"
+                    round
                 >
                     查询
                 </el-button>

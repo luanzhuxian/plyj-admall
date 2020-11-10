@@ -440,7 +440,7 @@
                                 查询
                             </el-button>
                             <el-button
-                                type="primary"
+                                type="text"
                                 @click="clearGoodsSearch"
                             >
                                 清空搜索条件
@@ -539,7 +539,7 @@
                                 查询
                             </el-button>
                             <el-button
-                                type="primary"
+                                type="text"
                                 @click="clearClassifySearch"
                             >
                                 清空搜索条件

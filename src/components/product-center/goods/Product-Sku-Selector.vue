@@ -54,6 +54,7 @@
                 <el-button
                     type="primary"
                     @click="getGoodsList(1)"
+                    round
                 >
                     查询
                 </el-button>

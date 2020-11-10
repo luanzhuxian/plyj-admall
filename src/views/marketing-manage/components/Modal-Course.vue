@@ -24,14 +24,15 @@
                     <el-button
                         type="primary"
                         @click="search"
+                        round
                     >
                         查询
                     </el-button>
                     <el-button
-                        type="primary"
+                        type="text"
                         @click="refresh"
                     >
-                        清空
+                        清空筛选条件
                     </el-button>
                 </el-form-item>
             </el-form>

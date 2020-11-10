@@ -126,7 +126,7 @@
                     style="position:relative;top:1px;margin-right:10px;"
                     :editable="false"
                 />
-                <el-button type="primary" style="width:80px;" @click="search">
+                <el-button type="primary" style="width:80px;" @click="search" round>
                     查询
                 </el-button>
                 <el-button style="float:right;width:98px;" @click="dialogTableVisible=false;$router.push({ name: 'ReductionCouponList' })">
