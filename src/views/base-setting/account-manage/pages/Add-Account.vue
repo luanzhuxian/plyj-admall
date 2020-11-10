@@ -149,6 +149,7 @@ export default class AddAccount extends Vue {
         position: ''
     }
 
+    originalRoles = ''
     menuTree = []
     menuCode = ''
     rules = {
@@ -215,6 +216,7 @@ export default class AddAccount extends Vue {
 
     async getData () {
         const { result } = await getSingleAccount(this.detailForm)
+        this.originalRoles = JSON.parse(JSON.stringify(result.roleCode))
         this.ruleForm = {
             accountRole: result.roleCode,
             lockStatus: result.lockStatus,
@@ -259,6 +261,7 @@ export default class AddAccount extends Vue {
 
     async submit () {
         if (this.query.userId) {
+            if (this.originalRoles !== this.ruleForm.accountRole) await this.$confirm({ title: '确定保存账号信息骂？', message: '您已更改了该账号的角色，保存后影响该员工的操作权限' })
             delete this.ruleForm.mobile
             if (this.query.canEdit && this.ruleForm.accountRole === 'EMPLOYEE') {
                 this.ruleForm.menuCode = []
