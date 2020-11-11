@@ -101,6 +101,7 @@ export default {
             try {
                 const { result } = await getRedeemCodeById(this.id)
                 this.detail = result
+                this.$emit('setDetail', result)
                 this.useTime = `${ moment(result.startTime).format('YYYY-MM-DD') } - ${ moment(result.endTime).format('YYYY-MM-DD') }`
             } catch (e) {
                 throw e

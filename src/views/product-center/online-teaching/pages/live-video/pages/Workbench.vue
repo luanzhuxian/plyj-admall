@@ -119,6 +119,9 @@
             <div :class="$style.label">
                 <div :class="$style.name">开通房间数</div>
                 <div :class="$style.content">可开通房间数：{{ maxRooms - useRooms }}/{{ maxRooms }}</div>
+                <el-button :disabled="useRooms >= maxRooms" @click="showAddRoom = true" type="text" style="margin-left: 16px;">
+                    新增房间
+                </el-button>
             </div>
             <div :class="$style.rooms">
                 <div :class="$style.scrollBar">
@@ -190,6 +193,11 @@
             :live-id="currentLive.id"
         />
 
+        <AddRoom
+            :show.sync="showAddRoom"
+            :room-count="useRooms"
+            @success="roomCreated"
+        />
     </div>
 </template>
 
@@ -204,6 +212,7 @@ import SchemeLabel from './../../../../../marketing-manage/components/Scheme-Lab
 import LivePack, { LiveData } from './../components/Live-Pack.vue'
 import Progress from './../../../../../../components/base-setting/account-manage/Progress.vue'
 import LiveRoom from './../components/Live-Room.vue'
+import AddRoom from './../components/Add-Room.vue'
 
 import {
     updateRoomToken,
@@ -226,7 +235,8 @@ const userModule = namespace('user')
         SchemeLabel,
         LivePack,
         Progress,
-        LiveRoom
+        LiveRoom,
+        AddRoom
     }
 })
 export default class Workbench extends Vue {
@@ -234,6 +244,7 @@ export default class Workbench extends Vue {
 
     useRooms = 0
     maxRooms = 1
+    showAddRoom = false
     rooms: any[] = []
     flowUsed = 0 // 已消耗流量
     showDownload = false
@@ -278,6 +289,12 @@ export default class Workbench extends Vue {
     private async getFlowHasUsed () {
         const { result }: any = await getFlowHasUsed()
         this.flowUsed = result
+    }
+
+    // 新增房间成功
+    async roomCreated () {
+        this.showAddRoom = false
+        await this.getRooms()
     }
 
     private async getRooms () {

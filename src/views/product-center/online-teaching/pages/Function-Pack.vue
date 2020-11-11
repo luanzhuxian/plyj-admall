@@ -60,8 +60,8 @@
                     />
                 </div>
                 <div :class="$style.infoItem">
-                    <div :class="$style.title">视频库存储空间</div>
-                    <div :class="[$style.detail, $style.unit]">{{ statisticsInfo.storageSize_G }}</div>
+                    <div :class="$style.title">剩余视频库存储空间</div>
+                    <div :class="[$style.detail, $style.unit]">{{ statisticsInfo.remainderStorageSize_G }}</div>
                     <Progress
                         show-text
                         :text="`${statisticsInfo.storageSize_G}G`"

@@ -30,12 +30,11 @@
             @tabClick="data => $router.replace({ name: data.name })"
         />
 
-        <router-view />
+        <router-view @setDetail="getDetail" />
     </div>
 </template>
 
 <script>
-import { getRedeemCodeById } from '../../../../apis/marketing-manage/redeem-code'
 export default {
     name: 'RedeemCodeDetail',
     props: {
@@ -54,12 +53,9 @@ export default {
             }
         }
     },
-    async created () {
-        try {
-            const { result } = await getRedeemCodeById(this.id)
-            this.activityDetail = result
-        } catch (e) {
-            throw e
+    methods: {
+        getDetail (detail) {
+            this.activityDetail = detail
         }
     }
 }

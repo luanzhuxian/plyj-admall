@@ -289,10 +289,11 @@
                     <el-button
                         type="primary"
                         @click="submitData"
+                        round
                     >
                         确定
                     </el-button>
-                    <el-button @click="dialogVisible = false">
+                    <el-button @click="dialogVisible = false" round>
                         取消
                     </el-button>
                 </el-form-item>
