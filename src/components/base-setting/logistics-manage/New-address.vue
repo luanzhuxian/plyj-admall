@@ -74,7 +74,7 @@
                 </el-form-item>
             </el-form>
             <div
-                style="text-align: right"
+                style="text-align: center"
                 class="mb-20"
             >
                 <el-button
