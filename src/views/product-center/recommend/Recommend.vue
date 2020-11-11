@@ -66,8 +66,8 @@
                 </span>
                 <el-table-column
                     type="selection"
-                    width="40"
-                    align="left"
+                    width="55"
+                    align="right"
                     :selectable="()=>{ return !isEdit }"
                 />
                 <el-table-column

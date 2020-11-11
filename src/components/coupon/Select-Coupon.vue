@@ -105,6 +105,7 @@
                 type="selection"
                 :reserve-selection="true"
                 width="55"
+                align="right"
             />
             <el-table-column
                 prop="couponName"

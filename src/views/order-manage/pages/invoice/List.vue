@@ -103,9 +103,8 @@
                 <el-table-column
                     v-if="selectionShow"
                     type="selection"
-                    header-align="left"
-                    align="left"
-                    width="45"
+                    align="right"
+                    width="55"
                 />
                 <el-table-column
                     prop="id"

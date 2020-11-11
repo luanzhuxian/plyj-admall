@@ -130,9 +130,9 @@
             </span>
             <el-table-column
                 type="selection"
-                width="50"
+                width="55"
                 header-align="left"
-                align="left"
+                align="right"
             />
             <el-table-column
                 label="兑换码号"

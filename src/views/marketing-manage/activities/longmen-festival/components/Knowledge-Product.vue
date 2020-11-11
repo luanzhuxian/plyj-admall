@@ -31,7 +31,7 @@
         </el-form>
 
         <el-table :row-key="row => row.id" ref="table" :data="courseList" @selection-change="selectGoods">
-            <el-table-column reserve-selection type="selection" width="55" />
+            <el-table-column reserve-selection type="selection" width="55" align="right" />
             <el-table-column>
                 <template #default="{ row }">
                     <img

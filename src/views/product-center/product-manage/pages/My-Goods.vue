@@ -110,8 +110,8 @@
             <el-table-column
                 type="selection"
                 v-if="$route.name !== 'AllProduct'"
-                align="left"
-                width="45"
+                align="right"
+                width="55"
             />
             <el-table-column
                 width="100"

@@ -78,7 +78,8 @@
                 </span>
                 <el-table-column
                     type="selection"
-                    width="60"
+                    width="55"
+                    align="right"
                 />
                 <el-table-column
                     label="标题"

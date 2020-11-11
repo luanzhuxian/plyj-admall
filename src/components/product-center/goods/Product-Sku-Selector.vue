@@ -81,7 +81,7 @@
                         :ref="`child-table-${row.id}`"
                         :show-header="false"
                     >
-                        <el-table-column type="selection" width="55" />
+                        <el-table-column type="selection" width="55" align="right" />
                         <el-table-column width="200" />
                         <el-table-column width="150">
                             <template>

@@ -53,8 +53,7 @@
             <el-table-column
                 type="selection"
                 width="55"
-                align="left"
-                header-align="left"
+                align="right"
                 v-if="form.status === 'AWAIT'"
             />
             <el-table-column

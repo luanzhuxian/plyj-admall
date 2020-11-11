@@ -67,6 +67,7 @@
                                 <el-table-column
                                     type="selection"
                                     width="55"
+                                    align="right"
                                 />
                                 <el-table-column
                                     prop="productMainImage"

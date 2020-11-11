@@ -121,7 +121,7 @@
                 批量设置分类
             </el-button>
             <pl-table :data="productList" @selection-change="selectionChange" @sortUpdate="sortUpdate">
-                <el-table-column type="selection" width="55" />
+                <el-table-column type="selection" width="55" align="right" />
                 <el-table-column width="80px">
                     <template slot-scope="{ row }">
                         <img v-imgError v-viewer class="product-image" :src="row.productMainImage || row.graphicMainImg"

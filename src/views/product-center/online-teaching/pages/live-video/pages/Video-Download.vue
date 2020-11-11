@@ -34,7 +34,7 @@
                 :data="tableData"
                 @selection-change="handleSelectionChange"
             >
-                <el-table-column :selectable="selectable" type="selection" width="55" />
+                <el-table-column :selectable="selectable" type="selection" width="55" align="right" />
                 <el-table-column prop="fileName" label="直播名称" />
                 <el-table-column prop="fileName" label="类型">
                     <template #default="{row:{fileType}}">

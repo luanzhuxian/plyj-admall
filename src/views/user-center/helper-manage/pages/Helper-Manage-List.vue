@@ -91,7 +91,7 @@
             <el-table-column
                 type="selection"
                 align="right"
-                width="50"
+                width="55"
             />
             <el-table-column label="用户信息" width="300px">
                 <template #default="{ row }">
