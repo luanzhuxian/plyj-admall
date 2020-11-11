@@ -445,20 +445,28 @@ export default {
             callback()
         }
         const checkPrice = (rule, value, callback) => {
-            if (!this.form.priceType) {
+            const { priceType, originalPrice, sellingPrice } = this.form
+
+            if (!priceType) {
                 callback()
                 return
             }
-            if (this.form.originalPrice && !isMoney(this.form.originalPrice)) {
+            if (originalPrice && !isMoney(originalPrice)) {
                 callback(new Error('价格格式错误'))
                 return
             }
-            if (this.form.sellingPrice && !isMoney(this.form.sellingPrice)) {
+            if (sellingPrice && !isMoney(sellingPrice)) {
                 callback(new Error('价格格式错误'))
                 return
             }
-            if (this.form.sellingPrice && this.form.originalPrice !== '') {
-                if (Number(this.form.sellingPrice) > Number(this.form.originalPrice)) {
+            if (sellingPrice < 0 || sellingPrice === '0' || sellingPrice === 0) {
+                return callback(new Error('售价必须大于0'))
+            }
+            if (originalPrice < 0 || originalPrice === '0' || originalPrice === 0) {
+                return callback(new Error('原价必须大于0'))
+            }
+            if (sellingPrice && originalPrice !== '') {
+                if (Number(sellingPrice) > Number(originalPrice)) {
                     callback(new Error('原价必须大于售价'))
                     return
                 }
