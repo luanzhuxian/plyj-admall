@@ -153,7 +153,7 @@
                     width="200"
                 >
                     <template #default="{row}">
-                        {{ row.createTime | dateFormat("YYYY-MM-DD hh:mm:ss") }}
+                        {{ row.createTime | dateFormat("YYYY-MM-DD HH:mm:ss") }}
                     </template>
                 </el-table-column>
                 <el-table-column

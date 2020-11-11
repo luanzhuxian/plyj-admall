@@ -1,10 +1,6 @@
-const { VUE_APP_MODEL } = process.env
-const bindWechatInfo = VUE_APP_MODEL === 'development' || VUE_APP_MODEL === 'local' ? {
+const bindWechatInfo = {
     appId: 'wx7f8e7e4ea457931d',
-    redirectUrl: 'http://joint.xijun.youpenglai.com'
-} : {
-    appId: 'wxb1536f57905c8753',
-    redirectUrl: 'https://admall.youpenglai.com/h5'
+    redirectUrl: `${ location.protocol }//${ location.hostname }`
 }
 export default {
     bindWechatInfo,
