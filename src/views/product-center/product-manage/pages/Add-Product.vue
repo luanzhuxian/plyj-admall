@@ -1981,6 +1981,10 @@ export default {
                 color: #999999;
             }
         }
+        .el-button--primary{
+            display: block;
+            margin: 30px auto 0;
+        }
     }
 
     .sku-dialog {
@@ -2007,6 +2011,10 @@ export default {
                 color: #D2524C;
                 font-size: 12px;
             }
+        }
+        .el-button--primary{
+            display: block;
+            margin: 60px auto 0;
         }
     }
 
