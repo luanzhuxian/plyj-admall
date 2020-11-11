@@ -107,8 +107,8 @@
             <el-table-column
                 type="selection"
                 v-if="$route.name !== 'AllCourses'"
-                align="left"
-                width="45"
+                align="right"
+                width="55"
             />
             <el-table-column
                 width="100"
@@ -434,10 +434,10 @@
                                 查询
                             </el-button>
                             <el-button
-                                type="primary"
+                                type="text"
                                 @click="refreshProduct"
                             >
-                                清空搜索条件
+                                清空筛选条件
                             </el-button>
                         </el-form-item>
                     </el-form>

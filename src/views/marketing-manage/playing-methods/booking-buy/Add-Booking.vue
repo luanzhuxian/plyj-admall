@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div v-else>
-                            <el-button type="primary" round plain style="width: 116px;" @click="openAddListDialog">
+                            <el-button type="primary" plain style="width: 116px;" @click="openAddListDialog">
                                 选择商品
                             </el-button>
                             <span class="inp-tips">（预购活动商品不与其余任何活动共享，不可使用优惠券）</span>

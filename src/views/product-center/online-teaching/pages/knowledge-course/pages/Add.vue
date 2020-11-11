@@ -73,7 +73,7 @@
                     </template>
                 </el-form-item>
                 <el-form-item label="选择视频" prop="liveId" id="liveId">
-                    <el-button size="small" @click="showSelectVideoDigLog">
+                    <el-button type="primary" plain @click="showSelectVideoDigLog">
                         视频选择
                     </el-button>
                     <span class="tip">（每个视频课程只能选择一个视频资源。视频更新后，已购买的用户学习的是更新后的视频。）</span>
@@ -123,13 +123,13 @@
                     <el-checkbox v-model="form.supportWatch" :true-label="1" :false-label="0" :disabled="!form.supportWatchUrl">
                         可试看
                     </el-checkbox>
-                    <el-button v-if="form.supportWatchUrl" class="ml-10" type="text" size="small" @click="showVideo = true">
+                    <el-button v-if="form.supportWatchUrl" class="ml-10" type="text" @click="showVideo = true">
                         预览
                     </el-button>
                     <!--TODO.后台暂不支持-->
                     <template v-if="false">
                         <!--试看片段支持删除-->
-                        <el-button v-if="form.supportWatchUrl" class="ml-10" type="text" size="small" @click="deleteSupportWatchUrl">
+                        <el-button v-if="form.supportWatchUrl" class="ml-10" type="text" @click="deleteSupportWatchUrl">
                             删除试看片段
                         </el-button>
                         <span class="tip">（用户可在购买前试看该课程的部分内容，促进用户的购买）</span>
@@ -295,16 +295,16 @@
                 </el-form-item>
             </el-form>
             <div class="btn-box">
-                <el-button plain style="width: 90px;margin-left: 20px" @click="cancel">
+                <el-button plain style="width: 90px;margin-left: 20px" @click="cancel" round>
                     取消
                 </el-button>
-                <el-button type="primary" plain @click="save(2)">
+                <el-button type="primary" plain @click="save(2)" round>
                     保存
                 </el-button>
-                <el-button type="primary" plain @click="save(1)">
+                <el-button type="primary" plain @click="save(1)" round>
                     保存并上架
                 </el-button>
-                <el-button plain style="width: 90px;margin-left: 20px" @click="preview">
+                <el-button plain style="width: 90px;margin-left: 20px" @click="preview" round>
                     预览
                 </el-button>
             </div>

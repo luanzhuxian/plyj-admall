@@ -143,6 +143,7 @@
                 <el-button
                     round
                     plain
+                    type="primary"
                     @click="dialogVerificationVisible = true"
                 >
                     去核销

@@ -113,7 +113,7 @@
                             <el-table :data="form.couponModels" @selection-change="handleSelectionCoupon">
                                 <el-table-column
                                     type="selection"
-                                    width="50"
+                                    width="55"
                                     align="right"
                                 />
                                 <el-table-column label="优惠券类型">
@@ -182,7 +182,7 @@
                             <el-table :data="form.scholarships" @selection-change="handleSelectionScholarships">
                                 <el-table-column
                                     type="selection"
-                                    width="50"
+                                    width="55"
                                     align="right"
                                 />
                                 <el-table-column label="奖学金名称">
@@ -241,7 +241,7 @@
                             <el-table :data="form.gifts" @selection-change="handleSelectionGifts">
                                 <el-table-column
                                     type="selection"
-                                    width="50"
+                                    width="55"
                                     align="right"
                                 />
                                 <el-table-column label="礼品图片">

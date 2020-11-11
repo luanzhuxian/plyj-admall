@@ -38,7 +38,7 @@
                         </el-radio>
                         <span class="purchase-sort-description"> (购买减免部分商品和课程金额)</span>
                         <br>
-                        <el-button size="mini" type="primary" plain @click="addVisible = true">
+                        <el-button type="primary" plain @click="addVisible = true">
                             选择商品
                         </el-button>
                         <div v-if="form.applicableGoodsId.length">
@@ -67,6 +67,7 @@
                                 <el-table-column
                                     type="selection"
                                     width="55"
+                                    align="right"
                                 />
                                 <el-table-column
                                     prop="productMainImage"

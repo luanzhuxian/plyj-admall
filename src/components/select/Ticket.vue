@@ -134,7 +134,7 @@
                 </el-button>
             </div>
             <el-table :data="gridData" ref="gridData" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55" />
+                <el-table-column type="selection" width="55" align="right" />
                 <el-table-column property="couponName" label="满减券名称" />
                 <el-table-column label="满减券金额" width="120">
                     <template slot-scope="{row}">

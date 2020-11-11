@@ -443,7 +443,7 @@
                                 type="text"
                                 @click="clearGoodsSearch"
                             >
-                                清空搜索条件
+                                清空筛选条件
                             </el-button>
                         </el-form-item>
                     </el-form>
@@ -511,7 +511,7 @@
                     <div style="margin-top: 32px;text-align: center;">
                         <el-button
                             type="primary"
-                            style="width: 70px;"
+                            round
                             @click="confirmGoods"
                         >
                             确定
@@ -542,7 +542,7 @@
                                 type="text"
                                 @click="clearClassifySearch"
                             >
-                                清空搜索条件
+                                清空筛选条件
                             </el-button>
                         </el-form-item>
                     </el-form>
@@ -592,7 +592,7 @@
                     <div style="margin-top: 32px;text-align: center;">
                         <el-button
                             type="primary"
-                            style="width: 70px;"
+                            round
                             @click="confirmClassify"
                         >
                             确定

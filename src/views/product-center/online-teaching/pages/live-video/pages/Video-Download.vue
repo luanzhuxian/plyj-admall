@@ -34,7 +34,7 @@
                 :data="tableData"
                 @selection-change="handleSelectionChange"
             >
-                <el-table-column :selectable="selectable" type="selection" width="55" />
+                <el-table-column :selectable="selectable" type="selection" width="55" align="right" />
                 <el-table-column prop="fileName" label="直播名称" />
                 <el-table-column prop="fileName" label="类型">
                     <template #default="{row:{fileType}}">
@@ -119,10 +119,10 @@
                             </el-form-item>
                         </el-form>
                         <div style="text-align: center;">
-                            <el-button @click="showMerge = false">
+                            <el-button @click="showMerge = false" round>
                                 取 消
                             </el-button>
-                            <el-button @click="mergeFile" type="primary">
+                            <el-button @click="mergeFile" type="primary" round>
                                 确 定
                             </el-button>
                         </div>

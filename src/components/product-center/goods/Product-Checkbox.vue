@@ -94,6 +94,7 @@
                 <!--        </el-button>-->
                 <el-button
                     type="primary"
+                    round
                     @click="clearGoodsSearch"
                 >
                     刷新
@@ -163,7 +164,7 @@
         <div style="margin-top: 32px;text-align: center;">
             <el-button
                 type="primary"
-                style="width: 70px;"
+                round
                 @click="confirmGoods"
                 :disabled="!selectedGoods"
             >

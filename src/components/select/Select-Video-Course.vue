@@ -24,6 +24,7 @@
             <el-table-column
                 type="selection"
                 width="55"
+                align="right"
             />
 
             <el-table-column
@@ -104,10 +105,10 @@
         />
 
         <div class="mt-20" style="text-align: center;">
-            <el-button @click="closeHandler">
+            <el-button @click="closeHandler" round>
                 取 消
             </el-button>
-            <el-button type="primary" @click="confirm">
+            <el-button type="primary" @click="confirm" round>
                 确 定
             </el-button>
         </div>

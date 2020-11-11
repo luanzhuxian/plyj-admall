@@ -10,8 +10,8 @@
             <el-table-column
                 v-if="isCheckbox"
                 type="selection"
-                width="50"
-                align="center"
+                width="55"
+                align="right"
                 :reserve-selection="true"
                 :selectable="isCheckboxSelectable"
             />

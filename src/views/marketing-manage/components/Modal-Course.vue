@@ -96,7 +96,7 @@
                 />
             </div>
             <div class="btn-group">
-                <el-button type="primary" style="width: 70px;" @click="confirm">
+                <el-button type="primary" round @click="confirm">
                     确定
                 </el-button>
             </div>
@@ -296,6 +296,7 @@ export default {
 
     .pagination-group {
         position: relative;
+        margin-top: 20px;
         padding: 12px 32px;
         span {
             font-size: 12px;

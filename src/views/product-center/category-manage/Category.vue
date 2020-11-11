@@ -117,11 +117,11 @@
 
         <div class="product-list" ref="product-list">
             <span style="margin-right: 10px;">已选择<i v-text="productsSelected.length" />个商品</span>
-            <el-button @click="showEditProductCategory = true" :disabled="productsSelected.length === 0">
+            <el-button @click="showEditProductCategory = true" :disabled="productsSelected.length === 0" round>
                 批量设置分类
             </el-button>
             <pl-table :data="productList" @selection-change="selectionChange" @sortUpdate="sortUpdate">
-                <el-table-column type="selection" width="55" />
+                <el-table-column type="selection" width="55" align="right" />
                 <el-table-column width="80px">
                     <template slot-scope="{ row }">
                         <img v-imgError v-viewer class="product-image" :src="row.productMainImage || row.graphicMainImg"
@@ -206,11 +206,12 @@
                 </el-form-item>
             </el-form>
             <div style="text-align: center;">
-                <el-button @click="showRemoveCategory = false">
+                <el-button @click="showRemoveCategory = false" round>
                     取 消
                 </el-button>
                 <el-button
                     type="primary"
+                    round
                     @click="deleteAndRemove"
                 >
                     保 存
@@ -237,11 +238,12 @@
                 </el-form-item>
             </el-form>
             <div style="text-align: center; margin-top: 42px;">
-                <el-button @click="showEditProductCategory = false">
+                <el-button @click="showEditProductCategory = false" round>
                     取 消
                 </el-button>
                 <el-button
                     type="primary"
+                    round
                     @click="editProductCategory"
                 >
                     确 定

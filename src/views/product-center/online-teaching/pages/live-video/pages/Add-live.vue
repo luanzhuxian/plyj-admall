@@ -326,10 +326,10 @@
                 </el-form-item>
                 <hr class="hr">
                 <div class="mt-24">
-                    <el-button @click="cancel">
+                    <el-button @click="cancel" round>
                         取消
                     </el-button>
-                    <el-button type="primary" @click="confirm">
+                    <el-button type="primary" @click="confirm" round>
                         {{ id ? '保存' : '确定' }}
                     </el-button>
                 </div>
