@@ -447,10 +447,10 @@
                                 查询
                             </el-button>
                             <el-button
-                                type="primary"
+                                type="text"
                                 @click="refreshProduct"
                             >
-                                清空搜索条件
+                                清空筛选条件
                             </el-button>
                         </el-form-item>
                     </el-form>

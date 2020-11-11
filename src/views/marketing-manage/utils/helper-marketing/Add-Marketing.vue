@@ -443,7 +443,7 @@
                                 type="text"
                                 @click="clearGoodsSearch"
                             >
-                                清空搜索条件
+                                清空筛选条件
                             </el-button>
                         </el-form-item>
                     </el-form>
@@ -542,7 +542,7 @@
                                 type="text"
                                 @click="clearClassifySearch"
                             >
-                                清空搜索条件
+                                清空筛选条件
                             </el-button>
                         </el-form-item>
                     </el-form>
