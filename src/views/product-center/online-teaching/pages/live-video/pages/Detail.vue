@@ -63,7 +63,7 @@
                     <el-form-item label="观看对象：">
                         <div>
                             <span class="value-view">{{ userTag[detail.userRange - 1] || '' }}</span>
-                            <el-button v-if="detail.userRange === 2" @click="showUserTags" type="primary" class="ml-10">
+                            <el-button v-if="detail.userRange === 2" @click="showUserTags" type="primary" class="ml-10" round>
                                 查看
                             </el-button>
                         </div>
@@ -75,7 +75,7 @@
                         <div style="overflow: hidden">
                             <video style="width: 360px; height: 180px; object-fit: cover;" :src="videoSrc" />
                             <br>
-                            <el-button @click="showVideo = true">
+                            <el-button @click="showVideo = true" round>
                                 预览
                             </el-button>
                         </div>
@@ -85,7 +85,7 @@
                     </el-form-item>
                     <el-form-item v-if="detail.isPay === 0 && detail.roomToken" label="直播间口令：">
                         <el-input disabled style="width:100px" v-model="detail.roomToken" />
-                        <el-button class="ml-10" v-clipboard:copy="detail.roomToken" v-clipboard:success="copyWord">
+                        <el-button class="ml-10" v-clipboard:copy="detail.roomToken" v-clipboard:success="copyWord" round>
                             复制
                         </el-button>
                     </el-form-item>
@@ -169,7 +169,7 @@
                     </el-form-item>
                 </el-form>
                 <hr class="hr">
-                <el-button :disabled="disbledEdit" class="mt-20 mb-20" @click="edit">
+                <el-button :disabled="disbledEdit" class="mt-20 mb-20" @click="edit" round>
                     编 辑
                 </el-button>
             </div>
@@ -208,7 +208,7 @@
                 </div>
             </div>
             <div class="bottom">
-                <el-button type="primary" @click="showUsers = false">
+                <el-button type="primary" @click="showUsers = false" round>
                     确认
                 </el-button>
             </div>

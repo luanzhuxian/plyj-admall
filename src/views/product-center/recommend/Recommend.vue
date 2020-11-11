@@ -288,6 +288,7 @@
                 <el-button
                     type="primary"
                     style="width: 70px;"
+                    round
                     @click="closeDialog"
                 >
                     关闭

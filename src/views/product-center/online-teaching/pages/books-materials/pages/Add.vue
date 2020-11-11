@@ -255,6 +255,7 @@
                     @click="$router.back()"
                     style="width: 90px"
                     plain
+                    round
                 >
                     取消
                 </el-button>
@@ -263,6 +264,7 @@
                     type="primary"
                     style="width: 90px"
                     plain
+                    round
                 >
                     保存
                 </el-button>
@@ -270,6 +272,7 @@
                     @click="save(1)"
                     type="primary"
                     plain
+                    round
                 >
                     保存并上架
                 </el-button>
@@ -277,6 +280,7 @@
                     @click="preview()"
                     style="width: 90px"
                     plain
+                    round
                 >
                     预览
                 </el-button>

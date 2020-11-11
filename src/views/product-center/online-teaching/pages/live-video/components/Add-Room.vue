@@ -16,10 +16,10 @@
                 <el-input v-model="form.name" type="text" placeholder="请输入房间名称" />
             </el-form-item>
             <el-form-item style="text-align: center; margin-bottom: 0;">
-                <el-button @click="cancel">
+                <el-button @click="cancel" round>
                     取消
                 </el-button>
-                <el-button type="primary" @click="confirm">
+                <el-button type="primary" @click="confirm" round>
                     确定
                 </el-button>
             </el-form-item>

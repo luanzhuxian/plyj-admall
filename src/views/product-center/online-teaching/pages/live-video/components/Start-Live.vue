@@ -72,7 +72,7 @@
             </div>
         </div>
         <p style="text-align: center;margin-top: 54px;">
-            <el-button type="primary" size="middle" @click="close">
+            <el-button type="primary" size="middle" @click="close" round>
                 我知道了
             </el-button>
         </p>

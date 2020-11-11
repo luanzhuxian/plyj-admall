@@ -338,20 +338,21 @@
             </el-form>
             <hr class="hr mt-20">
             <div class="wrap">
-                <el-button plain style="margin-left: 20px" @click="cancle">
+                <el-button plain style="margin-left: 20px" @click="cancle" round>
                     取消
                 </el-button>
-                <el-button type="primary" plain @click="save(false)">
+                <el-button type="primary" plain @click="save(false)" round>
                     保存
                 </el-button>
                 <el-button
                     type="primary"
                     plain
+                    round
                     @click="save(true)"
                 >
                     保存并上架
                 </el-button>
-                <el-button @click="preview">
+                <el-button @click="preview" round>
                     预览
                 </el-button>
             </div>

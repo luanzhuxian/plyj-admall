@@ -26,7 +26,7 @@
                         <li :class="$style.infoItem">
                             <label>推流地址</label>
                             <span>{{ row.url }}</span>
-                            <el-button v-clipboard:copy="row.url" v-clipboard:success="copyUrl" type="text" size="mini">
+                            <el-button v-clipboard:copy="row.url" v-clipboard:success="copyUrl" type="text">
                                 复制地址
                             </el-button>
                         </li>

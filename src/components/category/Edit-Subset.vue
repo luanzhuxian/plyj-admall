@@ -95,12 +95,13 @@
             </el-form-item>
             <el-form-item label-width="0">
                 <div style="text-align: center;">
-                    <el-button @click="close">
+                    <el-button @click="close" round>
                         取 消
                     </el-button>
                     <el-button
                         type="primary"
                         @click="save"
+                        round
                     >
                         保 存
                     </el-button>
