@@ -619,6 +619,7 @@ export default {
         },
         // 新增房间成功
         async roomCreated () {
+            this.showAddRoom = false
             await this.getRoomsInfo()
         },
         // 选择房间
