@@ -67,7 +67,7 @@
                     查询
                 </el-button>
                 <el-button
-                    type="primary"
+                    type="text"
                     @click="clearGoodsSearch"
                 >
                     清空搜索条件
@@ -131,6 +131,7 @@
             <el-button
                 type="primary"
                 style="width: 70px;"
+                round
                 @click="confirmGoods"
                 :disabled="!selectedGoods"
             >

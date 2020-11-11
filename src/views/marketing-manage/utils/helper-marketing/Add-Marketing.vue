@@ -511,7 +511,7 @@
                     <div style="margin-top: 32px;text-align: center;">
                         <el-button
                             type="primary"
-                            style="width: 70px;"
+                            round
                             @click="confirmGoods"
                         >
                             确定
@@ -592,7 +592,7 @@
                     <div style="margin-top: 32px;text-align: center;">
                         <el-button
                             type="primary"
-                            style="width: 70px;"
+                            round
                             @click="confirmClassify"
                         >
                             确定

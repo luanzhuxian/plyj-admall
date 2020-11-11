@@ -56,7 +56,9 @@
                         查询
                     </el-button>
                     <el-button
-                        type="text"
+                        type="primary"
+                        plain
+                        round
                         @click="handelShowExport"
                     >
                         导出数据

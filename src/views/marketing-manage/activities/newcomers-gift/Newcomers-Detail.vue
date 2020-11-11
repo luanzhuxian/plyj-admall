@@ -130,7 +130,7 @@
             <img width="360" src="https://mallcdn.youpenglai.com/static/admall/2.11.0/newcomer.png">
         </div>
         <div class="btn-box">
-            <el-button size="mini" plain style="width: 90px;margin-left: 20px" @click="$router.go(-1)">
+            <el-button plain style="width: 90px;margin-left: 20px" round @click="$router.go(-1)">
                 返回
             </el-button>
         </div>
