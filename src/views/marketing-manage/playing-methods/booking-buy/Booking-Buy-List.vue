@@ -62,6 +62,7 @@
                     :clearable="true"
                     @change="dateChange"
                     range-separator="至"
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>
@@ -71,6 +72,9 @@
                     @click="search"
                 >
                     查询
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -330,6 +334,20 @@ export default {
         },
         iconGengduoLeave (row) {
             row.iconGengduoShow = false
+        },
+        resetFilter () {
+            this.filterForm = {
+                current: 1,
+                size: 10,
+                condition: '',
+                status: '',
+                startTime: '',
+                endTime: '',
+                // 新春开学季类型
+                type: '2019_02'
+            }
+            this.$refs.dateRange.clear()
+            this.getList()
         },
         async dateChange (val) {
             try {

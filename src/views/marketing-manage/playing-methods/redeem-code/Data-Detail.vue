@@ -90,10 +90,10 @@
             </el-form-item>
             <el-form-item label="激活时间：">
                 <date-range
-                    size="small"
                     :clearable="true"
                     @change="dateChange"
                     range-separator="至"
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>
@@ -112,6 +112,9 @@
                     :disabled="total === 0"
                 >
                     导出数据
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -563,6 +566,7 @@ export default {
             try {
                 this.filterForm.startDate = val.start
                 this.filterForm.endDate = val.end
+                await this.getStatistics()
                 await this.getList()
             } catch (e) {
                 throw e
@@ -571,6 +575,24 @@ export default {
         async sizeChange (val) {
             try {
                 this.filterForm.size = val
+                await this.getStatistics()
+                await this.getList()
+            } catch (e) {
+                throw e
+            }
+        },
+        async resetFilter () {
+            try {
+                this.filterForm = {
+                    current: 1,
+                    size: 10,
+                    keyword: '',
+                    status: '',
+                    startDate: '',
+                    endDate: ''
+                }
+                this.$refs.dateRange.clear()
+                await this.getStatistics()
                 await this.getList()
             } catch (e) {
                 throw e

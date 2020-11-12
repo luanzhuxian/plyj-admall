@@ -62,10 +62,10 @@
             </el-form-item>
             <el-form-item label="活动时间：">
                 <date-range
-                    size="small"
                     :clearable="true"
                     @change="dateChange"
                     range-separator="至"
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>
@@ -75,6 +75,9 @@
                     @click="search"
                 >
                     查询
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -275,6 +278,22 @@ export default {
         async search () {
             this.filterForm.current = 1
             try {
+                await this.getList()
+            } catch (e) {
+                throw e
+            }
+        },
+        async resetFilter () {
+            try {
+                this.filterForm = {
+                    current: 1,
+                    size: 10,
+                    condition: '',
+                    status: '',
+                    startTime: '',
+                    endTime: ''
+                }
+                this.$refs.dateRange.clear()
                 await this.getList()
             } catch (e) {
                 throw e

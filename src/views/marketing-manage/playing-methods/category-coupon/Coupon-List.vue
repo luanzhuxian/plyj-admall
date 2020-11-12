@@ -69,6 +69,9 @@
                 >
                     查询
                 </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
+                </el-button>
             </el-form-item>
         </search-box>
         <div>
@@ -334,6 +337,19 @@ export default {
         sizeChange (val) {
             this.form.current = 1
             this.form.size = val
+            this.getList()
+        },
+        resetFilter () {
+            this.form = {
+                couponType: 2,
+                name: '',
+                status: '',
+                startTime: '',
+                endTime: '',
+                current: 1,
+                size: 10
+            }
+            this.$refs.dateRange.clear()
             this.getList()
         },
         async getList () {

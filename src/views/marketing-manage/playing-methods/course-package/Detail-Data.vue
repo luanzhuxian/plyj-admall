@@ -100,6 +100,9 @@
                 >
                     导出数据
                 </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
+                </el-button>
             </el-form-item>
         </search-box>
 
@@ -408,6 +411,25 @@ export default {
             try {
                 const data = await getSpringPloughingStatistics(this.id)
                 this.statistics = data.result
+            } catch (e) {
+                throw e
+            }
+        },
+        async resetFilter () {
+            this.queryPage = {
+                current: 1,
+                size: 10
+            }
+            this.form = {
+                condition: '',
+                orderStatus: '',
+                activityId: this.id || ''
+            }
+            try {
+                await Promise.all([
+                    this.getStatistics(),
+                    this.getList()
+                ])
             } catch (e) {
                 throw e
             }
