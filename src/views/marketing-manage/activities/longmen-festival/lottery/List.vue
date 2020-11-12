@@ -18,11 +18,15 @@
                 <date-range
                     @change="dateChange"
                     clearable
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>
                 <el-button round type="primary" @click="getLottery(1)">
                     查询
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -195,6 +199,17 @@ export default {
             } catch (e) {
                 throw e
             }
+        },
+        async resetFilter () {
+            this.form = {
+                activityName: '',
+                startDate: '',
+                endDate: '',
+                current: 1,
+                size: 10
+            }
+            this.$refs.dateRange.clear()
+            await this.getLottery()
         },
         dateChange ({ start, end }) {
             this.form.startDate = start || ''

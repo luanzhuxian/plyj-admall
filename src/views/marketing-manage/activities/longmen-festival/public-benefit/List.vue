@@ -14,11 +14,15 @@
                 <date-range
                     clearable
                     @change="dateChange"
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>
                 <el-button round type="primary" @click="search">
                     查询
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -146,6 +150,22 @@ export default {
                 this.form.current = 1
                 await this.getList()
             } catch (e) { throw e }
+        },
+        async resetFilter () {
+            try {
+                this.form = {
+                    size: 10,
+                    current: 1,
+                    keyword: '',
+                    status: 'ALL',
+                    startTime: '',
+                    endTime: ''
+                }
+                this.$refs.dateRange.clear()
+                await this.getList()
+            } catch (e) {
+                throw e
+            }
         },
         async getList () {
             try {
