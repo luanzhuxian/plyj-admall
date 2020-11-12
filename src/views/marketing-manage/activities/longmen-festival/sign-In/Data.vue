@@ -57,6 +57,7 @@
                     @change="dateChange"
                     type="datetime"
                     range-separator="至"
+                    ref="dateRange"
                 />
             </el-form-item>
             <div />
@@ -70,6 +71,7 @@
                 </el-button>
                 <el-button
                     round
+                    type="primary"
                     plain
                     @click="dialogVerificationVisible = true"
                 >
@@ -83,6 +85,9 @@
                     :disabled="total === 0"
                 >
                     导出数据
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -284,22 +289,41 @@ export default {
         async search () {
             try {
                 this.filterForm.current = 1
-                this.getList()
+                await this.getList()
+                await this.getData()
             } catch (e) { throw e }
+        },
+        async resetFilter () {
+            try {
+                this.filterForm = {
+                    sstartTime: '',
+                    endTime: '',
+                    condition: '',
+                    current: 1,
+                    size: 10
+                }
+                this.$refs.dateRange.clear()
+                await this.getList()
+                await this.getData()
+            } catch (e) {
+                throw e
+            }
         },
         async dateChange ({ start, end }) {
             try {
                 this.filterForm.current = 1
                 this.filterForm.startTime = start || ''
                 this.filterForm.endTime = end || ''
-                this.getList()
+                await this.getList()
+                await this.getData()
             } catch (e) { throw e }
         },
         async sizeChange (val) {
             try {
                 this.filterForm.current = 1
                 this.filterForm.size = val
-                this.getList()
+                await this.getList()
+                await this.getData()
             } catch (e) { throw e }
         },
         async getData () {

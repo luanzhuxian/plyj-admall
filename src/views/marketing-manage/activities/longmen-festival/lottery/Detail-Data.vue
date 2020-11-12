@@ -96,6 +96,9 @@
                 >
                     导出数据
                 </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
+                </el-button>
             </el-form-item>
         </search-box>
 
@@ -271,6 +274,21 @@ export default {
         async search () {
             try {
                 this.form.current = 1
+                await this.getList()
+            } catch (e) {
+                throw e
+            }
+        },
+        async resetFilter () {
+            try {
+                this.form = {
+                    keyword: '',
+                    current: 1,
+                    startDate: '',
+                    endDate: '',
+                    size: 10
+                }
+                this.$refs.dateRange.clear()
                 await this.getList()
             } catch (e) {
                 throw e

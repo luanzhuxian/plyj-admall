@@ -80,6 +80,9 @@
                 >
                     导出数据
                 </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
+                </el-button>
             </el-form-item>
         </search-box>
         <div>
@@ -332,6 +335,20 @@ export default {
         },
         search () {
             this.form.current = 1
+            this.getList()
+            this.getStatistics()
+        },
+        resetFilter () {
+            this.form = {
+                couponId: this.$route.params.id,
+                name: '',
+                status: '',
+                startTime: '',
+                endTime: '',
+                current: 1,
+                size: 10
+            }
+            this.$refs.dateRange.clear()
             this.getList()
             this.getStatistics()
         },

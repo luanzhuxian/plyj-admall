@@ -3,27 +3,27 @@
         <div id="pl-quill-toolbar" class="pl-quill-toolbar" ref="toolbar">
             <!-- Inline -->
             <button class="toolbar-btn ql-bold" title="粗体">
-                <pl-svg name="icon-bold-2a59b" width="16" />
+                <span class="yaji-icon icon-bold" />
             </button>
             <!-- italic -->
             <button class="toolbar-btn ql-italic" title="斜体">
-                <pl-svg name="icon-italic-0a12d" width="16" />
+                <span class="yaji-icon icon-italic" />
             </button>
             <!-- under-line -->
             <button class="toolbar-btn ql-underline" title="下划线">
-                <pl-svg name="icon-underline-dc374" width="16" />
+                <span class="yaji-icon icon-underline" />
             </button>
             <!-- delete -->
             <button class="toolbar-btn ql-strike" title="删除线">
-                <pl-svg name="icon-delete-d428a" width="16" />
+                <span class="yaji-icon icon-delete" />
             </button>
             <!-- H1 -->
             <button class="toolbar-btn ql-header" value="h1" title="标题1">
-                <pl-svg name="icon-h1-3f84b" width="16" />
+                <span class="yaji-icon icon-h1" />
             </button>
             <!-- H2 -->
             <button class="toolbar-btn ql-header" value="h2" title="标题2">
-                <pl-svg name="icon-h2-b30da" width="18" />
+                <span class="yaji-icon icon-h2" />
             </button>
             <!-- color -->
             <button class="toolbar-btn ql-color" title="颜色">
@@ -57,51 +57,46 @@
             </label>
             <!-- 右缩进 -->
             <label class="toolbar-btn" @click="retract(1)" title="右缩进">
-                <pl-svg name="icon-right-bb568" width="16" />
+                <span class="yaji-icon icon-right" />
             </label>
             <!-- 左缩进 -->
             <label class="toolbar-btn" @click="retract(-1)" title="左缩进">
-                <pl-svg name="icon-left-173fa" width="16" />
+                <span class="yaji-icon icon-left" />
             </label>
             <!-- ul -->
             <button class="toolbar-btn ql-list" value="bullet" title="无序列表">
-                <pl-svg name="icon-ul-b518c" width="16" />
+                <span class="yaji-icon icon-ul" />
             </button>
             <!-- ol -->
             <button class="toolbar-btn ql-list" value="ordered" title="有序列表">
-                <pl-svg name="icon-ol-b66f8" width="16" />
+                <span class="yaji-icon icon-ol" />
             </button>
             <!-- align -->
             <label class="toolbar-btn">
                 <el-dropdown @command="handleAlign" trigger="click">
-                    <span>
-                        <pl-svg
-                            :key="1"
-                            :name="alignValue === 'center' ? 'icon-center-ba45c' : alignValue === 'right' ? 'icon-to-right-581f7' : 'icon-to-left-85746'"
-                            fill="#333"
-                            class="dropdown"
-                            width="16"
-                        />
-                    </span>
+                    <span
+                        class="yaji-icon dropdown"
+                        :class="alignValue === 'center' ? 'icon-center' : alignValue === 'right' ? 'icon-to-right' : 'icon-to-left'"
+                    />
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item command="" title="左对齐">
-                            <pl-svg fill="#333" width="16" :key="4" class="el-dropdown-link" name="icon-to-left-85746" />
+                            <span class="el-dropdown-link yaji-icon icon-to-left" />
                         </el-dropdown-item>
                         <el-dropdown-item command="right" title="右对齐">
-                            <pl-svg fill="#333" width="16" :key="5" class="el-dropdown-link" name="icon-to-right-581f7" />
+                            <span class="el-dropdown-link yaji-icon icon-to-right" />
                         </el-dropdown-item>
                         <el-dropdown-item command="center" title="居中">
-                            <pl-svg fill="#333" width="16" :key="6" class="el-dropdown-link" name="icon-center-ba45c" />
+                            <span class="el-dropdown-link yaji-icon icon-center" />
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </label>
             <!-- image -->
             <button class="toolbar-btn ql-image" title="选择图片">
-                <pl-svg name="icon-pic-c2a1c" width="18" />
+                <span class="yaji-icon icon-pic" />
             </button>
             <button class="toolbar-btn ql-video" title="选择视频" v-if="showVideo">
-                <pl-svg name="icon-video-3e68f" width="18" />
+                <span class="yaji-icon icon-video" />
             </button>
         </div>
         <div ref="container" id="pl-quill-editor" />

@@ -79,7 +79,7 @@
             </el-form-item>
             <div />
             <el-form-item>
-                <el-button round type="primary" @click="getList">
+                <el-button round type="primary" @click="search">
                     查询
                 </el-button>
                 <el-button round plain type="primary" @click="dialogVerificationVisible = true">
@@ -87,6 +87,9 @@
                 </el-button>
                 <el-button round plain type="primary" v-if="total" @click="changeExport">
                     导出数据
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -294,8 +297,30 @@ export default {
         async search () {
             try {
                 this.queryPage.current = 1
-                await this.getList()
+                await Promise.all([
+                    this.getStatistics(),
+                    this.getList()
+                ])
             } catch (e) { throw e }
+        },
+        async resetFilter () {
+            try {
+                this.queryPage = {
+                    current: 1,
+                    size: 10
+                }
+                this.form = {
+                    keywords: '',
+                    businessId: this.id,
+                    orderStatus: ''
+                }
+                await Promise.all([
+                    this.getStatistics(),
+                    this.getList()
+                ])
+            } catch (e) {
+                throw e
+            }
         },
         async getList () {
             try {

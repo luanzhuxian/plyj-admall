@@ -48,6 +48,7 @@ class ResponseError extends Error {
     }
 }
 class AbortError extends Error {
+    config = {}
     constructor (message: string) {
         super(message)
         this.message = message
@@ -78,7 +79,9 @@ const reqHandler = (config: ReqConfig) => {
      */
     config.hash = window.md5(JSON.stringify({ ...(config.params || {}), ...(config.data || {}), url: config.url }))
     if (REQ_HASH.includes(config.hash || '')) {
-        return Promise.reject(new AbortError(`the request has aborted: ${ config.url }`))
+        const Abort = new AbortError(`the request has aborted: ${ config.url }`)
+        Abort.config = config
+        return Promise.reject(Abort)
     }
     REQ_HASH.push(config.hash)
 
@@ -156,13 +159,12 @@ const resHandler = async (response: AxiosResponse): Promise<any> => {
 
 const resError = async (error: any) => {
     const { method, url, data: reqData, params } = error.config
-    const { data: { devMessage, code } } = error.response
-
     REQ_HASH.splice(REQ_HASH.indexOf((error.config as ReqConfig).hash || ''), 1)
     close()
     if (error.name === 'AbortError') {
         return Promise.reject(error)
     }
+    const { data: { devMessage, code } } = error.response
     let msg = error.message
     if (msg.indexOf('timeout') > -1) {
         msg = '请求超时◔̯◔'

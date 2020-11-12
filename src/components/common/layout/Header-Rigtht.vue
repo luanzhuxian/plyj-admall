@@ -22,7 +22,7 @@
         >
             <pl-svg
                 :class="$style.icon"
-                name="icon-tongzhi-bfcfa"
+                name="icon-tongzhi"
                 width="15"
                 height="18"
             />

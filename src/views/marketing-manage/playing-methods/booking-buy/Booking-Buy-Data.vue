@@ -153,10 +153,9 @@
                 <el-button
                     round
                     type="primary"
-                    @click="showExport = true"
-                    :disabled="total === 0"
+                    @click="search"
                 >
-                    导出数据
+                    查询
                 </el-button>
                 <el-button
                     round
@@ -165,6 +164,18 @@
                     @click="dialogVerificationVisible = true"
                 >
                     去核销
+                </el-button>
+                <el-button
+                    round
+                    plain
+                    type="primary"
+                    @click="showExport = true"
+                    :disabled="total === 0"
+                >
+                    导出数据
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -380,6 +391,19 @@ export default {
         this.getList()
     },
     methods: {
+        resetFilter () {
+            this.queryPage = {
+                current: 1,
+                size: 10
+            }
+            this.form = {
+                keywords: '',
+                orderStatus: '',
+                businessId: this.id,
+                operatorUserName: ''
+            }
+            this.getList()
+        },
         async search () {
             try {
                 this.queryPage.current = 1

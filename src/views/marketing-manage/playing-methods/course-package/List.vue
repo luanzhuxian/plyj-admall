@@ -33,11 +33,15 @@
                 <date-range
                     @change="dateChange"
                     clearable
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>
                 <el-button round type="primary" @click="getList(1)">
                     查询
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -199,6 +203,19 @@ export default {
             this.filter.startTime = start
             this.filter.endTime = end
             this.getList(1)
+        },
+        resetFilter () {
+            this.filter = {
+                current: 1,
+                size: 10,
+                condition: '',
+                startTime: '',
+                endTime: '',
+                status: '',
+                batchType: 1 // 组合课
+            }
+            this.$refs.dateRange.clear()
+            this.getList()
         },
         async end (id) {
             try {

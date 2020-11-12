@@ -35,6 +35,7 @@
                     start-label="活动时间："
                     range-separator="至"
                     end-label=""
+                    ref="dateRange"
                 />
             </el-form-item>
             <el-form-item>
@@ -44,6 +45,9 @@
                     @click="search"
                 >
                     查询
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -260,6 +264,22 @@ export default {
         search () {
             this.form.current = 1
             this.getList()
+        },
+        async resetFilter () {
+            try {
+                this.form = {
+                    status: '',
+                    startTime: '',
+                    endTime: '',
+                    current: 1,
+                    size: 10,
+                    activityType: 3
+                }
+                this.$refs.dateRange.clear()
+                await this.getList()
+            } catch (e) {
+                throw e
+            }
         },
         share ({ activityId }) {
             this.shareText = `${ this.$store.getters['user/mallUrl'] }/longmen-festival/sign-in/${ activityId }`

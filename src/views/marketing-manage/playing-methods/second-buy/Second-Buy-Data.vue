@@ -127,10 +127,9 @@
                 <el-button
                     round
                     type="primary"
-                    @click="showExport = true"
-                    :disabled="total === 0"
+                    @click="search"
                 >
-                    导出数据
+                    查询
                 </el-button>
                 <el-button
                     round
@@ -139,6 +138,18 @@
                     @click="dialogVerificationVisible = true"
                 >
                     去核销
+                </el-button>
+                <el-button
+                    round
+                    plain
+                    type="primary"
+                    @click="showExport = true"
+                    :disabled="total === 0"
+                >
+                    导出数据
+                </el-button>
+                <el-button type="text" @click="resetFilter">
+                    清空筛选条件
                 </el-button>
             </el-form-item>
         </search-box>
@@ -327,6 +338,26 @@ export default {
         async search () {
             this.queryPage.current = 1
             try {
+                await this.getData()
+                await this.getList()
+            } catch (e) {
+                throw e
+            }
+        },
+        async resetFilter () {
+            try {
+                this.queryPage = {
+                    current: 1,
+                    size: 10
+                }
+                this.form = {
+                    keywords: '',
+                    orderStatus: '',
+                    businessId: this.id,
+                    operatorUser: '',
+                    operatorUserName: ''
+                }
+                await this.getData()
                 await this.getList()
             } catch (e) {
                 throw e
@@ -336,6 +367,7 @@ export default {
             this.queryPage.current = 1
             this.queryPage.size = val
             try {
+                await this.getData()
                 await this.getList()
             } catch (e) {
                 throw e
