@@ -74,7 +74,7 @@
                         @click="navigator({ name: 'GoodsOrderList', query: { status: 'WAIT_RECEIVE', productType: 'VIRTUAL_GOODS' } })"
                     >
                         <PlSvg name="icon-arrow-right-large" width="25" />
-                        <div>查看详情111</div>
+                        <div>查看详情</div>
                     </a>
                 </div>
                 <div class="write-off-panel__item">
