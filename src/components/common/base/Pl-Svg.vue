@@ -181,6 +181,10 @@ export default {
 
 <style module lang="scss">
   .pl-svg {
-    vertical-align: -2px;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      width: 1em;
+      height: 1em;
+      overflow: hidden;
   }
 </style>

@@ -19,24 +19,14 @@
             >
                 <el-menu-item index="1" :route="{ name: 'Home' }">
                     <h2 :class="$style.title">
-                        <pl-svg
-                            name="icon-shouye-5b56a"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-shouye" :class="$style.icon" />
                         <span>首页</span>
                     </h2>
                 </el-menu-item>
 
                 <el-submenu index="2" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
-                        <pl-svg
-                            name="icon-kecheng-e9b91"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-kecheng" :class="$style.icon" />
                         <span>产品中心</span>
                     </h2>
                     <el-menu-item index="2-1" :route="{ name: 'LineTeaching' }">云课堂</el-menu-item>
@@ -49,12 +39,7 @@
 
                 <el-submenu index="3" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
-                        <pl-svg
-                            name="icon-vip-b06e1"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-vip" style="font-size: 14px;" :class="$style.icon" />
                         <span>用户中心</span>
                     </h2>
                     <el-menu-item index="3-1" :route="{ name: 'MemberManage' }">用户管理</el-menu-item>
@@ -63,12 +48,7 @@
 
                 <el-submenu index="4" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
-                        <pl-svg
-                            name="icon-dingdan-b0bdb"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-dingdan" :class="$style.icon" />
                         <span>订单中心</span>
                     </h2>
                     <el-menu-item index="4-1" :route="{ name: 'GoodsOrder' }">商品订单</el-menu-item>
@@ -80,12 +60,7 @@
 
                 <el-submenu index="5" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
-                        <pl-svg
-                            name="icon-zijin-2fdab"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-zijin" :class="$style.icon" />
                         <span>财务中心</span>
                     </h2>
                     <el-menu-item index="5-1" :route="{ name: 'RunbiManage' }">润笔管理</el-menu-item>
@@ -94,12 +69,7 @@
 
                 <el-submenu index="6" :disabled="!appId">
                     <h2 :class="$style.title" slot="title">
-                        <pl-svg
-                            name="icon-dianpu-a4653"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-dianpu" :class="$style.icon" />
                         <span>店铺管理</span>
                     </h2>
                     <el-menu-item index="6-1" :route="{ name: 'MallMain' }">我的店铺</el-menu-item>
@@ -110,25 +80,14 @@
 
                 <el-menu-item index="9" :disabled="!appId" :route="{ name: 'ReservationManage' }">
                     <h2 :class="$style.title">
-                        <pl-svg
-                            name="icon-time-8a40e"
-                            width="15"
-                            height="15"
-                            fill="#fff"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-time" :class="$style.icon" />
                         <span>预约管理</span>
                     </h2>
                 </el-menu-item>
 
                 <el-submenu index="7" :disabled="!mallNumber">
                     <h2 :class="$style.title" slot="title">
-                        <pl-svg
-                            name="icon-shezhi-28924"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-shezhi" :class="$style.icon" />
                         <span>基础设置</span>
                     </h2>
                     <el-menu-item :disabled="!appId" index="7-1" :route="{ name: 'AccountManage' }">账号管理</el-menu-item>
@@ -154,9 +113,9 @@
                 <el-menu-item index="8" :route="{ name: 'MarketingManage' }" :class="$style.marketing" :disabled="!appId">
                     <h2 :class="$style.title">
                         <pl-svg
-                            name="icon-yxzx-44de2"
-                            width="15"
-                            height="15"
+                            name="icon-yxzx"
+                            width="16"
+                            height="16"
                             :class="$style.icon"
                         />
                         <span>营销中心</span>
@@ -165,12 +124,7 @@
 
                 <div :class="$style.showGuid" @click="showGuid = true">
                     <h2 :class="$style.title" slot="title">
-                        <pl-svg
-                            name="icon-tishi-e4fa1"
-                            width="15"
-                            height="15"
-                            :class="$style.icon"
-                        />
+                        <i class="yaji-icon icon-tishi" :class="$style.icon" />
                         <span class="el-menu-item__title">操作引导</span>
                     </h2>
                 </div>
@@ -273,6 +227,10 @@ export default class MainNavbar extends Vue {
     .icon {
         vertical-align: -3px;
         margin-right: 8px;
+        &:before {
+            font-size: 15px;
+            color: #b2b9be;
+        }
     }
     .title {
         font-size: 14px;

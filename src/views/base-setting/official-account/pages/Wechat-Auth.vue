@@ -8,8 +8,8 @@
                         <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/wechat.png" width="50" height="41">
                     </div>
                     <div style="margin: 0 30px; display: flex; flex-direction: column">
-                        <pl-svg name="icon-arrow-right-large-59f85" width="50" height="10" />
-                        <pl-svg name="icon-arrow-left-2dbce" width="50" height="10" />
+                        <pl-svg name="icon-arrow-right-large" width="50" height="10" />
+                        <pl-svg name="icon-arrow-left" width="50" height="10" />
                     </div>
                     <div>
                         <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/yaji_icon_img.png" width="43" height="43">

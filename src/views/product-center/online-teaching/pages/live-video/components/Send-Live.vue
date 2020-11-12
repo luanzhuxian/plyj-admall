@@ -90,7 +90,8 @@
                 </template>
                 <template v-if="tabGrade === 2">
                     <div class="title">
-                        <pl-svg name="icon-arrow-left-73f0e" width="20" class="pointer" @click="back" />
+
+                        <pl-svg name="icon-arrow-left" width="20" class="pointer" @click="back" />
                         {{ currentGroup.tagName }}
                     </div>
                     <div class="content">

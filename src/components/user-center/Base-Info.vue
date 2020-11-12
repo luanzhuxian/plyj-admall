@@ -5,8 +5,8 @@
             <div :class="$style.userTitle">
                 <div :class="$style.name" v-text="nickName" />
                 <div :class="$style.level" v-text="roleType[roleCode]" />
-                <pl-svg :class="$style.gender" v-if="gender === 2" title="女" name="icon-women-be552" width="10" height="10" />
-                <pl-svg :class="$style.gender" v-else-if="gender === 1" title="男" name="icon-man-8b747" width="10" height="10" />
+                <pl-svg :class="$style.gender" v-if="gender === 2" title="女" name="icon-women" width="10" height="10" />
+                <pl-svg :class="$style.gender" v-else-if="gender === 1" title="男" name="icon-man" width="10" height="10" />
                 <span :class="$style.userType" v-if="type" :title="type === 3 ? other : USER_TYPE[type]">
                     <template v-if="type !== 3">
                         {{ USER_TYPE[type] && USER_TYPE[type].substr(0, 1) }}

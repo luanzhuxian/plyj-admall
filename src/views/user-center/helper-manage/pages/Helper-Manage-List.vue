@@ -113,8 +113,8 @@
                                 </div>
                                 {{ row.userName }}
                                 <div class="ml-10">
-                                    <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
-                                    <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                                    <pl-svg v-if="row.gender === 2" name="icon-women" width="10" height="10" />
+                                    <pl-svg v-if="row.gender === 1" name="icon-man" width="10" height="10" />
                                 </div>
                             </div>
                             <div class="tag">

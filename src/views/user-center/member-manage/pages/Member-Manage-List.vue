@@ -188,7 +188,7 @@
                                 content="编辑"
                                 placement="top-start"
                             >
-                                <pl-svg :key="2" name="icon-edit-511af" @click.stop="editTag(data)" width="12" fill="#598BF8" class="icon" />
+                                <i class="yaji-icon icon-edit icon" @click.stop="editTag(data)" />
                             </el-tooltip>
                             <el-tooltip
                                 class="tag-ctrl-item second-item pointer"
@@ -196,7 +196,7 @@
                                 content="删除"
                                 placement="top-start"
                             >
-                                <pl-svg :key="3" name="icon-delete-9811c" @click.stop="deleteTag(data.id)" width="12" fill="#598BF8" class="icon" />
+                                <i class="yaji-icon icon-remove icon" @click.stop="deleteTag(data.id)" />
                             </el-tooltip>
                         </div>
                     </template>
@@ -245,8 +245,8 @@
                                         </span>
                                         <span class="name">{{ row.nickName }}</span>
                                         <template>
-                                            <pl-svg v-if="row.gender === 2" name="icon-women-be552" width="10" height="10" />
-                                            <pl-svg v-if="row.gender === 1" name="icon-man-8b747" width="10" height="10" />
+                                            <pl-svg v-if="row.gender === 2" name="icon-women" width="10" height="10" />
+                                            <pl-svg v-if="row.gender === 1" name="icon-man" width="10" height="10" />
                                         </template>
                                     </div>
                                     <div class="tag">
@@ -1142,6 +1142,9 @@ export default class MemberManageList extends Vue {
                 align-items: center;
                 height: 34px;
                 > .icon {
+                    &:before {
+                        font-size: 12px;
+                    }
                     margin-left: 10px;
                 }
                 > .tag-ctrl-item {
