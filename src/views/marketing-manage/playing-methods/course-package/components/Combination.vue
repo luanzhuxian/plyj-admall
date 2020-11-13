@@ -70,7 +70,7 @@
                             <el-table-column
                                 prop="price"
                                 label="价格（元）"
-                                width="80"
+                                width="100"
                             />
                             <el-table-column
                                 label="规格"
@@ -121,6 +121,7 @@
                                 label="操作"
                                 align="right"
                                 header-align="right"
+                                fixed="right"
                             >
                                 <template slot-scope="{ row }">
                                     <el-button

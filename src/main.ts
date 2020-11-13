@@ -24,7 +24,10 @@ import { MutationTypes } from '@/store/mutation-type'
 Vue.use(VueClipboard)
 Vue.use(VueViewer, {
     defaultOptions: {
-        zIndex: 9999
+        zIndex: 9999,
+        toolbar: false,
+        movable: false,
+        navbar: false
     }
 })
 
