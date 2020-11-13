@@ -127,13 +127,7 @@
                             <el-table-column width="180" />
                             <el-table-column width="180" prop="orderId" />
                             <el-table-column width="480" />
-                            <el-table-column width="120">
-                                <template #default="{ row_ }">
-                                    <div>
-                                        {{ row_.amount/100 }}
-                                    </div>
-                                </template>
-                            </el-table-column>
+                            <el-table-column width="120" prop="amount" />
                         </el-table>
                     </template>
                 </el-table-column>

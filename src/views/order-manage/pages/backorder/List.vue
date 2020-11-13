@@ -161,7 +161,7 @@
             />
             <el-table-column
                 label="售后状态"
-                width="100"
+                width="120"
             >
                 <template #default="{ row }">
                     {{ row.status === 2 ? `${auditStatusText[row.status]} - ${businessStatusText[row.businessStatus] }`: auditStatusText[row.status] }}

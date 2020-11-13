@@ -393,7 +393,7 @@ export default {
         },
         // 添加子分类按钮点击事件
         addChild (data) {
-            // 记录子所在主分类
+            // 记录子分类所在主分类
             this.currentMainCategory = data
             // 显示弹框
             this.showSubsetBox = true

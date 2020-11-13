@@ -381,7 +381,7 @@
                     </div>
                 </div>
             </div>
-            <footer>
+            <footer class="add-btn-wrap">
                 <el-button :loading="loading" round plain @click="saveAndOnline">
                     保存
                 </el-button>
@@ -1620,19 +1620,5 @@ export default {
         text-align: center;
       }
     }
-  }
-  footer {
-      position: fixed;
-      left: 150px;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 64px;
-      min-width: 800px;
-      background-color: #fff;
-      border-top: 1px solid #e7e7e7;
-      z-index: 99;
   }
 </style>

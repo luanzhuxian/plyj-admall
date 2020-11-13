@@ -169,8 +169,7 @@ export default class App extends Vue {
         overflow-y: hidden;
 
         > .main {
-
-            min-width: 1300px;
+            min-width: 1350px;
             height: calc(100vh - 60px);
             padding: 10px;
             background-color: #f4f5f8;

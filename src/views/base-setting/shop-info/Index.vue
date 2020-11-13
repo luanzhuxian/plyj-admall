@@ -304,7 +304,7 @@
     </div>
 </template>
 <script>
-import { setWechat } from '../../../apis/setting'
+import { setWechat, setService } from '../../../apis/setting'
 import CityPicker from '../../../components/common/base/City-Picker.vue'
 import UploadImage from '../../../components/common/file/Image-Manager.vue'
 import { isPhone, isTelNumber } from '../../../assets/ts/validate'
@@ -426,12 +426,12 @@ export default {
         },
 
         /**
-             * 保存
-             * @param field 要保持的字段
-             * @param type 字段显示状态对应的字段
-             * @param contactIndex 保存联系方式的时候存在，标记联系方式的下标
-             * @returns {Promise<void>}
-             */
+         * 保存
+         * @param field 要保持的字段
+         * @param type 字段显示状态对应的字段
+         * @param contactIndex 保存联系方式的时候存在，标记联系方式的下标
+         * @returns {Promise<void>}
+         */
         async save (field, type) {
             if (this.rules[field] && !this.rules[field].validator.test(this.form[field])) {
                 return this.$error(this.rules[field].message)
@@ -485,7 +485,7 @@ export default {
             // 先保存起来，不删
             // let key = url.substring(url.indexOf('img/'))
             // await deleteImage([key])
-            this.save('logoUrl', 'addLogoUrl')
+            await this.save('logoUrl', 'addLogoUrl')
             this.logoList.splice(0, 1)
         },
         // 获取数组字典-证件期限
@@ -530,12 +530,12 @@ export default {
                 isDefault: 0
             })
         },
-        setDefaultContact (item, i) {
+        async setDefaultContact (item, i) {
             for (const contact of this.form.servicePhoneModels) {
                 contact.isDefault = 0
             }
             item.isDefault = 1
-            this.setContact(item, i)
+            await this.setContact(item, i)
         },
         async setContact (item, index) {
             if (!item.contactWayType) {
@@ -553,7 +553,7 @@ export default {
             try {
                 if (item.id) {
                     // 修改
-                    await setWechat(item)
+                    await setService(item)
                 } else {
                     // 添加
                     const servicePhoneModels = JSON.parse(JSON.stringify(this.mallSaveModel.servicePhoneModels))
