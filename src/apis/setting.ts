@@ -31,3 +31,5 @@ export const brandingUpdate = data => axios.post('/apis/v1/brand/branding/saveOr
 
 // 设置公众号,设置客服
 export const setWechat = data => axios.put('/apis/v2/mall/wechat', data)
+// 设置客服
+export const setService = data => axios.put('/apis/v2/mall/wechat/customer', data)
