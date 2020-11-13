@@ -80,7 +80,7 @@
                                     tag="span"
                                     style="font-size: 14px; cursor: pointer;"
                                     class="gray-3"
-                                    :to="{ name: 'MemberList' }"
+                                    :to="{ name: 'MemberManageList' }"
                                 >
                                     (请先在会员管理中设置用户分组)
                                 </router-link>
