@@ -135,7 +135,7 @@
             />
             <el-table-column
                 label="购买订单总额/元"
-                width="120"
+                width="130"
             >
                 <template #default="{row}">
                     {{ row.payAmount/100 }}
