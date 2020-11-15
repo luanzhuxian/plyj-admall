@@ -67,8 +67,7 @@ export default class PasswordLogin extends Vue {
         ],
         password: [
             { required: true, message: '密码不能为空', trigger: 'blur' },
-            { min: 6, message: '密码不能小于6位', trigger: 'blur' },
-            { max: 12, message: '密码不能大于12位', trigger: 'blur' }
+            { min: 6, message: '密码不能小于6位', trigger: 'blur' }
         ]
     }
 
