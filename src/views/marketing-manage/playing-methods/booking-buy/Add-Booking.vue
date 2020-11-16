@@ -543,7 +543,7 @@ export default {
                 for (const sku of Form.product) {
                     skuModelList.push({
                         skuCode1: sku.skuCode1,
-                        ckuCode2: sku.skuCode2,
+                        skuCode2: sku.skuCode2,
                         depositPrice: sku.depositPrice,
                         multipleNumber: sku.multipleNumber,
                         stock: sku.stock
