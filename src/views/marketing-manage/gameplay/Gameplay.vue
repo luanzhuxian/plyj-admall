@@ -154,6 +154,16 @@
                     }
                 }"
             />
+            <SchemePack
+                name="福利红包"
+                desc="低价购买福利红包  支付抵扣享优惠"
+                :expired="activitys.LongmenLottery.status ? `${getDate(activitys.LongmenLottery.data.createTime)}-2020.08.31` : ''"
+                :count="activitiesInfo.luckDrawActivityCount"
+                :tags="['限','新']"
+                :is-lock="!activitys.LongmenLottery.status"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png"
+                route-info="RedPackage"
+            />
         </div>
         <!--        双十二 新春 隐藏               -->
         <!--        <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />-->

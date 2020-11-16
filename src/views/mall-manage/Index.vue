@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts">
-// @ts-noCheck
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
@@ -73,7 +72,7 @@ export default class MallManage extends Vue {
             return { result: null }
         })))
 
-        const double12 = lockStatusInfo.find(item => item.activityValue === '4')
+        const double12 = lockStatusInfo.find((item: lockStatusInfo) => item.activityValue === '4')
 
         this.setLiveInfo(live)
         this.setNwEvent(nianwei.length ? nianwei[0] : {})

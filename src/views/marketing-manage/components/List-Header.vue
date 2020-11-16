@@ -4,7 +4,12 @@
             <img width="48" class="mr-10"
                  :src="icon">
             <div>
-                <div class="font-weight-bold">{{ title }}</div>
+                <b>
+                    <span class="title">{{ title }}</span>
+                    <template v-if="tags && tags.length">
+                        <span class="tags" v-for="item in tags" :key="item">{{ item }}</span>
+                    </template>
+                </b>
                 <div class="description">{{ description }}</div>
             </div>
         </div>
@@ -76,15 +81,20 @@ export default class ListHeader extends Vue {
         default: false
     }) readonly permanent: boolean | undefined
 
-        @Prop({
-            type: Number,
-            default: undefined
-        }) readonly newcomersStatus: number |undefined
+    @Prop({
+        type: Number,
+        default: undefined
+    }) readonly newcomersStatus: number |undefined
 
-        @Prop({
-            type: Number,
-            default: undefined
-        }) readonly coursePackageStatus: number |undefined
+    @Prop({
+        type: Number,
+        default: undefined
+    }) readonly coursePackageStatus: number |undefined
+
+    @Prop({
+        type: Array,
+        default: () => []
+    }) readonly tags!: string[]
 }
 </script>
 
@@ -95,16 +105,28 @@ export default class ListHeader extends Vue {
         padding: 20px;
         margin-bottom: 20px;
         border-radius: 10px;
-        .header{
+        .header {
             display: flex;
             align-items: center;
+            .tags {
+                display: inline-block;
+                width: 16px;
+                line-height: 14px;
+                box-sizing: border-box;
+                margin-left: 6px;
+                border: 1px solid #F79F1A;
+                border-radius: 2px;
+                text-align: center;
+                font-size: 12px;
+                color: #F79F1A;
+            }
         }
         .description {
             font-size: 12px;
             color: #A8A8A8;
             margin-top: 4px;
         }
-        .activity-status{
+        .activity-status {
             width: 104px;
             height: 31px;
             background: #EC742E;
@@ -114,13 +136,14 @@ export default class ListHeader extends Vue {
             line-height: 31px;
             margin-right: 20px;
         }
-        .active-time{
+        .active-time {
             font-size: 12px;
             color: #999;
             margin-left: 100px;
-            margin-top: 10px;
+            margin-top: 6px;
             display: flex;
-            align-items: center;
+            // align-items: center;
+            line-height: 19px;
         }
     }
 </style>
