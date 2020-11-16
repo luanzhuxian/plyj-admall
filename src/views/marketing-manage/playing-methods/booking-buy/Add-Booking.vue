@@ -539,10 +539,11 @@ export default {
                 await this.$refs[formName].validate()
                 const Form = this.marketingForm
                 const skuModelList = []
-                for (const sku in Form.product) {
+                const productId = Form.product[0].productId
+                for (const sku of Form.product) {
                     skuModelList.push({
                         skuCode1: sku.skuCode1,
-                        ckuCode2: sku.ckuCode2,
+                        ckuCode2: sku.skuCode2,
                         depositPrice: sku.depositPrice,
                         multipleNumber: sku.multipleNumber,
                         stock: sku.stock
@@ -555,7 +556,7 @@ export default {
                     activityEndTime: Form.activityEndTime,
                     price: Form.price,
                     stock: Form.stock,
-                    productId: Form.product[0].id,
+                    productId,
                     skuModelList,
                     brief: Form.brief,
                     multiple: Form.multiple ? 1 : 0,
