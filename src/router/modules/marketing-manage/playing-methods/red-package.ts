@@ -14,7 +14,7 @@ export default [
                 path: 'red-package-list',
                 name: 'RedPackageList',
                 redirect: 'red-package-list/list',
-                component: () => import('../../../../views/marketing-manage/playing-methods/red-package/List/Index.vue'),
+                component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Index.vue'),
                 meta: {
                     title: '列表',
                     index: '8-20-1',
@@ -24,7 +24,7 @@ export default [
                     {
                         path: 'list',
                         name: 'RedPackageActivityList',
-                        component: () => import('../../../../views/marketing-manage/playing-methods/red-package/List/Activity-List.vue'),
+                        component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Activity-List.vue'),
                         meta: {
                             title: '',
                             index: '8-20-1-1',
@@ -34,7 +34,7 @@ export default [
                     {
                         path: 'rank',
                         name: 'RedPackageRankList',
-                        component: () => import('../../../../views/marketing-manage/playing-methods/red-package/List/Rank-List.vue'),
+                        component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Rank-List.vue'),
                         meta: {
                             title: '',
                             index: '8-20-1-2',

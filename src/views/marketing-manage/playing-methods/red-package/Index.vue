@@ -13,7 +13,7 @@
             :value="currentTab"
             @tabClick="handleTabClick"
         />
-        <router-view />
+        <router-view class="red-package-list__container" />
     </div>
 </template>
 
@@ -53,6 +53,8 @@ export default class RedPackageList extends Vue {
 
 <style lang="scss">
 .red-package-list {
-
+    &__container {
+        padding-top: 30px;
+    }
 }
 </style>
