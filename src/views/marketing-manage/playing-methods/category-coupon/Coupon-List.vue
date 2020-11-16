@@ -408,8 +408,6 @@ export default {
 
 .coupon-list {
     min-height: calc(100vh - 120px);
-    padding-bottom: 30px;
-    background-color: #ffffff;
     .empty {
         display: flex;
         justify-content: center;

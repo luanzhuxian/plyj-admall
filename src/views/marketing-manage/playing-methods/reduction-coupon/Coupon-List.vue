@@ -386,96 +386,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .inline-b{
+  .inline-b {
     display: inline-block;
     padding-right: 10px;
   }
-  .flex-align {
-    display: flex;
-    align-items: center;
-  }
-  .switch{
+
+  .switch {
     margin-left: 10px;
   }
-  .coupon-list{
+
+  .coupon-list {
     min-height: calc(100vh - 120px);
-    padding-bottom: 30px;
-    background-color: #ffffff;
-    .title-box{
-      display: flex;
-      align-items: center;
-      padding: 10px 23px;
-      .title{
-        color: #333333;
-        font-weight: bold;
-        font-size: 16px;
-        padding-left: 11px;
-      }
-      .title-detail{
-        color: #999999;
-        font-size: 16px;
-      }
-      .title-alert{
-        margin: 0 20px;
-      }
-    }
-    .right-btn {
-      position: absolute;
-      right: 40px;
-    }
-
-    .ml-40 {
-      margin-left: 40px;
-    }
-
-    .empty{
+    .empty {
       display: flex;
       justify-content: center;
       align-items: center;
-      img{
+      img {
         width: 12px;
         margin-right: 8px;
-      }
-    }
-
-    .invoice-detail {
-      line-height: 24px;
-
-      .box {
-        display: flex;
-        flex-direction: column;
-        padding: 10px 0;
-        color: #666;
-        font-size: 12px;
-        border-bottom: 1px solid #e7e7e7;
-
-        &:nth-last-of-type(1) {
-          border: none;
-        }
-
-        .status {
-          font-size: 14px;
-        }
-
-        .time {
-          display: inline-flex;
-          flex-direction: column;
-        }
-
-        p {
-          display: inline-flex;
-          justify-content: space-between;
-
-          span:nth-of-type(1) {
-            width: 120px;
-            text-align: right;
-          }
-
-          span:nth-of-type(2) {
-            width: 100%;
-            text-align: right;
-          }
-        }
       }
     }
 
@@ -500,104 +428,8 @@ export default {
         }
       }
     }
-
-    .detail-Box {
-      display: flex;
-      flex-direction: column;
-      font-size: 16px;
-      color: rgba(51, 51, 51, 1);
-      line-height: 21px;
-
-      > .detail-content {
-        display: flex;
-        flex-direction: column;
-        padding: 16px 0;
-        border-bottom: 1px solid #E7E7E7;
-
-        span {
-          padding: 6px 0;
-        }
-      }
-
-      > .detail-content:first-child {
-        padding-top: 0;
-      }
-
-      .order-box {
-        padding: 16px 0;
-        border-bottom: 1px solid #E7E7E7;
-        font-size: 14px;
-        color: #666;
-
-        .order-content {
-          padding-bottom: 16px;
-
-          .detail-content {
-            display: flex;
-            flex-direction: column;
-            background-color: #F6F6F6;
-            padding: 16px;
-
-            > span {
-              padding: 6px 0;
-            }
-
-            .commodity {
-              padding: 6px 0;
-              display: flex;
-              flex-direction: row;
-
-              .commodity-title {
-                /*width: 124px;*/
-              }
-
-              .commodity-content {
-                display: flex;
-                flex: 1;
-                flex-direction: column;
-                div {
-                  display: flex;
-                  /*justify-content: space-between;*/
-                  padding: 5px 0;
-                  .commodity-name {
-                    width: 233px;
-                  }
-
-                  .commodity-num {
-                    width: 60px;
-                    padding-left: 15px;
-                  }
-                }
-                div:first-child{
-                  padding-top: 0;
-                }
-              }
-            }
-          }
-
-          .detail-content:first-child {
-            border-bottom: 1px solid #E7E7E7;
-          }
-        }
-
-        .order-content:last-child {
-          padding-bottom: 0;
-        }
-      }
-    }
-
-    .more {
-      display: flex;
-      flex-direction: column;
-      >div {
-        display: flex;
-        flex-direction: row;
-        padding: 10px 0 10px 200px;
-        font-size: 12px;
-        color: #222222;
-      }
-    }
   }
+
   .guide-add {
       width: 100vw;
       height: 100vh;
@@ -605,7 +437,7 @@ export default {
       top: 0;
       left: 140px;
       z-index: 11;
-      img{
+      img {
           width: calc(100% - 140px);
       }
   }
