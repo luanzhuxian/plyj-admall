@@ -648,7 +648,7 @@ export default class MallMain extends Vue {
 
 </style>
 
-<style module lang="scss">
+<style lang="scss" module>
 .template {
     display: grid;
     grid-template-columns: 1fr 1fr;

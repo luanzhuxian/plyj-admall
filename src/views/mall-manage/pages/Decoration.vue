@@ -929,7 +929,7 @@ export default class MallDecoration extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss" module>
 .mall-decoration {
     box-sizing: border-box;
     position: relative;

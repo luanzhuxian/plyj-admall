@@ -610,7 +610,7 @@ export default class MallThemes extends Vue {
 }
 </script>
 
-<style module lang="scss">
+<style lang="scss" module>
 .mall-themes {
     min-height: calc(100vh - 160px);
     &-container {
