@@ -13,7 +13,7 @@
             <i class="el-icon-plus el-icon--right" />
         </el-button>
         <search-box class="mt-24">
-            <el-form-item label="搜索内容">
+            <el-form-item label="搜索内容：">
                 <el-input
                     v-model.trim="form.name"
                     placeholder="请输入品类券名称"
@@ -269,9 +269,13 @@ export default {
     // }
     },
     async created () {
-        const { result } = await coupleIsFirstTime()
-        if (result) this.guideStatus = 1
-        await this.getList()
+        try {
+            const { result } = await coupleIsFirstTime()
+            if (result) this.guideStatus = 1
+            await this.getList()
+        } catch (error) {
+            throw error
+        }
     },
     methods: {
         async viewCoupon (row) {
@@ -330,27 +334,40 @@ export default {
                 throw e
             }
         },
-        search () {
-            this.form.current = 1
-            this.getList()
-        },
-        sizeChange (val) {
-            this.form.current = 1
-            this.form.size = val
-            this.getList()
-        },
-        resetFilter () {
-            this.form = {
-                couponType: 2,
-                name: '',
-                status: '',
-                startTime: '',
-                endTime: '',
-                current: 1,
-                size: 10
+        async search () {
+            try {
+
+            } catch (error) {
+                throw error
             }
-            this.$refs.dateRange.clear()
+            this.form.current = 1
             this.getList()
+        },
+        async sizeChange (val) {
+            try {
+                this.form.current = 1
+                this.form.size = val
+                this.getList()
+            } catch (error) {
+                throw error
+            }
+        },
+        async resetFilter () {
+            try {
+                this.form = {
+                    couponType: 2,
+                    name: '',
+                    status: '',
+                    startTime: '',
+                    endTime: '',
+                    current: 1,
+                    size: 10
+                }
+                this.$refs.dateRange.clear()
+                this.getList()
+            } catch (error) {
+                throw error
+            }
         },
         async getList () {
             try {
@@ -361,11 +378,15 @@ export default {
                 throw e
             }
         },
-        dateChange (val) {
-            this.form.startTime = val.start
-            this.form.endTime = val.end
-            this.form.current = 1
-            this.getList()
+        async dateChange (val) {
+            try {
+                this.form.startTime = val.start
+                this.form.endTime = val.end
+                this.form.current = 1
+                this.getList()
+            } catch (error) {
+                throw error
+            }
         },
         guideNext () {
             this.guideStatus++
