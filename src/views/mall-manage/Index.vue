@@ -64,13 +64,11 @@ export default class MallManage extends Vue {
             this.getCurrentTemplate(1),
             this.getCurrentTemplate(2)
         ]
-        const [{
-            result: live = {}
-        }, {
-            result: nianwei = []
-        }, {
-            result: lockStatusInfo = []
-        }] = await Promise.all(requests.map((p: Promise<any>) => p.catch(e => {
+        const [
+            { result: live = {} },
+            { result: nianwei = [] },
+            { result: lockStatusInfo = [] }
+        ] = await Promise.all(requests.map((p: Promise<any>) => p.catch(e => {
             console.error(e)
             return { result: null }
         })))

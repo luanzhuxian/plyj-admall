@@ -14,7 +14,7 @@ export default [
                 name: 'ReductionCouponList',
                 component: () => import('../../../../views/marketing-manage/playing-methods/reduction-coupon/Coupon-List.vue'),
                 meta: {
-                    title: '列表',
+                    title: '满减券列表',
                     index: '8-7-1'
                 }
             },
