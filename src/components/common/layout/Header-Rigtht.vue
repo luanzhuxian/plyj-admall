@@ -5,7 +5,7 @@
             <img @click="showMallUrl = true" width="15" class="pointer" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/shangchengguanli.png" alt="">
             <span
                 :class="$style.visitMall"
-                @clise="visitMall"
+                @click="visitMall"
                 class="pointer"
             >
                 访问店铺
