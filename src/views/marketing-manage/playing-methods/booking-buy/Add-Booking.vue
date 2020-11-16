@@ -85,18 +85,66 @@
                     </el-form-item>
 
                     <el-form-item label="活动商品" prop="product" required>
-                        <div class="together-product" v-if="marketingForm.product">
-                            <div class="product">
-                                <img :src="marketingForm.product.productMainImage">
-                                <div class="title">
-                                    {{ marketingForm.product.productName }}
-                                </div>
-                                <div class="remove" @click="removeProduct" v-if="type || activityStatus !== 1">
-                                    移除
-                                </div>
-                            </div>
+                        <div v-if="marketingForm.product.length">
+                            <el-table :data="marketingForm.product" border>
+                                <el-table-column>
+                                    <template #default="{row}">
+                                        <img v-img-error width="71" height="48" :src="(row.image || row.productImage) + '?x-oss-process=style/thum-small'">
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="商品名称" prop="productName" />
+                                <el-table-column label="价格（元）" prop="price" />
+                                <el-table-column label="规格">
+                                    <template #default="{ row }">
+                                        {{ row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="定金价位（元）">
+                                    <template #default="{ row }">
+                                        <el-input
+                                            style="width: 120px;"
+                                            :maxlength="8"
+                                            :value="row.depositPrice"
+                                            :disabled="activityStatus === 1"
+                                            @change="val => priceChange(val, row)"
+                                        />
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="定金翻倍（元）">
+                                    <template #default="{ row }">
+                                        <el-input-number
+                                            :min="1"
+                                            :max="99999"
+                                            size="mini"
+                                            :value="row.multipleNumber"
+                                            :disabled="activityStatus === 1"
+                                            @change="val => multipleNumberChange(val, row)"
+                                        />
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="活动库存">
+                                    <template #default="{ row }">
+                                        <el-input-number
+                                            :max="99999999"
+                                            :min="1"
+                                            size="mini"
+                                            step-strictly
+                                            :value="row.stock"
+                                            @change="val => stockChange(val, row)"
+                                        />
+                                    </template>
+                                </el-table-column>
+                                <el-table-column v-if="type || activityStatus !== 1">
+                                    <template #default="{ row }">
+                                        <el-button type="text" @click="removeProduct(row)">
+                                            移除
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
                             <div class="tips">
-                                只能添加一个商品，仅支持该商品 下所有规格同时一个价位参与
+                                <el-checkbox v-model="marketingForm.multiple" :disabled="activityStatus === 1" />
+                                <span class="inp-tips">（定金翻倍后金额不得超过商品规格金额的50%）</span>
                             </div>
                         </div>
                         <div v-else>
@@ -164,15 +212,6 @@
                             />
                         </div>
                     </el-form-item>
-                    <el-form-item label="定金价位" prop="price">
-                        <el-input
-                            style="width: 120px;"
-                            :maxlength="8"
-                            v-model="marketingForm.price"
-                            :disabled="activityStatus === 1"
-                        /> 元
-                        <span class="inp-tips">（金额不得高于原商品价位，统一定金价根据规格商品价位补尾款）</span>
-                    </el-form-item>
                     <el-form-item label="尾款支付方式">
                         <el-radio-group :disabled="activityStatus === 1" v-model="marketingForm.payMethod">
                             <el-radio :label="0">
@@ -182,23 +221,6 @@
                                 线下
                             </el-radio>
                         </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="定金翻倍" prop="multiple">
-                        <el-checkbox v-model="marketingForm.multiple" :disabled="activityStatus === 1" />
-                        <span class="inp-tips">（定金翻倍后金额不得超过商品规格金额的50%）</span>
-                        <div v-if="marketingForm.multiple" style="margin-top: 15px">
-                            <el-input-number
-                                :min="1"
-                                :max="99999"
-                                size="mini"
-                                v-model="marketingForm.multipleNumber"
-                                :disabled="activityStatus === 1"
-                            /> 倍
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="活动库存" prop="stock" v-if="marketingForm.product">
-                        <el-input-number :max="99999999" :min="1" size="mini" step-strictly v-model="marketingForm.stock" /> 单
-                        <span class="inp-tips"> （该库存独立于商品库存，商品库存售罄不影响活动库存）</span>
                     </el-form-item>
                 </el-form>
             </div>
@@ -225,13 +247,19 @@
             </el-button>
         </div>
         <GoodsPreview :show.sync="showPreview" :data="singleGoods" />
-        <ProductRadio new-year-type="2019_02" :visible.sync="addVisible" @confirm="confirmGoods" />
+        <ProductSelector
+            :visible.sync="addVisible"
+            :max-select="maxGoodsNum"
+            :default-selected="marketingForm.product"
+            @confirm="selectProduct"
+            :single-product="singleProduct"
+        />
     </div>
 </template>
 
 <script>
 import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview'
-import ProductRadio from '../../../../components/product-center/goods/Product-Radio.vue'
+import ProductSelector from '../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import {
     createBookingActivity,
@@ -246,7 +274,7 @@ export default {
     name: 'AddBookingBuy',
     components: {
         GoodsPreview,
-        ProductRadio
+        ProductSelector
     },
     data () {
         const checkPrice = (rule, value, callBack) => {
@@ -261,6 +289,7 @@ export default {
             loading: false,
             id: '',
             type: '',
+            singleProduct: true,
             marketingForm: {
                 brief: '1.任何注册用户均可参与；\n2.填写购买下单基本信息，完成线上支付定金即定金支付成功，定金不可退；\n3.线下付尾款，请在在活动尾款支付时间内，到店核销支付尾款，过期或已使用定金不可退；\n4.线上付尾款，在活动尾款支付时间内，在线付清尾款金额，到店核销享受相应服务，过期未付清尾款则定金不可退。',
                 countdown: 3,
@@ -274,7 +303,7 @@ export default {
                 stock: 100,
                 multiple: true,
                 multipleNumber: 10,
-                product: null,
+                product: [],
                 useStartTime: moment(Date.now() + (1000 * 60 * 60 * 24)).format('YYYY-MM-DD HH:mm:ss'),
                 useEndTime: '',
                 receiveLimit: 0,
@@ -297,6 +326,8 @@ export default {
             addVisible: false,
             showPreview: false,
             singleGoods: null,
+            maxGoodsNum: 10,
+            productList: new Map(),
             rules: {
                 price: [
                     { required: true, message: '请添加定金价位', trigger: 'blur' },
@@ -374,12 +405,7 @@ export default {
                 activityEndTime: result.activityEndTime,
                 price: result.price,
                 stock: result.stock,
-                product: {
-                    productType: result.productType,
-                    productMainImage: result.productMainImage,
-                    productName: result.productName,
-                    id: result.productId
-                },
+                product: result.skuModelList,
                 brief: result.brief,
                 multiple: result.multiple === 1,
                 multipleNumber: result.multipleNumber,
@@ -438,18 +464,71 @@ export default {
                 this.showPreview = true
             } catch (e) { throw e }
         },
-        async confirmGoods (pro) {
-            this.marketingForm.product = pro
-            // 虚拟商品VIRTUAL_GOODS，实体商品PHYSICAL_GOODS，正式课FORMAL_CLASS，体验课EXPERIENCE_CLASS
-            if (pro.productType === 'PHYSICAL_GOODS') {
-                this.marketingForm.payMethod = 0
-                this.marketingForm.productType = true
-            } else {
-                this.marketingForm.productType = false
+        selectProduct (data = []) {
+            console.log(data)
+            data = data.map(item => ({
+                skuId: item.skuId,
+                productId: item.productId, // 商品ID
+                productName: item.productName, // 商品名称
+                skuCode1: item.skuCode1, // SKU_1主键
+                skuCode1Name: item.skuCode1Name, // 规格名称1
+                skuCode2: item.skuCode2, // SKU_2主键
+                skuCode2Name: item.skuCode2Name, // 规格名称2
+                price: item.price, // 现价
+                productType: item.productType, // 类型
+                count: 1, // 商品数量
+                image: item.skuImage || item.image,
+                validityPeriodStart: '',
+                validityPeriodEnd: '',
+                depositPrice: '0.01',
+                multipleNumber: 1,
+                stock: 1,
+
+                /**
+                 * 用来标记哪个商品存在错误状态
+                 * 原因: 当父级el-form-item组件处于错误状态时，它内部的表单组件都会受其影响，变成红色，
+                 * 为了解决这个问题，所以给每个商品的核销时间（date-range）组件添加class "no-error"，
+                 * class "no-error" 受 error 控制，当error为false时，"no-error" 生效，将强制改变输入框边框颜色
+                 */
+                error: false
+            }))
+            // 存入商品Map集合，以sku为key，不必担心商品重复
+            for (const prod of data) {
+                // 如果新选择的商品已存在于productList中，则获取核销时间复制给新选择的商品，
+                if (!this.productList.get(prod.skuCode1 + prod.skuCode2)) {
+                    this.productList.set(prod.skuCode1 + prod.skuCode2, prod)
+                }
             }
+            // 删除取消选中的商品
+            for (const [key, value] of this.productList.entries()) {
+                if (value.productType === 'KNOWLEDGE_COURSE' || value.productType === 'SERIES_OF_COURSE') continue
+                if (data.findIndex(prod => prod.skuCode1 + prod.skuCode2 === key) === -1) {
+                    this.productList.delete(key)
+                }
+            }
+            this.marketingForm.product = Array.from(this.productList.values()).slice(0, this.maxGoodsNum)
         },
-        removeProduct () {
-            this.marketingForm.product = null
+        priceChange (val, item) {
+            item.depositPrice = Number.parseInt(val) || 1
+        },
+        multipleNumberChange (val, item) {
+            item.multipleNumber = Number.parseInt(val) || 1
+        },
+        stockChange (val, item) {
+            item.stock = Number.parseInt(val) || 1
+        },
+        async removeProduct (item) {
+            try {
+                await this.$confirm('您确定移除吗？')
+                const index = this.marketingForm.product.findIndex(prod => (prod.skuId === item.skuId))
+                if (index > -1) {
+                    this.marketingForm.product.splice(index, 1)
+                    const key = item.productType === 'KNOWLEDGE_COURSE' || item.productType === 'SERIES_OF_COURSE' ? item.productId : item.skuCode1 + item.skuCode2
+                    this.productList.delete(key)
+                }
+            } catch (error) {
+                throw error
+            }
         },
         async submitForm (formName) {
             // 自定义校验
@@ -459,6 +538,16 @@ export default {
                 this.loading = true
                 await this.$refs[formName].validate()
                 const Form = this.marketingForm
+                const skuModelList = []
+                for (const sku in Form.product) {
+                    skuModelList.push({
+                        skuCode1: sku.skuCode1,
+                        ckuCode2: sku.ckuCode2,
+                        depositPrice: sku.depositPrice,
+                        multipleNumber: sku.multipleNumber,
+                        stock: sku.stock
+                    })
+                }
                 const params = {
                     id: this.id ? (this.type ? '' : this.id) : '',
                     countdown: Form.countdown,
@@ -466,7 +555,8 @@ export default {
                     activityEndTime: Form.activityEndTime,
                     price: Form.price,
                     stock: Form.stock,
-                    productId: Form.product.id,
+                    productId: Form.product[0].id,
+                    skuModelList,
                     brief: Form.brief,
                     multiple: Form.multiple ? 1 : 0,
                     multipleNumber: Form.multipleNumber,
@@ -528,7 +618,7 @@ export default {
                 this.$error('活动结束时间不能大于补尾款结束时间')
                 return false
             }
-            if (!this.marketingForm.product) {
+            if (!this.marketingForm.product.length) {
                 this.$error('请选择商品')
                 return false
             }
@@ -545,7 +635,7 @@ export default {
                 return false
             }
             // 选择线上且虚拟
-            if (this.marketingForm.product && this.marketingForm.product.productType !== 'PHYSICAL_GOODS' && this.marketingForm.payMethod === 0) {
+            if (this.marketingForm.product.length && this.marketingForm.product.productType !== 'PHYSICAL_GOODS' && this.marketingForm.payMethod === 0) {
                 if (!this.marketingForm.validityPeriodStart || !this.marketingForm.validityPeriodEnd) {
                     this.$error('请选择核销时间时间')
                     return false
@@ -640,41 +730,6 @@ export default {
             margin: 0 6px;
             color: #a8a8a8;
             font-size: 12px;
-        }
-        .together-product {
-            display: flex;
-            align-items: flex-start;
-            .product {
-                border: 1px solid #ccc;
-                padding: 7px;
-                display: flex;
-                width: 420px;
-                position: relative;
-                img {
-                    width: 100px;
-                    height: 100px;
-                    margin-right: 10px;
-                }
-                .title {
-                    width: 260px;
-                    line-height: 1.6;
-                    word-break: break-all;
-                }
-                .remove {
-                    position: absolute;
-                    right: 7px;
-                    bottom: 0;
-                    color: #598bf8;
-                    font-size: 12px;
-                    cursor: pointer;
-                }
-            }
-            .tips {
-                color: #999;
-                width: 210px;
-                line-height: 1.6;
-                margin-left: 10px;
-            }
         }
         .detail-table {
             display: flex;
