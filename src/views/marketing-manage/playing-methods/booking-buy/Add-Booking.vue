@@ -556,7 +556,7 @@ export default {
                 await this.$refs[formName].validate()
                 const Form = this.marketingForm
                 const skuModelList = []
-                const productId = Form.product.productId
+                const productId = Form.product.id
                 for (const sku of Form.skuModelList) {
                     skuModelList.push({
                         skuCode1: sku.skuCode1,
