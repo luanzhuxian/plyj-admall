@@ -76,7 +76,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Statistics.vue'),
                 props: true,
                 meta: {
-                    title: '查看详情',
+                    title: '查看数据',
                     index: '8-20-5',
                     ignore: true
                 }
