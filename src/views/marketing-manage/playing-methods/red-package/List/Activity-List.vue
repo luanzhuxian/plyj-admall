@@ -29,19 +29,15 @@
                         value=""
                     />
                     <el-option
-                        label="已停止"
+                        label="待使用"
                         :value="0"
                     />
                     <el-option
-                        label="进行中"
-                        :value="4"
-                    />
-                    <el-option
-                        label="待开始"
+                        label="已使用"
                         :value="2"
                     />
                     <el-option
-                        label="已结束"
+                        label="已过期"
                         :value="3"
                     />
                 </el-select>

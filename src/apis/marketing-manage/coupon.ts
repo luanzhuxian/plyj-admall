@@ -94,8 +94,8 @@ export const exportReductionCoupon = (params: {
     status: number | string;
     startTime: string;
     endTime: string;
-    current: number;
-    size: number;
+    current?: number;
+    size?: number;
 }) => axios.get('/apis/v1/coupon/exportCouponDetail', {
     responseType: 'blob',
     timeout: 0,

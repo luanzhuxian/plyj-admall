@@ -54,19 +54,15 @@
                             value=""
                         />
                         <el-option
-                            label="已停止"
+                            label="待使用"
                             :value="0"
                         />
                         <el-option
-                            label="进行中"
-                            :value="4"
-                        />
-                        <el-option
-                            label="待开始"
+                            label="已使用"
                             :value="2"
                         />
                         <el-option
-                            label="已结束"
+                            label="已过期"
                             :value="3"
                         />
                     </el-select>
@@ -128,7 +124,19 @@
                     slot="empty"
                     class="empty"
                 >
-                    <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 没有查到相关信息，请确认后重新查看！
+                    <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" />
+                    <span v-if="true">
+                        暂无任何福利红包的查询结果
+                    </span>
+                    <span v-if="true">
+                        活动暂未开始，暂无活动数据~
+                    </span>
+                    <span v-if="true">
+                        暂无活动数据哦，快去分享活动吧~
+                    </span>
+                    <span v-if="true">
+                        暂无活动数据哦~
+                    </span>
                 </span>
                 <el-table-column
                     prop="receiverName"
@@ -248,19 +256,69 @@
                 :sizes="true"
             />
         </section>
+
+        <!-- 导出 -->
+        <ExportDialog :show.sync="showExport" @confirm="exportList" @close="closeExportDialog">
+            <el-form
+                ref="exportForm"
+                :model="exportForm"
+                :rules="exportRules"
+                label-width="100px"
+                label-position="left"
+            >
+                <el-form-item prop="searchValue" label="搜索内容：">
+                    <el-input
+                        v-model.trim="exportForm.name"
+                        placeholder="请输入订单编号/领取人/电话"
+                        style="width: 350px;"
+                        clearable
+                    />
+                </el-form-item>
+                <el-form-item prop="status" label="状态：">
+                    <el-select v-model="exportForm.status">
+                        <el-option v-for="(item,index) in exportStatus" :label="item.label" :value="item.value" :key="index" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item prop="startTime" label="领取时间：">
+                    <date-range
+                        ref="exportReceiveDatePicker"
+                        size="small"
+                        clearable
+                        disable-after
+                        :init="exportForm.startTime ? [exportForm.startTime, exportForm.endTime] : []"
+                        range-separator="至"
+                        end-label=""
+                        @change="exportDatechange"
+                    />
+                </el-form-item>
+                <el-form-item prop="startTime" label="使用时间：">
+                    <date-range
+                        ref="exportUseDatePicker"
+                        size="small"
+                        clearable
+                        disable-after
+                        :init="exportForm.startTime ? [exportForm.startTime, exportForm.endTime] : []"
+                        range-separator="至"
+                        end-label=""
+                        @change="exportDatechange"
+                    />
+                </el-form-item>
+            </el-form>
+        </ExportDialog>
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import moment from 'moment'
 import ListHeader from '../../components/List-Header.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import {
     selectCouponDetail,
-    getCouponstatistics
-    // exportReductionCoupon
+    getCouponstatistics,
+    exportReductionCoupon
 } from '../../../../apis/marketing-manage/coupon'
-// import { createObjectUrl } from '../../../../assets/ts/upload'
+import { createObjectUrl } from '../../../../assets/ts/upload'
 
 @Component({
     components: {
@@ -291,10 +349,9 @@ export default class RedPackageStatistics extends Vue {
 
     // 导出数据
     showExport = false
-    exportData = {
+    exportForm = {
         status: '',
         name: '',
-        dateRange: 3, // 1：7日内 2：30日内 3：自选
         startTime: '',
         endTime: ''
     }
@@ -415,20 +472,70 @@ export default class RedPackageStatistics extends Vue {
         this.$refs.table.toggleRowExpansion(row, row.expanded)
     }
 
-    goOrderDetail (id: string) {
-        this.$router.push({ name: 'CourseOrderDetail', params: { id } })
-    }
-
     showExportDialog () {
         const { name, status, startTime, endTime } = this.form
-        this.exportData = {
-            ...this.exportData,
+        this.exportForm = {
+            ...this.exportForm,
             name,
             status,
             startTime,
             endTime
         }
         this.showExport = true
+    }
+
+    closeExportDialog () {
+        this.exportForm = {
+            status: '',
+            name: '',
+            startTime: '',
+            endTime: ''
+        }
+        // @ts-ignore
+        this.$refs.exportForm.clearValidate()
+        this.showExport = false
+    }
+
+    async exportDatechange ({ start, end }: { start: string; end: string }) {
+        this.exportForm.startTime = start
+        this.exportForm.endTime = end
+        if (!start || !end) {
+            return
+        }
+        await this.$nextTick()
+        // @ts-ignore
+        this.$refs.exportReceiveDatePicker.initDate()
+        // @ts-ignore
+        this.$refs.exportUseDatePicker.initDate()
+    }
+
+    async exportList () {
+        // @ts-ignore
+        await this.$refs.exportForm.validate()
+        const data = {
+            couponId: this.$route.params.id,
+            status: this.exportForm.status,
+            name: this.exportForm.name,
+            startTime: this.exportForm.startTime,
+            endTime: this.exportForm.endTime
+        }
+        try {
+            const blob = await exportReductionCoupon(data)
+            // @ts-ignore
+            const url = createObjectUrl(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = `满减券${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+            a.click()
+            a.remove()
+            this.closeExportDialog()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    goOrderDetail (id: string) {
+        this.$router.push({ name: 'CourseOrderDetail', params: { id } })
     }
 }
 
