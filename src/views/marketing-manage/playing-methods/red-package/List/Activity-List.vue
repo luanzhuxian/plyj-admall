@@ -1,6 +1,6 @@
 <template>
     <div class="red-package-activity-list">
-        <div>
+        <section>
             <el-button type="primary" round @click="$router.push({name:'AddCategoryCoupon'})">
                 新建活动
                 <i class="el-icon-plus el-icon--right" />
@@ -8,7 +8,7 @@
             <el-button type="text" @click="showExplaination = true">
                 活动说明
             </el-button>
-        </div>
+        </section>
         <SearchBox class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input
@@ -20,8 +20,8 @@
             </el-form-item>
             <el-form-item label="状态：">
                 <el-select
-                    :clearable="true"
                     v-model="form.status"
+                    clearable
                     @change="search"
                 >
                     <el-option
@@ -67,7 +67,7 @@
                 </el-button>
             </el-form-item>
         </SearchBox>
-        <div>
+        <section>
             <el-table
                 ref="table"
                 class="content-table"
@@ -216,7 +216,7 @@
                 @sizeChange="sizeChange"
                 @change="getList"
             />
-        </div>
+        </section>
 
         <!--活动说明弹窗-->
         <Explanation :show.sync="showExplaination" />
@@ -241,7 +241,6 @@ import {
 })
 export default class RedPackageActivityList extends Vue {
     /* data */
-    table = []
     form = {
         couponType: 2,
         name: '',
@@ -252,6 +251,7 @@ export default class RedPackageActivityList extends Vue {
         size: 10
     }
 
+    table = []
     total = 0
     receiveLimitType = ['所有注册用户', 'helper可用', '普通会员', '部分用户']
     showExplaination = false
@@ -381,6 +381,7 @@ export default class RedPackageActivityList extends Vue {
 
 <style lang="scss">
 .red-package-activity-list {
+    padding-top: 30px;
     .inline-b {
         display: inline-block;
         padding-right: 10px;

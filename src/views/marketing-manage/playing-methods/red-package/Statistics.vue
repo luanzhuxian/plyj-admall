@@ -45,8 +45,8 @@
                 </el-form-item>
                 <el-form-item label="状态：" style="margin-left: 30px;">
                     <el-select
-                        :clearable="true"
                         v-model="form.status"
+                        clearable
                         @change="search"
                     >
                         <el-option
@@ -125,15 +125,19 @@
                     class="empty"
                 >
                     <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" />
+                    <!-- 查询状态，查询缺省 -->
                     <span v-if="true">
                         暂无任何福利红包的查询结果
                     </span>
+                    <!-- 活动状态，未开始 -->
                     <span v-if="true">
                         活动暂未开始，暂无活动数据~
                     </span>
+                    <!-- 活动状态，进行中 -->
                     <span v-if="true">
                         暂无活动数据哦，快去分享活动吧~
                     </span>
+                    <!-- 活动状态，已停止 / 已结束 -->
                     <span v-if="true">
                         暂无活动数据哦~
                     </span>
@@ -345,8 +349,6 @@ export default class RedPackageStatistics extends Vue {
     /* data */
     @Prop(String) id!: string
 
-    routeName = ''
-    table = []
     form = {
         couponId: '',
         name: '',
@@ -359,6 +361,7 @@ export default class RedPackageStatistics extends Vue {
         size: 10
     }
 
+    table = []
     total = 0
     statisticsData = ''
 
@@ -380,7 +383,6 @@ export default class RedPackageStatistics extends Vue {
 
     async created () {
         try {
-            this.routeName = this.$route.name || ''
             this.table = []
             const { params } = this.$route
             this.form.couponId = params.id
@@ -554,8 +556,8 @@ export default class RedPackageStatistics extends Vue {
             a.click()
             a.remove()
             this.closeExportDialog()
-        } catch (e) {
-            throw e
+        } catch (error) {
+            throw error
         }
     }
 
