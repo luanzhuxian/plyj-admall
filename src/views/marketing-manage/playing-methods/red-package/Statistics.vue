@@ -276,31 +276,46 @@
                 </el-form-item>
                 <el-form-item prop="status" label="状态：">
                     <el-select v-model="exportForm.status">
-                        <el-option v-for="(item,index) in exportStatus" :label="item.label" :value="item.value" :key="index" />
+                        <el-option
+                            label="全部"
+                            value=""
+                        />
+                        <el-option
+                            label="待使用"
+                            :value="0"
+                        />
+                        <el-option
+                            label="已使用"
+                            :value="2"
+                        />
+                        <el-option
+                            label="已过期"
+                            :value="3"
+                        />
                     </el-select>
                 </el-form-item>
-                <el-form-item prop="startTime" label="领取时间：">
+                <el-form-item prop="receiveStartTime" label="领取时间：">
                     <date-range
                         ref="exportReceiveDatePicker"
                         size="small"
                         clearable
                         disable-after
-                        :init="exportForm.startTime ? [exportForm.startTime, exportForm.endTime] : []"
+                        :init="exportForm.receiveStartTime ? [exportForm.receiveStartTime, exportForm.receiveEndTime] : []"
                         range-separator="至"
                         end-label=""
-                        @change="exportDatechange"
+                        @change="exportReceiveDateChange"
                     />
                 </el-form-item>
-                <el-form-item prop="startTime" label="使用时间：">
+                <el-form-item prop="useStartTime" label="使用时间：">
                     <date-range
                         ref="exportUseDatePicker"
                         size="small"
                         clearable
                         disable-after
-                        :init="exportForm.startTime ? [exportForm.startTime, exportForm.endTime] : []"
+                        :init="exportForm.useStartTime ? [exportForm.useStartTime, exportForm.useEndTime] : []"
                         range-separator="至"
                         end-label=""
-                        @change="exportDatechange"
+                        @change="exportUseDateChange"
                     />
                 </el-form-item>
             </el-form>
@@ -350,24 +365,18 @@ export default class RedPackageStatistics extends Vue {
     // 导出数据
     showExport = false
     exportForm = {
-        status: '',
         name: '',
-        startTime: '',
-        endTime: ''
+        status: '',
+        receiveStartTime: '',
+        receiveEndTime: '',
+        useStartTime: '',
+        useEndTime: ''
     }
 
     exportRules = {
-        startTime: [
-            { required: true, message: '请选择时间', trigger: 'blur' }
-        ]
+        receiveStartTime: [{ required: true, message: '请选择领取时间', trigger: 'blur' }],
+        useStartTime: [{ required: true, message: '请选择使用时间', trigger: 'blur' }]
     }
-
-    exportStatus = [
-        { label: '全部', value: '' },
-        { label: '待使用', value: 0 },
-        { label: '已使用', value: 1 },
-        { label: '已过期', value: 99 }
-    ]
 
     async created () {
         try {
@@ -473,13 +482,15 @@ export default class RedPackageStatistics extends Vue {
     }
 
     showExportDialog () {
-        const { name, status, startTime, endTime } = this.form
+        const { name, status, startTime, endTime, useStartTime, useEndTime } = this.form
         this.exportForm = {
             ...this.exportForm,
             name,
             status,
-            startTime,
-            endTime
+            receiveStartTime: startTime,
+            receiveEndTime: endTime,
+            useStartTime,
+            useEndTime
         }
         this.showExport = true
     }
@@ -488,25 +499,36 @@ export default class RedPackageStatistics extends Vue {
         this.exportForm = {
             status: '',
             name: '',
-            startTime: '',
-            endTime: ''
+            receiveStartTime: '',
+            receiveEndTime: '',
+            useStartTime: '',
+            useEndTime: ''
         }
         // @ts-ignore
         this.$refs.exportForm.clearValidate()
         this.showExport = false
     }
 
-    async exportDatechange ({ start, end }: { start: string; end: string }) {
-        this.exportForm.startTime = start
-        this.exportForm.endTime = end
+    async exportReceiveDateChange ({ start, end }: { start: string; end: string }) {
         if (!start || !end) {
             return
         }
+        this.exportForm.receiveStartTime = start
+        this.exportForm.receiveEndTime = end
+        await this.$nextTick()
+        // @ts-ignore
+        this.$refs.exportUseDatePicker.initDate()
+    }
+
+    async exportUseDateChange ({ start, end }: { start: string; end: string }) {
+        if (!start || !end) {
+            return
+        }
+        this.exportForm.useStartTime = start
+        this.exportForm.useEndTime = end
         await this.$nextTick()
         // @ts-ignore
         this.$refs.exportReceiveDatePicker.initDate()
-        // @ts-ignore
-        this.$refs.exportUseDatePicker.initDate()
     }
 
     async exportList () {
@@ -516,10 +538,13 @@ export default class RedPackageStatistics extends Vue {
             couponId: this.$route.params.id,
             status: this.exportForm.status,
             name: this.exportForm.name,
-            startTime: this.exportForm.startTime,
-            endTime: this.exportForm.endTime
+            receiveStartTime: this.exportForm.receiveStartTime,
+            receiveEndTime: this.exportForm.receiveEndTime,
+            useStartTime: this.exportForm.useStartTime,
+            useEndTime: this.exportForm.useEndTime
         }
         try {
+            // @ts-ignore
             const blob = await exportReductionCoupon(data)
             // @ts-ignore
             const url = createObjectUrl(blob)
