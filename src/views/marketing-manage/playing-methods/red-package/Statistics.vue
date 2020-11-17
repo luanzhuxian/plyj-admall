@@ -15,69 +15,87 @@
                 分享
             </el-button>
         </ListHeader>
-        <SearchBox class="mt-24">
-            <el-form-item label="搜索内容：">
-                <el-input
-                    v-model.trim="form.name"
-                    placeholder="请输入福利红包活动名称"
-                    clearable
-                    @change="search"
-                />
-            </el-form-item>
-            <el-form-item label="状态：">
-                <el-select
-                    :clearable="true"
-                    v-model="form.status"
-                    @change="search"
-                >
-                    <el-option
-                        label="全部"
-                        value=""
+        <section :class="$style.statistics">
+            <div :class="$style.statisticsItem">
+                <div>发放量</div>
+                <div><b :class="$style.number">1</b>张</div>
+            </div>
+            <div :class="$style.statisticsItem">
+                <div>领取量</div>
+                <div><b :class="$style.number">18</b>张</div>
+            </div>
+            <div :class="$style.statisticsItem">
+                <div>使用量</div>
+                <div><b :class="$style.number">18</b>张</div>
+            </div>
+            <div :class="$style.statisticsItem">
+                <div>支付金额</div>
+                <div><b :class="$style.number">18</b>元</div>
+            </div>
+        </section>
+        <section :class="$style.searchBox">
+            <el-form class="mt-24" inline>
+                <el-form-item label="搜索内容：">
+                    <el-input
+                        v-model.trim="form.name"
+                        placeholder="请输入福利红包活动名称"
+                        clearable
+                        @change="search"
                     />
-                    <el-option
-                        label="已停止"
-                        :value="0"
+                </el-form-item>
+                <el-form-item label="状态：" style="margin-left: 30px;">
+                    <el-select
+                        :clearable="true"
+                        v-model="form.status"
+                        @change="search"
+                    >
+                        <el-option
+                            label="全部"
+                            value=""
+                        />
+                        <el-option
+                            label="已停止"
+                            :value="0"
+                        />
+                        <el-option
+                            label="进行中"
+                            :value="4"
+                        />
+                        <el-option
+                            label="待开始"
+                            :value="2"
+                        />
+                        <el-option
+                            label="已结束"
+                            :value="3"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="领取时间：" style="margin-left: 30px;">
+                    <date-range
+                        ref="receiveDateRange"
+                        type="date"
+                        size="small"
+                        start-label="领取时间："
+                        end-label=""
+                        range-separator="至"
+                        clearable
+                        @change="receiveDateChange"
                     />
-                    <el-option
-                        label="进行中"
-                        :value="4"
+                </el-form-item>
+                <el-form-item label="使用时间：">
+                    <date-range
+                        ref="useDateRange"
+                        type="date"
+                        size="small"
+                        start-label="使用时间："
+                        end-label=""
+                        range-separator="至"
+                        clearable
+                        @change="useDateChange"
                     />
-                    <el-option
-                        label="待开始"
-                        :value="2"
-                    />
-                    <el-option
-                        label="已结束"
-                        :value="3"
-                    />
-                </el-select>
-            </el-form-item>
-            <el-form-item label="领取时间：">
-                <date-range
-                    ref="receiveDateRange"
-                    type="date"
-                    size="small"
-                    start-label="领取时间："
-                    end-label=""
-                    range-separator="至"
-                    clearable
-                    @change="receiveDateChange"
-                />
-            </el-form-item>
-            <el-form-item label="使用时间：">
-                <date-range
-                    ref="useDateRange"
-                    type="date"
-                    size="small"
-                    start-label="使用时间："
-                    end-label=""
-                    range-separator="至"
-                    clearable
-                    @change="useDateChange"
-                />
-            </el-form-item>
-            <div>
-                <el-form-item>
+                </el-form-item>
+                <el-form-item style="display: block; padding-left: 82px;">
                     <el-button
                         round
                         type="primary"
@@ -98,9 +116,9 @@
                         清空筛选条件
                     </el-button>
                 </el-form-item>
-            </div>
-        </SearchBox>
-        <div>
+            </el-form>
+        </section>
+        <section>
             <el-table
                 ref="table"
                 class="content-table"
@@ -229,7 +247,7 @@
                 :total="total"
                 :sizes="true"
             />
-        </div>
+        </section>
     </div>
 </template>
 
@@ -416,12 +434,6 @@ export default class RedPackageStatistics extends Vue {
 
 </script>
 
-<style lang="scss">
-.red-package-statistics {
-
-}
-</style>
-
 <style lang="scss" module>
 .status {
     display: inline-flex;
@@ -440,6 +452,24 @@ export default class RedPackageStatistics extends Vue {
 }
 
 .statistics {
+    margin-bottom: 20px;
+    padding: 20px 45px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 0 150px;
+}
 
+.search-box {
+    display: flex;
+    padding: 20px 32px;
+    background-color: #F5F6FA;
+    border-radius: 10px;
+}
+
+.number {
+    margin-right: 10px;
+    font-size: 48px;
+    line-height: 64px;
+    color: #333333;
 }
 </style>
