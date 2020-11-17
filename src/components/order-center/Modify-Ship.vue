@@ -135,8 +135,8 @@ export default {
     },
     methods: {
         async getCompanyList () {
-            const { data: { result: res1 } } = await getDataDictionary('KYYQJKDGS')
-            const { data: { result: res2 } } = await getDataDictionary('BKYYQJKDGS')
+            const { result: res1 } = await getDataDictionary('KYYQJKDGS')
+            const { result: res2 } = await getDataDictionary('BKYYQJKDGS')
             this.companyList = [...res1, ...res2]
         },
         // 确认发货按钮
