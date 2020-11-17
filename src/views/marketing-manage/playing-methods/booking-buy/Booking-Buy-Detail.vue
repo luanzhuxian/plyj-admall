@@ -55,7 +55,7 @@
                     <el-table :data="activityDetail.skuModelList" border v-if="activityDetail.skuModelList.length">
                         <el-table-column>
                             <template #default="{row}">
-                                <img v-img-error width="71" height="48" :src="(row.image || row.productImage) + '?x-oss-process=style/thum-small'">
+                                <img v-img-error width="71" height="48" :src="(row.image || activityDetail.productMainImage) + '?x-oss-process=style/thum-small'">
                             </template>
                         </el-table-column>
                         <el-table-column label="商品名称">

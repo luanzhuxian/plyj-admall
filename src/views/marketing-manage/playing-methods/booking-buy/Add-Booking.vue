@@ -95,7 +95,7 @@
                             <el-table :data="marketingForm.product" border>
                                 <el-table-column>
                                     <template #default="{row}">
-                                        <img v-img-error width="71" height="48" :src="(row.image || row.productImage) + '?x-oss-process=style/thum-small'">
+                                        <img v-img-error width="71" height="48" :src="(row.image || marketingForm.productMainImage) + '?x-oss-process=style/thum-small'">
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="商品名称">
@@ -410,8 +410,10 @@ export default {
                 activityEndTime: result.activityEndTime,
                 price: result.price,
                 stock: result.stock,
+                productId: result.productId,
                 product: result.skuModelList,
                 productName: result.productName,
+                productMainImage: result.productMainImage,
                 brief: result.brief,
                 multiple: result.multiple === 1,
                 multipleNumber: result.multipleNumber,
@@ -471,7 +473,6 @@ export default {
             } catch (e) { throw e }
         },
         selectProduct (data = []) {
-            console.log(data)
             data = data.map(item => ({
                 skuId: item.skuId,
                 productId: item.productId, // 商品ID
@@ -545,7 +546,7 @@ export default {
                 await this.$refs[formName].validate()
                 const Form = this.marketingForm
                 const skuModelList = []
-                const productId = Form.product[0].productId
+                const productId = Form.productId || Form.product[0].productId
                 for (const sku of Form.product) {
                     skuModelList.push({
                         skuCode1: sku.skuCode1,
@@ -663,10 +664,6 @@ export default {
             }
             if (this.marketingForm.activityLimit && Number(this.marketingForm.activityLimitNumber) < 1) {
                 this.$error('限购数量最少为1')
-                return false
-            }
-            if (Number(this.marketingForm.price) <= 0) {
-                this.$error('定金价位大于 0 元')
                 return false
             }
             return true
