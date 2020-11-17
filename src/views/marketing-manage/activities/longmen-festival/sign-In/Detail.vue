@@ -28,7 +28,7 @@
             @tabClick="data => $router.replace({ name: data.name })"
         />
 
-        <router-view />
+        <router-view v-if="data" :data="data" />
     </div>
 </template>
 
@@ -40,6 +40,7 @@ export default {
     name: 'GeneralDetail',
     data () {
         return {
+            data: '',
             status: '',
             activeStatus: {
                 0: '活动未开始',
@@ -81,6 +82,7 @@ export default {
         ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         async getDetail () {
             const { result } = await signinActivityDetail(this.$route.params.id)
+            this.data = result
             this.status = result.entity.status
         }
     }

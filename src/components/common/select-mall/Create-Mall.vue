@@ -30,6 +30,9 @@
             <el-form-item label="详细地址：" prop="province">
                 <CityPicker @selected="citySelected" />
             </el-form-item>
+            <el-form-item label=" ">
+                <el-input v-model="mallInfoForm.address" placeholder="请输入详细地址" />
+            </el-form-item>
             <!--<el-form-item label="">
                 <el-input v-model="mallInfoForm.address" placeholder="请输入详细地址" />
             </el-form-item>-->
