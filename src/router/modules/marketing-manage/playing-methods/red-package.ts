@@ -2,7 +2,7 @@ export default [
     {
         path: 'red-package',
         name: 'RedPackage',
-        redirect: 'red-package/red-package-list',
+        redirect: 'red-package/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Index.vue'),
         meta: {
             title: '福利红包',
@@ -11,9 +11,9 @@ export default [
         },
         children: [
             {
-                path: 'red-package-list',
+                path: 'list',
                 name: 'RedPackageList',
-                redirect: 'red-package-list/list',
+                redirect: 'list/activity-list',
                 component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Index.vue'),
                 meta: {
                     title: '列表',
@@ -22,7 +22,7 @@ export default [
                 },
                 children: [
                     {
-                        path: 'list',
+                        path: 'activity-list',
                         name: 'RedPackageActivityList',
                         component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Activity-List.vue'),
                         meta: {
@@ -32,7 +32,7 @@ export default [
                         }
                     },
                     {
-                        path: 'rank',
+                        path: 'rank-list',
                         name: 'RedPackageRankList',
                         component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Rank-List.vue'),
                         meta: {
@@ -42,9 +42,9 @@ export default [
                         }
                     }
                 ]
-            }
+            },
             // {
-            //     path: 'add-red-package',
+            //     path: 'add',
             //     name: 'AddRedPackage',
             //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add.vue'),
             //     meta: {
@@ -53,7 +53,7 @@ export default [
             //     }
             // },
             // {
-            //     path: 'add-red-package/:id',
+            //     path: 'edit/:id',
             //     name: 'EditRedPackage',
             //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add.vue'),
             //     meta: {
@@ -62,7 +62,7 @@ export default [
             //     }
             // },
             // {
-            //     path: 'copy-red-package/:id',
+            //     path: 'copy/:id',
             //     name: 'CopyRedPackage',
             //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add.vue'),
             //     meta: {
@@ -70,15 +70,17 @@ export default [
             //         index: '8-20-4'
             //     }
             // },
-            // {
-            //     path: 'view-red-package-list/:id',
-            //     name: 'ViewRedPackageListActive',
-            //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/ViewCouponList.vue'),
-            //     meta: {
-            //         title: '查看详情',
-            //         index: '8-20-5'
-            //     }
-            // }
+            {
+                path: 'statistics/:id',
+                name: 'RedPackageStatistics',
+                component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Statistics.vue'),
+                props: true,
+                meta: {
+                    title: '查看详情',
+                    index: '8-20-5',
+                    ignore: true
+                }
+            }
         ]
     }
 ]

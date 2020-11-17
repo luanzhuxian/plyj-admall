@@ -27,13 +27,16 @@
                 <span v-else-if="coursePackageStatus === 0">未开始</span>
                 <span v-else-if="coursePackageStatus === 2">已结束</span>
             </div>
-            使用有效期：
-            <span v-if="permanent">
-                长期有效
-            </span>
-            <span v-else>
-                {{ startTime | dateFormat('YYYY.MM.DD') }} - {{ endTime | dateFormat('YYYY.MM.DD') }}
-            </span>
+            <div class="validity">
+                使用有效期：
+                <span v-if="permanent">
+                    长期有效
+                </span>
+                <span v-else>
+                    {{ startTime | dateFormat('YYYY.MM.DD') }} - {{ endTime | dateFormat('YYYY.MM.DD') }}
+                </span>
+                <slot />
+            </div>
         </div>
     </div>
 </template>
@@ -41,15 +44,12 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-    interface RouteInfo {
-        params: {
-            programId: string;
-        };
+interface RouteInfo {
+    params: { programId: string };
+    [propName: string]: object | string;
+}
 
-        [propName: string]: object | string;
-    }
-
-    @Component
+@Component
 export default class ListHeader extends Vue {
     @Prop({
         type: String,
@@ -141,9 +141,11 @@ export default class ListHeader extends Vue {
             color: #999;
             margin-left: 100px;
             margin-top: 6px;
-            display: flex;
-            // align-items: center;
             line-height: 19px;
+        }
+        .validity {
+            display: flex;
+            align-items: center;
         }
     }
 </style>

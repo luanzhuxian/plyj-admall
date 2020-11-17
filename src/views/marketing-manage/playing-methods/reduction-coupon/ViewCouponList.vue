@@ -73,9 +73,9 @@
                 </el-button>
                 <el-button
                     v-if="table && table.length"
-                    round
                     type="primary"
                     plain
+                    round
                     @click="changeExport"
                 >
                     导出数据
@@ -289,8 +289,6 @@ export default {
             ],
             routeName: '',
             table: [],
-            detail: {},
-            keywords: '',
             form: {
                 couponId: '',
                 name: '',
@@ -310,17 +308,21 @@ export default {
     //   this.getList()
     // }
     },
-    created () {
-        this.routeName = this.$route.name
-        const params = this.$route.params
-        this.form.couponId = params.id
-        this.table = []
-        this.total = 0
-        this.getList()
-        this.getStatistics()
+    async created () {
+        try {
+            this.routeName = this.$route.name
+            const params = this.$route.params
+            this.form.couponId = params.id
+            this.table = []
+            this.total = 0
+            this.getList()
+            this.getStatistics()
+        } catch (error) {
+            throw error
+        }
     },
     methods: {
-    // 展开更多订单
+        // 展开更多订单
         toggleRowExpansion (row) {
             row.expanded = !row.expanded
             this.$refs.table.toggleRowExpansion(row, row.expanded)

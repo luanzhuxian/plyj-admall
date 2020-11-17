@@ -246,8 +246,6 @@ export default {
     data () {
         return {
             table: [],
-            detail: {},
-            keywords: '',
             form: {
                 couponType: 2,
                 name: '',
@@ -289,7 +287,7 @@ export default {
                 })
                 await deleteCoupon(id)
                 this.$success('删除成功')
-                this.getList()
+                await this.getList()
             } catch (e) {
                 throw e
             }
@@ -301,7 +299,7 @@ export default {
                     status: row.pureStatus
                 }
                 await couponModifystatus(data)
-                this.getList()
+                await this.getList()
             } catch (e) {
                 if (row.status) {
                     row.pureStatus = 0
@@ -329,25 +327,24 @@ export default {
                 }
                 await couponModifystatus(data)
                 this.$success('该券结束成功')
-                this.search()
+                await this.search()
             } catch (e) {
                 throw e
             }
         },
         async search () {
             try {
-
+                this.form.current = 1
+                await this.getList()
             } catch (error) {
                 throw error
             }
-            this.form.current = 1
-            this.getList()
         },
         async sizeChange (val) {
             try {
                 this.form.current = 1
                 this.form.size = val
-                this.getList()
+                await this.getList()
             } catch (error) {
                 throw error
             }
@@ -364,7 +361,7 @@ export default {
                     size: 10
                 }
                 this.$refs.dateRange.clear()
-                this.getList()
+                await this.getList()
             } catch (error) {
                 throw error
             }
@@ -383,7 +380,7 @@ export default {
                 this.form.startTime = val.start
                 this.form.endTime = val.end
                 this.form.current = 1
-                this.getList()
+                await this.getList()
             } catch (error) {
                 throw error
             }

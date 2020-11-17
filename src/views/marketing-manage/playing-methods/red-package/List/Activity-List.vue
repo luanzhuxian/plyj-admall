@@ -9,7 +9,7 @@
                 活动说明
             </el-button>
         </div>
-        <search-box class="mt-24">
+        <SearchBox class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input
                     v-model.trim="form.name"
@@ -70,7 +70,7 @@
                     清空筛选条件
                 </el-button>
             </el-form-item>
-        </search-box>
+        </SearchBox>
         <div>
             <el-table
                 ref="table"
@@ -159,7 +159,7 @@
                             <template slot="button-box">
                                 <!--  除'已结束'以外的，'待开始/进行中/已停止'均可编辑 -->
                                 <a
-                                    v-if="row.status !==3"
+                                    v-if="row.status !== 3"
                                     @click="$router.push({
                                         name: 'EditCategoryCoupon',
                                         params: { id: row.id }
@@ -171,7 +171,10 @@
                                 <a v-if="row.status !==3" @click="finish(row)">
                                     结束
                                 </a>
-                                <a>
+                                <a @click="$router.push({
+                                    name: 'RedPackageStatistics',
+                                    params: { id: row.id }
+                                })">
                                     数据
                                 </a>
                                 <a>
@@ -243,8 +246,6 @@ import {
 export default class RedPackageActivityList extends Vue {
     /* data */
     table = []
-    detail = {}
-    keywords = ''
     form = {
         couponType: 2,
         name: '',
@@ -281,7 +282,7 @@ export default class RedPackageActivityList extends Vue {
     async search () {
         try {
             this.form.current = 1
-            this.getList()
+            await this.getList()
         } catch (error) {
             throw error
         }
@@ -300,7 +301,7 @@ export default class RedPackageActivityList extends Vue {
             }
             // @ts-ignore
             this.$refs.dateRange.clear()
-            this.getList()
+            await this.getList()
         } catch (error) {
             throw error
         }
@@ -310,7 +311,7 @@ export default class RedPackageActivityList extends Vue {
         try {
             this.form.startTime = val.start
             this.form.endTime = val.end
-            this.search()
+            await this.search()
         } catch (error) {
             throw error
         }
@@ -319,7 +320,7 @@ export default class RedPackageActivityList extends Vue {
     async sizeChange (val: number) {
         try {
             this.form.size = val
-            this.search()
+            await this.search()
         } catch (error) {
             throw error
         }
@@ -332,7 +333,7 @@ export default class RedPackageActivityList extends Vue {
                 status: row.pureStatus
             }
             await couponModifystatus(data)
-            this.getList()
+            await this.getList()
         } catch (error) {
             if (row.status) {
                 row.pureStatus = 0
@@ -351,7 +352,7 @@ export default class RedPackageActivityList extends Vue {
             })
             await deleteCoupon(id)
             this.$success('删除成功')
-            this.getList()
+            await this.getList()
         } catch (error) {
             throw error
         }
@@ -374,7 +375,7 @@ export default class RedPackageActivityList extends Vue {
             }
             await couponModifystatus(data)
             this.$success('该券结束成功')
-            this.search()
+            await this.search()
         } catch (error) {
             throw error
         }
