@@ -76,15 +76,13 @@
 </template>
 
 <script>
-import { getAuthUrl, setAuthCode, getWexinInfo } from '../../../../apis/base/register'
-import { mapGetters, mapActions } from 'vuex'
-import { MutationTypes } from '../../../../store/mutation-type'
+import { getAuthUrl, getWexinInfo } from '../../../../apis/base/register'
+import { mapGetters } from 'vuex'
 export default {
     name: 'WechatAuth',
     computed: {
         ...mapGetters({
-            auditStatus: 'user/auditStatus',
-            mallNumber: 'user/mallNumber'
+            auditStatus: 'user/auditStatus'
         })
     },
     data () {
@@ -94,14 +92,12 @@ export default {
     },
     async created () {
         try {
-            await this.setAuthCode()
             await this.getWexinInfo()
         } catch (e) {
             throw e
         }
     },
     methods: {
-        ...mapActions([MutationTypes.wechatPayStatus, MutationTypes.agencyUserInfo]),
         async auth (flag) {
             try {
                 if (flag) {
@@ -115,38 +111,6 @@ export default {
             } catch (e) {
                 if (e) throw e
             }
-        },
-        async setAuthCode () {
-            let authCode = this.$route.query.auth_code || ''
-            if (authCode) {
-                sessionStorage.setItem('authCode', authCode)
-                await this.$router.replace({ name: 'WechatAuth' })
-                return null
-            }
-            authCode = sessionStorage.getItem('authCode')
-            if (authCode) {
-                try {
-                    const data = await setAuthCode(this.mallNumber, encodeURIComponent(authCode))
-                    if (data.result.authResult) {
-                        this.$success('授权成功')
-                        await this.$router.push({ name: 'Wechat' })
-                    } else {
-                        await this.$alert({
-                            title: '授权失败',
-                            message: data.result.authMessage
-                        })
-                    }
-                } catch (e) {
-                    if (e) {
-                        throw e
-                    }
-                } finally {
-                    sessionStorage.removeItem('authCode')
-                    this[MutationTypes.agencyUserInfo]()
-                    this[MutationTypes.wechatPayStatus]()
-                }
-            }
-            return null
         },
         async getWexinInfo () {
             if (this.auditStatus === 'MP_NOT_AUTHORIZED' || this.auditStatus === 'MALL_NOT_COMPLETED') return
