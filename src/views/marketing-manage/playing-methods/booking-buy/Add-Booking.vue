@@ -91,16 +91,16 @@
                             </el-button>
                             <span class="inp-tips">（预购活动商品不与其余任何活动共享，不可使用优惠券）</span>
                         </div>
-                        <div v-if="marketingForm.product.length" class="mt-20">
-                            <el-table :data="marketingForm.product" border>
+                        <div v-if="marketingForm.skuModelList.length" class="mt-20">
+                            <el-table :data="marketingForm.skuModelList" border>
                                 <el-table-column>
                                     <template #default="{row}">
-                                        <img v-img-error width="71" height="48" :src="(row.image || marketingForm.productMainImage) + '?x-oss-process=style/thum-small'">
+                                        <img v-img-error width="71" height="48" :src="(row.image || marketingForm.product.productMainImage) + '?x-oss-process=style/thum-small'">
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="商品名称">
                                     <template #default="{ row }">
-                                        {{ row.productName || marketingForm.productName }}
+                                        {{ row.productName || marketingForm.product.productName }}
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="价格（元）" prop="price" />
@@ -181,7 +181,7 @@
                             <span class="inp-tips" v-else>（补尾款时间，即线下到店核销时间，核销后补齐尾款）</span>
                         </div>
                     </el-form-item>
-                    <el-form-item required label="核销时间" v-if="marketingForm.product && marketingForm.product.productType !== 'PHYSICAL_GOODS' && marketingForm.payMethod === 0">
+                    <el-form-item required label="核销时间" v-if="(marketingForm.product && marketingForm.product.productType !== 'PHYSICAL_GOODS') && marketingForm.payMethod === 0">
                         <div class="activity-date">
                             <date-range
                                 :init="[marketingForm.validityPeriodStart, marketingForm.validityPeriodEnd]"
@@ -204,7 +204,7 @@
                     </el-form-item>
                     <el-form-item label="商品限购">
                         <el-checkbox v-model="marketingForm.activityLimit">
-                            限制每人购买的数量
+                            限制每人购买的数量 <span class="inp-tips"> (购买该商品的限购政策以此处为准，原商品限购政策失效) </span>
                         </el-checkbox>
                         <div v-if="marketingForm.activityLimit">
                             <span>每个账号可购买的数量为</span>
@@ -255,7 +255,7 @@
         <ProductSelector
             :visible.sync="addVisible"
             :max-select="maxGoodsNum"
-            :default-selected="marketingForm.product"
+            :default-selected="marketingForm.skuModelList"
             @confirm="selectProduct"
             :single-product="singleProduct"
         />
@@ -308,7 +308,7 @@ export default {
                 stock: 100,
                 multiple: true,
                 multipleNumber: 10,
-                product: [],
+                product: null,
                 useStartTime: moment(Date.now() + (1000 * 60 * 60 * 24)).format('YYYY-MM-DD HH:mm:ss'),
                 useEndTime: '',
                 receiveLimit: 0,
@@ -323,7 +323,8 @@ export default {
                 // 支付方式 0：线上  1：线下
                 payMethod: 0,
                 // 是否实体商品
-                productType: false
+                productType: false,
+                skuModelList: []
             },
             // 用户标签
             userTagList: [],
@@ -410,10 +411,13 @@ export default {
                 activityEndTime: result.activityEndTime,
                 price: result.price,
                 stock: result.stock,
-                productId: result.productId,
-                product: result.skuModelList,
-                productName: result.productName,
-                productMainImage: result.productMainImage,
+                product: {
+                    productType: result.productType,
+                    productMainImage: result.productMainImage,
+                    productName: result.productName,
+                    id: result.productId
+                },
+                skuModelList: result.skuModelList,
                 brief: result.brief,
                 multiple: result.multiple === 1,
                 multipleNumber: result.multipleNumber,
@@ -513,7 +517,13 @@ export default {
                     this.productList.delete(key)
                 }
             }
-            this.marketingForm.product = Array.from(this.productList.values()).slice(0, this.maxGoodsNum)
+            this.marketingForm.skuModelList = Array.from(this.productList.values()).slice(0, this.maxGoodsNum)
+            this.marketingForm.product = {
+                productType: data[0].productType,
+                productMainImage: data[0].image,
+                productName: data[0].productName,
+                id: data[0].productId
+            }
         },
         priceChange (val, item) {
             item.depositPrice = val || '0.01'
@@ -527,9 +537,9 @@ export default {
         async removeProduct (item) {
             try {
                 await this.$confirm('您确定移除吗？')
-                const index = this.marketingForm.product.findIndex(prod => (prod.skuId === item.skuId))
+                const index = this.marketingForm.skuModelList.findIndex(prod => (prod.skuId === item.skuId))
                 if (index > -1) {
-                    this.marketingForm.product.splice(index, 1)
+                    this.marketingForm.skuModelList.splice(index, 1)
                     const key = item.productType === 'KNOWLEDGE_COURSE' || item.productType === 'SERIES_OF_COURSE' ? item.productId : item.skuCode1 + item.skuCode2
                     this.productList.delete(key)
                 }
@@ -546,8 +556,8 @@ export default {
                 await this.$refs[formName].validate()
                 const Form = this.marketingForm
                 const skuModelList = []
-                const productId = Form.productId || Form.product[0].productId
-                for (const sku of Form.product) {
+                const productId = Form.product.productId
+                for (const sku of Form.skuModelList) {
                     skuModelList.push({
                         skuCode1: sku.skuCode1,
                         skuCode2: sku.skuCode2,
@@ -626,7 +636,7 @@ export default {
                 this.$error('活动结束时间不能大于补尾款结束时间')
                 return false
             }
-            if (!this.marketingForm.product.length) {
+            if (!this.marketingForm.skuModelList.length) {
                 this.$error('请选择商品')
                 return false
             }
@@ -643,7 +653,7 @@ export default {
                 return false
             }
             // 选择线上且虚拟
-            if (this.marketingForm.product.length && this.marketingForm.product.productType !== 'PHYSICAL_GOODS' && this.marketingForm.payMethod === 0) {
+            if (this.marketingForm.skuModelList.length && this.marketingForm.product.productType !== 'PHYSICAL_GOODS' && this.marketingForm.payMethod === 0) {
                 if (!this.marketingForm.validityPeriodStart || !this.marketingForm.validityPeriodEnd) {
                     this.$error('请选择核销时间时间')
                     return false
