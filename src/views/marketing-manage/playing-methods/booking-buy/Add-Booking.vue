@@ -85,7 +85,13 @@
                     </el-form-item>
 
                     <el-form-item label="活动商品" prop="product" required>
-                        <div v-if="marketingForm.product.length">
+                        <div>
+                            <el-button type="primary" plain style="width: 116px;" @click="openAddListDialog">
+                                选择商品
+                            </el-button>
+                            <span class="inp-tips">（预购活动商品不与其余任何活动共享，不可使用优惠券）</span>
+                        </div>
+                        <div v-if="marketingForm.product.length" class="mt-20">
                             <el-table :data="marketingForm.product" border>
                                 <el-table-column>
                                     <template #default="{row}">
@@ -104,9 +110,10 @@
                                         <el-input
                                             style="width: 120px;"
                                             :maxlength="8"
+                                            size="mini"
                                             :value="row.depositPrice"
                                             :disabled="activityStatus === 1"
-                                            @change="val => priceChange(val, row)"
+                                            @input="val => priceChange(val, row)"
                                         />
                                     </template>
                                 </el-table-column>
@@ -146,12 +153,6 @@
                                 <el-checkbox v-model="marketingForm.multiple" :disabled="activityStatus === 1" />
                                 <span class="inp-tips">（定金翻倍后金额不得超过商品规格金额的50%）</span>
                             </div>
-                        </div>
-                        <div v-else>
-                            <el-button type="primary" plain style="width: 116px;" @click="openAddListDialog">
-                                选择商品
-                            </el-button>
-                            <span class="inp-tips">（预购活动商品不与其余任何活动共享，不可使用优惠券）</span>
                         </div>
                     </el-form-item>
                     <el-form-item label="补尾款时间" required>
@@ -482,7 +483,7 @@ export default {
                 validityPeriodEnd: '',
                 depositPrice: '0.01',
                 multipleNumber: 1,
-                stock: 1,
+                stock: 100,
 
                 /**
                  * 用来标记哪个商品存在错误状态
@@ -509,13 +510,13 @@ export default {
             this.marketingForm.product = Array.from(this.productList.values()).slice(0, this.maxGoodsNum)
         },
         priceChange (val, item) {
-            item.depositPrice = Number.parseInt(val) || 1
+            item.depositPrice = val || '0.01'
         },
         multipleNumberChange (val, item) {
             item.multipleNumber = Number.parseInt(val) || 1
         },
         stockChange (val, item) {
-            item.stock = Number.parseInt(val) || 1
+            item.stock = Number.parseInt(val) || 100
         },
         async removeProduct (item) {
             try {

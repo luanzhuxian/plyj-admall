@@ -151,6 +151,7 @@
                 确定
             </el-button>
         </div>
+
     </el-dialog>
 </template>
 
@@ -213,6 +214,10 @@ export default {
         maxSelect: {
             type: Number,
             default: Number.MAX_VALUE
+        },
+        singleProduct: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -324,6 +329,17 @@ export default {
           !['KNOWLEDGE_COURSE', 'SERIES_OF_COURSE'].includes(pro.productType)
                 ) {
                     currentData.push(pro)
+                }
+            }
+            if (this.singleProduct) {
+                const productIds = []
+                for (const data of currentData) {
+                    if (!productIds.includes(data.productId)) {
+                        productIds.push(data.productId)
+                    }
+                }
+                if (productIds.length > 1) {
+                    return this.$warning('最多选择1个商品的多个规格')
                 }
             }
             if (currentData.length > this.maxSelect) {
