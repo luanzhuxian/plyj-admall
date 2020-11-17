@@ -157,7 +157,7 @@
                 label="最近登录时间"
             />
             <el-table-column
-                prop="createTime"
+                prop="auditTime"
                 label="加入时间"
             />
             <el-table-column
