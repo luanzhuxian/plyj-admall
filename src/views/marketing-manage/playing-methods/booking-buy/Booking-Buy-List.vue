@@ -166,6 +166,11 @@
                 <template slot-scope="{ row }">
                     <Operating>
                         <template slot="button-box">
+                            <a @click="$router.push({name:'EditBookingBuy', params:{id: row.id}})"
+                               v-if="row.status === 0 || row.status === 1"
+                            >
+                                编辑
+                            </a>
                             <a @click="$router.push({name: 'BookingBuyDetail', params: { id: row.id }})">
                                 详情
                             </a>

@@ -85,7 +85,7 @@
                     </el-form-item>
 
                     <el-form-item label="活动商品" prop="product" required>
-                        <div>
+                        <div v-if="type || activityStatus !== 1">
                             <el-button type="primary" plain style="width: 116px;" @click="openAddListDialog">
                                 选择商品
                             </el-button>
@@ -98,11 +98,15 @@
                                         <img v-img-error width="71" height="48" :src="(row.image || row.productImage) + '?x-oss-process=style/thum-small'">
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="商品名称" prop="productName" />
+                                <el-table-column label="商品名称">
+                                    <template #default="{ row }">
+                                        {{ row.productName || marketingForm.productName }}
+                                    </template>
+                                </el-table-column>
                                 <el-table-column label="价格（元）" prop="price" />
                                 <el-table-column label="规格">
                                     <template #default="{ row }">
-                                        {{ row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}
+                                        {{ row.skuName || row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="定金价位（元）">
@@ -407,6 +411,7 @@ export default {
                 price: result.price,
                 stock: result.stock,
                 product: result.skuModelList,
+                productName: result.productName,
                 brief: result.brief,
                 multiple: result.multiple === 1,
                 multipleNumber: result.multipleNumber,

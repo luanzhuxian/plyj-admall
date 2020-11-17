@@ -46,14 +46,31 @@
                 </li>
                 <li>
                     <label>活动商品：</label>
-                    <div class="product">
+                    <div class="product" v-if="!activityDetail.skuModelList.length">
                         <img :src="activityDetail.productMainImage">
                         <div class="title">
                             {{ activityDetail.productName }}
                         </div>
                     </div>
+                    <el-table :data="activityDetail.skuModelList" border v-if="activityDetail.skuModelList.length">
+                        <el-table-column>
+                            <template #default="{row}">
+                                <img v-img-error width="71" height="48" :src="(row.image || row.productImage) + '?x-oss-process=style/thum-small'">
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="商品名称">
+                            <template>
+                                {{ activityDetail.productName }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="价格（元）" prop="price" />
+                        <el-table-column label="规格" prop="skuName" />
+                        <el-table-column label="定金价位（元）" prop="depositPrice" />
+                        <el-table-column label="定金翻倍（元）" prop="multipleNumber" />
+                        <el-table-column label="活动库存" prop="stock" />
+                    </el-table>
                 </li>
-                <li>
+                <li v-if="!activityDetail.skuModelList.length">
                     <label>预购库存：</label>
                     <div class="value">
                         {{ activityDetail.stock }}件
@@ -66,13 +83,13 @@
                         <span v-else>每人限购{{ activityDetail.activityLimitNumber }}件</span>
                     </div>
                 </li>
-                <li>
+                <li v-if="!activityDetail.skuModelList.length">
                     <label>定金价位：</label>
                     <div class="value">
                         {{ activityDetail.price }}元
                     </div>
                 </li>
-                <li v-if="activityDetail.multiple">
+                <li v-if="activityDetail.multiple && !activityDetail.skuModelList.length">
                     <label>定金翻倍：</label>
                     <div class="value">
                         {{ activityDetail.multipleNumber }}
