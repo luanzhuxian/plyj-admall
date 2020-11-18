@@ -84,11 +84,11 @@
                         <el-table-column type="selection" width="55" align="right" />
                         <el-table-column width="200" />
                         <el-table-column width="150">
-                            <template>
-                                <span v-text="row.skuCode1Name" />
-                                <template v-if="row.skuCode2Name">
+                            <template slot-scope="scope">
+                                <span v-text="scope.row.skuCode1Name" />
+                                <template v-if="scope.row.skuCode2Name">
                                     <span>/</span>
-                                    <span v-text="row.skuCode2Name" />
+                                    <span v-text="scope.row.skuCode2Name" />
                                 </template>
                             </template>
                         </el-table-column>

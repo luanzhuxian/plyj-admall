@@ -78,18 +78,62 @@
                 </el-button>
             </el-form-item>
         </search-box>
-        <el-table :data="tableData" class="mt-10" stripe>
+        <el-table :data="tableData" class="mt-10" ref="table">
             <span slot="empty" class="empty">
                 <pl-svg width="16" name="icon-empty" style="margin-right: 4px" />
                 没有查到预购活动，请确认后重新查询！
             </span>
             <el-table-column
-                prop="id"
+                type="expand"
+            >
+                <template #default="{ row }">
+                    <el-table
+                        v-if="row.skuModelList && row.skuModelList.length"
+                        style="width: 100%;"
+                        :ref="`child-table-${row.id}`"
+                        :data="row.skuModelList">
+                        <el-table-column label="规格"
+                                         header-align="center"
+                                         align="center">
+                            <template>
+                                <span v-text="row.skuCode1Name" />
+                                <template v-if="row.skuCode2Name">
+                                    <span>/</span>
+                                    <span v-text="row.skuCode2Name" />
+                                </template>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            prop="depositPrice"
+                            label="定金"
+                            header-align="center"
+                            align="center"
+                        />
+                        <el-table-column
+                            prop="multipleNumber"
+                            label="翻倍数量"
+                            header-align="center"
+                            align="center"
+                        />
+                        <el-table-column
+                            prop="stock"
+                            label="剩余库存"
+                            header-align="center"
+                            align="center"
+                        />
+                    </el-table>
+                </template>
+            </el-table-column>
+            <el-table-column
                 label="预购编号"
                 width="190"
                 header-align="left"
                 align="left"
-            />
+            >
+                <template #default="{ row }">
+                    {{ row.id }}
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="status"
                 label="活动状态"
@@ -112,28 +156,6 @@
             <el-table-column
                 prop="payCount"
                 label="购买商品数量"
-                header-align="center"
-                align="center"
-            />
-            <el-table-column
-                prop="price"
-                label="定金"
-                header-align="center"
-                align="center"
-            />
-            <el-table-column
-                prop="multipleNumber"
-                label="翻倍数量"
-                header-align="center"
-                align="center"
-            >
-                <template #default="{row}">
-                    {{ row.multiple ? row.multipleNumber : '' }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="overStock"
-                label="剩余库存"
                 header-align="center"
                 align="center"
             />
@@ -389,6 +411,16 @@ export default {
                 this.tableData = result.records || []
                 this.total = result.total
             } catch (e) { throw e }
+        },
+        expendSku (row) {
+            row.expanded = !row.expanded
+            this.$refs.skuTable.toggleRowExpansion(row, row.expanded)
+            // 订单子表关闭后，也关闭商品子表
+            if (!row.expanded) {
+                row.skuModelList.forEach(item => {
+                    item.expanded = false
+                })
+            }
         },
         // 复制活动
         async handleCopy (id) {

@@ -70,14 +70,14 @@
                     <i v-text="statistics.waitPayBalanceCount || 0" /><span>单</span>
                 </div>
             </div>
-            <div class="tab-card-item" v-if="statistics.multiple === 1">
+            <!-- <div class="tab-card-item" v-if="statistics.multiple === 1">
                 <div class="card-item-title">
                     定金翻倍
                 </div>
                 <div class="card-item-content">
                     <i v-text="statistics.multipleNumber" /> <span>倍</span>
                 </div>
-            </div>
+            </div> -->
             <div class="tab-card-item">
                 <div class="card-item-title">
                     尾款支付
