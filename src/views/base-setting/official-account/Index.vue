@@ -46,6 +46,9 @@ import WechatPay from './pages/Wechat-Pay.vue'
 import YajiAuth from './pages/Yaji-Auth.vue'
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
+import { setAuthCode } from '@/apis/base/register'
+import { MutationTypes } from '@/store/mutation-type'
+
 const userModule = namespace('user')
 type PageType = 'WechatAuth' | 'WechatPay' | 'YajiAuth'
 const statusPages: Map<string[], PageType> = new Map([
@@ -67,12 +70,16 @@ export default class BindWechat extends Vue {
     @userModule.Getter('auditStatus') auditStatus!: string;
     @userModule.Getter('currentStep') currentStep!: number;
     @userModule.Getter('wechatPayStatus') wechatPayStatus!: DynamicObject;
+    @userModule.Getter('mallNumber') mallNumber!: string;
+    @userModule.Action(MutationTypes.wechatPayStatus) getWechatPayStatus!: Function;
+    @userModule.Action(MutationTypes.agencyUserInfo) getAgencyUserInfo!: Function;
 
     get applymentState () {
         return this.wechatPayStatus.applymentState
     }
 
     async created () {
+        await this.setAuthCode()
         // 根据注册状态切换到不同的页面
         const { auditStatus } = this
         for (const statusKeys of [...statusPages.keys()].reverse()) {
@@ -92,6 +99,35 @@ export default class BindWechat extends Vue {
                 break
             }
         }
+    }
+
+    async setAuthCode () {
+        const authCode = this.$route.query.auth_code || ''
+        if (!authCode) {
+            return
+        }
+        try {
+            const data = await setAuthCode(this.mallNumber, encodeURIComponent(authCode as string))
+            if (data.result.authResult) {
+                this.$success('授权成功')
+                await this.$router.push({ name: 'Wechat' })
+            } else {
+                await this.$alert({
+                    title: '授权失败',
+                    message: data.result.authMessage
+                })
+            }
+        } catch (e) {
+            if (e && e.name === 'ResponseError') {
+                this.$message(JSON.parse(e.message).message)
+            }
+        } finally {
+            sessionStorage.removeItem('authCode')
+            this.getWechatPayStatus()
+            this.getAgencyUserInfo()
+            this.$router.replace({ name: 'WechatAuth' })
+        }
+        return null
     }
 }
 </script>

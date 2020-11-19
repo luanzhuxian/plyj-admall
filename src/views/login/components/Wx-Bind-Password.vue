@@ -65,7 +65,8 @@ export default class WxBindPassword extends Vue {
             ],
             password: [
                 { required: true, message: '密码不能为空', trigger: 'blur' },
-                { min: 6, message: '密码不能小于6位', trigger: 'blur' }
+                { min: 6, message: '密码不能小于6位', trigger: 'blur' },
+                { max: 18, message: '密码不能大于18位', trigger: 'blur' }
             ]
         }
 

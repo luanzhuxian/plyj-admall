@@ -96,7 +96,7 @@
 
 <script>
 import { getUserTagList } from '../../../../../apis/marketing-manage/together'
-import { signinActivityDetail, materialSchemeList } from '../../../../../apis/marketing-manage/new-year/year-flavor'
+import { materialSchemeList } from '../../../../../apis/marketing-manage/new-year/year-flavor'
 export default {
     name: 'GeneralInfo',
     data () {
@@ -120,6 +120,12 @@ export default {
             ladderTag: ['礼品', '奖学金', '全场满减券', '品类券']
         }
     },
+    props: {
+        data: {
+            type: Object,
+            required: true
+        }
+    },
     computed: {
         userTags () {
             if (this.userTagList.length > 0 && this.activityDetail.entity.userScope && this.activityDetail.entity.userScope === 3) {
@@ -139,7 +145,7 @@ export default {
     },
     async created () {
         try {
-            this.getActivityDetail(this.$route.params.id)
+            this.activityDetail = this.data
             // 获取用户分组,端午活动列表
             const [{ result: userTagList }, { result: yearFlavorList }] = await Promise.all([getUserTagList(), materialSchemeList({ activityType: 3 })])
             this.yearFlavorList = yearFlavorList
@@ -147,12 +153,6 @@ export default {
         } catch (e) { throw e }
     },
     methods: {
-        async getActivityDetail (id) {
-            try {
-                const { result } = await signinActivityDetail(id)
-                this.activityDetail = result
-            } catch (e) { throw e }
-        },
         // 展示部分用户
         showUserTags () {
             if (this.userTags.length === 0) {

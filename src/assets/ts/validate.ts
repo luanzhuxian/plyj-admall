@@ -52,7 +52,7 @@ export const isTelNumber = (str: string) => /^(1[0-9]{10})$|^(\d{10})$|^(\d{3}-)
 export const isPhone = (val: string) => /^1[0-9]{10}$/.test(val)
 
 // 校验座机号
-export const isLandlinePhone = (val: string) => /^[0][1-9]{2,3}-[0-9]{5,10}$/.test(val)
+export const isLandlinePhone = (val: string) => /^[0][1-9]{2,3}-?[0-9]{5,10}$/.test(val)
 
 // 校验快递单号
 export const isExpressNumber = (str: string) => /^[0-9a-zA-Z]+$/.test(str)

@@ -8,7 +8,7 @@
                 <i :class="{ [$style.active]: step >= 4 }">④ 超级管理员</i>
             </div>
             <main :class="$style.main">
-                <components :is="`Step${ step }`" :ref="`step${ step }`" />
+                <components :is="`Step${ step }`" :detail="detail" :ref="`step${ step }`" />
             </main>
         </div>
         <status ref="step6" :detail="detail" v-else v-show="!loading" @again="step = 1" />
