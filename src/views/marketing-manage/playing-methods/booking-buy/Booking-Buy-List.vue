@@ -78,31 +78,66 @@
                 </el-button>
             </el-form-item>
         </search-box>
-        <el-table :data="tableData" class="mt-10" ref="table">
+        <el-table :data="tableData" class="mt-10" ref="skuTable">
             <span slot="empty" class="empty">
                 <pl-svg width="16" name="icon-empty" style="margin-right: 4px" />
                 没有查到预购活动，请确认后重新查询！
             </span>
             <el-table-column
-                type="expand"
+                prop="id"
+                label="预购编号"
+                width="190"
+                header-align="left"
+                align="left"
+            />
+            <el-table-column
+                prop="status"
+                label="活动状态"
+                width="140"
+                header-align="center"
+                align="center"
+            >
+                <template slot-scope="scope">
+                    <span v-if="scope.row.status === 0">未开始</span>
+                    <span v-if="scope.row.status === 1">进行中</span>
+                    <span v-if="scope.row.status === 2">已结束</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="商品名称"
+                header-align="center"
+                align="center"
             >
                 <template #default="{ row }">
+                    <div style="display: flex; justify-content: center">
+
+                        <el-button
+                            type="text"
+                            v-if="row.skuModelList && row.skuModelList.length"
+                            style="padding: 0"
+                            class="expanded-btn"
+                            :class="{ expanded: row.expanded }"
+                            @click="expendSkuModel(row)"
+                        >{{ row.productName }}
+                            <i class="el-icon-arrow-right" />
+                        </el-button>
+                        <span v-else>{{ row.productName }}</span>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column
+                type="expand" width="0" class="sku-expand"
+            >
+                <template #default="scope">
                     <el-table
-                        v-if="row.skuModelList && row.skuModelList.length"
-                        style="width: 100%;"
-                        :ref="`child-table-${row.id}`"
-                        :data="row.skuModelList">
-                        <el-table-column label="规格"
+                        v-if="scope.row.skuModelList && scope.row.skuModelList.length"
+                        :ref="`skuItemTable_${scope.$index}`"
+                        class="child-table"
+                        :data="scope.row.skuModelList">
+                        <el-table-column prop="skuName"
+                                         label="规格"
                                          header-align="center"
-                                         align="center">
-                            <template>
-                                <span v-text="row.skuCode1Name" />
-                                <template v-if="row.skuCode2Name">
-                                    <span>/</span>
-                                    <span v-text="row.skuCode2Name" />
-                                </template>
-                            </template>
-                        </el-table-column>
+                                         align="center" />
                         <el-table-column
                             prop="depositPrice"
                             label="定金"
@@ -125,44 +160,17 @@
                 </template>
             </el-table-column>
             <el-table-column
-                label="预购编号"
-                width="190"
-                header-align="left"
-                align="left"
-            >
-                <template #default="{ row }">
-                    {{ row.id }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="status"
-                label="活动状态"
-                width="140"
-                header-align="center"
-                align="center"
-            >
-                <template slot-scope="scope">
-                    <span v-if="scope.row.status === 0">未开始</span>
-                    <span v-if="scope.row.status === 1">进行中</span>
-                    <span v-if="scope.row.status === 2">已结束</span>
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="productName"
-                label="商品名称"
-                header-align="center"
-                align="center"
-            />
-            <el-table-column
                 prop="payCount"
                 label="购买商品数量"
                 header-align="center"
                 align="center"
+                width="120"
             />
             <el-table-column
                 label="尾款支付"
                 header-align="center"
                 align="center"
+                width="100"
             >
                 <template #default="{row}">
                     {{ row.payMethod === 0 ? '线上' : '线下' }}
@@ -356,6 +364,16 @@ export default {
     },
     methods: {
         ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
+        expendSkuModel (row) {
+            row.expanded = !row.expanded
+            this.$refs.skuTable.toggleRowExpansion(row, row.expanded)
+            // 订单子表关闭后，也关闭商品子表
+            if (!row.expanded) {
+                row.skuModelList.forEach(item => {
+                    item.expanded = false
+                })
+            }
+        },
         iconGengduoEnter (row) {
             row.iconGengduoShow = true
         },
@@ -588,5 +606,31 @@ export default {
         }
       }
     }
+  }
+  .child-table {
+      margin-left: 330px;
+      width: calc(100% - 330px);
+      &:before {
+          display: none;
+      }
+      ::v-deep .el-table__row:nth-last-of-type(1) {
+          td {
+              border: none !important;
+          }
+      }
+  }
+  ::v-deep .el-table__expand-column {
+      .el-table__expand-icon {
+          display: none;
+      }
+  }
+  .el-icon-arrow-right {
+      transition: all .2s ease-in-out;
+      transform: rotate(0);
+  }
+  .expanded-btn.expanded {
+      .el-icon-arrow-right {
+          transform: rotate(90deg);
+      }
   }
 </style>
