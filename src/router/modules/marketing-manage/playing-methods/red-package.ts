@@ -43,28 +43,31 @@ export default [
                     }
                 ]
             },
-            // {
-            //     path: 'add',
-            //     name: 'AddRedPackage',
-            //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add.vue'),
-            //     meta: {
-            //         title: '新增福利红包',
-            //         index: '8-20-2'
-            //     }
-            // },
-            // {
-            //     path: 'edit/:id',
-            //     name: 'EditRedPackage',
-            //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add.vue'),
-            //     meta: {
-            //         title: '编辑福利红包',
-            //         index: '8-20-3'
-            //     }
-            // },
+            {
+                path: 'add',
+                name: 'AddRedPackage',
+                component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add-Red-Package.vue'),
+                meta: {
+                    title: '新增福利红包',
+                    index: '8-20-2',
+                    ignore: true
+                }
+            },
+            {
+                path: 'edit/:id',
+                name: 'EditRedPackage',
+                component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add-Red-Package.vue'),
+                props: true,
+                meta: {
+                    title: '编辑福利红包',
+                    index: '8-20-3',
+                    ignore: true
+                }
+            },
             // {
             //     path: 'copy/:id',
             //     name: 'CopyRedPackage',
-            //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add.vue'),
+            //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add-Red-Package.vue'),
             //     meta: {
             //         title: '复制福利红包',
             //         index: '8-20-4'

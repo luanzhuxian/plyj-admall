@@ -1,7 +1,7 @@
 <template>
     <div class="red-package-activity-list">
         <section>
-            <el-button type="primary" round @click="$router.push({name:'AddCategoryCoupon'})">
+            <el-button type="primary" round @click="$router.push({name:'AddRedPackage'})">
                 新建活动
                 <i class="el-icon-plus el-icon--right" />
             </el-button>

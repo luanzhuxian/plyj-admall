@@ -39,6 +39,14 @@ export default {
         LIVE_GOODS: '直播课',
         VIDEO_GOODS: '录播课'
     },
+    // 商品状态状态
+    productStatusMap:
+        {
+            1: '已下架',
+            2: '出售中',
+            3: '草稿箱',
+            4: '已售罄'
+        },
     orderStatus: {
         ALL_ORDER: '全部订单',
         NEW: '待提交',
