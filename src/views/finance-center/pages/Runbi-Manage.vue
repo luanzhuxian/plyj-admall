@@ -130,14 +130,10 @@
                             <template
                                 v-if="row.status === 'AWAIT'"
                             >
-                                <a
-                                    @click="updateRunbi([row.id], 'PASS')"
-                                >
+                                <a @click="updateRunbi([row.id], 'PASS')">
                                     通过
                                 </a>
-                                <a
-                                    @click="updateRunbi([row.id], 'REJECT')"
-                                >
+                                <a @click="updateRunbi([row.id], 'REJECT')">
                                     驳回
                                 </a>
                             </template>

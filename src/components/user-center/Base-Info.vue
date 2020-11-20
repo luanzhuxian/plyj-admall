@@ -75,9 +75,9 @@
             </Field>
             <br>
             <Field title="记录：" inline style="margin-right: 78px;">
-                <p class="mb-16">{{ userCreateTime || createTime }}
-                    <span class="ml-16" v-if="$route.name === 'HelperPromoteDetail'">加入</span>
-                    <span class="ml-16" v-else>注册</span>
+                <p class="mb-16">{{ createTime }}
+                    <span class="ml-16" v-if="auditStatus === 'PASS'">加入</span>
+                    <span class="ml-16" v-if="auditStatus === 'AWAIT'">申请</span>
                 </p>
                 <p class="mb-16" v-if="lastLoginTime">{{ lastLoginTime }}<span class="ml-16">最近登录</span></p>
                 <p class="mb-16" v-if="lastPurchaseTime">{{ lastPurchaseTime }}<span class="ml-16">最近购买</span></p>
@@ -167,6 +167,7 @@ export default class MemberBaseInfo extends Vue {
     @Prop({ type: String }) ownedRole?: string
     // 所属账号id
     @Prop({ type: String }) ownedUserId?: string
+    @Prop({ type: String }) auditStatus?: string
     // 标签列表
     @Prop({ type: Array, default: [] }) tags!: string[]
     // 是否可以编辑标签

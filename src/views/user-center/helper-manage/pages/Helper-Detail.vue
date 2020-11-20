@@ -28,6 +28,7 @@
                 :other="detail.other"
                 :create-time="detail.createTime"
                 :user-create-time="detail.userCreateTime"
+                :audit-status="detail.auditStatus"
                 :edit-tags="false"
             />
         </div>

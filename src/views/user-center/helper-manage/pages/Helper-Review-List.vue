@@ -142,15 +142,11 @@
                 <template slot-scope="{ row }">
                     <div class="action">
                         <template v-if="currentStatus === 'AWAIT'">
-                            <a
-                                @click="updateBrokerStatus(row.id, 'PASS')"
-                            >
+                            <a @click="updateBrokerStatus(row.id, 'PASS')">
                                 通过
                             </a>
                             |
-                            <a
-                                @click="updateBrokerStatus(row.id, 'REJECT')"
-                            >
+                            <a @click="updateBrokerStatus(row.id, 'REJECT')">
                                 驳回
                             </a>
                             |
