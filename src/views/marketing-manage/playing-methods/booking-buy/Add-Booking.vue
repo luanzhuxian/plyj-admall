@@ -154,7 +154,7 @@
                                 </el-table-column>
                             </el-table>
                             <div class="tips">
-                                <el-checkbox v-model="marketingForm.multiple" :disabled="activityStatus === 1" />
+                                <!-- <el-checkbox v-model="marketingForm.multiple" :disabled="activityStatus === 1" /> -->
                                 <span class="inp-tips">（定金翻倍后金额不得超过商品规格金额的50%）</span>
                             </div>
                         </div>
