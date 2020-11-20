@@ -34,6 +34,7 @@
                         :clearable="true"
                         range-separator="至"
                         ref="payDate"
+                        :init="initReceiveTime"
                         @change="receiveTimeChange"
                     />
                     <p class="description">
@@ -115,6 +116,7 @@
                         :clearable="true"
                         range-separator="至"
                         @change="useTimeChange"
+                        :init="initUseTime"
                         ref="payDate"
                     />
                     <p class="description">
@@ -376,7 +378,8 @@ export default class AddRedPackage extends Vue {
 
     checkListArray= []
     status= false
-
+    initReceiveTime= ['', '']
+    initUseTime= ['', '']
     form: DynamicObject= {
         // 活动名称
         name: '',
@@ -414,6 +417,48 @@ export default class AddRedPackage extends Vue {
             scholarship: 0,
             // 使用须知
             brief: 'string'
+        }
+    }
+
+    async created () {
+        try {
+            await this.getUserTtagListFun()
+            if (this.id) {
+                const { result } = await getRedPackageDetail(this.id)
+                const { name, issueVolume, bgUrlsIndex, showStatus, logoUrl, redPacketCouponVO } = result
+                const { amount, receiveEndTime, receiveStartTime, receiveLimit, tagIds, distributionMethod, price, activityLimit, quantityLimit, useStartTime, useEndTime, useLimitAmount, useWithCoupon, scholarship, brief } = redPacketCouponVO
+                let useStackable = 1
+                if (!useWithCoupon && !scholarship) useStackable = 0
+                this.initReceiveTime = [receiveStartTime, receiveEndTime]
+                this.initUseTime = [useStartTime, useEndTime]
+                this.form = {
+                    name,
+                    issueVolume,
+                    bgUrlsIndex,
+                    showStatus,
+                    logoUrl,
+                    redPacketCouponDTO: {
+                        amount,
+                        receiveEndTime,
+                        receiveStartTime,
+                        receiveLimit,
+                        tagIds,
+                        distributionMethod,
+                        price,
+                        activityLimit,
+                        quantityLimit,
+                        useStartTime,
+                        useEndTime,
+                        useLimitAmount,
+                        useStackable,
+                        useWithCoupon: Boolean(useWithCoupon),
+                        scholarship: Boolean(scholarship),
+                        brief
+                    }
+                }
+            }
+        } catch (e) {
+            throw e
         }
     }
 
@@ -500,18 +545,6 @@ export default class AddRedPackage extends Vue {
         logoShow: [
             { validator: this.rulesLogoShow, trigger: 'blur' }
         ]
-    }
-
-    async created () {
-        try {
-            await this.getUserTtagListFun()
-            if (this.id) {
-                const { result } = await getRedPackageDetail(this.id)
-                console.log(result)
-            }
-        } catch (e) {
-            throw e
-        }
     }
 
     checkAllChange (val: any) {
