@@ -345,7 +345,7 @@ import productSkuSelector from '../../../../components/product-center/goods/Prod
 import { checkNumber } from '@/assets/ts/validate'
 import { addRedPackage, getRedPackageDetail } from '../../../../apis/marketing-manage/red-package'
 
-type ProdItem = { productId: string; productType: string; skuCode1: any; skuCode2: any }
+type ProdItem = { productId: string; productType: string; skuCode1: string; skuCode2: string; skuId: string }
 
 const userModule = namespace('user')
 // import moment from 'moment/moment'
@@ -381,8 +381,8 @@ export default class AddRedPackage extends Vue {
 
     checkListArray= []
     status= false
-    initReceiveTime= ['', '']
-    initUseTime= ['', '']
+    initReceiveTime: string[]= []
+    initUseTime: string[]= []
     form: DynamicObject= {
         // 活动名称
         name: '',
@@ -600,6 +600,9 @@ export default class AddRedPackage extends Vue {
     }
 
     selectProductSku (val: ProdItem[]) {
+        console.log(val)
+        console.log(val)
+        console.log(val)
         this.productModelList = val
         if (!val || !val.length) return
         for (const item of this.productModelList) {
