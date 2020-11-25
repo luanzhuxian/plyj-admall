@@ -344,6 +344,9 @@ import { namespace, State } from 'vuex-class'
 import productSkuSelector from '../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import { checkNumber } from '@/assets/ts/validate'
 import { addRedPackage, getRedPackageDetail } from '../../../../apis/marketing-manage/red-package'
+
+type ProdItem = { productId: string; productType: string; skuCode1: any; skuCode2: any }
+
 const userModule = namespace('user')
 // import moment from 'moment/moment'
 @Component({
@@ -363,7 +366,7 @@ export default class AddRedPackage extends Vue {
     checkAll= false
     logoUrl= []
     showProductBox= false
-    productModelList= []
+    productModelList: ProdItem[] = []
     swiperOption= {
         pagination: {
             el: '.swiper-pagination',
@@ -596,7 +599,7 @@ export default class AddRedPackage extends Vue {
         }
     }
 
-    selectProductSku (val: any) {
+    selectProductSku (val: ProdItem[]) {
         this.productModelList = val
         if (!val || !val.length) return
         for (const item of this.productModelList) {
@@ -605,10 +608,10 @@ export default class AddRedPackage extends Vue {
         }
     }
 
-    async removePro (item: { productId: string; productType: string; skuCode1: any; skuCode2: any }) {
+    async removePro (item: ProdItem) {
         try {
             await this.$confirm('您确定移除吗？')
-            const index = this.productModelList.findIndex(prod => (prod.productId === item.productId))
+            const index = this.productModelList.findIndex((prod: ProdItem) => (prod.productId === item.productId))
             if (index > -1) this.productModelList.splice(index, 1)
         } catch (error) {
             throw error
