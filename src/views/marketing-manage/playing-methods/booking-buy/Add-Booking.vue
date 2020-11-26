@@ -532,7 +532,7 @@ export default {
             }
         },
         priceChange (val, item) {
-            item.depositPrice = val || '0.01'
+            item.depositPrice = val
         },
         multipleNumberChange (val, item) {
             item.multipleNumber = Number.parseInt(val) || 1
