@@ -51,6 +51,7 @@
                     ref="dateRange"
                     type="date"
                     size="small"
+                    disable-after
                     start-label="领取时间："
                     end-label=""
                     range-separator="至"
@@ -111,7 +112,7 @@
                             </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item v-for="(item,index) in row.tagIdNames" :key="index">
-                                    {{ item.tagName }}
+                                    {{ item }}
                                 </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -123,7 +124,7 @@
                     width="150"
                 />
                 <el-table-column
-                    prop="useLimitAmount"
+                    prop="price"
                     label="支付金额"
                 />
                 <el-table-column
@@ -202,20 +203,20 @@
                                     删除
                                 </a>
                                 <!--  除'待开始/已结束'以外的，只有'进行中/已停止'的'自行领取'的品类券均可开启/停止 -->
-                                <div class="inline-b" v-if="row.activityStatus !==2 && row.activityStatus !==3">
+                                <div class="inline-b" v-if="row.activityStatus !==0 && row.activityStatus !==3">
                                     <el-switch
                                         class="switch"
                                         v-model="row.pureStatus"
                                         active-color="#4F63FF"
-                                        :active-value="true"
-                                        :inactive-value="false"
+                                        :active-value="false"
+                                        :inactive-value="true"
                                         @change="switchChange(row)"
                                     />
-                                    <span v-if="row.pureStatus" style="color: #4F63FF">
-                                        开启
-                                    </span>
-                                    <span v-else style="color: #ccc">
+                                    <span v-if="row.pureStatus" style="color: #ccc">
                                         停止
+                                    </span>
+                                    <span v-else style="color: #4F63FF">
+                                        开启
                                     </span>
                                 </div>
                             </template>
@@ -322,6 +323,8 @@ export default class RedPackageActivityList extends Vue {
     }
 
     async dateChange (val: { start: string; end: string }) {
+        console.log(val)
+        console.log(val)
         try {
             this.form.receiveEndTime = val.start
             this.form.receiveStartTime = val.end
@@ -344,6 +347,7 @@ export default class RedPackageActivityList extends Vue {
         try {
             await showRedPackage(row.id, row.showStatus)
             await this.getList()
+            this.$success('操作成功')
         } catch (error) {
             if (row.activityStatus) {
                 row.showStatus = false
@@ -356,8 +360,15 @@ export default class RedPackageActivityList extends Vue {
 
     async switchChange (row: { id: string;activityStatus: number; pureStatus: boolean }) {
         try {
+            if (row.pureStatus) {
+                await this.$confirm({
+                    title: '确认要停止该福利红包活动吗？',
+                    message: '该福利红包活动停止后，用户不可在店铺中查看和领取该福利红包活动，停止后可编辑后重新开始活动'
+                })
+            }
             await pauseRedPackage(row.id, row.pureStatus)
             await this.getList()
+            this.$success('操作成功')
         } catch (error) {
             if (row.activityStatus) {
                 row.pureStatus = false
@@ -384,7 +395,6 @@ export default class RedPackageActivityList extends Vue {
 
     async copyActivity (id: string) {
         try {
-            alert(id)
             await copyRedPackage(id)
             this.$success('复制成功')
             await this.getList()

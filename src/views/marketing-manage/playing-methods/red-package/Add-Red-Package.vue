@@ -18,7 +18,7 @@
                     </p>
                 </el-form-item>
                 <el-form-item label="发放量：" prop="issueVolume">
-                    <el-input-number v-model="form.issueVolume" :min="1" label="描述文字" />
+                    <el-input-number v-model="form.issueVolume" :min="1" label="描述文字" /> <span class="label-warning">开始后不可修改</span>
                     <p class="description">
                         发放的福利红包，超过发放量后将自动结束活动
                     </p>
@@ -26,7 +26,6 @@
                 <div class="content-title">
                     领取条件
                 </div>
-                <!--                redPacketCouponDTO.receiveEndTime-->
                 <el-form-item label="领用时间：" prop="redPacketCouponDTO.receiveStartTime">
                     <date-range
                         size="small"
@@ -36,6 +35,7 @@
                         ref="payDate"
                         :init="initReceiveTime"
                         @change="receiveTimeChange"
+                        :disabled-start-time="disabled"
                     />
                     <p class="description">
                         在活动领用时间内可领用福利红包，领用时间结束后不可继续领用福利红包
@@ -78,12 +78,12 @@
                         </div>
                     </div>
                 </el-form-item>
-                <el-form-item label="领取方式：" prop="redPacketCouponDTO.distributionMethod">
-                    <el-radio-group v-model="form.redPacketCouponDTO.distributionMethod">
-                        <el-radio :disabled="status" :label="0">
+                <el-form-item label="领用方式：" prop="redPacketCouponDTO.distributionMethod">
+                    <el-radio-group :disabled="disabled" v-model="form.redPacketCouponDTO.distributionMethod">
+                        <el-radio :label="0">
                             免费
                         </el-radio>
-                        <el-radio :disabled="status" :label="2">
+                        <el-radio :label="2">
                             付费
                         </el-radio>
                     </el-radio-group>
@@ -205,11 +205,11 @@
                 </el-form-item>
 
                 <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
-                    购买金额满 <el-input style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元
+                    购买金额满 <el-input style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元 <span class="label-warning">开始后不可修改</span>
                 </el-form-item>
 
                 <el-form-item label="使用限制：" prop="redPacketCouponDTO.useStackable">
-                    <el-radio-group @change="getBrief" v-model="form.redPacketCouponDTO.useStackable">
+                    <el-radio-group :disabled="disabled" @change="getBrief" v-model="form.redPacketCouponDTO.useStackable">
                         <el-radio :label="1">
                             支持叠加使用
                         </el-radio>
@@ -217,9 +217,10 @@
                             不支持叠加使用
                         </el-radio>
                     </el-radio-group>
+                    <span class="label-warning">开始后不可修改</span>
                     <div class="stackable" v-if="form.redPacketCouponDTO.useStackable">
-                        <el-checkbox @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类全</el-checkbox>
-                        <el-checkbox @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
+                        <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类全</el-checkbox>
+                        <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
                         <p class="description">
                             购买产品时，使用该福利红包抵扣金额，可同时与满减券/品类券、奖学金叠加抵扣使用； <br>
                             秒杀、团购、预购等活动均不支持使用福利红包进行抵扣减免；
@@ -340,7 +341,7 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { State } from 'vuex-class'
 import productSkuSelector from '../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import { checkNumber } from '@/assets/ts/validate'
-import { addRedPackage, getRedPackageDetail, editRedPackage } from '../../../../apis/marketing-manage/red-package'
+import { addRedPackage, getRedPackageDetail, editRedPackage, getRedPackageclaimVolume } from '../../../../apis/marketing-manage/red-package'
 
 type ProdItem = {
     productId: string;
@@ -372,10 +373,13 @@ export default class AddRedPackage extends Vue {
     @State('productStatusMap') productStatusMap!: DynamicObject
     @State('redPackageBg') redPackageBg!: DynamicObject[]
     loading= false
+    disabled = false
     briefEdit= false
     checkAll= false
     logoUrl: string[]= []
     showProductBox= false
+
+    claimVolume = 0
     productModelList: ProdItem[] = []
     swiperOption= {
         pagination: {
@@ -439,8 +443,9 @@ export default class AddRedPackage extends Vue {
             await this.getUserTtagListFun()
             if (this.id) {
                 const { result } = await getRedPackageDetail(this.id)
-                const { name, issueVolume, bgUrlsIndex, showStatus, logoShow, logoUrl, redPacketCouponVO } = result
+                const { activityStatus, name, issueVolume, bgUrlsIndex, showStatus, logoShow, logoUrl, redPacketCouponVO } = result
                 const { amount, receiveEndTime, receiveStartTime, receiveLimit, tagIds, distributionMethod, price, activityLimit, quantityLimit, useStartTime, useEndTime, useLimitAmount, useWithCoupon, scholarship, brief, applicableGoodsVOS } = redPacketCouponVO
+                if (activityStatus !== 0) this.disabled = true
                 let useStackable = 1
                 if (!useWithCoupon && !scholarship) useStackable = 0
                 this.initReceiveTime = [receiveStartTime, receiveEndTime]
@@ -479,6 +484,8 @@ export default class AddRedPackage extends Vue {
                 for (const item of this.redPackageBg) {
                     if (bgUrlsIndex === item.id) item.check = true
                 }
+                const claimVolume = await getRedPackageclaimVolume(this.id)
+                this.claimVolume = claimVolume.result
             } else {
                 for (const item of this.redPackageBg) {
                     if (this.form.bgUrlsIndex === item.id) item.check = true
@@ -488,6 +495,14 @@ export default class AddRedPackage extends Vue {
         } catch (e) {
             throw e
         }
+    }
+
+    rulesIssueVolume (rule: number, value: any, callback: Function) {
+        if (this.claimVolume && (value < this.claimVolume)) {
+            callback(new Error('发放量不能小于已领用量'))
+            return
+        }
+        callback()
     }
 
     rulesReceiveLimit (rule: number, value: any, callback: Function) {
@@ -541,7 +556,8 @@ export default class AddRedPackage extends Vue {
             { validator: checkNumber(99999, 1, 0), trigger: 'blur' }
         ],
         issueVolume: [
-            { required: true, message: '发放量不能为空', trigger: 'blur' }
+            { required: true, message: '发放量不能为空', trigger: 'blur' },
+            { validator: this.rulesIssueVolume, trigger: 'blur' }
         ],
         'redPacketCouponDTO.receiveStartTime': [
             { required: true, message: '领用时间不能为空', trigger: 'blur' }
@@ -726,7 +742,9 @@ export default class AddRedPackage extends Vue {
         display: flex;
         justify-content: center;
     }
-    .red{
+    .label-warning{
+        margin-left: 20px;
+        font-size: 12px;
         color: #D0423C;
     }
     .description{

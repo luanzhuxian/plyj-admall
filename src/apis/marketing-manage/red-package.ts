@@ -26,3 +26,6 @@ export const deleteRedPackage = (id: string) => axios.delete(`/apis/v2/red-packa
 
 // 复制福利红包
 export const copyRedPackage = (id: string) => axios.post(`/apis/v2/red-package-activities/${ id }`)
+
+// 福利红包领用量
+export const getRedPackageclaimVolume = (id: string) => axios.get(`/apis/v2/red-package-activities/${ id }/claimVolume`)
