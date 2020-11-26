@@ -192,7 +192,7 @@
                                 })">
                                     数据
                                 </a>
-                                <a>
+                                <a @click="share(row)">
                                     分享
                                 </a>
                                 <a @click="copyActivity(row.id)">
@@ -235,12 +235,15 @@
 
         <!--活动说明弹窗-->
         <Explanation :show.sync="showExplaination" />
+        <Share :show.sync="qrcodeShow" :qrcode-text="qrcodeText" ref="share" />
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import Explanation from '../components/Explanation.vue'
+import Share from '../../../../../components/common/Share.vue'
+import { namespace } from 'vuex-class'
 import {
     getRedPackageList,
     pauseRedPackage,
@@ -249,13 +252,16 @@ import {
     deleteRedPackage,
     copyRedPackage
 } from '../../../../../apis/marketing-manage/red-package'
+const userModule = namespace('user')
 
 @Component({
     components: {
-        Explanation
+        Explanation,
+        Share
     }
 })
 export default class RedPackageActivityList extends Vue {
+    @userModule.Getter('mallUrl') mallUrl!: string;
     activityStatusMap = {
         0: '未开始',
         1: '进行中',
@@ -276,6 +282,11 @@ export default class RedPackageActivityList extends Vue {
     total = 0
     receiveLimitType = ['所有注册用户', 'helper可用', '普通会员', '部分用户']
     showExplaination = false
+
+    // 分享链接
+    qrcodeText = ''
+    // 分享开关
+    qrcodeShow = false
 
     async created () {
         try {
@@ -411,6 +422,15 @@ export default class RedPackageActivityList extends Vue {
             await this.search()
         } catch (error) {
             throw error
+        }
+    }
+
+    async share (row: { id: string }) {
+        try {
+            this.qrcodeText = `${ this.mallUrl }/red-package/detail/${ row.id }?noCache=${ Date.now() }`
+            this.qrcodeShow = true
+        } catch (e) {
+            throw e
         }
     }
 }
