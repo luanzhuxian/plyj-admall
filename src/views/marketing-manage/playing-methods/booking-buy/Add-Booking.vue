@@ -566,6 +566,7 @@ export default {
                 const productId = Form.product.id
                 for (const sku of Form.skuModelList) {
                     skuModelList.push({
+                        id: sku.id,
                         skuCode1: sku.skuCode1,
                         skuCode2: sku.skuCode2,
                         depositPrice: sku.depositPrice,
