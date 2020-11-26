@@ -121,12 +121,13 @@
                                         />
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="定金翻倍（元）">
+                                <el-table-column label="定金翻倍">
                                     <template #default="{ row }">
                                         <el-input-number
                                             :min="1"
                                             :max="99999"
                                             size="mini"
+                                            step-strictly
                                             :value="row.multipleNumber"
                                             :disabled="activityStatus === 1"
                                             @change="val => multipleNumberChange(val, row)"

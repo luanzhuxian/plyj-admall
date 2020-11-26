@@ -151,6 +151,12 @@
                             align="center"
                         />
                         <el-table-column
+                            prop="payCount"
+                            label="购买数量"
+                            header-align="center"
+                            align="center"
+                        />
+                        <el-table-column
                             prop="stock"
                             label="剩余库存"
                             header-align="center"
@@ -159,13 +165,6 @@
                     </el-table>
                 </template>
             </el-table-column>
-            <el-table-column
-                prop="payCount"
-                label="购买商品数量"
-                header-align="center"
-                align="center"
-                width="120"
-            />
             <el-table-column
                 label="尾款支付"
                 header-align="center"

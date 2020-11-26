@@ -147,7 +147,7 @@
                             <del v-if="maxOriginalPrice&&((minPrice !== maxOriginalPrice))" v-text="maxOriginalPrice" />
                         </div>
                         <div class="price" v-else>
-                            <span>{{ data.activityProductModel.price }}</span>
+                            <span>{{ data.activityProductModel.skuModelList[0].depositPrice }}</span>
                         </div>
                         <div class="buy-count" v-if="data.salesVolume || data.pageviews">
                             <span v-if="data.salesVolume === 0">正在热销中</span>
