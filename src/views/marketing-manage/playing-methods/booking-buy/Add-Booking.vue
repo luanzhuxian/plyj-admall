@@ -518,6 +518,12 @@ export default {
                 }
             }
             this.marketingForm.skuModelList = Array.from(this.productList.values()).slice(0, this.maxGoodsNum)
+            if (data[0].productType === 'PHYSICAL_GOODS') {
+                this.marketingForm.payMethod = 0
+                this.marketingForm.productType = true
+            } else {
+                this.marketingForm.productType = false
+            }
             this.marketingForm.product = {
                 productType: data[0].productType,
                 productMainImage: data[0].image,
