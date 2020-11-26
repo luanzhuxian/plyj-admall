@@ -110,7 +110,7 @@
                                 部分用户<i class="el-icon-arrow-down el-icon--right" />
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item v-for="(item,index) in row.couponTagList" :key="index">
+                                <el-dropdown-item v-for="(item,index) in row.tagIdNames" :key="index">
                                     {{ item.tagName }}
                                 </el-dropdown-item>
                             </el-dropdown-menu>
@@ -143,21 +143,22 @@
                     <template #default="{row}">
                         <div class="inline-b">
                             <span style="display: inline-block;width: 40px">{{ activityStatusMap[row.activityStatus] }}</span>
-                            <el-switch
-                                class="switch"
-                                v-model="row.pureStatus"
-                                active-color="#4F63FF"
-                                :active-value="1"
-                                :inactive-value="0"
-                                :disabled="row.status === 2"
-                                @change="switchChange(row)"
-                            />
-                            <span v-if="row.pureStatus" style="color: #4F63FF">
-                                显示
-                            </span>
-                            <span v-else style="color: #ccc">
-                                隐藏
-                            </span>
+                            <template v-if="row.id !== 3">
+                                <el-switch
+                                    class="switch"
+                                    v-model="row.showStatus"
+                                    active-color="#4F63FF"
+                                    :active-value="true"
+                                    :inactive-value="false"
+                                    @change="switchShowChange(row)"
+                                />
+                                <span v-if="row.showStatus" style="color: #4F63FF">
+                                    显示
+                                </span>
+                                <span v-else style="color: #ccc">
+                                    隐藏
+                                </span>
+                            </template>
                         </div>
                     </template>
                 </el-table-column>
@@ -172,16 +173,16 @@
                             <template slot="button-box">
                                 <!--  除'已结束'以外的，'待开始/进行中/已停止'均可编辑 -->
                                 <a
-                                    v-if="row.status !== 3"
+                                    v-if="row.activityStatus !== 3"
                                     @click="$router.push({
-                                        name: 'EditCategoryCoupon',
+                                        name: 'EditRedPackage',
                                         params: { id: row.id }
                                     })"
                                 >
                                     编辑
                                 </a>
                                 <!-- 除'已结束'以外的，'待开始/进行中/已停止'均可'结束'活动；与优惠卷领取方式无关 -->
-                                <a v-if="row.status !==3" @click="finish(row)">
+                                <a v-if="row.activityStatus !==3" @click="finish(row)">
                                     结束
                                 </a>
                                 <a @click="$router.push({
@@ -193,25 +194,21 @@
                                 <a>
                                     分享
                                 </a>
-                                <a @click="$router.push({
-                                    name: 'CopyCategoryCoupon',
-                                    params: { id: row.id }
-                                })">
+                                <a @click="copyActivity(row.id)">
                                     复制
                                 </a>
                                 <!-- 仅'已结束'的优惠券支持删除 -->
-                                <a v-if="row.status === 3" @click="delete(row.id)">
+                                <a v-if="row.activityStatus === 3" @click="delete(row.id)">
                                     删除
                                 </a>
                                 <!--  除'待开始/已结束'以外的，只有'进行中/已停止'的'自行领取'的品类券均可开启/停止 -->
-                                <div class="inline-b" v-if="row.status !==2 && row.status !==3 && row.distributionMethod === 0">
+                                <div class="inline-b" v-if="row.activityStatus !==2 && row.activityStatus !==3">
                                     <el-switch
                                         class="switch"
                                         v-model="row.pureStatus"
                                         active-color="#4F63FF"
-                                        :active-value="1"
-                                        :inactive-value="0"
-                                        :disabled="row.status === 2"
+                                        :active-value="true"
+                                        :inactive-value="false"
                                         @change="switchChange(row)"
                                     />
                                     <span v-if="row.pureStatus" style="color: #4F63FF">
@@ -244,11 +241,13 @@
 import { Vue, Component } from 'vue-property-decorator'
 import Explanation from '../components/Explanation.vue'
 import {
-    couponModifystatus,
-    getActivityListUseCoupon,
-    deleteCoupon
-} from '../../../../../apis/marketing-manage/coupon'
-import { getRedPackageList } from '../../../../../apis/marketing-manage/red-package'
+    getRedPackageList,
+    pauseRedPackage,
+    overRedPackage,
+    showRedPackage,
+    deleteRedPackage,
+    copyRedPackage
+} from '../../../../../apis/marketing-manage/red-package'
 
 @Component({
     components: {
@@ -314,9 +313,8 @@ export default class RedPackageActivityList extends Vue {
                 receiveStartTime: '',
                 page: 1,
                 size: 10
-            }
-            // @ts-ignore
-            this.$refs.dateRange.clear()
+            };
+            (this.$refs.dateRange as HTMLFormElement).clear()
             await this.getList()
         } catch (error) {
             throw error
@@ -342,19 +340,29 @@ export default class RedPackageActivityList extends Vue {
         }
     }
 
-    async switchChange (row: { id: string; status: number; pureStatus: number }) {
+    async switchShowChange (row: { id: string;activityStatus: number; showStatus: boolean }) {
         try {
-            const data = {
-                id: row.id,
-                status: row.pureStatus
-            }
-            await couponModifystatus(data)
+            await showRedPackage(row.id, row.showStatus)
             await this.getList()
         } catch (error) {
-            if (row.status) {
-                row.pureStatus = 0
+            if (row.activityStatus) {
+                row.showStatus = false
             } else {
-                row.pureStatus = 1
+                row.showStatus = true
+            }
+            throw error
+        }
+    }
+
+    async switchChange (row: { id: string;activityStatus: number; pureStatus: boolean }) {
+        try {
+            await pauseRedPackage(row.id, row.pureStatus)
+            await this.getList()
+        } catch (error) {
+            if (row.activityStatus) {
+                row.pureStatus = false
+            } else {
+                row.pureStatus = true
             }
             throw error
         }
@@ -363,10 +371,10 @@ export default class RedPackageActivityList extends Vue {
     async delete (id: string) {
         try {
             await this.$confirm({
-                title: '确认要删除该优惠券吗？',
-                message: '优惠券删除后，将不可查看活动期间的相关数据！请谨慎进行删除操作。'
+                title: '确认要删除该活动吗？删除后不可数据恢复',
+                message: '活动删除后，经不可查看活动期间的相关数据！请谨慎进行删除'
             })
-            await deleteCoupon(id)
+            await deleteRedPackage(id)
             this.$success('删除成功')
             await this.getList()
         } catch (error) {
@@ -374,23 +382,22 @@ export default class RedPackageActivityList extends Vue {
         }
     }
 
-    async finish (row: { id: string }) {
+    async copyActivity (id: string) {
         try {
-            const { result = {} } = await getActivityListUseCoupon(row.id)
-            if (result.containInviting || result.containLiveActivity || result.containNewcomer) {
-                await this.$confirm({
-                    title: '确认结束该品类券？',
-                    message: `结束后${ result.containInviting ? '赢取豪礼活动将移除该品类券，' : '' }${ result.containNewcomer ? '新人有礼活动将结束或移除该品类券，' : '' }${ result.containLiveActivity ? '直播活动将移除该品类券，' : '' }请慎重考虑！！！`
-                })
-            } else {
-                await this.$confirm({ title: '确认要结束品类券发放活动吗？', message: '该品类券结束发放后，其他营销活动不可选择进行活动发放，且不可重新进行开启，已领取成功用户不受此改动的影响' })
-            }
-            const data = {
-                id: row.id,
-                status: 3
-            }
-            await couponModifystatus(data)
-            this.$success('该券结束成功')
+            alert(id)
+            await copyRedPackage(id)
+            this.$success('复制成功')
+            await this.getList()
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async finish (row: { id: string;activityStatus: number }) {
+        try {
+            row.activityStatus === 0 ? await this.$confirm({ title: '该福利红包活动还未开始，确定要结束吗？', message: '该品福利红包活动结束后，用户不可在店铺中查看和领取该福利红包，且结束后不可重新开启活动' }) : await this.$confirm({ title: '确认结束该福利红包得活动吗？', message: '该品福利红包活动结束后，用户不可在店铺中查看和领取该福利红包，且结束后不可重新开启活动，已领取成功得用户不受此改动的影响' })
+            await overRedPackage(row.id)
+            this.$success('该福利红包活动结束成功')
             await this.search()
         } catch (error) {
             throw error

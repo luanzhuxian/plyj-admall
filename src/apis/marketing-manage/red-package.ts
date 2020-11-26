@@ -11,3 +11,18 @@ export const editRedPackage = (id: string, data: object) => axios.put(`/apis/v2/
 
 // 获取活动列表
 export const getRedPackageList = (params: object) => axios.get('/apis/v2/red-package-activities', { params })
+
+// 暂停开启福利红包
+export const pauseRedPackage = (id: string, pause: boolean) => axios.put(`/apis/v2/red-package-activities/${ id }/pause/${ pause }`)
+
+// 隐藏显示福利红包
+export const showRedPackage = (id: string, showStatus: boolean) => axios.put(`/apis/v2/red-package-activities/${ id }/showStatus/${ showStatus }`)
+
+// 结束福利红包
+export const overRedPackage = (id: string) => axios.put(`/apis/v2/red-package-activities/${ id }/over`)
+
+// 删除福利红包
+export const deleteRedPackage = (id: string) => axios.delete(`/apis/v2/red-package-activities/${ id }`)
+
+// 复制福利红包
+export const copyRedPackage = (id: string) => axios.post(`/apis/v2/red-package-activities/${ id }`)
