@@ -20,7 +20,7 @@
             </el-form-item>
             <el-form-item label="状态：">
                 <el-select
-                    v-model="form.status"
+                    v-model="form.activityStatus"
                     clearable
                     @change="search"
                 >
@@ -29,15 +29,19 @@
                         value=""
                     />
                     <el-option
-                        label="待使用"
+                        label=" 未开始"
                         :value="0"
                     />
                     <el-option
-                        label="已使用"
+                        label="进行中"
+                        :value="1"
+                    />
+                    <el-option
+                        label="停止"
                         :value="2"
                     />
                     <el-option
-                        label="已过期"
+                        label="结束"
                         :value="3"
                     />
                 </el-select>
@@ -80,17 +84,17 @@
                     <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 活动暂未开始，暂无活动数据~
                 </span>
                 <el-table-column
-                    prop="couponName"
+                    prop="name"
                     label="福利红包名称"
                     width="200"
                 />
                 <el-table-column
-                    prop="useLimitAmount"
+                    prop="amount"
                     label="福利红包面额（元）"
                     width="150"
                 />
                 <el-table-column
-                    prop="useLimitAmount"
+                    prop="issueVolume"
                     label="发放数量"
                 />
                 <el-table-column
@@ -114,7 +118,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="useLimitAmount"
+                    prop="applicableGoodsVolume"
                     label="适用产品数量"
                     width="150"
                 />
@@ -123,27 +127,40 @@
                     label="支付金额"
                 />
                 <el-table-column
-                    label="活动时间"
-                    width="200"
-                >
-                    <template slot-scope="{row}">
-                        {{ row.useStartTime.split(' ')[0] }} ~ {{ row.useEndTime.split(' ')[0] }}
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="receiveAmount"
+                    prop="claimVolume"
                     label="领取量"
                     width="100"
                 />
                 <el-table-column
-                    prop="usedAmount"
+                    prop="useVolume"
                     label="使用量"
                     width="100"
                 />
                 <el-table-column
-                    prop="statusText"
                     label="活动状态"
-                />
+                    width="150"
+                >
+                    <template #default="{row}">
+                        <div class="inline-b">
+                            <span style="display: inline-block;width: 40px">{{ activityStatusMap[row.activityStatus] }}</span>
+                            <el-switch
+                                class="switch"
+                                v-model="row.pureStatus"
+                                active-color="#4F63FF"
+                                :active-value="1"
+                                :inactive-value="0"
+                                :disabled="row.status === 2"
+                                @change="switchChange(row)"
+                            />
+                            <span v-if="row.pureStatus" style="color: #4F63FF">
+                                显示
+                            </span>
+                            <span v-else style="color: #ccc">
+                                隐藏
+                            </span>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column
                     label="操作"
                     align="right"
@@ -210,7 +227,7 @@
                 </el-table-column>
             </el-table>
             <Pagination
-                v-model="form.current"
+                v-model="form.page"
                 :total="total"
                 sizes
                 @sizeChange="sizeChange"
@@ -227,12 +244,11 @@
 import { Vue, Component } from 'vue-property-decorator'
 import Explanation from '../components/Explanation.vue'
 import {
-    getCouponList,
     couponModifystatus,
-    // coupleIsFirstTime,
     getActivityListUseCoupon,
     deleteCoupon
 } from '../../../../../apis/marketing-manage/coupon'
+import { getRedPackageList } from '../../../../../apis/marketing-manage/red-package'
 
 @Component({
     components: {
@@ -240,14 +256,19 @@ import {
     }
 })
 export default class RedPackageActivityList extends Vue {
-    /* data */
+    activityStatusMap = {
+        0: '未开始',
+        1: '进行中',
+        2: '停止',
+        3: '结束'
+    }
+
     form = {
-        couponType: 2,
         name: '',
-        status: '',
-        startTime: '',
-        endTime: '',
-        current: 1,
+        activityStatus: '',
+        receiveEndTime: '',
+        receiveStartTime: '',
+        page: 1,
         size: 10
     }
 
@@ -267,7 +288,7 @@ export default class RedPackageActivityList extends Vue {
     /* methods */
     async getList () {
         try {
-            const { result = {} } = await getCouponList(this.form)
+            const { result = {} } = await getRedPackageList(this.form)
             this.table = result.records
             this.total = result.total
         } catch (error) {
@@ -277,7 +298,7 @@ export default class RedPackageActivityList extends Vue {
 
     async search () {
         try {
-            this.form.current = 1
+            this.form.page = 1
             await this.getList()
         } catch (error) {
             throw error
@@ -287,12 +308,11 @@ export default class RedPackageActivityList extends Vue {
     async resetFilter () {
         try {
             this.form = {
-                couponType: 2,
                 name: '',
-                status: '',
-                startTime: '',
-                endTime: '',
-                current: 1,
+                activityStatus: '',
+                receiveEndTime: '',
+                receiveStartTime: '',
+                page: 1,
                 size: 10
             }
             // @ts-ignore
@@ -305,8 +325,8 @@ export default class RedPackageActivityList extends Vue {
 
     async dateChange (val: { start: string; end: string }) {
         try {
-            this.form.startTime = val.start
-            this.form.endTime = val.end
+            this.form.receiveEndTime = val.start
+            this.form.receiveStartTime = val.end
             await this.search()
         } catch (error) {
             throw error

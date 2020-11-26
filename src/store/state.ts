@@ -6,6 +6,28 @@ export default {
     bindWechatInfo,
     // 微信绑定二维码样式文件
     weChatStyle: 'https://mallcdn.youpenglai.com/static/admall-new/weChatLoginStyle/index.css',
+    redPackageBg: [
+        {
+            imgSrc: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包背景1.png',
+            id: 0,
+            check: false
+        },
+        {
+            imgSrc: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包背景2.png',
+            id: 1,
+            check: false
+        },
+        {
+            imgSrc: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包背景3.png',
+            id: 2,
+            check: false
+        },
+        {
+            imgSrc: 'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包背景4.png',
+            id: 3,
+            check: false
+        }
+    ],
     productType: [
         {
             label: '全部',

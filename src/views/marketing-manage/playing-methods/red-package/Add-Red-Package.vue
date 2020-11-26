@@ -8,16 +8,16 @@
                 基本信息
             </div>
             <el-form label-width="170px" :model="form" :rules="rules" ref="ruleForm" label-position="right" class="main-form">
-                <el-form-item label="福利红包名称：" prop="name" required>
-                    <el-input style="width: 320px" v-model="form.name" maxlength="50" placeholder="新春开学季福利红包活动" />
+                <el-form-item label="福利红包名称：" prop="name">
+                    <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="50" placeholder="新春开学季福利红包活动" />
                 </el-form-item>
-                <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount" required>
-                    <el-input style="width: 160px" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="500" /> 元
+                <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
+                    <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="500" /> 元
                     <p class="description">
                         福利红包面额，是活动期间通过免费领取或者付费领取后，可获得的实际福利红包,在购买指定范围内的产品时，可抵扣相应金额使用。
                     </p>
                 </el-form-item>
-                <el-form-item label="发放量：" prop="issueVolume" required>
+                <el-form-item label="发放量：" prop="issueVolume">
                     <el-input-number v-model="form.issueVolume" :min="1" label="描述文字" />
                     <p class="description">
                         发放的福利红包，超过发放量后将自动结束活动
@@ -27,7 +27,7 @@
                     领取条件
                 </div>
                 <!--                redPacketCouponDTO.receiveEndTime-->
-                <el-form-item label="领用时间：" required prop="redPacketCouponDTO.receiveStartTime">
+                <el-form-item label="领用时间：" prop="redPacketCouponDTO.receiveStartTime">
                     <date-range
                         size="small"
                         disable-before
@@ -41,7 +41,7 @@
                         在活动领用时间内可领用福利红包，领用时间结束后不可继续领用福利红包
                     </p>
                 </el-form-item>
-                <el-form-item label="适用用户：" required prop="redPacketCouponDTO.receiveLimit">
+                <el-form-item label="适用用户：" prop="redPacketCouponDTO.receiveLimit">
                     <el-radio-group v-model="form.redPacketCouponDTO.receiveLimit">
                         <el-radio :label="0">
                             全部用户
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </el-form-item>
-                <el-form-item label="领取方式：" required prop="redPacketCouponDTO.distributionMethod">
+                <el-form-item label="领取方式：" prop="redPacketCouponDTO.distributionMethod">
                     <el-radio-group v-model="form.redPacketCouponDTO.distributionMethod">
                         <el-radio :disabled="status" :label="0">
                             免费
@@ -92,7 +92,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="领用次数限制：" prop="redPacketCouponDTO.activityLimit" required>
+                <el-form-item label="领用次数限制：" prop="redPacketCouponDTO.activityLimit">
                     <el-checkbox
                         v-model="form.redPacketCouponDTO.activityLimit"
                         :true-label="1"
@@ -109,7 +109,7 @@
                 <div class="content-title">
                     使用条件
                 </div>
-                <el-form-item label="使用时间：" required prop="redPacketCouponDTO.useStartTime">
+                <el-form-item label="使用时间：" prop="redPacketCouponDTO.useStartTime">
                     <date-range
                         size="small"
                         disable-before
@@ -124,7 +124,7 @@
                     </p>
                 </el-form-item>
 
-                <el-form-item label="适用产品：" required prop="redPacketCouponDTO.applicableGoodsId">
+                <el-form-item label="适用产品：" prop="redPacketCouponDTO.applicableGoodsId">
                     <el-button type="primary" plain @click="showProductBox = true">
                         选择商品/课程
                     </el-button>
@@ -204,12 +204,12 @@
                     </el-table>
                 </el-form-item>
 
-                <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount" required>
-                    购买金额满 <el-input style="width: 160px" type="number" v-model="form.redPacketCouponDTO.useLimitAmount" :disabled="status" maxlength="50" placeholder="500" /> 元
+                <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
+                    购买金额满 <el-input style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元
                 </el-form-item>
 
-                <el-form-item label="使用限制：" required prop="redPacketCouponDTO.useStackable">
-                    <el-radio-group v-model="form.redPacketCouponDTO.useStackable">
+                <el-form-item label="使用限制：" prop="redPacketCouponDTO.useStackable">
+                    <el-radio-group @change="getBrief" v-model="form.redPacketCouponDTO.useStackable">
                         <el-radio :label="1">
                             支持叠加使用
                         </el-radio>
@@ -218,8 +218,8 @@
                         </el-radio>
                     </el-radio-group>
                     <div class="stackable" v-if="form.redPacketCouponDTO.useStackable">
-                        <el-checkbox :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类全</el-checkbox>
-                        <el-checkbox :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
+                        <el-checkbox @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类全</el-checkbox>
+                        <el-checkbox @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
                         <p class="description">
                             购买产品时，使用该福利红包抵扣金额，可同时与满减券/品类券、奖学金叠加抵扣使用； <br>
                             秒杀、团购、预购等活动均不支持使用福利红包进行抵扣减免；
@@ -227,20 +227,20 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="使用须知" prop="redPacketCouponDTO.brief" required>
+                <el-form-item label="使用须知：" prop="redPacketCouponDTO.brief">
                     <el-input
-                        :disabled="!Boolean(form.briefEdit)"
+                        :disabled="!Boolean(briefEdit)"
                         type="textarea"
                         placeholder="请输入使用须知的内容"
                         v-model="form.redPacketCouponDTO.brief"
                         maxlength="200"
-                        style="width: 420px;"
-                        :rows="6"
+                        style="width: 500px;"
+                        :rows="8"
                         resize="none"
                         show-word-limit
                         :editable="false"
                     />
-                    <pl-svg v-if="!form.briefEdit" class="brief-edit" width="24" fill="#4F63FF" name="icon-bianji1" @click="form.briefEdit = 1" />
+                    <pl-svg v-if="!briefEdit" class="brief-edit" width="24" fill="#4F63FF" name="icon-bianji1" @click="briefEdit = true" />
                     <div>
                         <span class="description">支持自定义使用须知内容，请查看展示</span>
                         <el-button
@@ -258,15 +258,13 @@
                         福利红包设置隐藏
                     </el-checkbox>
                     <span class="description">
-                        （隐藏后，在商城活动界面内显示，但可通过链接的方式访问）
+                        （隐藏后，在商城活动界面内不显示，但可通过链接的方式访问）
                     </span>
                 </el-form-item>
 
                 <el-form-item label="展示牌曝光：" prop="logoShow">
                     <el-checkbox
                         v-model="form.logoShow"
-                        :true-label="1"
-                        :false-label="0"
                     >
                         展示品牌logo
                     </el-checkbox>
@@ -284,20 +282,19 @@
                     <p v-if="form.logoShow" class="description">只支持.jpg .png 格式，最多上传1张，尺寸为500*500，大小为2M以内</p>
                 </el-form-item>
 
-                <el-form-item label="背景：" required>
+                <el-form-item label="背景：" prop="bgUrlsIndex">
                     <div class="swiper-box">
                         <swiper class="swiper" :options="swiperOption">
                             <swiperSlide
-                                v-for="(item, index) of codeImg"
+                                v-for="(item, index) of redPackageBg"
                                 :key="index"
                             >
                                 <div class="slide-title">默认背景</div>
                                 <div class="img-box">
-                                    <img :src="item" style="width: 120px;height: 160px;">
+                                    <img :src="item.imgSrc" style="width: 120px;height: 160px;">
                                     <el-checkbox
-                                        v-model="form.redPacketCouponDTO.activityLimit"
-                                        :true-label="1"
-                                        :false-label="0"
+                                        v-model="item.check"
+                                        @change="checkBg(item)"
                                     />
                                 </div>
                                 <el-button size="large" type="text">预览</el-button>
@@ -340,15 +337,26 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { getUserTtagList } from '../../../../apis/marketing-manage/coupon'
 import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { namespace, State } from 'vuex-class'
+import { State } from 'vuex-class'
 import productSkuSelector from '../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import { checkNumber } from '@/assets/ts/validate'
-import { addRedPackage, getRedPackageDetail } from '../../../../apis/marketing-manage/red-package'
+import { addRedPackage, getRedPackageDetail, editRedPackage } from '../../../../apis/marketing-manage/red-package'
 
-type ProdItem = { productId: string; productType: string; skuCode1: string; skuCode2: string; skuId: string }
+type ProdItem = {
+    productId: string;
+    productType: string;
+    productStatus: string;
+    skuId: string;
+    productName: string;
+    skuCode1Name: string;
+    skuCode2Name: string;
+    skuCode1: string;
+    skuCode2: string;
+    originPrice: number;
+    price: number;
+}
 type checkList = { id: string; sort: string; name: string }
 
-const userModule = namespace('user')
 // import moment from 'moment/moment'
 @Component({
     components: {
@@ -360,12 +368,13 @@ const userModule = namespace('user')
 })
 export default class AddRedPackage extends Vue {
     @Prop(String) id: string | undefined;
-    @userModule.Getter('codeImg') codeImg!: any
     @State('productTypeMap') productTypeMap!: DynamicObject
     @State('productStatusMap') productStatusMap!: DynamicObject
+    @State('redPackageBg') redPackageBg!: DynamicObject[]
     loading= false
+    briefEdit= false
     checkAll= false
-    logoUrl= []
+    logoUrl: string[]= []
     showProductBox= false
     productModelList: ProdItem[] = []
     swiperOption= {
@@ -391,6 +400,7 @@ export default class AddRedPackage extends Vue {
         issueVolume: '',
         bgUrlsIndex: 0,
         showStatus: false,
+        logoShow: false,
         logoUrl: '',
         redPacketCouponDTO: {
             // 红包面额
@@ -420,7 +430,7 @@ export default class AddRedPackage extends Vue {
             useWithCoupon: 0,
             scholarship: 0,
             // 使用须知
-            brief: 'string'
+            brief: ''
         }
     }
 
@@ -429,8 +439,8 @@ export default class AddRedPackage extends Vue {
             await this.getUserTtagListFun()
             if (this.id) {
                 const { result } = await getRedPackageDetail(this.id)
-                const { name, issueVolume, bgUrlsIndex, showStatus, logoUrl, redPacketCouponVO } = result
-                const { amount, receiveEndTime, receiveStartTime, receiveLimit, tagIds, distributionMethod, price, activityLimit, quantityLimit, useStartTime, useEndTime, useLimitAmount, useWithCoupon, scholarship, brief } = redPacketCouponVO
+                const { name, issueVolume, bgUrlsIndex, showStatus, logoShow, logoUrl, redPacketCouponVO } = result
+                const { amount, receiveEndTime, receiveStartTime, receiveLimit, tagIds, distributionMethod, price, activityLimit, quantityLimit, useStartTime, useEndTime, useLimitAmount, useWithCoupon, scholarship, brief, applicableGoodsVOS } = redPacketCouponVO
                 let useStackable = 1
                 if (!useWithCoupon && !scholarship) useStackable = 0
                 this.initReceiveTime = [receiveStartTime, receiveEndTime]
@@ -440,6 +450,7 @@ export default class AddRedPackage extends Vue {
                     issueVolume,
                     bgUrlsIndex,
                     showStatus,
+                    logoShow,
                     logoUrl,
                     redPacketCouponDTO: {
                         amount,
@@ -453,6 +464,8 @@ export default class AddRedPackage extends Vue {
                         quantityLimit,
                         useStartTime,
                         useEndTime,
+                        applicableGoodsId: [],
+                        applicableGoodsSkuId: [],
                         useLimitAmount,
                         useStackable,
                         useWithCoupon: Boolean(useWithCoupon),
@@ -460,13 +473,24 @@ export default class AddRedPackage extends Vue {
                         brief
                     }
                 }
+                this.productModelList = applicableGoodsVOS
+                this.selectProductSku(applicableGoodsVOS)
+                if (logoShow && logoUrl) this.logoUrl[0] = logoUrl
+                for (const item of this.redPackageBg) {
+                    if (bgUrlsIndex === item.id) item.check = true
+                }
+            } else {
+                for (const item of this.redPackageBg) {
+                    if (this.form.bgUrlsIndex === item.id) item.check = true
+                }
             }
+            this.getBrief()
         } catch (e) {
             throw e
         }
     }
 
-    rulesReceiveLimit = (rule: number, value: any, callback: Function) => {
+    rulesReceiveLimit (rule: number, value: any, callback: Function) {
         if (value === 3 && !this.form.redPacketCouponDTO.tagIds.length) {
             callback(new Error('请选择部分用户分组'))
             return
@@ -474,8 +498,7 @@ export default class AddRedPackage extends Vue {
         callback()
     }
 
-    rulesDistributionMethod = (rule: number, value: any, callback: Function) => {
-        console.log(value)
+    rulesDistributionMethod (rule: number, value: any, callback: Function) {
         if (value === 2 && !this.form.redPacketCouponDTO.price) {
             callback(new Error('请输入支付金额'))
             return
@@ -483,7 +506,7 @@ export default class AddRedPackage extends Vue {
         callback()
     }
 
-    rulesUseStackable = (rule: number, value: any, callback: Function) => {
+    rulesUseStackable (rule: number, value: any, callback: Function) {
         if (value === 1 && !this.form.redPacketCouponDTO.useWithCoupon && !this.form.redPacketCouponDTO.scholarship) {
             callback(new Error('请选择使用限制类型'))
             return
@@ -491,16 +514,16 @@ export default class AddRedPackage extends Vue {
         callback()
     }
 
-    rulesLogoShow = (rule: number, value: any, callback: Function) => {
-        if (value === 1 && !this.form.logoUrl) {
+    rulesLogoShow (rule: number, value: any, callback: Function) {
+        if (value && !this.form.logoUrl) {
             callback(new Error('请上传品牌logo图片'))
             return
         }
         callback()
     }
 
-    rulesGoodsId = (rule: number, value: any, callback: Function) => {
-        if (!value.length) {
+    rulesGoodsId (rule: number, value: any, callback: Function) {
+        if (!value || !value.length) {
             callback(new Error('请选择适用产品'))
             return
         }
@@ -534,21 +557,54 @@ export default class AddRedPackage extends Vue {
             { required: true, message: '使用时间不能为空', trigger: 'blur' }
         ],
         'redPacketCouponDTO.applicableGoodsId': [
+            // { required: true, message: '请选择适用商品', trigger: 'blur' },
             { validator: this.rulesGoodsId, trigger: 'blur' }
         ],
         'redPacketCouponDTO.useLimitAmount': [
-            { required: true, message: '抵扣规则不能为空', trigger: 'blur' }
+            { required: true, message: '抵扣规则不能为空', trigger: 'blur' },
+            { validator: checkNumber(99999, 1, 0), trigger: 'blur' }
         ],
         'redPacketCouponDTO.useStackable': [
+            { required: true, message: '请选择抵扣规则', trigger: 'blur' },
             { validator: this.rulesUseStackable, trigger: 'blur' }
         ],
-        brief: [
+        'redPacketCouponDTO.brief': [
             { required: true, message: '使用须知不能为空', trigger: 'blur' },
             { max: 200, message: '使用须知不能超过200个字符', trigger: 'blur' }
         ],
         logoShow: [
             { validator: this.rulesLogoShow, trigger: 'blur' }
+        ],
+        bgUrlsIndex: [
+            { required: true, message: '背景图不能为空', trigger: 'blur' }
         ]
+    }
+
+    getBrief () {
+        if (this.briefEdit) return
+        let stackable = ''
+        if (this.form.redPacketCouponDTO.useStackable) {
+            stackable = '不可与其他福利红包、满减券/品类全、奖学金同时使用'
+        } else {
+            stackable = `可与其他福利红包、${ this.form.redPacketCouponDTO.useWithCoupon ? '满减券/品类全' : '' } ${ this.form.redPacketCouponDTO.useWithCoupon && this.form.redPacketCouponDTO.scholarship ? '、' : '' } ${ this.form.redPacketCouponDTO.scholarship ? '奖学金' : '' }奖学金同时使用`
+        }
+        this.form.redPacketCouponDTO.brief = `${ this.form.name }` + '\n' +
+            '1.优惠内容：部分商品可使用，满' + `${ this.form.redPacketCouponDTO.useLimitAmount ? this.form.redPacketCouponDTO.useLimitAmount : '*' }` + '元立减' + `${ this.form.redPacketCouponDTO.amount ? this.form.redPacketCouponDTO.amount : '*' }` + '元\n' +
+            '2.使用时间：' + `${ this.form.redPacketCouponDTO.useStartTime ? this.form.redPacketCouponDTO.useStartTime.split(' ')[0] : '' }` + '~' + `${ this.form.redPacketCouponDTO.useEndTime ? this.form.redPacketCouponDTO.useEndTime.split(' ')[0] : '' }` + '\n' +
+            '3.使用限制：' + `${ stackable }` + '\n' +
+            '4.其他限制：仅支持线上购买商品使用，' + '\n' +
+            '购买商品使用福利红包抵扣相应金额后，商品退款成功后，福利红包不支持退回'
+    }
+
+    checkBg (val: any) {
+        if (val.check) {
+            for (const item of this.redPackageBg) {
+                val.id !== item.id ? item.check = false : this.form.bgUrlsIndex = item.id
+            }
+        } else {
+            const data = this.redPackageBg.find(item => item.check === true)
+            if (!data) this.form.bgUrlsIndex = ''
+        }
     }
 
     checkAllChange (val: any) {
@@ -569,7 +625,7 @@ export default class AddRedPackage extends Vue {
                 data.redPacketCouponDTO.useWithCoupon = 0
                 data.redPacketCouponDTO.scholarship = 0
             }
-            await addRedPackage(data)
+            this.id ? await editRedPackage(this.id, data) : await addRedPackage(data)
         } catch (e) {
             throw e
         }
@@ -583,11 +639,10 @@ export default class AddRedPackage extends Vue {
     useTimeChange ({ start, end }: any) {
         this.form.redPacketCouponDTO.useStartTime = start
         this.form.redPacketCouponDTO.useEndTime = end
+        this.getBrief()
     }
 
     logoUrlChange (val: any) {
-        console.log(12345)
-        console.log(val)
         val.length ? this.form.logoUrl = val[0] : this.form.logoUrl = ''
     }
 
@@ -603,6 +658,8 @@ export default class AddRedPackage extends Vue {
     selectProductSku (val: ProdItem[]) {
         this.productModelList = val
         if (!val || !val.length) return
+        this.form.redPacketCouponDTO.applicableGoodsId = []
+        this.form.redPacketCouponDTO.applicableGoodsSkuId = []
         for (const item of this.productModelList) {
             this.form.redPacketCouponDTO.applicableGoodsId.push(item.productId)
             this.form.redPacketCouponDTO.applicableGoodsSkuId.push(item.skuId)

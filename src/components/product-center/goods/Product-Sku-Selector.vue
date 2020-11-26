@@ -9,6 +9,7 @@
         @close="closeAddListDialog"
         @open="open"
         class="product-selector"
+        width="1000px"
     >
         <el-form
             :inline="true"
@@ -118,6 +119,7 @@
             <el-table-column label="规格" width="150" />
             <el-table-column label="剩余库存" width="100" />
             <el-table-column label="价格" width="100" />
+            <el-table-column label="分类" prop="categoryName" width="100" />
             <el-table-column
                 prop="productTypeText"
                 label="类型"
