@@ -4,8 +4,8 @@
         <div :class="$style.content">
             <div style="text-align: center">H5店铺</div>
             <div :class="$style.shopUrl">
-                <div :class="$style.input" v-text="mallUrl" />
-                <button @click.stop.prevent="" v-clipboard:copy="mallUrl" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</button>
+                <div :class="$style.input" v-text="mallUrl + `?=${ Date.now() }`" />
+                <button @click.stop.prevent="" v-clipboard:copy="mallUrl + `?=${ Date.now() }`" v-clipboard:success="onCopy" v-clipboard:error="onError">复制</button>
             </div>
             <img :src="mallQrcode" alt="">
             <div style="text-align: center; margin-bottom: 40px;">
