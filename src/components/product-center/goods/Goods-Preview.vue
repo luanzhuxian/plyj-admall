@@ -141,13 +141,16 @@
             <div class="product-info">
                 <div class="info-top">
                     <div class="info-top-left">
-                        <div class="price" v-if="data.activeProduct === 1 && data.productSkuModels && data.productSkuModels.length">
+                        <div class="price" v-if="data.activeProduct === 1&& data.productSkuModels && data.productSkuModels.length">
                             <span>{{ minPrice }}</span>
                             <span v-if="minPrice&&maxPrice&&(minPrice !== maxPrice)">~{{ maxPrice }}</span>
                             <del v-if="maxOriginalPrice&&((minPrice !== maxOriginalPrice))" v-text="maxOriginalPrice" />
                         </div>
+                        <div class="price" v-else-if="data.activeProduct === 4 && !data.activityProductModel.price">
+                            <span>{{ bookMinPrice }}</span>
+                        </div>
                         <div class="price" v-else>
-                            <span>{{ data.activityProductModel.skuModelList[0].depositPrice }}</span>
+                            <span>{{ data.activityProductModel.price }}</span>
                         </div>
                         <div class="buy-count" v-if="data.salesVolume || data.pageviews">
                             <span v-if="data.salesVolume === 0">正在热销中</span>
@@ -286,6 +289,9 @@ export default {
         },
         minPrice () {
             return Math.min(...this.priceList)
+        },
+        bookMinPrice () {
+            return Math.min(...this.data.activityProductModel.skuModelList.map(item => item.depositPrice) || [])
         },
         originalPriceList () {
             return this.data.productSkuModels.map(item => item.originalPrice) || []
