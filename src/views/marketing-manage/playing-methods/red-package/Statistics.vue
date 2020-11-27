@@ -37,7 +37,7 @@
             <el-form class="mt-24" inline>
                 <el-form-item label="搜索内容：">
                     <el-input
-                        v-model.trim="form.name"
+                        v-model.trim="form.keyword"
                         placeholder="请输入福利红包活动名称"
                         clearable
                         @change="search"
@@ -45,7 +45,7 @@
                 </el-form-item>
                 <el-form-item label="状态：" style="margin-left: 30px;">
                     <el-select
-                        v-model="form.status"
+                        v-model="form.activityStatus"
                         clearable
                         @change="search"
                     >
@@ -255,7 +255,7 @@
             <Pagination
                 @change="getList"
                 @sizeChange="sizeChange"
-                v-model="form.current"
+                v-model="form.page"
                 :total="total"
                 :sizes="true"
             />
@@ -272,14 +272,14 @@
             >
                 <el-form-item prop="searchValue" label="搜索内容：">
                     <el-input
-                        v-model.trim="exportForm.name"
+                        v-model.trim="exportForm.keyword"
                         placeholder="请输入订单编号/领取人/电话"
                         style="width: 350px;"
                         clearable
                     />
                 </el-form-item>
-                <el-form-item prop="status" label="状态：">
-                    <el-select v-model="exportForm.status">
+                <el-form-item prop="activityStatus" label="状态：">
+                    <el-select v-model="exportForm.activityStatus">
                         <el-option
                             label="全部"
                             value=""
@@ -333,12 +333,11 @@ import moment from 'moment'
 import ListHeader from '../../components/List-Header.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import {
-    selectCouponDetail,
-    getCouponstatistics,
     exportReductionCoupon
 } from '../../../../apis/marketing-manage/coupon'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 
+import { getRedPackageStatistics, getRedPackageStatisticsList } from '../../../../apis/marketing-manage/red-package'
 @Component({
     components: {
         ListHeader,
@@ -350,14 +349,14 @@ export default class RedPackageStatistics extends Vue {
     @Prop(String) id!: string
 
     form = {
-        couponId: '',
-        name: '',
-        status: '',
-        startTime: '',
-        endTime: '',
+        activityId: '',
+        keyword: '',
+        activityStatus: '',
+        receiveStartTime: '',
+        receiveEndTime: '',
         useStartTime: '',
         useEndTime: '',
-        current: 1,
+        page: 1,
         size: 10
     }
 
@@ -368,8 +367,8 @@ export default class RedPackageStatistics extends Vue {
     // 导出数据
     showExport = false
     exportForm = {
-        name: '',
-        status: '',
+        keyword: '',
+        activityStatus: '',
         receiveStartTime: '',
         receiveEndTime: '',
         useStartTime: '',
@@ -384,77 +383,74 @@ export default class RedPackageStatistics extends Vue {
     async created () {
         try {
             this.table = []
-            const { params } = this.$route
-            this.form.couponId = params.id
+            this.form.activityId = this.id
             this.total = 0
             await this.getList()
             await this.getStatistics()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
     /* methods */
     async getList () {
         try {
-            const { result } = await selectCouponDetail(this.form)
+            const { result } = await getRedPackageStatisticsList(this.form)
             this.table = result.records
             this.total = result.total
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
     async getStatistics () {
         try {
-            const { result } = await getCouponstatistics(this.form.couponId)
+            const { result } = await getRedPackageStatistics(this.form.activityId)
             this.statisticsData = result
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
     async search () {
         try {
-            this.form.current = 1
+            this.form.page = 1
             await this.getList()
             await this.getStatistics()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
     async resetFilter () {
         try {
             this.form = {
-                couponId: this.$route.params.id,
-                name: '',
-                status: '',
-                startTime: '',
-                endTime: '',
+                activityId: this.id,
+                keyword: '',
+                activityStatus: '',
+                receiveStartTime: '',
+                receiveEndTime: '',
                 useStartTime: '',
                 useEndTime: '',
-                current: 1,
+                page: 1,
                 size: 10
-            }
-            // @ts-ignore
-            this.$refs.receiveDateRange.clear()
-            // @ts-ignore
-            this.$refs.useDateRange.clear()
+            };
+            (this.$refs.receiveDateRange as HTMLFormElement).clear();
+            (this.$refs.useDateRange as HTMLFormElement).clear()
             await this.getList()
             await this.getStatistics()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
     async receiveDateChange (val: { start: string; end: string }) {
         try {
-            this.form.startTime = val.start
-            this.form.endTime = val.end
+            this.form.receiveStartTime = val.start
+            this.form.receiveEndTime = val.end
             await this.search()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
@@ -463,8 +459,8 @@ export default class RedPackageStatistics extends Vue {
             this.form.useStartTime = val.start
             this.form.useEndTime = val.end
             await this.search()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
@@ -472,8 +468,8 @@ export default class RedPackageStatistics extends Vue {
         try {
             this.form.size = val
             await this.search()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
@@ -484,13 +480,13 @@ export default class RedPackageStatistics extends Vue {
     }
 
     showExportDialog () {
-        const { name, status, startTime, endTime, useStartTime, useEndTime } = this.form
+        const { keyword, activityStatus, receiveStartTime, receiveEndTime, useStartTime, useEndTime } = this.form
         this.exportForm = {
             ...this.exportForm,
-            name,
-            status,
-            receiveStartTime: startTime,
-            receiveEndTime: endTime,
+            keyword,
+            activityStatus,
+            receiveStartTime,
+            receiveEndTime,
             useStartTime,
             useEndTime
         }
@@ -499,47 +495,39 @@ export default class RedPackageStatistics extends Vue {
 
     closeExportDialog () {
         this.exportForm = {
-            status: '',
-            name: '',
+            activityStatus: '',
+            keyword: '',
             receiveStartTime: '',
             receiveEndTime: '',
             useStartTime: '',
             useEndTime: ''
-        }
-        // @ts-ignore
-        this.$refs.exportForm.clearValidate()
+        };
+        (this.$refs.exportForm as HTMLFormElement).clearValidate()
         this.showExport = false
     }
 
     async exportReceiveDateChange ({ start, end }: { start: string; end: string }) {
-        if (!start || !end) {
-            return
-        }
+        if (!start || !end) return
         this.exportForm.receiveStartTime = start
         this.exportForm.receiveEndTime = end
-        await this.$nextTick()
-        // @ts-ignore
-        this.$refs.exportUseDatePicker.initDate()
+        await this.$nextTick();
+        (this.$refs.exportUseDatePicker as HTMLFormElement).initDate()
     }
 
     async exportUseDateChange ({ start, end }: { start: string; end: string }) {
-        if (!start || !end) {
-            return
-        }
+        if (!start || !end) return
         this.exportForm.useStartTime = start
         this.exportForm.useEndTime = end
-        await this.$nextTick()
-        // @ts-ignore
-        this.$refs.exportReceiveDatePicker.initDate()
+        await this.$nextTick();
+        (this.$refs.exportReceiveDatePicker as HTMLFormElement).initDate()
     }
 
     async exportList () {
-        // @ts-ignore
-        await this.$refs.exportForm.validate()
+        await (this.$refs.exportForm as HTMLFormElement).validate()
         const data = {
-            couponId: this.$route.params.id,
-            status: this.exportForm.status,
-            name: this.exportForm.name,
+            activityId: this.id,
+            activityStatus: this.exportForm.activityStatus,
+            keyword: this.exportForm.keyword,
             receiveStartTime: this.exportForm.receiveStartTime,
             receiveEndTime: this.exportForm.receiveEndTime,
             useStartTime: this.exportForm.useStartTime,
@@ -552,12 +540,12 @@ export default class RedPackageStatistics extends Vue {
             const url = createObjectUrl(blob)
             const a = document.createElement('a')
             a.href = url
-            a.download = `满减券${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+            a.download = `福利红包${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
             a.click()
             a.remove()
             this.closeExportDialog()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
     }
 
@@ -569,7 +557,7 @@ export default class RedPackageStatistics extends Vue {
 </script>
 
 <style lang="scss" module>
-.status {
+.activityStatus {
     display: inline-flex;
     align-items: center;
     margin-left: 15px;

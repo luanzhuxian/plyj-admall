@@ -357,7 +357,9 @@ type ProdItem = {
     price: number;
 }
 type checkList = { id: string; sort: string; name: string }
-
+Component.registerHooks([
+    'beforeRouteLeave'
+])
 // import moment from 'moment/moment'
 @Component({
     components: {
@@ -642,6 +644,7 @@ export default class AddRedPackage extends Vue {
                 data.redPacketCouponDTO.scholarship = 0
             }
             this.id ? await editRedPackage(this.id, data) : await addRedPackage(data)
+            this.$router.replace({ name: 'RedPackage' })
         } catch (e) {
             throw e
         }
@@ -691,24 +694,19 @@ export default class AddRedPackage extends Vue {
             throw error
         }
     }
-}
 
-//     async beforeRouteLeave (to, from, next) {
-//         if (to.name !== 'CategoryCouponList' && to.name !== 'OrgIndex' && to.name !== 'AddLongmenLottery' && to.name !== 'EditLongmenLottery' && to.name !== 'NewcomersAdd' && to.name !== 'NewcomersEdit' && to.name !== 'NewcomersCopy') {
-//             await this.$confirm({
-//                 title: '放弃编辑？',
-//                 message: '是否要放弃当前品类券编辑，放弃后将不可恢复！'
-//             })
-//         }
-//         if (to.name === 'NewcomersAdd' || to.name === 'NewcomersEdit' || to.name === 'NewcomersCopy') {
-//             sessionStorage.setItem(SessionEnum.couponResultData, JSON.stringify(this.resultData))
-//         }
-//         if (to.name !== 'NewcomersAdd' && to.name !== 'NewcomersEdit' && to.name !== 'NewcomersCopy') {
-//             sessionStorage.removeItem(SessionEnum.selectedCouponList)
-//         }
-//         await this.clearData()
-//         next()
-//     },
+    async beforeRouteLeave (to: { name: string }, from: any, next: () => void) {
+        console.log(to)
+        if (to.name !== 'RedPackage' && to.name !== 'OrgIndex' && to.name !== 'RedPackageList') {
+            await this.$confirm({
+                title: '放弃编辑？',
+                message: '是否要放弃当福利红包活动编辑，放弃后将不可恢复！'
+            })
+        }
+        // await this.clearData()
+        next()
+    }
+}
 //     beforeRouteEnter (to, from, next) {
 //         next(vm => {
 //             if (from.name === 'NewcomersEdit' || from.name === 'NewcomersAdd' || from.name === 'NewcomersCopy') {
@@ -716,7 +714,6 @@ export default class AddRedPackage extends Vue {
 //             }
 //         })
 //     }
-// }
 </script>
 <style lang="scss" scoped>
     .add-content{

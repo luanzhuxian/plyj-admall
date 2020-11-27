@@ -10,7 +10,7 @@ export const getRedPackageDetail = (id: string) => axios.get(`/apis/v2/red-packa
 export const editRedPackage = (id: string, data: object) => axios.put(`/apis/v2/red-package-activities/${ id }`, data)
 
 // 获取活动列表
-export const getRedPackageList = (params: object) => axios.get('/apis/v2/red-package-activities', { params })
+export const getRedPackageList = (params: { name: string; activityStatus: string; receiveEndTime: string; receiveStartTime: string; page: number; size: number }) => axios.get('/apis/v2/red-package-activities', { params })
 
 // 暂停开启福利红包
 export const pauseRedPackage = (id: string, pause: boolean) => axios.put(`/apis/v2/red-package-activities/${ id }/pause/${ pause }`)
@@ -29,3 +29,9 @@ export const copyRedPackage = (id: string) => axios.post(`/apis/v2/red-package-a
 
 // 福利红包领用量
 export const getRedPackageclaimVolume = (id: string) => axios.get(`/apis/v2/red-package-activities/${ id }/claimVolume`)
+
+// 福利红包活动数据
+export const getRedPackageStatistics = (id: string) => axios.get(`/apis/v2/red-package-activities/stat/${ id }`)
+
+// 福利红包数据列表
+export const getRedPackageStatisticsList = (params: object) => axios.get('/apis/v2/red-package-activities/page/date', { params })

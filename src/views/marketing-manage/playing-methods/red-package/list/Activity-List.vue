@@ -206,13 +206,13 @@
                                 <div class="inline-b" v-if="row.activityStatus !==0 && row.activityStatus !==3">
                                     <el-switch
                                         class="switch"
-                                        v-model="row.pureStatus"
+                                        v-model="row.pauseStatus"
                                         active-color="#4F63FF"
                                         :active-value="false"
                                         :inactive-value="true"
                                         @change="switchChange(row)"
                                     />
-                                    <span v-if="row.pureStatus" style="color: #ccc">
+                                    <span v-if="row.pauseStatus" style="color: #ccc">
                                         停止
                                     </span>
                                     <span v-else style="color: #4F63FF">
@@ -334,8 +334,6 @@ export default class RedPackageActivityList extends Vue {
     }
 
     async dateChange (val: { start: string; end: string }) {
-        console.log(val)
-        console.log(val)
         try {
             this.form.receiveEndTime = val.start
             this.form.receiveStartTime = val.end
@@ -369,22 +367,22 @@ export default class RedPackageActivityList extends Vue {
         }
     }
 
-    async switchChange (row: { id: string;activityStatus: number; pureStatus: boolean }) {
+    async switchChange (row: { id: string;activityStatus: number; pauseStatus: boolean }) {
         try {
-            if (row.pureStatus) {
+            if (row.pauseStatus) {
                 await this.$confirm({
                     title: '确认要停止该福利红包活动吗？',
                     message: '该福利红包活动停止后，用户不可在店铺中查看和领取该福利红包活动，停止后可编辑后重新开始活动'
                 })
             }
-            await pauseRedPackage(row.id, row.pureStatus)
+            await pauseRedPackage(row.id, row.pauseStatus)
             await this.getList()
             this.$success('操作成功')
         } catch (error) {
             if (row.activityStatus) {
-                row.pureStatus = false
+                row.pauseStatus = false
             } else {
-                row.pureStatus = true
+                row.pauseStatus = true
             }
             throw error
         }
