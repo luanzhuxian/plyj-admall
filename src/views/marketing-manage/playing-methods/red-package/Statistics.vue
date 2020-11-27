@@ -11,26 +11,26 @@
                 <i class="yaji-icon icon-time" />
                 使用中
             </span>
-            <el-button type="text">
+            <el-button type="text" @click="share()">
                 分享
             </el-button>
         </ListHeader>
         <section :class="$style.statistics">
             <div :class="$style.statisticsItem">
                 <div>发放量</div>
-                <div><b :class="$style.number">1</b>张</div>
+                <div><b :class="$style.number">{{ statisticsData.issueVolume }}</b>张</div>
             </div>
             <div :class="$style.statisticsItem">
                 <div>领取量</div>
-                <div><b :class="$style.number">18</b>张</div>
+                <div><b :class="$style.number">{{ statisticsData.claimVolume }}</b>张</div>
             </div>
             <div :class="$style.statisticsItem">
                 <div>使用量</div>
-                <div><b :class="$style.number">18</b>张</div>
+                <div><b :class="$style.number">{{ statisticsData.useVolume }}</b>张</div>
             </div>
             <div :class="$style.statisticsItem">
                 <div>支付金额</div>
-                <div><b :class="$style.number">18</b>元</div>
+                <div><b :class="$style.number">{{ statisticsData.payAmount }}</b>元</div>
             </div>
         </section>
         <section :class="$style.searchBox">
@@ -54,15 +54,19 @@
                             value=""
                         />
                         <el-option
-                            label="待使用"
+                            label=" 未开始"
                             :value="0"
                         />
                         <el-option
-                            label="已使用"
+                            label="进行中"
+                            :value="1"
+                        />
+                        <el-option
+                            label="停止"
                             :value="2"
                         />
                         <el-option
-                            label="已过期"
+                            label="结束"
                             :value="3"
                         />
                     </el-select>
@@ -143,21 +147,21 @@
                     </span>
                 </span>
                 <el-table-column
-                    prop="receiverName"
+                    prop="nickName"
                     label="领取人昵称"
                     width="200"
                 />
                 <el-table-column
-                    prop="receiverName"
+                    prop="name"
                     label="真实姓名"
                 />
                 <el-table-column
-                    prop="receiverMobile"
+                    prop="mobile"
                     label="联系电话"
                     width="150"
                 />
                 <el-table-column
-                    prop="destributeCount"
+                    prop="amount"
                     label="福利红包（元）"
                     width="150"
                 />
@@ -189,28 +193,28 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="orders"
+                    prop="orderNo"
                     label="支付订单编号"
                     width="150"
                 >
                     <template slot-scope="{row}">
-                        {{ row.orders[0] }}
+                        {{ row.orderNo || row.orderNo[0] }}
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="orders"
+                    prop="orderNo"
                     label="关联产品订单"
                     width="300"
                 >
                     <template slot-scope="{ row }">
-                        <span :class="{ 'more': row.orders.length > 1 }">
-                            <div v-if="row.orders.length === 1" style="display: inline-flex">
-                                <span v-text="row.orders[0]" />
-                                <el-button size="mini" @click="goOrderDetail(row.orders[0])">查看订单</el-button>
+                        <span :class="{ 'more': row.orderNo.length > 1 }">
+                            <div v-if="row.orderNo.length === 1" style="display: inline-flex">
+                                <span v-text="row.orderNo[0]" />
+                                <el-button size="mini" @click="goOrderDetail(row.orderNo[0])">查看订单</el-button>
                             </div>
-                            <span v-else-if="row.orders.length > 1">
+                            <span v-else-if="row.orderNo.length > 1">
                                 <span style="color: #666">
-                                    {{ `关联(${row.orders.length})个订单` }}
+                                    {{ `关联(${row.orderNo.length})个订单` }}
                                 </span>
                                 <PlSvg
                                     name="icon-sanjiao"
@@ -233,7 +237,7 @@
                 >
                     <template slot-scope="{ row }">
                         <el-table
-                            :data="row.orders"
+                            :data="row.orderNo"
                             :show-header="false"
                             :cell-style="{ border: 'none' }"
                         >
@@ -285,15 +289,19 @@
                             value=""
                         />
                         <el-option
-                            label="待使用"
+                            label=" 未开始"
                             :value="0"
                         />
                         <el-option
-                            label="已使用"
+                            label="进行中"
+                            :value="1"
+                        />
+                        <el-option
+                            label="停止"
                             :value="2"
                         />
                         <el-option
-                            label="已过期"
+                            label="结束"
                             :value="3"
                         />
                     </el-select>
@@ -324,6 +332,7 @@
                 </el-form-item>
             </el-form>
         </ExportDialog>
+        <Share :show.sync="qrcodeShow" :qrcode-text="qrcodeText" ref="share" />
     </div>
 </template>
 
@@ -332,22 +341,27 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import moment from 'moment'
 import ListHeader from '../../components/List-Header.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
+import Share from '../../../../components/common/Share.vue'
 import {
     exportReductionCoupon
 } from '../../../../apis/marketing-manage/coupon'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 
 import { getRedPackageStatistics, getRedPackageStatisticsList } from '../../../../apis/marketing-manage/red-package'
+import { namespace } from 'vuex-class'
+const userModule = namespace('user')
+
 @Component({
     components: {
         ListHeader,
-        ExportDialog
+        ExportDialog,
+        Share
     }
 })
 export default class RedPackageStatistics extends Vue {
     /* data */
     @Prop(String) id!: string
-
+    @userModule.Getter('mallUrl') mallUrl!: string;
     form = {
         activityId: '',
         keyword: '',
@@ -362,7 +376,7 @@ export default class RedPackageStatistics extends Vue {
 
     table = []
     total = 0
-    statisticsData = ''
+    statisticsData = {}
 
     // 导出数据
     showExport = false
@@ -379,6 +393,11 @@ export default class RedPackageStatistics extends Vue {
         receiveStartTime: [{ required: true, message: '请选择领取时间', trigger: 'blur' }],
         useStartTime: [{ required: true, message: '请选择使用时间', trigger: 'blur' }]
     }
+
+    // 分享链接
+    qrcodeText = ''
+    // 分享开关
+    qrcodeShow = false
 
     async created () {
         try {
@@ -552,6 +571,15 @@ export default class RedPackageStatistics extends Vue {
     goOrderDetail (id: string) {
         this.$router.push({ name: 'CourseOrderDetail', params: { id } })
     }
+
+    async share () {
+        try {
+            this.qrcodeText = `${ this.mallUrl }/red-package/detail/${ this.id }?noCache=${ Date.now() }`
+            this.qrcodeShow = true
+        } catch (e) {
+            throw e
+        }
+    }
 }
 
 </script>
@@ -570,6 +598,20 @@ export default class RedPackageStatistics extends Vue {
     color: #FFFFFF;
     i {
         margin-right: 4px;
+    }
+}
+
+.status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    margin-left: 15px;
+    border-radius: 15px;
+    background-color: #2DCA72;
+    color: #ffffff;
+    >i{
+        margin-right: 5px;
     }
 }
 

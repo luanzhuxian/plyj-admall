@@ -3,153 +3,288 @@
         <div :class="$style.explanation">
             可自定义设置所有储备金活动在商城活动界面的展示顺序
         </div>
-        <el-form :class="$style.operation" inline>
-            <el-button type="primary" round @click="showSelect">
+        <el-form v-show="!showSortTable" :class="$style.operation" inline>
+            <el-button type="primary" round @click="showSortTable = true">
                 设置排序
                 <i class="el-icon-plus el-icon--right" />
             </el-button>
-            <el-button type="primary" plain round @click="reset">
+            <el-button type="primary" plain round>
                 恢复默认
+            </el-button>
+            <div :class="$style.preview">
+                <el-button type="text">
+                    预览效果
+                </el-button>
+            </div>
+        </el-form>
+
+        <el-form v-show="showSortTable" :class="$style.operation" inline>
+            <el-button style="width: 96px" type="primary" round @click="saveSort">
+                保存
+                <i class="el-icon-plus el-icon--right" />
+            </el-button>
+            <el-button style="width: 96px" plain round @click="cancel">
+                取消
             </el-button>
             <span :class="$style.sugget">（默认按照活动领取开始时间和活动状态正序排列）</span>
             <el-form-item label="请选择排序方式：" style="margin-bottom: 0">
                 <el-select
-                    v-model="rankType"
+                    v-model="sortType"
                     clearable
                     @change="onSelectChange"
                 >
                     <el-option
                         label="默认排序"
-                        value=""
+                        :value="1"
                     />
                     <el-option
                         label="按领取时间排序"
-                        :value="0"
+                        :value="3"
                     />
                     <el-option
                         label="按价格排序"
-                        :value="2"
+                        :value="6"
                     />
                 </el-select>
             </el-form-item>
-            <el-button :class="$style.preview" type="text">
-                预览效果
-            </el-button>
         </el-form>
-        <section>
-            <el-table
-                ref="table"
-                class="content-table"
-                :data="table"
+        <el-table
+            ref="table"
+            :data="table"
+            v-show="!showSortTable"
+        >
+            <span
+                slot="empty"
+                class="empty"
             >
-                <span
-                    slot="empty"
-                    class="empty"
-                >
-                    <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 活动暂未开始，暂无活动数据~
-                </span>
-                <el-table-column
-                    prop="couponName"
-                    label="排序"
-                />
-                <el-table-column
-                    prop="useLimitAmount"
-                    label="福利红包名称"
-                    width="150"
-                />
-                <el-table-column
-                    prop="useLimitAmount"
-                    label="福利红包面额"
-                    width="150"
-                />
-                <el-table-column
-                    prop="useLimitAmount"
-                    label="发放数量"
-                />
-                <el-table-column
-                    prop="useLimitAmount"
-                    label="适用产品"
-                />
-                <el-table-column
-                    prop="useLimitAmount"
-                    label="付费金额"
-                />
-                <el-table-column
-                    label="领取时间"
-                    width="200"
-                >
-                    <template slot-scope="{row}">
-                        {{ row.useStartTime.split(' ')[0] }}
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    prop="receiveAmount"
-                    label="活动状态"
-                />
-                <el-table-column
-                    prop="usedAmount"
-                    label="显示状态"
-                />
-                <el-table-column
-                    prop="usedAmount"
-                    label="领取量"
-                />
-                <el-table-column
-                    prop="statusText"
-                    label="使用量"
-                />
-            </el-table>
-            <Pagination
-                v-model="current"
-                :total="total"
-                sizes
-                @sizeChange="onSizeChange"
-                @change="getList"
+                <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
+            </span>
+            <el-table-column
+                type="index"
+                width="50"
+                label="排序"
             />
-        </section>
+            <el-table-column
+                prop="name"
+                label="福利红包名称"
+                width="150"
+            />
+            <el-table-column
+                prop="amount"
+                label="福利红包面额"
+                width="150"
+            />
+            <el-table-column
+                prop="issueVolume"
+                label="发放数量"
+            />
+            <el-table-column
+                prop="applicableGoodsVolume"
+                label="适用产品(个)"
+                width="120"
+            />
+            <el-table-column
+                prop="price"
+                label="付费金额"
+            />
+            <el-table-column
+                label="领取时间"
+            >
+                <template #default="{ row }">
+                    {{ row.receiveStartTime | dateFormat('YYYY.MM.DD') }}-{{ row.receiveEndTime | dateFormat('YYYY.MM.DD') }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="活动状态"
+                width="150"
+            >
+                <template #default="{row}">
+                    {{ activityStatusMap[row.activityStatus] }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="显示状态"
+            >
+                <template #default="{row}">
+                    {{ row.showStatus ? '显示': '隐藏' }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="claimVolume"
+                label="领取量"
+                width="100"
+            />
+            <el-table-column
+                prop="useVolume"
+                label="使用量"
+                width="100"
+            />
+        </el-table>
+
+        <el-table
+            ref="sort-table"
+            class="sort-table"
+            row-key="id"
+            :data="SortStyleList"
+            v-show="showSortTable"
+        >
+            <span
+                slot="empty"
+                class="empty"
+            >
+                <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
+            </span>
+            <el-table-column
+                type="index"
+                width="50"
+                label="排序"
+            />
+            <el-table-column
+                prop="name"
+                label="福利红包名称"
+                width="150"
+            />
+            <el-table-column
+                prop="amount"
+                label="福利红包面额"
+                width="150"
+            />
+            <el-table-column
+                prop="issueVolume"
+                label="发放数量"
+            />
+            <el-table-column
+                prop="applicableGoodsVolume"
+                label="适用产品(个)"
+                width="120"
+            />
+            <el-table-column
+                prop="price"
+                label="付费金额"
+            />
+            <el-table-column
+                label="领取时间"
+            >
+                <template #default="{ row }">
+                    {{ row.receiveStartTime | dateFormat('YYYY.MM.DD') }}-{{ row.receiveEndTime | dateFormat('YYYY.MM.DD') }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="活动状态"
+                width="150"
+            >
+                <template #default="{row}">
+                    {{ activityStatusMap[row.activityStatus] }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="显示状态"
+            >
+                <template #default="{row}">
+                    {{ row.showStatus ? '显示': '隐藏' }}
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="claimVolume"
+                label="领取量"
+                width="100"
+            />
+            <el-table-column
+                prop="useVolume"
+                label="使用量"
+                width="100"
+            />
+        </el-table>
     </div>
 </template>
 
 <script lang="ts">
+import Sortable from 'sortablejs'
 import { Vue, Component } from 'vue-property-decorator'
+import { getRedPackageSortStyleList, getRedPackageSortListListNew, saveSortStyleRedPackageList } from '../../../../../apis/marketing-manage/red-package'
 
 @Component
 export default class RedPackageRankList extends Vue {
     /* data */
-    showSelect = false
-    rankType = ''
-    table = []
-    total = 0
-    current = 1
-    size = 10
-
-    // created () {}
-
-    /* methods */
-    async getList () {
-        console.log(123)
+    activityStatusMap = {
+        0: '未开始',
+        1: '进行中',
+        2: '停止',
+        3: '结束'
     }
 
-    reset () {
-        this.showSelect = true
+    sortType = 1
+    table = []
+    SortStyleList: DynamicObject[] = []
+    showSortTable = false
+    async created () {
+        try {
+            await this.getList()
+            this.rowDrop()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    /* methods */
+
+    async saveSort () {
+        try {
+            const data: string[] = []
+            for (const item of this.SortStyleList) {
+                data.push(item.id)
+            }
+            await saveSortStyleRedPackageList(data)
+            this.showSortTable = false
+            this.$success('操作成功')
+            this.sortType = 1
+            await this.getList()
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async cancel () {
+        try {
+            this.sortType = 1
+            await this.getList()
+            this.showSortTable = false
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async getList () {
+        try {
+            const { result: data1 } = await getRedPackageSortListListNew()
+            const { result: data2 } = await getRedPackageSortStyleList(this.sortType)
+            console.log(data2)
+            data1 && data1.length ? this.table = data1 : this.table = data2 || []
+            this.SortStyleList = data2
+            console.log(this.SortStyleList)
+        } catch (e) {
+            throw e
+        }
     }
 
     async onSelectChange () {
         try {
-            console.log(this.rankType)
             await this.getList()
         } catch (error) {
             throw error
         }
     }
 
-    async onSizeChange (val: number) {
-        try {
-            this.size = val
-            await this.getList()
-        } catch (error) {
-            throw error
-        }
+    rowDrop () {
+        const tbody = document.querySelector('.sort-table tbody')
+        // eslint-disable-next-line @typescript-eslint/no-this-alias,no-underscore-dangle
+        const _this = this
+        Sortable.create(tbody, {
+            onEnd ({ newIndex, oldIndex }: {newIndex: any;oldIndex: any}) {
+                const currRow = _this.SortStyleList.splice(oldIndex, 1)[0]
+                _this.SortStyleList.splice(newIndex, 0, currRow)
+            }
+        })
     }
 }
 </script>
@@ -170,11 +305,15 @@ export default class RedPackageRankList extends Vue {
     margin-top: 30px;
 }
 .sugget {
-    margin-left: 10px;
+    margin-left: 50px;
     font-size: 12px;
     color: #999999;
 }
 .preview {
-    margin-left: auto;
+    width: 100%;
+    display: flex;
+    >button{
+        margin-left: auto;
+    }
 }
 </style>

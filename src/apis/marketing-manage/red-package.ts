@@ -34,4 +34,13 @@ export const getRedPackageclaimVolume = (id: string) => axios.get(`/apis/v2/red-
 export const getRedPackageStatistics = (id: string) => axios.get(`/apis/v2/red-package-activities/stat/${ id }`)
 
 // 福利红包数据列表
-export const getRedPackageStatisticsList = (params: object) => axios.get('/apis/v2/red-package-activities/page/date', { params })
+export const getRedPackageStatisticsList = (params: { activityId: string; keyword: string; activityStatus: string; receiveStartTime: string; receiveEndTime: string; useStartTime: string; useEndTime: string; page: number; size: number }) => axios.get('/apis/v2/red-package-activities/page/date', { params })
+
+// 福利红包默认排序列表
+export const getRedPackageSortStyleList = (sortStyle: string | number | undefined | void) => axios.get('/apis/v2/red-package-activities/sortStyle/search', { params: { sortStyle } })
+
+// 福利红包保存后排序列表
+export const getRedPackageSortListListNew = () => axios.get('/apis/v2/red-package-activities/sortList')
+
+// 红包排序保存
+export const saveSortStyleRedPackageList = (data: string[]) => axios.post('/apis/v2/red-package-activities/save/sortStyle', data)

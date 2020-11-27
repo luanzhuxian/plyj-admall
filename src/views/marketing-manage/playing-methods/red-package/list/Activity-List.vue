@@ -128,15 +128,12 @@
                     label="支付金额"
                 />
                 <el-table-column
-                    prop="claimVolume"
-                    label="领取量"
-                    width="100"
-                />
-                <el-table-column
-                    prop="useVolume"
-                    label="使用量"
-                    width="100"
-                />
+                    label="领取时间"
+                >
+                    <template #default="{ row }">
+                        {{ row.receiveStartTime | dateFormat('YYYY.MM.DD') }}-{{ row.receiveEndTime | dateFormat('YYYY.MM.DD') }}
+                    </template>
+                </el-table-column>
                 <el-table-column
                     label="活动状态"
                     width="150"
@@ -163,6 +160,16 @@
                         </div>
                     </template>
                 </el-table-column>
+                <el-table-column
+                    prop="claimVolume"
+                    label="领取量"
+                    width="100"
+                />
+                <el-table-column
+                    prop="useVolume"
+                    label="使用量"
+                    width="100"
+                />
                 <el-table-column
                     label="操作"
                     align="right"
