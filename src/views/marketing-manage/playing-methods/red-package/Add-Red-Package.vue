@@ -562,7 +562,7 @@ export default class AddRedPackage extends Vue {
         ],
         'redPacketCouponDTO.useLimitAmount': [
             { required: true, message: '抵扣规则不能为空', trigger: 'blur' },
-            { validator: checkNumber(99999, 0.01, 1), trigger: 'blur' }
+            { validator: checkNumber(99999, 0.01, 2), trigger: 'blur' }
         ],
         'redPacketCouponDTO.useStackable': [
             { required: true, message: '请选择抵扣规则', trigger: 'blur' },
