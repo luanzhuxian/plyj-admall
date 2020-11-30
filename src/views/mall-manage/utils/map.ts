@@ -1,3 +1,4 @@
+
 // 直播活动状态
 export enum LiveStatus {
     // 已结束
@@ -97,7 +98,9 @@ export enum TemplateTypes {
     // 龙门节主会场
     TemplateDragonGate = 10,
     // 双十二 2020
-    TemplateDouble12 = 11
+    TemplateDouble12 = 11,
+    // 新春 2020
+    TemplateXinChun2020 = 12
 }
 
 // 模块id
@@ -143,21 +146,24 @@ export enum ModuleIds {
     // 系列课程
     SeriesCourse = 22,
     // 图文资料
-    ImageText = 23
+    ImageText = 23,
+    // 福利红包
+    redPackage = 24
 }
 
 // 各个模板 id 对应模板名
 export const tagMap: DynamicObject = {
-    '-1': 'template-c',
-    3: 'template-b',
-    4: 'template-b',
-    5: 'template-fengqiang',
-    6: 'template-baofa',
-    7: 'template-fanchang',
-    8: 'template-xinchun',
-    9: 'template-d',
-    10: 'template-dragon-gate',
-    11: 'template-double-12',
+    '-1': 'TemplateC',
+    3: 'TemplateB',
+    4: 'TemplateB',
+    5: 'TemplateFengqiang',
+    6: 'TemplateBaofa',
+    7: 'TemplateFanchang',
+    8: 'TemplateXinchun',
+    9: 'TemplateD',
+    10: 'TemplateDragonGate',
+    11: 'TemplateDouble12',
+    12: 'TemplateXinchun2020',
     findTemplateTagById (id: string) {
         return this[id]
     }
@@ -275,6 +281,7 @@ export const editorMap: DynamicObject = {
     OnlineCourse: 'Video',
     SeriesCourse: 'Video',
     ImageText: 'Video',
+    RedPackage: 'Coupon',
     getEditorByModule ({ tmplType, moduleName }: { tmplType: number; moduleName: string }) {
         if (moduleName === 'Miaosha') {
             return (tmplType === TemplateTypes.TemplateBaoFa) ? 'Miaosha' : 'Module'
@@ -283,7 +290,7 @@ export const editorMap: DynamicObject = {
     }
 }
 
-// 各个模块对应的类名
+// 各个模块对应的类名，上架前校验，找到报错的模块，窗口滚动到报错的模块
 export const moduleIdMap: DynamicObject = {
     Banner: '#Banner',
     Adv: '#Adv',
@@ -303,5 +310,6 @@ export const moduleIdMap: DynamicObject = {
     Live: '#Live',
     OnlineCourse: '#OnlineCourse',
     SeriesCourse: '#SeriesCourse',
-    ImageText: '#ImageText'
+    ImageText: '#ImageText',
+    RedPackage: '#RedPackage'
 }

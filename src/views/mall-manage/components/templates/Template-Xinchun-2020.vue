@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.templateDouble12" class="template-double-12">
+    <div :class="$style.templateXinchun" class="template-xinchun">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -18,17 +18,17 @@
                 </section>
                 <!-- 优惠券 -->
                 <section
-                    id="Coupon"
-                    v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
+                    id="RedPackage"
+                    v-if="data && data.RedPackage && (data.RedPackage.values.length || isClickable || isEmptyShow)"
                     :class="{
                         [$style.module]: true,
-                        [$style.moduleCoupon]: true,
+                        [$style.moduleRedPackage]: true,
                         [$style.pointer]: isClickable === true,
-                        [$style.active]: current === 'Coupon'
+                        [$style.active]: current === 'RedPackage'
                     }"
-                    @click="onClick('Coupon')"
+                    @click="onClick('RedPackage')"
                 >
-                    <Coupon :data="Coupon" />
+                    <RedPackage :data="RedPackage" />
                 </section>
                 <!-- 秒杀 -->
                 <ModuleWrapper
@@ -117,7 +117,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import Live from '../activity/dragon-gate/Live.vue'
-import Coupon from '../activity/double-12-2020/Coupon.vue'
+import RedPackage from '../activity/double-12-2020/Coupon.vue'
 import Miaosha from '../activity/double-12-2020/Miaosha.vue'
 import Pintuan from '../activity/double-12-2020/Pintuan.vue'
 import Yugou from '../activity/double-12-2020/Yugou.vue'
@@ -125,14 +125,14 @@ import Package from '../activity/double-12-2020/Package.vue'
 import Popular from '../activity/double-12-2020/Popular.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
-import { TemplateDouble12 as TemplateDouble122020 } from '../../utils/types'
+import { TemplateXinChun2020 } from '../../utils/types'
 
 const mall = namespace('mall')
 
 @Component({
     components: {
         Live,
-        Coupon,
+        RedPackage,
         Miaosha,
         Pintuan,
         Yugou,
@@ -142,14 +142,14 @@ const mall = namespace('mall')
         ModuleWrapper
     }
 })
-export default class TemplateDouble12 extends Vue {
+export default class TemplateXinchun2020 extends Vue {
     /* props */
     @Prop({
         type: Object,
         default () {
             return {}
         }
-    }) readonly data!: TemplateDouble122020
+    }) readonly data!: TemplateXinChun2020
 
     @Prop(Number) tmplType!: number
     @Prop({
@@ -164,8 +164,8 @@ export default class TemplateDouble12 extends Vue {
     /* computed */
     @mall.Getter liveInfo!: { liveModel: { statue: number; hasNotice: boolean }[] }
 
-    get Coupon () {
-        return this.data.Coupon || { values: [] }
+    get Redpackage () {
+        return this.data.RedPackage || { values: [] }
     }
 
     get Miaosha () {
@@ -206,7 +206,7 @@ export default class TemplateDouble12 extends Vue {
 </script>
 
 <style lang="scss">
-.template-double-12 {
+.template-xinchun {
     .live-panel {
         background-color: #FFC70C;
         border-radius: 8px;
@@ -265,7 +265,7 @@ export default class TemplateDouble12 extends Vue {
 }
 </style>
 <style lang="scss" module>
-.template-double-12 {
+.template-xinchun {
     display: flex;
     flex-direction: column;
     width: 375px;
@@ -300,7 +300,7 @@ export default class TemplateDouble12 extends Vue {
 }
 
 .module-live,
-.module-coupon {
+.module-redpackage {
     padding: 10px 12px;
 }
 .module-miaosha,
