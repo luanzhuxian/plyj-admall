@@ -8,9 +8,9 @@
                 label-position="left"
                 :model="form"
                 :rules="rules"
-                @validate="formValidateHandler"
+                auto-scroll-to-error
             >
-                <el-form-item label="课程名称" prop="courseName" id="courseName">
+                <el-form-item label="课程名称" prop="courseName">
                     <el-input
                         style="width: 267px;"
                         v-model="form.courseName"
@@ -18,7 +18,7 @@
                     />
                     <span class="tip"> （至多可输入30字的课程名称）</span>
                 </el-form-item>
-                <el-form-item label="课程封面" prop="courseImg" id="courseImg">
+                <el-form-item label="课程封面" prop="courseImg">
                     <ImageManager
                         v-model="form.courseMainImg"
                         need-edit
@@ -47,7 +47,7 @@
                         ref="mainImageTheme"
                     />
                 </el-form-item>
-                <el-form-item label="观看对象" prop="tagIds" id="tagIds">
+                <el-form-item label="观看对象" prop="tagIds">
                     <el-radio-group v-model="form.targetGroups">
                         <el-radio :label="0">
                             全部用户
@@ -70,7 +70,7 @@
                         @init="userGroupInit"
                     />
                 </el-form-item>
-                <el-form-item label="课程描述" prop="courseBrief" id="courseBrief">
+                <el-form-item label="课程描述" prop="courseBrief">
                     <el-input
                         v-model="form.courseBrief"
                         type="textarea"
@@ -85,7 +85,7 @@
                     <span>视频课程</span>
                 </el-form-item> -->
 
-                <el-form-item label="课程内容" prop="liveInfos" id="liveInfos">
+                <el-form-item label="课程内容" prop="liveInfos">
                     <div>
                         <el-button type="primary" plain @click="isShowSelectVideoDigLog = true">
                             选择视频
@@ -139,8 +139,7 @@
                                 :model="item"
                                 :rules="contentRules"
                                 ref="contentForm"
-                                :id="`course-count-of-${i}`"
-                                @validate="(prop, isPass, message) => courseFormValidateHandler(prop, isPass, message, `course-count-of-${i}`)"
+                                auto-scroll-to-error
                             >
                                 <div
                                     :class="{ [$style.videoCell]: true }"
@@ -934,64 +933,6 @@ ${ this.form.priceType ? '' : '5.该免费课程如果提前下架，不会影�
                 }
                 this.courseContent.splice(index, 1)
             } catch (e) {}
-        },
-
-        /**
-         * 表单校验事件
-         * 校验错误时，页面滚动至错误目标处
-         * 错误目标用已经设置的元素id获取
-         * 元素id时当前字段属性，因此可以用 prop 获取
-         * @param prop {String} 错误的字段属性
-         * @param isPass {Boolean} 是否校验通过
-         * @param message {String} 错误消息（没有时为null）
-         */
-        formValidateHandler (prop, isPass, message) {
-            if (!isPass && message && !this.hasValidate && this.submiting) {
-                const el = document.getElementById(prop)
-                if (el) {
-                    el.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                        inline: 'nearest'
-                    })
-                    this.$warning(message)
-                }
-                this.hasValidate = true
-            }
-            clearTimeout(this.validateTimer)
-            this.validateTimer = setTimeout(() => {
-                this.hasValidate = false
-                this.submiting = false
-            }, 1000)
-        },
-
-        /**
-     * 课程内容表单校验
-     * 校验错误时，页面滚动至错误目标处
-     * 错误目标用已经设置的元素id获取
-     * @param prop {String} 错误的字段属性
-     * @param isPass {Boolean} 是否校验通过
-     * @param message {String} 错误消息（没有时为null）
-     * @param formId {String} 表单元素，用来获取表单元素
-     */
-        courseFormValidateHandler (prop, isPass, message, formId) {
-            if (!isPass && message && !this.hasValidate && this.submiting) {
-                const el = document.getElementById(formId)
-                if (el) {
-                    el.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                        inline: 'nearest'
-                    })
-                    this.$warning(message)
-                }
-                this.hasValidate = true
-            }
-            clearTimeout(this.validateTimer)
-            this.validateTimer = setTimeout(() => {
-                this.hasValidate = false
-                this.submiting = false
-            }, 1000)
         },
         cancle () {
             this.$router.push({ name: 'SeriesOfCoursesList' })

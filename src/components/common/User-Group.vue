@@ -2,7 +2,7 @@
     <div :class="$style.userGroup">
         <div :class="$style.title">
             <span class="mr-20">{{ lookOver ? '查看标签' : '选择用标签' }}</span>
-            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+            <el-checkbox v-if="!lookOver" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
         </div>
         <ul
             :class="$style.group"
@@ -63,6 +63,7 @@ export default {
     },
     async mounted () {
         try {
+            console.log(this)
             await this.getTagList()
         } catch (e) {
             throw e

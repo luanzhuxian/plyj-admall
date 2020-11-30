@@ -7,7 +7,7 @@
                     :model="marketingForm"
                     :rules="rules"
                     label-width="100px"
-                    @validate="formValidateHandler"
+                    auto-scroll-to-error
                 >
                     <p class="detail-title">
                         基本信息
@@ -15,7 +15,6 @@
                     <el-form-item
                         label="活动名称"
                         prop="activityName"
-                        id="activityName"
                     >
                         <el-input
                             v-model="marketingForm.activityName"
@@ -26,7 +25,6 @@
                     <el-form-item
                         label="活动备注"
                         prop="activityNote"
-                        id="activityNote"
                     >
                         <el-input
                             v-model="marketingForm.activityNote"
@@ -51,7 +49,6 @@
                         </div>
                     </el-form-item>
                     <el-form-item
-                        id="activityStartTime"
                         prop="activityStartTime"
                     >
                         <template slot="label">
@@ -1057,26 +1054,6 @@ export default {
             }
             this.addVisible = false
             this.tabsActive = 'AllGoods'
-        },
-        // 表单校验事件
-        formValidateHandler (prop, isPass, message) {
-            if (!isPass && message && !this.hasValidate && this.submiting) {
-                const el = document.getElementById(prop)
-                if (el) {
-                    el.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                        inline: 'nearest'
-                    })
-                    this.$warning(message)
-                }
-                this.hasValidate = true
-            }
-            clearTimeout(this.validateTimer)
-            this.validateTimer = setTimeout(() => {
-                this.hasValidate = false
-                this.submiting = false
-            }, 1000)
         },
         async checkData (marketingForm) {
             await this.$refs.marketingForm.validate()

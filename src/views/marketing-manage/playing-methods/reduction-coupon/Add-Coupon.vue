@@ -87,13 +87,18 @@
                                 部分用户可用<span v-if="!(checkListArray && checkListArray.length)" class="purchase-sort-description"> （请先在会员中心-设置用户分组）</span>
                             </el-radio>
                         </el-radio-group>
-                        <div v-if="form.receiveLimit === 3" class="user-category">
+                        <UserGroup
+                            v-show="form.receiveLimit === 3"
+                            v-model="form.tagIds"
+                            @init="userGroupInited"
+                        />
+                        <!--<div v-if="form.receiveLimit === 3" class="user-category">
                             <el-checkbox-group v-model="form.tagIds">
                                 <el-checkbox :disabled="status" style="width: 120px" v-for="(item,index) in checkListArray" :label="item.id" :key="index">
                                     {{ item.tagName }}
                                 </el-checkbox>
                             </el-checkbox-group>
-                        </div>
+                        </div>-->
                     </div>
                 </el-form-item>
 
@@ -310,10 +315,10 @@ import { copyFields, resetForm } from '../../../../assets/ts/utils'
 import {
     saveCoupon,
     getCouponDetail,
-    updateCoupon,
-    getUserTtagList
+    updateCoupon
 } from '../../../../apis/marketing-manage/coupon'
 import Preview from '../../../../components/common/Preview.vue'
+import UserGroup from '../../../../components/common/User-Group.vue'
 import { SessionEnum } from '../../../../enum/storage'
 
 const START_TIME = `${ moment().format('YYYY-MM-DD') } 00:00:00`
@@ -342,7 +347,8 @@ const START_TIME = `${ moment().format('YYYY-MM-DD') } 00:00:00`
 export default {
     name: 'AddCoupon',
     components: {
-        Preview
+        Preview,
+        UserGroup
     },
     data () {
         return {
@@ -435,7 +441,6 @@ export default {
     async created () {
     // 此数据是用来告诉选择优惠券页面，新建的优惠券数据，必须手动清空，不然会有数据残留
         this.resultData = {}
-        await this.getUserTtagListFun()
         const params = this.$route.params
         this.id = params.id
         if (this.id) {
@@ -456,13 +461,8 @@ export default {
         this.getBrief()
     },
     methods: {
-        async getUserTtagListFun () {
-            try {
-                const { result } = await getUserTtagList()
-                this.checkListArray = result
-            } catch (e) {
-                throw e
-            }
+        async userGroupInited (val) {
+            this.checkListArray = val
         },
         checkLimitAmount () {
             if (this.form.useLimitAmount.indexOf('.') > 0 && this.form.useLimitAmount.split('.')[1].length > 2) {
@@ -726,7 +726,6 @@ export default {
             this.editUseEndTime = ''
             this.status = false
             this.form.briefEdit = 0
-            this.checkListArray = []
             this.getBrief()
         }
     },
@@ -847,13 +846,6 @@ export default {
       font-size: 14px;
       font-weight: bold;
       background-color: #fbfbfb;
-    }
-
-    .user-category{
-      width: 500px;margin-top: 10px;
-      background-color: #eee;
-      border: 1px solid #ccc;
-      padding-left: 10px;
     }
 
     .btn-box {

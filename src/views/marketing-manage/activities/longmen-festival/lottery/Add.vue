@@ -2,19 +2,18 @@
     <div>
         <Panel :title="id ? '编辑抽奖' : '添加抽奖'" width="90%" :top="20">
             <el-form
-                slot="content"
                 class="wrap"
                 label-width="150px"
                 label-position="left"
                 :model="form"
                 :rules="rules"
                 ref="form"
-                @validate="validateHandler"
+                auto-scroll-to-error
             >
                 <h3 class="mb-10">
                     基本信息
                 </h3>
-                <el-form-item label="活动名称" prop="name" id="name">
+                <el-form-item label="活动名称" prop="name">
                     <el-input
                         style="width: 200px;"
                         v-model="form.name"
@@ -23,7 +22,7 @@
                     />
                     <span class="tip">（活动名称即为分享活动时的活动标题内容）</span>
                 </el-form-item>
-                <el-form-item label="活动时间" prop="startTime" id="startTime">
+                <el-form-item label="活动时间" prop="startTime">
                     <date-range
                         :init="defaultDate"
                         type="datetime"
@@ -34,7 +33,7 @@
                     />
                 </el-form-item>
 
-                <el-form-item label="适用用户" prop="userGroups" id="userGroups">
+                <el-form-item label="适用用户" prop="userGroups">
                     <el-radio-group v-model="form.userRange" :disabled="status === 2">
                         <el-radio :label="0">
                             所有用户
@@ -58,7 +57,7 @@
                     />
                 </el-form-item>
 
-                <el-form-item label="活动细则" prop="activityRule" id="activityRule">
+                <el-form-item label="活动细则" prop="activityRule">
                     <el-input
                         style="width: 400px;"
                         type="textarea"
@@ -72,7 +71,7 @@
                 <h3 class="mb-10">
                     抽奖设置
                 </h3>
-                <el-form-item label="奖品设置" prop="gifts" id="gifts">
+                <el-form-item label="奖品设置" prop="gifts">
                     <div :class="$style.awards">
                         <div
                             :class="$style.awardItem"
@@ -867,25 +866,6 @@ export default {
             } else {
                 delete item.money
             }
-        },
-        // 表单发生校验时
-        validateHandler (prop, isPass, message) {
-            if (!isPass && message && !this.hasValidate) {
-                const el = document.getElementById(prop)
-                if (el) {
-                    el.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                        inline: 'nearest'
-                    })
-                    this.$warning(message)
-                }
-                this.hasValidate = true
-            }
-            clearTimeout(this.validateTimer)
-            this.validateTimer = setTimeout(() => {
-                this.hasValidate = false
-            }, 1000)
         }
     },
     beforeRouteLeave (to, from, next) {
