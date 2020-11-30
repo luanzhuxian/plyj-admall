@@ -1,7 +1,8 @@
 <template>
     <div :class="$style.userGroup">
         <div :class="$style.title">
-            {{ lookOver ? '查看分组' : '选择用户组' }}
+            <span class="mr-20">{{ lookOver ? '查看标签' : '选择用标签' }}</span>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
         </div>
         <ul
             :class="$style.group"
@@ -14,21 +15,22 @@
                 {{ item.tagName }}
             </li>
         </ul>
-        <el-checkbox-group
-            v-else
-            :class="$style.group"
-            :value="tagIds"
-            :disabled="disabled"
-        >
-            <el-checkbox
-                v-for="(item, i) of userGroup"
-                :key="i"
-                :label="item.id"
-                @change="boxChange"
+        <template v-else>
+            <el-checkbox-group
+                :class="$style.group"
+                :value="tagIds"
+                :disabled="disabled"
             >
-                {{ item.tagName }}
-            </el-checkbox>
-        </el-checkbox-group>
+                <el-checkbox
+                    v-for="(item, i) of userGroup"
+                    :key="i"
+                    :label="item.id"
+                    @change="boxChange"
+                >
+                    {{ item.tagName }}
+                </el-checkbox>
+            </el-checkbox-group>
+        </template>
     </div>
 </template>
 
@@ -38,7 +40,9 @@ export default {
     name: 'UserGroup',
     data () {
         return {
-            userGroup: []
+            userGroup: [],
+            isIndeterminate: false,
+            checkAll: false
             // localTagIds: []
         }
     },
@@ -86,6 +90,15 @@ export default {
                 values.splice(values.indexOf(evt.target.value), 1)
             }
             this.$emit('change', values)
+            this.isIndeterminate = values.length > 0 && values.length < this.userGroup.length
+        },
+        handleCheckAllChange (val) {
+            if (val) {
+                this.$emit('change', this.userGroup.map(item => item.id))
+            } else {
+                this.$emit('change', [])
+            }
+            this.isIndeterminate = false
         }
     }
 }

@@ -56,27 +56,11 @@
                             部分用户可用<span v-if="!(checkListArray && checkListArray.length)" class="description"> （请先在会员中心-设置用户分组）</span>
                         </el-radio>
                     </el-radio-group>
-                    <div v-if="form.redPacketCouponDTO.receiveLimit === 3" class="user-category">
-                        <div class="category-head">
-                            请选择用户标签：
-                        </div>
-                        <div class="category-content">
-                            <el-checkbox-group v-model="form.redPacketCouponDTO.tagIds">
-                                <el-checkbox style="width: 120px;" v-for="(item,index) in checkListArray" :label="item.id" :key="index">
-                                    {{ item.tagName }}
-                                </el-checkbox>
-                            </el-checkbox-group>
-                        </div>
-                        <div>
-                            <el-checkbox
-                                :indeterminate="Boolean(form.redPacketCouponDTO.tagIds.length && (form.redPacketCouponDTO.tagIds.length < checkListArray.length))"
-                                v-model="checkAll"
-                                @change="checkAllChange"
-                            >
-                                全选
-                            </el-checkbox>
-                        </div>
-                    </div>
+                    <UserGroup
+                        v-show="form.redPacketCouponDTO.receiveLimit === 3"
+                        v-model="form.redPacketCouponDTO.tagIds"
+                        @init="userGroupInit"
+                    />
                 </el-form-item>
                 <el-form-item label="领用方式：" prop="redPacketCouponDTO.distributionMethod">
                     <el-radio-group :disabled="disabled" v-model="form.redPacketCouponDTO.distributionMethod">
@@ -335,14 +319,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { getUserTtagList } from '../../../../apis/marketing-manage/coupon'
 import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import { State } from 'vuex-class'
 import productSkuSelector from '../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import { checkNumber } from '@/assets/ts/validate'
 import { addRedPackage, getRedPackageDetail, editRedPackage, getRedPackageclaimVolume } from '../../../../apis/marketing-manage/red-package'
-
+import UserGroup from '../../../../components/common/User-Group.vue'
 type ProdItem = {
     productId: string;
     productType: string;
@@ -366,7 +349,8 @@ Component.registerHooks([
         UploadImage,
         swiper,
         swiperSlide,
-        productSkuSelector
+        productSkuSelector,
+        UserGroup
     }
 })
 export default class AddRedPackage extends Vue {
@@ -377,7 +361,6 @@ export default class AddRedPackage extends Vue {
     loading= false
     disabled = false
     briefEdit= false
-    checkAll= false
     logoUrl: string[]= []
     showProductBox= false
 
@@ -442,7 +425,6 @@ export default class AddRedPackage extends Vue {
 
     async created () {
         try {
-            await this.getUserTtagListFun()
             if (this.id) {
                 const { result } = await getRedPackageDetail(this.id)
                 const { activityStatus, name, issueVolume, bgUrlsIndex, showStatus, logoShow, logoUrl, redPacketCouponVO } = result
@@ -625,14 +607,6 @@ export default class AddRedPackage extends Vue {
         }
     }
 
-    checkAllChange (val: any) {
-        if (val) {
-            this.form.redPacketCouponDTO.tagIds = this.checkListArray.map(item => item.id)
-        } else {
-            this.form.redPacketCouponDTO.tagIds = []
-        }
-    }
-
     async save () {
         try {
             await (this.$refs.ruleForm as HTMLFormElement).validate()
@@ -665,13 +639,8 @@ export default class AddRedPackage extends Vue {
         val.length ? this.form.logoUrl = val[0] : this.form.logoUrl = ''
     }
 
-    async getUserTtagListFun () {
-        try {
-            const { result } = await getUserTtagList()
-            this.checkListArray = result
-        } catch (e) {
-            throw e
-        }
+    async userGroupInit (val: any[]) {
+        this.checkListArray = val
     }
 
     selectProductSku (val: ProdItem[]) {

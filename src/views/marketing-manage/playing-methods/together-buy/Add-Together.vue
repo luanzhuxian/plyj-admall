@@ -44,13 +44,11 @@
                                     <span v-if="userTagList.length === 0">（请先在会员管理-设置用户分组）</span>
                                 </el-radio>
                             </el-radio-group>
-                            <div class="user-box" v-if="marketingForm.receiveLimit === 3 && userTagList.length > 0">
-                                <el-checkbox-group v-model="marketingForm.userTagIdList">
-                                    <el-checkbox v-for="(item,index) in userTagList" :label="item.id" :key="index">
-                                        {{ item.tagName }}
-                                    </el-checkbox>
-                                </el-checkbox-group>
-                            </div>
+                            <UserGroup
+                                v-model="marketingForm.userTagIdList"
+                                v-show="marketingForm.receiveLimit === 3 && userTagList.length > 0"
+                                @init="groupInit"
+                            />
                         </div>
                     </el-form-item>
                     <el-form-item
@@ -263,14 +261,16 @@ import GoodsPreview from '../../../../components/product-center/goods/Goods-Prev
 import ProductSelector from '../../../../components/product-center/goods/Product-Radio.vue'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import { goPage } from '../../../../assets/ts/utils'
-import { createTogetherActivity, updateTogetherActivity, togetherActivityDetail, getUserTagList } from '../../../../apis/marketing-manage/together'
+import { createTogetherActivity, updateTogetherActivity, togetherActivityDetail } from '../../../../apis/marketing-manage/together'
 import moment from 'moment/moment'
+import UserGroup from '../../../../components/common/User-Group.vue'
 
 export default {
     name: 'AddTogether',
     components: {
         GoodsPreview,
-        ProductSelector
+        ProductSelector,
+        UserGroup
     },
     data () {
         return {
@@ -338,11 +338,6 @@ export default {
             this.type = this.$route.params.type
             this.getTogetherActivityDetail(this.id)
         }
-        // 获取用户分组
-        try {
-            const { result } = await getUserTagList()
-            this.userTagList = result
-        } catch (e) { throw e }
     },
     mounted () {
         window.addEventListener('beforeunload', this.beforeunload)
@@ -363,6 +358,9 @@ export default {
         }
     },
     methods: {
+        groupInit (val) {
+            this.userTagList = val
+        },
         beforeunload (e) {
             e.returnValue = ''
         },
