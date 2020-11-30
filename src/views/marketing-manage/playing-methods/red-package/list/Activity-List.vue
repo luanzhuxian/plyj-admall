@@ -206,7 +206,7 @@
                                     复制
                                 </a>
                                 <!-- 仅'已结束'的优惠券支持删除 -->
-                                <a v-if="row.activityStatus === 3" @click="delete(row.id)">
+                                <a v-if="row.activityStatus === 3" @click="deleteRow(row.id)">
                                     删除
                                 </a>
                                 <!--  除'待开始/已结束'以外的，只有'进行中/已停止'的'自行领取'的品类券均可开启/停止 -->
@@ -395,7 +395,7 @@ export default class RedPackageActivityList extends Vue {
         }
     }
 
-    async delete (id: string) {
+    async deleteRow (id: string) {
         try {
             await this.$confirm({
                 title: '确认要删除该活动吗？删除后不可数据恢复',

@@ -120,14 +120,7 @@
                 width="100"
             />
         </el-table>
-
-        <el-table
-            ref="sort-table"
-            class="sort-table"
-            row-key="id"
-            :data="SortStyleList"
-            v-show="showSortTable"
-        >
+        <pl-table v-show="showSortTable" :data="SortStyleList">
             <span
                 slot="empty"
                 class="empty"
@@ -194,12 +187,11 @@
                 label="使用量"
                 width="100"
             />
-        </el-table>
+        </pl-table>
     </div>
 </template>
 
 <script lang="ts">
-import Sortable from 'sortablejs'
 import { Vue, Component } from 'vue-property-decorator'
 import { getRedPackageSortStyleList, getRedPackageSortListListNew, saveSortStyleRedPackageList, redPackageRevertDefault } from '../../../../../apis/marketing-manage/red-package'
 
@@ -220,7 +212,6 @@ export default class RedPackageRankList extends Vue {
     async created () {
         try {
             await this.getList()
-            this.rowDrop()
         } catch (e) {
             throw e
         }
@@ -279,21 +270,9 @@ export default class RedPackageRankList extends Vue {
     async onSelectChange () {
         try {
             await this.getList()
-        } catch (error) {
-            throw error
+        } catch (e) {
+            throw e
         }
-    }
-
-    rowDrop () {
-        const tbody = document.querySelector('.sort-table tbody')
-        // eslint-disable-next-line @typescript-eslint/no-this-alias,no-underscore-dangle
-        const _this = this
-        Sortable.create(tbody, {
-            onEnd ({ newIndex, oldIndex }: {newIndex: any;oldIndex: any}) {
-                const currRow = _this.SortStyleList.splice(oldIndex, 1)[0]
-                _this.SortStyleList.splice(newIndex, 0, currRow)
-            }
-        })
     }
 }
 </script>
