@@ -41,7 +41,7 @@
                         <el-button type="primary" plain @click="addVisible = true">
                             选择商品
                         </el-button>
-                        <div v-if="form.applicableGoodsId.length">
+                        <div v-if="form.couponGoodsSkus.length">
                             <div
                                 class="wrap flex-align"
                                 v-if="form.status !== '' && form.status !== 2"
@@ -51,17 +51,18 @@
                                 </div>
                                 <el-button
                                     size="mini"
-                                    :disabled="!multipleSelection.length || status"
+                                    :disabled="!multipleSelection.length"
                                     @click="batchDeleteProduct()"
                                 >
                                     批量删除
                                 </el-button>
+                                <!-- :disabled="!multipleSelection.length || status"-->
                             </div>
                             <el-table
                                 @selection-change="handleSelectionChange"
                                 type="index"
                                 class="content-table"
-                                :data="form.applicableGoodsId"
+                                :data="form.couponGoodsSkus"
                                 ref="table"
                             >
                                 <el-table-column
@@ -483,7 +484,7 @@ export default {
                 applicableGoods: 1,
                 scholarship: 1,
                 tagIds: [],
-                applicableGoodsId: []
+                couponGoodsSkus: []
             },
             rules: {
                 productType: [
@@ -566,19 +567,19 @@ export default {
                 arrayId.push(item.id)
             }
             const array = []
-            for (const item of this.form.applicableGoodsId) {
+            for (const item of this.form.couponGoodsSkus) {
                 if (!arrayId.includes(item.id)) {
                     array.push(item)
                 }
             }
-            this.form.applicableGoodsId = array
-            if (!this.form.applicableGoodsId.length) {
+            this.form.couponGoodsSkus = array
+            if (!this.form.couponGoodsSkus.length) {
                 this.multipleSelection = []
             }
         },
         deleteProduct (index) {
-            this.form.applicableGoodsId.splice(index, 1)
-            if (!this.form.applicableGoodsId.length) {
+            this.form.couponGoodsSkus.splice(index, 1)
+            if (!this.form.couponGoodsSkus.length) {
                 this.multipleSelection = []
             }
         },
@@ -611,7 +612,7 @@ export default {
                     item.id = item.productId
                     item.productTypeText = this.productTypeMap[item.productType]
                 }
-                this.form.applicableGoodsId = result.couponProductRList || []
+                this.form.couponGoodsSkus = result.couponProductRList || []
                 if (this.form.receiveStartTime) {
                     if ((moment(this.form.receiveStartTime).valueOf() < Date.now()) && this.isCopy) {
                         this.form.receiveStartTime = ''
@@ -639,13 +640,13 @@ export default {
         },
         selectGood (pro) {
             const arrayId = []
-            for (const item of this.form.applicableGoodsId) {
+            for (const item of this.form.couponGoodsSkus) {
                 arrayId.push(item.id)
             }
             for (const item of pro) {
                 if (!arrayId.includes(item.id)) {
                     item.isSelected = false
-                    this.form.applicableGoodsId.push(item)
+                    this.form.couponGoodsSkus.push(item)
                 }
             }
         },
@@ -738,10 +739,10 @@ export default {
                     this.form.receiveEndTime = null
                 }
                 const array = []
-                for (const item of this.form.applicableGoodsId) {
-                    array.push(item.id)
+                for (const item of this.form.couponGoodsSkus) {
+                    array.push({ productId: item.id })
                 }
-                this.form.applicableGoodsId = array
+                this.form.couponGoodsSkus = array
                 if (this.id && !this.isCopy) {
                     await updateCoupon(this.form)
                 } else {
@@ -778,7 +779,7 @@ export default {
                 this.$warning('优惠金额不能大于满减金额')
                 return false
             }
-            if (!this.form.applicableGoodsId.length) {
+            if (!this.form.couponGoodsSkus.length) {
                 this.$warning('请选择商品')
                 return false
             }

@@ -108,7 +108,7 @@
                     </p>
                 </el-form-item>
 
-                <el-form-item label="适用产品：" prop="redPacketCouponDTO.applicableGoodsId">
+                <el-form-item label="适用产品：" prop="redPacketCouponDTO.couponGoodsSkus">
                     <el-button type="primary" plain @click="showProductBox = true">
                         选择商品/课程
                     </el-button>
@@ -410,8 +410,7 @@ export default class AddRedPackage extends Vue {
             useStartTime: '',
             useEndTime: '',
             // 适用商品
-            applicableGoodsId: [],
-            applicableGoodsSkuId: [],
+            couponGoodsSkus: [],
             // 抵扣规则满金额
             useLimitAmount: '',
             // 使用限制
@@ -453,8 +452,7 @@ export default class AddRedPackage extends Vue {
                         quantityLimit,
                         useStartTime,
                         useEndTime,
-                        applicableGoodsId: [],
-                        applicableGoodsSkuId: [],
+                        couponGoodsSkus: [],
                         useLimitAmount,
                         useStackable,
                         useWithCoupon: Boolean(useWithCoupon),
@@ -556,7 +554,7 @@ export default class AddRedPackage extends Vue {
         'redPacketCouponDTO.useStartTime': [
             { required: true, message: '使用时间不能为空', trigger: 'blur' }
         ],
-        'redPacketCouponDTO.applicableGoodsId': [
+        'redPacketCouponDTO.couponGoodsSkus': [
             { required: true, message: '请选择适用商品', trigger: 'blur' },
             { validator: this.rulesGoodsId, trigger: 'blur' }
         ],
@@ -647,11 +645,13 @@ export default class AddRedPackage extends Vue {
     selectProductSku (val: ProdItem[]) {
         this.productModelList = val
         if (!val || !val.length) return
-        this.form.redPacketCouponDTO.applicableGoodsId = []
-        this.form.redPacketCouponDTO.applicableGoodsSkuId = []
+        this.form.redPacketCouponDTO.couponGoodsSkus = []
         for (const item of this.productModelList) {
-            this.form.redPacketCouponDTO.applicableGoodsId.push(item.productId)
-            this.form.redPacketCouponDTO.applicableGoodsSkuId.push(item.skuId)
+            this.form.redPacketCouponDTO.couponGoodsSkus.push({
+                productId: item.productId,
+                skuCode: item.skuCode1,
+                subSkuCode: item.skuCode2
+            })
         }
     }
 
@@ -666,7 +666,6 @@ export default class AddRedPackage extends Vue {
     }
 
     async beforeRouteLeave (to: { name: string }, from: any, next: () => void) {
-        console.log(to)
         if (to.name !== 'RedPackage' && to.name !== 'OrgIndex' && to.name !== 'RedPackageList' && to.name !== 'RedPackageActivityList') {
             await this.$confirm({
                 title: '放弃编辑？',
