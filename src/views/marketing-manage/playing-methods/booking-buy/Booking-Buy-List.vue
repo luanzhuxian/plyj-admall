@@ -105,16 +105,14 @@
             </el-table-column>
             <el-table-column
                 label="商品名称"
-                header-align="center"
-                align="center"
             >
                 <template #default="{ row }">
-                    <div style="display: flex; justify-content: center">
+                    <div style="display: flex; justify-content: flex-start;">
 
                         <el-button
                             type="text"
                             v-if="row.skuModelList && row.skuModelList.length"
-                            style="padding: 0"
+                            style="padding: 0; font-size: 12px"
                             class="expanded-btn"
                             :class="{ expanded: row.expanded }"
                             @click="expendSkuModel(row)"

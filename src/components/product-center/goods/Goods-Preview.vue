@@ -147,7 +147,7 @@
                             <del v-if="maxOriginalPrice&&((minPrice !== maxOriginalPrice))" v-text="maxOriginalPrice" />
                         </div>
                         <div class="price" v-else-if="data.activeProduct === 4 && !data.activityProductModel.price">
-                            <span>{{ bookMinPrice }}</span>
+                            <span>{{ bookMinPrice[0].depositPrice }}</span>
                         </div>
                         <div class="price" v-else>
                             <span>{{ data.activityProductModel.price }}</span>
@@ -291,7 +291,7 @@ export default {
             return Math.min(...this.priceList)
         },
         bookMinPrice () {
-            return Math.min(...this.data.activityProductModel.skuModelList.map(item => item.depositPrice) || [])
+            return this.data.activityProductModel.skuModelList.filter(item => item.depositPrice * item.multipleNumber - item.depositPrice === Math.max(...this.data.activityProductModel.skuModelList.map(item => item.depositPrice * item.multipleNumber - item.depositPrice) || []))
         },
         originalPriceList () {
             return this.data.productSkuModels.map(item => item.originalPrice) || []

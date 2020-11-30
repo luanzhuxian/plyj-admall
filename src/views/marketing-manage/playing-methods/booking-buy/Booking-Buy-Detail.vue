@@ -66,7 +66,7 @@
                         <el-table-column label="价格（元）" prop="price" />
                         <el-table-column label="规格" prop="skuName" />
                         <el-table-column label="定金价位（元）" prop="depositPrice" />
-                        <el-table-column label="定金翻倍（元）" prop="multipleNumber" />
+                        <el-table-column label="定金翻倍" prop="multipleNumber" />
                         <el-table-column label="活动库存" prop="stock" />
                     </el-table>
                 </li>
