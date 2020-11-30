@@ -3,27 +3,27 @@
         <div id="pl-quill-toolbar" class="pl-quill-toolbar" ref="toolbar">
             <!-- Inline -->
             <button class="toolbar-btn ql-bold" title="粗体">
-                <span class="yaji-icon icon-bold" />
+                <span class="editor-icon icon-bold" />
             </button>
             <!-- italic -->
             <button class="toolbar-btn ql-italic" title="斜体">
-                <span class="yaji-icon icon-italic" />
+                <span class="editor-icon icon-italic" />
             </button>
             <!-- under-line -->
             <button class="toolbar-btn ql-underline" title="下划线">
-                <span class="yaji-icon icon-underline" />
+                <span class="editor-icon icon-underline" />
             </button>
             <!-- delete -->
             <button class="toolbar-btn ql-strike" title="删除线">
-                <span class="yaji-icon icon-delete" />
+                <span class="editor-icon icon-delete" />
             </button>
             <!-- H1 -->
             <button class="toolbar-btn ql-header" value="h1" title="标题1">
-                <span class="yaji-icon icon-h1" />
+                <span class="editor-icon icon-h1" />
             </button>
             <!-- H2 -->
             <button class="toolbar-btn ql-header" value="h2" title="标题2">
-                <span class="yaji-icon icon-h2" />
+                <span class="editor-icon icon-h2" />
             </button>
             <!-- color -->
             <button class="toolbar-btn ql-color" title="颜色">
@@ -57,46 +57,46 @@
             </label>
             <!-- 右缩进 -->
             <label class="toolbar-btn" @click="retract(1)" title="右缩进">
-                <span class="yaji-icon icon-right" />
+                <span class="editor-icon icon-right" />
             </label>
             <!-- 左缩进 -->
             <label class="toolbar-btn" @click="retract(-1)" title="左缩进">
-                <span class="yaji-icon icon-left" />
+                <span class="editor-icon icon-left" />
             </label>
             <!-- ul -->
             <button class="toolbar-btn ql-list" value="bullet" title="无序列表">
-                <span class="yaji-icon icon-ul" />
+                <span class="editor-icon icon-ul" />
             </button>
             <!-- ol -->
             <button class="toolbar-btn ql-list" value="ordered" title="有序列表">
-                <span class="yaji-icon icon-ol" />
+                <span class="editor-icon icon-ol" />
             </button>
             <!-- align -->
             <label class="toolbar-btn">
                 <el-dropdown @command="handleAlign" trigger="click">
                     <span
-                        class="yaji-icon dropdown"
+                        class="editor-icon dropdown"
                         :class="alignValue === 'center' ? 'icon-center' : alignValue === 'right' ? 'icon-to-right' : 'icon-to-left'"
                     />
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item command="" title="左对齐">
-                            <span class="el-dropdown-link yaji-icon icon-to-left" />
+                            <span class="el-dropdown-link editor-icon icon-to-left" />
                         </el-dropdown-item>
                         <el-dropdown-item command="right" title="右对齐">
-                            <span class="el-dropdown-link yaji-icon icon-to-right" />
+                            <span class="el-dropdown-link editor-icon icon-to-right" />
                         </el-dropdown-item>
                         <el-dropdown-item command="center" title="居中">
-                            <span class="el-dropdown-link yaji-icon icon-center" />
+                            <span class="el-dropdown-link editor-icon icon-center" />
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </label>
             <!-- image -->
             <button class="toolbar-btn ql-image" title="选择图片">
-                <span class="yaji-icon icon-pic" />
+                <span class="editor-icon icon-pic" />
             </button>
             <button class="toolbar-btn ql-video" title="选择视频" v-if="showVideo">
-                <span class="yaji-icon icon-video" />
+                <span class="editor-icon icon-video" />
             </button>
         </div>
         <div ref="container" id="pl-quill-editor" />
