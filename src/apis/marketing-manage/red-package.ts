@@ -46,4 +46,4 @@ export const getRedPackageSortListListNew = () => axios.get('/apis/v2/red-packag
 export const saveSortStyleRedPackageList = (data: string[]) => axios.post('/apis/v2/red-package-activities/save/sortStyle', data)
 
 // 福利红包保存后排序列表
-export const redPackageRevertDefault = () => axios.get('/apis/v2/red-package-activities/revertDefault')
+export const redPackageRevertDefault = () => axios.delete('/apis/v2/red-package-activities/revertDefault')

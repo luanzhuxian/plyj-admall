@@ -8,7 +8,7 @@
                 设置排序
                 <i class="el-icon-plus el-icon--right" />
             </el-button>
-            <el-button type="primary" plain round>
+            <el-button type="primary" plain round @click="resetData">
                 恢复默认
             </el-button>
             <div :class="$style.preview">
@@ -201,7 +201,7 @@
 <script lang="ts">
 import Sortable from 'sortablejs'
 import { Vue, Component } from 'vue-property-decorator'
-import { getRedPackageSortStyleList, getRedPackageSortListListNew, saveSortStyleRedPackageList } from '../../../../../apis/marketing-manage/red-package'
+import { getRedPackageSortStyleList, getRedPackageSortListListNew, saveSortStyleRedPackageList, redPackageRevertDefault } from '../../../../../apis/marketing-manage/red-package'
 
 @Component
 export default class RedPackageRankList extends Vue {
@@ -227,6 +227,15 @@ export default class RedPackageRankList extends Vue {
     }
 
     /* methods */
+
+    async resetData () {
+        try {
+            await redPackageRevertDefault()
+            this.$success('操作成功')
+        } catch (e) {
+            throw e
+        }
+    }
 
     async saveSort () {
         try {
