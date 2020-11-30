@@ -307,7 +307,7 @@ export default {
 <style scoped lang="scss">
   #pl-quill-editor {
     width: max-content;
-    height: 800px;
+    height: 500px;
     border: 1px solid #e7e7e7;
     ::v-deep img {
       width: 100% !important;

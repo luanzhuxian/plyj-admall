@@ -1,15 +1,17 @@
 <template>
     <div class="add-product">
         <div class="add-content">
-            <div class="content-title" id="basic" ref="basic">
+            <div class="content-title" ref="basic">
                 基本信息
             </div>
             <el-form
                 label-width="150px"
                 :model="form"
                 :rules="rules"
+                ref="form"
                 label-position="left"
                 class="main-form"
+                auto-scroll-to-error
             >
                 <el-form-item label="课程类型" prop="productType">
                     <el-radio v-model="form.productType" label="PHYSICAL_GOODS" border class="pro-type el-icon-check">
@@ -27,12 +29,12 @@
                     </el-tooltip>
                 </el-form-item>
 
-                <el-form-item label="商品名称" prop="productName" id="productName">
+                <el-form-item label="商品名称" prop="productName">
                     <el-input style="width: 320px" v-model="form.productName" maxlength="50" placeholder="请输入商品名称" />
                     <span style="margin-left: 20px;color: #999999; font-size: 14px;">商品名称为50个汉字</span>
                 </el-form-item>
 
-                <el-form-item label="上传商品图片" prop="productMainImage" id="productMainImage">
+                <el-form-item label="上传商品图片" prop="mediaInfoIds">
                     <div class="flex">
                         <UploadVideo
                             ref="UploadVideo"
@@ -88,7 +90,7 @@
                     />
                 </el-form-item>
 
-                <el-form-item label="商品描述" prop="productDesc" id="productDesc">
+                <el-form-item label="商品描述" prop="productDesc">
                     <el-input
                         type="textarea"
                         placeholder="请输入内容"
@@ -140,16 +142,16 @@
                     </p>
                 </el-form-item>
 
-                <el-form-item label="商品分类" prop="categoryId" id="categoryId">
+                <el-form-item label="商品分类" prop="categoryId">
                     <SelectCategory
                         v-model="classification"
                         show-add
                     />
                 </el-form-item>
-                <div class="content-title" id="price" ref="price">
+                <div class="content-title" ref="price">
                     价格库存
                 </div>
-                <el-form-item label="商品规格" prop="productSkuModels" id="productSkuModels">
+                <el-form-item label="商品规格" prop="productSkuModels">
                     <div class="sku-btn">
                         <el-button
                             type="primary"
@@ -178,12 +180,11 @@
                         v-if="form.productAttributes.length && form.productSkuModels.length"
                     />
                 </el-form-item>
-                <div class="content-title" id="logistics" ref="logistics" v-if="form.productType === 'PHYSICAL_GOODS'">
+                <div class="content-title" ref="logistics" v-if="form.productType === 'PHYSICAL_GOODS'">
                     物流信息
                 </div>
 
-                <el-form-item label="物流方式" prop="logisticsType" id="logisticsType"
-                              v-if="form.productType === 'PHYSICAL_GOODS'">
+                <el-form-item label="物流方式" v-if="form.productType === 'PHYSICAL_GOODS'">
                     <el-radio-group v-model="logisticsType">
                         <el-radio :label="1" name="普通快递">
                             普通快递
@@ -191,8 +192,12 @@
                     </el-radio-group>
                 </el-form-item>
 
-                <el-form-item label="运费模板" prop="shippingTemplateId" id="shippingTemplateId"
-                              v-if="form.productType === 'PHYSICAL_GOODS'">
+                <el-form-item
+                    label="运费模板"
+                    prop="shippingTemplateId"
+                    v-if="form.productType === 'PHYSICAL_GOODS'"
+                    :rules="{ required: form.productType === 'PHYSICAL_GOODS', message: '请选择运费模板', trigger: 'blur' }"
+                >
                     <el-select placeholder="请选择运费模板" v-model="form.shippingTemplateId">
                         <el-option
                             v-for="(item, index) of templateList"
@@ -212,11 +217,11 @@
                     </el-button>
                 </el-form-item>
 
-                <div class="content-title" id="other" ref="other">
+                <div class="content-title" ref="other">
                     其他信息
                 </div>
 
-                <el-form-item label="限购" label-width="170px" prop="purchaseLimit" id="purchaseLimit">
+                <el-form-item label="限购" label-width="170px" prop="purchaseLimit">
                     <div>
                         <el-checkbox v-model="form.purchaseLimit" :true-label="1" :false-label="0">
                             限制每人的购买数量
@@ -243,7 +248,11 @@
                     <span class="purchase-sort-description"> (勾选，则该商品参与首页任何模块的排序展示)</span>
                 </el-form-item>
 
-                <el-form-item label="退款服务" label-width="170px" prop="supportRefund">
+                <el-form-item
+                    label="退款服务"
+                    label-width="170px"
+                    prop="supportRefund"
+                >
                     <div>
                         <el-checkbox v-model="form.supportRefund" :true-label="1" :false-label="0">
                             支持{{ form.productType === 'PHYSICAL_GOODS'?'退货':'退款' }}服务
@@ -252,8 +261,12 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item v-if="form.supportRefund && form.productType === 'PHYSICAL_GOODS'" label-width="170px"
-                              id="supportRefund">
+                <el-form-item
+                    v-show="form.supportRefund && form.productType === 'PHYSICAL_GOODS'"
+                    label-width="170px"
+                    prop="afterSalesAddress"
+                    :rules="{ required: form.supportRefund && form.productType === 'PHYSICAL_GOODS', message: '请选择退货地址' }"
+                >
                     <el-select
                         placeholder="请选择退货地址"
                         v-model="form.afterSalesAddress"
@@ -282,8 +295,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="学员信息" v-if="form.productType === 'VIRTUAL_GOODS'" label-width="170px"
-                              id="needStudentInfo">
+                <el-form-item label="学员信息" v-if="form.productType === 'VIRTUAL_GOODS'" label-width="170px">
                     <div>
                         <el-checkbox v-model="form.needStudentInfo" :true-label="1" :false-label="0">
                             获取学员信息
@@ -362,7 +374,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="定时开售" label-width="170px" prop="shoppingStatus" id="shoppingStatus">
+                <el-form-item label="定时开售" label-width="170px" prop="shoppingStatus">
                     <div>
                         <el-checkbox v-model="form.shoppingStatus" :true-label="1" :false-label="0">
                             设置上架商品的开始售卖时间
@@ -379,7 +391,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="商品隐藏" label-width="170px" prop="isShow" id="isShow">
+                <el-form-item label="商品隐藏" label-width="170px" prop="isShow">
                     <el-checkbox v-model="form.isShow" :true-label="0" :false-label="1">
                         上架的商品设置隐藏后，在店铺内不显示，但可以通过链接的方式访问
                     </el-checkbox>
@@ -440,14 +452,13 @@
                         <span>使用有效期</span>
                         <el-tooltip class="item" effect="dark" placement="bottom">
                             <div slot="content">
-                                商品核销使用有效期，不填写则默认<br>
-                                长期有效，选择开始时间不可早于当<br>
-                                当前时间；<br>
-                                商品核销时间截止时，商品默认下架；<br>
-                                如下架后修改时间再次上架，原购买数<br>
-                                据时间以修改前为准，新数据以新的为<br>
-                                准。</div>
-                            <i class="pro-type-intro-time el-icon-warning-outline fz-18" style="color: #333;" />
+                                <p>商品核销使用有效期，不填写则默认</p>
+                                <p>长期有效，选择开始时间不可早于当当前时间；</p>
+                                <p>商品核销时间截止时，商品默认下架；</p>
+                                <p>如下架后修改时间再次上架，原购买数</p>
+                                <p>据时间以修改前为准，新数据以新的为准。</p>
+                            </div>
+                            <i class="pro-type-intro-time el-icon-warning-outline fz-18" style="color: #333; vertical-align: -4px" />
                         </el-tooltip>
                     </span>
                     <el-date-picker
@@ -469,7 +480,15 @@
                     </span>
                 </el-form-item>
 
-                <el-form-item label="使用须知" prop="useDesc" id="useDesc" v-if="form.productType === 'VIRTUAL_GOODS'">
+                <el-form-item
+                    label="使用须知"
+                    prop="useDesc"
+                    v-if="form.productType === 'VIRTUAL_GOODS'"
+                    :rules="[
+                        { required: form.productType === 'VIRTUAL_GOODS', message: '使用须知不能为空', trigger: 'blur' },
+                        { max: 200, message: '使用须知不能超过200个字符', trigger: 'blur' }
+                    ]"
+                >
                     <div class="flex">
                         <el-input
                             type="textarea"
@@ -490,7 +509,7 @@
                         </el-button>
                     </div>
                 </el-form-item>
-                <el-form-item label="编辑详情" prop="detail" id="detail">
+                <el-form-item label="编辑详情" prop="detail">
                     <PlEditor v-model="form.detail" />
                 </el-form-item>
             </el-form>
@@ -789,82 +808,27 @@ export default {
                     { required: true }
                 ],
                 productName: [
-                    {
-                        required: true,
-                        message: '商品名称不能为空',
-                        trigger: 'blur'
-                    },
-                    {
-                        max: 50,
-                        message: '商品名称不能超过50个字符',
-                        trigger: 'blur'
-                    }
+                    { required: true, message: '商品名称不能为空', trigger: 'blur' },
+                    { max: 50, message: '商品名称不能超过50个字符', trigger: 'blur' }
                 ],
-                productMainImage: [
-                    {
-                        required: true,
-                        message: '上传图片不能为空',
-                        trigger: 'blur'
-                    }
+                mediaInfoIds: [
+                    { required: true, message: '商品图片不能为空', trigger: 'blur' }
                 ],
                 productDesc: [
-                    {
-                        required: true,
-                        message: '商品描述不能为空',
-                        trigger: 'blur'
-                    },
-                    {
-                        max: 50,
-                        message: '商品描述不能超过50个字符',
-                        trigger: 'blur'
-                    }
+                    { required: true, message: '商品描述不能为空', trigger: 'blur' },
+                    { max: 50, message: '商品描述不能超过50个字符', trigger: 'blur' }
                 ],
                 categoryId: [
-                    {
-                        required: true,
-                        message: '商品分类不能为空',
-                        trigger: 'blur'
-                    }
+                    { required: true, message: '商品分类不能为空', trigger: 'blur' }
                 ],
                 productSkuModels: [
-                    {
-                        required: true,
-                        message: '商品规格不能为空',
-                        trigger: 'blur'
-                    }
+                    { required: true, message: '商品规格不能为空', trigger: 'blur' }
                 ],
                 logisticsType: [
-                    {
-                        required: true,
-                        message: '物流方式不能为空',
-                        trigger: 'blur'
-                    }
-                ],
-                shippingTemplateId: [
-                    {
-                        required: true,
-                        message: '运费模板不能为空',
-                        trigger: 'blur'
-                    }
-                ],
-                useDesc: [
-                    {
-                        required: true,
-                        message: '使用须知不能为空',
-                        trigger: 'blur'
-                    },
-                    {
-                        max: 200,
-                        message: '使用须知不能超过200个字符',
-                        trigger: 'blur'
-                    }
+                    { required: true, message: '物流方式不能为空', trigger: 'blur' }
                 ],
                 detail: [
-                    {
-                        required: true,
-                        message: '商品详情不能为空',
-                        trigger: 'blur'
-                    }
+                    { required: true, message: '商品详情不能为空', trigger: 'blur' }
                 ]
             },
             // 标签回显
@@ -931,7 +895,6 @@ export default {
             this.form.mediaInfoIds = [...val, ...this.imageList]
         },
         imageList (val) {
-            console.log(val, 870)
             this.form.mediaInfoIds = [...this.videoList, ...val]
         },
         'form.purchaseLimit' (val) {
@@ -972,6 +935,7 @@ export default {
                     id: 'detail'
                 }]
             }
+            this.$refs.form.clearValidate()
         },
         'form.shoppingStatus' (val) {
             if (!val) {
@@ -1219,6 +1183,7 @@ export default {
         },
         async saveAndOnline (type) {
             try {
+                await this.$refs.form.validate()
                 // 生成主图主题
                 this.form.productMainImage = await this.generateImage()
                 if (!this.checkData()) {
@@ -1268,6 +1233,7 @@ export default {
         },
         async saveAndAdd () {
             try {
+                await this.$refs.form.validate()
                 // 生成主图主题
                 this.form.productMainImage = await this.generateImage()
                 if (!this.checkData()) {
@@ -1526,62 +1492,14 @@ export default {
             }
         },
         checkData () {
-            if (!this.form.productName) {
-                this.$warning('商品名称不能为空')
-                this.formValidateHandler('productName')
-                return false
-            }
-            if (!this.form.productMainImage) {
-                this.$warning('上传图片不能为空')
-                this.formValidateHandler('productMainImage')
-                return false
-            }
-            if (!this.form.productDesc) {
-                this.$warning('商品描述不能为空')
-                this.formValidateHandler('productDesc')
-                return false
-            }
-            this.form.categoryId = this.classification[0]
-            if (!this.form.categoryId) {
-                this.$warning('商品分类不能为空')
-                this.formValidateHandler('categoryId')
-                return false
-            }
-            if (!this.form.productSkuModels.length) {
-                this.$warning('商品规格不能为空')
-                this.formValidateHandler('productSkuModels')
-                return false
-            }
-            if (this.form.productType === 'PHYSICAL_GOODS' && !this.form.shippingTemplateId) {
-                this.$warning('运费模板不能为空')
-                this.formValidateHandler('shippingTemplateId')
-                return false
-            }
-            if (this.form.productType === 'PHYSICAL_GOODS' && this.form.supportRefund && !this.form.afterSalesAddress) {
-                this.$warning('退货地址不能为空')
-                this.formValidateHandler('supportRefund')
-                return false
-            }
-            if (this.form.productType === 'VIRTUAL_GOODS' && !this.form.useDesc) {
-                this.$warning('使用须知不能为空')
-                this.formValidateHandler('useDesc')
-                return false
-            }
-            if (!this.form.detail) {
-                this.$warning('商品详情不能为空')
-                this.formValidateHandler('detail')
-                return false
-            }
             const checkSku = this.form.productSkuModels.some(item => item.price === '' || item.stock === '')
             if (checkSku) {
                 this.$warning('规格库存或规格实际售价填写有误')
-                this.formValidateHandler('productSkuModels')
                 return false
             }
             if (this.form.purchaseLimit) {
                 if (!this.form.purchaseQuantity) {
                     this.$warning('限购数量不可为空')
-                    this.formValidateHandler('purchaseLimit')
                     return false
                 }
                 const minBuyNumArray = []
@@ -1592,29 +1510,24 @@ export default {
                 }
                 if (this.form.purchaseQuantity < Math.max(...minBuyNumArray)) {
                     this.$warning('限购数量不可小于最小起订的数量')
-                    this.formValidateHandler('purchaseLimit')
                     return false
                 }
             }
             if (this.form.shoppingStatus && !this.form.shoppingTime) {
                 this.$warning('请选择售卖开始时间')
-                this.formValidateHandler('purchaseLimit')
                 return false
             }
 
             if (this.form.shoppingStatus && !this.form.shoppingTime) {
                 this.$warning('请选择售卖开始时间')
-                this.formValidateHandler('shoppingStatus')
                 return false
             }
             if (this.form.productType === 'PHYSICAL_GOODS' && this.customFormStatus && (!this.customFormModels.length || this.customFormModels.some(item => !item.fieldName))) {
                 this.$warning('实体商品自定义表单信息不能为空')
-                this.formValidateHandler('needStudentInfo')
                 return false
             }
             if (this.form.productType === 'VIRTUAL_GOODS' && this.form.needStudentInfo && this.customFormType && (!this.studentInfoModels.length || this.studentInfoModels.some(item => !item.fieldName))) {
                 this.$warning('虚拟商品自定义表单信息不能为空')
-                this.formValidateHandler('needStudentInfo')
                 return false
             }
 
@@ -1625,7 +1538,6 @@ export default {
                 }
                 if (new Set(array).size !== array.length) {
                     this.$warning('实体商品自定义表单信息不能相同')
-                    this.formValidateHandler('needStudentInfo')
                     return false
                 }
             }
@@ -1636,26 +1548,10 @@ export default {
                 }
                 if (new Set(array).size !== array.length) {
                     this.$warning('虚拟商品自定义表单信息不能相同')
-                    this.formValidateHandler('needStudentInfo')
                     return false
                 }
             }
             return true
-        },
-
-        /**
-             * 表单校验事件
-             * @param id {String} 错误项的id
-             */
-        formValidateHandler (id) {
-            const el = document.getElementById(id)
-            if (el) {
-                el.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                    inline: 'nearest'
-                })
-            }
         },
         handelChangeTime (e) {
             this.effectiveTime = e

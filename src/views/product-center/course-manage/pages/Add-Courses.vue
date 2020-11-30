@@ -1,11 +1,19 @@
 <template>
     <div class="add-product">
         <div class="add-content">
-            <div class="content-title" id="basic" ref="basic">
+            <div class="content-title" ref="basic">
                 基本信息
             </div>
-            <el-form label-width="150px" :model="form" :rules="rules" label-position="left" class="main-form">
-                <el-form-item label="课程类型" prop="productType" id="productType">
+            <el-form
+                label-width="150px"
+                :model="form"
+                :rules="rules"
+                label-position="left"
+                class="main-form"
+                auto-scroll-to-error
+                ref="form"
+            >
+                <el-form-item label="课程类型" prop="productType">
                     <el-radio v-model="form.productType" label="FORMAL_CLASS" border class="pro-type el-icon-check">
                         正式课
                     </el-radio>
@@ -19,11 +27,11 @@
                         <i class="pro-type-intro el-icon-warning-outline fz-18" style="color: #333;" />
                     </el-tooltip>
                 </el-form-item>
-                <el-form-item label="课程名称" prop="productName" id="productName">
+                <el-form-item label="课程名称" prop="productName">
                     <el-input style="width: 320px" v-model="form.productName" maxlength="50" placeholder="请输入课程名称" />
                     <span style="margin-left: 20px;color: #999999;font-size: 14px;">课程名称为50个汉字</span>
                 </el-form-item>
-                <el-form-item label="上传课程图片" prop="productMainImage" id="productMainImage">
+                <el-form-item label="上传课程图片" prop="mediaInfoIds">
                     <div class="flex">
                         <UploadVideo
                             ref="UploadVideo"
@@ -77,7 +85,7 @@
                         ref="MainImageTheme"
                     />
                 </el-form-item>
-                <el-form-item label="课程描述" prop="productDesc" id="productDesc">
+                <el-form-item label="课程描述" prop="productDesc">
                     <el-input
                         type="textarea"
                         placeholder="请输入内容"
@@ -127,16 +135,16 @@
                         最多可选择4个标签
                     </p>
                 </el-form-item>
-                <el-form-item label="课程分类" prop="categoryId" id="categoryId">
+                <el-form-item label="课程分类" prop="categoryId">
                     <SelectCategory
                         v-model="classification"
                         show-add
                     />
                 </el-form-item>
-                <div class="content-title" id="price" ref="price">
+                <div class="content-title" ref="price">
                     价格名额
                 </div>
-                <el-form-item label="课程规格" prop="productSkuModels" id="productSkuModels">
+                <el-form-item label="课程规格" prop="productSkuModels">
                     <div class="sku-btn">
                         <el-button
                             type="primary"
@@ -166,11 +174,11 @@
                     />
                 </el-form-item>
 
-                <div class="content-title" id="other" ref="other">
+                <div class="content-title" ref="other">
                     其他信息
                 </div>
 
-                <el-form-item label="限购" label-width="170px" id="purchaseLimit">
+                <el-form-item label="限购" label-width="170px">
                     <div>
                         <el-checkbox v-model="form.purchaseLimit" :true-label="1" :false-label="0">
                             限制每人的购买数量
@@ -214,7 +222,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="学员信息" label-width="170px" id="needStudentInfo">
+                <el-form-item label="学员信息" label-width="170px">
                     <div>
                         <el-checkbox v-model="form.needStudentInfo" :true-label="1" :false-label="0">
                             获取学员信息
@@ -291,7 +299,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="定时开售" label-width="170px" prop="shoppingStatus" id="shoppingStatus">
+                <el-form-item label="定时开售" label-width="170px" prop="shoppingStatus">
                     <div>
                         <el-checkbox v-model="form.shoppingStatus" :true-label="1" :false-label="0">
                             设置上架商品的开售卖时间
@@ -308,7 +316,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="商品隐藏" label-width="170px" prop="isShow" id="isShow">
+                <el-form-item label="商品隐藏" label-width="170px" prop="isShow">
                     <el-checkbox v-model="form.isShow" :true-label="0" :false-label="1">
                         上架的商品设置隐藏后，在店铺内不显示，但可以通过链接的方式访问
                     </el-checkbox>
@@ -346,7 +354,7 @@
                         </span>
                     </div>
                 </el-form-item>
-                <el-form-item label="使用须知" prop="useDesc" id="useDesc">
+                <el-form-item label="使用须知" prop="useDesc">
                     <div class="flex">
                         <el-input
                             type="textarea"
@@ -367,7 +375,7 @@
                         </el-button>
                     </div>
                 </el-form-item>
-                <el-form-item label="编辑详情" prop="detail" id="detail">
+                <el-form-item label="编辑详情" prop="detail">
                     <PlEditor v-model="form.detail" />
                 </el-form-item>
             </el-form>
@@ -394,7 +402,6 @@
             </footer>
         </div>
         <point :activities="activities" @saveDraft="saveDraft" :show-draft="showDraft" />
-        <ShippingTemplate :template-detail="templateDetail" :show.sync="showShippingTemplate" />
         <!-- 名额规格-->
         <AddSku
             :show.sync="showSkuDialog"
@@ -560,7 +567,6 @@ import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import UploadVideo from '../../../../components/common/file/Video-Manager.vue'
 import FileSelector from '../../../../components/common/file/File-Selector.vue'
 import point from '../../../../components/product-center/goods/Point.vue'
-import ShippingTemplate from '../../../../components/product-center/goods/Shipping-Template'
 import AddTags from '../../../../components/product-center/goods/Add-Tags.vue'
 import AddSku from '../../../../components/product-center/goods/Add-Sku.vue'
 import SkuTable from '../../../../components/product-center/goods/Sku-Table.vue'
@@ -577,7 +583,6 @@ export default {
         PlEditor,
         UploadImage,
         point,
-        ShippingTemplate,
         AddTags,
         AddSku,
         SkuTable,
@@ -657,7 +662,7 @@ export default {
                     { required: true, message: '课程名称不能为空', trigger: 'blur' },
                     { max: 50, message: '课程名称不能超过50个字符', trigger: 'blur' }
                 ],
-                productMainImage: [
+                mediaInfoIds: [
                     { required: true, message: '上传图片不能为空', trigger: 'blur' }
                 ],
                 productDesc: [
@@ -689,8 +694,6 @@ export default {
             showSkuSampleDialog: false,
             showAddAddress: false,
             templateList: [],
-            templateDetail: {},
-            showShippingTemplate: false,
             // sku
             showSkuDialog: false,
             skuModifyType: 0,
@@ -948,6 +951,7 @@ export default {
         },
         async saveAndOnline (type) {
             try {
+                await this.$refs.form.validate()
                 // 生成主图主题
                 this.form.productMainImage = await this.generateImage()
                 if (!this.checkData()) {
@@ -1053,9 +1057,6 @@ export default {
                 this.classification = []
                 this.showLabelDialog = false
                 this.showAddAddress = false
-                // 运费模板无需重置  this.templateList = []
-                this.templateDetail = {}
-                this.showShippingTemplate = false
                 this.showSkuDialog = false
                 this.skuModifyType = 0
                 // 处理图片
@@ -1199,71 +1200,34 @@ export default {
             }
         },
         checkData () {
-            if (!this.form.productName) {
-                this.$warning('课程名不能为空')
-                this.formValidateHandler('productName')
-                return false
-            }
-            if (!this.form.productMainImage) {
-                this.$warning('上传图片不能为空')
-                this.formValidateHandler('productMainImage')
-                return false
-            }
-            if (!this.form.productDesc) {
-                this.$warning('课程描述不能为空')
-                this.formValidateHandler('productDesc')
-                return false
-            }
-            this.form.categoryId = this.classification[0]
-            if (!this.form.categoryId) {
-                this.$warning('课程分类不能为空')
-                this.formValidateHandler('categoryId')
-                return false
-            }
-            if (!this.form.productSkuModels.length) {
-                this.$warning('课程规格不能为空')
-                this.formValidateHandler('productSkuModels')
-                return false
-            }
-            if (!this.form.useDesc) {
-                this.$warning('使用须知不能为空')
-                this.formValidateHandler('useDesc')
-                return false
-            }
             const checkSku = this.form.productSkuModels.some(item => item.price === '' || item.stock === '')
             if (checkSku) {
                 this.$warning('规格库存或规格实际售价填写有误')
-                this.formValidateHandler('productSkuModels')
                 return false
             }
             if (!this.form.detail) {
                 this.$warning('课程详情不能为空')
-                this.formValidateHandler('detail')
                 return false
             }
             if (this.form.purchaseLimit) {
                 if (!this.form.purchaseQuantity) {
                     this.$warning('限购数量不可为空')
-                    this.formValidateHandler('purchaseLimit')
                     return false
                 }
                 let minBuyNumArray = []
                 minBuyNumArray = this.form.productSkuModels.map(item => item.minBuyNum)
                 if (this.form.purchaseQuantity < Math.max(...minBuyNumArray)) {
                     this.$warning('限购数量不可小于最小起订的数量')
-                    this.formValidateHandler('purchaseLimit')
                     return false
                 }
             }
             if (this.form.shoppingStatus && !this.form.shoppingTime) {
                 this.$warning('请选择售卖开始时间')
-                this.formValidateHandler('shoppingStatus')
                 return false
             }
 
             if (this.form.needStudentInfo && this.customFormType && this.studentInfoModels.find(item => !item.fieldName)) {
                 this.$warning('课程自定义表单信息不能为空')
-                this.formValidateHandler('needStudentInfo')
                 return false
             }
             if (this.form.needStudentInfo && this.customFormType) {
@@ -1272,27 +1236,11 @@ export default {
                     array.push(item.fieldName)
                 }
                 if (new Set(array).size !== array.length) {
-                    this.formValidateHandler('needStudentInfo')
                     this.$warning('课程自定义表单信息不能相同')
                     return false
                 }
             }
             return true
-        },
-
-        /**
-     * 表单校验事件
-     * @param id {String} 错误项的id
-     */
-        formValidateHandler (id) {
-            const el = document.getElementById(id)
-            if (el) {
-                el.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                    inline: 'nearest'
-                })
-            }
         }
     },
     beforeRouteLeave (to, from, next) {
