@@ -189,7 +189,7 @@
                 </el-form-item>
 
                 <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
-                    购买金额满 <el-input style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元 <span class="label-warning">开始后不可修改</span>
+                    购买金额满 <el-input :disabled="disabled" style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元 <span class="label-warning">开始后不可修改</span>
                 </el-form-item>
 
                 <el-form-item label="使用限制：" prop="redPacketCouponDTO.useStackable">
@@ -557,7 +557,7 @@ export default class AddRedPackage extends Vue {
             { required: true, message: '使用时间不能为空', trigger: 'blur' }
         ],
         'redPacketCouponDTO.applicableGoodsId': [
-            // { required: true, message: '请选择适用商品', trigger: 'blur' },
+            { required: true, message: '请选择适用商品', trigger: 'blur' },
             { validator: this.rulesGoodsId, trigger: 'blur' }
         ],
         'redPacketCouponDTO.useLimitAmount': [
@@ -617,6 +617,7 @@ export default class AddRedPackage extends Vue {
                 data.redPacketCouponDTO.useWithCoupon = 0
                 data.redPacketCouponDTO.scholarship = 0
             }
+            if (!data.redPacketCouponDTO.receiveLimit) data.redPacketCouponDTO.tagIds = []
             this.id ? await editRedPackage(this.id, data) : await addRedPackage(data)
             this.$router.replace({ name: 'RedPackage' })
         } catch (e) {
@@ -666,7 +667,7 @@ export default class AddRedPackage extends Vue {
 
     async beforeRouteLeave (to: { name: string }, from: any, next: () => void) {
         console.log(to)
-        if (to.name !== 'RedPackage' && to.name !== 'OrgIndex' && to.name !== 'RedPackageList') {
+        if (to.name !== 'RedPackage' && to.name !== 'OrgIndex' && to.name !== 'RedPackageList' && to.name !== 'RedPackageActivityList') {
             await this.$confirm({
                 title: '放弃编辑？',
                 message: '是否要放弃当福利红包活动编辑，放弃后将不可恢复！'
