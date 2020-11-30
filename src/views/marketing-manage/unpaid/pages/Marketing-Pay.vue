@@ -37,13 +37,15 @@
                         </p>
                     </div>
                     <div v-if="!bgClass" class="inter-item-icon">
-                        <i v-if="programId === '1'" class="inter-icon icon-longmen-course-package" />
-                        <i v-if="programId === '2'" class="inter-icon icon-longmen-sign" />
-                        <i v-if="programId === '3'" class="inter-icon icon-longmen-seckill" />
-                        <i v-if="programId === '4'" class="inter-icon icon-new-year-group-buy" />
-                        <i v-if="programId === '5'" class="inter-icon icon-new-year-pre-buy" />
-                        <i v-if="programId === '6'" class="inter-icon icon-public-benefit" />
-                        <i v-if="programId === '7'" class="inter-icon icon-logmen-festival" />
+                        <img v-if="programId === '1'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png">
+                        <img v-if="programId === '2'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png">
+                        <img v-if="programId === '3'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/秒杀.png">
+                        <img v-if="programId === '4'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png">
+                        <img v-if="programId === '5'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png">
+                        <img v-if="programId === '6'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/公益行动.png">
+                        <img v-if="programId === '7'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png">
+                        <img v-if="programId === '8'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png">
+                        <img v-if="programId === '9'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png">
                     </div>
                 </div>
             </el-form-item>
@@ -181,26 +183,6 @@ export default {
             await this.getBaseMarket()
         } catch (e) {
             throw e
-        }
-        switch (this.programId) {
-            case '2':
-                this.bgClass = 'bg-longmen-sign'
-                break
-                // case '3':
-                //   this.bgClass = 'bg-second-buy'
-                //   break
-                // case '4':
-                //   this.bgClass = 'bg-together-buy'
-                //   break
-                // case '5':
-                //   this.bgClass = 'bg-booking-buy'
-                //   break
-            case '6':
-                this.bgClass = 'bg-public-benefit'
-                break
-            case '7':
-                this.bgClass = 'bg-logmen-festival'
-                break
         }
     },
     beforeDestroy () {
@@ -404,6 +386,11 @@ export default {
             right: 0;
             width: 112px;
             height: 121px;
+            img{
+                width: 100px;
+                height: 100px;
+                margin-top: 10px;
+            }
         }
 
         .inter-icon {
@@ -415,106 +402,6 @@ export default {
 
             &:before {
                 display: none;
-            }
-        }
-
-        .icon-course-package {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/course-package.png');
-        }
-
-        .icon-seckill {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_couponpng.png');
-        }
-
-        .icon-group-buy {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_assemble.png');
-        }
-
-        .icon-new-year-group-buy {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/973e5a2a-0849-4caa-9c4a-5877abed78c7.png');
-        }
-
-        .icon-pre-buy {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/img_make ap.png');
-        }
-
-        .icon-new-year-pre-buy {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/marketing-manage/marketing-gameplay/f0769311-f3f4-48a4-9e36-5a1df2079ce0.png');
-        }
-
-        .icon-longmen-course-package {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/龙门组合聚会学.png');
-        }
-        .icon-longmen-seckill {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/龙门节秒杀.png');
-        }
-
-        /*.icon-longmen-sign {*/
-        /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/longmen-sign.png');*/
-        /*}*/
-
-        /*.icon-public-benefit {*/
-        /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/public-benefit.png');*/
-        /*}*/
-
-        /*.icon-logmen-festival {*/
-        /*  background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/logmen-festival.png');*/
-        /*}*/
-
-        &.bg-longmen-sign {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景签到.png');
-        }
-        &.bg-public-benefit {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景公益.png');
-        }
-        &.bg-logmen-festival {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景抽奖.png');
-        }
-        &.bg-second-buy {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景秒杀.png');
-        }
-        &.bg-together-buy {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景团购.png');
-        }
-        &.bg-booking-buy {
-            background-image: url('https://mallcdn.youpenglai.com/static/admall/2.9.0/营销中心背景预购.png');
-        }
-    }
-
-    .bg-longmen-sign,
-    .bg-public-benefit,
-    .bg-logmen-festival {
-        .inter-item-content {
-            h1,
-            .desc {
-                color: #fff;
-            }
-            p {
-                &.count {
-                    color: #fde700;
-                }
-                &.expired {
-                    color: #03b1cc;
-                }
-            }
-        }
-    }
-
-    .bg-second-buy,
-    .bg-together-buy,
-    .bg-booking-buy {
-        .inter-item-content {
-            h1,
-            .desc {
-                color: #fff;
-            }
-            p {
-                &.count {
-                    color: #fff;
-                }
-                &.expired {
-                    color: #fff;
-                }
             }
         }
     }

@@ -110,10 +110,6 @@ export default class SchemePack extends Vue {
             const info = this.marketStatusAuth.find(({ programId }: { programId: string }) => programId === schemeProgramId)
             if (!info || moment(info.validity).valueOf() < Date.now()) return this.$alert('龙门节专属活动，若要开通请联系城市经理或者客服')
         }
-
-        console.log(this.routeInfo)
-        console.log(this.routeInfo)
-        console.log(this.routeInfo)
         if (typeof this.routeInfo === 'string') {
             return this.$router.push({ name: this.routeInfo })
         }

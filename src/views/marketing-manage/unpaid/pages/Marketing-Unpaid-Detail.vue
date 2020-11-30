@@ -54,6 +54,11 @@
                 <img v-if="programId === '5'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/预购.jpg" alt="">
                 <img v-if="programId === '6'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/公益棕行动.jpg" alt="">
                 <img v-if="programId === '7'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/龙门抽大奖.jpg" alt="">
+                <template v-if="programId === '9'">
+                    <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
+                    <img style="margin-top: 32px" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
+                    <img style="margin-top: 32px" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+                </template>
             </div>
         </div>
     </div>
