@@ -157,12 +157,17 @@
             <SchemePack
                 name="福利红包"
                 desc="低价购买福利红包  支付抵扣享优惠"
-                :expired="activitys.LongmenLottery.status ? `${getDate(activitys.LongmenLottery.data.createTime)}-2020.08.31` : ''"
+                :expired="activitys.redPackage.status ? `${getDate(activitys.LongmenLottery.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.luckDrawActivityCount"
                 :tags="['限','新']"
-                :is-lock="!activitys.LongmenLottery.status"
+                :is-lock="!activitys.redPackage.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png"
-                route-info="RedPackage"
+                :route-info="{
+                    name: 'RedPackage',
+                    params: {
+                        programId: '9'
+                    }
+                }"
             />
         </div>
         <!--        双十二 新春 隐藏               -->
@@ -308,6 +313,10 @@ export default class Gameplay extends Vue {
         redeemCode: {
             data: {},
             status: false
+        },
+        redPackage: {
+            data: {},
+            status: false
         }
     }
 
@@ -358,7 +367,8 @@ export default class Gameplay extends Vue {
             bookingBuy: '5',
             benefit: '6',
             LongmenLottery: '7',
-            redeemCode: '8'
+            redeemCode: '8',
+            redPackage: '9'
         }
 
         for (const key of Object.keys(info)) {

@@ -63,11 +63,11 @@ module.exports = {
         proxy: {
             // 134 前端服务器
             '/apis/v1': {
-                target: `http://192.168.50.${ SERVER || 134 }`
+                target: `http://192.168.50.${ SERVER || 92 }`
                 // target: 'https://admall.youpenglai.com'
             },
             '/apis/v2': {
-                target: `http://192.168.50.${ SERVER || 134 }`
+                target: `http://192.168.50.${ SERVER || 92 }`
             }
         }
     },

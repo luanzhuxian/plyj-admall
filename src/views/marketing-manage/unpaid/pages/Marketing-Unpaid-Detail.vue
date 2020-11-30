@@ -18,6 +18,8 @@
                 <span v-if="programId === '5'">分批支付，提前享服务</span>
                 <span v-if="programId === '6'">学子携手，贡献爱心</span>
                 <span v-if="programId === '7'">抽奖嗨翻天</span>
+                <span v-if="programId === '8'">支持多商品兑换，使用即可减免商品费用</span>
+                <span v-if="programId === '9'">低价购买福利红包，支付抵扣享优惠</span>
             </div>
             <div class="price-box">
                 <span>￥{{ getBaseMarketData.presentPrice }}</span>

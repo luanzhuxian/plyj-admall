@@ -25,6 +25,8 @@
                             <span v-if="programId === '5'">分批支付提前享服务</span>
                             <span v-if="programId === '6'">学子携手，贡献爱心</span>
                             <span v-if="programId === '7'">抽奖嗨翻天</span>
+                            <span v-if="programId === '8'">支持多商品兑换，使用即可减免商品费用</span>
+                            <span v-if="programId === '9'">低价购买福利红包，支付抵扣享优惠</span>
                         </p>
                         <p class="active count">
                             当前活动：0个
@@ -290,6 +292,12 @@ export default {
                     break
                 case '7':
                     this.$router.replace({ name: 'LongmenLottery' })
+                    break
+                case '8':
+                    this.$router.replace({ name: 'RedeemCode' })
+                    break
+                case '9':
+                    this.$router.replace({ name: 'RedPackage' })
                     break
             }
             // 粽粽有礼信息

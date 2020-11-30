@@ -293,7 +293,7 @@
                 </el-form-item>
                 <el-form-item label="奖项设置" prop="couponList">
                     <el-button type="primary" plain @click="showSelectCoupon = true">
-                        添加优惠券({{ couponList.length }})
+                        添加({{ couponList.length }})
                     </el-button>
                     <el-table :data="couponList" v-if="couponList.length">
                         <el-table-column label="名称" prop="couponName" />
