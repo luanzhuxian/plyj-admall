@@ -537,7 +537,7 @@ export default class AddRedPackage extends Vue {
         ],
         'redPacketCouponDTO.amount': [
             { required: true, message: '福利红包面额不能为空', trigger: 'blur' },
-            { validator: checkNumber(99999, 1, 0), trigger: 'blur' }
+            { validator: checkNumber(99999, 0.01, 2), trigger: 'blur' }
         ],
         issueVolume: [
             { required: true, message: '发放量不能为空', trigger: 'blur' },
