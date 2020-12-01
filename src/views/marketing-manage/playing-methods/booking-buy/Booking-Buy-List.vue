@@ -107,12 +107,10 @@
                 label="商品名称"
             >
                 <template #default="{ row }">
-                    <div style="display: flex; justify-content: flex-start;">
-
+                    <div>
                         <el-button
                             type="text"
                             v-if="row.skuModelList && row.skuModelList.length"
-                            style="padding: 0; font-size: 12px"
                             class="expanded-btn"
                             :class="{ expanded: row.expanded }"
                             @click="expendSkuModel(row)"
@@ -624,6 +622,11 @@ export default {
   .el-icon-arrow-right {
       transition: all .2s ease-in-out;
       transform: rotate(0);
+  }
+  .expanded-btn {
+      display: flex;
+      justify-content: flex-start;
+      font-size: 12px;
   }
   .expanded-btn.expanded {
       .el-icon-arrow-right {
