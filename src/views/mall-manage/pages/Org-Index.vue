@@ -74,9 +74,9 @@
                     <el-button plain round type="primary" @click="updateOrgIndex(item)" style="width: 80px;margin-left: 10px;">
                         保存
                     </el-button>
-                    <el-button round @click="cancelInput(item)" style="width: 80px;">
+                    <!-- <el-button round @click="cancelInput(item)" style="width: 80px;">
                         取消
-                    </el-button>
+                    </el-button> -->
                 </div>
             </el-card>
         </div>
