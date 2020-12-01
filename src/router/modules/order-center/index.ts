@@ -171,6 +171,40 @@ export default [
                         }
                     }
                 ]
+            },
+            {
+                path: 'right-goods-order',
+                name: 'RightGoodsOrder',
+                redirect: '/orders-manage/right-goods-order/list',
+                component: () => import('../../../views/order-manage/pages/right-goods-order/Index.vue'),
+                meta: {
+                    title: '权益商品',
+                    index: '4-6',
+                    ignore: true
+                },
+                children: [
+                    {
+                        path: 'list',
+                        name: 'RightGoodsList',
+                        component: () => import('../../../views/order-manage/pages/right-goods-order/Right-Goods-List.vue'),
+                        meta: {
+                            title: '列表',
+                            index: '4-6-1',
+                            ignore: true
+                        }
+                    },
+                    {
+                        path: 'right-goods-detail/:id',
+                        name: 'RightGoodsDetail',
+                        component: () => import('../../../views/order-manage/pages/Order-Detail.vue'),
+                        props: true,
+                        meta: {
+                            title: '订单详情',
+                            index: '4-6-2',
+                            ignore: true
+                        }
+                    }
+                ]
             }
         ]
     }

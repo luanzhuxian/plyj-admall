@@ -146,7 +146,9 @@
                 <div
                     class="product-list"
                 >
-                    <h6>{{ detailInfo.orderType === 'PHYSICAL_GOODS' || detailInfo.orderType === 'VIRTUAL_GOODS' ? '商品' : '课程' }}信息</h6>
+                    <h6 v-if="detailInfo.orderType === 'PHYSICAL_GOODS' || detailInfo.orderType === 'VIRTUAL_GOODS'">商品信息</h6>
+                    <h6 v-else-if="detailInfo.orderType === 'RED_ENVELOPE'">福利红包信息</h6>
+                    <h6 v-else>课程信息</h6>
                     <template>
                         <div
                             class="item-goods"

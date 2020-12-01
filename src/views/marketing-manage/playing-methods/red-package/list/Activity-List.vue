@@ -379,7 +379,7 @@ export default class RedPackageActivityList extends Vue {
             if (row.pauseStatus) {
                 await this.$confirm({
                     title: '确认要停止该福利红包活动吗？',
-                    message: '该福利红包活动停止后，用户不可在店铺中查看和领取该福利红包活动，停止后可编辑后重新开始活动'
+                    message: '该福利红包活动停止后，用户不可在店铺中查看和领取该福利红包活动。'
                 })
             }
             await pauseRedPackage(row.id, row.pauseStatus)
