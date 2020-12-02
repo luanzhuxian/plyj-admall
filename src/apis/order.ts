@@ -153,7 +153,7 @@ export const addEinList = data => axios.post('/apis/v1/base/baseUserInvoice/add'
 export const getAddressList = userId => axios.get(`/apis/v2/publicuser/address/user/list?type=2&userId=${ userId }`)
 
 // 新增用户收票地址
-export const addAddressList = data => axios.post('/apis/v1/publicuser/address/admin/add', data)
+export const addAddressList = data => axios.post('/apis/v2/publicuser/address/admin/add', data)
 
 // 地址新增查询省市区
 export const getLocation = code => axios.get(`/apis/v1/systemctl/location/parent/${ code }`)
