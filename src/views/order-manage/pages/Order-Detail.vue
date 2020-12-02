@@ -241,15 +241,19 @@
                             </div>
                         </div>
                     </template>
-                    <template v-if="detailInfo.goodsModel && (detailInfo.goodsModel.couponeAmount || detailInfo.scholarship || detailInfo.orderSource === 9)">
+                    <template v-if="detailInfo.goodsModel && (detailInfo.goodsModel.couponeAmount || detailInfo.scholarship || detailInfo.welfareRedEnvelope)">
                         <p>
                             <span>参与活动</span>
                             <!-- 根据优惠券类型显示 1-满减券 2-品类券 -->
                             <span>优惠订单</span>
                         </p>
-                        <p>
+                        <p v-if="detailInfo.goodsModel.couponeAmount">
                             <span>{{ detailInfo.couponName }}</span>
                             <span>-{{ detailInfo.goodsModel.couponeAmount/100 }}元</span>
+                        </p>
+                        <p v-if="detailInfo.welfareRedEnvelope">
+                            <span>福利红包</span>
+                            <span>-{{ detailInfo.welfareRedEnvelope/100 }}元</span>
                         </p>
                     </template>
                     <template v-if="detailInfo.orderSource === 2">
