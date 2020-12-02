@@ -26,7 +26,7 @@
                     </p>
                 </el-form-item>
                 <el-form-item label="发放量：" prop="issueVolume">
-                    <el-input-number v-model="form.issueVolume" :min="1" label="描述文字" /> <span class="label-warning">开始后不可修改</span>
+                    <el-input-number v-model="form.issueVolume" :min="1" :max="99999" label="描述文字" /> <span class="label-warning">开始后不可修改</span>
                     <p class="description">
                         发放的福利红包，超过发放量后将自动结束活动
                     </p>
@@ -84,7 +84,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="领用次数限制：" prop="redPacketCouponDTO.activityLimit">
+                <el-form-item label="领用次数限制：" prop="redPacketCouponDTO.quantityLimit">
                     <el-checkbox
                         v-model="form.redPacketCouponDTO.activityLimit"
                         :true-label="1"
@@ -92,7 +92,7 @@
                     >
                         每个用户可领用
                     </el-checkbox>
-                    <el-input-number style="margin-left: 10px" v-model="form.redPacketCouponDTO.quantityLimit" :min="1" label="描述文字" />
+                    <el-input-number style="margin-left: 10px" :min="1" :max="100" v-model="form.redPacketCouponDTO.quantityLimit" label="描述文字" />
                     <p class="description">
                         未勾选，则不限制用户领用次数 <br>
                         勾选，则领用次数至少可领用一次，至多可领用100次</p>
@@ -543,10 +543,11 @@ export default class AddRedPackage extends Vue {
         ],
         'redPacketCouponDTO.amount': [
             { required: true, message: '福利红包面额不能为空', trigger: 'blur' },
-            { validator: checkNumber(99999, 0.01, 2), trigger: 'blur' }
+            { validator: checkNumber(99999.99, 0.01, 2), trigger: 'blur' }
         ],
         issueVolume: [
             { required: true, message: '发放量不能为空', trigger: 'blur' },
+            { validator: checkNumber(99999, 1, 0), trigger: 'blur' },
             { validator: this.rulesIssueVolume, trigger: 'blur' }
         ],
         'redPacketCouponDTO.receiveStartTime': [
@@ -555,6 +556,9 @@ export default class AddRedPackage extends Vue {
         'redPacketCouponDTO.receiveLimit': [
             { required: true, trigger: 'blur' },
             { validator: this.rulesReceiveLimit, trigger: 'blur' }
+        ],
+        'redPacketCouponDTO.quantityLimit': [
+            { validator: checkNumber(100, 1, 0), trigger: 'blur' }
         ],
         'redPacketCouponDTO.distributionMethod': [
             { validator: this.rulesDistributionMethod, trigger: 'blur' }
@@ -568,7 +572,7 @@ export default class AddRedPackage extends Vue {
         ],
         'redPacketCouponDTO.useLimitAmount': [
             { required: true, message: '抵扣规则不能为空', trigger: 'blur' },
-            { validator: checkNumber(99999, 0.01, 2), trigger: 'blur' }
+            { validator: checkNumber(99999.99, 0.01, 2), trigger: 'blur' }
         ],
         'redPacketCouponDTO.useStackable': [
             { required: true, message: '请选择抵扣规则', trigger: 'blur' },
