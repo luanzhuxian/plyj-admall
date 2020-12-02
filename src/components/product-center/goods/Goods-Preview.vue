@@ -141,16 +141,17 @@
             <div class="product-info">
                 <div class="info-top">
                     <div class="info-top-left">
-                        <div class="price" v-if="data.activeProduct === 1&& data.productSkuModels && data.productSkuModels.length">
+                        <div class="price" v-if="data.activeProduct === 4 && data.preActivity === 2">
+                            定金&nbsp;<span>{{ data.activityProductModel.price || bookMinPrice.depositPrice }}</span>
+                            抵&nbsp;<span>{{ data.activityProductModel.depositTotal || bookMinPrice.depositPrice * bookMinPrice.multipleNumber }}</span>
+                        </div>
+                        <div class="price" v-else-if="data.activeProduct !== 1 && data.activeProduct !== 4 && data.preActivity === 2">
+                            {{ data.activityProductModel.price }}
+                        </div>
+                        <div class="price" v-else>
                             <span>{{ minPrice }}</span>
                             <span v-if="minPrice&&maxPrice&&(minPrice !== maxPrice)">~{{ maxPrice }}</span>
                             <del v-if="maxOriginalPrice&&((minPrice !== maxOriginalPrice))" v-text="maxOriginalPrice" />
-                        </div>
-                        <div class="price" v-else-if="data.activeProduct === 4 && !data.activityProductModel.price">
-                            <span>{{ bookMinPrice[0].depositPrice }}</span>
-                        </div>
-                        <div class="price" v-else>
-                            <span>{{ data.activityProductModel.price }}</span>
                         </div>
                         <div class="buy-count" v-if="data.salesVolume || data.pageviews">
                             <span v-if="data.salesVolume === 0">正在热销中</span>
@@ -291,7 +292,7 @@ export default {
             return Math.min(...this.priceList)
         },
         bookMinPrice () {
-            return this.data.activityProductModel.skuModelList.filter(item => item.depositPrice * item.multipleNumber - item.depositPrice === Math.max(...this.data.activityProductModel.skuModelList.map(item => item.depositPrice * item.multipleNumber - item.depositPrice) || []))
+            return this.data.activityProductModel.skuModelList.filter(item => item.depositPrice * item.multipleNumber - item.depositPrice === Math.max(...this.data.activityProductModel.skuModelList.map(item => item.depositPrice * item.multipleNumber - item.depositPrice) || []))[0]
         },
         originalPriceList () {
             return this.data.productSkuModels.map(item => item.originalPrice) || []
