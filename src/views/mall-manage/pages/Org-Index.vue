@@ -70,13 +70,13 @@
                     <span class="ml-10 fz-12 gray-3" v-if="item.type === 3">视频大小不能超过100M，且仅支持mp4格式</span>
                 </div>
                 <div class="editor-wrap" v-if="item.type === 4">
-                    <PlEditor :show-video="false" v-model="item.inputContent" />
-                    <el-button plain round type="primary" @click="updateOrgIndex(item)" style="width: 80px;margin-left: 10px;">
+                    <PlEditor :show-video="false" v-model="item.inputContent" @input="updateInputContent(item)" />
+                    <el-button plain round type="primary" @click="updateOrgIndex(item)" style="width: 80px;margin-left: 10px;" v-if="item.isInputContent">
                         保存
                     </el-button>
-                    <!-- <el-button round @click="cancelInput(item)" style="width: 80px;">
+                    <el-button round @click="cancelInputContent(item)" style="width: 80px;" v-if="item.isInputContent">
                         取消
-                    </el-button> -->
+                    </el-button>
                 </div>
             </el-card>
         </div>
@@ -112,6 +112,7 @@ export default class OrgIndex extends Vue {
             for (const item of result.mallBrandingRequestModels) {
                 // 标题输入框状态
                 item.isInput = false
+                item.isInputContent = false
                 // 标题备份
                 item.inputTitle = item.titleName
                 // 内容备份
@@ -275,6 +276,18 @@ export default class OrgIndex extends Vue {
     cancelInput (item: DynamicObject) {
         item.isInput = false
         item.inputTitle = item.titleName
+    }
+
+    updateInputContent (item: DynamicObject) {
+        if (item.inputContent === item.detailContent) {
+            item.isInputContent = false
+        } else {
+            item.isInputContent = true
+        }
+    }
+
+    cancelInputContent (item: DynamicObject) {
+        item.isInputContent = false
         item.inputContent = item.detailContent
     }
 
@@ -331,6 +344,7 @@ export default class OrgIndex extends Vue {
         delete data.inputContent
         delete data.mediaList
         delete data.isInput
+        delete data.isInputContent
         await brandingUpdate(data)
         await this.getOrgIndex()
         this.$success('操作成功')
