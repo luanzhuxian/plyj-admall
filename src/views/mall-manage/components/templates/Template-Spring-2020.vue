@@ -11,11 +11,19 @@
         <div :class="$style.background">
             <div :class="$style.container">
                 <!-- 直播 -->
-                <section :class="[$style.moduleLive, $style.module]" v-if="isLiveShow">
+                <ModuleWrapper
+                    :class="{
+                        [$style.module]: true,
+                        [$style.moduleLive]: true,
+                        [$style.pointer]: isClickable === true,
+                        [$style.active]: current === 'Live'
+                    }"
+                    :data="Live"
+                >
                     <Panel custom-class="live-panel" title="直播放映室">
-                        <Live :data="liveInfo" />
+                        <Live :data="Live" />
                     </Panel>
-                </section>
+                </ModuleWrapper>
                 <!-- 优惠券 -->
                 <section
                     id="RedPackage"
@@ -107,7 +115,7 @@
             </div>
         </div>
         <img
-            src="https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/tabbar.png"
+            src="https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/tabbar.png"
             style="width: 100%;"
         >
     </div>
@@ -115,8 +123,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { namespace } from 'vuex-class'
-import Live from '../activity/dragon-gate/Live.vue'
+import Live from '../activity/spring-2020/Live.vue'
 import RedPackage from '../activity/double-12-2020/Coupon.vue'
 import Miaosha from '../activity/double-12-2020/Miaosha.vue'
 import Pintuan from '../activity/double-12-2020/Pintuan.vue'
@@ -126,8 +133,6 @@ import Popular from '../activity/double-12-2020/Popular.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
 import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
-
-const mall = namespace('mall')
 
 @Component({
     components: {
@@ -162,7 +167,9 @@ export default class TemplateSpring2020 extends Vue {
     @Prop(String) current!: string
 
     /* computed */
-    @mall.Getter liveInfo!: { liveModel: { statue: number; hasNotice: boolean }[] }
+    get Live () {
+        return this.data.Live || { values: [] }
+    }
 
     get RedPackage () {
         return this.data.RedPackage || { values: [] }
@@ -186,15 +193,6 @@ export default class TemplateSpring2020 extends Vue {
 
     get Popular () {
         return this.data.Popular || { values: [] }
-    }
-
-    get isLiveShow () {
-        const { liveInfo } = this
-        if (!liveInfo.liveModel || !liveInfo.liveModel.length) {
-            return false
-        }
-        const list = liveInfo.liveModel.filter(item => item.statue === 0 || item.statue === 4 || (item.statue === 2 && item.hasNotice))
-        return !!list.length
     }
 
     /* methods */
