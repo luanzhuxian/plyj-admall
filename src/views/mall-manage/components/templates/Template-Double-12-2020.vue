@@ -125,7 +125,7 @@ import Package from '../activity/double-12-2020/Package.vue'
 import Popular from '../activity/double-12-2020/Popular.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
-import { TemplateDouble12 as TemplateDouble122020 } from '../../utils/types'
+import { TemplateDouble122020 as TemplateDouble12 } from '../../utils/types'
 
 const mall = namespace('mall')
 
@@ -142,14 +142,14 @@ const mall = namespace('mall')
         ModuleWrapper
     }
 })
-export default class TemplateDouble12 extends Vue {
+export default class TemplateDouble122020 extends Vue {
     /* props */
     @Prop({
         type: Object,
         default () {
             return {}
         }
-    }) readonly data!: TemplateDouble122020
+    }) readonly data!: TemplateDouble12
 
     @Prop(Number) tmplType!: number
     @Prop({

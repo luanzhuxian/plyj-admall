@@ -7,9 +7,9 @@ import {
     TemplateFanChang,
     TemplateFengQiang,
     TemplateBaoFa,
-    TemplateXinChun,
+    TemplateSpring2019,
     TemplateDragonGate,
-    TemplateDouble12,
+    TemplateDouble122020,
     TemplateModule,
     TemplateModuleItem
 } from './types'
@@ -216,8 +216,8 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Fengqiang = reset(modules[3], 'Fengqiang')
         templateModel.Recommend = reset(modules[4], 'Recommend')
     }
-    if (tmplType === TemplateTypes.TemplateXinChun) {
-        templateModel = {} as TemplateXinChun
+    if (tmplType === TemplateTypes.TemplateSpring2019) {
+        templateModel = {} as TemplateSpring2019
         templateModel.Propagate = reset(modules[0], 'Propagate')
         templateModel.Coupon = reset(modules[1], 'Coupon')
         templateModel.Chunyun = reset(modules[2], 'Chunyun')
@@ -237,8 +237,8 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Package = reset(findModuleById(16), 'Package')
         templateModel.Recommend = reset(findModuleById(4), 'Recommend')
     }
-    if (tmplType === TemplateTypes.TemplateDouble12) {
-        templateModel = {} as TemplateDouble12
+    if (tmplType === TemplateTypes.TemplateDouble122020) {
+        templateModel = {} as TemplateDouble122020
         templateModel.Coupon = reset(findModuleById(9), 'Coupon')
         templateModel.Miaosha = reset(findModuleById(10), 'Miaosha')
         templateModel.Pintuan = reset(findModuleById(8), 'Pintuan')

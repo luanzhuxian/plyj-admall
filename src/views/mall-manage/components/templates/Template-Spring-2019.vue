@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.templateXinchun">
+    <div :class="$style.templateSpring">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -141,7 +141,7 @@ import Pintuan from '../activity/spring/Pintuan.vue'
 import Yugou from '../activity/spring/Yugou.vue'
 import Recommend from '../home/Recommend.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
-import { TemplateXinChun } from '../../utils/types'
+import { TemplateSpring2019 as TemplateSpring } from '../../utils/types'
 
 const mall = namespace('mall')
 
@@ -158,14 +158,14 @@ const mall = namespace('mall')
         ModuleWrapper
     }
 })
-export default class TemplateXinchun extends Vue {
+export default class TemplateSpring2019 extends Vue {
     /* props */
     @Prop({
         type: Object,
         default () {
             return {}
         }
-    }) readonly data!: TemplateXinChun
+    }) readonly data!: TemplateSpring
 
     @Prop(Number) tmplType!: number
     @Prop({
@@ -213,7 +213,7 @@ export default class TemplateXinchun extends Vue {
 </script>
 
 <style module lang="scss">
-.template-xinchun {
+.template-spring {
     display: flex;
     flex-direction: column;
     width: 375px;

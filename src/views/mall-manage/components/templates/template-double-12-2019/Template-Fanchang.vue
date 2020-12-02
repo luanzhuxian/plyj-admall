@@ -1,5 +1,5 @@
 <template>
-    <div :class="[$style.templateActivity, $style.templateBaofa]">
+    <div :class="[$style.templateActivity, $style.TemplateFanchang]">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -16,20 +16,6 @@
             <div :class="$style.containerBackground" />
             <div :class="$style.containerContent">
                 <div :class="$style.btnTop" />
-                <!-- 领券 -->
-                <div
-                    id="Coupon"
-                    v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
-                    :class="{
-                        [$style.module]: true,
-                        [$style.moduleCoupon]: true,
-                        [$style.pointer]: isClickable === true,
-                        [$style.active]: current === 'Coupon'
-                    }"
-                    @click="onClick('Coupon')"
-                >
-                    <Coupon :data="Coupon" />
-                </div>
                 <!-- 直播-->
                 <div :class="$style.moduleLive">
                     <Live :data="liveInfo" />
@@ -52,23 +38,10 @@
                 <div
                     id="Miaosha"
                     v-if="data && data.Miaosha && (data.Miaosha.values.length || isClickable || isEmptyShow)"
-                    :class="{
-                        [$style.module]: true,
-                        [$style.moduleMiaosha]: true,
-                        [$style.pointer]: isClickable === true,
-                        [$style.active]: current === 'Miaosha'
-                    }"
-                    @click="onClick('Miaosha')"
+                    :class="[$style.module, $style.moduleMiaosha]"
                 >
-                    <Miaosha :data="Miaosha" :current-module="current" />
+                    <MiaoshaSmall :data="Miaosha" />
                 </div>
-                <!-- 活动 -->
-                <!-- <div class="module-activity" v-if="hasJxEvent || hasInvitingEvent">
-                    <div v-if="hasJxEvent && hasInvitingEvent" class="small road" />
-                    <div v-if="hasJxEvent && hasInvitingEvent" class="small invitation" />
-                    <div v-if="hasJxEvent && !hasInvitingEvent" class="large road" />
-                    <div v-if="!hasJxEvent && hasInvitingEvent" class="large invitation" />
-                </div> -->
                 <!-- 百人拼团 -->
                 <div
                     id="Pintuan"
@@ -97,6 +70,21 @@
                 >
                     <Fengqiang :data="Fengqiang" :tmpl-type="tmplType" />
                 </div>
+                <!-- 精品推荐-->
+                <div
+                    id="Recommend"
+                    v-if="data && data.Recommend && (data.Recommend.values.length || isClickable || isEmptyShow)"
+                    :class="{
+                        [$style.module]: true,
+                        [$style.moduleRecommend]: true,
+                        [$style.pointer]: isClickable === true,
+                        [$style.active]: current === 'Recommend'
+                    }"
+                    @click="onClick('Recommend')"
+                >
+                    <div :class="$style.btnBottom" />
+                    <Recommend :data="Recommend" />
+                </div>
             </div>
         </div>
         <img
@@ -109,34 +97,34 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import Live from '../activity/double-12/Live.vue'
-import Miaosha from '../activity/double-12/Miaosha.vue'
-import Pintuan from '../activity/double-12/Pintuan.vue'
-import Maisong from '../activity/double-12/Maisong.vue'
-import Coupon from '../activity/double-12/Coupon.vue'
-import Fengqiang from '../activity/double-12/Fengqiang.vue'
-import { TemplateBaoFa } from '../../utils/types'
+import Live from '../../activity/double-12/Live.vue'
+import MiaoshaSmall from '../../activity/double-12/Miaosha-Small.vue'
+import Pintuan from '../../activity/double-12/Pintuan.vue'
+import Maisong from '../../activity/double-12/Maisong.vue'
+import Fengqiang from '../../activity/double-12/Fengqiang.vue'
+import Recommend from '../../home/Recommend.vue'
+import { TemplateFanChang } from '../../../utils/types'
 
 const mall = namespace('mall')
 
 @Component({
     components: {
         Live,
-        Miaosha,
+        MiaoshaSmall,
         Pintuan,
         Maisong,
-        Coupon,
-        Fengqiang
+        Fengqiang,
+        Recommend
     }
 })
-export default class TemplateBaofa extends Vue {
+export default class TemplateFanchang extends Vue {
     /* props */
     @Prop({
         type: Object,
         default () {
             return {}
         }
-    }) readonly data!: TemplateBaoFa
+    }) readonly data!: TemplateFanChang
 
     @Prop(Number) tmplType!: number
     @Prop({
@@ -163,12 +151,12 @@ export default class TemplateBaofa extends Vue {
         return this.data.Maisong || { values: [] }
     }
 
-    get Coupon () {
-        return this.data.Coupon || { values: [] }
-    }
-
     get Fengqiang () {
         return this.data.Fengqiang || { values: [] }
+    }
+
+    get Recommend () {
+        return this.data.Recommend || { values: [] }
     }
 
     /* methods */

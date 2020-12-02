@@ -24,12 +24,12 @@
 
             <!--  主会场  -->
             <div v-show="currentTab === 'ACTIVITY'">
-                <div :class="$style.mallThemesTitle" v-if="xinchunTemplateList.length">
+                <div :class="$style.mallThemesTitle" v-if="springTemplateList.length">
                     新春主会场（仅在主会场按钮下显示）
                 </div>
-                <div :class="$style.mallThemesList" v-if="xinchunTemplateList.length">
+                <div :class="$style.mallThemesList" v-if="springTemplateList.length">
                     <TemplateItem
-                        v-for="(item, index) of xinchunTemplateList"
+                        v-for="(item, index) of springTemplateList"
                         :key="index"
                         :data="item"
                         :current="currentActivityType"
@@ -120,12 +120,12 @@ import {
 import TemplateB from '../components/templates/Template-B.vue'
 import TemplateC from '../components/templates/Template-C.vue'
 import TemplateD from '../components/templates/Template-D.vue'
-import TemplateFengqiang from '../components/templates/Template-Fengqiang.vue'
-import TemplateBaofa from '../components/templates/Template-Baofa.vue'
-import TemplateFanchang from '../components/templates/Template-Fanchang.vue'
-import TemplateXinchun from '../components/templates/Template-Xinchun.vue'
+import TemplateFengqiang from '../components/templates/template-double-12-2019/Template-Fengqiang.vue'
+import TemplateBaofa from '../components/templates/template-double-12-2019/Template-Baofa.vue'
+import TemplateFanchang from '../components/templates/template-double-12-2019/Template-Fanchang.vue'
+import TemplateSpring from '../components/templates/Template-Spring-2019.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
-import TemplateDouble12 from '../components/templates/Template-Double-12.vue'
+import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
 import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
@@ -360,9 +360,9 @@ const skinModels = [{
         TemplateFengqiang,
         TemplateBaofa,
         TemplateFanchang,
-        TemplateXinchun,
+        TemplateSpring,
         TemplateDragonGate,
-        TemplateDouble12,
+        TemplateDouble122020,
         TemplateItem,
         TemplatePreview,
         Render
@@ -379,7 +379,7 @@ export default class MallThemes extends Vue {
     currentTab = 'HOME'
     templateList: Template[] = []
     double12TemplateList: Template[] = []
-    xinchunTemplateList: Template[] = []
+    springTemplateList: Template[] = []
     dragonGateTemplateList: Template[] = []
     skinList: TemplateSkinModel[] = []
     currentSkinId = 0 // 当前使用皮肤
@@ -454,11 +454,11 @@ export default class MallThemes extends Vue {
                     // TemplateTypes.TemplateFengQiang,
                     // TemplateTypes.TemplateBaoFa,
                     // TemplateTypes.TemplateFanChang,
-                    TemplateTypes.TemplateDouble12
+                    TemplateTypes.TemplateDouble122020
                 ].indexOf(item.type))
 
                 // 新春主会场模版
-                this.xinchunTemplateList = result.filter(item => item.type === TemplateTypes.TemplateXinChun)
+                this.springTemplateList = result.filter(item => item.type === TemplateTypes.TemplateSpring2019)
 
                 // 龙门节主会场模版
                 this.dragonGateTemplateList = result.filter(item => item.type === TemplateTypes.TemplateDragonGate)
@@ -509,7 +509,7 @@ export default class MallThemes extends Vue {
     // 检查是否有模板使用权限
     check (item: Template) {
         // 双十二
-        if (item.type === TemplateTypes.TemplateDouble12) {
+        if (item.type === TemplateTypes.TemplateDouble122020) {
             if (this.double12LockStatus === 1) {
                 return item
             }
@@ -524,7 +524,7 @@ export default class MallThemes extends Vue {
             })
         }
         // 新春、龙门节
-        if (item.type === TemplateTypes.TemplateXinChun || item.type === TemplateTypes.TemplateDragonGate) {
+        if (item.type === TemplateTypes.TemplateSpring2019 || item.type === TemplateTypes.TemplateDragonGate) {
             this.$confirm({
                 title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
                 confirmButtonText: '朕知道了',

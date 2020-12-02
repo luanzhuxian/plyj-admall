@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.templateXinchun" class="template-xinchun">
+    <div :class="$style.templateSpring" class="template-spring">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -125,7 +125,7 @@ import Package from '../activity/double-12-2020/Package.vue'
 import Popular from '../activity/double-12-2020/Popular.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
-import { TemplateXinChun2020 } from '../../utils/types'
+import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
 
 const mall = namespace('mall')
 
@@ -142,14 +142,14 @@ const mall = namespace('mall')
         ModuleWrapper
     }
 })
-export default class TemplateXinchun2020 extends Vue {
+export default class TemplateSpring2020 extends Vue {
     /* props */
     @Prop({
         type: Object,
         default () {
             return {}
         }
-    }) readonly data!: TemplateXinChun2020
+    }) readonly data!: TemplateSpring
 
     @Prop(Number) tmplType!: number
     @Prop({
@@ -206,7 +206,7 @@ export default class TemplateXinchun2020 extends Vue {
 </script>
 
 <style lang="scss">
-.template-xinchun {
+.template-spring {
     .live-panel {
         background-color: #FFC70C;
         border-radius: 8px;
@@ -265,7 +265,7 @@ export default class TemplateXinchun2020 extends Vue {
 }
 </style>
 <style lang="scss" module>
-.template-xinchun {
+.template-spring {
     display: flex;
     flex-direction: column;
     width: 375px;

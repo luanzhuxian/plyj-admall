@@ -215,12 +215,12 @@ import {
 import TemplateB from '../components/templates/Template-B.vue'
 import TemplateC from '../components/templates/Template-C.vue'
 import TemplateD from '../components/templates/Template-D.vue'
-import TemplateFengqiang from '../components/templates/Template-Fengqiang.vue'
-import TemplateBaofa from '../components/templates/Template-Baofa.vue'
-import TemplateFanchang from '../components/templates/Template-Fanchang.vue'
-import TemplateXinchun from '../components/templates/Template-Xinchun.vue'
+import TemplateFengqiang from '../components/templates/template-double-12-2019/Template-Fengqiang.vue'
+import TemplateBaofa from '../components/templates/template-double-12-2019/Template-Baofa.vue'
+import TemplateFanchang from '../components/templates/template-double-12-2019/Template-Fanchang.vue'
+import TemplateSpring2019 from '../components/templates/Template-Spring-2019.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
-import TemplateDouble12 from '../components/templates/Template-Double-12.vue'
+import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import Render from '../components/Render'
@@ -239,9 +239,9 @@ const mall = namespace('mall')
         TemplateFengqiang,
         TemplateBaofa,
         TemplateFanchang,
-        TemplateXinchun,
+        TemplateSpring2019,
         TemplateDragonGate,
-        TemplateDouble12,
+        TemplateDouble122020,
         TemplatePreview,
         ModalTimeSetting,
         Render
@@ -379,9 +379,9 @@ export default class MallMain extends Vue {
             TemplateTypes.TemplateFengQiang,
             TemplateTypes.TemplateBaoFa,
             TemplateTypes.TemplateFanChang,
-            TemplateTypes.TemplateXinChun,
+            TemplateTypes.TemplateSpring2019,
             TemplateTypes.TemplateDragonGate,
-            TemplateTypes.TemplateDouble12
+            TemplateTypes.TemplateDouble122020
         ].includes(id)) {
             return '主会场'
         }
