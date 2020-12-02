@@ -305,11 +305,9 @@ export default {
         },
         imgSelected (e) {
             const file = e.target.files[0]
-            try {
-                console.log('image type is: ', /jpg|png|jpeg|bmp/i.exec(file.type)[0])
-            } catch (e) {
+            if (!(/jpg|png|jpeg|bmp/i).test(file.type)) {
                 this.$error('不允许的图片格式')
-                throw new Error('不允许的图片格式')
+                return
             }
             this.img = createObjectUrl(file)
             this.showEditImage = true

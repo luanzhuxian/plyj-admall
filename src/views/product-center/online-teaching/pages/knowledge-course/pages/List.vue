@@ -212,7 +212,7 @@ import { mapGetters } from 'vuex'
 import Share from './../../../../../../components/common/Share.vue'
 import VideoCoursePreview from '../components/Video-Course-Preview'
 import SendCourse from './../components/Send-Course.vue'
-import SelectCategory from '../../../../../../components/category/Select-Category.vue'
+import SelectCategory from '../../../../../../components/product-center/category-manage/Select-Category.vue'
 import CourseHead from './../components/Course-Head'
 
 export default {

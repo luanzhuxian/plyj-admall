@@ -232,7 +232,7 @@
     </div>
 </template>
 <script>
-import SelectCategory from './../../../../../../components/category/Select-Category.vue'
+import SelectCategory from './../../../../../../components/product-center/category-manage/Select-Category.vue'
 import Share from './../../../../../../components/common/Share'
 import SendBooks from './../components/Send-Books.vue'
 import BooksMaterialsPreview from './../components/Books-Materials-Preview'

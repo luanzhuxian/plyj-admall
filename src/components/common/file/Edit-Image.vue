@@ -165,7 +165,17 @@ export default {
         },
         // 是否启用强制模式，即便图片大小符合规定大小比例，也必须裁剪
         // 这种情况往往出现在二次编辑的时候
-        forced: Boolean
+        forced: Boolean,
+
+        /**
+         * 屏幕像素比
+         * 当裁剪的图片要在移动端显示的时候可能需要
+         * 否则可能造成图片不是很清晰
+         **/
+        dpr: {
+            type: Number,
+            default: 1
+        }
     },
     computed: {
         mainCanvas () {
@@ -200,6 +210,8 @@ export default {
             this.setCenterY()
             this.translateImage()
         }
+    },
+    mounted () {
     },
     methods: {
     // 初始化

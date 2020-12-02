@@ -62,6 +62,7 @@
             :forced.sync="forcedEdit"
             @success="cutSuccess"
             :upload-text="uploadText"
+            :dpr="dpr"
         />
 
         <el-dialog
@@ -258,6 +259,16 @@ export default {
         showControl: {
             type: Boolean,
             default: true
+        },
+
+        /**
+         * 屏幕像素比
+         * 当裁剪的图片要在移动端显示的时候可能需要
+         * 否则可能造成图片不是很清晰
+         **/
+        dpr: {
+            type: Number,
+            default: 1
         }
     },
     computed: {

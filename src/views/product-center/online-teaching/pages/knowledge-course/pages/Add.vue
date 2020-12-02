@@ -328,7 +328,7 @@
 import PlEditor from './../../../../../../components/common/Pl-Editor.vue'
 import UserGroup from './../../../../../../components/common/User-Group.vue'
 import UploadImage from './../../../../../../components/common/file/Image-Manager.vue'
-import EditMain from './../../../../../../components/category/Edit-Main.vue'
+import EditMain from './../../../../../../components/product-center/category-manage/Edit-Main.vue'
 import CheckLiveVideo from './../../../../../../components/select/Check-Live-Video.vue'
 import VideoCoursePreview from './../components/Video-Course-Preview.vue'
 import VideoPreview from './../../../../../../components/common/Preview-Video'
@@ -336,7 +336,7 @@ import MainImageTheme from '../../../../../../components/product-center/goods/Ma
 import VideoManager from './../../../../../../components/common/file/Video-Manager.vue'
 import { addVideoCourse, getVideoDetail } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import { getResourceInfoById } from './../../../../../../apis/product-center/online-teaching/library-video'
-import SelectCategory from './../../../../../../components/category/Select-Category.vue'
+import SelectCategory from './../../../../../../components/product-center/category-manage/Select-Category.vue'
 
 import moment from 'moment'
 export default {

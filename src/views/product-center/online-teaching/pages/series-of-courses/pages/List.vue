@@ -218,7 +218,7 @@ import CourseList from './../components/Course-list'
 import VideoCoursePreview from './../components/Video-Course-Preview'
 import Share from './../../../../../../components/common/Share'
 import SendCourse from '../../knowledge-course/components/Send-Course'
-import SelectCategory from './../../../../../../components/category/Select-Category.vue'
+import SelectCategory from './../../../../../../components/product-center/category-manage/Select-Category.vue'
 
 export default {
     name: 'SeriesOfCoursesList',

@@ -41,7 +41,7 @@
                 label="分类banner"
                 prop="categoryPic"
             >
-                <div class="img" v-if="form.bannerPic">
+                <!--<div class="img" v-if="form.bannerPic">
                     <img
                         v-viewer
                         :src="form.bannerPic"
@@ -50,8 +50,18 @@
                     <div class="edit-box">
                         <pl-svg width="16" name="icon-shanchu1" @click="removeImage" fill="#FFF" />
                     </div>
-                </div>
-                <ImageSelector :box-width="275" :box-height="90" :margin-left="0" v-else @change="imgSelected" />
+                </div>-->
+                <ImageManager
+                    v-model="imgList"
+                    :box-width="275"
+                    :box-height="90"
+                    need-edit
+                    :width="275"
+                    :height="90"
+                    :count="1"
+                    @change="success"
+                />
+                <!--<ImageSelector :box-width="275" :box-height="90" :margin-left="0" v-else @change="imgSelected" />-->
                 <div class="recommend-info">
                     <p>推荐图片尺寸为275*90像素，</p>
                     <p>仅支持jpeg，png，bmp 3种格式，大小不超过5.0MB</p>
@@ -73,14 +83,14 @@
             </el-form-item>
         </el-form>
 
-        <EditImage
+        <!--<EditImage
             v-if="show"
             :show.sync="showEditImage"
             :width="275"
             :height="90"
             :url="img"
             @success="successCut"
-        />
+        />-->
     </el-dialog>
 </template>
 
@@ -92,21 +102,23 @@ import {
     getCategoryList
 } from '../../../apis/product-center/category'
 import { testCategory } from '../../../assets/ts/validate'
-import EditImage from '../../common/file/Edit-Image.vue'
+// import EditImage from '../../common/file/Edit-Image.vue'
 import { mapGetters, mapActions } from 'vuex'
 import { copyFields } from '../../../assets/ts/utils'
-import ImageSelector from '../../common/file/File-Selector.vue'
+// import ImageSelector from '../../common/file/File-Selector.vue'
+import ImageManager from '../../common/file/Image-Manager.vue'
 import {
-    createObjectUrl,
-    upload,
-    deleteImage
+    // createObjectUrl,
+    upload
+    // deleteImage
 } from '../../../assets/ts/upload'
 import { MutationTypes } from '@/store/mutation-type'
 export default {
     name: 'EditMain',
     components: {
-        EditImage,
-        ImageSelector
+        // EditImage,
+        // ImageSelector,
+        ImageManager
     },
     data () {
         const checkName = (rule, value, callback) => {
@@ -140,22 +152,18 @@ export default {
                 hidden: false,
                 bannerPic: ''
             },
-            showEditImage: false,
-            img: '',
-            type: 'file',
-            // 用与删除图片
-            imgKey: '',
+            // showEditImage: false,
+            // img: '',
+            // type: 'file',
             mainCategory: [],
+            imgList: [],
             rules: {
                 categoryName: [
                     { required: true, message: '请输入分类名称', trigger: 'blur' },
                     { validator: testCategory(12), message: '建议输入中文、英文、数字且汉字长度不超过6，英文/数字长度不超过12', trigger: 'blur' },
                     { validator: checkName, trigger: 'blur' }
                 ]
-            },
-            // 如果是在编辑分类，不要立即删除图片，防止出现错误
-            // 当点击删除图片时，先保存起来，确定修改的时候，再正式删除
-            willDelete: []
+            }
         }
     },
     props: {
@@ -186,15 +194,12 @@ export default {
         data (val) {
             if (val) {
                 copyFields(this.form, val)
-                this.imgKey = val.bannerPic || ''
+                this.imgList = val.bannerPic ? [val.bannerPic] : []
             }
         }
     },
     created () {
         this.getMainCategory()
-    },
-    mounted () {
-        copyFields(this.form, this.data)
     },
     methods: {
         ...mapActions({
@@ -208,7 +213,6 @@ export default {
                 hidden: false,
                 bannerPic: ''
             }
-            this.imgKey = ''
             this.img = ''
             this.willDelete = []
             this.$refs.form.clearValidate()
@@ -244,8 +248,6 @@ export default {
                         this.form.sort = 1;
                         ({ result } = await updateCategory(this.data.id, this.form))
                     }
-                    // 删除被替换的图片
-                    if (this.willDelete.length > 0) deleteImage(this.willDelete, 'img')
                     this.$success('分类修改成功')
                 } else {
                     // 添加
@@ -259,20 +261,20 @@ export default {
                 throw e
             }
         },
-        imgSelected (e) {
-            const file = e.target.files[0]
-            try {
-            } catch (e) {
-                this.$error('不允许的图片格式')
-                throw new Error('不允许的图片格式')
-            }
-            this.img = createObjectUrl(file)
-            this.showEditImage = true
-            this.type = 'text'
-            this.$nextTick(() => {
-                this.type = 'file'
-            })
-        },
+        // imgSelected (e) {
+        //     const file = e.target.files[0]
+        //     try {
+        //     } catch (e) {
+        //         this.$error('不允许的图片格式')
+        //         throw new Error('不允许的图片格式')
+        //     }
+        //     this.img = createObjectUrl(file)
+        //     this.showEditImage = true
+        //     this.type = 'text'
+        //     this.$nextTick(() => {
+        //         this.type = 'file'
+        //     })
+        // },
         async successCut (blob) {
             try {
                 const res = await upload(blob)
@@ -282,18 +284,21 @@ export default {
                 throw e
             }
         },
-        async removeImage () {
-            this.form.bannerPic = ''
-            if (!this.data || !this.data.id) {
-                // 不是编辑。真删
-                await deleteImage([this.imgKey], 'img')
-                this.img = ''
-                this.imgKey = ''
-            } else {
-                // 是编辑，暂时存起来，保存的时候再删
-                this.willDelete.push(this.imgKey)
-            }
+        success (res) {
+            this.form.bannerPic = res[0] || ''
         }
+        // async removeImage () {
+        //     this.form.bannerPic = ''
+        //     if (!this.data || !this.data.id) {
+        //         // 不是编辑。真删
+        //         await deleteImage([this.imgKey], 'img')
+        //         this.img = ''
+        //         this.imgKey = ''
+        //     } else {
+        //         // 是编辑，暂时存起来，保存的时候再删
+        //         this.willDelete.push(this.imgKey)
+        //     }
+        // }
     }
 }
 </script>
@@ -319,7 +324,7 @@ export default {
       object-fit: cover;
     }
   }
-  .img {
+  /*.img {
     position: relative;
     display: flex;
     margin-bottom: 18px;
@@ -363,12 +368,12 @@ export default {
       font-size: 14px;
       cursor: pointer;
     }
-  }
-  .add-image {
-    display: block;
-    width: 130px;
-    height: 130px;
-    border: 1px solid #e7e7e7;
-    cursor: pointer;
-  }
+  }*/
+  /*.add-image {*/
+  /*  display: block;*/
+  /*  width: 130px;*/
+  /*  height: 130px;*/
+  /*  border: 1px solid #e7e7e7;*/
+  /*  cursor: pointer;*/
+  /*}*/
 </style>

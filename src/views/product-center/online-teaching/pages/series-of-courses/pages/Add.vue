@@ -394,7 +394,7 @@ import { checkLength, isMoney } from '../../../../../../assets/ts/validate'
 import { addVideoCourse, getVideoDetail } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import { getResourceInfoById } from './../../../../../../apis/product-center/online-teaching/library-video'
 import moment from 'moment'
-import SelectCategory from './../../../../../../components/category/Select-Category.vue'
+import SelectCategory from './../../../../../../components/product-center/category-manage/Select-Category.vue'
 
 // 定义章节对象
 class CourseSection {
