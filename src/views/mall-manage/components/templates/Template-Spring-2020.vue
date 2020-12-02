@@ -11,15 +11,7 @@
         <div :class="$style.background">
             <div :class="$style.container">
                 <!-- 直播 -->
-                <ModuleWrapper
-                    :class="{
-                        [$style.module]: true,
-                        [$style.moduleLive]: true,
-                        [$style.pointer]: isClickable === true,
-                        [$style.active]: current === 'Live'
-                    }"
-                    :data="Live"
-                >
+                <ModuleWrapper :class="[$style.module, $style.moduleLive]" :data="Live">
                     <Panel custom-class="live-panel" title="直播放映室">
                         <Live :data="Live" />
                     </Panel>
@@ -125,7 +117,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../activity/spring-2020/Live.vue'
 import RedPackage from '../activity/double-12-2020/Coupon.vue'
-import Miaosha from '../activity/double-12-2020/Miaosha.vue'
+import Miaosha from '../activity/spring-2020/Miaosha.vue'
 import Pintuan from '../activity/double-12-2020/Pintuan.vue'
 import Yugou from '../activity/double-12-2020/Yugou.vue'
 import Package from '../activity/double-12-2020/Package.vue'

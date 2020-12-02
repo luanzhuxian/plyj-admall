@@ -1,5 +1,5 @@
 <template>
-    <Panel custom-class="miaosha-panel" title="福利秒杀" subtitle="双十二福利来袭，限时秒杀">
+    <Panel title="福利秒杀" subtitle="新春福利来袭，特色课程限时秒杀">
         <ul :class="$style.miaoshaList" v-if="data.values.length">
             <template v-for="(item, index) of data.values">
                 <MiaoshaItem
@@ -25,7 +25,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import MiaoshaItem from './components/MiaoshaItem.vue'
+import MiaoshaItem from '../double-12-2020/components//MiaoshaItem.vue'
 
 @Component({
     components: {
@@ -59,14 +59,6 @@ export default class Miaosha extends Vue {
     }
 }
 </script>
-
-<style lang="scss">
-.miaosha-panel {
-    .double-12-panel-container {
-        background-color: #D00C03;
-    }
-}
-</style>
 
 <style lang="scss" module>
 .miaosha-list-item {
