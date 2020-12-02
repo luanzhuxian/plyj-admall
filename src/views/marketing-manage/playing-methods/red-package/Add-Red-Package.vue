@@ -1,320 +1,337 @@
 <template>
-    <div class="add-content">
-        <div class="wrap">
-            <!--            <div class="tips">-->
-            <!--                <pl-svg class="pointer" name="icon-shanchu1" width="16" fill="#fff" />-->
-            <!--            </div>-->
-            <div class="content-title" id="basic" ref="basic">
-                基本信息
-            </div>
-            <el-form
-                label-width="170px"
-                :model="form"
-                :rules="rules"
-                ref="ruleForm"
-                label-position="right"
-                class="main-form"
-                auto-scroll-to-error
-            >
-                <el-form-item label="福利红包名称：" prop="name">
-                    <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="50" placeholder="请输入福利红包名称" />
-                </el-form-item>
-                <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
-                    <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="请输入福利红包金额" /> 元
-                    <p class="description">
-                        福利红包面额，是活动期间通过免费领取或者付费领取后，可获得的实际福利红包,在购买指定范围内的产品时，可抵扣相应金额使用。
-                    </p>
-                </el-form-item>
-                <el-form-item label="发放量：" prop="issueVolume">
-                    <el-input-number v-model="form.issueVolume" :min="1" :max="99999" label="描述文字" /> <span class="label-warning">开始后不可修改</span>
-                    <p class="description">
-                        发放的福利红包，超过发放量后将自动结束活动
-                    </p>
-                </el-form-item>
-                <div class="content-title">
-                    领取条件
-                </div>
-                <el-form-item label="领用时间：" prop="redPacketCouponDTO.receiveStartTime">
-                    <date-range
-                        size="small"
-                        disable-before
-                        :clearable="true"
-                        range-separator="至"
-                        ref="payDate"
-                        :init="initReceiveTime"
-                        @change="receiveTimeChange"
-                        :disabled-start-time="disabled"
-                    />
-                    <p class="description">
-                        在活动领用时间内可领用福利红包，领用时间结束后不可继续领用福利红包
-                    </p>
-                </el-form-item>
-                <el-form-item label="适用用户：" prop="redPacketCouponDTO.receiveLimit">
-                    <el-radio-group v-model="form.redPacketCouponDTO.receiveLimit">
-                        <el-radio :label="0">
-                            全部用户
-                        </el-radio>
-                        <el-radio :label="1">
-                            helper
-                        </el-radio>
-                        <el-radio :label="2">
-                            普通会员
-                        </el-radio>
-                        <el-radio :label="3" :disabled="!checkListArray || !checkListArray.length">
-                            部分用户可用<span v-if="!(checkListArray && checkListArray.length)" class="description"> （请先在会员中心-设置用户分组）</span>
-                        </el-radio>
-                    </el-radio-group>
-                    <UserGroup
-                        v-show="form.redPacketCouponDTO.receiveLimit === 3"
-                        v-model="form.redPacketCouponDTO.tagIds"
-                        @init="userGroupInit"
-                    />
-                </el-form-item>
-                <el-form-item label="领用方式：" prop="redPacketCouponDTO.distributionMethod">
-                    <el-radio-group :disabled="disabled" v-model="form.redPacketCouponDTO.distributionMethod">
-                        <el-radio :label="0">
-                            免费
-                        </el-radio>
-                        <el-radio :label="2">
-                            付费
-                        </el-radio>
-                    </el-radio-group>
-                    <div style="margin-left: 115px" v-if="form.redPacketCouponDTO.distributionMethod">
-                        支付 <el-input style="width: 100px" type="number" v-model="form.redPacketCouponDTO.price" maxlength="50" placeholder="10" /> 元，可购买福利红包
+    <div class="red-package">
+        <div class="preview-swiper">
+            <span class="title">福利红包示例</span>
+            <swiper class="swiper" :options="previewSwiperOption">
+                <swiperSlide
+                    v-for="(item, index) of perviewImg"
+                    :key="index"
+                >
+                    <div class="img-box">
+                        <img :src="item">
                     </div>
-                </el-form-item>
-
-                <el-form-item label="领用次数限制：" prop="redPacketCouponDTO.quantityLimit">
-                    <el-checkbox
-                        v-model="form.redPacketCouponDTO.activityLimit"
-                        :true-label="1"
-                        :false-label="0"
-                    >
-                        每个用户可领用
-                    </el-checkbox>
-                    <el-input-number style="margin-left: 10px" :min="1" :max="100" v-model="form.redPacketCouponDTO.quantityLimit" label="描述文字" />
-                    <p class="description">
-                        未勾选，则不限制用户领用次数 <br>
-                        勾选，则领用次数至少可领用一次，至多可领用100次</p>
-                </el-form-item>
-
-                <div class="content-title">
-                    使用条件
-                </div>
-                <el-form-item label="使用时间：" prop="redPacketCouponDTO.useStartTime">
-                    <date-range
-                        size="small"
-                        disable-before
-                        :clearable="true"
-                        range-separator="至"
-                        @change="useTimeChange"
-                        :init="initUseTime"
-                        ref="payDate"
-                    />
-                    <p class="description">
-                        在活动领用时间内可领用福利红包，领用时间结束后不可继续领用福利红包
-                    </p>
-                </el-form-item>
-
-                <el-form-item label="适用产品：" prop="redPacketCouponDTO.couponGoodsSkus">
-                    <el-button type="primary" plain @click="showProductBox = true">
-                        选择商品/课程
-                    </el-button>
-                    <p class="description">
-                        线上商城购买相应范围内的单个产品或者多个产品时，只要购买产品的总额满足抵扣条件，即可使用储备金进行抵扣相应金额。
-                    </p>
-
-                    <!-- 商品列表 -->
-                    <el-table
-                        ref="prodTable"
-                        class="product-table"
-                        v-if="productModelList&& productModelList.length"
-                        :data="productModelList"
-                    >
-                        <el-table-column
-                            width="100"
-                            fixed
-                        >
-                            <template slot-scope="{ row }">
-                                <img v-img-error width="71" height="48" :src="(row.image || row.productImage) + '?x-oss-process=style/thum-small'">
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            prop="productName"
-                            label="商品名称"
-                            width="150"
-                        />
-                        <el-table-column
-                            prop="productType"
-                            label="产品类型"
-                            width="150"
-                        >
-                            <template #default="{row}">
-                                {{ productTypeMap[row.productType] }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            prop="productType"
-                            label="状态"
-                            width="150"
-                        >
-                            <template #default="{row}">
-                                {{ productStatusMap[row.productStatus] }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            label="规格"
-                            width="80"
-                        >
-                            <template slot-scope="{ row }">
-                                {{ row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            prop="price"
-                            label="价格（元）"
-                            width="100"
-                        />
-                        <el-table-column
-                            label="操作"
-                            align="right"
-                            header-align="right"
-                            fixed="right"
-                        >
-                            <template slot-scope="{ row }">
-                                <el-button
-                                    type="text"
-                                    size="mini"
-
-                                    :disabled="status === 1"
-                                    @click="removePro(row)"
-                                >
-                                    移除
-                                </el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </el-form-item>
-
-                <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
-                    购买金额满 <el-input :disabled="disabled" style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元 <span class="label-warning">开始后不可修改</span>
-                </el-form-item>
-
-                <el-form-item label="使用限制：" prop="redPacketCouponDTO.useStackable">
-                    <el-radio-group :disabled="disabled" @change="getBrief" v-model="form.redPacketCouponDTO.useStackable">
-                        <el-radio :label="1">
-                            支持叠加使用
-                        </el-radio>
-                        <el-radio :label="0">
-                            不支持叠加使用
-                        </el-radio>
-                    </el-radio-group>
-                    <span class="label-warning">开始后不可修改</span>
-                    <div class="stackable" v-if="form.redPacketCouponDTO.useStackable">
-                        <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类全</el-checkbox>
-                        <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
-                        <p class="description">
-                            购买产品时，使用该福利红包抵扣金额，可同时与满减券/品类券、奖学金叠加抵扣使用； <br>
-                            秒杀、团购、预购等活动均不支持使用福利红包进行抵扣减免；
-                        </p>
-                    </div>
-                </el-form-item>
-
-                <el-form-item label="使用须知：" prop="redPacketCouponDTO.brief">
-                    <el-input
-                        :disabled="!Boolean(briefEdit)"
-                        type="textarea"
-                        placeholder="请输入使用须知的内容"
-                        v-model="form.redPacketCouponDTO.brief"
-                        maxlength="200"
-                        style="width: 500px;"
-                        :rows="8"
-                        resize="none"
-                        show-word-limit
-                        :editable="false"
-                    />
-                    <pl-svg v-if="!briefEdit" class="brief-edit" width="24" fill="#4F63FF" name="icon-bianji1" @click="briefEdit = true" />
-                    <div>
-                        <span class="description">支持自定义使用须知内容，请查看展示</span>
-                        <el-button
-                            type="text"
-                        >
-                            查看示例
-                        </el-button>
-                    </div>
-                </el-form-item>
-
-                <el-form-item label="展示隐藏：" prop="showStatus">
-                    <el-checkbox
-                        v-model="form.showStatus"
-                    >
-                        福利红包设置隐藏
-                    </el-checkbox>
-                    <span class="description">
-                        （隐藏后，在商城活动界面内不显示，但可通过链接的方式访问）
-                    </span>
-                </el-form-item>
-
-                <el-form-item label="展示牌曝光：" prop="logoShow">
-                    <el-checkbox
-                        v-model="form.logoShow"
-                    >
-                        展示品牌logo
-                    </el-checkbox>
-                    <span class="description" style="margin-left: 20px">勾选品牌logo将在福利红包详情中显示，不勾选则不显示</span>
-                    <UploadImage
-                        v-if="form.logoShow"
-                        style="margin-top: 10px"
-                        need-edit
-                        v-model="logoUrl"
-                        @change="logoUrlChange"
-                        :width="300"
-                        :height="300"
-                        :count="1"
-                    />
-                    <p v-if="form.logoShow" class="description">只支持.jpg .png 格式，最多上传1张，尺寸为500*500，大小为2M以内</p>
-                </el-form-item>
-
-                <el-form-item label="背景：" prop="bgUrlsIndex">
-                    <div class="swiper-box">
-                        <swiper class="swiper" :options="swiperOption">
-                            <swiperSlide
-                                v-for="(item, index) of redPackageBg"
-                                :key="index"
-                            >
-                                <div class="slide-title">默认背景</div>
-                                <div class="img-box">
-                                    <img :src="item.imgSrc" style="width: 120px;height: 160px;">
-                                    <el-checkbox
-                                        v-model="item.check"
-                                        @change="checkBg(item)"
-                                    />
-                                </div>
-                                <el-button size="large" type="text">预览</el-button>
-                            </swiperSlide>
-                        </swiper>
-                        <div class="swiper-button-prev" />
-                        <div class="swiper-button-next" />
-                    </div>
-                    <p class="description">
-                        可选择更换福利红包详情页的背景，提供不同福利红包
-                    </p>
-                </el-form-item>
-            </el-form>
-            <!--            <div class="newcomer-example">-->
-            <!--                <div class="newcomer-example-title">-->
-            <!--                    品类券示例-->
-            <!--                </div>-->
-            <!--                <img src="https://mallcdn.youpenglai.com/static/admall/2.0.0/ba5e52bc-8df0-4390-813f-a01dc5efd781.jpeg">-->
-            <!--            </div>-->
+                </swiperSlide>
+            </swiper>
+            <div class="swiper-pagination" />
         </div>
-        <div class="add-btn-wrap">
-            <el-button plain round>
-                取消
-            </el-button>
-            <el-button type="primary" round :loading="loading" @click="save">
-                保存
-            </el-button>
+        <div class="add-content">
+            <div class="wrap">
+                <!--            <div class="tips">-->
+                <!--                <pl-svg class="pointer" name="icon-shanchu1" width="16" fill="#fff" />-->
+                <!--            </div>-->
+                <div class="content-title" id="basic" ref="basic">
+                    基本信息
+                </div>
+                <el-form
+                    label-width="170px"
+                    :model="form"
+                    :rules="rules"
+                    ref="ruleForm"
+                    label-position="right"
+                    class="main-form"
+                    auto-scroll-to-error
+                >
+                    <el-form-item label="福利红包名称：" prop="name">
+                        <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="50" placeholder="请输入福利红包名称" />
+                    </el-form-item>
+                    <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
+                        <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="请输入福利红包金额" /> 元
+                        <p class="description">
+                            福利红包面额，是活动期间通过免费领取或者付费领取后，可获得的实际福利红包,在购买指定范围内的产品时，可抵扣相应金额使用。
+                        </p>
+                    </el-form-item>
+                    <el-form-item label="发放量：" prop="issueVolume">
+                        <el-input-number v-model="form.issueVolume" :min="1" :max="99999" label="描述文字" /> <span class="label-warning">开始后不可修改</span>
+                        <p class="description">
+                            发放的福利红包，超过发放量后将自动结束活动
+                        </p>
+                    </el-form-item>
+                    <div class="content-title">
+                        领取条件
+                    </div>
+                    <el-form-item label="领用时间：" prop="redPacketCouponDTO.receiveStartTime">
+                        <date-range
+                            size="small"
+                            disable-before
+                            :clearable="true"
+                            range-separator="至"
+                            ref="payDate"
+                            :init="initReceiveTime"
+                            @change="receiveTimeChange"
+                            :disabled-start-time="disabled"
+                        />
+                        <p class="description">
+                            在活动领用时间内可领用福利红包，领用时间结束后不可继续领用福利红包
+                        </p>
+                    </el-form-item>
+                    <el-form-item label="适用用户：" prop="redPacketCouponDTO.receiveLimit">
+                        <el-radio-group v-model="form.redPacketCouponDTO.receiveLimit">
+                            <el-radio :label="0">
+                                全部用户
+                            </el-radio>
+                            <el-radio :label="1">
+                                helper
+                            </el-radio>
+                            <el-radio :label="2">
+                                普通会员
+                            </el-radio>
+                            <el-radio :label="3" :disabled="!checkListArray || !checkListArray.length">
+                                部分用户可用<span v-if="!(checkListArray && checkListArray.length)" class="description"> （请先在会员中心-设置用户分组）</span>
+                            </el-radio>
+                        </el-radio-group>
+                        <UserGroup
+                            v-show="form.redPacketCouponDTO.receiveLimit === 3"
+                            v-model="form.redPacketCouponDTO.tagIds"
+                            @init="userGroupInit"
+                        />
+                    </el-form-item>
+                    <el-form-item label="领用方式：" prop="redPacketCouponDTO.distributionMethod">
+                        <el-radio-group :disabled="disabled" v-model="form.redPacketCouponDTO.distributionMethod">
+                            <el-radio :label="0">
+                                免费
+                            </el-radio>
+                            <el-radio :label="2">
+                                付费
+                            </el-radio>
+                        </el-radio-group>
+                        <div style="margin-left: 115px" v-if="form.redPacketCouponDTO.distributionMethod">
+                            支付 <el-input style="width: 100px" type="number" v-model="form.redPacketCouponDTO.price" maxlength="50" placeholder="10" /> 元，可购买福利红包
+                        </div>
+                    </el-form-item>
+
+                    <el-form-item label="领用次数限制：" prop="redPacketCouponDTO.quantityLimit">
+                        <el-checkbox
+                            v-model="form.redPacketCouponDTO.activityLimit"
+                            :true-label="1"
+                            :false-label="0"
+                        >
+                            每个用户可领用
+                        </el-checkbox>
+                        <el-input-number style="margin-left: 10px" :min="1" :max="100" v-model="form.redPacketCouponDTO.quantityLimit" label="描述文字" />
+                        <p class="description">
+                            未勾选，则不限制用户领用次数 <br>
+                            勾选，则领用次数至少可领用一次，至多可领用100次</p>
+                    </el-form-item>
+
+                    <div class="content-title">
+                        使用条件
+                    </div>
+                    <el-form-item label="使用时间：" prop="redPacketCouponDTO.useStartTime">
+                        <date-range
+                            size="small"
+                            disable-before
+                            :clearable="true"
+                            range-separator="至"
+                            @change="useTimeChange"
+                            :init="initUseTime"
+                            ref="payDate"
+                        />
+                        <p class="description">
+                            在活动领用时间内可领用福利红包，领用时间结束后不可继续领用福利红包
+                        </p>
+                    </el-form-item>
+
+                    <el-form-item label="适用产品：" prop="redPacketCouponDTO.couponGoodsSkus">
+                        <el-button type="primary" plain @click="showProductBox = true">
+                            选择商品/课程
+                        </el-button>
+                        <p class="description">
+                            线上商城购买相应范围内的单个产品或者多个产品时，只要购买产品的总额满足抵扣条件，即可使用储备金进行抵扣相应金额。
+                        </p>
+
+                        <!-- 商品列表 -->
+                        <el-table
+                            ref="prodTable"
+                            class="product-table"
+                            v-if="productModelList&& productModelList.length"
+                            :data="productModelList"
+                        >
+                            <el-table-column
+                                width="100"
+                                fixed
+                            >
+                                <template slot-scope="{ row }">
+                                    <img v-img-error width="71" height="48" :src="(row.image || row.productImage) + '?x-oss-process=style/thum-small'">
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="productName"
+                                label="商品名称"
+                                width="150"
+                            />
+                            <el-table-column
+                                prop="productType"
+                                label="产品类型"
+                                width="150"
+                            >
+                                <template #default="{row}">
+                                    {{ productTypeMap[row.productType] }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="productType"
+                                label="状态"
+                                width="150"
+                            >
+                                <template #default="{row}">
+                                    {{ productStatusMap[row.productStatus] }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                label="规格"
+                                width="80"
+                            >
+                                <template slot-scope="{ row }">
+                                    {{ row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column
+                                prop="price"
+                                label="价格（元）"
+                                width="100"
+                            />
+                            <el-table-column
+                                label="操作"
+                                align="right"
+                                header-align="right"
+                                fixed="right"
+                            >
+                                <template slot-scope="{ row }">
+                                    <el-button
+                                        type="text"
+                                        size="mini"
+
+                                        :disabled="status === 1"
+                                        @click="removePro(row)"
+                                    >
+                                        移除
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </el-form-item>
+
+                    <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
+                        购买金额满 <el-input :disabled="disabled" style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元 <span class="label-warning">开始后不可修改</span>
+                    </el-form-item>
+
+                    <el-form-item label="使用限制：" prop="redPacketCouponDTO.useStackable">
+                        <el-radio-group :disabled="disabled" @change="getBrief" v-model="form.redPacketCouponDTO.useStackable">
+                            <el-radio :label="1">
+                                支持叠加使用
+                            </el-radio>
+                            <el-radio :label="0">
+                                不支持叠加使用
+                            </el-radio>
+                        </el-radio-group>
+                        <span class="label-warning">开始后不可修改</span>
+                        <div class="stackable" v-if="form.redPacketCouponDTO.useStackable">
+                            <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类全</el-checkbox>
+                            <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
+                            <p class="description">
+                                购买产品时，使用该福利红包抵扣金额，可同时与满减券/品类券、奖学金叠加抵扣使用； <br>
+                                秒杀、团购、预购等活动均不支持使用福利红包进行抵扣减免；
+                            </p>
+                        </div>
+                    </el-form-item>
+
+                    <el-form-item label="使用须知：" prop="redPacketCouponDTO.brief">
+                        <el-input
+                            :disabled="!Boolean(briefEdit)"
+                            type="textarea"
+                            placeholder="请输入使用须知的内容"
+                            v-model="form.redPacketCouponDTO.brief"
+                            maxlength="200"
+                            style="width: 500px;"
+                            :rows="8"
+                            resize="none"
+                            show-word-limit
+                            :editable="false"
+                        />
+                        <pl-svg v-if="!briefEdit" class="brief-edit" width="24" fill="#4F63FF" name="icon-bianji1" @click="briefEdit = true" />
+                        <div>
+                            <span class="description">支持自定义使用须知内容，请查看展示</span>
+                            <el-button
+                                type="text"
+                                @click="showDescriptionDialog = true"
+                            >
+                                查看示例
+                            </el-button>
+                        </div>
+                    </el-form-item>
+
+                    <el-form-item label="展示隐藏：" prop="showStatus">
+                        <el-checkbox
+                            v-model="form.showStatus"
+                        >
+                            福利红包设置隐藏
+                        </el-checkbox>
+                        <span class="description">
+                            （隐藏后，在商城活动界面内不显示，但可通过链接的方式访问）
+                        </span>
+                    </el-form-item>
+
+                    <el-form-item label="展示牌曝光：" prop="logoShow">
+                        <el-checkbox
+                            v-model="form.logoShow"
+                        >
+                            展示品牌logo
+                        </el-checkbox>
+                        <span class="description" style="margin-left: 20px">勾选品牌logo将在福利红包详情中显示，不勾选则不显示</span>
+                        <UploadImage
+                            v-if="form.logoShow"
+                            style="margin-top: 10px"
+                            need-edit
+                            v-model="logoUrl"
+                            @change="logoUrlChange"
+                            :width="300"
+                            :height="300"
+                            :count="1"
+                        />
+                        <p v-if="form.logoShow" class="description">只支持.jpg .png 格式，最多上传1张，尺寸为500*500，大小为2M以内</p>
+                    </el-form-item>
+
+                    <el-form-item label="背景：" prop="bgUrlsIndex">
+                        <div class="swiper-box">
+                            <swiper class="swiper" :options="swiperOption">
+                                <swiperSlide
+                                    v-for="(item, index) of redPackageBg"
+                                    :key="index"
+                                >
+                                    <div class="slide-title">默认背景</div>
+                                    <div class="img-box">
+                                        <img :src="item.imgSrc" style="width: 120px;height: 160px;">
+                                        <el-checkbox
+                                            v-model="item.check"
+                                            @change="checkBg(item)"
+                                        />
+                                    </div>
+                                    <el-button size="large" type="text" @click="preview(index)">预览</el-button>
+                                </swiperSlide>
+                            </swiper>
+                            <div class="swiper-button-prev" />
+                            <div class="swiper-button-next" />
+                        </div>
+                        <p class="description">
+                            可选择更换福利红包详情页的背景，提供不同福利红包
+                        </p>
+                    </el-form-item>
+                </el-form>
+                <!--            <div class="newcomer-example">-->
+                <!--                <div class="newcomer-example-title">-->
+                <!--                    品类券示例-->
+                <!--                </div>-->
+                <!--                <img src="https://mallcdn.youpenglai.com/static/admall/2.0.0/ba5e52bc-8df0-4390-813f-a01dc5efd781.jpeg">-->
+                <!--            </div>-->
+            </div>
+            <div class="add-btn-wrap">
+                <el-button plain round>
+                    取消
+                </el-button>
+                <el-button type="primary" round :loading="loading" @click="save">
+                    保存
+                </el-button>
+            </div>
         </div>
         <productSkuSelector
             :visible.sync="showProductBox"
@@ -322,7 +339,31 @@
             :max-select="50"
             :default-selected="productModelList"
         />
+        <Preview :show.sync="previewShow" :top="false">
+            <div class="preview-box">
+                <img style="width: 100%" :src="perviewImg[perviewIndex]" alt="">
+            </div>
+        </Preview>
+
+        <el-dialog
+            title="查看示例"
+            :visible.sync="showDescriptionDialog"
+            :close-on-click-modal="false"
+            :close-on-press-escape="false"
+            width="770px"
+        >
+            <div class="description-dialog">
+                <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/福利红包示例预览.png" alt="">
+                <el-button
+                    type="primary"
+                    @click="showDescriptionDialog = false"
+                >
+                    我知道了
+                </el-button>
+            </div>
+        </el-dialog>
     </div>
+
 </template>
 
 <script lang="ts">
@@ -334,6 +375,7 @@ import productSkuSelector from '../../../../components/product-center/goods/Prod
 import { checkNumber } from '@/assets/ts/validate'
 import { addRedPackage, getRedPackageDetail, editRedPackage, getRedPackageclaimVolume } from '../../../../apis/marketing-manage/red-package'
 import UserGroup from '../../../../components/common/User-Group.vue'
+import Preview from '../../../../components/common/Preview.vue'
 type ProdItem = {
     productId: string;
     productType: string;
@@ -358,7 +400,8 @@ Component.registerHooks([
         swiper,
         swiperSlide,
         productSkuSelector,
-        UserGroup
+        UserGroup,
+        Preview
     }
 })
 export default class AddRedPackage extends Vue {
@@ -366,6 +409,16 @@ export default class AddRedPackage extends Vue {
     @State('productTypeMap') productTypeMap!: DynamicObject
     @State('productStatusMap') productStatusMap!: DynamicObject
     @State('redPackageBg') redPackageBg!: DynamicObject[]
+    showDescriptionDialog=false
+    previewShow=false
+    perviewIndex=0
+    perviewImg=[
+        'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包预览1.png',
+        'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包预览2.png',
+        'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包预览3.png',
+        'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包预览4.png'
+    ]
+
     loading= false
     disabled = false
     briefEdit= false
@@ -374,11 +427,15 @@ export default class AddRedPackage extends Vue {
 
     claimVolume = 0
     productModelList: ProdItem[] = []
-    swiperOption= {
+    previewSwiperOption= {
         pagination: {
-            el: '.swiper-pagination',
-            clickable: true
+            el: '.swiper-pagination'
+            // clickable: true
         },
+        slidesPerView: 1
+    }
+
+    swiperOption= {
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'
@@ -590,6 +647,11 @@ export default class AddRedPackage extends Vue {
         ]
     }
 
+    preview (index: number) {
+        this.previewShow = true
+        this.perviewIndex = index
+    }
+
     getBrief () {
         if (this.briefEdit) return
         let stackable = ''
@@ -697,118 +759,168 @@ export default class AddRedPackage extends Vue {
 //     }
 </script>
 <style lang="scss" scoped>
-    .add-content{
-        padding-bottom: 100px;
-        .product-table {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            border: 1px solid #ebeef5;
-            border-bottom: none;
+    .red-package{
+        display: flex;
+        background-color: #ffffff;
+        border: 1px solid #e7e7e7;
+        .add-content{
+            padding-bottom: 100px;
+            .product-table {
+                margin-top: 20px;
+                margin-bottom: 10px;
+                border: 1px solid #ebeef5;
+                border-bottom: none;
+            }
         }
-    }
-    .stackable{
-        width: 582px;
-        background: #F4F5F8;
-        border-radius: 10px;
-        padding: 20px;
-    }
-    .flex-align {
-        display: flex;
-        align-items: center;
-    }
-    .flex-justify {
-        display: flex;
-        justify-content: center;
-    }
-    .label-warning{
-        margin-left: 20px;
-        font-size: 12px;
-        color: #D0423C;
-    }
-    .description{
-        margin-top: 15px;
-        font-weight: 400;
-        font-size: 12px;
-        color: #999;
-        line-height: 16px;
-    }
-    .swiper-box{
-        width: 700px;
-        position: relative;
-        padding: 20px 50px;
-        border: 1px solid #E7E7E7;
-        .swiper {
-            height: 235px;
-            width: 600px;
-            overflow: hidden;
-            margin: 0;
-            .swiper-slide{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .slide-title{
+        .stackable{
+            width: 582px;
+            background: #F4F5F8;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .flex-align {
+            display: flex;
+            align-items: center;
+        }
+        .flex-justify {
+            display: flex;
+            justify-content: center;
+        }
+        .label-warning{
+            margin-left: 20px;
+            font-size: 12px;
+            color: #D0423C;
+        }
+        .description{
+            margin-top: 15px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #999;
+            line-height: 16px;
+        }
+        .preview-swiper{
+            width: 316px;
+            height: 600px;
+            padding-left: 36px;
+            position: relative;
+            .title{
+                display: block;
+                font-size: 12px;
+                color: #999;
+                padding-bottom: 16px;
+                padding-top: 36px;
+            }
+            .swiper{
+                height: 514px;
+                img{
                     width: 100%;
-                    padding-left: 15px;
-                    font-size: 12px;
-                    color: #666;
                 }
-                .img-box{
-                    position: relative;
-                    label{
-                        position: absolute;
-                        top: -6px;
-                        right: 2px;
-                    }
+            }
+            .swiper-pagination{
+                position: absolute;
+                bottom: -20px;
+                left: 110px;
+                ::v-deep >span{
+                    border-color: #4F63FF !important;
+                }
+                ::v-deep .swiper-pagination-bullet{
+                    width: 20px;
+                    height: 4px;
+                    margin: 0 2px;
+                    background: #ccc;
+                    border-radius: 2px;
+                    opacity: 1;
+                }
+                ::v-deep .swiper-pagination-bullet-active{
+                    background-color: #4F63FF;
                 }
             }
         }
-        .swiper-button-prev, .swiper-button-next{
-            width: 29px;
-            height: 15px;
+        .swiper-box{
+            width: 700px;
+            position: relative;
+            padding: 20px 50px;
+            border: 1px solid #E7E7E7;
+            .swiper {
+                height: 235px;
+                width: 600px;
+                overflow: hidden;
+                margin: 0;
+                .swiper-slide{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .slide-title{
+                        width: 100%;
+                        padding-left: 15px;
+                        font-size: 12px;
+                        color: #666;
+                    }
+                    .img-box{
+                        position: relative;
+                        label{
+                            position: absolute;
+                            top: -6px;
+                            right: 2px;
+                        }
+                    }
+                }
+            }
+            .swiper-button-prev, .swiper-button-next{
+                width: 29px;
+                height: 15px;
+            }
         }
-    }
-    .purchase-sort-description {
-        font-weight: 400;
-        font-size: 14px;
-        color: #999;
-    }
-    .content-title {
-        display: flex;
-        align-items: center;
-        margin-bottom: 24px;
-        height: 60px;
-        padding-left: 30px;
-        font-size: 14px;
-        font-weight: bold;
-        background-color: #fbfbfb;
-    }
-    .user-category{
-        display: flex;
-        width: 715px;
-        padding: 24px 26px;
-        margin-top: 10px;
-        background: #F4F5F8;
-        border: 1px solid #ccc;
-        padding-left: 10px;
-        >div{
-            display: inline-block;
-        }
-        .category-head{
-            padding-left: 10px;
-            font-size: 14px;
+        .purchase-sort-description {
             font-weight: 400;
-            color: #333333;
+            font-size: 14px;
+            color: #999;
         }
-        .category-content{
-            width: 500px;
+        .content-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            height: 60px;
+            padding-left: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            background-color: #fbfbfb;
         }
-    }
+        .user-category{
+            display: flex;
+            width: 715px;
+            padding: 24px 26px;
+            margin-top: 10px;
+            background: #F4F5F8;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+            >div{
+                display: inline-block;
+            }
+            .category-head{
+                padding-left: 10px;
+                font-size: 14px;
+                font-weight: 400;
+                color: #333333;
+            }
+            .category-content{
+                width: 500px;
+            }
+        }
 
-    .brief-edit{
-        margin-top: 110px;
-        display: inline-block;
-        padding-left: 10px;
-        cursor: pointer;
-        vertical-align: bottom
+        .brief-edit{
+            margin-top: 110px;
+            display: inline-block;
+            padding-left: 10px;
+            cursor: pointer;
+            vertical-align: bottom
+        }
+
+        .description-dialog{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     }
 </style>

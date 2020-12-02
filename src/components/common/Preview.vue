@@ -5,7 +5,7 @@
     >
         <div class="phone">
             <div class="box" title="滚动转轮，上下滚动">
-                <div class="top" />
+                <div v-if="top" class="top" />
                 <slot />
             </div>
         </div>
@@ -19,7 +19,11 @@ export default {
         PlMask
     },
     props: {
-        show: Boolean
+        show: Boolean,
+        top: {
+            type: Boolean,
+            default: true
+        }
     },
     methods: {
         closeHandler () {
