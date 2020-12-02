@@ -7,7 +7,15 @@
             <div class="content-title" id="basic" ref="basic">
                 基本信息
             </div>
-            <el-form label-width="170px" :model="form" :rules="rules" ref="ruleForm" label-position="right" class="main-form">
+            <el-form
+                label-width="170px"
+                :model="form"
+                :rules="rules"
+                ref="ruleForm"
+                label-position="right"
+                class="main-form"
+                auto-scroll-to-error
+            >
                 <el-form-item label="福利红包名称：" prop="name">
                     <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="50" placeholder="新春开学季福利红包活动" />
                 </el-form-item>
