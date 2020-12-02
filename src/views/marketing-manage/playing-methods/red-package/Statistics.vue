@@ -130,36 +130,40 @@
                 >
                     <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" />
                     <!-- 查询状态，查询缺省 -->
-                    <span v-if="true">
-                        暂无任何福利红包的查询结果
-                    </span>
-                    <!-- 活动状态，未开始 -->
-                    <span v-if="true">
-                        活动暂未开始，暂无活动数据~
-                    </span>
-                    <!-- 活动状态，进行中 -->
-                    <span v-if="true">
-                        暂无活动数据哦，快去分享活动吧~
-                    </span>
+                    <!--                    <span v-if="true">-->
+                    <!--                        暂无任何福利红包的查询结果-->
+                    <!--                    </span>-->
+                    <!--                    &lt;!&ndash; 活动状态，未开始 &ndash;&gt;-->
+                    <!--                    <span v-if="true">-->
+                    <!--                        活动暂未开始，暂无活动数据~-->
+                    <!--                    </span>-->
+                    <!--                    &lt;!&ndash; 活动状态，进行中 &ndash;&gt;-->
+                    <!--                    <span v-if="true">-->
+                    <!--                        暂无活动数据哦，快去分享活动吧~-->
+                    <!--                    </span>-->
                     <!-- 活动状态，已停止 / 已结束 -->
                     <span v-if="true">
                         暂无活动数据哦~
                     </span>
                 </span>
                 <el-table-column
-                    prop="nickName"
-                    label="领取人昵称"
+                    label="用户信息"
                     width="200"
-                />
+                >
+                    <template slot-scope="{row}">
+                        <p>{{ row.name ? row.name: '--' }}</p>
+                        <p>{{ row.mobile ? row.mobile: '--' }}</p>
+                    </template>
+                </el-table-column>
                 <el-table-column
                     prop="name"
-                    label="真实姓名"
-                />
-                <el-table-column
-                    prop="mobile"
-                    label="联系电话"
-                    width="150"
-                />
+                    label="联系人信息"
+                >
+                    <template slot-scope="{row}">
+                        <p>{{ row.receiveName ? row.receiveName: '--' }}</p>
+                        <p>{{ row.receiveMobile ? row.receiveMobile: '--' }}</p>
+                    </template>
+                </el-table-column>
                 <el-table-column
                     prop="amount"
                     label="福利红包（元）"
@@ -171,7 +175,16 @@
                     width="150"
                 >
                     <template slot-scope="{row}">
-                        {{ row.receiverName || '--' }}
+                        {{ row.createTime && row.createTime.split(' ')[0] || '--' }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    prop="receiveTime"
+                    label="使用时间"
+                    width="150"
+                >
+                    <template slot-scope="{row}">
+                        {{ row.useTime && row.useTime.split(' ')[0] || '--' }}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -183,13 +196,8 @@
                     width="200"
                 >
                     <template slot-scope="{row}">
-                        <template v-if="row.receiverName">
-                            <span>{{ row.receiverName }}</span>
-                            <span v-if="row.receiverMobile">{{ row.receiverMobile }}</span>
-                        </template>
-                        <template v-else>
-                            --
-                        </template>
+                        <p>{{ row.shareName ? row.shareName: '--' }}</p>
+                        <p>{{ row.shareMobile ? row.shareMobile: '--' }}</p>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -198,7 +206,11 @@
                     width="150"
                 >
                     <template slot-scope="{row}">
-                        {{ row.orderNo || row.orderNo[0] }}
+                        <span v-if="row.orderNo && row.orderNo.length">
+                            {{ row.orderNo[0] }}
+                            <el-button type="text" @click="$router.replace({name:'RightGoodsDetail',params:{id:row.orderNo[0] }})">查看订单</el-button>
+                        </span>
+                        <span v-else>--</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -506,10 +518,6 @@ export default class RedPackageStatistics extends Vue {
         } catch (e) {
             throw e
         }
-    }
-
-    goOrderDetail (id: string) {
-        this.$router.push({ name: 'CourseOrderDetail', params: { id } })
     }
 
     async share () {
