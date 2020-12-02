@@ -67,19 +67,18 @@
                 label="分类图标"
                 prop="categoryPic"
             >
-                <div class="img" v-if="form.categoryPic">
-                    <img
-                        v-viewer
-                        :src="form.categoryPic"
-                        alt=""
-                    >
-                    <div class="edit-box">
-                        <pl-svg title="删除" width="16" name="icon-shanchu1" @click="removeImage" fill="#FFF" />
-                    </div>
-                </div>
-                <ImageSelector :margin-left="0" v-else @change="imgSelected" />
+                <ImageManager
+                    v-model="imgList"
+                    :box-width="76"
+                    :box-height="76"
+                    :count="1"
+                    need-edit
+                    :width="76 * 2"
+                    :height="76 * 2"
+                    @change="imgSelected"
+                />
                 <div class="recommend-info">
-                    <p>推荐图片尺寸为76*76像素，</p>
+                    <p>推荐图片尺寸为152*152像素，</p>
                     <p>仅支持jpeg，png，bmp 3种格式，大小不超过2.0MB</p>
                     <strong>推荐图标</strong>
                     <div class="recommend-imgs">
@@ -108,15 +107,6 @@
                 </div>
             </el-form-item>
         </el-form>
-
-        <EditImage
-            v-if="show"
-            :show.sync="showEditImage"
-            :width="76"
-            :height="76"
-            :url="img"
-            @success="successCut"
-        />
     </el-dialog>
 </template>
 
@@ -130,13 +120,7 @@ import {
 import { mapGetters } from 'vuex'
 import { copyFields } from '../../../assets/ts/utils'
 import { testCategory } from '../../../assets/ts/validate'
-import ImageSelector from '../../common/file/File-Selector.vue'
-import EditImage from '../../common/file/Edit-Image.vue'
-import {
-    createObjectUrl,
-    upload,
-    deleteImage
-} from '../../../assets/ts/upload'
+import ImageManager from '../../common/file/Image-Manager.vue'
 import { MutationTypes } from '@/store/mutation-type'
 // img/dJYBK2q9Q-BwZwChow-L2-1561685633037.jpeg
 // img/JvgDShG6L-ftPtkve0-24SAFp3W-SR-1561685709971.jpeg
@@ -144,8 +128,7 @@ import { MutationTypes } from '@/store/mutation-type'
 export default {
     name: 'EditSubset',
     components: {
-        ImageSelector,
-        EditImage
+        ImageManager
     },
     data () {
         const checkName = (rule, value, callback) => {
@@ -156,18 +139,14 @@ export default {
             }
         }
         return {
-            showEditImage: false,
-            // 删除图片时使用
-            imgKey: '',
-            type: 'file',
             form: {
                 parentCode: '',
                 categoryName: '',
                 hidden: false,
                 categoryPic: ''
             },
-            img: '',
             mainCategory: [],
+            imgList: [],
             recommendList: [
                 'https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/category/art-class.png',
                 'https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/category/commodity.png',
@@ -186,10 +165,7 @@ export default {
                 categoryPic: [
                     { required: true, message: '请上传图标', trigger: 'blur' }
                 ]
-            },
-            // 如果是在编辑分类，不要立即删除图片，防止出现错误
-            // 当点击删除图片时，先保存起来，确定修改的时候，再正式删除
-            willDelete: []
+            }
         }
     },
     props: {
@@ -227,15 +203,11 @@ export default {
         data (val) {
             if (val) {
                 copyFields(this.form, val)
-                this.imgKey = val.categoryPic || ''
+                this.imgList = val.categoryPic ? [val.categoryPic] : []
             }
         },
         show (val) {
             if (!val) {
-                this.imgKey = ''
-                this.img = ''
-                this.willDelete = []
-            } else {
                 this.form.parentCode = (this.parent && this.parent.id) || ''
                 this.$nextTick(() => {
                     this.$refs.form.clearValidate()
@@ -278,8 +250,6 @@ export default {
                         this.form.sort = 1;
                         ({ result } = await updateCategory(this.data.id, this.form))
                     }
-                    // 删除被替换的图片
-                    if (this.willDelete.length > 0) deleteImage(this.willDelete, 'img')
                     this.$success('分类修改成功')
                 } else {
                     if (this.goodType) {
@@ -303,49 +273,12 @@ export default {
                 throw e
             }
         },
-        imgSelected (e) {
-            const file = e.target.files[0]
-            if (!(/jpg|png|jpeg|bmp/i).test(file.type)) {
-                this.$error('不允许的图片格式')
-                return
-            }
-            this.img = createObjectUrl(file)
-            this.showEditImage = true
-            this.type = 'text'
-            this.$nextTick(() => {
-                this.type = 'file'
-            })
+        imgSelected (res) {
+            this.form.categoryPic = res[0] || ''
         },
         selectDefaultImage (image) {
-            if (this.form.categoryPic) {
-                this.$warning('请先删除当前图标')
-                return
-            }
             this.form.categoryPic = image
-        },
-        async successCut (blob) {
-            try {
-                const res = await upload(blob)
-                this.form.categoryPic = res.url
-                this.imgKey = res.url
-            } catch (e) {
-                throw e
-            }
-        },
-        async removeImage () {
-            // 判断一下，别把默认图片删了！
-            if (this.imgKey && this.form.categoryPic.indexOf(this.imgKey) > -1) {
-                if (!this.data || !this.data.id) {
-                    // 不是在编辑。真删
-                    await deleteImage([this.imgKey], 'img')
-                    this.img = ''
-                    this.imgKey = ''
-                } else {
-                    // 是编辑，暂时存起来，保存的时候再删
-                    this.willDelete.push(this.imgKey)
-                }
-            }
-            this.form.categoryPic = ''
+            this.imgList = [image]
         }
     }
 }
@@ -370,54 +303,6 @@ export default {
       width: 70px;
       height: 70px;
       object-fit: contain;
-    }
-  }
-  .img {
-    display: flex;
-    position: relative;
-    margin-right: 18px;
-    margin-bottom: 18px;
-    width: max-content;
-    min-width: 72px;
-    height: max-content;
-    overflow: hidden;
-    border: 1px solid #e3e3e3;
-    > img {
-      width: 72px;
-      height: 72px;
-      object-fit: cover;
-    }
-    &:hover {
-      .edit-box {
-        transform: translateY(0);
-      }
-    }
-  }
-  .edit-box {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: inline-flex;
-    align-items: center;
-    width: 100%;
-    height: 26px;
-    transform: translateY(100%);
-    transition: transform .2s linear;
-    color: #fff;
-    background-color: rgba(0,0,0,0.7);
-    &:after {
-      position: absolute;
-      left: 50%;
-      content: '';
-      width: 1px;
-      height: 11px;
-      background-color: #666;
-    }
-    > svg {
-      flex: 1;
-      text-align: center;
-      font-size: 14px;
-      cursor: pointer;
     }
   }
 </style>

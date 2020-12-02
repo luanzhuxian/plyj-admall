@@ -41,16 +41,6 @@
                 label="分类banner"
                 prop="categoryPic"
             >
-                <!--<div class="img" v-if="form.bannerPic">
-                    <img
-                        v-viewer
-                        :src="form.bannerPic"
-                        alt=""
-                    >
-                    <div class="edit-box">
-                        <pl-svg width="16" name="icon-shanchu1" @click="removeImage" fill="#FFF" />
-                    </div>
-                </div>-->
                 <ImageManager
                     v-model="imgList"
                     :box-width="275"
@@ -61,7 +51,6 @@
                     :count="1"
                     @change="success"
                 />
-                <!--<ImageSelector :box-width="275" :box-height="90" :margin-left="0" v-else @change="imgSelected" />-->
                 <div class="recommend-info">
                     <p>推荐图片尺寸为275*90像素，</p>
                     <p>仅支持jpeg，png，bmp 3种格式，大小不超过5.0MB</p>
@@ -82,15 +71,6 @@
                 </div>
             </el-form-item>
         </el-form>
-
-        <!--<EditImage
-            v-if="show"
-            :show.sync="showEditImage"
-            :width="275"
-            :height="90"
-            :url="img"
-            @success="successCut"
-        />-->
     </el-dialog>
 </template>
 
@@ -102,16 +82,9 @@ import {
     getCategoryList
 } from '../../../apis/product-center/category'
 import { testCategory } from '../../../assets/ts/validate'
-// import EditImage from '../../common/file/Edit-Image.vue'
 import { mapGetters, mapActions } from 'vuex'
 import { copyFields } from '../../../assets/ts/utils'
-// import ImageSelector from '../../common/file/File-Selector.vue'
 import ImageManager from '../../common/file/Image-Manager.vue'
-import {
-    // createObjectUrl,
-    upload
-    // deleteImage
-} from '../../../assets/ts/upload'
 import { MutationTypes } from '@/store/mutation-type'
 export default {
     name: 'EditMain',
@@ -152,9 +125,6 @@ export default {
                 hidden: false,
                 bannerPic: ''
             },
-            // showEditImage: false,
-            // img: '',
-            // type: 'file',
             mainCategory: [],
             imgList: [],
             rules: {
@@ -261,44 +231,9 @@ export default {
                 throw e
             }
         },
-        // imgSelected (e) {
-        //     const file = e.target.files[0]
-        //     try {
-        //     } catch (e) {
-        //         this.$error('不允许的图片格式')
-        //         throw new Error('不允许的图片格式')
-        //     }
-        //     this.img = createObjectUrl(file)
-        //     this.showEditImage = true
-        //     this.type = 'text'
-        //     this.$nextTick(() => {
-        //         this.type = 'file'
-        //     })
-        // },
-        async successCut (blob) {
-            try {
-                const res = await upload(blob)
-                this.form.bannerPic = res.url
-                this.imgKey = res.url
-            } catch (e) {
-                throw e
-            }
-        },
         success (res) {
             this.form.bannerPic = res[0] || ''
         }
-        // async removeImage () {
-        //     this.form.bannerPic = ''
-        //     if (!this.data || !this.data.id) {
-        //         // 不是编辑。真删
-        //         await deleteImage([this.imgKey], 'img')
-        //         this.img = ''
-        //         this.imgKey = ''
-        //     } else {
-        //         // 是编辑，暂时存起来，保存的时候再删
-        //         this.willDelete.push(this.imgKey)
-        //     }
-        // }
     }
 }
 </script>
