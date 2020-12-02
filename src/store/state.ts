@@ -51,13 +51,14 @@ export default {
 
     // 商品类型
     productTypeMap: {
-        GRAPHIC_DATA: '图文资料',
         PHYSICAL_GOODS: '实体商品',
         VIRTUAL_GOODS: '虚拟商品',
+        FORMAL_CLASS: '正式课',
         EXPERIENCE_CLASS: '体验课',
+        RED_ENVELOPE: '福利红包',
         KNOWLEDGE_COURSE: '知识课程',
         SERIES_OF_COURSE: '系列课',
-        FORMAL_CLASS: '正式课',
+        GRAPHIC_DATA: '图文资料',
         LIVE_GOODS: '直播课',
         VIDEO_GOODS: '录播课'
     },

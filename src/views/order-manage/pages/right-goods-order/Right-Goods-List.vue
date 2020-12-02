@@ -399,10 +399,7 @@ export default {
                 startTime: '',
                 endTime: '',
                 payStartTime: '',
-                payEndTime: '',
-                operatorUser: '',
-                categoryName: '',
-                subCategoryName: ''
+                payEndTime: ''
             }
             this.goodsTypes = ''
             this.$refs.payDate.clear()
