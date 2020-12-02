@@ -241,7 +241,7 @@
                             </div>
                         </div>
                     </template>
-                    <template v-if="detailInfo.goodsModel && detailInfo.goodsModel.couponeAmount">
+                    <template v-if="detailInfo.goodsModel && (detailInfo.goodsModel.couponeAmount || detailInfo.scholarship || detailInfo.orderSource === 9)">
                         <p>
                             <span>参与活动</span>
                             <!-- 根据优惠券类型显示 1-满减券 2-品类券 -->
@@ -324,6 +324,12 @@
                         <p>
                             <span>兑换码号</span>
                             <span>{{ detailInfo.exchangeCode }}</span>
+                        </p>
+                    </template>
+                    <template v-if="detailInfo.orderSource === 9">
+                        <p>
+                            <span>参与活动</span>
+                            <span>福利红包满减</span>
                         </p>
                     </template>
                     <p v-if="detailInfo.scholarship">

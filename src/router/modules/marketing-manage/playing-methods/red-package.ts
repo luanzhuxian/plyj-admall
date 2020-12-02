@@ -6,8 +6,7 @@ export default [
         component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Index.vue'),
         meta: {
             title: '福利红包',
-            index: '8-20',
-            ignore: true
+            index: '8-20'
         },
         children: [
             {
@@ -17,8 +16,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Index.vue'),
                 meta: {
                     title: '列表',
-                    index: '8-20-1',
-                    ignore: true
+                    index: '8-20-1'
                 },
                 children: [
                     {
@@ -49,8 +47,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add-Red-Package.vue'),
                 meta: {
                     title: '新增福利红包',
-                    index: '8-20-2',
-                    ignore: true
+                    index: '8-20-2'
                 }
             },
             {
@@ -60,8 +57,7 @@ export default [
                 props: true,
                 meta: {
                     title: '编辑福利红包',
-                    index: '8-20-3',
-                    ignore: true
+                    index: '8-20-3'
                 }
             },
             // {
@@ -80,8 +76,7 @@ export default [
                 props: true,
                 meta: {
                     title: '查看数据',
-                    index: '8-20-5',
-                    ignore: true
+                    index: '8-20-5'
                 }
             }
         ]
