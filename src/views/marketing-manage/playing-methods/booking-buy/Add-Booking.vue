@@ -287,7 +287,7 @@ export default {
             if (!/^([0-9]+[\d]*(.[0-9]{1,2})?)$/.test(Number(value))) {
                 callBack(new Error('保留小数点后两位'))
             } else if (Number(value) < 0.01) {
-                callBack(new Error('秒杀价格最低为0.01'))
+                callBack(new Error('预购价格最低为0.01'))
             }
             callBack()
         }
