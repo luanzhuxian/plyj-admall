@@ -149,11 +149,11 @@
 </template>
 
 <script>
-import Agreement from '../../../../components/register/Agreement'
-import { retryFalidOrder } from '../../../../apis/product-center/online-teaching/live'
-import { getBaseMarket, getMarketPayCode, getMarketPayStatus } from '../../../../apis/marketing-manage/gameplay'
+import Agreement from '../../../components/register/Agreement'
+import { retryFalidOrder } from '../../../apis/product-center/online-teaching/live'
+import { getBaseMarket, getMarketPayCode, getMarketPayStatus } from '../../../apis/marketing-manage/gameplay'
 import { mapActions } from 'vuex'
-import { MutationTypes } from '../../../../store/mutation-type'
+import { MutationTypes } from '../../../store/mutation-type'
 export default {
     name: 'CoursePackagePay',
     components: { Agreement },
@@ -302,10 +302,7 @@ export default {
     }
 }
 .pay-content-box {
-    margin: 20px 26px 76px 80px;
-    padding-bottom: 76px;
     background-color: #fff;
-
     .content-title {
         display: flex;
         align-items: center;

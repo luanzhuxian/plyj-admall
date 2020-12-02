@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { getBaseMarket } from '../../../../apis/marketing-manage/gameplay'
+import { getBaseMarket } from '../../../apis/marketing-manage/gameplay'
 import moment from 'moment/moment'
 
 export default {
@@ -114,8 +114,6 @@ export default {
 <style lang="scss" scoped>
     .content-box {
         margin-top: 20px;
-        margin-left: 80px;
-        margin-right: 26px;
         background-color: #fff;
 
         .content-title {
