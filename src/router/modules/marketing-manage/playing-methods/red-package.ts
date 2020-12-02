@@ -60,15 +60,15 @@ export default [
                     index: '8-20-3'
                 }
             },
-            // {
-            //     path: 'copy/:id',
-            //     name: 'CopyRedPackage',
-            //     component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add-Red-Package.vue'),
-            //     meta: {
-            //         title: '复制福利红包',
-            //         index: '8-20-4'
-            //     }
-            // },
+            {
+                path: 'copy/:id',
+                name: 'CopyRedPackage',
+                component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Add-Red-Package.vue'),
+                meta: {
+                    title: '复制福利红包',
+                    index: '8-20-4'
+                }
+            },
             {
                 path: 'statistics/:id',
                 name: 'RedPackageStatistics',

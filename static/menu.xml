@@ -569,6 +569,7 @@
                             <menu aclCode="2-8-20-3" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddRedPackage" roles="0"/>
                             <menu aclCode="2-8-20-4" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditRedPackage" roles="0"/>
                             <menu aclCode="2-8-20-5" name="查看数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RedPackageStatistics" roles="0"/>
+                            <menu aclCode="2-8-20-6" name="复制活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="CopyRedPackage" roles="0"/>
                         </menus>
                     </menu>
                 </menus>
