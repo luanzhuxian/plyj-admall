@@ -187,9 +187,9 @@
                             <span>{{ row.receiverName }}</span>
                             <span v-if="row.receiverMobile">{{ row.receiverMobile }}</span>
                         </template>
-                        <templata>
+                        <template v-else>
                             --
-                        </templata>
+                        </template>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -201,60 +201,6 @@
                         {{ row.orderNo || row.orderNo[0] }}
                     </template>
                 </el-table-column>
-                <el-table-column
-                    prop="orderNo"
-                    label="关联产品订单"
-                    width="300"
-                >
-                    <template slot-scope="{ row }">
-                        <span :class="{ 'more': row.orderNo.length > 1 }">
-                            <div v-if="row.orderNo.length === 1" style="display: inline-flex">
-                                <span v-text="row.orderNo[0]" />
-                                <el-button size="mini" @click="goOrderDetail(row.orderNo[0])">查看订单</el-button>
-                            </div>
-                            <span v-else-if="row.orderNo.length > 1">
-                                <span style="color: #666">
-                                    {{ `关联(${row.orderNo.length})个订单` }}
-                                </span>
-                                <PlSvg
-                                    name="icon-sanjiao"
-                                    width="12"
-                                    :style="{
-                                        cursor: 'pointer',
-                                        transition: 'transform .2s linear',
-                                        transform: row.expanded ? 'rotate(-180deg)' : 'rotate(0)'
-                                    }"
-                                    @click="toggleRowExpansion(row)"
-                                />
-                            </span>
-                        </span>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    type="expand"
-                    width="1"
-                    style="opacity: 0; display: none;"
-                >
-                    <template slot-scope="{ row }">
-                        <el-table
-                            :data="row.orderNo"
-                            :show-header="false"
-                            :cell-style="{ border: 'none' }"
-                        >
-                            <el-table-column v-if="statisticsData.distributionMethod" width="1200" />
-                            <el-table-column v-else width="1050" />
-                            <el-table-column>
-                                <template slot-scope="item">
-                                    <span>{{ item.row }}</span>
-                                    <el-button size="mini" @click="goOrderDetail(item.row)">
-                                        查看订单
-                                    </el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </template>
-                </el-table-column>
-
             </el-table>
             <Pagination
                 @change="getList"
@@ -490,12 +436,6 @@ export default class RedPackageStatistics extends Vue {
         } catch (e) {
             throw e
         }
-    }
-
-    toggleRowExpansion (row: {expanded: boolean}) {
-        row.expanded = !row.expanded
-        // @ts-ignore
-        this.$refs.table.toggleRowExpansion(row, row.expanded)
     }
 
     showExportDialog () {

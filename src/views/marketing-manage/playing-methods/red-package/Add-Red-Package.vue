@@ -17,10 +17,10 @@
                 auto-scroll-to-error
             >
                 <el-form-item label="福利红包名称：" prop="name">
-                    <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="50" placeholder="新春开学季福利红包活动" />
+                    <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="50" placeholder="请输入福利红包名称" />
                 </el-form-item>
                 <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
-                    <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="500" /> 元
+                    <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="请输入福利红包金额" /> 元
                     <p class="description">
                         福利红包面额，是活动期间通过免费领取或者付费领取后，可获得的实际福利红包,在购买指定范围内的产品时，可抵扣相应金额使用。
                     </p>
