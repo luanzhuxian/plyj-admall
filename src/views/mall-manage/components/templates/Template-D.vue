@@ -392,67 +392,67 @@ export default class TemplateD extends Vue {
 
     /* computed */
     get Banner () {
-        return this.data.Banner || {}
+        return this.data.Banner || { values: [] }
     }
 
     get Coupon () {
-        return this.data.Coupon || {}
+        return this.data.Coupon || { values: [] }
     }
 
     get Activity () {
-        return this.data.Activity || {}
+        return this.data.Activity || { values: [] }
     }
 
     get Live () {
-        return this.data.Live || {}
+        return this.data.Live || { values: [] }
     }
 
     get OnlineCourse () {
-        return this.data.OnlineCourse || {}
+        return this.data.OnlineCourse || { values: [] }
     }
 
     get SeriesCourse () {
-        return this.data.SeriesCourse || {}
+        return this.data.SeriesCourse || { values: [] }
     }
 
     get ImageText () {
-        return this.data.ImageText || {}
+        return this.data.ImageText || { values: [] }
     }
 
     get Appointment () {
-        return this.data.Appointment || {}
+        return this.data.Appointment || { values: [] }
     }
 
     get Propagate () {
-        return this.data.Propagate || {}
+        return this.data.Propagate || { values: [] }
     }
 
     get Miaosha () {
-        return this.data.Miaosha || {}
+        return this.data.Miaosha || { values: [] }
     }
 
     get Pintuan () {
-        return this.data.Pintuan || {}
+        return this.data.Pintuan || { values: [] }
     }
 
     get Yugou () {
-        return this.data.Yugou || {}
+        return this.data.Yugou || { values: [] }
     }
 
     get Package () {
-        return this.data.Package || {}
+        return this.data.Package || { values: [] }
     }
 
     get Popular () {
-        return this.data.Popular || {}
+        return this.data.Popular || { values: [] }
     }
 
     get Class () {
-        return this.data.Class || {}
+        return this.data.Class || { values: [] }
     }
 
     get Recommend () {
-        return this.data.Recommend || {}
+        return this.data.Recommend || { values: [] }
     }
 
     get isSkinShow () {
