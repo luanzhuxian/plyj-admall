@@ -202,7 +202,7 @@
                                 <a @click="share(row)">
                                     分享
                                 </a>
-                                <a @click="copyActivity(row.id)">
+                                <a @click="$router.push({name:'CopyRedPackage',params: { id:row.id }})">
                                     复制
                                 </a>
                                 <!-- 仅'已结束'的优惠券支持删除 -->
@@ -256,8 +256,7 @@ import {
     pauseRedPackage,
     overRedPackage,
     showRedPackage,
-    deleteRedPackage,
-    copyRedPackage
+    deleteRedPackage
 } from '../../../../../apis/marketing-manage/red-package'
 const userModule = namespace('user')
 
@@ -403,16 +402,6 @@ export default class RedPackageActivityList extends Vue {
             })
             await deleteRedPackage(id)
             this.$success('删除成功')
-            await this.getList()
-        } catch (error) {
-            throw error
-        }
-    }
-
-    async copyActivity (id: string) {
-        try {
-            await copyRedPackage(id)
-            this.$success('复制成功')
             await this.getList()
         } catch (error) {
             throw error

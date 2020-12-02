@@ -531,8 +531,17 @@ export default class AddRedPackage extends Vue {
                 for (const item of this.redPackageBg) {
                     if (bgUrlsIndex === item.id) item.check = true
                 }
-                const claimVolume = await getRedPackageclaimVolume(this.id)
-                this.claimVolume = claimVolume.result
+                await this.getRedPackageclaimVolume()
+
+                if (this.$route.name === 'CopyRedPackage') {
+                    this.disabled = false
+                    this.initReceiveTime = ['', '']
+                    this.initUseTime = ['', '']
+                    this.form.redPacketCouponDTO.receiveStartTime = ''
+                    this.form.redPacketCouponDTO.receiveEndTime = ''
+                    this.form.redPacketCouponDTO.useStartTime = ''
+                    this.form.redPacketCouponDTO.useEndTime = ''
+                }
             } else {
                 for (const item of this.redPackageBg) {
                     if (this.form.bgUrlsIndex === item.id) item.check = true
@@ -681,6 +690,7 @@ export default class AddRedPackage extends Vue {
 
     async save () {
         try {
+            await this.getRedPackageclaimVolume()
             await (this.$refs.ruleForm as HTMLFormElement).validate()
             const data = JSON.parse(JSON.stringify(this.form))
             data.redPacketCouponDTO.price = data.redPacketCouponDTO.price * 100
@@ -690,11 +700,16 @@ export default class AddRedPackage extends Vue {
                 data.redPacketCouponDTO.scholarship = 0
             }
             if (!data.redPacketCouponDTO.receiveLimit) data.redPacketCouponDTO.tagIds = []
-            this.id ? await editRedPackage(this.id, data) : await addRedPackage(data)
+            this.id && this.$route.name === 'EditRedPackage' ? await editRedPackage(this.id, data) : await addRedPackage(data)
             this.$router.replace({ name: 'RedPackage' })
         } catch (e) {
             throw e
         }
+    }
+
+    async getRedPackageclaimVolume () {
+        const claimVolume = await getRedPackageclaimVolume(this.id as string)
+        this.claimVolume = claimVolume.result
     }
 
     receiveTimeChange ({ start, end }: any) {
@@ -746,7 +761,6 @@ export default class AddRedPackage extends Vue {
                 message: '是否要放弃当福利红包活动编辑，放弃后将不可恢复！'
             })
         }
-        // await this.clearData()
         next()
     }
 }
