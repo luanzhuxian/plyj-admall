@@ -126,6 +126,7 @@ import TemplateFanchang from '../components/templates/template-double-12-2019/Te
 import TemplateSpring from '../components/templates/Template-Spring-2019.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
 import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
+import TemplateSpring2020 from '../components/templates/Template-Spring-2020.vue'
 import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
@@ -184,14 +185,14 @@ const templateModels = [{
     //     isFree: false,
     //     charge: '已过期',
     //     expire: '2019.12.31'
-}, {
-    category: 'template',
-    type: 8,
-    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/f70ba451-dbc1-4efe-9530-82ab5d94896b.png',
-    isHover: false,
-    isFree: false,
-    charge: '已过期',
-    expire: '2020.03.31'
+    // }, {
+    //     category: 'template',
+    //     type: 8,
+    //     img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/f70ba451-dbc1-4efe-9530-82ab5d94896b.png',
+    //     isHover: false,
+    //     isFree: false,
+    //     charge: '已过期',
+    //     expire: '2020.03.31'
 }, {
     category: 'template',
     type: 9,
@@ -215,6 +216,14 @@ const templateModels = [{
     isHover: false,
     isFree: false,
     charge: '双十二用户可用',
+    expire: '2020.12.31'
+}, {
+    category: 'template',
+    type: 12,
+    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/template-top.png',
+    isHover: false,
+    isFree: false,
+    charge: '新春用户可用',
     expire: '2020.12.31'
 }]
 
@@ -363,6 +372,7 @@ const skinModels = [{
         TemplateSpring,
         TemplateDragonGate,
         TemplateDouble122020,
+        TemplateSpring2020,
         TemplateItem,
         TemplatePreview,
         Render
@@ -458,7 +468,7 @@ export default class MallThemes extends Vue {
                 ].indexOf(item.type))
 
                 // 新春主会场模版
-                this.springTemplateList = result.filter(item => item.type === TemplateTypes.TemplateSpring2019)
+                this.springTemplateList = result.filter(item => item.type === TemplateTypes.TemplateSpring2020)
 
                 // 龙门节主会场模版
                 this.dragonGateTemplateList = result.filter(item => item.type === TemplateTypes.TemplateDragonGate)
@@ -522,6 +532,22 @@ export default class MallThemes extends Vue {
                 confirmButtonText: '朕知道了',
                 showCancelButton: false
             })
+        }
+        // 新春
+        if (item.type === TemplateTypes.TemplateSpring2020) {
+            return item
+            // if (this.double12LockStatus === 1) {
+            //     return item
+            // }
+
+            // const modalText = this.double12LockStatus === 2
+            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+            //     : '参与新春开学季的用户，请联系您的城市经理和客服开通使用权限。'
+            // this.$confirm({
+            //     title: modalText,
+            //     confirmButtonText: '朕知道了',
+            //     showCancelButton: false
+            // })
         }
         // 新春、龙门节
         if (item.type === TemplateTypes.TemplateSpring2019 || item.type === TemplateTypes.TemplateDragonGate) {

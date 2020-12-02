@@ -164,7 +164,7 @@ export default class TemplateSpring2020 extends Vue {
     /* computed */
     @mall.Getter liveInfo!: { liveModel: { statue: number; hasNotice: boolean }[] }
 
-    get Redpackage () {
+    get RedPackage () {
         return this.data.RedPackage || { values: [] }
     }
 
@@ -270,12 +270,12 @@ export default class TemplateSpring2020 extends Vue {
     flex-direction: column;
     width: 375px;
     min-height: 667px;
-    background-color: #DB451B;
+    background-color: #05A19A;
     box-shadow: 0 0 6px #d4d4d4;
 }
 
 .background {
-    background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/bg.png') no-repeat center top;
+    background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/bg.png') no-repeat center top;
     background-size: 100% auto;
     flex: 1;
 }
