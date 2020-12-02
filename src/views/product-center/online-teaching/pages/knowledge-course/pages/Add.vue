@@ -10,7 +10,7 @@
                 ref="form"
                 :model="form"
                 :rules="rules"
-                @validate="formValidateHandler"
+                auto-scroll-to-error
             >
                 <el-form-item label="课程名称" prop="courseName" id="courseName">
                     <el-input style="width: 320px" v-model="form.courseName" maxlength="30" placeholder="请输入课程名称" />
@@ -756,26 +756,6 @@ ${ this.form.priceType ? '' : '5.该免费课程如果提前下架，不会影�
             } else {
                 this.form.validityDate = `${ val } 23:59:59`
             }
-        },
-        // 表单校验事件
-        formValidateHandler (prop, isPass, message) {
-            if (!isPass && message && !this.hasValidate && this.submiting) {
-                const el = document.getElementById(prop)
-                if (el) {
-                    el.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                        inline: 'nearest'
-                    })
-                    this.$warning(message)
-                }
-                this.hasValidate = true
-            }
-            clearTimeout(this.validateTimer)
-            this.validateTimer = setTimeout(() => {
-                this.hasValidate = false
-                this.submiting = false
-            }, 1000)
         },
         async save (status) {
             try {
