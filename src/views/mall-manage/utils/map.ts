@@ -137,6 +137,8 @@ export enum ModuleIds {
     Package = 16,
     // 公益粽
     Charity = 17,
+    // 分销
+    Distribution = 18,
     // 热门活动
     DragonGateActivity = 19,
     // 互动直播
