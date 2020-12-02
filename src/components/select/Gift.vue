@@ -232,7 +232,6 @@ export default {
                     this.$emit('giftDataFun', this.giftData)
                     this.dialogFormVisible = false
                 } else {
-                    console.log('error submit!!')
                     return false
                 }
             })

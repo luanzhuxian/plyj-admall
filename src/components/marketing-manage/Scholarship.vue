@@ -104,7 +104,6 @@ export default {
                     this.$emit('confirm', JSON.parse(JSON.stringify(this.scholarshipForm)))
                     this.handleClose()
                 } else {
-                    console.log('error submit!!')
                     return false
                 }
             })

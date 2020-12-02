@@ -56,7 +56,6 @@ export default {
             this.hash = location.hash.substring(1) || this.activities[0].id
             this.ids = Object.keys(this.hashDomList)
             this.scrollWrap = document.querySelector('#main')
-            console.log(this.scrollWrap)
             setTimeout(() => {
                 if (this.hash) {
                     const EL = this.hashDomList[this.hash]

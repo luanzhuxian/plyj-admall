@@ -463,7 +463,6 @@ export default class AccountList extends Vue {
     }
 
     private async switchChange (row: any) {
-        console.log(row)
         const { roleCode, userId, lockStatus, realName, mobile } = row
         const params = { roleCode, userId, lockStatus }
         if (row.lockStatus === 0) {

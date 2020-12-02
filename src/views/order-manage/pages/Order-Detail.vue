@@ -807,7 +807,6 @@ export default {
         },
         // 保存自定义表单信息
         async updateCustomForm (data) {
-            console.log(JSON.stringify(data))
             try {
                 await updateCustomForm({ id: this.id, productCustomInfo: JSON.stringify(data) })
                 if (this.detailInfo.orderType === 'PHYSICAL_GOODS') {

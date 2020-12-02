@@ -543,7 +543,6 @@ export default class HelperPromoteDetail extends Vue {
 
     // 切换Tab页面
     tabClick (data: DynamicObject) {
-        console.log(data.name)
         this.tabName = data.name
         if (this.tabName === this.ORDER_LIST) {
             this.getOrderList()

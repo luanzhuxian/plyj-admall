@@ -408,16 +408,12 @@ export default {
         },
         // 点击删除按钮
         async remove (data) {
-            console.log(data)
-            console.log(data.parentCode)
             this.willRemoveCategory = data
             if (data.subcategoryCount) {
                 this.$alert('该分类下有子分类，请先删除子分类')
                 return
             }
             const parent = [...this.categoryTree, ...this.courseCategoryTree].find(item => item.id === data.parentCode)
-            console.log('parent')
-            console.log(parent)
             // 记录要删除的分类
             const willRemove = []
             if (Number(data.parentCode) !== 0) {

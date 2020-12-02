@@ -258,10 +258,8 @@ export default class RedPackageRankList extends Vue {
         try {
             const { result: data1 } = await getRedPackageSortListListNew()
             const { result: data2 } = await getRedPackageSortStyleList(this.sortType)
-            console.log(data2)
             data1 && data1.length ? this.table = data1 : this.table = data2 || []
             this.SortStyleList = data2
-            console.log(this.SortStyleList)
         } catch (e) {
             throw e
         }

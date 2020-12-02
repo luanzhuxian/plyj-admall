@@ -254,7 +254,6 @@ export default {
                         this.save()
                     }
                 } else {
-                    console.log('error submit!!')
                     return false
                 }
             })

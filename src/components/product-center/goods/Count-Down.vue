@@ -72,7 +72,6 @@ export default {
             } else {
                 this.endtiemstamp = Number(moment(this.endtime).valueOf()) || 0
             }
-            console.log(`开始时间${ this.starttiemstamp }结束时间${ this.endtiemstamp }`)
             if (this.starttiemstamp - this.endtiemstamp < 0) {
                 // 启动倒计时
                 console.warn('启动倒计时')

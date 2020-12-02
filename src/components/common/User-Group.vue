@@ -63,7 +63,6 @@ export default {
     },
     async mounted () {
         try {
-            console.log(this)
             await this.getTagList()
         } catch (e) {
             throw e

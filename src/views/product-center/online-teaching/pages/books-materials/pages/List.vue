@@ -356,7 +356,6 @@ export default {
                     id: row.id,
                     operate: type
                 }
-                console.log(data)
                 await updateStatusBooksMaterials(data)
                 this.$success('操作成功')
                 this.search()

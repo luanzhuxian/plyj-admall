@@ -107,7 +107,6 @@ export default {
                         this.$warning('请选择正确的PDF文件')
                         continue
                     }
-                    console.log(pdf)
                     if (pdf.size / 1024 / 1024 > 10) {
                         this.$warning(`${ pdf.name }大小超过10MB，请重新上传`)
                         continue

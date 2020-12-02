@@ -375,7 +375,6 @@ export default {
     async generateImage () {
       try {
         // 主图没有改变
-        console.log(this.themeChanged)
         if (!this.themeChanged) {
           return this.productMainImage || this.firstImage
         }

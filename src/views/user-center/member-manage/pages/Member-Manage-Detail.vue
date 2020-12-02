@@ -444,7 +444,6 @@ export default class MemberManageDetail extends Vue {
             this.isEdit = false
             await this.getMemberDetail()
         } catch (e) {
-            console.log(e)
             throw e
         }
     }

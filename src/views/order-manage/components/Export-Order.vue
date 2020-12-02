@@ -252,7 +252,6 @@ export default {
             this.$refs.exportDatePicker.initDate()
         },
         exportCategoryChange (val) {
-            console.log(val)
             this.exportData.categoryName = val[0] || ''
             this.exportData.subCategoryName = val[1] || ''
         },

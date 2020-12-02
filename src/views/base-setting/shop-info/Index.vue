@@ -515,7 +515,6 @@ export default {
         },
         // 添加更多联系方式
         addMoreContactWay () {
-            console.log(this.form.servicePhoneModels)
             this.form.servicePhoneModels.push({
                 contactUserName: '',
                 contactWay: '',
