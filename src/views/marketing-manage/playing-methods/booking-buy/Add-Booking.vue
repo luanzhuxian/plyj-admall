@@ -91,7 +91,7 @@
                             </el-button>
                             <span class="inp-tips">（预购活动商品不与其余任何活动共享，不可使用优惠券）</span>
                         </div>
-                        <div v-if="marketingForm.skuModelList.length" class="mt-20">
+                        <div v-if="marketingForm.skuModelList && marketingForm.skuModelList.length" class="mt-20">
                             <el-table :data="marketingForm.skuModelList" border>
                                 <el-table-column>
                                     <template #default="{row}">
