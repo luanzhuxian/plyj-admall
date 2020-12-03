@@ -21,7 +21,6 @@
         <el-form v-show="showSortTable" :class="$style.operation" inline>
             <el-button style="width: 96px" type="primary" round @click="saveSort">
                 保存
-                <i class="el-icon-plus el-icon--right" />
             </el-button>
             <el-button style="width: 96px" plain round @click="cancel">
                 取消

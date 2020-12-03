@@ -334,7 +334,7 @@
                 <!--            </div>-->
             </div>
             <div class="add-btn-wrap">
-                <el-button plain round>
+                <el-button plain round @click="$router.replace({name:'RedPackage'})">
                     取消
                 </el-button>
                 <el-button type="primary" round :loading="loading" @click="save">
