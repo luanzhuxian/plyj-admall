@@ -149,7 +149,7 @@
                         </el-tooltip>
                     </span>
                     <template #default="{row}">
-                        {{ row.price }}
+                        {{ row.price/100 }}
                     </template>
                 </el-table-column>
                 <el-table-column
