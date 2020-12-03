@@ -360,7 +360,7 @@
             width="770px"
         >
             <div class="description-dialog">
-                <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/福利红包示例预览.png" alt="">
+                <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/福利红包示例预览.jpg" alt="">
                 <el-button
                     type="primary"
                     @click="showDescriptionDialog = false"
@@ -496,6 +496,7 @@ export default class AddRedPackage extends Vue {
     async created () {
         try {
             if (this.id) {
+                this.briefEdit = true
                 const { result } = await getRedPackageDetail(this.id)
                 const { activityStatus, name, issueVolume, bgUrlsIndex, showStatus, logoShow, logoUrl, redPacketCouponVO } = result
                 const { amount, receiveEndTime, receiveStartTime, receiveLimit, tagIds, distributionMethod, price, activityLimit, quantityLimit, useStartTime, useEndTime, useLimitAmount, useWithCoupon, scholarship, brief, applicableGoodsVOS } = redPacketCouponVO
@@ -552,8 +553,8 @@ export default class AddRedPackage extends Vue {
                 for (const item of this.redPackageBg) {
                     if (this.form.bgUrlsIndex === item.id) item.check = true
                 }
+                this.getBrief()
             }
-            this.getBrief()
         } catch (e) {
             throw e
         }
