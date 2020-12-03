@@ -136,7 +136,7 @@
                             ref="payDate"
                         />
                         <p class="description">
-                            在活动领用时间内可领用福利红包，领用时间结束后不可继续领用福利红包
+                            领取到的福利活动可在活动使用时间内使用，过期后福利红包自动失效
                         </p>
                     </el-form-item>
 
@@ -235,7 +235,7 @@
                         </el-radio-group>
                         <span class="label-warning">开始后不可修改</span>
                         <div class="stackable" v-if="form.redPacketCouponDTO.useStackable">
-                            <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类全</el-checkbox>
+                            <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类券</el-checkbox>
                             <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
                             <p class="description">
                                 购买产品时，使用该福利红包抵扣金额，可同时与满减券/品类券、奖学金叠加抵扣使用； <br>
@@ -601,7 +601,11 @@ export default class AddRedPackage extends Vue {
 
     rulesGoodsId (rule: number, value: any, callback: Function) {
         if (!value || !value.length) {
-            callback(new Error('请选择适用产品'))
+            callback(new Error('至少需选择1个适用产品'))
+            return
+        }
+        if (value && value.length > 50) {
+            callback(new Error('最多选择50个商品或课程'))
             return
         }
         callback()
@@ -639,7 +643,7 @@ export default class AddRedPackage extends Vue {
             { required: true, message: '使用时间不能为空', trigger: 'blur' }
         ],
         'redPacketCouponDTO.couponGoodsSkus': [
-            { required: true, message: '请选择适用商品', trigger: 'blur' },
+            { required: true, message: '请选择适用产品', trigger: 'blur' },
             { validator: this.rulesGoodsId, trigger: 'blur' }
         ],
         'redPacketCouponDTO.useLimitAmount': [
