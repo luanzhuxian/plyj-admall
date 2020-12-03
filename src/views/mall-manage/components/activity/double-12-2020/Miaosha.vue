@@ -83,23 +83,23 @@ export default class Miaosha extends Vue {
     &:nth-of-type(1) {
         margin-top: 0;
     }
-}
-.colon {
-    display: inline-block;
-    padding: 0 4px;
-    transform: scale(0.8);
-}
-.block {
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 0 2px;
-    width: 24px;
-    line-height: 23px;
-    background: #FFFFFF;
-    font-size: 14px;
-    font-family: Microsoft YaHei;
-    font-weight: 600;
-    color: #333333;
-    text-align: center;
+    .colon {
+        display: inline-block;
+        padding: 0 4px;
+        transform: scale(0.8);
+    }
+    .block {
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 0 2px;
+        width: 24px;
+        line-height: 23px;
+        background: #FFFFFF;
+        font-size: 14px;
+        font-family: Microsoft YaHei;
+        font-weight: 600;
+        color: #333333;
+        text-align: center;
+    }
 }
 </style>

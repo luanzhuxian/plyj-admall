@@ -1,5 +1,5 @@
 <template>
-    <Panel custom-class="package-panel" :title="title" subtitle="双十二组合产品特惠，折扣不停歇">
+    <Panel custom-class="spring-2020-package-panel" title="组合聚惠学" subtitle="新春组合产品特惠 折扣不停歇">
         <ul :class="$style.packageList" v-if="data.values.length">
             <PackageItem
                 :class="$style.packageListItem"
@@ -26,12 +26,9 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { namespace } from 'vuex-class'
 import Panel from './Panel.vue'
-import PackageItem from './components/PackageItem.vue'
+import PackageItem from '../double-12-2020/components/PackageItem.vue'
 import { TemplateModule } from '../../../utils/types'
-
-const user = namespace('user')
 
 @Component({
     components: {
@@ -81,25 +78,16 @@ export default class Package extends Vue {
             }]
         }]
     }
-
-    /* computed */
-    @user.Getter mallUrl!: string
-    get mallDomain () {
-        const arr = this.mallUrl.split('/')
-        return arr[arr.length - 1]
-    }
-
-    get title () {
-        return this.mallDomain === 'pljs' ? '组合聚惠购' : '组合聚惠学'
-    }
 }
 </script>
 
 <style lang="scss">
-.package-panel {
-    .double-12-panel-container {
-        margin-top: 0;
+.spring-2020-package-panel {
+    .spring-2020-panel-container {
         padding: 20px 22px;
+    }
+    .package-item-btn {
+        background: #FF570C;
     }
 }
 </style>

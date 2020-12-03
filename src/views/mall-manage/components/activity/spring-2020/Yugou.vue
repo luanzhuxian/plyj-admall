@@ -1,7 +1,7 @@
 <template>
-    <Panel custom-class="yugou-panel">
+    <Panel custom-class="spring-2020-yugou-panel">
         <template slot="title">
-            <div class="yugou-panel-title">
+            <div class="spring-2020-yugou-panel-title">
                 <b>新春开学季 早定更优惠</b>
             </div>
         </template>
@@ -117,11 +117,11 @@ export default class Yugou extends Vue {
 </script>
 
 <style lang="scss">
-.yugou-panel {
+.spring-2020-yugou-panel {
     padding-top: 20px;
     background: #FFC70C;
     border-radius: 20px;
-    .yugou-panel-title {
+    &-title {
         position: relative;
         text-align: center;
         font-size: 20px;
