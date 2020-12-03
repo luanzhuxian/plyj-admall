@@ -3,6 +3,24 @@
         <div class="content-title">
             查看详情
         </div>
+        <div class="tips" v-if="programId === '9' && day && day > 0 && day <31">
+            <pl-svg name="yaji-tips" width="20" />
+            <div>
+                <p>温馨提示</p>
+                <p>
+                    该营销玩法还在使用中,<span>{{ day }}</span>天后即将过去，如需继续使用，请及时进行续订；
+                </p>
+            </div>
+        </div>
+        <div class="tips free" v-if="programId === '9' && !info && moment() < moment('2021.03.31')">
+            <pl-svg fill="#4F63FF" name="yaji-tips" width="20" />
+            <div>
+                <p>免费提醒</p>
+                <p>
+                    新春开学季用户在活动期间可免费使用，可联系城市经理或者客服开通
+                </p>
+            </div>
+        </div>
         <div class="content">
             <div class="title">
                 <span>{{ getBaseMarketData.programName }}</span>
@@ -75,6 +93,8 @@
 <script>
 import { getBaseMarket } from '../../../apis/marketing-manage/gameplay'
 import moment from 'moment/moment'
+import { mapActions, mapGetters } from 'vuex'
+import { MutationTypes } from '../../../store/mutation-type'
 
 export default {
     name: 'CoursePackagePayDetali',
@@ -84,25 +104,43 @@ export default {
             default: ''
         }
     },
+    computed: {
+        ...mapGetters({
+            marketStatusAuth: 'account/marketStatusAuth'
+        })
+    },
     data () {
         return {
             getBaseMarketData: {},
+            day: '',
+            info: '',
             moment
         }
     },
     async created () {
         try {
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
             await this.getBaseMarket(this.programId)
+            this.getValidity()
         } catch (e) {
             throw e
         }
     },
     methods: {
+        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         // 查询年年翻活动详情
         async getBaseMarket () {
             try {
                 const { result } = await getBaseMarket(this.programId)
                 this.getBaseMarketData = result
+            } catch (e) {
+                throw e
+            }
+        },
+        async getValidity () {
+            try {
+                this.info = this.marketStatusAuth.find(({ programId }) => programId === '9')
+                if (this.info) this.day = moment(this.info.validity).diff(moment(), 'day')
             } catch (e) {
                 throw e
             }
@@ -126,6 +164,35 @@ export default {
             font-weight: bold;
             border-top: 1px solid #e7e7e7;
             background-color: #fbfbfb;
+        }
+
+        .tips{
+            display: flex;
+            padding: 16px;
+            margin: 20px 40px 0 40px;
+            background-color: #FFFAF3;
+            border: 1px solid #F79F1A;
+            border-radius: 10px;
+            >div{
+                padding-left: 9px;
+                p:first-child{
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                p:last-child{
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #999999;
+                    >span{
+                        color: #F79F1A;
+                    }
+                }
+            }
+        }
+
+        .free{
+            border-color: #4F63FF;
+            background-color: #F6F7FF
         }
 
         .content {

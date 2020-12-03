@@ -3,9 +3,9 @@
         <div class="tips">
             <pl-svg name="yaji-tips" width="20" />
             <div>
-                <p>续订通知</p>
+                <p>温馨提示</p>
                 <p>
-                    该营销玩法还在使用中， <span>{{ day }}</span>天后即将过期，如需继续使用，请及时进行续订；
+                    福利红包仅仅支持线上购买“课程、商品、视频课、图文课和系列课”时使用，满足使用条件将自动抵扣相应的支付金额，暂不支持直播类产品的使用。
                 </p>
             </div>
         </div>
@@ -377,14 +377,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { namespace, State } from 'vuex-class'
+import { State } from 'vuex-class'
 import productSkuSelector from '../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import { checkNumber } from '@/assets/ts/validate'
 import { addRedPackage, getRedPackageDetail, editRedPackage, getRedPackageclaimVolume } from '../../../../apis/marketing-manage/red-package'
 import UserGroup from '../../../../components/common/User-Group.vue'
 import Preview from '../../../../components/common/Preview.vue'
-import moment from 'moment'
-const account = namespace('account')
 type ProdItem = {
     productId: string;
     productType: string;
@@ -415,7 +413,6 @@ Component.registerHooks([
 })
 export default class AddRedPackage extends Vue {
     @Prop(String) id: string | undefined;
-    @account.Getter marketStatusAuth!: any[]
     @State('productTypeMap') productTypeMap!: DynamicObject
     @State('productStatusMap') productStatusMap!: DynamicObject
     @State('redPackageBg') redPackageBg!: DynamicObject[]
@@ -434,7 +431,6 @@ export default class AddRedPackage extends Vue {
     briefEdit= false
     logoUrl: string[]= []
     showProductBox= false
-    day=''
     claimVolume = 0
     productModelList: ProdItem[] = []
     previewSwiperOption= {
@@ -671,11 +667,6 @@ export default class AddRedPackage extends Vue {
     preview (index: number) {
         this.previewShow = true
         this.perviewIndex = index
-    }
-
-    getValidity () {
-        const info: { validity: string } = this.marketStatusAuth.find(({ programId }) => programId === '9')
-        this.day = moment(info.validity).diff(moment(), 'day')
     }
 
     getBrief () {
