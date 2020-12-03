@@ -1,8 +1,8 @@
 <template>
     <Panel
-        custom-class="double-12-2020-popular-panel"
-        :title="title"
-        subtitle="双十二特色课程，推荐学子必学榜单"
+        custom-class="spring-2020-popular-panel"
+        title="GO新春上好课"
+        subtitle="新春开学季 精品课程大集结"
         hide-button
     >
         <ul :class="$style.popularList" v-if="data.values.length">
@@ -39,13 +39,10 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { namespace } from 'vuex-class'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import ProductItemLarge from './components/ProductItemLarge.vue'
-import ProductItemSmall from './components/ProductItemSmall.vue'
-
-const user = namespace('user')
+import ProductItemLarge from '../double-12-2020/components/ProductItemLarge.vue'
+import ProductItemSmall from '../double-12-2020/components/ProductItemSmall.vue'
 
 @Component({
     components: {
@@ -94,16 +91,6 @@ export default class Popular extends Vue {
     }
 
     /* computed */
-    @user.Getter mallUrl!: string
-    get mallDomain () {
-        const arr = this.mallUrl.split('/')
-        return arr[arr.length - 1]
-    }
-
-    get title () {
-        return this.mallDomain === 'pljs' ? '君学严选' : '学子推荐榜HOT'
-    }
-
     get isOdd () {
         return !!(this.data.values.length % 2)
     }
@@ -119,9 +106,12 @@ export default class Popular extends Vue {
 </script>
 
 <style lang="scss">
-.double-12-2020-popular-panel {
-    .double-12-panel-container {
-        margin-top: 0;
+.spring-2020-popular-panel {
+    .spring-2020-panel-title > b {
+        position: relative;
+        left: 8px;
+    }
+    .spring-2020-panel-container {
         padding: 20px 22px;
     }
 }

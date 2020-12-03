@@ -66,7 +66,7 @@ export default class Yugou extends Vue {
     defaultDataLarge = {
         goodsInfo: {
             productMainImage: 'https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/img-placeholder-blue.png',
-            productName: '李老师初中地理七年级下',
+            productName: '李老师初中地理七年级上',
             pageviews: 99,
             activityInfo: {
                 multiple: 1,
@@ -85,7 +85,7 @@ export default class Yugou extends Vue {
     defaultDataSmall = {
         goodsInfo: {
             productMainImage: 'https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/img-placeholder-yellow.png',
-            productName: '李老师初中地理七年级上',
+            productName: '李老师初中地理七年级下',
             pageviews: 99,
             activityInfo: {
                 multiple: 1,
