@@ -14,7 +14,7 @@ const account = namespace('account')
 
 @Component
 export default class RedPackageList extends Vue {
-    @account.Getter marketStatusAuth!: []
+    @account.Getter marketStatusAuth!: any[]
     @account.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
 
     loading = false

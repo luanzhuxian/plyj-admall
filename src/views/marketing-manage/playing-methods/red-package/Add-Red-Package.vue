@@ -1,6 +1,14 @@
 <template>
     <div class="red-package">
-        <div>aasd</div>
+        <div class="tips">
+            <pl-svg name="yaji-tips" width="20" />
+            <div>
+                <p>续订通知</p>
+                <p>
+                    该营销玩法还在使用中， <span>{{ day }}</span>天后即将过期，如需继续使用，请及时进行续订；
+                </p>
+            </div>
+        </div>
         <div class="preview-swiper">
             <div class="title">福利红包示例</div>
             <swiper class="swiper" :options="previewSwiperOption">
@@ -369,12 +377,14 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import UploadImage from '../../../../components/common/file/Image-Manager.vue'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import { State } from 'vuex-class'
+import { namespace, State } from 'vuex-class'
 import productSkuSelector from '../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import { checkNumber } from '@/assets/ts/validate'
 import { addRedPackage, getRedPackageDetail, editRedPackage, getRedPackageclaimVolume } from '../../../../apis/marketing-manage/red-package'
 import UserGroup from '../../../../components/common/User-Group.vue'
 import Preview from '../../../../components/common/Preview.vue'
+import moment from 'moment'
+const account = namespace('account')
 type ProdItem = {
     productId: string;
     productType: string;
@@ -405,6 +415,7 @@ Component.registerHooks([
 })
 export default class AddRedPackage extends Vue {
     @Prop(String) id: string | undefined;
+    @account.Getter marketStatusAuth!: any[]
     @State('productTypeMap') productTypeMap!: DynamicObject
     @State('productStatusMap') productStatusMap!: DynamicObject
     @State('redPackageBg') redPackageBg!: DynamicObject[]
@@ -423,7 +434,7 @@ export default class AddRedPackage extends Vue {
     briefEdit= false
     logoUrl: string[]= []
     showProductBox= false
-
+    day=''
     claimVolume = 0
     productModelList: ProdItem[] = []
     previewSwiperOption= {
@@ -550,6 +561,8 @@ export default class AddRedPackage extends Vue {
         } catch (e) {
             throw e
         }
+
+        this.getValidity()
     }
 
     rulesIssueVolume (rule: number, value: any, callback: Function) {
@@ -658,6 +671,11 @@ export default class AddRedPackage extends Vue {
     preview (index: number) {
         this.previewShow = true
         this.perviewIndex = index
+    }
+
+    getValidity () {
+        const info: { validity: string } = this.marketStatusAuth.find(({ programId }) => programId === '9')
+        this.day = moment(info.validity).diff(moment(), 'day')
     }
 
     getBrief () {
@@ -775,6 +793,29 @@ export default class AddRedPackage extends Vue {
     .red-package{
         background-color: #ffffff;
         border: 1px solid #e7e7e7;
+        .tips{
+            display: flex;
+            padding: 16px;
+            margin: 40px 40px 0 40px;
+            background-color: #FFFAF3;
+            border: 1px solid #F79F1A;
+            border-radius: 10px;
+            >div{
+                padding-left: 9px;
+                p:first-child{
+                    font-size: 14px;
+                    font-weight: 400;
+                }
+                p:last-child{
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #999999;
+                    >span{
+                        color: #F79F1A;
+                    }
+                }
+            }
+        }
         .add-content{
             display: inline-flex;
             padding-bottom: 100px;
