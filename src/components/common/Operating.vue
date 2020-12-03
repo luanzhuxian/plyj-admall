@@ -2,7 +2,7 @@
     <div :class="$style.operating">
         <el-popover
             placement="bottom"
-            trigger="hover"
+            trigger="click"
             @show="isShow = true"
             @hide="isShow = false"
             :value="isShow"
@@ -49,19 +49,24 @@ export default class Operating extends Vue {
     }
     .more-ctrl {
         display: flex;
-        text-align: center;
+        padding: 12px 20px;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         //   width: max-content;
         > a, button {
-            width: 100%;
+            display: inline-block;
             text-align: left;
-            padding: 12px 20px;
             font-size: 12px;
+            width: max-content;
             color: $--color-primary-blue;
-            margin: 0 !important;
+            margin-right: 0;
+            margin-bottom: 12px;
             background: none;
             border: none;
+            &:nth-last-of-type(1) {
+                margin-bottom: 0;
+            }
         }
     }
     .icon-gengduo {

@@ -139,7 +139,7 @@
                     width="150"
                 >
                     <template #default="{row}">
-                        <div class="inline-b">
+                        <div>
                             <span style="display: inline-block;width: 40px">{{ activityStatusMap[row.activityStatus] }}</span>
                             <template v-if="row.id !== 3">
                                 <el-switch
@@ -210,7 +210,7 @@
                                     删除
                                 </a>
                                 <!--  除'待开始/已结束'以外的，只有'进行中/已停止'的'自行领取'的品类券均可开启/停止 -->
-                                <div class="inline-b" v-if="row.activityStatus !==0 && row.activityStatus !==3">
+                                <div v-if="row.activityStatus !==0 && row.activityStatus !==3" class="mt-12">
                                     <el-switch
                                         class="switch"
                                         v-model="row.pauseStatus"
@@ -219,10 +219,10 @@
                                         :inactive-value="true"
                                         @change="switchChange(row)"
                                     />
-                                    <span v-if="row.pauseStatus" style="color: #ccc">
+                                    <span v-show="row.pauseStatus" style="color: #ccc">
                                         停止
                                     </span>
-                                    <span v-else style="color: #4F63FF">
+                                    <span v-show="!row.pauseStatus" style="color: #4F63FF">
                                         开启
                                     </span>
                                 </div>
@@ -433,10 +433,6 @@ export default class RedPackageActivityList extends Vue {
 <style lang="scss">
 .red-package-activity-list {
     padding-top: 30px;
-    .inline-b {
-        display: inline-block;
-        padding-right: 10px;
-    }
     .switch {
         margin-left: 10px;
     }
