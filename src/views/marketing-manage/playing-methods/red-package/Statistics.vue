@@ -292,12 +292,13 @@ import moment from 'moment'
 import ListHeader from '../../components/List-Header.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import Share from '../../../../components/common/Share.vue'
-import {
-    exportReductionCoupon
-} from '../../../../apis/marketing-manage/coupon'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 
-import { getRedPackageStatistics, getRedPackageStatisticsList } from '../../../../apis/marketing-manage/red-package'
+import {
+    getRedPackageStatistics,
+    getRedPackageStatisticsList,
+    exportRedPackageDataList
+} from '../../../../apis/marketing-manage/red-package'
 import { namespace } from 'vuex-class'
 const userModule = namespace('user')
 
@@ -497,8 +498,7 @@ export default class RedPackageStatistics extends Vue {
             useEndTime: this.exportForm.useEndTime
         }
         try {
-            // @ts-ignore
-            const blob = await exportReductionCoupon(data)
+            const blob = await exportRedPackageDataList(data)
             // @ts-ignore
             const url = createObjectUrl(blob)
             const a = document.createElement('a')

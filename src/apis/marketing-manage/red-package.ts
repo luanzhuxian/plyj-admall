@@ -47,3 +47,10 @@ export const saveSortStyleRedPackageList = (data: string[]) => axios.post('/apis
 
 // 福利红包保存后排序列表
 export const redPackageRevertDefault = () => axios.delete('/apis/v2/red-package-activities/revertDefault')
+
+// 福利红包数据导出
+export const exportRedPackageDataList = (params: any) => axios.get('/apis/v2/red-package-activities/page/date/export', {
+    timeout: 0,
+    responseType: 'blob',
+    params
+})

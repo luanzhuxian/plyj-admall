@@ -90,17 +90,29 @@
                     width="200"
                 />
                 <el-table-column
-                    prop="amount"
-                    label="福利红包面额（元）"
-                    width="150"
-                />
+                    width="180"
+                >
+                    <span slot="header">
+                        福利红包面额(元)
+                        <el-tooltip class="item" style="display: inline-block" effect="dark" placement="bottom">
+                            <div slot="content">
+                                福利红包面额，指领取后购买产品时，满足条件<br>
+                                可抵扣相应的金额
+                            </div>
+                            <pl-svg name="yaji-jinggao" fill="#999999" style="margin-left: 4px;" />
+                        </el-tooltip>
+                    </span>
+                    <template #default="{row}">
+                        {{ row.amount }}
+                    </template>
+                </el-table-column>
                 <el-table-column
                     prop="issueVolume"
                     label="发放数量"
                 />
                 <el-table-column
                     label="适用用户"
-                    width="200"
+                    width="150"
                 >
                     <template slot-scope="{row}">
                         <div v-if="row.receiveLimit !== 3">
@@ -124,9 +136,22 @@
                     width="150"
                 />
                 <el-table-column
-                    prop="price"
-                    label="支付金额"
-                />
+                    width="120"
+                >
+                    <span slot="header">
+                        支付金额
+                        <el-tooltip class="item" style="display: inline-block" effect="dark" placement="bottom">
+                            <div slot="content">
+                                领取福利红包，需要支付的相应金额，<br>
+                                支持免费领取和付费领取两种方式
+                            </div>
+                            <pl-svg name="yaji-jinggao" fill="#999999" style="margin-left: 4px;" />
+                        </el-tooltip>
+                    </span>
+                    <template #default="{row}">
+                        {{ row.price }}
+                    </template>
+                </el-table-column>
                 <el-table-column
                     label="领取时间"
                 >
@@ -139,7 +164,7 @@
                     width="150"
                 >
                     <template #default="{row}">
-                        <div>
+                        <div class="inline-b">
                             <span style="display: inline-block;width: 40px">{{ activityStatusMap[row.activityStatus] }}</span>
                             <template v-if="row.id !== 3">
                                 <el-switch
@@ -209,23 +234,13 @@
                                 <a v-if="row.activityStatus === 3" @click="deleteRow(row.id)">
                                     删除
                                 </a>
-                                <!--  除'待开始/已结束'以外的，只有'进行中/已停止'的'自行领取'的品类券均可开启/停止 -->
-                                <div v-if="row.activityStatus !==0 && row.activityStatus !==3" class="mt-12">
-                                    <el-switch
-                                        class="switch"
-                                        v-model="row.pauseStatus"
-                                        active-color="#4F63FF"
-                                        :active-value="false"
-                                        :inactive-value="true"
-                                        @change="switchChange(row)"
-                                    />
-                                    <span v-show="row.pauseStatus" style="color: #ccc">
-                                        停止
-                                    </span>
-                                    <span v-show="!row.pauseStatus" style="color: #4F63FF">
-                                        开启
-                                    </span>
-                                </div>
+                                <!-- pauseStatus  true是停止 false开启-->
+                                <a v-if="row.pauseStatus" @click="changeStatus(row)">
+                                    开启
+                                </a>
+                                <a v-if="!row.pauseStatus" @click="changeStatus(row)">
+                                    停止
+                                </a>
                             </template>
                         </Operating>
                     </template>
@@ -373,23 +388,19 @@ export default class RedPackageActivityList extends Vue {
         }
     }
 
-    async switchChange (row: { id: string;activityStatus: number; pauseStatus: boolean }) {
+    async changeStatus (row: { id: string; pauseStatus: boolean }) {
+        // pauseStatus true暂停  false开启
         try {
-            if (row.pauseStatus) {
+            if (!row.pauseStatus) {
                 await this.$confirm({
                     title: '确认要停止该福利红包活动吗？',
                     message: '该福利红包活动停止后，用户不可在店铺中查看和领取该福利红包活动。'
                 })
             }
-            await pauseRedPackage(row.id, row.pauseStatus)
+            await pauseRedPackage(row.id, !row.pauseStatus)
             await this.getList()
             this.$success('操作成功')
         } catch (error) {
-            if (row.activityStatus) {
-                row.pauseStatus = false
-            } else {
-                row.pauseStatus = true
-            }
             throw error
         }
     }
@@ -433,6 +444,10 @@ export default class RedPackageActivityList extends Vue {
 <style lang="scss">
 .red-package-activity-list {
     padding-top: 30px;
+    .inline-b {
+        display: inline-block;
+        padding-right: 10px;
+    }
     .switch {
         margin-left: 10px;
     }
