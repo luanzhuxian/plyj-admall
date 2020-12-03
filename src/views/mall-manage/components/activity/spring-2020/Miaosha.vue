@@ -12,11 +12,20 @@
         <ul :class="$style.miaoshaList" v-else>
             <MiaoshaItem
                 :class="$style.miaoshaListItem"
-                v-for="(item, i) of 2"
+                v-for="(item, i) of 3"
                 :key="i"
                 :data="defaultData"
-                is-default
-            />
+            >
+                <template slot="countdown">
+                    <i :class="$style.block">02</i>
+                    <span :class="$style.colon">天</span>
+                    <i :class="$style.block">23</i>
+                    <span :class="$style.colon">:</span>
+                    <i :class="$style.block">59</i>
+                    <span :class="$style.colon">:</span>
+                    <i :class="$style.block">59</i>
+                </template>
+            </MiaoshaItem>
         </ul>
     </Panel>
 </template>
@@ -48,8 +57,8 @@ export default class Miaosha extends Vue {
             productName: '高中数学 选修4-4',
             activityInfo: {
                 activityPrice: 99.9,
-                number: 10,
                 activityStock: 5,
+                number: 10,
                 status: 1
             },
             productSkuModels: [{
@@ -66,6 +75,24 @@ export default class Miaosha extends Vue {
     &:nth-of-type(1) {
         margin-top: 0;
     }
+}
+.colon {
+    display: inline-block;
+    padding: 0 4px;
+    transform: scale(0.8);
+}
+.block {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 2px;
+    width: 24px;
+    line-height: 23px;
+    background: #FFFFFF;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 600;
+    color: #333333;
+    text-align: center;
 }
 
 </style>

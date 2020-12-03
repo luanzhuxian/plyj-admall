@@ -37,16 +37,7 @@
                 <span :class="$style.text" v-if="data.goodsInfo.activityInfo.status === 0">距离活动开始还剩</span>
                 <span :class="$style.text" v-if="data.goodsInfo.activityInfo.status === 1">距离活动结束还剩</span>
                 <span :class="$style.text" v-if="data.goodsInfo.activityInfo.status === 2">已结束</span>
-                <template v-if="isDefault">
-                    <i :class="$style.block">02</i>
-                    <span :class="$style.colon">天</span>
-                    <i :class="$style.block">23</i>
-                    <span :class="$style.colon">:</span>
-                    <i :class="$style.block">59</i>
-                    <span :class="$style.colon">:</span>
-                    <i :class="$style.block">59</i>
-                </template>
-                <template v-else>
+                <slot name="countdown">
                     <Countdown
                         v-if="~[0, 1].indexOf(data.goodsInfo.activityInfo.status)"
                         :duration="getDuration(data.goodsInfo.activityInfo)"
@@ -62,7 +53,7 @@
                             <i :class="$style.block">{{ String(time.seconds).padStart(2, '0') }}</i>
                         </template>
                     </Countdown>
-                </template>
+                </slot>
             </div>
             <div :class="{
                 [$style.miaoshaListItemBtn]: true,
@@ -87,7 +78,6 @@ import { getPrice, getDuration } from '../../../../utils/helper'
 })
 export default class MiaoshaItem extends Vue {
     /* props */
-    @Prop(Boolean) isDefault!: boolean
     @Prop({
         type: Object,
         default () {
