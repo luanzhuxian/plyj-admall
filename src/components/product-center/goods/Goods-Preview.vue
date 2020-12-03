@@ -143,7 +143,7 @@
                     <div class="info-top-left">
                         <div class="price" v-if="data.activeProduct === 4 && data.preActivity === 2">
                             定金&nbsp;<span>{{ data.activityProductModel.price || bookMinPrice.depositPrice }}</span>
-                            抵&nbsp;<span>{{ data.activityProductModel.depositTotal || bookMinPrice.depositPrice * bookMinPrice.multipleNumber }}</span>
+                            抵&nbsp;<span class="deposit">{{ data.activityProductModel.depositTotal || bookMinPrice.depositPrice * bookMinPrice.multipleNumber }}</span>
                         </div>
                         <div class="price" v-else-if="data.activeProduct !== 1 && data.activeProduct !== 4 && data.preActivity === 2">
                             {{ data.activityProductModel.price }}
@@ -507,7 +507,7 @@ export default {
         margin-right: 16px * $em;
         color: #FE7700;
       }
-      span:first-child {
+      span:first-child, .deposit {
         &:before {
           content: '¥';
           font-size: 38px * $em;

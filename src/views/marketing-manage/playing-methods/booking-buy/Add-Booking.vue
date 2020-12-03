@@ -205,7 +205,7 @@
                     </el-form-item>
                     <el-form-item label="商品限购">
                         <el-checkbox v-model="marketingForm.activityLimit">
-                            限制每人购买的数量 <span class="inp-tips"> (购买该商品的限购政策以此处为准，原商品限购政策失效) </span>
+                            限制每人购买的数量 <!-- <span class="inp-tips"> (购买该商品的限购政策以此处为准，原商品限购政策失效) </span> -->
                         </el-checkbox>
                         <div v-if="marketingForm.activityLimit">
                             <span>每个账号可购买的数量为</span>
