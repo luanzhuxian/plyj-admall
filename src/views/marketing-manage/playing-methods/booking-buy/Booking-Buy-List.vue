@@ -153,7 +153,7 @@
                             align="center"
                         />
                         <el-table-column
-                            prop="stock"
+                            prop="overStock"
                             label="剩余库存"
                             header-align="center"
                             align="center"
