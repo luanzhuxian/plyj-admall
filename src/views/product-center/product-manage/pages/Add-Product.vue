@@ -171,6 +171,7 @@
                         >
                             查看示例
                         </el-button>
+                        <i class="tip-warning ml-40">商品规格可能关联多个活动，修改将影响活动，请谨慎修改！！</i>
                     </div>
                     <SkuTable
                         :create-data="form.productAttributes"
