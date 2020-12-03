@@ -409,7 +409,7 @@ export default class RedPackageActivityList extends Vue {
         try {
             await this.$confirm({
                 title: '确认要删除该活动吗？删除后不可数据恢复',
-                message: '活动删除后，经不可查看活动期间的相关数据！请谨慎进行删除'
+                message: '活动删除后，不可查看活动期间的相关数据！请谨慎进行删除'
             })
             await deleteRedPackage(id)
             this.$success('删除成功')
@@ -421,7 +421,7 @@ export default class RedPackageActivityList extends Vue {
 
     async finish (row: { id: string;activityStatus: number }) {
         try {
-            row.activityStatus === 0 ? await this.$confirm({ title: '该福利红包活动还未开始，确定要结束吗？', message: '该品福利红包活动结束后，用户不可在店铺中查看和领取该福利红包，且结束后不可重新开启活动' }) : await this.$confirm({ title: '确认结束该福利红包得活动吗？', message: '该品福利红包活动结束后，用户不可在店铺中查看和领取该福利红包，且结束后不可重新开启活动，已领取成功得用户不受此改动的影响' })
+            row.activityStatus === 0 ? await this.$confirm({ title: '该福利红包活动还未开始，确定要结束吗？', message: '该品福利红包活动结束后，用户不可在店铺中查看和领取该福利红包，且结束后不可重新开启活动' }) : await this.$confirm({ title: '确认结束该福利红包的活动吗？', message: '该福利红包活动结束后，用户不可在店铺中查看和领取该福利红包，且结束后不可重新开启活动，已领取成功的用户不受此改动的影响' })
             await overRedPackage(row.id)
             this.$success('该福利红包活动结束成功')
             await this.search()
