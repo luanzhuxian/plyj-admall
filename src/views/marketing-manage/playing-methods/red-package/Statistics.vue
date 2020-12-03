@@ -45,7 +45,7 @@
                 </el-form-item>
                 <el-form-item label="状态：" style="margin-left: 30px;">
                     <el-select
-                        v-model="form.activityStatus"
+                        v-model="form.status"
                         clearable
                         @change="search"
                     >
@@ -54,20 +54,16 @@
                             value=""
                         />
                         <el-option
-                            label=" 未开始"
+                            label=" 未使用"
                             :value="0"
                         />
                         <el-option
-                            label="进行中"
+                            label="已使用"
                             :value="1"
                         />
                         <el-option
-                            label="停止"
+                            label="已过期"
                             :value="2"
-                        />
-                        <el-option
-                            label="结束"
-                            :value="3"
                         />
                     </el-select>
                 </el-form-item>
@@ -240,27 +236,23 @@
                         clearable
                     />
                 </el-form-item>
-                <el-form-item prop="activityStatus" label="状态：">
-                    <el-select v-model="exportForm.activityStatus">
+                <el-form-item prop="status" label="状态：">
+                    <el-select v-model="exportForm.status">
                         <el-option
                             label="全部"
                             value=""
                         />
                         <el-option
-                            label=" 未开始"
+                            label=" 未使用"
                             :value="0"
                         />
                         <el-option
-                            label="进行中"
+                            label="已使用"
                             :value="1"
                         />
                         <el-option
-                            label="停止"
+                            label="已过期"
                             :value="2"
-                        />
-                        <el-option
-                            label="结束"
-                            :value="3"
                         />
                     </el-select>
                 </el-form-item>
@@ -323,7 +315,7 @@ export default class RedPackageStatistics extends Vue {
     form = {
         activityId: '',
         keyword: '',
-        activityStatus: '',
+        status: '',
         receiveStartTime: '',
         receiveEndTime: '',
         useStartTime: '',
@@ -340,7 +332,7 @@ export default class RedPackageStatistics extends Vue {
     showExport = false
     exportForm = {
         keyword: '',
-        activityStatus: '',
+        status: '',
         receiveStartTime: '',
         receiveEndTime: '',
         useStartTime: '',
@@ -404,7 +396,7 @@ export default class RedPackageStatistics extends Vue {
             this.form = {
                 activityId: this.id,
                 keyword: '',
-                activityStatus: '',
+                status: '',
                 receiveStartTime: '',
                 receiveEndTime: '',
                 useStartTime: '',
@@ -451,11 +443,11 @@ export default class RedPackageStatistics extends Vue {
     }
 
     showExportDialog () {
-        const { keyword, activityStatus, receiveStartTime, receiveEndTime, useStartTime, useEndTime } = this.form
+        const { keyword, status, receiveStartTime, receiveEndTime, useStartTime, useEndTime } = this.form
         this.exportForm = {
             ...this.exportForm,
             keyword,
-            activityStatus,
+            status,
             receiveStartTime,
             receiveEndTime,
             useStartTime,
@@ -466,7 +458,7 @@ export default class RedPackageStatistics extends Vue {
 
     closeExportDialog () {
         this.exportForm = {
-            activityStatus: '',
+            status: '',
             keyword: '',
             receiveStartTime: '',
             receiveEndTime: '',
@@ -497,7 +489,7 @@ export default class RedPackageStatistics extends Vue {
         await (this.$refs.exportForm as HTMLFormElement).validate()
         const data = {
             activityId: this.id,
-            activityStatus: this.exportForm.activityStatus,
+            status: this.exportForm.status,
             keyword: this.exportForm.keyword,
             receiveStartTime: this.exportForm.receiveStartTime,
             receiveEndTime: this.exportForm.receiveEndTime,
