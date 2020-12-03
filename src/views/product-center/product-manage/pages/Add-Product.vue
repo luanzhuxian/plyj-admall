@@ -146,6 +146,7 @@
                     <SelectCategory
                         v-model="classification"
                         show-add
+                        @change="categoryChanged"
                     />
                 </el-form-item>
                 <div class="content-title" ref="price">
@@ -986,6 +987,8 @@ export default {
                     res.shoppingTime = moment(res.shoppingTime)
                         .format('YYYY/MM/DD HH:mm:ss')
                 }
+                console.log(res.categoryId)
+                console.log(res.subCategoryId)
                 classification.push(res.categoryId)
                 if (res.subCategoryId) classification.push(res.subCategoryId)
                 this.classification = classification
@@ -1121,6 +1124,11 @@ export default {
                     .format('YYYY-MM-DD') } 23:59:59`
             }
         },
+        // 修改分类
+        categoryChanged (val) {
+            this.form.categoryId = val[0] || ''
+            this.form.subCategoryId = val[1] || ''
+        },
         addCustom () {
             if (this.customFormModels && this.customFormModels.length < 6) {
                 this.customFormModels.push({
@@ -1204,8 +1212,6 @@ export default {
                 }
                 form.shoppingTime = form.shoppingStatus ? moment(form.shoppingTime)
                     .format('YYYY-MM-DD HH:mm:ss') : ''
-                form.categoryId = this.classification[0]
-                form.subCategoryId = this.classification[1] || ''
                 if (this.id) {
                     delete form.id
                     await modifyGoods({
@@ -1241,8 +1247,6 @@ export default {
                 }
                 this.loading = true
                 this.dateChange()
-                this.form.categoryId = this.classification[0]
-                this.form.subCategoryId = this.classification[1] || ''
                 this.form.tagIds = this.productTags.map(item => item.id)
                 // 规格启用与禁用的数据转换
                 for (const item of this.form.productSkuModels) {
@@ -1359,8 +1363,6 @@ export default {
         async saveDrafeRequest () {
             this.dateChange()
             this.form.productMainImage = await this.generateImage()
-            this.form.categoryId = this.classification[0]
-            this.form.subCategoryId = this.classification[1] || ''
             this.form.tagIds = this.productTags.map(item => item.id)
             // 规格启用与禁用的数据转换
             for (const item of this.form.productSkuModels) {

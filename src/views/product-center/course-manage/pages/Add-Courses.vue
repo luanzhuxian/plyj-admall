@@ -139,6 +139,7 @@
                     <SelectCategory
                         v-model="classification"
                         show-add
+                        @change="categoryChanged"
                     />
                 </el-form-item>
                 <div class="content-title" ref="price">
@@ -970,8 +971,6 @@ export default {
                     item.rebate = Number(item.rebate)
                 }
                 form.shoppingTime = form.shoppingStatus ? moment(form.shoppingTime).format('YYYY-MM-DD HH:mm:ss') : ''
-                form.categoryId = this.classification[0]
-                form.subCategoryId = this.classification[1] || ''
                 if (this.id) {
                     delete form.id
                     await modifyGoods({ productId: this.id, data: form })
@@ -1002,8 +1001,6 @@ export default {
                     return
                 }
                 this.loading = true
-                this.form.categoryId = this.classification[0]
-                this.form.subCategoryId = this.classification[1] || ''
                 this.form.tagIds = this.productTags.map(item => item.id)
                 // 规格启用与禁用的数据转换
                 for (const item of this.form.productSkuModels) {
@@ -1094,8 +1091,6 @@ export default {
             }
         },
         async saveDrafeRequest () {
-            this.form.categoryId = this.classification[0]
-            this.form.subCategoryId = this.classification[1] || ''
             this.form.productMainImage = await this.generateImage()
             this.form.tagIds = this.productTags.map(item => item.id)
             // 规格启用与禁用的数据转换
@@ -1129,6 +1124,11 @@ export default {
         },
         addTagConfirm (selected) {
             this.productTags = selected
+        },
+        // 修改分类
+        categoryChanged (val) {
+            this.form.categoryId = val[0] || ''
+            this.form.subCategoryId = val[1] || ''
         },
         removeTag (index) {
             this.productTags.splice(index, 1)
