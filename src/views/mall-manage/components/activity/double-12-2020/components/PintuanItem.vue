@@ -1,5 +1,5 @@
 <template>
-    <li v-if="data.goodsInfo && data.goodsInfo.activityInfo" :class="$style.pintuanListItem">
+    <li v-if="data.goodsInfo && data.goodsInfo.activityInfo" :class="$style.pintuanItem">
         <div :class="$style.imgWrapper">
             <img :src="data.goodsInfo.productMainImage + '?x-oss-process=style/thum-middle'">
         </div>
@@ -77,7 +77,7 @@ export default class PintuanItem extends Vue {
 </script>
 
 <style lang="scss" module>
-.pintuan-list-item {
+.pintuan-item {
     position: relative;
     display: flex;
     box-sizing: border-box;

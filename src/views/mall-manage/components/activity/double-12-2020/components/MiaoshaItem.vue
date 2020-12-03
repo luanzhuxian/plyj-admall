@@ -1,7 +1,7 @@
 <template>
-    <li v-if="data.goodsInfo && data.goodsInfo.activityInfo" :class="$style.miaoshaListItem">
-        <div :class="$style.miaoshaListItemBack">
-            <div :class="$style.miaoshaListItemFront">
+    <li v-if="data.goodsInfo && data.goodsInfo.activityInfo" :class="$style.miaoshaItem">
+        <div :class="$style.miaoshaItemBack">
+            <div :class="$style.miaoshaItemFront">
                 <div :class="$style.imgWrapper">
                     <img :src="data.goodsInfo.productMainImage + '?x-oss-process=style/thum-middle'">
                 </div>
@@ -32,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div :class="$style.miaoshaListItemBottom">
+        <div :class="$style.miaoshaItemBottom">
             <div :class="$style.countdownWrapper">
                 <span :class="$style.text" v-if="data.goodsInfo.activityInfo.status === 0">距离活动开始还剩</span>
                 <span :class="$style.text" v-if="data.goodsInfo.activityInfo.status === 1">距离活动结束还剩</span>
@@ -56,7 +56,7 @@
                 </slot>
             </div>
             <div :class="{
-                [$style.miaoshaListItemBtn]: true,
+                [$style.miaoshaItemBtn]: true,
                 [$style.disabled]: data.goodsInfo.activityInfo.status !== 1
             }">
                 <span>抢</span>
@@ -92,7 +92,7 @@ export default class MiaoshaItem extends Vue {
 </script>
 
 <style lang="scss" module>
-.miaosha-list-item {
+.miaosha-item {
     position: relative;
     box-sizing: border-box;
     padding-top: 10px;
