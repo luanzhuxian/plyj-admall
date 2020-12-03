@@ -51,7 +51,6 @@
                     ref="dateRange"
                     type="date"
                     size="small"
-                    disable-after
                     start-label="领取时间："
                     end-label=""
                     range-separator="至"
@@ -122,8 +121,9 @@
                             <span class="user-category-dropdown">
                                 部分用户<i class="el-icon-arrow-down el-icon--right" />
                             </span>
+                            <template class="dropDown" />
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item v-for="(item,index) in row.tagIdNames" :key="index">
+                                <el-dropdown-item v-for="(item,index) in tagIdNames(row.tagIdNames)" :key="index">
                                     {{ item }}
                                 </el-dropdown-item>
                             </el-dropdown-menu>
@@ -354,10 +354,23 @@ export default class RedPackageActivityList extends Vue {
         }
     }
 
+    tagIdNames (arr: []) {
+        const data: string[] = []
+        arr.forEach((item, index) => {
+            if (index + 1 % 2 !== 0 && (arr.length - 1 === index)) {
+                data.push(arr[index])
+            }
+            if ((index + 1) % 2 === 0 && (arr.length - 1 >= index)) {
+                data.push(`${ arr[index - 1] }，${ arr[index] }`)
+            }
+        })
+        return data
+    }
+
     async dateChange (val: { start: string; end: string }) {
         try {
-            this.form.receiveEndTime = val.start
-            this.form.receiveStartTime = val.end
+            this.form.receiveStartTime = val.start
+            this.form.receiveEndTime = val.end
             await this.search()
         } catch (error) {
             throw error
