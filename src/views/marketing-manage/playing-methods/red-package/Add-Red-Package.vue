@@ -1,7 +1,8 @@
 <template>
     <div class="red-package">
+        <div>aasd</div>
         <div class="preview-swiper">
-            <span class="title">福利红包示例</span>
+            <div class="title">福利红包示例</div>
             <swiper class="swiper" :options="previewSwiperOption">
                 <swiperSlide
                     v-for="(item, index) of perviewImg"
@@ -340,9 +341,7 @@
             :default-selected="productModelList"
         />
         <Preview :show.sync="previewShow" :top="false">
-            <div class="preview-box">
-                <img style="width: 100%" :src="perviewImg[perviewIndex]" alt="">
-            </div>
+            <img style="width: 100%" :src="perviewImg[perviewIndex]" alt="">
         </Preview>
 
         <el-dialog
@@ -690,7 +689,7 @@ export default class AddRedPackage extends Vue {
 
     async save () {
         try {
-            await this.getRedPackageclaimVolume()
+            if (this.id) await this.getRedPackageclaimVolume()
             await (this.$refs.ruleForm as HTMLFormElement).validate()
             const data = JSON.parse(JSON.stringify(this.form))
             data.redPacketCouponDTO.price = data.redPacketCouponDTO.price * 100
@@ -774,10 +773,10 @@ export default class AddRedPackage extends Vue {
 </script>
 <style lang="scss" scoped>
     .red-package{
-        display: flex;
         background-color: #ffffff;
         border: 1px solid #e7e7e7;
         .add-content{
+            display: inline-flex;
             padding-bottom: 100px;
             .product-table {
                 margin-top: 20px;
@@ -813,7 +812,9 @@ export default class AddRedPackage extends Vue {
             line-height: 16px;
         }
         .preview-swiper{
-            width: 316px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            width: 298px;
             height: 600px;
             padding-left: 36px;
             position: relative;
