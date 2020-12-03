@@ -557,8 +557,6 @@ export default class AddRedPackage extends Vue {
         } catch (e) {
             throw e
         }
-
-        this.getValidity()
     }
 
     rulesIssueVolume (rule: number, value: any, callback: Function) {
