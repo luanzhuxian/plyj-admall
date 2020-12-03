@@ -118,7 +118,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../activity/spring-2020/Live.vue'
 import RedPackage from '../activity/double-12-2020/Coupon.vue'
 import Miaosha from '../activity/spring-2020/Miaosha.vue'
-import Pintuan from '../activity/double-12-2020/Pintuan.vue'
+import Pintuan from '../activity/spring-2020/Pintuan.vue'
 import Yugou from '../activity/double-12-2020/Yugou.vue'
 import Package from '../activity/double-12-2020/Package.vue'
 import Popular from '../activity/double-12-2020/Popular.vue'
@@ -254,6 +254,7 @@ export default class TemplateSpring2020 extends Vue {
     }
 }
 </style>
+
 <style lang="scss" module>
 .template-spring {
     display: flex;
@@ -298,12 +299,7 @@ export default class TemplateSpring2020 extends Vue {
 .module-yugou,
 .module-package,
 .module-popular {
-    padding: 10px 0;
-}
-.module-coupon,
-.module-miaosha,
-.module-yugou {
-    margin-bottom: 20px;
+    padding: 10px 0 0;
 }
 
 .module-copyright {

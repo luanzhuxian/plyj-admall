@@ -1,5 +1,5 @@
 <template>
-    <Panel custom-class="pintuan-panel" title="众志成团" subtitle="邀请好友一起瓜分奖励">
+    <Panel title="众志成团" subtitle="邀请好友一起瓜分团购奖励">
         <ul :class="$style.pintuanList" v-if="data.values.length">
             <template v-for="(item, i) of data.values">
                 <PintuanItem
@@ -28,7 +28,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import PintuanItem from './components//PintuanItem.vue'
+import PintuanItem from '../double-12-2020/components//PintuanItem.vue'
 
 @Component({
     components: {
@@ -60,14 +60,6 @@ export default class Pintuan extends Vue {
     }
 }
 </script>
-
-<style lang="scss">
-.pintuan-panel {
-    .double-12-panel-container {
-        margin-top: 0;
-    }
-}
-</style>
 
 <style lang="scss" module>
 .pintuan-list-item {
