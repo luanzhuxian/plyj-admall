@@ -1,5 +1,5 @@
 <template>
-    <panel custom-class="popular-panel" :title="title" subtitle="双十二特色课程，推荐学子必学榜单" hide-button>
+    <panel custom-class="double-12-2020-popular-panel" :title="title" subtitle="双十二特色课程，推荐学子必学榜单" hide-button>
         <ul :class="$style.popularList" v-if="data.values.length">
             <li :class="[$style.popularListItem, $style.large]" v-if="isOdd">
                 <div :class="$style.imgWrapper">
@@ -159,7 +159,7 @@ export default class Popular extends Vue {
 </script>
 
 <style lang="scss">
-.popular-panel {
+.double-12-2020-popular-panel {
     .double-12-panel-container {
         margin-top: 0;
         padding: 20px 22px;

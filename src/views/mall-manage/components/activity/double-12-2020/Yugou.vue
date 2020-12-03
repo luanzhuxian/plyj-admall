@@ -1,5 +1,5 @@
 <template>
-    <Panel custom-class="yugou-panel" title="定金翻翻翻" subtitle="双十二特惠大礼来袭，定金翻倍享不停">
+    <Panel custom-class="double-12-2020-yugou-panel" title="定金翻翻翻" subtitle="双十二特惠大礼来袭，定金翻倍享不停">
         <ul :class="$style.yugouList" v-if="data.values.length">
             <YugouItemLarge
                 v-if="isOdd"
@@ -110,7 +110,7 @@ export default class Yugou extends Vue {
 </script>
 
 <style lang="scss">
-.yugou-panel {
+.double-12-2020-yugou-panel {
     .double-12-panel-container {
         background-color: #F16F00;
         padding: 20px 22px;

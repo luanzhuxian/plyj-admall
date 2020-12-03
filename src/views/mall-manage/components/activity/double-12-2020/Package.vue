@@ -1,5 +1,5 @@
 <template>
-    <Panel custom-class="package-panel" :title="title" subtitle="双十二组合产品特惠，折扣不停歇">
+    <Panel custom-class="double-12-2020-package-panel" :title="title" subtitle="双十二组合产品特惠，折扣不停歇">
         <ul :class="$style.packageList" v-if="data.values.length">
             <PackageItem
                 :class="$style.packageListItem"
@@ -96,7 +96,7 @@ export default class Package extends Vue {
 </script>
 
 <style lang="scss">
-.package-panel {
+.double-12-2020-package-panel {
     .double-12-panel-container {
         margin-top: 0;
         padding: 20px 22px;

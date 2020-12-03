@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.templateDouble12" class="template-double-12">
+    <div :class="$style.templateDouble12">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -12,7 +12,7 @@
             <div :class="$style.container">
                 <!-- 直播 -->
                 <section :class="[$style.moduleLive, $style.module]" v-if="isLiveShow">
-                    <Panel custom-class="live-panel" title="直播放映室">
+                    <Panel custom-class="double-12-2020-live-panel" title="直播放映室">
                         <Live :data="liveInfo" />
                     </Panel>
                 </section>
@@ -206,64 +206,63 @@ export default class TemplateDouble122020 extends Vue {
 </script>
 
 <style lang="scss">
-.template-double-12 {
-    .live-panel {
-        background-color: #FFC70C;
-        border-radius: 8px;
-        .double-12-panel-title {
-            padding-top: 10px;
-            height: auto;
-            background: transparent;
-            ::before {
-                position: absolute;
-                left: 36px;
-                bottom: 10px;
-                display: block;
-                content: '';
-                width: 22px;
-                height: 6px;
-                background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
-                background-size: 100%;
-                transform: rotateY(180deg);
-            }
-            ::after {
-                position: absolute;
-                right: 36px;
-                bottom: 10px;
-                display: block;
-                content: '';
-                width: 22px;
-                height: 6px;
-                background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
-                background-size: 100%;
-            }
-            > span {
-                font-family: Microsoft YaHei;
-                font-weight: 600;
-                color: #7A1417;
-            }
+.double-12-2020-live-panel {
+    background-color: #FFC70C;
+    border-radius: 8px;
+    .double-12-panel-title {
+        padding-top: 10px;
+        height: auto;
+        background: transparent;
+        &::before {
+            position: absolute;
+            left: 36px;
+            bottom: 10px;
+            display: block;
+            content: '';
+            width: 22px;
+            height: 6px;
+            background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
+            background-size: 100%;
+            transform: rotateY(180deg);
         }
-        .double-12-panel-container {
-            padding-top: 0px;
-            > .live-list {
-                .first {
-                    border: none;
-                }
-                .others {
-                    border-color: #ffffff;
-                    > label {
-                        border: none;
-                    }
-                }
-            }
+        &::after {
+            position: absolute;
+            right: 36px;
+            bottom: 10px;
+            display: block;
+            content: '';
+            width: 22px;
+            height: 6px;
+            background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
+            background-size: 100%;
         }
-        .double-12-panel-button {
-            border: 1px solid #7A1417;
+        > span {
+            font-family: Microsoft YaHei;
+            font-weight: 600;
             color: #7A1417;
         }
     }
+    .double-12-panel-container {
+        padding-top: 0px;
+        > .live-list {
+            .first {
+                border: none;
+            }
+            .others {
+                border-color: #ffffff;
+                > label {
+                    border: none;
+                }
+            }
+        }
+    }
+    .double-12-panel-button {
+        border: 1px solid #7A1417;
+        color: #7A1417;
+    }
 }
 </style>
+
 <style lang="scss" module>
 .template-double-12 {
     display: flex;
