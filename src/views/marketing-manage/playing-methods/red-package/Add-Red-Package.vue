@@ -104,7 +104,7 @@
                             </el-radio>
                         </el-radio-group>
                         <div style="margin-left: 115px" v-if="form.redPacketCouponDTO.distributionMethod">
-                            支付 <el-input style="width: 100px" type="number" v-model="form.redPacketCouponDTO.price" maxlength="50" placeholder="10" /> 元，可购买福利红包
+                            支付 <el-input style="width: 100px" type="number" v-model="form.redPacketCouponDTO.price" maxlength="50" placeholder="请输入购买金额" /> 元，可购买福利红包
                         </div>
                     </el-form-item>
 
@@ -472,7 +472,7 @@ export default class AddRedPackage extends Vue {
             receiveLimit: 0,
             tagIds: [],
             // 领取方式
-            distributionMethod: 0,
+            distributionMethod: 2,
             price: '',
             // 领取次数限制
             activityLimit: 0,
@@ -485,7 +485,7 @@ export default class AddRedPackage extends Vue {
             // 抵扣规则满金额
             useLimitAmount: '',
             // 使用限制
-            useStackable: 1,
+            useStackable: 0,
             useWithCoupon: 0,
             scholarship: 0,
             // 使用须知
@@ -770,13 +770,6 @@ export default class AddRedPackage extends Vue {
         next()
     }
 }
-//     beforeRouteEnter (to, from, next) {
-//         next(vm => {
-//             if (from.name === 'NewcomersEdit' || from.name === 'NewcomersAdd' || from.name === 'NewcomersCopy') {
-//                 vm.form.distributionMethod = 1
-//             }
-//         })
-//     }
 </script>
 <style lang="scss" scoped>
     .red-package{

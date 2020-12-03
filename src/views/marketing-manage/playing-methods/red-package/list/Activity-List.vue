@@ -286,8 +286,8 @@ export default class RedPackageActivityList extends Vue {
     activityStatusMap = {
         0: '未开始',
         1: '进行中',
-        2: '停止',
-        3: '结束'
+        2: '已停止',
+        3: '已结束'
     }
 
     form = {
