@@ -95,7 +95,7 @@
                         />
                     </el-form-item>
                     <el-form-item label="领用方式：" prop="redPacketCouponDTO.distributionMethod">
-                        <el-radio-group :disabled="disabled" v-model="form.redPacketCouponDTO.distributionMethod">
+                        <el-radio-group @change="distributionMethodChange" :disabled="disabled" v-model="form.redPacketCouponDTO.distributionMethod">
                             <el-radio :label="0">
                                 免费
                             </el-radio>
@@ -717,6 +717,10 @@ export default class AddRedPackage extends Vue {
         } catch (e) {
             throw e
         }
+    }
+
+    distributionMethodChange (val: number) {
+        if (val === 0) this.form.redPacketCouponDTO.price = ''
     }
 
     async getRedPackageclaimVolume () {
