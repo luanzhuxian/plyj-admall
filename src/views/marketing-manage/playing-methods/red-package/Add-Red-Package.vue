@@ -104,7 +104,7 @@
                             </el-radio>
                         </el-radio-group>
                         <div style="margin-left: 115px" v-if="form.redPacketCouponDTO.distributionMethod">
-                            支付 <el-input style="width: 100px" type="number" v-model="form.redPacketCouponDTO.price" maxlength="50" placeholder="请输入购买金额" /> 元，可购买福利红包
+                            支付 <el-input style="width: 100px" type="number" v-model="form.redPacketCouponDTO.price" maxlength="50" placeholder="请输入金额" /> 元，可购买福利红包
                         </div>
                     </el-form-item>
 
