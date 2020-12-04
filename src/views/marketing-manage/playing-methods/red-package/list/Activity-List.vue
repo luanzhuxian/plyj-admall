@@ -37,11 +37,11 @@
                         :value="1"
                     />
                     <el-option
-                        label="停止"
+                        label="已停止"
                         :value="2"
                     />
                     <el-option
-                        label="结束"
+                        label="已结束"
                         :value="3"
                     />
                 </el-select>
