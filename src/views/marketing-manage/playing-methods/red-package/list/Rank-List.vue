@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.redPackageRankList">
         <div v-show="!showSortTable" :class="$style.explanation">
-            可自定义设置所有储备金活动在商城活动界面的展示顺序
+            可自定义设置所有福利红包活动在商城活动界面的展示顺序
         </div>
         <div v-show="!showSortTable">
             <el-form :class="$style.operation" inline>
