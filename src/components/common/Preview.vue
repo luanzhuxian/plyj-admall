@@ -40,16 +40,16 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 87px 16px 88px 19px;
-  background:url('https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/base/phone.png') 0 0 no-repeat;
+  padding: 17px 24px 24px 24px;
+  background:url('https://mallcdn.youpenglai.com/static/admall-new/base/phone.png') 0 0 no-repeat;
   background-size: 100% 100%;
   box-sizing: border-box;
   .box {
     position: relative;
     overflow: scroll;
-    width: 333px;
-    height: 500px;
-    background-color: #eee;
+    width: 300px;
+    height: 662px;
+      border-radius: 35px;
     &::-webkit-scrollbar {
       display: none;
     }

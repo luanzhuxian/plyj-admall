@@ -12,7 +12,7 @@
                 <el-button type="primary" plain round @click="resetData">
                     恢复默认
                 </el-button>
-                <div :class="$style.preview">
+                <div :class="$style.preview" @click="previewShow = true">
                     <el-button type="text">
                         预览效果
                     </el-button>
@@ -203,14 +203,21 @@
                 />
             </pl-table>
         </div>
+        <Preview :show.sync="previewShow" :top="false">
+            <img style="width: 100%" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/福利红包排序预览.png" alt="">
+        </Preview>
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { getRedPackageSortStyleList, getRedPackageSortListListNew, saveSortStyleRedPackageList, redPackageRevertDefault } from '../../../../../apis/marketing-manage/red-package'
-
-@Component
+import Preview from '../../../../../components/common/Preview.vue'
+@Component({
+    components: {
+        Preview
+    }
+})
 export default class RedPackageRankList extends Vue {
     /* data */
     activityStatusMap = {
@@ -224,6 +231,7 @@ export default class RedPackageRankList extends Vue {
     table = []
     SortStyleList: DynamicObject[] = []
     showSortTable = false
+    previewShow = false
     async created () {
         try {
             await this.getList()
