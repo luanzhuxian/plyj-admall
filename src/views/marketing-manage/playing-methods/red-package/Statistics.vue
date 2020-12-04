@@ -37,13 +37,14 @@
             <el-form class="mt-24" inline>
                 <el-form-item label="搜索内容：">
                     <el-input
+                        style="width: 220px"
                         v-model.trim="form.keyword"
-                        placeholder="请输入福利红包活动名称"
+                        placeholder="请输入用户信息/联系人信息"
                         clearable
                         @change="search"
                     />
                 </el-form-item>
-                <el-form-item label="状态：" style="margin-left: 30px;">
+                <el-form-item label="使用状态：" style="margin-left: 30px;">
                     <el-select
                         v-model="form.status"
                         clearable
