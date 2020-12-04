@@ -237,6 +237,7 @@ export default class RedPackageRankList extends Vue {
     async resetData () {
         try {
             await redPackageRevertDefault()
+            await this.getList()
             this.$success('操作成功')
         } catch (e) {
             throw e
