@@ -221,7 +221,7 @@
                     </el-form-item>
 
                     <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
-                        购买金额满 <el-input :disabled="disabled" style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="500" /> 元 <span class="label-warning">开始后不可修改</span>
+                        购买金额满 <el-input :disabled="disabled" style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="请输入金额" /> 元 <span class="label-warning">开始后不可修改</span>
                     </el-form-item>
 
                     <el-form-item label="使用限制：" prop="redPacketCouponDTO.useStackable">
