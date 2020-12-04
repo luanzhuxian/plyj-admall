@@ -16,8 +16,8 @@
                         <Live :data="Live" />
                     </Panel>
                 </ModuleWrapper>
-                <!-- 优惠券 -->
-                <section
+                <!-- 福利红包 -->
+                <!-- <section
                     id="RedPackage"
                     v-if="data && data.RedPackage && (data.RedPackage.values.length || isClickable || isEmptyShow)"
                     :class="{
@@ -29,6 +29,21 @@
                     @click="onClick('RedPackage')"
                 >
                     <RedPackage :data="RedPackage" />
+                </section> -->
+                <!-- 优惠券 -->
+                <section
+                    id="Coupon"
+                    v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
+                    class="spring-2020-coupon"
+                    :class="{
+                        [$style.module]: true,
+                        [$style.moduleCoupon]: true,
+                        [$style.pointer]: isClickable === true,
+                        [$style.active]: current === 'Coupon'
+                    }"
+                    @click="onClick('Coupon')"
+                >
+                    <Coupon :data="Coupon" />
                 </section>
                 <!-- 秒杀 -->
                 <ModuleWrapper
@@ -116,7 +131,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../activity/spring-2020/Live.vue'
-import RedPackage from '../activity/double-12-2020/Coupon.vue'
+import Coupon from '../activity/double-12-2020/Coupon.vue'
 import Miaosha from '../activity/spring-2020/Miaosha.vue'
 import Pintuan from '../activity/spring-2020/Pintuan.vue'
 import Yugou from '../activity/spring-2020/Yugou.vue'
@@ -129,7 +144,7 @@ import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
 @Component({
     components: {
         Live,
-        RedPackage,
+        Coupon,
         Miaosha,
         Pintuan,
         Yugou,
@@ -165,6 +180,10 @@ export default class TemplateSpring2020 extends Vue {
 
     get RedPackage () {
         return this.data.RedPackage || { values: [] }
+    }
+
+    get Coupon () {
+        return this.data.Coupon || { values: [] }
     }
 
     get Miaosha () {
@@ -251,6 +270,19 @@ export default class TemplateSpring2020 extends Vue {
         color: #7A1417;
     }
 }
+.spring-2020-coupon {
+    > .coupon-wrapper {
+        &::before {
+            background-color: #05A19A;
+        }
+        &::after {
+            background-color: #05A19A;
+        }
+        > .coupon-title {
+            background: none;
+        }
+    }
+}
 </style>
 
 <style lang="scss" module>
@@ -289,7 +321,7 @@ export default class TemplateSpring2020 extends Vue {
 }
 
 .module-live,
-.module-redpackage {
+.module-coupon {
     padding: 10px 12px;
 }
 .module-miaosha,

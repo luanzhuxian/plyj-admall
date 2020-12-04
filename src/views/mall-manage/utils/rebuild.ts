@@ -251,6 +251,7 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel = {} as TemplateSpring2020
         templateModel.Live = findModuleById(ModuleIds.Live)
         templateModel.RedPackage = reset(findModuleById(ModuleIds.RedPackage), 'RedPackage')
+        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
         templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
         templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
         templateModel.Yugou = reset(findModuleById(ModuleIds.Yugou), 'Yugou')

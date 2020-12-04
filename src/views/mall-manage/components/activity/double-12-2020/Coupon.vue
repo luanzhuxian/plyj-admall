@@ -1,6 +1,6 @@
 <template>
-    <div :class="$style.coupon">
-        <div :class="$style.couponTitle">
+    <div :class="$style.coupon" class="coupon-wrapper">
+        <div :class="$style.couponTitle" class="coupon-title">
             <h3>领券不停，福利多多</h3>
             <span>·  更多优惠——快来领取  ·</span>
         </div>
@@ -34,7 +34,7 @@
         <ul :class="$style.couponList" v-else>
             <li :class="$style.couponListItem" v-for="(item, i) of list" :key="i">
                 <div :class="$style.couponListItemName">
-                    双十二特惠券
+                    福利特惠券
                 </div>
                 <div :class="$style.couponListItemLeft">
                     <b :class="$style.price" v-text="item.price" />
