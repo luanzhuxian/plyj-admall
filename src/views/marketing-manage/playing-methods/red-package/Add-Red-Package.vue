@@ -41,7 +41,7 @@
                     auto-scroll-to-error
                 >
                     <el-form-item label="福利红包名称：" prop="name">
-                        <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="50" placeholder="请输入福利红包名称" />
+                        <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="12" show-word-limit placeholder="请输入福利红包名称" />
                     </el-form-item>
                     <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
                         <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="请输入福利红包金额" /> 元
@@ -616,8 +616,7 @@ export default class AddRedPackage extends Vue {
     rules= {
         name: [
             { required: true, message: '福利红包名称不能为空', trigger: 'blur' },
-            { max: 12, message: '福利红包名称不能超过12个字符', trigger: 'blur' },
-            { min: 4, message: '福利红包名称不能少于4个字符', trigger: 'blur' }
+            { max: 12, message: '福利红包名称不能超过12个字符', trigger: 'blur' }
         ],
         'redPacketCouponDTO.amount': [
             { required: true, message: '福利红包面额不能为空', trigger: 'blur' },
