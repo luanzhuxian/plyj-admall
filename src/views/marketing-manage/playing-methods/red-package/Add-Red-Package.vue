@@ -44,13 +44,13 @@
                         <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="12" show-word-limit placeholder="请输入福利红包名称" />
                     </el-form-item>
                     <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
-                        <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="请输入福利红包金额" /> 元
+                        <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="请输入福利红包金额" /> 元 <span class="label-warning">开始后不可修改</span>
                         <p class="description">
                             福利红包面额，是活动期间通过免费领取或者付费领取后，可获得的实际福利红包,在购买指定范围内的产品时，可抵扣相应金额使用。
                         </p>
                     </el-form-item>
                     <el-form-item label="发放量：" prop="issueVolume">
-                        <el-input-number v-model="form.issueVolume" :min="1" :max="99999" label="描述文字" /> <span class="label-warning">开始后不可修改</span>
+                        <el-input-number v-model="form.issueVolume" :min="1" :max="99999" label="描述文字" />
                         <p class="description">
                             发放的福利红包，超过发放量后将自动结束活动
                         </p>
@@ -537,6 +537,7 @@ export default class AddRedPackage extends Vue {
                 this.selectProductSku(applicableGoodsVOS)
                 if (logoShow && logoUrl) this.logoUrl[0] = logoUrl
                 for (const item of this.redPackageBg) {
+                    item.check = false
                     if (bgUrlsIndex === item.id) item.check = true
                 }
                 await this.getRedPackageclaimVolume()
