@@ -157,7 +157,7 @@
             <SchemePack
                 name="福利红包"
                 desc="低价购买福利红包  支付抵扣享优惠"
-                :expired="activitys.redPackage.status ? `${getDate(activitys.LongmenLottery.data.createTime)}-2020.08.31` : ''"
+                :expired="activitys.redPackage.status ? `${getDate(activitys.redPackage.data.createTime)}--${getDate(activitys.redPackage.data.validity)}` : ''"
                 :count="activitiesInfo.luckDrawActivityCount"
                 :tags="['限','新']"
                 :is-lock="!activitys.redPackage.status"
