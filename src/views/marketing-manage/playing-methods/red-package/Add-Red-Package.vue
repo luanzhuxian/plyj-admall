@@ -272,6 +272,8 @@
                     <el-form-item label="展示隐藏：" prop="showStatus">
                         <el-checkbox
                             v-model="form.showStatus"
+                            :label-true="false"
+                            :label-false="true"
                         >
                             福利红包设置隐藏
                         </el-checkbox>
@@ -460,7 +462,7 @@ export default class AddRedPackage extends Vue {
         // 发放量
         issueVolume: '',
         bgUrlsIndex: 0,
-        showStatus: false,
+        showStatus: true,
         logoShow: false,
         logoUrl: '',
         redPacketCouponDTO: {
