@@ -157,7 +157,7 @@
                                 width="60"
                                 height="60"
                                 v-viewer
-                                :src="detailInfo.orderType === 'RED_ENVELOPE'?'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包商品图片.png':detailInfo.goodsModel.img"
+                                :src="detailInfo.orderType === 'RED_ENVELOPE'?'https://mallcdn.youpenglai.com/static/mall/2.13.0/red-package/red-packet-order-icon.png':detailInfo.goodsModel.img"
                             >
                             <div class="goods-info">
                                 <p>
