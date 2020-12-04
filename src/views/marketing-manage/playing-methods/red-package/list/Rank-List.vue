@@ -1,194 +1,208 @@
 <template>
     <div :class="$style.redPackageRankList">
-        <div :class="$style.explanation">
+        <div v-show="!showSortTable" :class="$style.explanation">
             可自定义设置所有储备金活动在商城活动界面的展示顺序
         </div>
-        <el-form v-show="!showSortTable" :class="$style.operation" inline>
-            <el-button type="primary" round @click="showSortTable = true">
-                设置排序
-                <i class="el-icon-plus el-icon--right" />
-            </el-button>
-            <el-button type="primary" plain round @click="resetData">
-                恢复默认
-            </el-button>
-            <div :class="$style.preview">
-                <el-button type="text">
-                    预览效果
+        <div v-show="!showSortTable">
+            <el-form :class="$style.operation" inline>
+                <el-button type="primary" round @click="showSortTable = true">
+                    设置排序
+                    <i class="el-icon-plus el-icon--right" />
                 </el-button>
-            </div>
-        </el-form>
+                <el-button type="primary" plain round @click="resetData">
+                    恢复默认
+                </el-button>
+                <div :class="$style.preview">
+                    <el-button type="text">
+                        预览效果
+                    </el-button>
+                </div>
+            </el-form>
 
-        <el-form v-show="showSortTable" :class="$style.operation" inline>
-            <el-button style="width: 96px" type="primary" round @click="saveSort">
-                保存
-            </el-button>
-            <el-button style="width: 96px" plain round @click="cancel">
-                取消
-            </el-button>
-            <span :class="$style.sugget">（默认按照活动领取开始时间和活动状态正序排列）</span>
-            <el-form-item label="请选择排序方式：" style="margin-bottom: 0">
-                <el-select
-                    v-model="sortType"
-                    clearable
-                    @change="onSelectChange"
+            <el-table
+                ref="table"
+                :data="table"
+            >
+                <span
+                    slot="empty"
+                    :class="$style.empty"
                 >
-                    <el-option
-                        label="默认排序"
-                        :value="1"
-                    />
-                    <el-option
-                        label="按领取时间排序"
-                        :value="3"
-                    />
-                    <el-option
-                        label="按价格排序"
-                        :value="6"
-                    />
-                </el-select>
-            </el-form-item>
-        </el-form>
-        <el-table
-            ref="table"
-            :data="[]"
-            v-show="!showSortTable"
-        >
-            <span
-                slot="empty"
-                :class="$style.empty"
-            >
-                <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
-                <el-button @click="$router.push({name:'AddRedPackage'})" round type="primary" plain>创建福利红包</el-button>
-            </span>
-            <el-table-column
-                type="index"
-                width="50"
-                label="排序"
-            />
-            <el-table-column
-                prop="name"
-                label="福利红包名称"
-                width="150"
-            />
-            <el-table-column
-                prop="amount"
-                label="福利红包面额"
-                width="150"
-            />
-            <el-table-column
-                prop="issueVolume"
-                label="发放数量"
-            />
-            <el-table-column
-                prop="applicableGoodsVolume"
-                label="适用产品(个)"
-                width="120"
-            />
-            <el-table-column
-                prop="price"
-                label="付费金额"
-            />
-            <el-table-column
-                label="领取时间"
-            >
-                <template #default="{ row }">
-                    {{ row.receiveStartTime | dateFormat('YYYY.MM.DD') }}-{{ row.receiveEndTime | dateFormat('YYYY.MM.DD') }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="活动状态"
-                width="150"
-            >
-                <template #default="{row}">
-                    {{ activityStatusMap[row.activityStatus] }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="显示状态"
-            >
-                <template #default="{row}">
-                    {{ row.showStatus ? '显示': '隐藏' }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="claimVolume"
-                label="领取量"
-                width="100"
-            />
-            <el-table-column
-                prop="useVolume"
-                label="使用量"
-                width="100"
-            />
-        </el-table>
-        <pl-table v-show="showSortTable" :data="SortStyleList">
-            <span
-                slot="empty"
-                class="empty"
-            >
-                <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
-                <el-button @click="$router.push({name:'AddRedPackage'})" round type="primary" plain>创建福利红包</el-button>
-            </span>
-            <el-table-column
-                type="index"
-                width="50"
-                label="排序"
-            />
-            <el-table-column
-                prop="name"
-                label="福利红包名称"
-                width="150"
-            />
-            <el-table-column
-                prop="amount"
-                label="福利红包面额"
-                width="150"
-            />
-            <el-table-column
-                prop="issueVolume"
-                label="发放数量"
-            />
-            <el-table-column
-                prop="applicableGoodsVolume"
-                label="适用产品(个)"
-                width="120"
-            />
-            <el-table-column
-                prop="price"
-                label="付费金额"
-            />
-            <el-table-column
-                label="领取时间"
-            >
-                <template #default="{ row }">
-                    {{ row.receiveStartTime | dateFormat('YYYY.MM.DD') }}-{{ row.receiveEndTime | dateFormat('YYYY.MM.DD') }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="活动状态"
-                width="150"
-            >
-                <template #default="{row}">
-                    {{ activityStatusMap[row.activityStatus] }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="显示状态"
-            >
-                <template #default="{row}">
-                    {{ row.showStatus ? '显示': '隐藏' }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="claimVolume"
-                label="领取量"
-                width="100"
-            />
-            <el-table-column
-                prop="useVolume"
-                label="使用量"
-                width="100"
-            />
-        </pl-table>
+                    <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
+                    <el-button @click="$router.push({name:'AddRedPackage'})" round type="primary" plain>创建福利红包</el-button>
+                </span>
+                <el-table-column
+                    type="index"
+                    width="50"
+                    label="排序"
+                />
+                <el-table-column
+                    prop="name"
+                    label="福利红包名称"
+                    width="150"
+                />
+                <el-table-column
+                    prop="amount"
+                    label="福利红包面额"
+                    width="150"
+                />
+                <el-table-column
+                    prop="issueVolume"
+                    label="发放数量"
+                />
+                <el-table-column
+                    prop="applicableGoodsVolume"
+                    label="适用产品(个)"
+                    width="120"
+                />
+                <el-table-column
+                    prop="price"
+                    label="付费金额"
+                />
+                <el-table-column
+                    label="领取时间"
+                >
+                    <template #default="{ row }">
+                        {{ row.receiveStartTime | dateFormat('YYYY.MM.DD') }}-{{ row.receiveEndTime | dateFormat('YYYY.MM.DD') }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="活动状态"
+                    width="150"
+                >
+                    <template #default="{row}">
+                        {{ activityStatusMap[row.activityStatus] }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="显示状态"
+                >
+                    <template #default="{row}">
+                        {{ row.showStatus ? '显示': '隐藏' }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    prop="claimVolume"
+                    label="领取量"
+                    width="100"
+                />
+                <el-table-column
+                    prop="useVolume"
+                    label="使用量"
+                    width="100"
+                />
+            </el-table>
+
+        </div>
+        <div v-show="showSortTable">
+            <el-form :class="$style.operation" inline>
+                <el-button style="width: 96px" type="primary" round @click="saveSort">
+                    保存
+                </el-button>
+                <el-button style="width: 96px" plain round @click="cancel">
+                    取消
+                </el-button>
+                <span :class="$style.sugget">（默认按照活动领取开始时间和活动状态正序排列）</span>
+                <el-form-item label="请选择排序方式：" style="margin-bottom: 0">
+                    <el-select
+                        v-model="sortType"
+                        clearable
+                        @change="onSelectChange"
+                    >
+                        <el-option
+                            label="默认排序"
+                            :value="1"
+                        />
+                        <el-option
+                            label="领用时间由早到晚排序"
+                            :value="2"
+                        />
+                        <el-option
+                            label="领用时间由晚到早排序"
+                            :value="3"
+                        />
+                        <el-option
+                            label="面额由小到大排序"
+                            :value="4"
+                        />
+                        <el-option
+                            label="面额由大到小排序"
+                            :value="5"
+                        />
+                    </el-select>
+                </el-form-item>
+            </el-form>
+            <span :class="$style.tips">请线选择福利红包活动的排序设置，并可支持拖拽调整排序</span>
+
+            <pl-table :data="SortStyleList">
+                <span
+                    slot="empty"
+                    class="empty"
+                >
+                    <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
+                    <el-button @click="$router.push({name:'AddRedPackage'})" round type="primary" plain>创建福利红包</el-button>
+                </span>
+                <el-table-column
+                    type="index"
+                    width="50"
+                    label="排序"
+                />
+                <el-table-column
+                    prop="name"
+                    label="福利红包名称"
+                    width="150"
+                />
+                <el-table-column
+                    prop="amount"
+                    label="福利红包面额"
+                    width="150"
+                />
+                <el-table-column
+                    prop="issueVolume"
+                    label="发放数量"
+                />
+                <el-table-column
+                    prop="applicableGoodsVolume"
+                    label="适用产品(个)"
+                    width="120"
+                />
+                <el-table-column
+                    prop="price"
+                    label="付费金额"
+                />
+                <el-table-column
+                    label="领取时间"
+                >
+                    <template #default="{ row }">
+                        {{ row.receiveStartTime | dateFormat('YYYY.MM.DD') }}-{{ row.receiveEndTime | dateFormat('YYYY.MM.DD') }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="活动状态"
+                    width="150"
+                >
+                    <template #default="{row}">
+                        {{ activityStatusMap[row.activityStatus] }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="显示状态"
+                >
+                    <template #default="{row}">
+                        {{ row.showStatus ? '显示': '隐藏' }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    prop="claimVolume"
+                    label="领取量"
+                    width="100"
+                />
+                <el-table-column
+                    prop="useVolume"
+                    label="使用量"
+                    width="100"
+                />
+            </pl-table>
+        </div>
     </div>
 </template>
 
@@ -300,6 +314,12 @@ export default class RedPackageRankList extends Vue {
 }
 .sugget {
     margin-left: 50px;
+    font-size: 12px;
+    color: #999999;
+}
+.tips{
+    display: block;
+    margin-top: 20px;
     font-size: 12px;
     color: #999999;
 }
