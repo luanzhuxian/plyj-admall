@@ -4,8 +4,8 @@
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png"
             title="福利红包"
             description="低价购买福利红包  支付抵扣享优惠  "
-            start-time="2019.10.28"
-            end-time="2020.01.31"
+            :start-time="info.createTime"
+            :end-time="info.validity"
             :tags="['限','新']"
         />
         <PlTabs
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'vue-property-decorator'
+import { Vue, Component, Watch, Prop } from 'vue-property-decorator'
 import ListHeader from '../../../components/List-Header.vue'
 
 @Component({
@@ -39,6 +39,8 @@ export default class RedPackageList extends Vue {
 
     /* watch */
     @Watch('$route.name', { immediate: true })
+    @Prop() info!: object
+
     onChange (newVal: string) {
         this.currentTab = newVal
     }
