@@ -49,14 +49,15 @@
         </el-form>
         <el-table
             ref="table"
-            :data="table"
+            :data="[]"
             v-show="!showSortTable"
         >
             <span
                 slot="empty"
-                class="empty"
+                :class="$style.empty"
             >
                 <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
+                <el-button @click="$router.push({name:'AddRedPackage'})" round type="primary" plain>创建福利红包</el-button>
             </span>
             <el-table-column
                 type="index"
@@ -125,6 +126,7 @@
                 class="empty"
             >
                 <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" /> 暂无活动数据~
+                <el-button @click="$router.push({name:'AddRedPackage'})" round type="primary" plain>创建福利红包</el-button>
             </span>
             <el-table-column
                 type="index"
@@ -275,6 +277,13 @@ export default class RedPackageRankList extends Vue {
 </script>
 
 <style lang="scss" module>
+
+.empty{
+    button{
+        display: block;
+        margin: 0 auto;
+    }
+}
 .explanation {
     display: flex;
     justify-content: center;
