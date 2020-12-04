@@ -102,7 +102,7 @@
                         </el-tooltip>
                     </span>
                     <template #default="{row}">
-                        {{ row.amount }}
+                        {{ Number(row.amount) }}
                     </template>
                 </el-table-column>
                 <el-table-column
