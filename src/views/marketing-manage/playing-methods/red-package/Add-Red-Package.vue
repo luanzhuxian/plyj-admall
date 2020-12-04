@@ -309,11 +309,12 @@
                                 >
                                     <div class="slide-title">默认背景</div>
                                     <div class="img-box">
-                                        <img :src="item.imgSrc" style="width: 120px;height: 160px;">
                                         <el-checkbox
                                             v-model="item.check"
                                             @change="checkBg(item)"
-                                        />
+                                        >
+                                            <img :src="item.imgSrc" style="width: 120px;height: 160px;">
+                                        </el-checkbox>
                                     </div>
                                     <el-button size="large" type="text" @click="preview(index)">预览</el-button>
                                 </swiperSlide>
@@ -901,10 +902,12 @@ export default class AddRedPackage extends Vue {
                     }
                     .img-box{
                         position: relative;
-                        label{
-                            position: absolute;
-                            top: -6px;
-                            right: 2px;
+                        >label{
+                            ::v-deep .el-checkbox__input{
+                                position: absolute;
+                                top: 2px;
+                                right: 2px;
+                            }
                         }
                     }
                 }
