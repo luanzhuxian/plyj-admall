@@ -220,7 +220,12 @@
                                 </a>
                                 <a @click="$router.push({
                                     name: 'RedPackageStatistics',
-                                    params: { id: row.id }
+                                    params: { id: row.id },
+                                    query: { name: row.name,
+                                             activityStatus: row.activityStatus,
+                                             receiveStartTime: row.receiveStartTime,
+                                             receiveEndTime: row.receiveEndTime,
+                                    }
                                 })">
                                     数据
                                 </a>

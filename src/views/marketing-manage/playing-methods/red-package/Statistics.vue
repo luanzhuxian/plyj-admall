@@ -2,14 +2,14 @@
     <div class="red-package-statistics wrap">
         <ListHeader
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png"
-            title="福利红包"
+            :title="$route.query.name"
             description="低价购买福利红包  支付抵扣享优惠  "
-            start-time="2019.10.28"
-            end-time="2020.01.31"
+            :start-time="$route.query.receiveStartTime"
+            :end-time="$route.query.receiveEndTime"
         >
             <span :class="$style.status">
                 <i class="yaji-icon icon-time" />
-                使用中
+                {{ activityStatusMap[$route.query.activityStatus] }}
             </span>
             <el-button type="text" @click="share()">
                 分享
@@ -323,6 +323,13 @@ export default class RedPackageStatistics extends Vue {
         useEndTime: '',
         page: 1,
         size: 10
+    }
+
+    activityStatusMap = {
+        0: '未开始',
+        1: '进行中',
+        2: '已停止',
+        3: '已结束'
     }
 
     table = []
