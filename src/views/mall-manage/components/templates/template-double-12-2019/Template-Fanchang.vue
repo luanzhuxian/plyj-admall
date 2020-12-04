@@ -97,11 +97,11 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import Live from '../../activity/double-12/Live.vue'
-import MiaoshaSmall from '../../activity/double-12/Miaosha-Small.vue'
-import Pintuan from '../../activity/double-12/Pintuan.vue'
-import Maisong from '../../activity/double-12/Maisong.vue'
-import Fengqiang from '../../activity/double-12/Fengqiang.vue'
+import Live from '../../activity/double-12-2019/Live.vue'
+import MiaoshaSmall from '../../activity/double-12-2019/Miaosha-Small.vue'
+import Pintuan from '../../activity/double-12-2019/Pintuan.vue'
+import Maisong from '../../activity/double-12-2019/Maisong.vue'
+import Fengqiang from '../../activity/double-12-2019/Fengqiang.vue'
 import Recommend from '../../home/Recommend.vue'
 import { TemplateFanChang } from '../../../utils/types'
 
