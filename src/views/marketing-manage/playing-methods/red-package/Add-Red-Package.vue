@@ -704,7 +704,6 @@ export default class AddRedPackage extends Vue {
 
     async save () {
         try {
-            if (this.id) await this.getRedPackageclaimVolume()
             await (this.$refs.ruleForm as HTMLFormElement).validate()
             const data = JSON.parse(JSON.stringify(this.form))
             data.redPacketCouponDTO.price = data.redPacketCouponDTO.price * 100
@@ -726,6 +725,7 @@ export default class AddRedPackage extends Vue {
     }
 
     async getRedPackageclaimVolume () {
+        if (this.$route.name !== 'EditRedPackage') return
         const claimVolume = await getRedPackageclaimVolume(this.id as string)
         this.claimVolume = claimVolume.result
     }

@@ -393,6 +393,7 @@ export default class RedPackageActivityList extends Vue {
 
     async switchShowChange (row: { id: string; showStatus: boolean }) {
         try {
+            // showStatus  true为隐藏  false为显示
             await showRedPackage(row.id, row.showStatus)
             await this.getList()
             this.$success('操作成功')
