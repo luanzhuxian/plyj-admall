@@ -4,19 +4,20 @@
             可自定义设置所有福利红包活动在商城活动界面的展示顺序
         </div>
         <div v-show="!showSortTable">
-            <el-form :class="$style.operation" inline>
-                <el-button type="primary" round @click="showSortTable = true">
-                    设置排序
-                    <i class="el-icon-plus el-icon--right" />
-                </el-button>
-                <el-button type="primary" plain round @click="resetData">
-                    恢复默认
-                </el-button>
-                <div :class="$style.preview" @click="previewShow = true">
-                    <el-button type="text">
-                        预览效果
+            <el-form :class="$style.operation" inline style="justify-content: space-between;">
+                <div>
+                    <el-button type="primary" round @click="showSortTable = true">
+                        设置排序
+                        <i class="el-icon-plus el-icon--right" />
                     </el-button>
+                    <el-button type="primary" plain round @click="resetData">
+                        恢复默认
+                    </el-button>
+                    <span :class="$style.sugget">（默认按照活动领取开始时间和活动状态正序排列）</span>
                 </div>
+                <el-button type="text" @click="previewShow = true">
+                    预览效果
+                </el-button>
             </el-form>
 
             <el-table
@@ -89,6 +90,8 @@
                     prop="useVolume"
                     label="使用量"
                     width="100"
+                    header-align="right"
+                    align="center"
                 />
             </el-table>
 
@@ -101,8 +104,7 @@
                 <el-button style="width: 96px" plain round @click="cancel">
                     取消
                 </el-button>
-                <span :class="$style.sugget">（默认按照活动领取开始时间和活动状态正序排列）</span>
-                <el-form-item label="请选择排序方式：" style="margin-bottom: 0">
+                <el-form-item label="请选择排序方式：" style="margin: 0 0 0 50px">
                     <el-select
                         v-model="sortType"
                         clearable
@@ -200,6 +202,8 @@
                     prop="useVolume"
                     label="使用量"
                     width="100"
+                    header-align="right"
+                    align="center"
                 />
             </pl-table>
         </div>
@@ -331,12 +335,5 @@ export default class RedPackageRankList extends Vue {
     margin-top: 20px;
     font-size: 12px;
     color: #999999;
-}
-.preview {
-    width: 100%;
-    display: flex;
-    >button{
-        margin-left: auto;
-    }
 }
 </style>
