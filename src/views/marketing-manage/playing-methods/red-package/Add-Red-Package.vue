@@ -912,6 +912,7 @@ export default class AddRedPackage extends Vue {
             .swiper-button-prev, .swiper-button-next{
                 width: 29px;
                 height: 15px;
+                z-index: 5;
             }
         }
         .purchase-sort-description {
