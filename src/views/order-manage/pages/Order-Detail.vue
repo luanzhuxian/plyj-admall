@@ -157,7 +157,7 @@
                                 width="60"
                                 height="60"
                                 v-viewer
-                                :src="detailInfo.goodsModel.img"
+                                :src="detailInfo.orderType === 'RED_ENVELOPE'?'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包商品图片.png':detailInfo.goodsModel.img"
                             >
                             <div class="goods-info">
                                 <p>
@@ -174,13 +174,16 @@
                                         <span>x{{ detailInfo.goodsModel.count }}</span>
                                     </span>
                                 </p>
-                                <p class="info-info" v-if="detailInfo.orderType !== 'KNOWLEDGE_COURSE' && detailInfo.orderType !== 'SERIES_OF_COURSE' && detailInfo.orderType !== 'GRAPHIC_DATA' && detailInfo.orderType !== 'LIVE_GOODS' && detailInfo.orderType !== 'VIDEO_GOODS'">
+                                <p class="info-info" v-if="detailInfo.orderType !== 'KNOWLEDGE_COURSE' && detailInfo.orderType !== 'SERIES_OF_COURSE' && detailInfo.orderType !== 'GRAPHIC_DATA' && detailInfo.orderType !== 'LIVE_GOODS' && detailInfo.orderType !== 'VIDEO_GOODS' && detailInfo.orderType !== 'RED_ENVELOPE'">
                                     规格: {{ detailInfo.goodsModel.sku }}
                                     <span v-if="detailInfo.goodsModel.subSku">,{{ detailInfo.goodsModel.subSku }}</span>
                                 </p>
                                 <p v-if="detailInfo.orderType === 'KNOWLEDGE_COURSE' || detailInfo.orderType === 'SERIES_OF_COURSE' || detailInfo.orderType === 'GRAPHIC_DATA'" class="info-info">
                                     <!--                  此处cout应为系列课节数，此处有误-->
                                     {{ detailInfo.goodsModel.contentCount }}节
+                                </p>
+                                <p class="info-info" v-if="detailInfo.orderType === 'RED_ENVELOPE'">
+                                    满{{ detailInfo.goodsModel.sku }}抵{{ detailInfo.goodsModel.subSku }}
                                 </p>
                                 <p class="info-total">
                                     小计: ￥{{ detailInfo.goodsModel.goodsTotalPrice/100 }}
@@ -330,12 +333,12 @@
                             <span>{{ detailInfo.exchangeCode }}</span>
                         </p>
                     </template>
-                    <template v-if="detailInfo.orderSource === 9">
-                        <p>
-                            <span>参与活动</span>
-                            <span>福利红包满减</span>
-                        </p>
-                    </template>
+                    <!--                    <template v-if="detailInfo.orderSource === 9">-->
+                    <!--                        <p>-->
+                    <!--                            <span>参与活动</span>-->
+                    <!--                            <span>福利红包满减</span>-->
+                    <!--                        </p>-->
+                    <!--                    </template>-->
                     <p v-if="detailInfo.scholarship">
                         <span>奖学金（红包）</span>
                         <span>-{{ detailInfo.scholarship/100 }}元</span>

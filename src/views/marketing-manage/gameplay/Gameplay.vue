@@ -158,7 +158,7 @@
                 name="福利红包"
                 desc="低价购买福利红包  支付抵扣享优惠"
                 :expired="activitys.redPackage.status ? `${getDate(activitys.redPackage.data.createTime)}--${getDate(activitys.redPackage.data.validity)}` : ''"
-                :count="activitiesInfo.luckDrawActivityCount"
+                :count="activitiesInfo.redPackageActivityCount"
                 :tags="['限','新']"
                 :is-lock="!activitys.redPackage.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png"
