@@ -28,7 +28,7 @@ import ListHeader from '../../../components/List-Header.vue'
 })
 export default class RedPackageList extends Vue {
     /* data */
-    currentTab = ''
+    currentTab = 'RedPackageActivityList'
     tabs = [{
         name: 'RedPackageActivityList',
         label: '活动列表'
