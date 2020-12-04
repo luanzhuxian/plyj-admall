@@ -67,14 +67,13 @@
             :data="goodsList"
             class="el-icon-check"
             @expand-change="setSelection"
+            @row-click="expendSkuModel"
         >
             <el-table-column
                 type="expand"
-                width="55"
             >
                 <template #default="{ row }">
                     <el-table
-                        style="width: 100%;"
                         :data="row.skuEntityList"
                         @selection-change="selected => { selectGoods(row, selected) }"
                         :row-key="getRowKeys"
@@ -95,8 +94,7 @@
                         </el-table-column>
                         <el-table-column prop="stock" width="100" />
                         <el-table-column prop="price" width="100" />
-                        <el-table-column width="100" />
-                        <el-table-column width="100" />
+                        <el-table-column />
                     </el-table>
                 </template>
             </el-table-column>
@@ -223,6 +221,9 @@ export default {
         }
     },
     methods: {
+        expendSkuModel (row) {
+            this.$refs.table.toggleRowExpansion(row)
+        },
 
         /**
          * 获取列表
@@ -438,9 +439,5 @@ export default {
 ::v-deep .el-table__expanded-cell {
     padding: 0 0 0 60px !important;
     border-bottom: none !important;
-    background-color: #fcfcfc;
-    tr {
-        background-color: #fcfcfc;
-    }
 }
 </style>

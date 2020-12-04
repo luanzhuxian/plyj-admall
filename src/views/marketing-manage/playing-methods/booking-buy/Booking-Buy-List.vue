@@ -122,7 +122,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                type="expand" width="0" class="sku-expand"
+                type="expand"
             >
                 <template #default="scope">
                     <el-table
