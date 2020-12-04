@@ -116,7 +116,7 @@
                         >
                             每个用户可领用
                         </el-checkbox>
-                        <el-input-number style="margin-left: 10px" :min="1" :max="100" v-model="form.redPacketCouponDTO.quantityLimit" label="描述文字" />
+                        <el-input-number :disabled="!form.redPacketCouponDTO.activityLimit" style="margin-left: 10px" :min="1" :max="100" v-model="form.redPacketCouponDTO.quantityLimit" label="描述文字" />
                         <p class="description">
                             未勾选，则不限制用户领用次数 <br>
                             勾选，则领用次数至少可领用一次，至多可领用100次</p>
