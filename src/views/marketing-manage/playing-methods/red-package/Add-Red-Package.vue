@@ -520,7 +520,7 @@ export default class AddRedPackage extends Vue {
                         receiveLimit,
                         tagIds,
                         distributionMethod,
-                        price,
+                        price: price / 100,
                         activityLimit,
                         quantityLimit,
                         useStartTime,
