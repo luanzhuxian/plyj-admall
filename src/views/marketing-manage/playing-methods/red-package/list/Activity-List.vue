@@ -106,9 +106,22 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="issueVolume"
-                    label="发放数量"
-                />
+                    width="180"
+                >
+                    <span slot="header">
+                        发放数量
+                        <el-tooltip class="item" style="display: inline-block" effect="dark" placement="bottom">
+                            <div slot="content">
+                                发放量指，可发放的福利红包数量，福利红包被领取后发放量将随之减少；<br>
+                                当发放量为0，即福利红包全部被领取，活动将自动结束。
+                            </div>
+                            <pl-svg name="yaji-jinggao" fill="#999999" style="margin-left: 4px;" />
+                        </el-tooltip>
+                    </span>
+                    <template #default="{row}">
+                        {{ row.issueVolume }}
+                    </template>
+                </el-table-column>
                 <el-table-column
                     label="适用用户"
                     width="150"

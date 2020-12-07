@@ -52,7 +52,7 @@
                     <el-form-item label="发放量：" prop="issueVolume">
                         <el-input-number v-model="form.issueVolume" :min="1" :max="99999" label="描述文字" />
                         <p class="description">
-                            发放的福利红包，超过发放量后将自动结束活动
+                            发放量指，可发放的福利红包数量，福利红包被领取后发放量将随之减少；当发放量为0，即福利红包全部被领取，活动将自动结束。
                         </p>
                     </el-form-item>
                     <div class="content-title">
