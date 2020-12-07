@@ -272,8 +272,6 @@
                     <el-form-item label="展示隐藏：" prop="showStatus">
                         <el-checkbox
                             v-model="form.showStatus"
-                            :true-label="false"
-                            :false-label="true"
                         >
                             福利红包设置隐藏
                         </el-checkbox>
@@ -512,7 +510,7 @@ export default class AddRedPackage extends Vue {
                     name,
                     issueVolume,
                     bgUrlsIndex,
-                    showStatus,
+                    showStatus: !showStatus,
                     logoShow,
                     logoUrl,
                     redPacketCouponDTO: {
@@ -714,6 +712,7 @@ export default class AddRedPackage extends Vue {
             }
             if (data.redPacketCouponDTO.activityLimit) data.quantityLimit = ''
             if (!data.redPacketCouponDTO.receiveLimit) data.redPacketCouponDTO.tagIds = []
+            data.showStatus = !data.showStatus
             this.id && this.$route.name === 'EditRedPackage' ? await editRedPackage(this.id, data) : await addRedPackage(data)
             this.$router.replace({ name: 'RedPackage' })
         } catch (e) {

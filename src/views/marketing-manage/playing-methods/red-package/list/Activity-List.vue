@@ -184,11 +184,11 @@
                                     class="switch"
                                     v-model="row.showStatus"
                                     active-color="#4F63FF"
-                                    :active-value="false"
-                                    :inactive-value="true"
+                                    :active-value="true"
+                                    :inactive-value="false"
                                     @change="switchShowChange(row)"
                                 />
-                                <span v-if="!row.showStatus" style="color: #4F63FF">
+                                <span v-if="row.showStatus" style="color: #4F63FF">
                                     显示
                                 </span>
                                 <span v-else style="color: #ccc">
@@ -406,7 +406,7 @@ export default class RedPackageActivityList extends Vue {
 
     async switchShowChange (row: { id: string; showStatus: boolean }) {
         try {
-            // showStatus  true为隐藏  false为显示
+            // showStatus  true为显示  false为隐藏
             await showRedPackage(row.id, row.showStatus)
             await this.getList()
             this.$success('操作成功')
