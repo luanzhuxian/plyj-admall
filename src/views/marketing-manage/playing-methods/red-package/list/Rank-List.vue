@@ -56,9 +56,12 @@
                     width="120"
                 />
                 <el-table-column
-                    prop="price"
                     label="付费金额"
-                />
+                >
+                    <template #default="{row}">
+                        {{ row.price/100 }}
+                    </template>
+                </el-table-column>
                 <el-table-column
                     label="领取时间"
                 >
@@ -168,9 +171,12 @@
                     width="120"
                 />
                 <el-table-column
-                    prop="price"
                     label="付费金额"
-                />
+                >
+                    <template #default="{row}">
+                        {{ row.price/100 }}
+                    </template>
+                </el-table-column>
                 <el-table-column
                     label="领取时间"
                 >
