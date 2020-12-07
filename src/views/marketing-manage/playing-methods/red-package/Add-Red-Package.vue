@@ -682,7 +682,7 @@ export default class AddRedPackage extends Vue {
         if (!this.form.redPacketCouponDTO.useStackable) {
             stackable = '不可与其他福利红包、满减券/品类全、奖学金同时使用'
         } else {
-            stackable = `可与其他${ this.form.redPacketCouponDTO.useWithCoupon ? '满减券/品类券' : '' }${ this.form.redPacketCouponDTO.useWithCoupon && this.form.redPacketCouponDTO.scholarship ? '、' : '' }${ this.form.redPacketCouponDTO.scholarship ? '奖学金' : '' }同时使用`
+            stackable = `不可与其他福利红包叠加使用，但支持与其他${ this.form.redPacketCouponDTO.useWithCoupon ? '满减券/品类券' : '' }${ this.form.redPacketCouponDTO.useWithCoupon && this.form.redPacketCouponDTO.scholarship ? '、' : '' }${ this.form.redPacketCouponDTO.scholarship ? '奖学金' : '' }同时使用`
         }
         this.form.redPacketCouponDTO.brief = `${ this.form.name }` + '\n' +
             '1.优惠内容：部分商品可使用，满' + `${ this.form.redPacketCouponDTO.useLimitAmount ? this.form.redPacketCouponDTO.useLimitAmount : '*' }` + '元立减' + `${ this.form.redPacketCouponDTO.amount ? this.form.redPacketCouponDTO.amount : '*' }` + '元\n' +
