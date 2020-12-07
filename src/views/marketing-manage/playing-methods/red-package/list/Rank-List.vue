@@ -293,8 +293,9 @@ export default class RedPackageRankList extends Vue {
         }
     }
 
-    async onSelectChange () {
+    async onSelectChange (val: number) {
         try {
+            if (!val) this.sortType = 1
             await this.getList()
         } catch (e) {
             throw e
