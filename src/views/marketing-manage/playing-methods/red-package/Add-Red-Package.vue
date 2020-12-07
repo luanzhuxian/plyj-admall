@@ -145,7 +145,7 @@
                             选择商品/课程
                         </el-button>
                         <p class="description">
-                            线上商城购买相应范围内的单个产品或者多个产品时，只要购买产品的总额满足抵扣条件，即可使用储备金进行抵扣相应金额。
+                            线上商城购买相应范围内的单个产品或者多个产品时，只要购买产品的总额满足抵扣条件，即可使用福利红包进行抵扣相应金额。
                         </p>
 
                         <!-- 商品列表 -->
@@ -460,7 +460,7 @@ export default class AddRedPackage extends Vue {
         // 发放量
         issueVolume: '',
         bgUrlsIndex: 0,
-        showStatus: true,
+        showStatus: false,
         logoShow: false,
         logoUrl: '',
         redPacketCouponDTO: {
