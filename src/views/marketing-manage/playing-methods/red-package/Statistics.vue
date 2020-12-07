@@ -8,7 +8,13 @@
             :start-time="$route.query.receiveStartTime"
             :end-time="$route.query.receiveEndTime"
         >
-            <span :class="$style.status">
+            <span :class="{
+                [$style.status]:true,
+                [$style.blueBg]:$route.query.activityStatus === '0',
+                [$style.greenBg]:$route.query.activityStatus === '1',
+                [$style.orangeBg]:$route.query.activityStatus === '2',
+                [$style.grayBg]:$route.query.activityStatus === '3',
+            }">
                 <i class="yaji-icon icon-time" />
                 {{ activityStatusMap[$route.query.activityStatus] }}
             </span>
@@ -566,11 +572,23 @@ export default class RedPackageStatistics extends Vue {
     padding: 4px 10px;
     margin-left: 15px;
     border-radius: 15px;
-    background-color: #2DCA72;
     color: #ffffff;
     >i{
         margin-right: 5px;
     }
+}
+
+.green-bg{
+    background-color: #2DCA72;
+}
+.blue-bg{
+    background-color: #4F63FF;
+}
+.orange-bg{
+    background-color: #F79F1A;
+}
+.gray-bg{
+    background-color: #999999;
 }
 
 .statistics {
