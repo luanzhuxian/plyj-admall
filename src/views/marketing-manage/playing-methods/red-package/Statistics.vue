@@ -149,7 +149,7 @@
                     width="200"
                 >
                     <template slot-scope="{row}">
-                        <p>{{ row.name ? row.name: '--' }}</p>
+                        <p>{{ row.baseMallUserName ? row.baseMallUserName: '--' }}</p>
                         <p>{{ row.mobile ? row.mobile: '--' }}</p>
                     </template>
                 </el-table-column>
@@ -173,7 +173,7 @@
                     width="150"
                 >
                     <template slot-scope="{row}">
-                        {{ row.createTime && row.createTime.split(' ')[0] || '--' }}
+                        {{ row.createTime || '--' }}
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -182,13 +182,16 @@
                     width="150"
                 >
                     <template slot-scope="{row}">
-                        {{ row.useTime && row.useTime.split(' ')[0] || '--' }}
+                        {{ row.useTime || '--' }}
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="statusText"
                     label="使用状态"
-                />
+                >
+                    <template #default="{row}">
+                        {{ useStatusMap[row.status] }}
+                    </template>
+                </el-table-column>
                 <el-table-column
                     label="分享人"
                     width="200"
@@ -201,12 +204,12 @@
                 <el-table-column
                     prop="orderNo"
                     label="支付订单编号"
-                    width="150"
+                    width="160"
                 >
                     <template slot-scope="{row}">
                         <span v-if="row.orderNo && row.orderNo.length">
-                            {{ row.orderNo[0] }}
-                            <el-button type="text" @click="$router.replace({name:'RightGoodsDetail',params:{id:row.orderNo[0] }})">查看订单</el-button>
+                            {{ row.orderNo }}
+                            <el-button type="text" @click="$router.replace({name:'RightGoodsDetail',params:{id:row.orderNo }})">查看订单</el-button>
                         </span>
                         <span v-else>--</span>
                     </template>
@@ -332,6 +335,12 @@ export default class RedPackageStatistics extends Vue {
         1: '进行中',
         2: '已停止',
         3: '已结束'
+    }
+
+    useStatusMap = {
+        0: '未使用',
+        1: '已使用',
+        2: '已过期'
     }
 
     table = []
