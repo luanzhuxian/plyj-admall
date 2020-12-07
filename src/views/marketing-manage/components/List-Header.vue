@@ -28,7 +28,7 @@
                 <span v-else-if="coursePackageStatus === 2">已结束</span>
             </div>
             <div class="validity">
-                使用有效期：
+                {{ timeTitle }}：
                 <span v-if="permanent">
                     长期有效
                 </span>
@@ -65,6 +65,11 @@ export default class ListHeader extends Vue {
         type: String,
         default: ''
     }) readonly description: string | undefined
+
+    @Prop({
+        type: String,
+        default: '使用有效期'
+    }) readonly timeTitle: string | undefined | ''
 
     @Prop({
         type: String,

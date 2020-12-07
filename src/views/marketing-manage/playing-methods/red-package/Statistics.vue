@@ -4,6 +4,7 @@
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png"
             :title="$route.query.name"
             description="低价购买福利红包  支付抵扣享优惠  "
+            time-title="领取时间"
             :start-time="$route.query.receiveStartTime"
             :end-time="$route.query.receiveEndTime"
         >
