@@ -13,7 +13,7 @@
                     <el-button type="primary" plain round @click="resetData">
                         恢复默认
                     </el-button>
-                    <span :class="$style.sugget">（默认按照活动领取开始时间和活动状态正序排列）</span>
+                    <span :class="$style.sugget">（默认按照活动创建时间倒序排列）</span>
                 </div>
                 <el-button type="text" @click="previewShow = true">
                     预览效果
@@ -133,7 +133,7 @@
                     </el-select>
                 </el-form-item>
             </el-form>
-            <span :class="$style.tips">请线选择福利红包活动的排序设置，并可支持拖拽调整排序</span>
+            <span :class="$style.tips">请先选择福利红包活动的排序设置，并可支持拖拽调整排序</span>
 
             <pl-table :data="SortStyleList">
                 <span
