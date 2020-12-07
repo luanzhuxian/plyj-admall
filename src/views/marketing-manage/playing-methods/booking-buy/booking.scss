@@ -47,11 +47,26 @@
     .activity-status{
       width: 104px;
       height: 31px;
-      background: #EC742E;
       border-radius: 130px;
       color: #ffffff;
       text-align: center;
       line-height: 31px;
+      background: $--status-color-stopped;
+      &.not-started{
+        background: $--status-color-not-started;
+      }
+      &.ongoing{
+        background: $--status-color-ongoing;
+      }
+      &.stopped{
+        background: $--status-color-stopped;
+      }
+      &.finished{
+        background: $--status-color-finished;
+      }
+      &.expired{
+        background: $--status-color-expired;
+      }
     }
   }
   .share-qrcode {

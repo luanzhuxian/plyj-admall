@@ -12,7 +12,12 @@ $--color-gray-5: #e7e7e7;
 /* 红色 */
 $--color-red-1: #E63600;
 
-
+/* 状态颜色 */
+$--status-color-not-started: $--color-primary-blue;
+$--status-color-ongoing: #2DCA72;
+$--status-color-stopped: #F79F1A;
+$--status-color-finished: $--color-gray-3;
+$--status-color-expired: $--color-red-1;
 
 /* 头部的高度 */
 $--header-height: 60px;

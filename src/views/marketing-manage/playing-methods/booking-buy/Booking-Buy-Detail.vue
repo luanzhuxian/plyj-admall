@@ -5,7 +5,7 @@
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png">
                 预购
             </div>
-            <div class="activity-status">
+            <div :class="`activity-status ${STATUSBG[activityDetail.status]}`">
                 <span v-if="activityDetail.status === 0">未开始</span>
                 <span v-if="activityDetail.status === 1">进行中</span>
                 <span v-if="activityDetail.status === 2">已结束</span>
@@ -44,7 +44,7 @@
                         </el-button>
                     </div>
                 </li>
-                <li>
+                <li v-if="activityDetail.skuModelList">
                     <label>活动商品：</label>
                     <div class="product" v-if="!activityDetail.skuModelList.length">
                         <img :src="activityDetail.productMainImage">
@@ -70,7 +70,7 @@
                         <el-table-column label="活动库存" prop="stock" />
                     </el-table>
                 </li>
-                <li v-if="!activityDetail.skuModelList.length">
+                <li v-if="activityDetail.skuModelList && !activityDetail.skuModelList.length">
                     <label>预购库存：</label>
                     <div class="value">
                         {{ activityDetail.stock }}件
@@ -83,13 +83,13 @@
                         <span v-else>每人限购{{ activityDetail.activityLimitNumber }}件</span>
                     </div>
                 </li>
-                <li v-if="!activityDetail.skuModelList.length">
+                <li v-if="activityDetail.skuModelList && !activityDetail.skuModelList.length">
                     <label>定金价位：</label>
                     <div class="value">
                         {{ activityDetail.price }}元
                     </div>
                 </li>
-                <li v-if="activityDetail.multiple && !activityDetail.skuModelList.length">
+                <li v-if="activityDetail.multiple && activityDetail.skuModelList && !activityDetail.skuModelList.length">
                     <label>定金翻倍：</label>
                     <div class="value">
                         {{ activityDetail.multipleNumber }}
@@ -138,7 +138,8 @@ export default {
             activityDetail: {},
             // 用户标签
             userTagList: [],
-            userTag: ['所有注册用户', 'helper可用', '普通会员', '部分用户组可用']
+            userTag: ['所有注册用户', 'helper可用', '普通会员', '部分用户组可用'],
+            STATUSBG: ['not-started', 'ongoing', 'stopped', 'finished', 'expired']
         }
     },
     props: {
