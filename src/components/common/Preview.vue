@@ -48,8 +48,9 @@ export default {
     position: relative;
     overflow: scroll;
     width: 300px;
-    height: 662px;
-      border-radius: 35px;
+    height: 600px;
+    border-radius: 35px;
+    background-color: #fff;
     &::-webkit-scrollbar {
       display: none;
     }

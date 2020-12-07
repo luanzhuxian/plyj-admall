@@ -679,7 +679,7 @@ export default class AddRedPackage extends Vue {
         if (this.briefEdit) return
         let stackable = ''
         if (!this.form.redPacketCouponDTO.useStackable) {
-            stackable = '不可与其他福利红包、满减券/品类全、奖学金同时使用'
+            stackable = '不可与其他福利红包、满减券/品类券、奖学金同时使用'
         } else {
             stackable = `不可与其他福利红包叠加使用，但支持与其他${ this.form.redPacketCouponDTO.useWithCoupon ? '满减券/品类券' : '' }${ this.form.redPacketCouponDTO.useWithCoupon && this.form.redPacketCouponDTO.scholarship ? '、' : '' }${ this.form.redPacketCouponDTO.scholarship ? '奖学金' : '' }同时使用`
         }
