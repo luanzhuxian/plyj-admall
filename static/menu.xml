@@ -565,7 +565,12 @@
 
                     <menu aclCode="2-8-20" name="福利红包" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RedPackage" roles="0">
                         <menus>
-                            <menu aclCode="2-8-20-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="RedPackageList" roles="0"/>
+                            <menu aclCode="2-8-20-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="RedPackageList" roles="0">
+                                <menus>
+                                    <menu aclCode="2-8-20-1-1" name="活动列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RedPackageActivityList" roles="0"/>
+                                    <menu aclCode="2-8-20-1-2" name="排序列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RedPackageRankList" roles="0"/>
+                                </menus>
+                            </menu>
                             <menu aclCode="2-8-20-3" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddRedPackage" roles="0"/>
                             <menu aclCode="2-8-20-4" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditRedPackage" roles="0"/>
                             <menu aclCode="2-8-20-5" name="查看数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="RedPackageStatistics" roles="0"/>

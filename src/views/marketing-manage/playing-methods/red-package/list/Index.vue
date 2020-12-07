@@ -39,16 +39,21 @@ export default class RedPackageList extends Vue {
 
     /* watch */
     @Watch('$route.name', { immediate: true })
-    @Prop() info!: object
-
     onChange (newVal: string) {
         this.currentTab = newVal
     }
 
+    @Prop() info!: object
+
     /* methods */
-    handleTabClick (tab: { name: string; label: string }) {
-        this.currentTab = tab.name
-        this.$router.push({ name: tab.name })
+    async handleTabClick (tab: { name: string; label: string }) {
+        try {
+            this.currentTab = tab.name
+            await this.$router.push({ name: tab.name })
+        } catch (e) {
+            if (e && tab.name === 'RedPackageRankList') this.currentTab = 'RedPackageActivityList'
+            if (e && tab.name === 'RedPackageActivityList') this.currentTab = 'RedPackageRankList'
+        }
     }
 }
 </script>
