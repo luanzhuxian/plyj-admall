@@ -5,7 +5,12 @@
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png">
                 预购
             </div>
-            <div :class="`activity-status ${STATUSBG[statistics.status]}`">
+            <div :class="{
+                'activity-status': true,
+                'not-started': statistics.statusText === '未开始',
+                'ongoing': statistics.statusText === '进行中',
+                'finished': statistics.statusText === '已结束'
+            }">
                 <pl-svg name="icon-shijian1" width="16" fill="#fff" class="mr-10" />
                 {{ statistics.statusText }}
             </div>
@@ -379,8 +384,7 @@ export default {
                 WAIT_PAY_TAIL_MONEY: '待付尾款',
                 FINISHED: '订单完成',
                 CLOSED: '订单关闭'
-            },
-            STATUSBG: ['not-started', 'ongoing', 'stopped', 'finished', 'expired']
+            }
         }
     },
     created () {

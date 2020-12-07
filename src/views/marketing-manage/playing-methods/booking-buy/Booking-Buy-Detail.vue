@@ -5,7 +5,12 @@
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/预购.png">
                 预购
             </div>
-            <div :class="`activity-status ${STATUSBG[activityDetail.status]}`">
+            <div :class="{
+                'activity-status': true,
+                'not-started': activityDetail.status === 0,
+                'ongoing': activityDetail.status === 1,
+                'finished': activityDetail.status === 2
+            }">
                 <span v-if="activityDetail.status === 0">未开始</span>
                 <span v-if="activityDetail.status === 1">进行中</span>
                 <span v-if="activityDetail.status === 2">已结束</span>
@@ -138,8 +143,7 @@ export default {
             activityDetail: {},
             // 用户标签
             userTagList: [],
-            userTag: ['所有注册用户', 'helper可用', '普通会员', '部分用户组可用'],
-            STATUSBG: ['not-started', 'ongoing', 'stopped', 'finished', 'expired']
+            userTag: ['所有注册用户', 'helper可用', '普通会员', '部分用户组可用']
         }
     },
     props: {
