@@ -10,10 +10,10 @@
         >
             <span :class="{
                 [$style.status]:true,
-                [$style.blueBg]:$route.query.activityStatus === '0',
-                [$style.greenBg]:$route.query.activityStatus === '1',
-                [$style.orangeBg]:$route.query.activityStatus === '2',
-                [$style.grayBg]:$route.query.activityStatus === '3',
+                [$style.blueBg]:activityStatus === 0,
+                [$style.greenBg]:activityStatus === 1,
+                [$style.orangeBg]:activityStatus === 2,
+                [$style.grayBg]:activityStatus === 3,
             }">
                 <i class="yaji-icon icon-time" />
                 {{ activityStatusMap[$route.query.activityStatus] }}
@@ -336,6 +336,7 @@ export default class RedPackageStatistics extends Vue {
         size: 10
     }
 
+    activityStatus = ''
     activityStatusMap = {
         0: '未开始',
         1: '进行中',
@@ -375,6 +376,7 @@ export default class RedPackageStatistics extends Vue {
     qrcodeShow = false
 
     async created () {
+        this.activityStatus = this.$route.query.activityStatus
         try {
             this.table = []
             this.form.activityId = this.id
