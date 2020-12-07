@@ -17,7 +17,7 @@
                     </Panel>
                 </ModuleWrapper>
                 <!-- 福利红包 -->
-                <!-- <section
+                <section
                     id="RedPackage"
                     v-if="data && data.RedPackage && (data.RedPackage.values.length || isClickable || isEmptyShow)"
                     :class="{
@@ -29,7 +29,7 @@
                     @click="onClick('RedPackage')"
                 >
                     <RedPackage :data="RedPackage" />
-                </section> -->
+                </section>
                 <!-- 优惠券 -->
                 <section
                     id="Coupon"
@@ -131,6 +131,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../activity/spring-2020/Live.vue'
+import RedPackage from '../activity/spring-2020/RedPackage.vue'
 import Coupon from '../activity/double-12-2020/Coupon.vue'
 import Miaosha from '../activity/spring-2020/Miaosha.vue'
 import Pintuan from '../activity/spring-2020/Pintuan.vue'
@@ -144,6 +145,7 @@ import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
 @Component({
     components: {
         Live,
+        RedPackage,
         Coupon,
         Miaosha,
         Pintuan,
@@ -326,10 +328,12 @@ export default class TemplateSpring2020 extends Vue {
 }
 .module-miaosha,
 .module-pintuan,
-.module-yugou,
 .module-package,
 .module-popular {
     padding: 10px 0 0;
+}
+.module-yugou {
+    padding: 10px 0 20px;
 }
 
 .module-copyright {

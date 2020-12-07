@@ -221,7 +221,7 @@ import TemplateFanchang from '../components/templates/template-double-12-2019/Te
 import TemplateSpring2019 from '../components/templates/Template-Spring-2019.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
 import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
-import TemplateSpring2020 from '../components/templates/Template-Spring-2020.vue'
+import TemplateSpring2020Green from '../components/templates/Template-Spring-2020-Green.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import Render from '../components/Render'
@@ -243,7 +243,7 @@ const mall = namespace('mall')
         TemplateSpring2019,
         TemplateDragonGate,
         TemplateDouble122020,
-        TemplateSpring2020,
+        TemplateSpring2020Green,
         TemplatePreview,
         ModalTimeSetting,
         Render

@@ -284,3 +284,43 @@ export const distributionTableOptions = [{
     label: '润笔（元）',
     prop: 'rebate'
 }]
+
+export const redPackageTableOptions = [{
+    label: '福利红包名称',
+    prop: 'name'
+}, {
+    label: '面值（元）',
+    prop: 'amount'
+}, {
+    label: '价格',
+    prop: 'price'
+}, {
+    label: '用券时间',
+    prop: '',
+    width: 150,
+    render: ({ useStartTime, useEndTime }: { useStartTime: string; useEndTime: string }) => `
+      <div>${ useStartTime }</div>
+      <div>至</div>
+      <div>${ useEndTime }</div>
+      `
+}, {
+    label: '剩余',
+    prop: 'issueVolume'
+}, {
+    label: '状态',
+    prop: 'statusText',
+    render: ({ activityStatus }: { activityStatus: number }) => {
+        if (activityStatus === 0) {
+            return '未开始'
+        }
+        if (activityStatus === 1) {
+            return '进行中'
+        }
+        if (activityStatus === 2) {
+            return '暂停'
+        }
+        if (activityStatus === 3) {
+            return '结束'
+        }
+    }
+}]

@@ -126,7 +126,8 @@ import TemplateFanchang from '../components/templates/template-double-12-2019/Te
 import TemplateSpring from '../components/templates/Template-Spring-2019.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
 import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
-import TemplateSpring2020 from '../components/templates/Template-Spring-2020.vue'
+import TemplateSpring2020Green from '../components/templates/Template-Spring-2020-Green.vue'
+// import TemplateSpring2020Red from '../components/templates/Template-Spring-2020-Red.vue'
 import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
@@ -221,6 +222,14 @@ const templateModels = [{
     category: 'template',
     type: 12,
     img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/template-top.png',
+    isHover: false,
+    isFree: false,
+    charge: '新春用户可用',
+    expire: '2020.12.31'
+}, {
+    category: 'template',
+    type: 13,
+    img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/template-top-red.jpg',
     isHover: false,
     isFree: false,
     charge: '新春用户可用',
@@ -372,7 +381,8 @@ const skinModels = [{
         TemplateSpring,
         TemplateDragonGate,
         TemplateDouble122020,
-        TemplateSpring2020,
+        TemplateSpring2020Green,
+        // TemplateSpring2020Red,
         TemplateItem,
         TemplatePreview,
         Render
@@ -468,7 +478,7 @@ export default class MallThemes extends Vue {
                 ].indexOf(item.type))
 
                 // 新春主会场模版
-                this.springTemplateList = result.filter(item => item.type === TemplateTypes.TemplateSpring2020)
+                this.springTemplateList = result.filter(item => item.type === TemplateTypes.TemplateSpring2020Green || item.type === TemplateTypes.TemplateSpring2020Red)
 
                 // 龙门节主会场模版
                 this.dragonGateTemplateList = result.filter(item => item.type === TemplateTypes.TemplateDragonGate)

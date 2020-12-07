@@ -247,7 +247,7 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Package = reset(findModuleById(ModuleIds.Package), 'Package')
         templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
     }
-    if (tmplType === TemplateTypes.TemplateSpring2020) {
+    if (tmplType === TemplateTypes.TemplateSpring2020Green || tmplType === TemplateTypes.TemplateSpring2020Red) {
         templateModel = {} as TemplateSpring2020
         templateModel.Live = findModuleById(ModuleIds.Live)
         templateModel.RedPackage = reset(findModuleById(ModuleIds.RedPackage), 'RedPackage')

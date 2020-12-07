@@ -183,7 +183,7 @@ import TemplateFanchang from '../components/templates/template-double-12-2019/Te
 import TemplateSpring2019 from '../components/templates/Template-Spring-2019.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
 import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
-import TemplateSpring2020 from '../components/templates/Template-Spring-2020.vue'
+import TemplateSpring2020Green from '../components/templates/Template-Spring-2020-Green.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import EditorBanner from '../components/Editor-Banner.vue'
 import EditorAdv from '../components/Editor-Adv.vue'
@@ -237,7 +237,7 @@ const mall = namespace('mall')
         TemplateSpring2019,
         TemplateDragonGate,
         TemplateDouble122020,
-        TemplateSpring2020,
+        TemplateSpring2020Green,
         TemplatePreview,
         EditorBanner,
         EditorAdv,
@@ -363,7 +363,7 @@ export default class MallDecoration extends Vue {
     }
 
     get isEditorCouponShow () {
-        return this.currentModule === 'Coupon'
+        return this.currentModule === 'Coupon' || this.currentModule === 'RedPackage'
     }
 
     get isEditorMiaoshaShow () {
@@ -381,6 +381,9 @@ export default class MallDecoration extends Vue {
     }
 
     get editorCouponMaxValue () {
+        if (this.currentModule === 'RedPackage') {
+            return 10
+        }
         return this.tmplType === TemplateTypes.TemplateDragonGate ? 2 : 3
     }
 
@@ -718,18 +721,22 @@ export default class MallDecoration extends Vue {
             }
         }
 
-        if (currentModule === 'Coupon') {
+        if (currentModule === 'Coupon' || currentModule === 'RedPackage') {
             if (!selectedList.length) return
 
             selectedList = selectedList.map(prod => ({
                 type: '',
                 image: prod.productMainImage || '',
-                name: prod.productName || '',
+                name: prod.productName || prod.name || '',
                 value: prod.id,
                 goodsInfo: prod
             }))
 
-            const max = tmplType === TemplateTypes.TemplateDragonGate ? 2 : 3
+            const max = currentModule === 'RedPackage'
+                ? 10
+                : tmplType === TemplateTypes.TemplateDragonGate
+                    ? 2
+                    : 3
             module.values = selectedList
             if (module.values.length > max) {
                 module.values.length = max

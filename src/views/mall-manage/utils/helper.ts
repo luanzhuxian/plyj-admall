@@ -156,3 +156,11 @@ export const findBrothersComponents = (ctx: Vue, componentName: string, exceptMe
     }
     return list
 }
+
+// 单位转换：分转元
+export const fenToYuan = function (num: number) {
+    const regexp = /(?:\.0*|(\.\d+?)0+)$/
+    let numStr = (num / 100).toFixed(2)
+    numStr = numStr.replace(regexp, '$1')
+    return Number(numStr)
+}

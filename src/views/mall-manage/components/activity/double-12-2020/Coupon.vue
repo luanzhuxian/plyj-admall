@@ -180,7 +180,6 @@ export default class Coupon extends Vue {
                     border-left: 4px solid transparent;
                     border-right: 4px solid #F8E8C5;
                     border-bottom: 8px solid transparent;
-
                 }
             }
             &-left {

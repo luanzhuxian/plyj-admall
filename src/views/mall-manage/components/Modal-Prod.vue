@@ -67,6 +67,7 @@ import {
 } from '../../../apis/mall'
 import { getSpringPloughingList } from '../../../apis/marketing-manage/new-year/spring-ploughing'
 import { getVideoList } from '../../../apis/product-center/online-teaching/knowledge-course'
+import { getRedPackageList } from '../../../apis/marketing-manage/red-package'
 import {
     activityTableOptionsProducer,
     couponTableOptions,
@@ -74,8 +75,10 @@ import {
     packageTableOptions,
     distributionTableOptions,
     courseTableOptions,
-    imageTextTableOptions
+    imageTextTableOptions,
+    redPackageTableOptions
 } from '../utils/config'
+import { fenToYuan } from '../utils/helper'
 
 const productChecker = () => true
 const packageChecker = (row: { status: number }) => row.status !== 2
@@ -84,6 +87,7 @@ const yugouChecker = (row: { status: number }) => row.status !== 2
 const miaoshaChecker = (row: { status: number }) => row.status !== 2
 const couponChecker = (row: { status: number }) => row.status !== 0 && row.status !== 3
 const courseChecker = (row: { status: number | string }) => row.status !== '2' && row.status !== 2
+const redPackageChecker = (row: { activityStatus: number }) => row.activityStatus !== 2 && row.activityStatus !== 3
 
 const statusMap1 = {
     0: '未开始',
@@ -177,6 +181,12 @@ const modalMap: DynamicObject = {
         method: '',
         options: imageTextTableOptions,
         checker: courseChecker
+    },
+    24: {
+        id: 'RedPackage',
+        method: '',
+        options: redPackageTableOptions,
+        checker: redPackageChecker
     }
 }
 
@@ -264,6 +274,8 @@ export default class ModalProd extends Vue {
             this.getCourse()
         } else if (this.type === ModalType.ImageTextModal) {
             this.getImageText()
+        } else if (this.type === ModalType.RedPackageModal) {
+            this.getRedPackage()
         } else {
             this.getActivity()
         }
@@ -394,6 +406,27 @@ export default class ModalProd extends Vue {
             }
             const { result }: any = await getImageTextList(params)
             this.productList = result.records
+            this.pagination.total = result.total
+        } catch (error) {
+            throw error
+        }
+    }
+
+    // 查福利红包
+    async getRedPackage () {
+        try {
+            const params = {
+                activityStatus: '0, 1',
+                page: this.pagination.current,
+                size: this.pagination.size
+            }
+            const { result }: any = await getRedPackageList(params)
+            this.productList = result.records
+                // .filter((item: { showStatus: number; issueVolume: number }) => item.showStatus)
+                .map((item: { price: number }) => {
+                    item.price = fenToYuan(item.price)
+                    return item
+                })
             this.pagination.total = result.total
         } catch (error) {
             throw error

@@ -1,11 +1,11 @@
 <template lang="html">
     <div class="editor-coupon" :class="$style.editorCoupon" v-if="show">
         <div :class="$style.editorCouponHeader">
-            优惠券
+            {{ name }}
             <i class="el-icon-close" @click="close" />
         </div>
         <div :class="$style.editorCouponContent">
-            <div>添加优惠券</div>
+            <div>{{ `添加${name}` }}</div>
             <div :class="$style.editorCouponOperation">
                 <div :class="$style.editorCouponProduct">
                     <Draggable
@@ -18,7 +18,7 @@
                     >
                         <li :class="$style.editorCouponProductItem" v-for="(item, i) of data.values" :key="i">
                             <div :class="$style.info">
-                                <div>{{ item.goodsInfo.couponName }}</div>
+                                <div>{{ item.goodsInfo.couponName || item.goodsInfo.name }}</div>
                                 <div>{{ `${item.goodsInfo.useStartTime && item.goodsInfo.useStartTime.split(' ')[0]} - ${item.goodsInfo.useEndTime && item.goodsInfo.useEndTime.split(' ')[0]}` }}</div>
                             </div>
                             <div style="width: 28px;">
@@ -44,6 +44,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 import { TemplateModule } from '../utils/types'
+import { ModuleIds } from '../utils/map'
 import Draggable from '../../../components/common/draggable'
 import { findBrothersComponents } from '../utils/helper'
 
@@ -68,6 +69,15 @@ export default class EditorCoupon extends Vue {
     /* data */
     dragging = false
     inputCount = 1
+
+    /* computed */
+    get moduleType () {
+        return this.data.moduleType
+    }
+
+    get name () {
+        return this.moduleType === ModuleIds.RedPackage ? '福利红包' : '优惠券'
+    }
 
     /* methods */
     add () {

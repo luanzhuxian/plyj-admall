@@ -10,7 +10,14 @@ export const getRedPackageDetail = (id: string) => axios.get(`/apis/v2/red-packa
 export const editRedPackage = (id: string, data: object) => axios.put(`/apis/v2/red-package-activities/${ id }`, data)
 
 // 获取活动列表
-export const getRedPackageList = (params: { name: string; activityStatus: string; receiveEndTime: string; receiveStartTime: string; page: number; size: number }) => axios.get('/apis/v2/red-package-activities', { params })
+export const getRedPackageList = (params: {
+    name?: string;
+    activityStatus?: string;
+    receiveEndTime?: string;
+    receiveStartTime?: string;
+    page: number;
+    size: number;
+}) => axios.get('/apis/v2/red-package-activities', { params })
 
 // 暂停开启福利红包
 export const pauseRedPackage = (id: string, pause: boolean) => axios.put(`/apis/v2/red-package-activities/${ id }/pause/${ pause }`)

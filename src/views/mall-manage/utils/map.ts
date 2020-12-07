@@ -74,7 +74,9 @@ export enum ModalType {
     // 系列课
     SeriesCourseModal = 22,
     // 图文资料
-    ImageTextModal = 23
+    ImageTextModal = 23,
+    // 福利红包
+    RedPackageModal = 24
 }
 
 // 模板类型
@@ -100,7 +102,8 @@ export enum TemplateTypes {
     // 双十二 2020
     TemplateDouble122020 = 11,
     // 新春 2020
-    TemplateSpring2020 = 12
+    TemplateSpring2020Green = 12,
+    TemplateSpring2020Red = 13
 }
 
 // 模块id
@@ -165,7 +168,8 @@ export const tagMap: DynamicObject = {
     9: 'TemplateD',
     10: 'TemplateDragonGate',
     11: 'TemplateDouble122020',
-    12: 'TemplateSpring2020',
+    12: 'TemplateSpring2020Green',
+    13: 'TemplateSpring2020Red',
     findTemplateTagById (id: string) {
         return this[id]
     }
