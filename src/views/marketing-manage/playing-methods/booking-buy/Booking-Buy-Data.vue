@@ -451,7 +451,7 @@ export default {
         watchDetail () {
             this.$alert({
                 title: '总营业额明细',
-                message: `<p>定金支付总额：${ (this.statistics.depositAmount || 0) / 100 } 元<p/><p>支付尾款总额：${ (this.statistics.preBalanceAmount || 0) / 100 }元</p>`,
+                message: `<p>定金支付总额：${ (this.statistics.depositAmount || 0) / 100 } 元<p/><p>支付尾款总额：${ (this.statistics.preBalanceAmount || 0) / 100 } 元</p>`,
                 dangerouslyUseHTMLString: true
             })
         }
