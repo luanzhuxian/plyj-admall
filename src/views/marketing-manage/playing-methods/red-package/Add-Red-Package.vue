@@ -462,7 +462,8 @@ export default class AddRedPackage extends Vue {
         // 发放量
         issueVolume: '',
         bgUrlsIndex: 0,
-        showStatus: true,
+        // true 隐藏 false显示
+        showStatus: false,
         logoShow: false,
         logoUrl: '',
         redPacketCouponDTO: {
