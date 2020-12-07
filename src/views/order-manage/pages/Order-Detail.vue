@@ -183,7 +183,7 @@
                                     {{ detailInfo.goodsModel.contentCount }}节
                                 </p>
                                 <p class="info-info" v-if="detailInfo.orderType === 'RED_ENVELOPE'">
-                                    满{{ detailInfo.goodsModel.sku }}抵{{ detailInfo.goodsModel.subSku }}
+                                    满{{ Number(detailInfo.goodsModel.sku) }}抵{{ Number(detailInfo.goodsModel.subSku) }}
                                 </p>
                                 <p class="info-total">
                                     小计: ￥{{ detailInfo.goodsModel.goodsTotalPrice/100 }}

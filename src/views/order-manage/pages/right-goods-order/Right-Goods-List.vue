@@ -104,11 +104,14 @@
                 width="180"
             />
             <el-table-column
-                prop="subSku"
                 label="福利红包面额（元）"
                 align="center"
                 width="150"
-            />
+            >
+                <template #default="{row}">
+                    {{ Number(row.subSku) }}
+                </template>
+            </el-table-column>
             <el-table-column
                 label="类型"
                 width="100"
@@ -127,7 +130,7 @@
                 width="100"
             >
                 <template #default="{ row }">
-                    {{ row.unitPrice ? row.unitPrice/100 : '免费' }}
+                    {{ row.unitPrice ? Number(row.unitPrice/100) : '免费' }}
                 </template>
             </el-table-column>
             <el-table-column
@@ -141,7 +144,7 @@
             >
                 <template #default="{ row }">
                     <span v-if="row.payTransInfoModels && row.payTransInfoModels.length">
-                        {{ row.orderAmount/100 }}
+                        {{ Number(row.orderAmount/100) }}
                     </span>
                     <span v-else>0</span>
                 </template>
