@@ -165,18 +165,18 @@
                     <template slot-scope="{ row }">
                         <Operating>
                             <template slot="button-box">
-                                <el-button type="text" v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="edit(row)">
+                                <a v-if="row.lockStatus === 0 || row.lockStatus === 1" @click="edit(row)">
                                     编辑
-                                </el-button>
-                                <el-button type="text" v-if="row.lockStatus !== 2" @click="goDetail(row)">
+                                </a>
+                                <a v-if="row.lockStatus !== 2" @click="goDetail(row)">
                                     详情
-                                </el-button>
-                                <el-button type="text" @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
+                                </a>
+                                <a @click="switchChange(row)" v-if="row.lockStatus === 0 || row.lockStatus === 1">
                                     {{ row.lockStatus ? '禁用' : '启用' }}
-                                </el-button>
-                                <el-button type="text" @click="deleteAccount(row)" v-if="row.lockStatus === 0 || row.lockStatus === 2">
+                                </a>
+                                <a @click="deleteAccount(row)" v-if="row.lockStatus === 0 || row.lockStatus === 2">
                                     移除
-                                </el-button>
+                                </a>
                             </template>
                         </Operating>
                     </template>
