@@ -549,7 +549,7 @@ export default {
                 this.commonAddressList.region = result
             }
         },
-        async 'invoiceAddressNewTemp.region' () {
+        'invoiceAddressNewTemp.region' () {
             // 省市区数据中的地区变动时，进行汉字的拼接操作
             this.invoiceAddressNewTemp.addressPrefix = ''
             for (const item of this.commonAddressList.province) {
@@ -603,7 +603,7 @@ export default {
                 }
             }
         },
-        async invoiceTypeChage () {
+        invoiceTypeChage () {
             if (this.invoiceForm.invoiceType === '0') {
                 // 发票类型为个人
                 this.invoiceForm.taxpayerNumber = ''
@@ -740,7 +740,7 @@ export default {
             }
         },
         // 选择订单，设置userId方便后续添加时进行限定过滤
-        async selectOrder (row) {
+        selectOrder (row) {
             if (row && row.orderId) {
                 this.rowId = row.orderId
                 this.userIdTemp = row.userId

@@ -331,7 +331,7 @@ export default {
             }
         }
     },
-    async created () {
+    created () {
     // 如果不是新建活动，则请求列表进行展示
         if (this.$route.params.id) {
             this.id = this.$route.params.id
