@@ -179,7 +179,7 @@
                     <template #default="{row}">
                         <div class="inline-b">
                             <span style="display: inline-block;width: 40px">{{ activityStatusMap[row.activityStatus] }}</span>
-                            <template v-if="row.id !== 3">
+                            <template v-if="row.activityStatus !== 3">
                                 <el-switch
                                     class="switch"
                                     v-model="row.showStatus"
@@ -462,7 +462,7 @@ export default class RedPackageActivityList extends Vue {
         }
     }
 
-    async share (row: { id: string }) {
+    share (row: { id: string }) {
         try {
             this.qrcodeText = `${ this.mallUrl }/red-package/detail/${ row.id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
