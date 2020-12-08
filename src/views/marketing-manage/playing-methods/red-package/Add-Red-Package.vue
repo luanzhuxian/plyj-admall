@@ -583,6 +583,26 @@ export default class AddRedPackage extends Vue {
             callback(new Error('请输入支付金额'))
             return
         }
+        if (this.form.redPacketCouponDTO.distributionMethod) {
+            if (Number.isNaN(Number(value))) {
+                callback(new Error('必须是数字'))
+                return
+            }
+            if (Number(value) > 99999.99) {
+                callback(new Error(`最大值为${ 99999.99 }`))
+                return
+            }
+            if (Number(value) < 0.01) {
+                callback(new Error(`最小值为${ 0.01 }`))
+                return
+            }
+            const dec = String(value).split('.')[1] || ''
+            if (dec && dec.length > 2) {
+                callback(new Error('只允许保留2位小数'))
+                return
+            }
+            return
+        }
         callback()
     }
 
@@ -639,8 +659,7 @@ export default class AddRedPackage extends Vue {
             { validator: checkNumber(100, 1, 0), trigger: 'blur' }
         ],
         'redPacketCouponDTO.price': [
-            { validator: this.rulesPrice, trigger: 'blur' },
-            { validator: checkNumber(99999.99, 0.01, 2), trigger: 'blur' }
+            { validator: this.rulesPrice, trigger: 'blur' }
         ],
         'redPacketCouponDTO.useStartTime': [
             { required: true, message: '使用时间不能为空', trigger: 'blur' }
@@ -746,7 +765,7 @@ export default class AddRedPackage extends Vue {
         val.length ? this.form.logoUrl = val[0] : this.form.logoUrl = ''
     }
 
-    async userGroupInit (val: any[]) {
+    userGroupInit (val: any[]) {
         this.checkListArray = val
     }
 
