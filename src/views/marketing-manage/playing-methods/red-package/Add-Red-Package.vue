@@ -94,7 +94,7 @@
                             @init="userGroupInit"
                         />
                     </el-form-item>
-                    <el-form-item label="领用方式：" prop="redPacketCouponDTO.distributionMethod">
+                    <el-form-item label="领用方式：" prop="redPacketCouponDTO.price">
                         <el-radio-group @change="distributionMethodChange" :disabled="disabled" v-model="form.redPacketCouponDTO.distributionMethod">
                             <el-radio :label="0">
                                 免费
@@ -578,8 +578,8 @@ export default class AddRedPackage extends Vue {
         callback()
     }
 
-    rulesDistributionMethod (rule: number, value: any, callback: Function) {
-        if (value === 2 && !this.form.redPacketCouponDTO.price) {
+    rulesPrice (rule: number, value: any, callback: Function) {
+        if (this.form.redPacketCouponDTO.distributionMethod === 2 && !value) {
             callback(new Error('请输入支付金额'))
             return
         }
@@ -638,8 +638,9 @@ export default class AddRedPackage extends Vue {
         'redPacketCouponDTO.quantityLimit': [
             { validator: checkNumber(100, 1, 0), trigger: 'blur' }
         ],
-        'redPacketCouponDTO.distributionMethod': [
-            { validator: this.rulesDistributionMethod, trigger: 'blur' }
+        'redPacketCouponDTO.price': [
+            { validator: this.rulesPrice, trigger: 'blur' },
+            { validator: checkNumber(99999.99, 0.01, 2), trigger: 'blur' }
         ],
         'redPacketCouponDTO.useStartTime': [
             { required: true, message: '使用时间不能为空', trigger: 'blur' }
