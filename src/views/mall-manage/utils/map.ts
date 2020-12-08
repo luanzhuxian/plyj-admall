@@ -76,7 +76,7 @@ export enum ModalType {
     // 图文资料
     ImageTextModal = 23,
     // 福利红包
-    RedPackageModal = 24
+    RedPackageModal = 24,
 }
 
 // 模板类型
@@ -153,7 +153,9 @@ export enum ModuleIds {
     // 图文资料
     ImageText = 23,
     // 福利红包
-    RedPackage = 24
+    RedPackage = 24,
+    // 分类
+    Classify = 25
 }
 
 // 各个模板 id 对应模板名

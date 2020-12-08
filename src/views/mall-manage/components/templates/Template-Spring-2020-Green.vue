@@ -12,7 +12,7 @@
             <div :class="$style.container">
                 <!-- 直播 -->
                 <ModuleWrapper :class="[$style.module, $style.moduleLive]" :data="Live">
-                    <Panel custom-class="spring-2020-live-panel" title="直播放映室">
+                    <Panel custom-class="spring-2020-green-live-panel" title="直播放映室">
                         <Live :data="Live" />
                     </Panel>
                 </ModuleWrapper>
@@ -34,7 +34,7 @@
                 <section
                     id="Coupon"
                     v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
-                    class="spring-2020-coupon"
+                    class="spring-2020-green-coupon"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleCoupon]: true,
@@ -217,10 +217,10 @@ export default class TemplateSpring2020 extends Vue {
 </script>
 
 <style lang="scss">
-.spring-2020-live-panel {
+.spring-2020-green-live-panel {
     background-color: #FFC70C;
     border-radius: 8px;
-    .double-12-panel-title {
+    > .double-12-panel-title {
         padding-top: 10px;
         height: auto;
         background: transparent;
@@ -253,7 +253,7 @@ export default class TemplateSpring2020 extends Vue {
             color: #7A1417;
         }
     }
-    .double-12-panel-container {
+    > .double-12-panel-container {
         padding-top: 0px;
         > .live-list {
             .first {
@@ -272,7 +272,7 @@ export default class TemplateSpring2020 extends Vue {
         color: #7A1417;
     }
 }
-.spring-2020-coupon {
+.spring-2020-green-coupon {
     > .coupon-wrapper {
         &::before {
             background-color: #05A19A;

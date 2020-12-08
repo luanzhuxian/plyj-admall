@@ -16,14 +16,16 @@
                                 <p :class="$style.count">剩余<span>{{ item.goodsInfo.issueVolume }}</span>张</p>
                             </div>
                             <div :class="$style.redPackageListItemRight">
-                                <b :class="$style.rule">{{ `${item.goodsInfo.price}可抵${item.goodsInfo.amount}` }}</b>
-                                <p :class="$style.name">{{ item.name }}</p>
+                                <b :class="$style.rule">
+                                    {{ item.goodsInfo.price ? `${item.goodsInfo.price}可抵${item.goodsInfo.amount}` : `可抵${item.goodsInfo.amount}` }}
+                                </b>
+                                <p :class="$style.name">{{ item.goodsInfo.name }}</p>
                                 <p :class="$style.time">
                                     {{ `使用时间：${formatTime(item.goodsInfo.useStartTime)}-${formatTime(item.goodsInfo.useEndTime)}` }}
                                 </p>
                                 <p :class="$style.link">指定商品可用 ></p>
                                 <div :class="$style.bottom">
-                                    <b :class="$style.price">{{ `仅需${item.goodsInfo.price}元` }}</b>
+                                    <b :class="$style.price">{{ item.goodsInfo.price ? `仅需${item.goodsInfo.price}元` : '免费领取' }}</b>
                                     <button :class="$style.button">立即领取</button>
                                 </div>
                             </div>
@@ -102,7 +104,6 @@ export default class Package extends Vue {
         slidesPerView: 1.1,
         spaceBetween: 10,
         grabCursor: true
-        // loop: true
     }
 
     /* methods */
@@ -111,7 +112,7 @@ export default class Package extends Vue {
          receiveStartTime: string;
          receiveEndTime: string;
     }) {
-    // 0 未开始 1 进行中 2 暂停 3 结束
+        // 0 未开始 1 进行中 2 暂停 3 结束
         const now = Date.now().valueOf()
         if (activityStatus === 0) {
             return moment(receiveStartTime).valueOf() - now

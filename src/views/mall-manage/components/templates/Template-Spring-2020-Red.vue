@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.templateSpring">
+    <div :class="$style.templateSpring" class="template-spring-2020-red">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -12,7 +12,7 @@
             <div :class="$style.container">
                 <!-- 直播 -->
                 <ModuleWrapper :class="[$style.module, $style.moduleLive]" :data="Live">
-                    <Panel custom-class="spring-2020-live-panel" title="直播放映室">
+                    <Panel custom-class="spring-2020-red-live-panel" title="直播放映室">
                         <Live :data="Live" />
                     </Panel>
                 </ModuleWrapper>
@@ -20,6 +20,7 @@
                 <section
                     id="RedPackage"
                     v-if="data && data.RedPackage && (data.RedPackage.values.length || isClickable || isEmptyShow)"
+                    class="spring-2020-red-red-package"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleRedPackage]: true,
@@ -34,7 +35,7 @@
                 <section
                     id="Coupon"
                     v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
-                    class="spring-2020-coupon"
+                    class="spring-2020-red-coupon"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleCoupon]: true,
@@ -76,6 +77,7 @@
                 <!-- 预购 -->
                 <ModuleWrapper
                     id="Yugou"
+                    class="spring-2020-red-yugou"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleYugou]: true,
@@ -217,71 +219,123 @@ export default class TemplateSpring2020 extends Vue {
 </script>
 
 <style lang="scss">
-.spring-2020-live-panel {
-    background-color: #FFC70C;
-    border-radius: 8px;
-    .double-12-panel-title {
-        padding-top: 10px;
-        height: auto;
-        background: transparent;
-        &::before {
-            position: absolute;
-            left: 36px;
-            bottom: 10px;
-            display: block;
-            content: '';
-            width: 22px;
-            height: 6px;
-            background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
+.template-spring-2020-red {
+    .spring-2020-panel {
+        > .spring-2020-panel-title {
+            background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/title-red.png) no-repeat center;
             background-size: 100%;
-            transform: rotateY(180deg);
+            > b {
+                color: #FFEFCC;
+            }
         }
-        &::after {
-            position: absolute;
-            right: 36px;
-            bottom: 10px;
-            display: block;
-            content: '';
-            width: 22px;
-            height: 6px;
-            background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
-            background-size: 100%;
+        > .spring-2020-panel-subtitle {
+            color: #CC1D01;
         }
-        > span {
-            font-family: Microsoft YaHei;
-            font-weight: 600;
-            color: #7A1417;
+        .spring-2020-panel-button {
+            color: #CC1D01;
+            border-color: #CC1D01;
         }
     }
-    .double-12-panel-container {
-        padding-top: 0px;
-        > .live-list {
-            .first {
-                border: none;
+    .spring-2020-red-live-panel {
+        background-color: #FFD7A8;
+        border-radius: 8px;
+        > .double-12-panel-title {
+            padding-top: 10px;
+            height: auto;
+            background: transparent;
+            &::before {
+                position: absolute;
+                left: 36px;
+                bottom: 10px;
+                display: block;
+                content: '';
+                width: 22px;
+                height: 6px;
+                background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
+                background-size: 100%;
+                transform: rotateY(180deg);
             }
-            .others {
-                border-color: #ffffff;
-                > label {
+            &::after {
+                position: absolute;
+                right: 36px;
+                bottom: 10px;
+                display: block;
+                content: '';
+                width: 22px;
+                height: 6px;
+                background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/diandian.png') no-repeat center;
+                background-size: 100%;
+            }
+            > span {
+                font-family: Microsoft YaHei;
+                font-weight: 600;
+                color: #CC1D01;
+            }
+        }
+        > .double-12-panel-container {
+            padding-top: 0px;
+            > .live-list {
+                .first {
                     border: none;
+                }
+                .others {
+                    border-color: #ffffff;
+                    > label {
+                        border: none;
+                    }
                 }
             }
         }
-    }
-    .double-12-panel-button {
-        border: 1px solid #7A1417;
-        color: #7A1417;
-    }
-}
-.spring-2020-coupon {
-    > .coupon-wrapper {
-        &::before {
-            background-color: #05A19A;
+        .double-12-panel-button {
+            border: 1px solid #CC1D01;
+            color: #CC1D01;
         }
-        &::after {
-            background-color: #05A19A;
+    }
+    .spring-2020-red-red-package {
+        .spring-2020-panel-button {
+            color: #FFC70C;
+            border-color: #FFC70C;
         }
-        > .coupon-title {
-            background: none;
+    }
+    .spring-2020-red-coupon {
+        > .coupon-wrapper {
+            &::before {
+                background-color: #FEEFE3;
+            }
+            &::after {
+                background-color: #FEEFE3;
+            }
+            > .coupon-title {
+                background: none;
+            }
+        }
+    }
+    .spring-2020-red-yugou {
+        > .spring-2020-yugou-panel {
+            background-color: #BA321C;
+            > .spring-2020-yugou-panel-title {
+                color: #FFFBF1;
+                &::before {
+                    position: absolute;
+                    top: -4px;
+                    left: 30px;
+                    content: '';
+                    width: 25px;
+                    height: 34px;
+                    background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/light.png) no-repeat center;
+                    background-size: 100%;
+                }
+                &::after {
+                    position: absolute;
+                    top: -4px;
+                    right: 37px;
+                    content: '';
+                    width: 17px;
+                    height: 23px;
+                    background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/light.png) no-repeat center;
+                    background-size: 100%;
+                }
+            }
         }
     }
 }
@@ -315,7 +369,7 @@ export default class TemplateSpring2020 extends Vue {
     position: relative;
     border: 2px solid transparent;
     &.active {
-        border: 2px solid #FEECC7;
+        border: 2px solid #CC1D01;
     }
     &:nth-child(1) {
         padding-top: 0px !important;
@@ -341,7 +395,7 @@ export default class TemplateSpring2020 extends Vue {
     justify-content: center;
     align-items: center;
     height: 70px;
-    color: #FEECC7;
+    color: #CC1D01;
     font-size: 13px;
     font-weight: 600;
 }

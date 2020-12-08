@@ -327,7 +327,9 @@ export default class MallDecoration extends Vue {
             TemplateTypes.TemplateFanChang,
             TemplateTypes.TemplateSpring2019,
             TemplateTypes.TemplateDragonGate,
-            TemplateTypes.TemplateDouble122020
+            TemplateTypes.TemplateDouble122020,
+            TemplateTypes.TemplateSpring2020Green,
+            TemplateTypes.TemplateSpring2020Red
         ].includes(this.tmplType)
     }
 

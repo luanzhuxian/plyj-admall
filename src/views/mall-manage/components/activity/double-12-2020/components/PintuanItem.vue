@@ -85,17 +85,17 @@ export default class PintuanItem extends Vue {
     height: 142px;
     background: #FFFBF1;
     border-radius: 4px;
-    &::after {
-        content: '';
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 30px;
-        height: 8px;
-        background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/logo-mini.png') no-repeat center;
-        background-size: 100%;
-        z-index: 1;
-    }
+    // &::after {
+    //     content: '';
+    //     position: absolute;
+    //     top: 10px;
+    //     right: 10px;
+    //     width: 30px;
+    //     height: 8px;
+    //     background: url('https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/logo-mini.png') no-repeat center;
+    //     background-size: 100%;
+    //     z-index: 1;
+    // }
     .img-wrapper {
         width: 120px;
         height: 80px;
