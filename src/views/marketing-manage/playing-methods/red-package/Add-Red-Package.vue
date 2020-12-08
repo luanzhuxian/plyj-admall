@@ -536,10 +536,7 @@ export default class AddRedPackage extends Vue {
                 this.productModelList = applicableGoodsVOS
                 this.selectProductSku(applicableGoodsVOS)
                 if (logoShow && logoUrl) this.logoUrl[0] = logoUrl
-                for (const item of this.redPackageBg) {
-                    item.check = false
-                    if (bgUrlsIndex === item.id) item.check = true
-                }
+
                 await this.getRedPackageclaimVolume()
 
                 if (this.$route.name === 'CopyRedPackage') {
@@ -552,10 +549,11 @@ export default class AddRedPackage extends Vue {
                     this.form.redPacketCouponDTO.useEndTime = ''
                 }
             } else {
-                for (const item of this.redPackageBg) {
-                    if (this.form.bgUrlsIndex === item.id) item.check = true
-                }
                 this.getBrief()
+            }
+            for (const item of this.redPackageBg) {
+                item.check = false
+                if (this.form.bgUrlsIndex === item.id) item.check = true
             }
         } catch (e) {
             throw e
