@@ -127,7 +127,7 @@ import TemplateSpring from '../components/templates/Template-Spring-2019.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
 import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
 import TemplateSpring2020Green from '../components/templates/Template-Spring-2020-Green.vue'
-// import TemplateSpring2020Red from '../components/templates/Template-Spring-2020-Red.vue'
+import TemplateSpring2020Red from '../components/templates/Template-Spring-2020-Red.vue'
 import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
@@ -382,7 +382,7 @@ const skinModels = [{
         TemplateDragonGate,
         TemplateDouble122020,
         TemplateSpring2020Green,
-        // TemplateSpring2020Red,
+        TemplateSpring2020Red,
         TemplateItem,
         TemplatePreview,
         Render
@@ -530,21 +530,22 @@ export default class MallThemes extends Vue {
     check (item: Template) {
         // 双十二
         if (item.type === TemplateTypes.TemplateDouble122020) {
-            if (this.double12LockStatus === 1) {
-                return item
-            }
+            return item
+            // if (this.double12LockStatus === 1) {
+            //     return item
+            // }
 
-            const modalText = this.double12LockStatus === 2
-                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-                : '参与双十二的用户，请联系您的城市经理和客服开通使用权限。'
-            this.$confirm({
-                title: modalText,
-                confirmButtonText: '朕知道了',
-                showCancelButton: false
-            })
+            // const modalText = this.double12LockStatus === 2
+            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+            //     : '参与双十二的用户，请联系您的城市经理和客服开通使用权限。'
+            // this.$confirm({
+            //     title: modalText,
+            //     confirmButtonText: '朕知道了',
+            //     showCancelButton: false
+            // })
         }
         // 新春
-        if (item.type === TemplateTypes.TemplateSpring2020) {
+        if (item.type === TemplateTypes.TemplateSpring2020Green || item.type === TemplateTypes.TemplateSpring2020Red) {
             return item
             // if (this.double12LockStatus === 1) {
             //     return item

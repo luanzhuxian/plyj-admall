@@ -293,12 +293,12 @@ export default class TemplateSpring2020 extends Vue {
     flex-direction: column;
     width: 375px;
     min-height: 667px;
-    background-color: #05A19A;
+    background-color: #FEEFE3;
     box-shadow: 0 0 6px #d4d4d4;
 }
 
 .background {
-    background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/bg.png) no-repeat center top;
+    background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/bg-red.png) no-repeat center top;
     background-size: 100% auto;
     flex: 1;
 }
