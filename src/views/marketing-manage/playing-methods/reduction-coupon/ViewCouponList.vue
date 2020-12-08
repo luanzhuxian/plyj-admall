@@ -310,7 +310,7 @@ export default {
     //   this.getList()
     // }
     },
-    async created () {
+    created () {
         try {
             this.routeName = this.$route.name
             const params = this.$route.params

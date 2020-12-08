@@ -62,7 +62,7 @@ export default {
             this.activeTab = to.name
         }
     },
-    async created () {
+    created () {
         this.activeTab = this.$route.name
     },
     methods: {
