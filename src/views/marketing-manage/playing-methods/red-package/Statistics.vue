@@ -267,28 +267,39 @@
                         />
                     </el-select>
                 </el-form-item>
-                <el-form-item prop="receiveStartTime" label="领取时间：">
+                <el-form-item label="时间类型">
+                    <el-radio-group @change="exportTypeChange" v-model="exportForm.dateType">
+                        <el-radio :label="1">
+                            领取时间
+                        </el-radio>
+                        <el-radio :label="2">
+                            使用时间
+                        </el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item prop="startTime" label="选择时间：">
+                    <el-radio-group @change="exportRangeChange" v-model="exportForm.dateRange">
+                        <el-radio :label="1">
+                            7日内
+                        </el-radio>
+                        <el-radio :label="2">
+                            30日内
+                        </el-radio>
+                        <el-radio :label="3">
+                            自选时间
+                        </el-radio>
+                    </el-radio-group>
                     <date-range
                         ref="exportReceiveDatePicker"
                         size="small"
                         clearable
                         disable-after
-                        :init="exportForm.receiveStartTime ? [exportForm.receiveStartTime, exportForm.receiveEndTime] : []"
+                        :disabled-start-time="exportForm.dateRange !== 3"
+                        :disabled-end-time="exportForm.dateRange !== 3"
+                        :init="exportForm.startTime ? [exportForm.startTime, exportForm.endTime] : []"
                         range-separator="至"
                         end-label=""
-                        @change="exportReceiveDateChange"
-                    />
-                </el-form-item>
-                <el-form-item prop="useStartTime" label="使用时间：">
-                    <date-range
-                        ref="exportUseDatePicker"
-                        size="small"
-                        clearable
-                        disable-after
-                        :init="exportForm.useStartTime ? [exportForm.useStartTime, exportForm.useEndTime] : []"
-                        range-separator="至"
-                        end-label=""
-                        @change="exportUseDateChange"
+                        @change="exportDatechange"
                     />
                 </el-form-item>
             </el-form>
@@ -357,17 +368,18 @@ export default class RedPackageStatistics extends Vue {
     // 导出数据
     showExport = false
     exportForm = {
+        //  1 注册 2 登录 3 购买
+        dateType: 1,
+        // 1 7日内 2 30日内 3自选
+        dateRange: 3,
+        startTime: '',
+        endTime: '',
         keyword: '',
-        status: '',
-        receiveStartTime: '',
-        receiveEndTime: '',
-        useStartTime: '',
-        useEndTime: ''
+        status: ''
     }
 
     exportRules = {
-        receiveStartTime: [{ required: true, message: '请选择领取时间', trigger: 'blur' }],
-        useStartTime: [{ required: true, message: '请选择使用时间', trigger: 'blur' }]
+        startTime: [{ required: true, message: '请选择时间', trigger: 'blur' }]
     }
 
     // 分享链接
@@ -469,59 +481,113 @@ export default class RedPackageStatistics extends Vue {
         }
     }
 
-    showExportDialog () {
-        const { keyword, status, receiveStartTime, receiveEndTime, useStartTime, useEndTime } = this.form
-        this.exportForm = {
-            ...this.exportForm,
-            keyword,
-            status,
-            receiveStartTime,
-            receiveEndTime,
-            useStartTime,
-            useEndTime
+    exportRangeChange (val: number) {
+        const start: string | Date = new Date()
+        const end: string | Date = new Date()
+        const formatType = 'YYYY-MM-DD'
+
+        if (val === 1) {
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            this.exportDatechange({
+                start: start && `${ moment(start).format(formatType) } 00:00:00`,
+                end: end && `${ moment(end).format(formatType) } 23:59:59`
+            })
+        } else if (val === 2) {
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            this.exportDatechange({
+                start: start && `${ moment(start).format(formatType) } 00:00:00`,
+                end: end && `${ moment(end).format(formatType) } 23:59:59`
+            })
+        } else {
+            this.exportForm.startTime = ''
+            this.exportForm.endTime = ''
+            this.exportTypeChange(this.exportForm.dateType as number)
         }
+    }
+
+    async exportTypeChange (type: number) {
+        if (this.exportForm.dateRange !== 3) {
+            return
+        }
+
+        await this.$nextTick()
+        //  1 领取 2 使用
+        if (type === 1 && this.form.receiveStartTime) {
+            this.exportDatechange({
+                start: this.form.receiveStartTime,
+                end: this.form.receiveEndTime
+            })
+        }
+        if (type === 2 && this.form.useStartTime) {
+            this.exportDatechange({
+                start: this.form.useStartTime,
+                end: this.form.useEndTime
+            })
+        }
+    }
+
+    async exportDatechange ({ start, end }: DynamicObject) {
+        this.exportForm.startTime = start
+        this.exportForm.endTime = end
+        if (!start || !end) {
+            return
+        }
+        await this.$nextTick();
+        (this.$refs.exportReceiveDatePicker as HTMLFormElement).initDate()
+    }
+
+    showExportDialog () {
+        const { keyword, status, receiveStartTime, useStartTime } = this.form
+        this.exportForm = {
+            //  1 注册 2 登录 3 购买
+            dateType: 1,
+            // 1 7日内 2 30日内 3自选
+            dateRange: 3,
+            startTime: '',
+            endTime: '',
+            keyword,
+            status
+        }
+        if (receiveStartTime) {
+            this.exportForm.dateType = 1
+        } else if (useStartTime) {
+            this.exportForm.dateType = 2
+        } else {
+            this.exportForm.dateType = 1
+        }
+        this.exportTypeChange(Number(this.exportForm.dateType))
         this.showExport = true
     }
 
     closeExportDialog () {
         this.exportForm = {
-            status: '',
+            //  1 注册 2 登录 3 购买
+            dateType: 1,
+            // 1 7日内 2 30日内 3自选
+            dateRange: 3,
+            startTime: '',
+            endTime: '',
             keyword: '',
-            receiveStartTime: '',
-            receiveEndTime: '',
-            useStartTime: '',
-            useEndTime: ''
+            status: ''
         };
         (this.$refs.exportForm as HTMLFormElement).clearValidate()
         this.showExport = false
     }
 
-    async exportReceiveDateChange ({ start, end }: { start: string; end: string }) {
-        if (!start || !end) return
-        this.exportForm.receiveStartTime = start
-        this.exportForm.receiveEndTime = end
-        await this.$nextTick();
-        (this.$refs.exportUseDatePicker as HTMLFormElement).initDate()
-    }
-
-    async exportUseDateChange ({ start, end }: { start: string; end: string }) {
-        if (!start || !end) return
-        this.exportForm.useStartTime = start
-        this.exportForm.useEndTime = end
-        await this.$nextTick();
-        (this.$refs.exportReceiveDatePicker as HTMLFormElement).initDate()
-    }
-
     async exportList () {
         await (this.$refs.exportForm as HTMLFormElement).validate()
-        const data = {
+        const data: DynamicObject = {
             activityId: this.id,
             status: this.exportForm.status,
-            keyword: this.exportForm.keyword,
-            receiveStartTime: this.exportForm.receiveStartTime,
-            receiveEndTime: this.exportForm.receiveEndTime,
-            useStartTime: this.exportForm.useStartTime,
-            useEndTime: this.exportForm.useEndTime
+            keyword: this.exportForm.keyword
+        }
+        if (this.exportForm.dateType === 1) {
+            data.receiveStartTime = this.exportForm.startTime
+            data.receiveEndTime = this.exportForm.endTime
+        }
+        if (this.exportForm.dateType === 2) {
+            data.useStartTime = this.exportForm.startTime
+            data.useEndTime = this.exportForm.endTime
         }
         try {
             const blob = await exportRedPackageDataList(data)
@@ -538,7 +604,7 @@ export default class RedPackageStatistics extends Vue {
         }
     }
 
-    async share () {
+    share () {
         try {
             this.qrcodeText = `${ this.mallUrl }/red-package/detail/${ this.id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
