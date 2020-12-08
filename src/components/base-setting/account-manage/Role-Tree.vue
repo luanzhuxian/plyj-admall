@@ -200,7 +200,7 @@ export default {
                 }
             }
         },
-        async save () {
+        save () {
             if (!this.selected.length) {
                 // this.close()
                 return
