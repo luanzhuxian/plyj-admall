@@ -10,10 +10,10 @@
         >
             <span :class="{
                 [$style.status]:true,
-                [$style.blueBg]:activityStatus === 0,
-                [$style.greenBg]:activityStatus === 1,
-                [$style.orangeBg]:activityStatus === 2,
-                [$style.grayBg]:activityStatus === 3,
+                [$style.blueBg]:Number(activityStatus) === 0,
+                [$style.greenBg]:Number(activityStatus) === 1,
+                [$style.orangeBg]:Number(activityStatus) === 2,
+                [$style.grayBg]:Number(activityStatus) === 3,
             }">
                 <i class="yaji-icon icon-time" />
                 {{ activityStatusMap[$route.query.activityStatus] }}
