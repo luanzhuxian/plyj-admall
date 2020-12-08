@@ -152,6 +152,7 @@
                         <el-table
                             ref="prodTable"
                             class="product-table"
+                            :class="{'all-show': !allShow}"
                             v-if="productModelList&& productModelList.length"
                             :data="productModelList"
                         >
@@ -218,6 +219,12 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+
+                        <div v-if="productModelList&& productModelList.length>6"
+                             class="product-btn">
+                            <el-button @click="allShow = !allShow" type="text" v-if="allShow">全部收起 <pl-svg name="icon-shang" fill="#4F63FF" /></el-button>
+                            <el-button @click="allShow = !allShow" type="text" v-else>全部展开 <pl-svg name="icon-xia" fill="#4F63FF" /></el-button>
+                        </div>
                     </el-form-item>
 
                     <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
@@ -235,8 +242,8 @@
                         </el-radio-group>
                         <span class="label-warning">开始后不可修改</span>
                         <div class="stackable" v-if="form.redPacketCouponDTO.useStackable">
-                            <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类券</el-checkbox>
-                            <el-checkbox :disabled="disabled" @change="getBrief" :label-true="1" :label-false="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
+                            <el-checkbox :disabled="disabled" @change="getBrief" :true-label="1" :false-label="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类券</el-checkbox>
+                            <el-checkbox :disabled="disabled" @change="getBrief" :true-label="1" :false-label="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
                             <p class="description">
                                 购买产品时，使用该福利红包抵扣金额，可同时与满减券/品类券、奖学金叠加抵扣使用； <br>
                                 秒杀、团购、预购等活动均不支持使用福利红包进行抵扣减免；
@@ -327,12 +334,6 @@
                         </p>
                     </el-form-item>
                 </el-form>
-                <!--            <div class="newcomer-example">-->
-                <!--                <div class="newcomer-example-title">-->
-                <!--                    品类券示例-->
-                <!--                </div>-->
-                <!--                <img src="https://mallcdn.youpenglai.com/static/admall/2.0.0/ba5e52bc-8df0-4390-813f-a01dc5efd781.jpeg">-->
-                <!--            </div>-->
             </div>
             <div class="add-btn-wrap">
                 <el-button plain round @click="$router.replace({name:'RedPackage'})">
@@ -427,6 +428,7 @@ export default class AddRedPackage extends Vue {
         'https://mallcdn.youpenglai.com/static/admall-new/3.0.0/red-package-bg/红包预览4.png'
     ]
 
+    allShow = false
     loading= false
     disabled = false
     briefEdit= false
@@ -528,8 +530,8 @@ export default class AddRedPackage extends Vue {
                         couponGoodsSkus: [],
                         useLimitAmount,
                         useStackable,
-                        useWithCoupon: Boolean(useWithCoupon),
-                        scholarship: Boolean(scholarship),
+                        useWithCoupon: Number(useWithCoupon),
+                        scholarship: Number(scholarship),
                         brief
                     }
                 }
@@ -836,6 +838,16 @@ export default class AddRedPackage extends Vue {
                 margin-bottom: 10px;
                 border: 1px solid #ebeef5;
                 border-bottom: none;
+            }
+            .all-show{
+                height: 600px;
+            }
+            .product-btn{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 3px 0;
+                background: #F5F6FA;
             }
         }
         .stackable{
