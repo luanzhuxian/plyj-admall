@@ -215,7 +215,7 @@
                     <template slot-scope="{row}">
                         <span v-if="row.orderNo && row.orderNo.length">
                             {{ row.orderNo }}
-                            <el-button type="text" @click="$router.replace({name:'RightGoodsDetail',params:{id:row.orderNo }})">查看订单</el-button>
+                            <el-button type="text" @click="$router.push({name:'RightGoodsDetail',params:{id:row.orderNo }})">查看订单</el-button>
                         </span>
                         <span v-else>--</span>
                     </template>
