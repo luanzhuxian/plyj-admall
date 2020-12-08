@@ -43,6 +43,12 @@ export default class RedPackageList extends Vue {
         this.currentTab = newVal
     }
 
+    created () {
+        this.$router.push({
+            name: 'RedPackageActivityList'
+        })
+    }
+
     @Prop() info!: object
 
     /* methods */
