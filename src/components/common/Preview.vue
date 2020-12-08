@@ -41,7 +41,7 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 17px 24px 24px 24px;
-  background:url('https://mallcdn.youpenglai.com/static/admall-new/base/phone.png') 0 0 no-repeat;
+  background: url('https://mallcdn.youpenglai.com/static/admall-new/base/phone.png') 0 0 no-repeat;
   background-size: 100% 100%;
   box-sizing: border-box;
   .box {
@@ -50,7 +50,7 @@ export default {
     width: 300px;
     height: 600px;
     border-radius: 35px;
-    background-color: #fff;
+      background-color: #f4f5f9;
     &::-webkit-scrollbar {
       display: none;
     }

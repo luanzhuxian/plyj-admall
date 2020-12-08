@@ -385,7 +385,7 @@ export default {
     .line{
       width: 1px;
       height: 33px;
-      background: #ffffff;
+        background-color: #fff;
       margin: 0 8px;
     }
     .desc{

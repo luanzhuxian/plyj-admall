@@ -66,7 +66,7 @@ export default {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, .5);
-    z-index: 5;
+    z-index: 8000;
   }
   .close {
     position: absolute;
