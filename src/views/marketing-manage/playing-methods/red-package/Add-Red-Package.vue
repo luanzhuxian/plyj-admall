@@ -710,7 +710,7 @@ export default class AddRedPackage extends Vue {
                 data.redPacketCouponDTO.useWithCoupon = 0
                 data.redPacketCouponDTO.scholarship = 0
             }
-            if (data.redPacketCouponDTO.activityLimit) data.redPacketCouponDTO.quantityLimit = ''
+            if (!data.redPacketCouponDTO.activityLimit) data.redPacketCouponDTO.quantityLimit = ''
             if (!data.redPacketCouponDTO.receiveLimit) data.redPacketCouponDTO.tagIds = []
             data.showStatus = !data.showStatus
             this.id && this.$route.name === 'EditRedPackage' ? await editRedPackage(this.id, data) : await addRedPackage(data)
