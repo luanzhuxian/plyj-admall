@@ -17,6 +17,10 @@ module.exports = {
   // parser: '@typescript-eslint/parser',
   // add your custom rules here
   rules: {
+    // https://eslint.org/docs/rules/require-await#disallow-async-functions-which-have-no-await-expression-require-await
+    'require-await': 'error',
+    // https://eslint.org/docs/rules/no-return-await#disallows-unnecessary-return-await-no-return-await
+    'no-return-await': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     'prefer-promise-reject-errors': 'off',
     'vue/custom-event-name-casing': 'off',
