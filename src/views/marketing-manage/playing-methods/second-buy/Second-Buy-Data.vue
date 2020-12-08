@@ -8,8 +8,13 @@
                 </div>
             </div>
             <div class="active-time">
-                <div class="activity-status">
-                    <pl-svg width="16" name="icon-shijian1" fill="#fff" class="mr-10" />
+                <div :class="{
+                    'activity-status': true,
+                    'not-started': statistics.statusText === '未开始',
+                    'ongoing': statistics.statusText === '进行中',
+                    'finished': statistics.statusText === '已结束'
+                }">
+                    <pl-svg width="16" name="icon-shijian1" fill="#fff" />
                     {{ statistics.statusText }}
                 </div>
             </div>

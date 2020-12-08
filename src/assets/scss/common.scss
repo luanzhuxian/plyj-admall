@@ -300,3 +300,31 @@
   grid-template-columns: repeat(3, auto);
   grid-gap: 6px 12px;
 }
+
+
+.activity-status {
+  margin-right: 20px;
+  padding: 5px 12px;
+  border-radius:130px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  svg{
+    margin-right: 5px;
+  }
+  &.not-started{
+    background: $--status-color-not-started;
+  }
+  &.ongoing{
+    background: $--status-color-ongoing;
+  }
+  &.stopped{
+    background: $--status-color-stopped;
+  }
+  &.finished{
+    background: $--status-color-finished;
+  }
+  &.expired{
+    background: $--status-color-expired;
+  }
+}

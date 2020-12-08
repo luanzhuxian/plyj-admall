@@ -5,14 +5,15 @@
                  width="48"
                  src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
             >
-            <span class="mr-10 font-weight-bold">端午佳话粽粽有礼</span>
-            <div v-if="status === 1" class="coupon-status active-coupon">
+            <span class="mr-30 font-weight-bold">端午佳话粽粽有礼</span>
+            <div :class="{
+                'activity-status': true,
+                'not-started': status === 0,
+                'ongoing': status === 1,
+                'finished': status === 2
+            }">
                 <pl-svg width="16" name="icon-shijian1" fill="#fff" />
-                {{ activeStatus[status] }}...
-            </div>
-            <div v-else class="coupon-status disabled-coupon">
-                <pl-svg width="16" name="icon-shijian1" fill="#fff" />
-                {{ activeStatus[status] }}…
+                {{ activeStatus[status] }}
             </div>
             <span class="items description time"><pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" /> 使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}</span>
         </div>
@@ -43,9 +44,9 @@ export default {
             data: '',
             status: '',
             activeStatus: {
-                0: '活动未开始',
-                1: '活动进行中',
-                2: '活动已结束'
+                0: '未开始',
+                1: '进行中',
+                2: '已结束'
             },
             showTop: false,
             activeTab: '',
@@ -91,25 +92,6 @@ export default {
 
 <style scoped lang="scss">
   .newcomers-gift-list {
-    .coupon-status {
-      margin-left: 20px;
-      margin-right: 20px;
-      padding: 2px 12px;
-      background-color: #ec742e;
-      border-radius: 130px;
-      color: #fff;
-    }
-
-    .active-coupon {
-      background-color: #ec742e;
-      color: #fff;
-    }
-
-    .disabled-coupon {
-      background-color: #eee;
-      color: #666;
-    }
-
     .newcomers-list-header {
         display: flex;
         align-items: center;

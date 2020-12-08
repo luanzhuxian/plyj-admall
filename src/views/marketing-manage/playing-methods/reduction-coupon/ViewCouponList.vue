@@ -3,13 +3,15 @@
         <div class="title-box">
             <span class="title">{{ statisticsData.couponName }} -</span>
             <div class="right-box">
-                <div v-if="statisticsData.status === 4" class="coupon-status active-coupon">
+                <div :class="{
+                    'activity-status': true,
+                    'not-started': statisticsData.status === 2,
+                    'ongoing': statisticsData.status === 4,
+                    'stopped': statisticsData.status === 0,
+                    'finished': statisticsData.status === 3
+                }">
                     <pl-svg name="icon-shijian1" fill="#fff" width="16" />
-                    {{ statisticsData.statusText }}...
-                </div>
-                <div v-if="statisticsData.status === 0 || statisticsData.status === 2 || statisticsData.status === 3" class="coupon-status disabled-coupon">
-                    <pl-svg name="icon-shijian1" fill="#fff" width="16" />
-                    {{ statisticsData.statusText }}…
+                    {{ statisticsData.statusText }}
                 </div>
                 <div class="active-time" v-if="!statisticsData.distributionMethod">
                     <pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" /> 领取时间： {{ statisticsData.receiveStartTime }} - {{ statisticsData.receiveEndTime }}
@@ -469,21 +471,6 @@ export default {
   }
   .switch{
     margin-left: 10px;
-  }
-  .coupon-status{
-    margin-right: 20px;
-    padding: 2px 12px;
-    background-color: #EC742E;
-    border-radius:130px;
-    color: #FFFFFF;
-  }
-  .active-coupon{
-    background-color: #EC742E;
-    color: #FFFFFF;
-  }
-  .disabled-coupon{
-    background-color: #EEEEEE;
-    color: #666666;
   }
   .right-box{
     display: flex;

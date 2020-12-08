@@ -11,6 +11,7 @@
                 'ongoing': activityDetail.status === 1,
                 'finished': activityDetail.status === 2
             }">
+                <pl-svg name="icon-shijian1" width="16" fill="#fff" />
                 <span v-if="activityDetail.status === 0">未开始</span>
                 <span v-if="activityDetail.status === 1">进行中</span>
                 <span v-if="activityDetail.status === 2">已结束</span>

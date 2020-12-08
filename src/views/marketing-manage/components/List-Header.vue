@@ -21,9 +21,14 @@
             <!--                <span v-if="newcomersStatus === 2">进行中</span>...-->
             <!--            </div>-->
 
-            <div v-if="typeof coursePackageStatus === 'number' && coursePackageStatus !== -1" class="mr-20">
-                <pl-svg name="icon-shijian" width="16" class="mr-10" />
-                <span v-if="coursePackageStatus === 1">进行中...</span>
+            <div v-if="typeof coursePackageStatus === 'number' && coursePackageStatus !== -1" :class="{
+                'activity-status': true,
+                'not-started': coursePackageStatus === 0,
+                'ongoing': coursePackageStatus === 1,
+                'finished': coursePackageStatus === 2
+            }">
+                <pl-svg name="icon-shijian" width="16" />
+                <span v-if="coursePackageStatus === 1">进行中</span>
                 <span v-else-if="coursePackageStatus === 0">未开始</span>
                 <span v-else-if="coursePackageStatus === 2">已结束</span>
             </div>
@@ -131,22 +136,14 @@ export default class ListHeader extends Vue {
             color: #A8A8A8;
             margin-top: 4px;
         }
-        .activity-status {
-            width: 104px;
-            height: 31px;
-            background: #EC742E;
-            border-radius: 130px;
-            color: #ffffff;
-            text-align: center;
-            line-height: 31px;
-            margin-right: 20px;
-        }
         .active-time {
             font-size: 12px;
             color: #999;
             margin-left: 100px;
             margin-top: 6px;
             line-height: 19px;
+            display: flex;
+            align-items: center;
         }
         .validity {
             display: flex;

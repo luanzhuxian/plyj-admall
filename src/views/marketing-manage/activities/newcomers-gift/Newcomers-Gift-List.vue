@@ -4,12 +4,17 @@
             <div class="flex align-item-center">
                 <img class="mr-10" src="https://mallcdn.youpenglai.com/static/admall/2.0.0/c24c82f1-6e4e-43f2-b164-ca8ec65f2ebb.png">
                 <span class="mr-30 font-weight-bold fz-16">{{ newcomersInfo.activityName }}</span>
-                <span class="status mr-30">
-                    <img style="vertical-align: middle;" src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/marketing-manage/invite-newcomers-gift/clock-white@1x.png">&nbsp;
+                <div :class="{
+                    'activity-status': true,
+                    'not-started': newcomersInfo.status === 1,
+                    'ongoing': newcomersInfo.status === 2,
+                    'finished': newcomersInfo.status === 0
+                }">
+                    <pl-svg width="16" name="icon-shijian1" fill="#fff" />
                     <span v-if="newcomersInfo.status === 0">已结束</span>
                     <span v-if="newcomersInfo.status === 1">未开始</span>
-                    <span v-if="newcomersInfo.status === 2">进行中</span>...
-                </span>
+                    <span v-if="newcomersInfo.status === 2">进行中</span>
+                </div>
                 <span class="valid-date mr-30">
                     活动时间：{{ newcomersInfo.activityStartTime | dateFormat('YYYY-MM-DD') }} - {{ newcomersInfo.activityEndTime | dateFormat('YYYY-MM-DD') }}&nbsp;
                 </span>

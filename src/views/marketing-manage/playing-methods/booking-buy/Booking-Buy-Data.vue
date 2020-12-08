@@ -11,7 +11,7 @@
                 'ongoing': statistics.statusText === '进行中',
                 'finished': statistics.statusText === '已结束'
             }">
-                <pl-svg name="icon-shijian1" width="16" fill="#fff" class="mr-10" />
+                <pl-svg name="icon-shijian1" width="16" fill="#fff" />
                 {{ statistics.statusText }}
             </div>
         </div>

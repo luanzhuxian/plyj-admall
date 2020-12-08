@@ -9,8 +9,13 @@
                 </div>
             </div>
             <div class="active-time">
-                <div class="activity-status">
-                    <pl-svg width="16" name="icon-shijian1" fill="#fff" class="mr-10" />
+                <div :class="{
+                    'activity-status': true,
+                    'not-started': activityDetail.status === 0,
+                    'ongoing': activityDetail.status === 1,
+                    'finished': activityDetail.status === 2
+                }">
+                    <pl-svg width="16" name="icon-shijian1" fill="#fff" />
                     <span v-if="activityDetail.status === 0">未开始</span>
                     <span v-else-if="activityDetail.status === 1">进行中</span>
                     <span v-else-if="activityDetail.status === 2">已结束</span>

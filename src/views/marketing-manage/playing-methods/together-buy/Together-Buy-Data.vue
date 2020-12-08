@@ -5,7 +5,13 @@
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png">
                 众志成团
             </div>
-            <div class="activity-status">
+            <div :class="{
+                'activity-status': true,
+                'not-started': statistics.status === '未开始',
+                'ongoing': statistics.statusText === '进行中',
+                'finished': statistics.statusText === '已结束' || statistics.statusText === '已成功'
+            }">
+                <pl-svg width="16" name="icon-shijian1" fill="#fff" />
                 {{ statistics.statusText }}
             </div>
         </div>

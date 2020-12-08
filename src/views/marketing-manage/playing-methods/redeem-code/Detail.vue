@@ -9,13 +9,19 @@
                 </div>
             </div>
             <div class="active-time">
-                <div class="activity-status">
-                    <pl-svg name="icon-shijian" width="16" class="mr-10" />
+                <div :class="{
+                    'activity-status': true,
+                    'not-started': activityDetail.statusText === 1,
+                    'ongoing': activityDetail.status === 2,
+                    'stopped': activityDetail.status === 3,
+                    'finished': activityDetail.status === 4
+                }">
+                    <pl-svg width="16" name="icon-shijian1" fill="#fff" />
                     <span v-if="activityDetail.status === 1">未开始</span>
                     <span v-if="activityDetail.status === 2">进行中</span>
                     <span v-if="activityDetail.status === 3">已停止</span>
                     <span v-if="activityDetail.status === 4">已结束</span>
-                </div>`
+                </div>
                 <!-- <pl-svg width="16" name="icon-riqi" fill="#999" class="mr-10" /> -->
                 活动时间：{{ activityDetail.startTime | dateFormat('YYYY.MM.DD') }} - {{ activityDetail.endTime | dateFormat('YYYY.MM.DD') }}
             </div>
@@ -77,16 +83,6 @@ export default {
           color: #A8A8A8;
           margin-top: 4px;
       }
-  }
-  .activity-status{
-      width: 104px;
-      height: 31px;
-      background: #EC742E;
-      border-radius: 130px;
-      color: #ffffff;
-      text-align: center;
-      line-height: 31px;
-      margin-right: 20px;
   }
   .active-time{
       display: flex;

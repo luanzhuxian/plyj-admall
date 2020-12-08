@@ -5,7 +5,13 @@
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/众志成团.png">
                 众志成团
             </div>
-            <div class="activity-status">
+            <div :class="{
+                'activity-status': true,
+                'not-started': activityDetail.status === 0,
+                'ongoing': activityDetail.status === 1,
+                'finished': activityDetail.status === 3 || activityDetail.status === 2
+            }">
+                <pl-svg width="16" name="icon-shijian1" fill="#fff" />
                 <span v-if="activityDetail.status === 0">未开始</span>
                 <span v-if="activityDetail.status === 1">进行中</span>
                 <span v-if="activityDetail.status === 2">已成功</span>

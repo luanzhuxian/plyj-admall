@@ -5,14 +5,15 @@
                  width="48"
                  src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png"
             >
-            <span class="fz-16 font-weight-bold">{{ statistics.name }}</span>
-            <div v-if="statistics.status === 2" class="coupon-status active-coupon">
+            <span class="fz-16 font-weight-bold mr-30">{{ statistics.name }}</span>
+            <div :class="{
+                'activity-status': true,
+                'not-started': statistics.status === 1,
+                'ongoing': statistics.status === 2,
+                'finished': statistics.status === 3 || statistics.status === 4
+            }">
                 <pl-svg width="16" name="icon-shijian1" fill="#fff" />
-                {{ activeStatus[statistics.status] }}...
-            </div>
-            <div v-else class="coupon-status disabled-coupon">
-                <pl-svg width="16" name="icon-shijian1" fill="#fff" />
-                {{ activeStatus[statistics.status] }}…
+                {{ activeStatus[statistics.status] }}
             </div>
             <ActiveTime title="活动时间" :time="`${statistics.startTime} - ${statistics.endTime}`" />
         </div>
@@ -97,22 +98,6 @@ export default {
         margin-bottom: 20px;
       button{
         margin-left: 16px;
-      }
-      .coupon-status {
-        margin-left: 20px;
-        margin-right: 20px;
-        padding: 2px 12px;
-        background-color: #ec742e;
-        border-radius: 130px;
-        color: #fff;
-      }
-      .active-coupon {
-        background-color: #ec742e;
-        color: #fff;
-      }
-      .disabled-coupon {
-        background-color: #eee;
-        color: #666;
       }
     }
     .top {
