@@ -336,7 +336,7 @@ export default class RedPackageStatistics extends Vue {
         size: 10
     }
 
-    activityStatus = ''
+    activityStatus: string | (string | null)[] | undefined
     activityStatusMap = {
         0: '未开始',
         1: '进行中',
