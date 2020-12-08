@@ -149,14 +149,14 @@ export default {
             const currentNode = tree.getNode(currentData)
 
             /**
-             * 判断当前取消勾选的是不是必选项，如果时则提示不可取消
+             * 判断当前取消勾选的是不是必选项，如果是，则提示不可取消
              * 如果当前项的同级节点没有任何已勾选的项，则可以取消勾选
              */
             if (currentData.status === 0 && !checkedKeys.includes(currentData.aclCode)) {
                 // 当前项的同级节点是否全部被取消，须排除当前选项和其它统计必须项（有些模块一个级别有两个以上的必选项，如：helper管理）
                 const anotherAllCancel = currentNode.parent.data.children.filter(item => currentData.aclCode !== item.aclCode && Number(item.status) !== 0).every(item => !item.checked)
                 if (!anotherAllCancel) {
-                    tree.setChecked(currentData.aclCode, true)
+                    tree.setChecked(currentData.aclCode, true, true)
                     !checkedKeys.includes(currentData.aclCode) && checkedKeys.push(currentData.aclCode)
                     this.$warning('请先取消其它同级权限，再取消此权限')
                     return
@@ -174,7 +174,7 @@ export default {
                 const must = parent.data.children.filter(item => Number(item.status) === 0 && currentData.aclCode !== item.aclCode)
                 if (must.length) {
                     for (const m of must) {
-                        tree.setChecked(m.aclCode, true)
+                        tree.setChecked(m.aclCode, true, true)
                         !checkedKeys.includes(m.aclCode) && checkedKeys.push(m.aclCode)
                     }
                 }

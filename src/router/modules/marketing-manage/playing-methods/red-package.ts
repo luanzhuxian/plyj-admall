@@ -24,7 +24,8 @@ export default [
                         component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Activity-List.vue'),
                         meta: {
                             title: '',
-                            index: '8-20-1-1'
+                            index: '8-20-1-1',
+                            ignore: true
                         }
                     },
                     {
@@ -33,7 +34,8 @@ export default [
                         component: () => import('../../../../views/marketing-manage/playing-methods/red-package/list/Rank-List.vue'),
                         meta: {
                             title: '',
-                            index: '8-20-1-2'
+                            index: '8-20-1-2',
+                            ignore: true
                         }
                     }
                 ]
