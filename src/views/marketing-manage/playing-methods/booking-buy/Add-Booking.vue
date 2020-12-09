@@ -106,7 +106,7 @@
                                 <el-table-column label="价格（元）" prop="price" />
                                 <el-table-column label="规格">
                                     <template #default="{ row }">
-                                        {{ row.skuName || row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}
+                                        {{ row.skuName || row.skuCode1Name && (row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '')) }}
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="定金价位（元）">
