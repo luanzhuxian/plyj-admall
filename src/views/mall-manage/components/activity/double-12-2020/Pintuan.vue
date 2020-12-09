@@ -1,13 +1,12 @@
 <template>
     <Panel custom-class="double-12-2020-pintuan-panel" title="众志成团" subtitle="邀请好友一起瓜分奖励">
         <ul :class="$style.pintuanList" v-if="data.values.length">
-            <template v-for="(item, i) of data.values">
-                <PintuanItem
-                    :class="$style.pintuanListItem"
-                    :key="i"
-                    :data="item"
-                />
-            </template>
+            <PintuanItem
+                :class="$style.pintuanListItem"
+                v-for="(item, i) of data.values"
+                :key="i"
+                :data="item"
+            />
         </ul>
         <ul :class="$style.pintuanList" v-else>
             <PintuanItem
