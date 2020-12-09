@@ -122,7 +122,7 @@
                         <div class="discount">
                             <span>{{ activeStatusText[row.skuSource] }}</span>
                         </div>
-                        <div class="discount" v-if="row.couponAmount || row.scholarship">
+                        <div class="discount" v-if="row.couponAmount || row.scholarship || row.welfareRedEnvelope">
                             <span class="discount-coupon">优惠</span>
                         </div>
                         <span
@@ -547,11 +547,11 @@ export default {
             await this.getList()
         },
         // 发货
-        async sendProduct (row) {
+        sendProduct (row) {
             this.orderShipData = row
             this.orderShipVisible = true
         },
-        async getCancelOrderData (id) {
+        getCancelOrderData (id) {
             this.closeConfirmId = id
             this.closeOrderVisible = true
         },
@@ -559,7 +559,7 @@ export default {
             this.applyAfterData = row
             this.afterVisible = true
         },
-        async batchAuditredeemcode (row) {
+        batchAuditredeemcode (row) {
             this.uncodedVerificationShow = true
             this.redeemCodeNum = row.redeemSize
             this.orderId = row.orderId

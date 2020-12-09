@@ -50,6 +50,29 @@
             <div class="info-list">
                 <div
                     class="list-item-other"
+                    v-if="detailInfo.orderSource === 9 && detailInfo.goodsPrice"
+                >
+                    <h6> 用户信息</h6>
+                    <div class="other-info">
+                        <p>
+                            <span>用户昵称:</span>
+                            <span v-text="detailInfo.nickName " />
+                        </p>
+                        <p>
+                            <span>用户姓名:</span>
+                            <span v-text="detailInfo.userName" />
+                        </p>
+                        <p>
+                            <span>手机号:</span>
+                            <span
+                                v-text="detailInfo.userMobile "
+                                style="width: 135px;"
+                            />
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="list-item-other"
                 >
                     <h6> {{ detailInfo.orderType === 'PHYSICAL_GOODS' ? '收货人' : '联系人' }}信息</h6>
                     <div class="other-info">
@@ -776,7 +799,7 @@ export default {
             }
         },
         // 获取发票详情
-        async getInvoiceDetail () {
+        getInvoiceDetail () {
             this.invoiceId = this.detailInfo.invoiceId
             this.InvoiceDetailsVisible = true
         },
