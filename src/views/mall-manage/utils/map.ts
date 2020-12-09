@@ -102,8 +102,7 @@ export enum TemplateTypes {
     // 双十二 2020
     TemplateDouble122020 = 11,
     // 新春 2020
-    TemplateSpring2020Green = 12,
-    TemplateSpring2020Red = 13
+    TemplateSpring2020 = 12
 }
 
 // 模块id
@@ -170,8 +169,7 @@ export const tagMap: DynamicObject = {
     9: 'TemplateD',
     10: 'TemplateDragonGate',
     11: 'TemplateDouble122020',
-    12: 'TemplateSpring2020Green',
-    13: 'TemplateSpring2020Red',
+    12: 'TemplateSpring2020',
     findTemplateTagById (id: string) {
         return this[id]
     }
