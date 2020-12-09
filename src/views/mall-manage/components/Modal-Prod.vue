@@ -263,7 +263,7 @@ export default class ModalProd extends Vue {
         return row.id
     }
 
-    async getData () {
+    getData () {
         if (this.type === ModalType.ProductModal || this.type === ModalType.ClassModal) {
             this.getProduct()
         } else if (this.type === ModalType.PackageModal) {

@@ -47,7 +47,7 @@
                                 :ref="`cascader-${index}`"
                                 v-model="cascaderValue"
                                 :options="options"
-                                :props="{ expandTrigger: 'hover' }"
+                                :props="{ expandTrigger: 'click' }"
                                 @change="value => onCascaderChange(value, item, index)"
                             />
                         </div>
@@ -229,15 +229,15 @@ export default class EditorBanner extends Vue {
             })
         } else if (val === 4) {
             const option = options.find(option => option.value === val)
-            const children = option && option.children ? option.children : []
+            const children = option?.children || []
             const child = children.find(option => option.value === subVal)
-            item.type = child && child.value ? child.value : ''
-            item.valueName = child && child.label ? child.label : ''
+            item.type = child?.value || ''
+            item.valueName = child?.label || ''
             item.value = ''
         } else {
             const child = options.find(option => option.value === val)
-            item.type = child && child.value ? child.value : ''
-            item.valueName = child && child.label ? child.label : ''
+            item.type = child?.value || ''
+            item.valueName = child?.label || ''
             item.value = ''
         }
 

@@ -288,9 +288,9 @@ export default class EditorAdv extends Vue {
         cursor: pointer;
         border-left: 1px solid #dedede;
     }
-    .el-select-dropdown {
-        height: 290px !important;
-    }
+    // .el-select-dropdown {
+    //     height: 290px !important;
+    // }
 }
 </style>
 <style module lang="scss">

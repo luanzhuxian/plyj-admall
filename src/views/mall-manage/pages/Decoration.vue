@@ -91,6 +91,13 @@
                     :data="isEditorMiaoshaShow ? moduleModels[currentModule] : {}"
                     @close="currentModule = ''"
                 />
+                <EditorClassify
+                    :class="$style.editor"
+                    :style="{ '--top': `${editorPosition.Classify}px` }"
+                    :show="currentModule === 'Classify'"
+                    :data="currentModule === 'Classify' ? moduleModels.Classify : {}"
+                    @close="currentModule = ''"
+                />
             </div>
         </div>
         <footer v-show="!showPreview">
@@ -196,6 +203,7 @@ import EditorPropagate from '../components/Editor-Propagate.vue'
 import EditorForm from '../components/Editor-Form.vue'
 import EditorCoupon from '../components/Editor-Coupon.vue'
 import EditorMiaosha from '../components/Editor-Miaosha.vue'
+import EditorClassify from '../components/Editor-Classify.vue'
 import ModalProdCategory from '../components/Modal-Prod-Category.vue'
 import ModalProd from '../components/Modal-Prod.vue'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
@@ -251,6 +259,7 @@ const mall = namespace('mall')
         EditorForm,
         EditorCoupon,
         EditorMiaosha,
+        EditorClassify,
         ModalProdCategory,
         ModalProd,
         ModalTimeSetting,
@@ -289,6 +298,7 @@ export default class MallDecoration extends Vue {
         Coupon: 0,
         Maisong: 0,
         Miaosha: 0,
+        Classify: 0,
         getPosition (name: string) {
             return this[name]
         }

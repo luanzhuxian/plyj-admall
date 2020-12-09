@@ -290,6 +290,7 @@ export const editorMap: DynamicObject = {
     SeriesCourse: 'Video',
     ImageText: 'Video',
     RedPackage: 'Coupon',
+    Classify: 'Classify',
     getEditorByModule ({ tmplType, moduleName }: { tmplType: number; moduleName: string }) {
         if (moduleName === 'Miaosha') {
             return (tmplType === TemplateTypes.TemplateBaoFa) ? 'Miaosha' : 'Module'

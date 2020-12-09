@@ -443,12 +443,8 @@ export default class MallThemes extends Vue {
     /* methods */
     @mall.Action('getCurrentTemplate') getCurrentTemplate!: (type: number) => Promise<void>
 
-    async handleTabClick (tab: { name: '' }) {
-        try {
-            this.currentTab = tab.name
-        } catch (error) {
-            throw error
-        }
+    handleTabClick (tab: { name: '' }) {
+        this.currentTab = tab.name
     }
 
     async getDefaultTemplate () {

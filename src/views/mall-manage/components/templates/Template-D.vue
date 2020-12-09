@@ -23,6 +23,21 @@
                     <Banner :data="Banner" :tmpl-type="tmplType" />
                 </div>
             </div>
+            <!-- 分类 -->
+            <ModuleWrapper
+                id="Classify"
+                :class="{
+                    [$style.module]: true,
+                    [$style.moduleClassify]: true,
+                    [$style.pointer]: isClickable === true,
+                    [$style.active]: current === 'Classify'
+                }"
+                :data="Classify"
+                size="small"
+                @on-click="onClick('Classify')"
+            >
+                <Classify :data="Classify" />
+            </ModuleWrapper>
             <!-- 优惠券 -->
             <div
                 id="Coupon"
@@ -335,6 +350,7 @@ import Miaosha from '../home/activity/Miaosha.vue'
 import Pintuan from '../home/activity/Pintuan.vue'
 import Yugou from '../home/activity/Yugou.vue'
 import Activity from '../home/activity/Activity.vue'
+import Classify from '../home/activity/Classify.vue'
 import Package from '../home/activity/Package.vue'
 import Popular from '../home/Popular.vue'
 import Class from '../home/Class.vue'
@@ -358,6 +374,7 @@ import { TemplateD as TemplateDType } from '../../utils/types'
         Pintuan,
         Yugou,
         Activity,
+        Classify,
         Package,
         Popular,
         Class,
@@ -393,6 +410,10 @@ export default class TemplateD extends Vue {
     /* computed */
     get Banner () {
         return this.data.Banner || { values: [] }
+    }
+
+    get Classify () {
+        return this.data.Classify || { values: [] }
     }
 
     get Coupon () {
@@ -577,6 +598,10 @@ export default class TemplateD extends Vue {
 .module-appointment,
 .module-propagate {
     padding: 5px 12px;
+}
+
+.module-classify {
+    margin-top: 10px;
 }
 
 .pointer {

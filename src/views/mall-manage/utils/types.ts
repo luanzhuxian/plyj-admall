@@ -96,6 +96,7 @@ export interface TemplateC {
 
 export interface TemplateD {
     Banner: TemplateModule | undefined;
+    Classify: TemplateModule | undefined;
     Coupon: TemplateModule | undefined;
     Activity: TemplateModule | undefined;
     Live: TemplateModule | undefined;

@@ -25,41 +25,41 @@ const findModule = function (modules: TemplateModule[]) {
 
 /**
  * rebuild过程中对各个模块做处理
- * @param {object} modules 模板对象，包含多个模块
+ * @param {object} module 单个模块
  * @param {string} name 模块名称
- * @return {object} 模块列表
+ * @return {object} 模块
  */
-export const reset = (modules: TemplateModule | undefined, name: string) => {
-    if (!modules) return
+export const reset = (module: TemplateModule | undefined, name: string) => {
+    if (!module) return
 
     if (~['Banner', 'Adv'].indexOf(name)) {
-        for (const item of modules.values) {
+        for (const item of module.values) {
             if (item.valueName === '') {
                 item.valueName = item.value
             }
         }
     }
     if (~['Popular', 'Fengqiang'].indexOf(name)) {
-        modules.goodsSource = (modules.goodsSource && modules.goodsSource !== '') ? modules.goodsSource : 2
-        modules.productValues = modules.goodsSource === 2 ? modules.values : []
-        modules.categoryValues = modules.goodsSource === 1 ? modules.values : []
-        modules.otherInfo = modules.goodsSource === 1 ? modules.otherInfo : ''
-        modules.otherValue = modules.goodsSource === 1 ? modules.otherValue : ''
-        modules.number = modules.goodsSource === 1 ? modules.number : 1
+        module.goodsSource = (module.goodsSource && module.goodsSource !== '') ? module.goodsSource : 2
+        module.productValues = module.goodsSource === 2 ? module.values : []
+        module.categoryValues = module.goodsSource === 1 ? module.values : []
+        module.otherInfo = module.goodsSource === 1 ? module.otherInfo : ''
+        module.otherValue = module.goodsSource === 1 ? module.otherValue : ''
+        module.number = module.goodsSource === 1 ? module.number : 1
     }
     if (name === 'Class') {
-        modules.goodsSource = (modules.goodsSource && modules.goodsSource !== '') ? modules.goodsSource : 3
-        modules.productValues = modules.goodsSource === 3 ? modules.values : []
-        modules.categoryValues = modules.goodsSource === 1 ? modules.values : []
-        modules.otherInfo = modules.goodsSource === 1 ? modules.otherInfo : ''
-        modules.otherValue = modules.goodsSource === 1 ? modules.otherValue : ''
-        modules.number = modules.goodsSource === 1 ? modules.number : 1
+        module.goodsSource = (module.goodsSource && module.goodsSource !== '') ? module.goodsSource : 3
+        module.productValues = module.goodsSource === 3 ? module.values : []
+        module.categoryValues = module.goodsSource === 1 ? module.values : []
+        module.otherInfo = module.goodsSource === 1 ? module.otherInfo : ''
+        module.otherValue = module.goodsSource === 1 ? module.otherValue : ''
+        module.number = module.goodsSource === 1 ? module.number : 1
     }
     if (name === 'Recommend') {
-        modules.sortType = (modules.sortType && modules.sortType !== '') ? modules.sortType : 1
-        modules.remDuplicate = (modules.remDuplicate && modules.remDuplicate !== '') ? modules.remDuplicate : 0
-        modules.number = (modules.number && modules.number !== '') ? modules.number : 1
-        modules.styleType = (modules.styleType && modules.styleType !== '') ? modules.styleType : 2
+        module.sortType = (module.sortType && module.sortType !== '') ? module.sortType : 1
+        module.remDuplicate = (module.remDuplicate && module.remDuplicate !== '') ? module.remDuplicate : 0
+        module.number = (module.number && module.number !== '') ? module.number : 1
+        module.styleType = (module.styleType && module.styleType !== '') ? module.styleType : 2
     }
     if (name === 'Appointment') {
         const model = {
@@ -74,49 +74,58 @@ export const reset = (modules: TemplateModule | undefined, name: string) => {
             value: '',
             valueName: ''
         }
-        if (modules.values.length === 0) {
-            modules.values = [{ value: '免费试听，专业顾问指导' }, { value: '' }]
+        if (module.values.length === 0) {
+            module.values = [{ value: '免费试听，专业顾问指导' }, { value: '' }]
                 .map((item: { value: string }) => Object.assign({}, model, item))
         }
-        if (modules.values.length === 1) {
-            modules.values.push(Object.assign({}, model, { value: '' }))
+        if (module.values.length === 1) {
+            module.values.push(Object.assign({}, model, { value: '' }))
         }
     }
     if (name === 'Propagate') {
-        if (modules.values.length && modules.values[0].mallBrandingRequestModels && modules.values[0].mallBrandingRequestModels.length === 0) {
-            modules.show = 0
+        if (module.values.length && module.values[0].mallBrandingRequestModels && module.values[0].mallBrandingRequestModels.length === 0) {
+            module.show = 0
         }
     }
     if (~['Live', 'OnlineCourse', 'SeriesCourse', 'ImageText'].indexOf(name)) {
-        // modules.styleType: 1 默认显示1个 2 显示多个
-        modules.values = modules.styleType === 1 ? modules.values.slice(0, 1) : modules.values
-        modules.defaultValues = modules.styleType === 1 ? modules.values : []
-        modules.backupValues = modules.styleType === 2 ? modules.values : []
-        modules.number = modules.styleType === 2 ? modules.number : 1
+        // module.styleType: 1 默认显示1个 2 显示多个
+        module.values = module.styleType === 1 ? module.values.slice(0, 1) : module.values
+        module.defaultValues = module.styleType === 1 ? module.values : []
+        module.backupValues = module.styleType === 2 ? module.values : []
+        module.number = module.styleType === 2 ? module.number : 1
     }
     if (name === 'Live') {
-        const [nowCount = 0, futrueCount = 0, pastCount = 0] = modules.otherValue.split(',')
-        Object.assign(modules, {
+        const [nowCount = 0, futrueCount = 0, pastCount = 0] = module.otherValue.split(',')
+        Object.assign(module, {
             nowCount,
             futrueCount,
             pastCount
         })
     }
+    if (name === 'Classify') {
+        if (module.values.length) {
+            // 增加 selected 字段为了级联选择器回显，最后上架前要删除
+            module.values = module.values.map(item => ({
+                ...item,
+                selected: item.value.split(',')
+            }))
+        }
+    }
 
     // 主会场
     if (~['Coupon', 'RedPackage', 'Pintuan', 'Yugou', 'Miaosha', 'Package', 'Distribution'].indexOf(name)) {
-        modules.goodsSource = 2
+        module.goodsSource = 2
     }
     if (name === 'Maisong') {
-        modules.otherValue = (modules.otherValue && modules.otherValue !== '') ? modules.otherValue : '12.12当日下单 享多重好礼'
+        module.otherValue = (module.otherValue && module.otherValue !== '') ? module.otherValue : '12.12当日下单 享多重好礼'
     }
     if (name === 'Miaosha') {
-        for (const item of modules.values) {
+        for (const item of module.values) {
             if (!item.goodsInfo) item.goodsInfo = []
             item.range = item.valueName.split(',')
         }
     }
-    return modules
+    return module
 }
 
 /**
@@ -173,6 +182,7 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
     if (tmplType === TemplateTypes.TemplateD) {
         templateModel = {} as TemplateD
         templateModel.Banner = reset(findModuleById(ModuleIds.Banner), 'Banner')
+        templateModel.Classify = reset(findModuleById(ModuleIds.Classify), 'Classify')
         templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
         templateModel.Activity = reset(findModuleById(ModuleIds.Activity), 'Activity')
         templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
@@ -281,12 +291,17 @@ export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number):
             Reflect.deleteProperty(moduleModels[name], 'categoryValues')
         }
     }
+
+    // 预约
     if ('Appointment' in moduleModels) {
         moduleModels.Appointment.values = moduleModels.Appointment.values.filter((item: TemplateModuleItem) => item.value)
     }
+
+    // 品宣
     if (moduleModels.Propagate) {
         moduleModels.Propagate.values = []
     }
+
     for (const name of ['Live', 'OnlineCourse', 'SeriesCourse', 'ImageText']) {
         if (moduleModels[name]) {
             moduleModels[name].number = moduleModels[name].styleType === 1 ? '' : moduleModels[name].number
@@ -295,6 +310,8 @@ export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number):
             Reflect.deleteProperty(moduleModels[name], 'backupValues')
         }
     }
+
+    // 直播
     if (moduleModels.Live) {
         moduleModels.Live.values = []
         Reflect.deleteProperty(moduleModels.Live, 'nowCount')
@@ -302,6 +319,7 @@ export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number):
         Reflect.deleteProperty(moduleModels.Live, 'pastCount')
     }
 
+    // 秒杀
     if (moduleModels.Miaosha) {
         for (const item of moduleModels.Miaosha.values) {
             if (item.goodsInfo.length) {
@@ -316,11 +334,25 @@ export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number):
             Reflect.deleteProperty(item, 'range')
         }
     }
+
+    // 春耘模块
     if (moduleModels.Chunyun) {
         moduleModels.Chunyun.values = []
     }
+
+    // 组合课模块
     if (moduleModels.Package && moduleModels.Package.values.length) {
         moduleModels.Package.values = moduleModels.Package.values.map(({ id }: { id: string }) => ({ value: id }))
+    }
+
+    // 分类
+    if (moduleModels.Classify) {
+        moduleModels.Classify.values = moduleModels.Classify.values.filter((item: { value: string; name: string; image: string }) => item.value && item.name && item.image)
+        if (moduleModels.Classify.values.length) {
+            for (const item of moduleModels.Classify.values) {
+                Reflect.deleteProperty(item, 'selected')
+            }
+        }
     }
 
     // 龙门节主会场
