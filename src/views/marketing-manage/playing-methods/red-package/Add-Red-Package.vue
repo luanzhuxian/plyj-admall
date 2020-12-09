@@ -840,7 +840,7 @@ export default class AddRedPackage extends Vue {
                 border-bottom: none;
             }
             .all-show{
-                height: 600px;
+                max-height: 700px;
             }
             .product-btn{
                 display: flex;
