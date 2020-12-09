@@ -785,7 +785,7 @@ export default class AddRedPackage extends Vue {
     async removePro (item: ProdItem) {
         try {
             await this.$confirm('您确定移除吗？')
-            const index = this.productModelList.findIndex((prod: ProdItem) => (prod.productId === item.productId))
+            const index = this.productModelList.findIndex((prod: ProdItem) => (prod.skuCode1 + prod.skuCode2 === item.skuCode1 + item.skuCode2))
             if (index > -1) this.productModelList.splice(index, 1)
         } catch (error) {
             throw error
