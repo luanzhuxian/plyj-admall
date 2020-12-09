@@ -42,8 +42,8 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import ProductItemLarge from './components/ProductItemLarge.vue'
-import ProductItemSmall from './components/ProductItemSmall.vue'
+import ProductItemLarge from './components/Product-Item-Large.vue'
+import ProductItemSmall from './components/Product-Item-Small.vue'
 
 const user = namespace('user')
 

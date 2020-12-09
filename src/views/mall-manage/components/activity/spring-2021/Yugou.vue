@@ -44,8 +44,8 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import YugouItemLarge from '../double-12-2020/components/YugouItemLarge.vue'
-import YugouItemSmall from '../double-12-2020/components/YugouItemSmall.vue'
+import YugouItemLarge from '../double-12-2020/components/Yugou-Item-Large.vue'
+import YugouItemSmall from '../double-12-2020/components/Yugou-Item-Small.vue'
 
 @Component({
     components: {

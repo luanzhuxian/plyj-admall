@@ -27,7 +27,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Panel from './Panel.vue'
-import PackageItem from '../double-12-2020/components/PackageItem.vue'
+import PackageItem from '../double-12-2020/components/Package-Item.vue'
 import { TemplateModule } from '../../../utils/types'
 
 @Component({

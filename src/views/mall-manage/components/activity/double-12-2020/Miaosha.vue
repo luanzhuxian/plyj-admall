@@ -34,7 +34,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import MiaoshaItem from './components/MiaoshaItem.vue'
+import MiaoshaItem from './components/Miaosha-Item.vue'
 
 @Component({
     components: {
