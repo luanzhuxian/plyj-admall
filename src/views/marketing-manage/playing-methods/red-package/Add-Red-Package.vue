@@ -745,9 +745,13 @@ export default class AddRedPackage extends Vue {
     }
 
     async getRedPackageclaimVolume () {
-        if (this.$route.name !== 'EditRedPackage') return
-        const claimVolume = await getRedPackageclaimVolume(this.id as string)
-        this.claimVolume = claimVolume.result
+        try {
+            if (this.$route.name !== 'EditRedPackage') return
+            const claimVolume = await getRedPackageclaimVolume(this.id as string)
+            this.claimVolume = claimVolume.result
+        } catch (e) {
+            throw e
+        }
     }
 
     receiveTimeChange ({ start, end }: any) {
