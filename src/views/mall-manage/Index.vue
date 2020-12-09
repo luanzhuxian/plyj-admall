@@ -41,6 +41,7 @@ export default class MallManage extends Vue {
     @mall.Mutation setLiveInfo!: (payload: {}) => void
     @mall.Mutation setNwEvent!: (payload: {}) => void
     @mall.Mutation setDouble12LockStatus!: (payload: {}) => void
+    @mall.Mutation setSpringLockStatus!: (payload: {}) => void
     get showTabs () {
         return !!this.$route.name && this.tabs.map(tab => tab.name).includes(this.$route.name)
     }
@@ -73,11 +74,13 @@ export default class MallManage extends Vue {
         })))
 
         const double12 = lockStatusInfo.find((item: lockStatusInfo) => item.activityValue === '4')
+        const spring = lockStatusInfo.find((item: lockStatusInfo) => item.activityValue === '5')
 
         this.setLiveInfo(live)
         this.setNwEvent(nianwei.length ? nianwei[0] : {})
         // lockStatus 1 '开启', 2: '过期', 3: '未开启活动'
-        this.setDouble12LockStatus(double12 ? double12.lockStatus : 3)
+        this.setDouble12LockStatus(double12?.lockStatus || 3)
+        this.setSpringLockStatus(spring?.lockStatus || 3)
     }
 
     /* methods */

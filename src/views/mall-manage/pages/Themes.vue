@@ -412,6 +412,7 @@ export default class MallThemes extends Vue {
     @mall.Getter('currentHomeType') currentHomeType!: number // 当前首页模板类型
     @mall.Getter('currentActivityType') currentActivityType!: number // 当前主会场模板类型
     @mall.Getter('double12LockStatus') double12LockStatus!: number // 双十二主会场使用权限
+    @mall.Getter('springLockStatus') springLockStatus!: number // 新春会场使用权限
 
     get tag () {
         return tagMap.findTemplateTagById(this.previewTmplType)
@@ -524,35 +525,33 @@ export default class MallThemes extends Vue {
     check (item: Template) {
         // 双十二
         if (item.type === TemplateTypes.TemplateDouble122020) {
-            return item
-            // if (this.double12LockStatus === 1) {
-            //     return item
-            // }
+            if (this.double12LockStatus === 1) {
+                return item
+            }
 
-            // const modalText = this.double12LockStatus === 2
-            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-            //     : '参与双十二的用户，请联系您的城市经理和客服开通使用权限。'
-            // this.$confirm({
-            //     title: modalText,
-            //     confirmButtonText: '朕知道了',
-            //     showCancelButton: false
-            // })
+            const modalText = this.double12LockStatus === 2
+                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+                : '参与双十二的用户，请联系您的城市经理和客服开通使用权限。'
+            this.$confirm({
+                title: modalText,
+                confirmButtonText: '朕知道了',
+                showCancelButton: false
+            })
         }
         // 新春
         if (item.type === TemplateTypes.TemplateSpring2020) {
-            return item
-            // if (this.double12LockStatus === 1) {
-            //     return item
-            // }
+            if (this.springLockStatus === 1) {
+                return item
+            }
 
-            // const modalText = this.double12LockStatus === 2
-            //     ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-            //     : '参与新春开学季的用户，请联系您的城市经理和客服开通使用权限。'
-            // this.$confirm({
-            //     title: modalText,
-            //     confirmButtonText: '朕知道了',
-            //     showCancelButton: false
-            // })
+            const modalText = this.springLockStatus === 2
+                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+                : '参与新春开学季的用户，请联系您的城市经理和客服开通使用权限。'
+            this.$confirm({
+                title: modalText,
+                confirmButtonText: '朕知道了',
+                showCancelButton: false
+            })
         }
         // 新春、龙门节
         if (item.type === TemplateTypes.TemplateSpring2019 || item.type === TemplateTypes.TemplateDragonGate) {
