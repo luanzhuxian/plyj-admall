@@ -320,5 +320,6 @@ export const moduleIdMap: DynamicObject = {
     OnlineCourse: '#OnlineCourse',
     SeriesCourse: '#SeriesCourse',
     ImageText: '#ImageText',
-    RedPackage: '#RedPackage'
+    RedPackage: '#RedPackage',
+    Classify: '#Classify'
 }

@@ -1,6 +1,7 @@
 // TODO:
 // @ts-nocheck
 /* eslint-disable no-useless-constructor */
+/* eslint-disable require-await */
 
 // 模板校验
 
@@ -16,7 +17,8 @@ import {
     RecommendValidator,
     MaisongListValidator,
     MiaoshaListValidator,
-    ActivityListValidator
+    ActivityListValidator,
+    ClassifyListValidator
 } from './module-validator'
 
 import {
@@ -156,6 +158,18 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> extends BaseVa
             errList.push(new ErrorMsg(error.message || error, moduleName))
         }
     }
+
+    async checkClassify () {
+        const { errList, moduleModels } = this
+
+        try {
+            if (moduleModels.Classify.showStatue !== 1) return
+
+            await new ClassifyListValidator().validate(moduleModels.Classify)
+        } catch (error) {
+            errList.push(new ErrorMsg(error.message || error, 'Classify'))
+        }
+    }
 }
 
 // 主会场
@@ -276,6 +290,7 @@ class TemplateDValidator extends HomeValidator<TemplateD> {
 
     async validate () {
         await this.checkBanner()
+        await this.checkClassify()
         await this.checkActivity()
         await this.checkList('Miaosha', { min: 1, max: 6 })
         await this.checkList('Package', { min: 1, max: 8 })

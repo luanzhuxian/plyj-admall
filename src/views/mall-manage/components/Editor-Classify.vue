@@ -9,10 +9,10 @@
                 <label>
                     分类个数：
                 </label>
-                <el-radio v-model="max" :label="3" @change="onRadioChange">
+                <el-radio v-model="data.number" :label="3" @change="onRadioChange">
                     3个
                 </el-radio>
-                <el-radio v-model="max" :label="4" @change="onRadioChange">
+                <el-radio v-model="data.number" :label="4" @change="onRadioChange">
                     4个
                 </el-radio>
             </div>
@@ -47,7 +47,6 @@
                                 @change="value => onCascaderChange(value, item)"
                             />
                         </div>
-                        <div>{{ item.selected }}</div>
                     </div>
                     <div style="width: 28px;">
                         <i class="el-icon-delete-solid" @click.stop="remove(index)" />
@@ -180,13 +179,16 @@ export default class EditorClassify extends Vue {
     }) options!: OptionsItem[]
 
     /* data */
-    max = 3
     dragging = false
     currentImgIndex!: number
     defaultOptions: OptionsItem[] = []
 
     /* computed */
     @goods.Getter('categoryTree') categoryTree!: any
+
+    get max () {
+        return this.data.number
+    }
 
     // get selectedList () {
     //     return this.data.values.map(item => item.value).filter(id => id)
@@ -226,7 +228,6 @@ export default class EditorClassify extends Vue {
     }
 
     onRadioChange (val: number) {
-        this.max = val
         if (val === 3) {
             this.data.values = this.data.values.slice(0, 3)
         }

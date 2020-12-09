@@ -347,7 +347,6 @@ export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number):
 
     // 分类
     if (moduleModels.Classify) {
-        moduleModels.Classify.values = moduleModels.Classify.values.filter((item: { value: string; name: string; image: string }) => item.value && item.name && item.image)
         if (moduleModels.Classify.values.length) {
             for (const item of moduleModels.Classify.values) {
                 Reflect.deleteProperty(item, 'selected')

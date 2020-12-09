@@ -1,7 +1,8 @@
 /* eslint-disable no-useless-constructor */
+/* eslint-disable require-await */
 
 import { Rule, Validator } from './validator'
-import { isEmpty } from '../helper'
+import { isEmpty, isNumber } from '../helper'
 import { TemplateModuleItem, TemplateModule } from '../types'
 import { Range } from './types'
 
@@ -280,6 +281,44 @@ class ActivityListValidator extends Validator {
     }
 }
 
+class ClassifyValidator extends Validator {
+    image: Rule[]
+    name: Rule[]
+    value: Rule[]
+
+    constructor () {
+        super()
+        this.image = [new Rule('required', '请上传分类图片')]
+        this.name = [new Rule('required', '请选择分类')]
+        this.value = [new Rule('required', '请选择分类')]
+    }
+}
+
+class ClassifyListValidator extends Validator {
+    validator: ClassifyValidator
+    constructor () {
+        super()
+        this.validator = new ClassifyValidator()
+    }
+
+    async customValidateList (data: TemplateModule) {
+        if (!data || !data.values) throw new Error('数据结构错误')
+        if (!data.number || !isNumber(data.number) || !~[3, 4].indexOf(data.number)) {
+            throw new Error('请选择分类导航的分类个数')
+        }
+        if (data.values.length !== data.number) {
+            throw new Error(`请添加${ data.number }个分类`)
+        }
+        try {
+            for (const item of data.values) {
+                await this.validator.validate(item)
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+}
+
 export {
     ErrorMsg,
     ListValidator,
@@ -293,5 +332,6 @@ export {
     RecommendValidator,
     MaisongListValidator,
     MiaoshaListValidator,
-    ActivityListValidator
+    ActivityListValidator,
+    ClassifyListValidator
 }
