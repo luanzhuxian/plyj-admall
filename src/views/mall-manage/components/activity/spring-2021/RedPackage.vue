@@ -1,7 +1,7 @@
 <template>
-    <Panel custom-class="spring-2020-red-package-panel" title="组合聚惠学">
+    <Panel custom-class="spring-2021-red-package-panel" title="组合聚惠学">
         <template slot="title">
-            <div class="spring-2020-red-package-panel-title" />
+            <div class="spring-2021-red-package-panel-title" />
         </template>
         <template slot="default">
             <swiper :class="$style.redPackageList" :options="swiperOption" v-if="data.values.length">
@@ -141,17 +141,17 @@ export default class Package extends Vue {
 </script>
 
 <style lang="scss">
-.spring-2020-red-package-panel {
-    .spring-2020-red-package-panel-title {
+.spring-2021-red-package-panel {
+    .spring-2021-red-package-panel-title {
         height: 122px;
         background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/title-red-package.png) no-repeat center;
         background-size: 100%;
     }
-    .spring-2020-panel-container {
+    .spring-2021-panel-container {
         padding: 12px 0 30px;
         background: #F54540;
     }
-    .spring-2020-panel-button {
+    .spring-2021-panel-button {
         border-color: #FFC70C;
         color: #FFC70C;
     }

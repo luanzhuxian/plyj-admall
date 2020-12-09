@@ -1,28 +1,28 @@
 <template>
     <div
-        class="spring-2020-panel"
+        class="spring-2021-panel"
         :class="[customClass]"
     >
         <slot name="title">
-            <div class="spring-2020-panel-title">
+            <div class="spring-2021-panel-title">
                 <b v-text="title" />
             </div>
         </slot>
 
         <template v-if="subtitle || $slots.subtitle || $scopedSlots.subtitle">
             <slot name="subtitle">
-                <div class="spring-2020-panel-subtitle">
+                <div class="spring-2021-panel-subtitle">
                     <span v-text="subtitle" />
                 </div>
             </slot>
         </template>
 
-        <div class="spring-2020-panel-container">
+        <div class="spring-2021-panel-container">
             <slot />
 
             <template v-if="!hideButton">
                 <slot name="button">
-                    <button class="spring-2020-panel-button" v-text="button" @click="handleClick" />
+                    <button class="spring-2021-panel-button" v-text="button" @click="handleClick" />
                 </slot>
             </template>
         </div>
@@ -33,7 +33,7 @@
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 
 @Component
-export default class Spring2020Panel extends Vue {
+export default class Spring2021Panel extends Vue {
     /* props */
     @Prop(String) readonly customClass!: string
     @Prop(String) readonly title!: string
@@ -54,7 +54,7 @@ export default class Spring2020Panel extends Vue {
 </script>
 
 <style lang="scss">
-.spring-2020-panel {
+.spring-2021-panel {
     position: relative;
     &-title {
         position: relative;

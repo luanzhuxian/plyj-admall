@@ -132,16 +132,16 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import Live from '../activity/spring-2019/Live.vue'
-// import Activity from '../activity/spring-2019/Activity.vue'
-import Propagate from '../activity/spring-2019/Propagate.vue'
-import Coupon from '../activity/spring-2019/Coupon.vue'
-import Chunyun from '../activity/spring-2019/Chunyun.vue'
-import Pintuan from '../activity/spring-2019/Pintuan.vue'
-import Yugou from '../activity/spring-2019/Yugou.vue'
+import Live from '../activity/spring-2020/Live.vue'
+// import Activity from '../activity/spring-2020/Activity.vue'
+import Propagate from '../activity/spring-2020/Propagate.vue'
+import Coupon from '../activity/spring-2020/Coupon.vue'
+import Chunyun from '../activity/spring-2020/Chunyun.vue'
+import Pintuan from '../activity/spring-2020/Pintuan.vue'
+import Yugou from '../activity/spring-2020/Yugou.vue'
 import Recommend from '../home/Recommend.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
-import { TemplateSpring2019 as TemplateSpring } from '../../utils/types'
+import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
 
 const mall = namespace('mall')
 
@@ -158,7 +158,7 @@ const mall = namespace('mall')
         ModuleWrapper
     }
 })
-export default class TemplateSpring2019 extends Vue {
+export default class TemplateSpring2020 extends Vue {
     /* props */
     @Prop({
         type: Object,

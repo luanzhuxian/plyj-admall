@@ -28,7 +28,7 @@ import {
     TemplateFanChang,
     TemplateFengQiang,
     TemplateBaoFa,
-    TemplateSpring2019,
+    TemplateSpring2020,
     TemplateDragonGate,
     TemplateDouble122020
 } from '../types'
@@ -173,7 +173,7 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> extends BaseVa
 }
 
 // 主会场
-class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateSpring2019 | TemplateDragonGate | TemplateDouble122020> extends BaseValidator {
+class ActivityValidator <T extends TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateSpring2020 | TemplateDragonGate | TemplateDouble122020> extends BaseValidator {
     errList: ErrorMsg[]
     tmplType: number
     moduleModels: T
@@ -350,8 +350,8 @@ class TemplateBaofaValidator extends ActivityValidator<TemplateBaoFa> {
 }
 
 // 新春主会场模板
-class TemplateSpring2019Validator extends ActivityValidator<TemplateSpring2019> {
-    constructor (tmplType: number, moduleModels: TemplateSpring2019) {
+class TemplateSpring2020Validator extends ActivityValidator<TemplateSpring2020> {
+    constructor (tmplType: number, moduleModels: TemplateSpring2020) {
         super(tmplType, moduleModels)
     }
 
@@ -418,7 +418,7 @@ export {
     TemplateDValidator,
     TemplateFengqiangValidator,
     TemplateBaofaValidator,
-    TemplateSpring2019Validator,
+    TemplateSpring2020Validator,
     TemplateDragonGateValidator,
     TemplateDouble122020Validator
 }

@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.templateSpring" class="template-spring-2020-red">
+    <div :class="$style.templateSpring" class="template-spring-2021-red">
         <img
             src="https://penglai-weimall.oss-cn-hangzhou.aliyuncs.com/static/admall/mall-management/basic/bars.png"
             style="width: 100%; height: 20px;"
@@ -12,7 +12,7 @@
             <div :class="$style.container">
                 <!-- 直播 -->
                 <ModuleWrapper :class="[$style.module, $style.moduleLive]" :data="Live">
-                    <Panel custom-class="spring-2020-red-live-panel" title="直播放映室">
+                    <Panel custom-class="spring-2021-red-live-panel" title="直播放映室">
                         <Live :data="Live" />
                     </Panel>
                 </ModuleWrapper>
@@ -20,7 +20,7 @@
                 <section
                     id="RedPackage"
                     v-if="data && data.RedPackage && (data.RedPackage.values.length || isClickable || isEmptyShow)"
-                    class="spring-2020-red-red-package"
+                    class="spring-2021-red-red-package"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleRedPackage]: true,
@@ -35,7 +35,7 @@
                 <section
                     id="Coupon"
                     v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
-                    class="spring-2020-red-coupon"
+                    class="spring-2021-red-coupon"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleCoupon]: true,
@@ -77,7 +77,7 @@
                 <!-- 预购 -->
                 <ModuleWrapper
                     id="Yugou"
-                    class="spring-2020-red-yugou"
+                    class="spring-2021-red-yugou"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleYugou]: true,
@@ -132,17 +132,17 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import Live from '../activity/spring-2020/Live.vue'
-import RedPackage from '../activity/spring-2020/RedPackage.vue'
+import Live from '../activity/spring-2021/Live.vue'
+import RedPackage from '../activity/spring-2021/RedPackage.vue'
 import Coupon from '../activity/double-12-2020/Coupon.vue'
-import Miaosha from '../activity/spring-2020/Miaosha.vue'
-import Pintuan from '../activity/spring-2020/Pintuan.vue'
-import Yugou from '../activity/spring-2020/Yugou.vue'
-import Package from '../activity/spring-2020/Package.vue'
-import Popular from '../activity/spring-2020/Popular.vue'
+import Miaosha from '../activity/spring-2021/Miaosha.vue'
+import Pintuan from '../activity/spring-2021/Pintuan.vue'
+import Yugou from '../activity/spring-2021/Yugou.vue'
+import Package from '../activity/spring-2021/Package.vue'
+import Popular from '../activity/spring-2021/Popular.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
-import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
+import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
 
 @Component({
     components: {
@@ -158,7 +158,7 @@ import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
         ModuleWrapper
     }
 })
-export default class TemplateSpring2020 extends Vue {
+export default class TemplateSpring2021 extends Vue {
     /* props */
     @Prop({
         type: Object,
@@ -219,24 +219,24 @@ export default class TemplateSpring2020 extends Vue {
 </script>
 
 <style lang="scss">
-.template-spring-2020-red {
-    .spring-2020-panel {
-        > .spring-2020-panel-title {
+.template-spring-2021-red {
+    .spring-2021-panel {
+        > .spring-2021-panel-title {
             background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/title-red.png) no-repeat center;
             background-size: 100%;
             > b {
                 color: #FFEFCC;
             }
         }
-        > .spring-2020-panel-subtitle {
+        > .spring-2021-panel-subtitle {
             color: #CC1D01;
         }
-        .spring-2020-panel-button {
+        .spring-2021-panel-button {
             color: #CC1D01;
             border-color: #CC1D01;
         }
     }
-    .spring-2020-red-live-panel {
+    .spring-2021-red-live-panel {
         background-color: #FFD7A8;
         border-radius: 8px;
         > .double-12-panel-title {
@@ -291,13 +291,13 @@ export default class TemplateSpring2020 extends Vue {
             color: #CC1D01;
         }
     }
-    .spring-2020-red-red-package {
-        .spring-2020-panel-button {
+    .spring-2021-red-red-package {
+        .spring-2021-panel-button {
             color: #FFC70C;
             border-color: #FFC70C;
         }
     }
-    .spring-2020-red-coupon {
+    .spring-2021-red-coupon {
         > .coupon-wrapper {
             &::before {
                 background-color: #FEEFE3;
@@ -310,10 +310,10 @@ export default class TemplateSpring2020 extends Vue {
             }
         }
     }
-    .spring-2020-red-yugou {
-        > .spring-2020-yugou-panel {
+    .spring-2021-red-yugou {
+        > .spring-2021-yugou-panel {
             background-color: #BA321C;
-            > .spring-2020-yugou-panel-title {
+            > .spring-2021-yugou-panel-title {
                 color: #FFFBF1;
                 &::before {
                     position: absolute;

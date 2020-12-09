@@ -1,5 +1,5 @@
 <template>
-    <Panel custom-class="spring-2020-package-panel" title="组合聚惠学" subtitle="新春组合产品特惠 折扣不停歇">
+    <Panel custom-class="spring-2021-package-panel" title="组合聚惠学" subtitle="新春组合产品特惠 折扣不停歇">
         <ul :class="$style.packageList" v-if="data.values.length">
             <PackageItem
                 :class="$style.packageListItem"
@@ -82,8 +82,8 @@ export default class Package extends Vue {
 </script>
 
 <style lang="scss">
-.spring-2020-package-panel {
-    .spring-2020-panel-container {
+.spring-2021-package-panel {
+    .spring-2021-panel-container {
         padding: 20px 22px;
     }
     .package-item-btn {

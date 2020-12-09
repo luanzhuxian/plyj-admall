@@ -4,7 +4,7 @@ import {
     TemplateDValidator,
     TemplateFengqiangValidator,
     TemplateBaofaValidator,
-    TemplateSpring2019Validator,
+    TemplateSpring2020Validator,
     TemplateDragonGateValidator,
     TemplateDouble122020Validator
 } from './template-validator'
@@ -18,7 +18,7 @@ const validatorProducer = (tmplType: number, moduleModels: TemplateCrosses | obj
         5: TemplateFengqiangValidator,
         6: TemplateBaofaValidator,
         7: TemplateFengqiangValidator,
-        8: TemplateSpring2019Validator,
+        8: TemplateSpring2020Validator,
         9: TemplateDValidator,
         10: TemplateDragonGateValidator,
         11: TemplateDouble122020Validator,

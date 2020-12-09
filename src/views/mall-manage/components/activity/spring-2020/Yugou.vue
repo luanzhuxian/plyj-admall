@@ -1,58 +1,85 @@
 <template>
-    <Panel custom-class="spring-2020-yugou-panel">
-        <template slot="title">
-            <div class="spring-2020-yugou-panel-title">
-                <b>新春开学季 早定更优惠</b>
+    <div :class="$style.yugou">
+        <div :class="$style.yugouTop">
+            <div :class="$style.yugouTopSide" />
+            <div :class="$style.yugouTopContent">
+                <h3>预购享翻倍</h3>
+                <p v-if="Number(data.otherValue)">
+                    {{ `${data.otherValue}人参与 查看更多>` }}
+                </p>
+                <p v-else>
+                    查看更多>
+                </p>
             </div>
-        </template>
-        <template slot="default">
-            <ul :class="$style.yugouList" v-if="data.values.length">
-                <YugouItemLarge
-                    v-if="isOdd"
-                    :class="[$style.yugouListItem, $style.marginT0]"
-                    :data="first"
-                />
-                <YugouItemSmall
-                    :class="[$style.yugouListItem, (!isOdd && (i === 0 || i === 1)) ? $style.marginT0 : '']"
-                    v-for="(item, i) of (isOdd ? rest : data.values)"
-                    :key="i"
-                    :data="item"
-                />
-            </ul>
-            <ul :class="$style.yugouList" v-else>
-                <YugouItemLarge :class="[$style.yugouListItem, $style.marginT0]" :data="defaultDataLarge">
-                    <template slot="countdown">
-                        2天23:59:59
-                    </template>
-                </YugouItemLarge>
-                <YugouItemSmall
+        </div>
+        <ul :class="$style.yugouList" v-if="data.values.length">
+            <template v-for="(item, i) of data.values">
+                <div
+                    v-if="item.goodsInfo && item.goodsInfo.activityInfo"
                     :class="$style.yugouListItem"
-                    v-for="(item, i) of 2"
                     :key="i"
-                    :data="defaultDataSmall"
                 >
-                    <template slot="countdown">
-                        2天23:59:59
-                    </template>
-                </YugouItemSmall>
-            </ul>
-        </template>
-    </Panel>
+                    <div :class="$style.time">
+                        <span v-if="item.goodsInfo.activityInfo.status === 0">距开始：</span>
+                        <span v-if="item.goodsInfo.activityInfo.status === 1">距结束：</span>
+                        <span v-if="item.goodsInfo.activityInfo.status === 2">已结束</span>
+                        <Countdown
+                            v-if="~[0, 1].indexOf(item.goodsInfo.activityInfo.status)"
+                            :duration="getDuration(item.goodsInfo.activityInfo)"
+                            format="DD天HH:mm:ss"
+                            @finish="() => item.goodsInfo.activityInfo.status += 1"
+                        />
+                    </div>
+                    <div :class="$style.info">
+                        <div :class="$style.main">
+                            {{ item.goodsInfo.productName }}
+                        </div>
+                        <div :class="$style.sub1">
+                            <span>{{ `预交定金￥${item.goodsInfo.activityInfo.price}` }}</span>
+                            <span v-if="item.goodsInfo.activityInfo.multiple && item.goodsInfo.activityInfo.multipleNumber > 1 && item.goodsInfo.activityInfo.activityPrice">{{ `抵￥${item.goodsInfo.activityInfo.activityPrice}` }}</span>
+                        </div>
+                        <div :class="$style.sub2">
+                            {{ `预售到手价：${getTotalPrice(item)}元` }}
+                        </div>
+                    </div>
+                    <div :class="$style.imgWrapper">
+                        <img :src="item.goodsInfo.productMainImage">
+                    </div>
+                </div>
+            </template>
+        </ul>
+        <ul :class="$style.yugouList" v-else>
+            <li :class="$style.yugouListItem" v-for="(item, i) of 3" :key="i">
+                <div :class="$style.time">
+                    距结束：2天23:59:59
+                </div>
+                <div :class="$style.info">
+                    <div :class="$style.main">
+                        非常好用的蜡笔张三三老师 带您体验课
+                    </div>
+                    <div :class="$style.sub1">
+                        预交定金￥100抵￥200
+                    </div>
+                    <div :class="$style.sub2">
+                        预售到手价：2000元
+                    </div>
+                </div>
+                <div :class="$style.imgWrapper">
+                    <img src="https://mallcdn.youpenglai.com/static/admall/mall-management/xinchun/47aa30db-205d-40b8-a564-eba87f8d6e03.png" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
-import Panel from './Panel.vue'
-import YugouItemLarge from '../double-12-2020/components/YugouItemLarge.vue'
-import YugouItemSmall from '../double-12-2020/components/YugouItemSmall.vue'
+import Countdown from '../../Countdown.vue'
+import { getDuration, getTotalPrice } from '../../../utils/helper'
 
 @Component({
-    components: {
-        Panel,
-        YugouItemLarge,
-        YugouItemSmall
-    }
+    components: { Countdown }
 })
 export default class Yugou extends Vue {
     /* props */
@@ -63,107 +90,116 @@ export default class Yugou extends Vue {
         }
     }) readonly data!: TemplateModule
 
-    defaultDataLarge = {
-        goodsInfo: {
-            productMainImage: 'https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/img-placeholder-blue.png',
-            productName: '李老师初中地理七年级上',
-            pageviews: 99,
-            activityInfo: {
-                multiple: 1,
-                multipleNumber: 2,
-                price: 100,
-                activityPrice: 1000,
-                number: 99,
-                status: 1
-            },
-            productSkuModels: [{
-                price: 3000
-            }]
-        }
-    }
-
-    defaultDataSmall = {
-        goodsInfo: {
-            productMainImage: 'https://mallcdn.youpenglai.com/static/admall/mall-management/double-12-2020/img-placeholder-yellow.png',
-            productName: '李老师初中地理七年级下',
-            pageviews: 99,
-            activityInfo: {
-                multiple: 1,
-                multipleNumber: 2,
-                price: 100,
-                activityPrice: 1000,
-                number: 99,
-                status: 1
-            },
-            productSkuModels: [{
-                price: 3000
-            }]
-        }
-    }
-
-    /* computed */
-    get isOdd () {
-        return !!(this.data.values.length % 2)
-    }
-
-    get first () {
-        return this.data.values[0]
-    }
-
-    get rest () {
-        return this.data.values.slice(1)
-    }
+    /* methods */
+    getDuration = getDuration
+    getTotalPrice = getTotalPrice
 }
 </script>
 
-<style lang="scss">
-.spring-2020-yugou-panel {
-    padding-top: 20px;
-    background: #FFC70C;
-    border-radius: 20px;
-    &-title {
-        position: relative;
+<style module lang="scss">
+  .yugou {
+    &-top {
+      &-side {
+        border: 32px solid;
+        border-bottom: 16px solid;
+        border-top: none;
+        border-color: transparent transparent #DC4F44 transparent;
+      }
+      &-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 68px;
+        border-top: 2px solid #F3867E;
+        background: #FB2A33;
+        font-size: 13px;
+        font-family: Microsoft YaHei;
+        color: #FFFFFF;
+        text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.20);
+        > h3 {
+          font-size: 24px;
+          font-weight: bold;
+        }
+        > p {
+          margin-top: 4px;
+        }
+      }
+    }
+    &-list {
+      padding: 26px 16px 24px;
+      background: #F5574B;
+    }
+    &-list-item {
+      position: relative;
+      display: flex;
+      margin-top: 20px;
+      background: linear-gradient(90deg, #F6AB15 0%, #F5540E 100%);
+      border-radius: 10px;
+      &:nth-of-type(1) {
+        margin: 0;
+      }
+      .time {
+        position: absolute;
+        top: -10px;
+        left: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 167px;
+        height: 29px;
+        background: #F59D4B;
+        border-radius: 5px;
+        color: #FFFFFF;
+        font-size: 13px;
+        font-family: Microsoft YaHei;
+        font-weight: bold;
+        @include elps();
+      }
+      .info {
+        flex: 1;
+        width: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        padding: 0 12px 8px;
+        color: #FFFFFF;
+      }
+      .main {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 18px;
+        @include elps();
+      }
+      .sub-1 {
+        margin-top: 2px;
+        padding: 0 6px;
+        height: 26px;
+        line-height: 26px;
+        background: #EA611B;
+        font-size: 12px;
+        font-family: San Francisco Display;
+        font-weight: bold;
         text-align: center;
-        font-size: 20px;
-        line-height: 27px;
-        color: #D00C03;
-        &::before {
-            position: absolute;
-            top: -6px;
-            left: 28px;
-            content: '';
-            width: 44.5px;
-            height: 30px;
-            background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/book.png) no-repeat center;
-            background-size: 100%;
-        }
-        &::after {
-            position: absolute;
-            top: -6px;
-            right: 28px;
-            content: '';
-            width: 44.5px;
-            height: 30px;
-            background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/book.png) no-repeat center;
-            background-size: 100%;
-        }
+        @include elps();
+      }
+      .sub-2 {
+        margin-top: 6px;
+        font-size: 12px;
+        font-family: Microsoft YaHei;
+        @include elps();
+      }
+      .img-wrapper {
+        width: 150px;
+        height: 100px;
+        border-radius: 50px 10px 10px 50px;
+        overflow: hidden;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
-    .spring-2020-panel-container {
-        padding: 12px 22px 20px;
-    }
-}
-</style>
-
-<style lang="scss" module>
-.yugou-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    &-item {
-        margin-top: 20px;
-        &.margin-t-0 {
-            margin-top: 0;
-        }
-    }
-}
+  }
 </style>

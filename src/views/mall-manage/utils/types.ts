@@ -9,7 +9,7 @@ type Merge<O1 extends object, O2 extends object> = Compute<O1 & Omit<O2, keyof O
 
 export type TemplateHomeMix = Partial<Merge<Merge<TemplateB, TemplateC>, TemplateD>>
 
-export type TemplateCrosses = TemplateB | TemplateC | TemplateD | TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateSpring2019 | TemplateDragonGate | TemplateDouble122020 | TemplateSpring2020
+export type TemplateCrosses = TemplateB | TemplateC | TemplateD | TemplateFanChang | TemplateFengQiang | TemplateBaoFa | TemplateSpring2020 | TemplateDragonGate | TemplateDouble122020 | TemplateSpring2021
 
 export type TemplateSkinModel = Merge<Template, SkinModel>
 // 模板
@@ -135,7 +135,7 @@ export interface TemplateBaoFa {
     Fengqiang: TemplateModule | undefined;
 }
 
-export interface TemplateSpring2019 {
+export interface TemplateSpring2020 {
     Propagate: TemplateModule | undefined;
     Coupon: TemplateModule | undefined;
     Chunyun: TemplateModule | undefined;
@@ -165,7 +165,7 @@ export interface TemplateDouble122020 {
     Popular: TemplateModule | undefined;
 }
 
-export interface TemplateSpring2020 {
+export interface TemplateSpring2021 {
     Live: TemplateModule | undefined;
     RedPackage: TemplateModule | undefined;
     Coupon: TemplateModule | undefined;

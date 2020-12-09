@@ -12,7 +12,7 @@
             <div :class="$style.container">
                 <!-- 直播 -->
                 <ModuleWrapper :class="[$style.module, $style.moduleLive]" :data="Live">
-                    <Panel custom-class="spring-2020-green-live-panel" title="直播放映室">
+                    <Panel custom-class="spring-2021-green-live-panel" title="直播放映室">
                         <Live :data="Live" />
                     </Panel>
                 </ModuleWrapper>
@@ -34,7 +34,7 @@
                 <section
                     id="Coupon"
                     v-if="data && data.Coupon && (data.Coupon.values.length || isClickable || isEmptyShow)"
-                    class="spring-2020-green-coupon"
+                    class="spring-2021-green-coupon"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleCoupon]: true,
@@ -130,17 +130,17 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import Live from '../activity/spring-2020/Live.vue'
-import RedPackage from '../activity/spring-2020/RedPackage.vue'
+import Live from '../activity/spring-2021/Live.vue'
+import RedPackage from '../activity/spring-2021/RedPackage.vue'
 import Coupon from '../activity/double-12-2020/Coupon.vue'
-import Miaosha from '../activity/spring-2020/Miaosha.vue'
-import Pintuan from '../activity/spring-2020/Pintuan.vue'
-import Yugou from '../activity/spring-2020/Yugou.vue'
-import Package from '../activity/spring-2020/Package.vue'
-import Popular from '../activity/spring-2020/Popular.vue'
+import Miaosha from '../activity/spring-2021/Miaosha.vue'
+import Pintuan from '../activity/spring-2021/Pintuan.vue'
+import Yugou from '../activity/spring-2021/Yugou.vue'
+import Package from '../activity/spring-2021/Package.vue'
+import Popular from '../activity/spring-2021/Popular.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
-import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
+import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
 
 @Component({
     components: {
@@ -156,7 +156,7 @@ import { TemplateSpring2020 as TemplateSpring } from '../../utils/types'
         ModuleWrapper
     }
 })
-export default class TemplateSpring2020 extends Vue {
+export default class TemplateSpring2021 extends Vue {
     /* props */
     @Prop({
         type: Object,
@@ -217,7 +217,7 @@ export default class TemplateSpring2020 extends Vue {
 </script>
 
 <style lang="scss">
-.spring-2020-green-live-panel {
+.spring-2021-green-live-panel {
     background-color: #FFC70C;
     border-radius: 8px;
     > .double-12-panel-title {
@@ -272,7 +272,7 @@ export default class TemplateSpring2020 extends Vue {
         color: #7A1417;
     }
 }
-.spring-2020-green-coupon {
+.spring-2021-green-coupon {
     > .coupon-wrapper {
         &::before {
             background-color: #05A19A;

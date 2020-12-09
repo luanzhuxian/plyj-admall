@@ -123,10 +123,10 @@ import TemplateD from '../components/templates/Template-D.vue'
 import TemplateFengqiang from '../components/templates/template-double-12-2019/Template-Fengqiang.vue'
 import TemplateBaofa from '../components/templates/template-double-12-2019/Template-Baofa.vue'
 import TemplateFanchang from '../components/templates/template-double-12-2019/Template-Fanchang.vue'
-import TemplateSpring from '../components/templates/Template-Spring-2019.vue'
+import TemplateSpring from '../components/templates/Template-Spring-2020.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
 import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
-import TemplateSpring2020 from '../components/templates/Template-Spring-2020-Green.vue'
+import TemplateSpring2021 from '../components/templates/Template-Spring-2021-Green.vue'
 import TemplateItem from '../components/Template-Item.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import Render from '../components/Render'
@@ -380,7 +380,7 @@ const skinModels = [{
         TemplateSpring,
         TemplateDragonGate,
         TemplateDouble122020,
-        TemplateSpring2020,
+        TemplateSpring2021,
         TemplateItem,
         TemplatePreview,
         Render
@@ -473,7 +473,7 @@ export default class MallThemes extends Vue {
                 ].indexOf(item.type))
 
                 // 新春主会场模版
-                this.springTemplateList = result.filter(item => item.type === TemplateTypes.TemplateSpring2020)
+                this.springTemplateList = result.filter(item => item.type === TemplateTypes.TemplateSpring2021)
 
                 // 龙门节主会场模版
                 this.dragonGateTemplateList = result.filter(item => item.type === TemplateTypes.TemplateDragonGate)
@@ -539,7 +539,7 @@ export default class MallThemes extends Vue {
             })
         }
         // 新春
-        if (item.type === TemplateTypes.TemplateSpring2020) {
+        if (item.type === TemplateTypes.TemplateSpring2021) {
             if (this.springLockStatus === 1) {
                 return item
             }
@@ -554,7 +554,7 @@ export default class MallThemes extends Vue {
             })
         }
         // 新春、龙门节
-        if (item.type === TemplateTypes.TemplateSpring2019 || item.type === TemplateTypes.TemplateDragonGate) {
+        if (item.type === TemplateTypes.TemplateSpring2020 || item.type === TemplateTypes.TemplateDragonGate) {
             this.$confirm({
                 title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
                 confirmButtonText: '朕知道了',

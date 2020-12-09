@@ -187,10 +187,10 @@ import TemplateD from '../components/templates/Template-D.vue'
 import TemplateFengqiang from '../components/templates/template-double-12-2019/Template-Fengqiang.vue'
 import TemplateBaofa from '../components/templates/template-double-12-2019/Template-Baofa.vue'
 import TemplateFanchang from '../components/templates/template-double-12-2019/Template-Fanchang.vue'
-import TemplateSpring2019 from '../components/templates/Template-Spring-2019.vue'
+import TemplateSpring2020 from '../components/templates/Template-Spring-2020.vue'
 import TemplateDragonGate from '../components/templates/Template-Dragon-Gate.vue'
 import TemplateDouble122020 from '../components/templates/Template-Double-12-2020.vue'
-import TemplateSpring2020 from '../components/templates/Template-Spring-2020-Green.vue'
+import TemplateSpring2021 from '../components/templates/Template-Spring-2021-Green.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import EditorBanner from '../components/Editor-Banner.vue'
 import EditorAdv from '../components/Editor-Adv.vue'
@@ -242,10 +242,10 @@ const mall = namespace('mall')
         TemplateFengqiang,
         TemplateBaofa,
         TemplateFanchang,
-        TemplateSpring2019,
+        TemplateSpring2020,
         TemplateDragonGate,
         TemplateDouble122020,
-        TemplateSpring2020,
+        TemplateSpring2021,
         TemplatePreview,
         EditorBanner,
         EditorAdv,
@@ -333,10 +333,10 @@ export default class MallDecoration extends Vue {
             TemplateTypes.TemplateFengQiang,
             TemplateTypes.TemplateBaoFa,
             TemplateTypes.TemplateFanChang,
-            TemplateTypes.TemplateSpring2019,
+            TemplateTypes.TemplateSpring2020,
             TemplateTypes.TemplateDragonGate,
             TemplateTypes.TemplateDouble122020,
-            TemplateTypes.TemplateSpring2020
+            TemplateTypes.TemplateSpring2021
         ].includes(this.tmplType)
     }
 

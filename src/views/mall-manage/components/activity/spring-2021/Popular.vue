@@ -1,6 +1,6 @@
 <template>
     <Panel
-        custom-class="spring-2020-popular-panel"
+        custom-class="spring-2021-popular-panel"
         title="GO新春上好课"
         subtitle="新春开学季 精品课程大集结"
         hide-button
@@ -106,12 +106,12 @@ export default class Popular extends Vue {
 </script>
 
 <style lang="scss">
-.spring-2020-popular-panel {
-    .spring-2020-panel-title > b {
+.spring-2021-popular-panel {
+    .spring-2021-panel-title > b {
         position: relative;
         left: 8px;
     }
-    .spring-2020-panel-container {
+    .spring-2021-panel-container {
         padding: 20px 22px;
     }
 }

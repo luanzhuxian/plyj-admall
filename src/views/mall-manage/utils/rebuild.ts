@@ -7,10 +7,10 @@ import {
     TemplateFanChang,
     TemplateFengQiang,
     TemplateBaoFa,
-    TemplateSpring2019,
+    TemplateSpring2020,
     TemplateDragonGate,
     TemplateDouble122020,
-    TemplateSpring2020,
+    TemplateSpring2021,
     TemplateModule,
     TemplateModuleItem
 } from './types'
@@ -227,8 +227,8 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Fengqiang = reset(findModuleById(ModuleIds.Class), 'Fengqiang')
         templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
     }
-    if (tmplType === TemplateTypes.TemplateSpring2019) {
-        templateModel = {} as TemplateSpring2019
+    if (tmplType === TemplateTypes.TemplateSpring2020) {
+        templateModel = {} as TemplateSpring2020
         templateModel.Propagate = reset(findModuleById(ModuleIds.Propagate), 'Propagate')
         templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
         templateModel.Chunyun = reset(findModuleById(ModuleIds.Chunyun), 'Chunyun')
@@ -257,8 +257,8 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Package = reset(findModuleById(ModuleIds.Package), 'Package')
         templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
     }
-    if (tmplType === TemplateTypes.TemplateSpring2020) {
-        templateModel = {} as TemplateSpring2020
+    if (tmplType === TemplateTypes.TemplateSpring2021) {
+        templateModel = {} as TemplateSpring2021
         templateModel.Live = findModuleById(ModuleIds.Live)
         templateModel.RedPackage = reset(findModuleById(ModuleIds.RedPackage), 'RedPackage')
         templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
