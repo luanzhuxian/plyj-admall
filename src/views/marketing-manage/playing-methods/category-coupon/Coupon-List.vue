@@ -276,7 +276,7 @@ export default {
         }
     },
     methods: {
-        async viewCoupon (row) {
+        viewCoupon (row) {
             this.$router.push({ name: 'ViewCategoryCouponListActive', params: { id: row.id } })
         },
         async deleteCoupon (id) {

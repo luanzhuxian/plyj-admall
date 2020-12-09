@@ -346,7 +346,7 @@ export default {
         next()
     },
     beforeRouteEnter (to, from, next) {
-        next(async vm => {
+        next(vm => {
             if (from.name === 'ReductionCouponList') {
                 vm.$refs.combinations.showCouponBox = true
                 vm.form = JSON.parse(sessionStorage.getItem('courseForm'))

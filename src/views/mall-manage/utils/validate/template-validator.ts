@@ -111,7 +111,7 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> extends BaseVa
     }
 
     // 品宣模块
-    async checkPropagate () {
+    checkPropagate () {
         const { errList, moduleModels } = this
 
         if (!moduleModels.Propagate.otherValue) {

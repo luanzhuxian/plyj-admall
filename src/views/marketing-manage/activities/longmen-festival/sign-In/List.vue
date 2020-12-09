@@ -212,10 +212,10 @@ export default {
         } catch (e) { throw e }
     },
     methods: {
-        async viewYearFlavor (row) {
+        viewYearFlavor (row) {
             this.$router.push({ name: 'GeneralInfo', params: { id: row.activityId } })
         },
-        async viewYearFlavorData (row) {
+        viewYearFlavorData (row) {
             this.$router.push({ name: 'GeneralData', params: { id: row.activityId } })
         },
         async switchChange (row) {

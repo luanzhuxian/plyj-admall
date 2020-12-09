@@ -206,10 +206,10 @@ export default {
         this.getList()
     },
     methods: {
-        async viewYearFlavor (row) {
+        viewYearFlavor (row) {
             this.$router.push({ name: 'ViewYearFlavorInfo', params: { id: row.activityId } })
         },
-        async viewYearFlavorData (row) {
+        viewYearFlavorData (row) {
             this.$router.push({ name: 'ViewYearFlavorData', params: { id: row.activityId } })
         },
         async switchChange (row) {

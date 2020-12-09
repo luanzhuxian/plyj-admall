@@ -430,11 +430,11 @@ export default {
                 throw e
             }
         },
-        async share (id) {
+        share (id) {
             this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/detail/curriculum/${ id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         },
-        async showOrder (id) {
+        showOrder (id) {
             this.$router.push({ name: 'OnlineSchoolOrder', query: { courseId: id } })
         },
         sendCourse (id) {

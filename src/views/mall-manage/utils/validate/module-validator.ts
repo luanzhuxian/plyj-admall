@@ -275,7 +275,7 @@ class ActivityListValidator extends Validator {
         super()
     }
 
-    async customValidateList ({ values = [] }: TemplateModule) {
+    customValidateList ({ values = [] }: TemplateModule) {
         values = values.filter(item => item.value)
         return values
     }
