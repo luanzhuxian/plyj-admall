@@ -10,7 +10,7 @@
                     clearable
                 />
             </el-form-item>
-            <el-form-item v-if="orderType !== 'networkCourse'" prop="selectedOptions" label="分类">
+            <el-form-item v-if="orderType !== 'networkCourse' && orderType !== 'rightGoods'" prop="selectedOptions" label="分类">
                 <SelectCategoryName
                     check-strictly
                     show-all
@@ -19,7 +19,7 @@
                 />
             </el-form-item>
             <el-form-item
-                v-if="orderType !== 'course'"
+                v-if="orderType !== 'course' && orderType !== 'rightGoods' "
                 :label="$route.name === 'GoodsOrderList' ? '商品类型' : '课程类型'"
                 prop="goodsType"
             >
@@ -72,7 +72,7 @@
                     end-label=""
                 />
             </el-form-item>
-            <el-form-item v-if="orderType !== 'networkCourse'" prop="operatorUser" label="核销人员">
+            <el-form-item v-if="orderType !== 'networkCourse' && orderType !== 'rightGoods'" prop="operatorUser" label="核销人员">
                 <el-select
                     clearable
                     v-model="exportData.operatorUser"
@@ -167,6 +167,14 @@ export default {
                         SERIES_OF_COURSE: '系列课程',
                         LIVE_GOODS: '直播',
                         VIDEO_GOODS: '录播'
+                    }
+                },
+                rightGoods: {
+                    orderStatus: {
+                        '': '全部订单',
+                        WAIT_PAY: '待付款',
+                        FINISHED: '订单完成',
+                        CLOSED: '订单关闭'
                     }
                 }
             },

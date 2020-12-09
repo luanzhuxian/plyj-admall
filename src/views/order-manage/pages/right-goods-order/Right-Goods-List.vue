@@ -202,20 +202,10 @@
             :show.sync="showExport"
             :search-form="form"
             :goods-type="goodsTypes"
-            order-type="product"
+            order-type="rightGoods"
         />
     </div>
 </template>
-
-<!--<script lang="ts">-->
-<!--    import Vue from 'vue'-->
-<!--    import Component from 'vue-class-component'-->
-
-<!--    @Component-->
-<!--    export default class RightGoodsList extends Vue {-->
-
-<!--    }-->
-<!--</script>-->
 
 <script>
 import {

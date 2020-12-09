@@ -181,7 +181,7 @@
                             <el-table-column
                                 prop="productType"
                                 label="状态"
-                                width="150"
+                                width="80"
                             >
                                 <template #default="{row}">
                                     {{ productStatusMap[row.productStatus] }}
@@ -189,10 +189,11 @@
                             </el-table-column>
                             <el-table-column
                                 label="规格"
-                                width="80"
+                                width="150"
                             >
                                 <template slot-scope="{ row }">
-                                    {{ row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}
+                                    <div>{{ row.skuCode1Name + (row.skuCode2Name ? `/${row.skuCode2Name}` : '') }}</div>
+                                    <div v-if="row.oldSku" class="sku-warning">该规格已失效</div>
                                 </template>
                             </el-table-column>
                             <el-table-column
@@ -601,7 +602,6 @@ export default class AddRedPackage extends Vue {
                 callback(new Error('只允许保留2位小数'))
                 return
             }
-            return
         }
         callback()
     }
@@ -866,6 +866,10 @@ export default class AddRedPackage extends Vue {
         }
         .label-warning{
             margin-left: 20px;
+            font-size: 12px;
+            color: #D0423C;
+        }
+        .sku-warning{
             font-size: 12px;
             color: #D0423C;
         }
