@@ -224,7 +224,7 @@ const templateModels = [{
     isHover: false,
     isFree: false,
     charge: '新春用户可用',
-    expire: '2020.12.31'
+    expire: '2021.03.31'
 // }, {
 //     category: 'template',
 //     type: 13,
