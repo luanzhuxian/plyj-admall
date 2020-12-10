@@ -129,7 +129,7 @@ export default class App extends Vue {
         return this.$route.name
     }
 
-    async step () {
+    step () {
         // 没有token return
         if (!this.tokenFoo && this.NOLOGIN.includes(this.routeName as string)) {
             return
