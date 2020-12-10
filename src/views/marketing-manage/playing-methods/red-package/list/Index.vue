@@ -43,8 +43,19 @@ export default class RedPackageList extends Vue {
         this.currentTab = newVal
     }
 
+    beforeRouteUpdate (to: RouteConfig, from: RouteConfig, next: RouteNext) {
+        if (to.name === 'RedPackageList') {
+            next()
+            this.$router.replace({
+                name: 'RedPackageActivityList'
+            })
+        } else {
+            next()
+        }
+    }
+
     created () {
-        this.$router.push({
+        this.$router.replace({
             name: 'RedPackageActivityList'
         })
     }

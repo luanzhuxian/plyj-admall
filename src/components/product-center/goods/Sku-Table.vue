@@ -185,8 +185,8 @@
                             inactive-color="#CCCCCC"
                             style="margin-right: 8px;"
                         />
-                        <span v-if="item.status" style="color: #4F63FF;">显示</span>
-                        <span v-else>关闭</span>
+                        <span v-if="item.status" style="color: #4F63FF;">启用</span>
+                        <span v-else>禁用</span>
                     </div>
                 </div>
             </div>
