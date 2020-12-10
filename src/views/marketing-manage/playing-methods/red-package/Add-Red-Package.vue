@@ -542,8 +542,8 @@ export default class AddRedPackage extends Vue {
                 this.productModelList = applicableGoodsVOS
                 this.selectProductSku(applicableGoodsVOS)
                 if (logoShow && logoUrl) this.logoUrl[0] = logoUrl
-
-                await this.getRedPackageclaimVolume()
+                // 因修改规格暂不校验已领取量和发放量
+                // await this.getRedPackageclaimVolume()
 
                 if (this.$route.name === 'CopyRedPackage') {
                     this.disabled = false
@@ -648,8 +648,9 @@ export default class AddRedPackage extends Vue {
         ],
         issueVolume: [
             { required: true, message: '发放量不能为空', trigger: 'blur' },
-            { validator: checkNumber(99999, 1, 0), trigger: 'blur' },
-            { validator: this.rulesIssueVolume, trigger: 'blur' }
+            { validator: checkNumber(99999, 1, 0), trigger: 'blur' }
+            // { validator: this.rulesIssueVolume, trigger: 'blur' }
+            // 因修改规格暂不校验已领取量和发放量
         ],
         'redPacketCouponDTO.receiveStartTime': [
             { required: true, message: '领用时间不能为空', trigger: 'blur' }
