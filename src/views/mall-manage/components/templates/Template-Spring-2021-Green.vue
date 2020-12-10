@@ -131,7 +131,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../activity/spring-2021/Live.vue'
-import RedPackage from '../activity/spring-2021/RedPackage.vue'
+import RedPackage from '../activity/spring-2021/Red-Package.vue'
 import Coupon from '../activity/double-12-2020/Coupon.vue'
 import Miaosha from '../activity/spring-2021/Miaosha.vue'
 import Pintuan from '../activity/spring-2021/Pintuan.vue'
@@ -156,7 +156,7 @@ import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
         ModuleWrapper
     }
 })
-export default class TemplateSpring2021 extends Vue {
+export default class TemplateSpring2021Green extends Vue {
     /* props */
     @Prop({
         type: Object,

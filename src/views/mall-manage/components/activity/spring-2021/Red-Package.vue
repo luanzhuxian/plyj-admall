@@ -1,5 +1,5 @@
 <template>
-    <Panel custom-class="spring-2021-red-package-panel" title="组合聚惠学">
+    <Panel custom-class="spring-2021-red-package-panel">
         <template slot="title">
             <div class="spring-2021-red-package-panel-title" />
         </template>
@@ -90,7 +90,7 @@ import moment from 'moment'
         Countdown
     }
 })
-export default class Package extends Vue {
+export default class RedPackage extends Vue {
     /* props */
     @Prop({
         type: Object,

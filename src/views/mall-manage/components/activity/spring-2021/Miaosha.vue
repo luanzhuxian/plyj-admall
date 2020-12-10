@@ -1,13 +1,12 @@
 <template>
     <Panel title="福利秒杀" subtitle="新春福利来袭 特色课程限时秒杀">
         <ul :class="$style.miaoshaList" v-if="data.values.length">
-            <template v-for="(item, index) of data.values">
-                <MiaoshaItem
-                    :class="$style.miaoshaListItem"
-                    :key="index"
-                    :data="item"
-                />
-            </template>
+            <MiaoshaItem
+                :class="$style.miaoshaListItem"
+                v-for="(item, index) of data.values"
+                :key="index"
+                :data="item"
+            />
         </ul>
         <ul :class="$style.miaoshaList" v-else>
             <MiaoshaItem

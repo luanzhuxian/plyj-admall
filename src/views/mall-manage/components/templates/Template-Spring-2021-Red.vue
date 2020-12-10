@@ -133,7 +133,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../activity/spring-2021/Live.vue'
-import RedPackage from '../activity/spring-2021/RedPackage.vue'
+import RedPackage from '../activity/spring-2021/Red-Package.vue'
 import Coupon from '../activity/double-12-2020/Coupon.vue'
 import Miaosha from '../activity/spring-2021/Miaosha.vue'
 import Pintuan from '../activity/spring-2021/Pintuan.vue'
@@ -158,7 +158,7 @@ import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
         ModuleWrapper
     }
 })
-export default class TemplateSpring2021 extends Vue {
+export default class TemplateSpring2021Red extends Vue {
     /* props */
     @Prop({
         type: Object,
@@ -335,6 +335,10 @@ export default class TemplateSpring2021 extends Vue {
                     background: url(https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/light.png) no-repeat center;
                     background-size: 100%;
                 }
+            }
+            .spring-2021-panel-button {
+                color: #FEECC7;
+                border-color: #FEECC7;
             }
         }
     }
