@@ -87,7 +87,7 @@ export const reset = (module: TemplateModule | undefined, name: string) => {
             module.show = 0
         }
     }
-    if (~['Live', 'OnlineCourse', 'SeriesCourse', 'ImageText'].indexOf(name)) {
+    if (~['Live', 'SingleCourse', 'SeriesCourse', 'ImageText'].indexOf(name)) {
         // module.styleType: 1 默认显示1个 2 显示多个
         module.values = module.styleType === 1 ? module.values.slice(0, 1) : module.values
         module.defaultValues = module.styleType === 1 ? module.values : []
@@ -143,7 +143,7 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel = {} as TemplateB
         templateModel.Banner = reset(findModuleById(ModuleIds.Banner), 'Banner')
         templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.OnlineCourse = reset(findModuleById(ModuleIds.OnlineCourse), 'OnlineCourse')
+        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
         templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
         templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
@@ -157,7 +157,7 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Banner = reset(modules[0], 'Banner')
         templateModel.Adv = reset(modules[1], 'Adv')
         templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.OnlineCourse = reset(findModuleById(ModuleIds.OnlineCourse), 'OnlineCourse')
+        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
         templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
         templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
@@ -170,7 +170,7 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel = {} as TemplateC
         templateModel.Propagate = reset(findModuleById(ModuleIds.Propagate), 'Propagate')
         templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.OnlineCourse = reset(findModuleById(ModuleIds.OnlineCourse), 'OnlineCourse')
+        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
         templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
         templateModel.Appointment = reset(findModuleById(ModuleIds.Appointment), 'Appointment')
@@ -186,7 +186,7 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
         templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
         templateModel.Activity = reset(findModuleById(ModuleIds.Activity), 'Activity')
         templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.OnlineCourse = reset(findModuleById(ModuleIds.OnlineCourse), 'OnlineCourse')
+        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
         templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
         templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
         templateModel.Appointment = reset(findModuleById(ModuleIds.Appointment), 'Appointment')
@@ -302,7 +302,7 @@ export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number):
         moduleModels.Propagate.values = []
     }
 
-    for (const name of ['Live', 'OnlineCourse', 'SeriesCourse', 'ImageText']) {
+    for (const name of ['Live', 'SingleCourse', 'SeriesCourse', 'ImageText']) {
         if (moduleModels[name]) {
             moduleModels[name].number = moduleModels[name].styleType === 1 ? '' : moduleModels[name].number
             moduleModels[name].values = moduleModels[name].styleType === 1 ? moduleModels[name].defaultValues : moduleModels[name].backupValues

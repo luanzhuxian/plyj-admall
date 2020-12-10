@@ -55,17 +55,17 @@
             </ModuleWrapper>
             <!-- 单课 -->
             <ModuleWrapper
-                id="OnlineCourse"
+                id="SingleCourse"
                 :class="{
                     [$style.module]: true,
-                    [$style.moduleOnlineCourse]: true,
+                    [$style.moduleSingleCourse]: true,
                     [$style.pointer]: isClickable === true,
-                    [$style.active]: current === 'OnlineCourse'
+                    [$style.active]: current === 'SingleCourse'
                 }"
-                :data="OnlineCourse"
-                @on-click="onClick('OnlineCourse')"
+                :data="SingleCourse"
+                @on-click="onClick('SingleCourse')"
             >
-                <OnlineCourse :data="OnlineCourse" />
+                <SingleCourse :data="SingleCourse" />
             </ModuleWrapper>
             <!-- 系列课 -->
             <ModuleWrapper
@@ -211,7 +211,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../home/Live.vue'
-import OnlineCourse from '../home/Online-Course.vue'
+import SingleCourse from '../home/Single-Course.vue'
 import SeriesCourse from '../home/Series-Course.vue'
 import ImageText from '../home/Image-Text.vue'
 import Banner from '../home/Banner.vue'
@@ -229,7 +229,7 @@ import { TemplateB as TemplateBType } from '../../utils/types'
 @Component({
     components: {
         Live,
-        OnlineCourse,
+        SingleCourse,
         SeriesCourse,
         ImageText,
         Banner,
@@ -280,8 +280,8 @@ export default class TemplateB extends Vue {
         return this.data.Live || {}
     }
 
-    get OnlineCourse () {
-        return this.data.OnlineCourse || {}
+    get SingleCourse () {
+        return this.data.SingleCourse || {}
     }
 
     get SeriesCourse () {
@@ -456,7 +456,7 @@ export default class TemplateB extends Vue {
 }
 
 .module-live,
-.module-online-course,
+.module-single-course,
 .module-series-course,
 .module-image-text,
 .module-adv,

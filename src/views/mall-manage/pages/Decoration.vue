@@ -354,7 +354,7 @@ export default class MallDecoration extends Vue {
     }
 
     get isEditorVideoShow () {
-        return ['Live', 'OnlineCourse', 'SeriesCourse', 'ImageText'].includes(this.currentModule)
+        return ['Live', 'SingleCourse', 'SeriesCourse', 'ImageText'].includes(this.currentModule)
     }
 
     get isEditorSortShow () {
@@ -680,7 +680,7 @@ export default class MallDecoration extends Vue {
             }
         }
         // 单课、系列课
-        if (~['OnlineCourse', 'SeriesCourse', 'ImageText'].indexOf(currentModule)) {
+        if (~['SingleCourse', 'SeriesCourse', 'ImageText'].indexOf(currentModule)) {
             if (!selectedList.length) return
             for (const item of selectedList) {
                 module.values.push({

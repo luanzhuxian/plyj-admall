@@ -70,7 +70,7 @@ export enum ModalType {
     // 分销
     DistributionModal = 18,
     // 单课
-    OnlineCourseModal = 21,
+    SingleCourseModal = 21,
     // 系列课
     SeriesCourseModal = 22,
     // 图文资料
@@ -146,7 +146,7 @@ export enum ModuleIds {
     // 互动直播
     Live = 20,
     // 知识课程
-    OnlineCourse = 21,
+    SingleCourse = 21,
     // 系列课程
     SeriesCourse = 22,
     // 图文资料
@@ -284,7 +284,7 @@ export const editorMap: DynamicObject = {
     Package: 'Module',
     Distribution: 'Module',
     Live: 'Video',
-    OnlineCourse: 'Video',
+    SingleCourse: 'Video',
     SeriesCourse: 'Video',
     ImageText: 'Video',
     RedPackage: 'Coupon',
@@ -315,7 +315,7 @@ export const moduleIdMap: DynamicObject = {
     Yugou: '#Yugou',
     Distribution: '#Distribution',
     Live: '#Live',
-    OnlineCourse: '#OnlineCourse',
+    SingleCourse: '#SingleCourse',
     SeriesCourse: '#SeriesCourse',
     ImageText: '#ImageText',
     RedPackage: '#RedPackage',

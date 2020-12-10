@@ -163,7 +163,7 @@ const modalMap: DynamicObject = {
     },
     // 单课
     21: {
-        id: 'OnlineCourse',
+        id: 'SingleCourse',
         method: '',
         options: courseTableOptions,
         checker: courseChecker
@@ -270,7 +270,7 @@ export default class ModalProd extends Vue {
             this.getPackage()
         } else if (this.type === ModalType.DistributionModal) {
             this.getDistribution()
-        } else if (this.type === ModalType.OnlineCourseModal || this.type === ModalType.SeriesCourseModal) {
+        } else if (this.type === ModalType.SingleCourseModal || this.type === ModalType.SeriesCourseModal) {
             this.getCourse()
         } else if (this.type === ModalType.ImageTextModal) {
             this.getImageText()
@@ -381,7 +381,7 @@ export default class ModalProd extends Vue {
     async getCourse () {
         try {
             const params = {
-                courseType: this.type === ModalType.OnlineCourseModal ? 1 : 2, // 1: 单课 2: 系列课
+                courseType: this.type === ModalType.SingleCourseModal ? 1 : 2, // 1: 单课 2: 系列课
                 status: '1', // 已上架课程
                 searchParam: this.searchHistory,
                 current: this.pagination.current,

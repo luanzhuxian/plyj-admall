@@ -83,17 +83,17 @@
             </ModuleWrapper>
             <!-- 单课 -->
             <ModuleWrapper
-                id="OnlineCourse"
+                id="SingleCourse"
                 :class="{
                     [$style.module]: true,
-                    [$style.moduleOnlineCourse]: true,
+                    [$style.moduleSingleCourse]: true,
                     [$style.pointer]: isClickable === true,
-                    [$style.active]: current === 'OnlineCourse'
+                    [$style.active]: current === 'SingleCourse'
                 }"
-                :data="OnlineCourse"
-                @on-click="onClick('OnlineCourse')"
+                :data="SingleCourse"
+                @on-click="onClick('SingleCourse')"
             >
-                <OnlineCourse :data="OnlineCourse" />
+                <SingleCourse :data="SingleCourse" />
             </ModuleWrapper>
             <!-- 系列课 -->
             <ModuleWrapper
@@ -339,7 +339,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import Live from '../home/Live.vue'
-import OnlineCourse from '../home/Online-Course.vue'
+import SingleCourse from '../home/Single-Course.vue'
 import SeriesCourse from '../home/Series-Course.vue'
 import ImageText from '../home/Image-Text.vue'
 import Banner from '../home/Banner.vue'
@@ -363,7 +363,7 @@ import { TemplateD as TemplateDType } from '../../utils/types'
 @Component({
     components: {
         Live,
-        OnlineCourse,
+        SingleCourse,
         SeriesCourse,
         ImageText,
         Banner,
@@ -428,8 +428,8 @@ export default class TemplateD extends Vue {
         return this.data.Live || { values: [] }
     }
 
-    get OnlineCourse () {
-        return this.data.OnlineCourse || { values: [] }
+    get SingleCourse () {
+        return this.data.SingleCourse || { values: [] }
     }
 
     get SeriesCourse () {
@@ -592,7 +592,7 @@ export default class TemplateD extends Vue {
 .module-activity,
 .module-coupon,
 .module-live,
-.module-online-course,
+.module-single-course,
 .module-series-course,
 .module-image-text,
 .module-appointment,

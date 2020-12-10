@@ -71,7 +71,7 @@ export interface TemplateB {
     Banner: TemplateModule | undefined;
     Adv?: TemplateModule | undefined;
     Live: TemplateModule | undefined;
-    OnlineCourse: TemplateModule | undefined;
+    SingleCourse: TemplateModule | undefined;
     SeriesCourse: TemplateModule | undefined;
     ImageText: TemplateModule | undefined;
     Popular: TemplateModule | undefined;
@@ -83,7 +83,7 @@ export interface TemplateB {
 
 export interface TemplateC {
     Live: TemplateModule | undefined;
-    OnlineCourse: TemplateModule | undefined;
+    SingleCourse: TemplateModule | undefined;
     SeriesCourse: TemplateModule | undefined;
     ImageText: TemplateModule | undefined;
     Popular: TemplateModule | undefined;
@@ -100,7 +100,7 @@ export interface TemplateD {
     Coupon: TemplateModule | undefined;
     Activity: TemplateModule | undefined;
     Live: TemplateModule | undefined;
-    OnlineCourse: TemplateModule | undefined;
+    SingleCourse: TemplateModule | undefined;
     SeriesCourse: TemplateModule | undefined;
     ImageText: TemplateModule | undefined;
     Popular: TemplateModule | undefined;

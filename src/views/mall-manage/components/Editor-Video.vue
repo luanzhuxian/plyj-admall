@@ -157,7 +157,7 @@ export default class EditorVideo extends Vue {
     }
 
     get isCourse () {
-        return ~[ModuleIds.OnlineCourse, ModuleIds.SeriesCourse].indexOf(this.data.moduleType)
+        return ~[ModuleIds.SingleCourse, ModuleIds.SeriesCourse].indexOf(this.data.moduleType)
     }
 
     get isImageText () {
@@ -200,7 +200,7 @@ export default class EditorVideo extends Vue {
     async getDefaultCourseInfo () {
         try {
             const { moduleType } = this
-            const courseType = moduleType === ModuleIds.OnlineCourse ? 1 : 2
+            const courseType = moduleType === ModuleIds.SingleCourse ? 1 : 2
             const { result } = await getCourseInfo({ courseType })
             this.data.defaultValues = result.records.length
                 ? [{

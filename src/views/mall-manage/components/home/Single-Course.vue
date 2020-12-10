@@ -1,14 +1,14 @@
 <template>
-    <div :class="$style.onlineCourseWrapper">
-        <div :class="$style.onlineCourseHead">
+    <div :class="$style.singleCourseWrapper">
+        <div :class="$style.singleCourseHead">
             <PlSvg name="icon-play-btn-green-1dc86" width="18" height="20" />
             <b>{{ data.moduleName }}</b>
-            <div :class="$style.onlineCourseHeadMore">
+            <div :class="$style.singleCourseHeadMore">
                 查看全部
                 <i class="el-icon-arrow-right" />
             </div>
         </div>
-        <div :class="$style.onlineCourseHeadSub" v-if="data.otherValue > 0">
+        <div :class="$style.singleCourseHeadSub" v-if="data.otherValue > 0">
             {{ `${data.otherValue}个精选单课，等你来学习` }}
         </div>
         <ul :class="$style.list" v-if="data.values.length">
@@ -84,7 +84,7 @@ import { TemplateModule } from '../../utils/types'
 import { getBtnText } from '../../utils/helper'
 
 @Component
-export default class OnlineCourse extends Vue {
+export default class SingleCourse extends Vue {
     /* props */
     @Prop({
         type: Object,
@@ -104,13 +104,13 @@ export default class OnlineCourse extends Vue {
 </script>
 
 <style module lang="scss">
-.online-course-wrapper {
+.single-course-wrapper {
     padding: 10px;
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
 }
-.online-course-head {
+.single-course-head {
     display: flex;
     align-items: center;
     margin-bottom: 6px;
