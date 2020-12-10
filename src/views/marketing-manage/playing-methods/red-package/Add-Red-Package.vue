@@ -170,12 +170,12 @@
                             <el-table-column
                                 prop="productName"
                                 label="商品名称"
-                                width="150"
+                                width="210"
                             />
                             <el-table-column
                                 prop="productType"
                                 label="产品类型"
-                                width="150"
+                                width="100"
                             >
                                 <template #default="{row}">
                                     {{ productTypeMap[row.productType] }}
@@ -202,7 +202,7 @@
                             <el-table-column
                                 prop="price"
                                 label="价格（元）"
-                                width="100"
+                                width="90"
                             />
                             <el-table-column
                                 label="操作"
@@ -795,6 +795,7 @@ export default class AddRedPackage extends Vue {
             await this.$confirm('您确定移除吗？')
             const index = this.productModelList.findIndex((prod: ProdItem) => (prod.skuCode1 + prod.skuCode2 === item.skuCode1 + item.skuCode2))
             if (index > -1) this.productModelList.splice(index, 1)
+            this.selectProductSku(this.productModelList)
         } catch (error) {
             throw error
         }
