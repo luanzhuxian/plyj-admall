@@ -144,6 +144,9 @@
                         <el-button type="primary" plain @click="showProductBox = true">
                             选择商品/课程
                         </el-button>
+                        <span class="description" style="margin-left: 20px">
+                            任何产品或产品规格变动，均会影响已添加的产品或产品规格失效，请谨慎操作。
+                        </span>
                         <p class="description">
                             线上商城购买相应范围内的单个产品或者多个产品时，只要购买产品的总额满足抵扣条件，即可使用福利红包进行抵扣相应金额。
                         </p>
