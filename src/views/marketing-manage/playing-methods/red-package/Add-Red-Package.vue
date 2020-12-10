@@ -224,7 +224,7 @@
                             </el-table-column>
                         </el-table>
 
-                        <div v-if="productModelList&& productModelList.length>6"
+                        <div v-if="productModelList&& productModelList.length>5"
                              class="product-btn">
                             <el-button @click="allShow = !allShow" type="text" v-if="allShow">全部收起 <pl-svg name="icon-shang" fill="#4F63FF" /></el-button>
                             <el-button @click="allShow = !allShow" type="text" v-else>全部展开 <pl-svg name="icon-xia" fill="#4F63FF" /></el-button>
