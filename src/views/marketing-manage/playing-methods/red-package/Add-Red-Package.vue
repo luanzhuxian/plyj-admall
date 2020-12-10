@@ -144,7 +144,7 @@
                         <el-button type="primary" plain @click="showProductBox = true">
                             选择商品/课程
                         </el-button>
-                        <span class="description" style="margin-left: 20px">
+                        <span class="description" style="margin-left: 20px;color: #F79F1A">
                             任何产品或产品规格变动，均会影响已添加的产品或产品规格失效，请谨慎操作。
                         </span>
                         <p class="description">
