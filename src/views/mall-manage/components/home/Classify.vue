@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { TemplateModule } from '../../../utils/types'
+import { TemplateModule } from '../../utils/types'
 
 const defaultData = [{
     icon: 'https://mallcdn.youpenglai.com/static/mall/2.13.0/ico_course.png',
