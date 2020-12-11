@@ -2,7 +2,7 @@ export default [
     {
         path: 'red-package',
         name: 'RedPackage',
-        redirect: '/marketing-manage/red-package/list',
+        redirect: '/marketing-manage/red-packet/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/red-package/Index.vue'),
         meta: {
             title: '福利红包',

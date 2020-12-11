@@ -464,7 +464,7 @@ export default class RedPackageActivityList extends Vue {
 
     share (row: { id: string }) {
         try {
-            this.qrcodeText = `${ this.mallUrl }/red-package/detail/${ row.id }?noCache=${ Date.now() }`
+            this.qrcodeText = `${ this.mallUrl }/red-packet/detail/${ row.id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         } catch (e) {
             throw e

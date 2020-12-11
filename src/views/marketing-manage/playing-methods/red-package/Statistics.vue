@@ -606,7 +606,7 @@ export default class RedPackageStatistics extends Vue {
 
     share () {
         try {
-            this.qrcodeText = `${ this.mallUrl }/red-package/detail/${ this.id }?noCache=${ Date.now() }`
+            this.qrcodeText = `${ this.mallUrl }/red-packet/detail/${ this.id }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         } catch (e) {
             throw e
