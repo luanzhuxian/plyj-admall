@@ -318,7 +318,7 @@
                                     v-for="(item, index) of redPackageBg"
                                     :key="index"
                                 >
-                                    <div class="slide-title">默认背景</div>
+                                    <div class="slide-title">{{ item.name }}</div>
                                     <div class="img-box">
                                         <el-checkbox
                                             v-model="item.check"
