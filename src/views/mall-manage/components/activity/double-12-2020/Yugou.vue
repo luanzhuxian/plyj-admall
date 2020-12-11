@@ -67,11 +67,9 @@ export default class Yugou extends Vue {
                 price: 100,
                 activityPrice: 1000,
                 number: 99,
-                status: 1
-            },
-            productSkuModels: [{
-                price: 3000
-            }]
+                status: 1,
+                skuPrice: 3000
+            }
         }
     }
 
@@ -86,11 +84,9 @@ export default class Yugou extends Vue {
                 price: 100,
                 activityPrice: 1000,
                 number: 99,
-                status: 1
-            },
-            productSkuModels: [{
-                price: 3000
-            }]
+                status: 1,
+                skuPrice: 3000
+            }
         }
     }
 
