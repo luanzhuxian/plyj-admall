@@ -76,6 +76,7 @@
                 <!-- 预购 -->
                 <ModuleWrapper
                     id="Yugou"
+                    class="spring-2021-green-yugou"
                     :class="{
                         [$style.module]: true,
                         [$style.moduleYugou]: true,
@@ -283,6 +284,11 @@ export default class TemplateSpring2021Green extends Vue {
         > .coupon-title {
             background: none;
         }
+    }
+}
+.spring-2021-green-yugou {
+    .img-wrapper::before {
+        display: none;
     }
 }
 </style>

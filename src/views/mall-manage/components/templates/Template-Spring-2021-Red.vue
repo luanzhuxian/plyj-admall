@@ -341,6 +341,9 @@ export default class TemplateSpring2021Red extends Vue {
                 border-color: #FEECC7;
             }
         }
+        .img-wrapper::before {
+            display: none;
+        }
     }
 }
 </style>
