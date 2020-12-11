@@ -23,6 +23,10 @@
                     <Banner :data="Banner" :tmpl-type="tmplType" />
                 </div>
             </div>
+            <!-- 福利红包 -->
+            <div :class="$style.redPackage" v-if="isRedPackageShow">
+                <img src="https://mallcdn.youpenglai.com/static/mall/2.13.0/red-package/rp-banner.png" alt="">
+            </div>
             <!-- 广告 -->
             <ModuleWrapper
                 id="Adv"
@@ -210,6 +214,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import Live from '../home/Live.vue'
 import SingleCourse from '../home/Single-Course.vue'
 import SeriesCourse from '../home/Series-Course.vue'
@@ -225,6 +230,8 @@ import ModuleWrapper from '../Module-Wrapper.vue'
 import SkinTitle from '../skin/Skin-Title.vue'
 import { skinClassNameMap, navBarMap } from '../../utils/map'
 import { TemplateB as TemplateBType } from '../../utils/types'
+
+const mall = namespace('mall')
 
 @Component({
     components: {
@@ -268,6 +275,8 @@ export default class TemplateB extends Vue {
     navBarMap = Object.freeze(navBarMap)
 
     /* computed */
+    @mall.Getter('isRedPackageShow') isRedPackageShow!: boolean
+
     get Banner () {
         return this.data.Banner || {}
     }
@@ -463,6 +472,19 @@ export default class TemplateB extends Vue {
 .module-appointment,
 .module-propagate {
     padding: 5px 12px;
+}
+
+.red-package {
+    display: block;
+    box-sizing: border-box;
+    padding: 5px 12px;
+    height: 82px;
+    text-align: center;
+    > img {
+        width: 339px;
+        height: 72px;
+        object-fit: cover;
+    }
 }
 
 .pointer {
