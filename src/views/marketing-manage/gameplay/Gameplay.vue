@@ -172,13 +172,13 @@
             <SchemePack
                 name="抽奖乐翻天"
                 desc="低成本高引流，多种主题任意选"
-                :expired="activitys.LuckyDraw.status ? `${getDate(activitys.LuckyDraw.data.createTime)}--${getDate(activitys.LuckyDraw.data.validity)}` : ''"
-                :count="activitiesInfo.LuckyDrawActivityCount"
+                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--${getDate(activitys.happyLottery.data.validity)}` : ''"
+                :count="activitiesInfo.happyLotteryActivityCount"
                 :tags="['限','新']"
-                :is-lock="!activitys.LuckyDraw.status"
+                :is-lock="!activitys.happyLottery.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png"
                 :route-info="{
-                    name: 'LuckyDraw',
+                    name: 'HappyLottery',
                     params: {
                         programId: '10'
                     }
@@ -333,7 +333,7 @@ export default class Gameplay extends Vue {
             data: {},
             status: false
         },
-        LuckyDraw: {
+        happyLottery: {
             data: {},
             status: false
         }
@@ -388,7 +388,7 @@ export default class Gameplay extends Vue {
             LongmenLottery: '7',
             redeemCode: '8',
             redPackage: '9',
-            LuckyDraw: '10'
+            happyLottery: '10'
         }
 
         for (const key of Object.keys(info)) {

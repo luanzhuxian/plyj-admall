@@ -336,7 +336,7 @@ export default {
             mallUrl: 'user/mallUrl'
         })
     },
-    async created () {
+    created () {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const bookingBuyInformation = this.marketStatusAuth.find(({ programId }) => programId === '5')
         if (!bookingBuyInformation) return
@@ -460,7 +460,7 @@ export default {
             this.singleGoods = result
             this.showPreview = true
         },
-        async handleShare (row) {
+        handleShare (row) {
             this.qrcodeText = `${ this.mallUrl }/detail/product/${ row.productId }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         },
@@ -509,16 +509,11 @@ export default {
         },
         // 确认结束本次活动
         async handleConfirmResatartd () {
-            try {
-                this.$confirm({
-                    title: '确认要重新开启本次活动吗？',
-                    message: '确定重新开启本次活动，开启后用户将可继续， 已付费成功用户不受此次更改影响'
-                })
-            } catch (e) {
-                throw e
-            } finally {
-                this.getList()
-            }
+            await this.$confirm({
+                title: '确认要重新开启本次活动吗？',
+                message: '确定重新开启本次活动，开启后用户将可继续， 已付费成功用户不受此次更改影响'
+            })
+            this.getList()
         },
         copyLink (row) {
             this.$copyText(row.productLink)
