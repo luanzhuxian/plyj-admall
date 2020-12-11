@@ -483,3 +483,69 @@
         @include copyright(45px, #FFFFFF);
     }
 }
+
+// 狂欢派对
+.skin-party {
+    @extend .skin-common;
+    background: #53A272 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/party/bg-home.jpg';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #FFFFFF !important;
+        }
+        .skin-title {
+            margin-bottom: 15px;
+        }
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        @include copyright(45px, #FFFFFF);
+    }
+}
+
+// 好课连连
+.skin-good-course {
+    @extend .skin-common;
+    background: #F33C45 !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/good-course/bg-home.png';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #FFFFFF !important;
+        }
+        .skin-title {
+            margin-bottom: 15px;
+        }
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        @include copyright(45px, #FFFFFF);
+    }
+}
+
+// 欢迎新同学
+.skin-welcome-new {
+    @extend .skin-common;
+    background: #25B9BB !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/welcome-new/bg-home.png';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #FFFFFF !important;
+        }
+        .skin-title {
+            margin-bottom: 15px;
+        }
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        @include copyright(45px, #FFFFFF);
+    }
+}

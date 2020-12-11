@@ -232,6 +232,9 @@ export const skinClassNameMap = {
     17: 'skinSports',
     18: 'skinArts',
     19: 'skinDouble12',
+    20: 'skinParty',
+    21: 'skinGoodCourse',
+    22: 'skinWelcomeNew',
     has (id: number | string) {
         return Reflect.has(this, id)
     }
@@ -259,6 +262,9 @@ export const navBarMap: DynamicObject = {
     17: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/bottom.jpg',
     18: 'https://mallcdn.youpenglai.com/static/admall/skin/art/bottom.jpg',
     19: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/bottom.jpg',
+    20: 'https://mallcdn.youpenglai.com/static/admall/skin/party/bottom.jpg',
+    21: 'https://mallcdn.youpenglai.com/static/admall/skin/good-course/bottom.jpg',
+    22: 'https://mallcdn.youpenglai.com/static/admall/skin/welcome-new/bottom.jpg',
     get (id: number) {
         return Reflect.has(this, id) ? this[id] : this[0]
     }

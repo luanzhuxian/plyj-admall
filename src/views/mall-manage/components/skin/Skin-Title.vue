@@ -19,6 +19,9 @@
         <TitleSports v-if="skinId === 17" :data="data" />
         <TitleArts v-if="skinId === 18" :data="data" />
         <TitleDouble12 v-if="skinId === 19" :data="data" />
+        <TitleParty v-if="skinId === 20" :data="data" />
+        <TitleGoodCourse v-if="skinId === 21" :data="data" />
+        <TitleWelcomeNew v-if="skinId === 22" :data="data" />
     </div>
 </template>
 
@@ -43,6 +46,9 @@ import TitleCulture from './Title-Culture.vue'
 import TitleSports from './Title-Sports.vue'
 import TitleArts from './Title-Arts.vue'
 import TitleDouble12 from './Title-Double-12.vue'
+import TitleParty from './Title-Party.vue'
+import TitleGoodCourse from './Title-Good-Course.vue'
+import TitleWelcomeNew from './Title-Welcome-New.vue'
 
 @Component({
     components: {
@@ -64,7 +70,10 @@ import TitleDouble12 from './Title-Double-12.vue'
         TitleCulture,
         TitleSports,
         TitleArts,
-        TitleDouble12
+        TitleDouble12,
+        TitleParty,
+        TitleGoodCourse,
+        TitleWelcomeNew
     }
 })
 export default class SkinTitle extends Vue {
