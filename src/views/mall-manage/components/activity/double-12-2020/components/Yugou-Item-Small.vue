@@ -30,7 +30,7 @@
                 到手价：<b>{{ getTotalPrice(data) }}</b>
             </div>
             <div :class="$style.sub">
-                <del :class="$style.original">{{ `现价 ¥${getPrice(data.goodsInfo.productSkuModels)('price')}` }}</del>
+                <del :class="$style.original">{{ `现价：¥${data.goodsInfo.activityInfo.skuPrice}` }}</del>
                 <span :class="$style.count">{{ `${data.goodsInfo.activityInfo.number}人预定` }}</span>
             </div>
         </div>
@@ -41,7 +41,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModuleItem } from '../../../../utils/types'
 import Countdown from '../../../Countdown.vue'
-import { getDuration, getTotalPrice, getPrice } from '../../../../utils/helper'
+import { getDuration, getTotalPrice } from '../../../../utils/helper'
 
 @Component({
     components: {
@@ -60,7 +60,6 @@ export default class YugouItemSmall extends Vue {
     /* methods */
     getDuration = getDuration
     getTotalPrice = getTotalPrice
-    getPrice = getPrice
 }
 </script>
 
