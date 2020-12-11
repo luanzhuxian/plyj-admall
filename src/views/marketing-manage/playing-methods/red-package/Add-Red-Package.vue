@@ -308,7 +308,7 @@
                             :height="300"
                             :count="1"
                         />
-                        <p v-if="form.logoShow" class="description">只支持.jpg .png 格式，最多上传1张，尺寸为500*500，大小为2M以内</p>
+                        <p v-if="form.logoShow" class="description">只支持.jpg .png 格式，最多上传1张，大小为2M以内</p>
                     </el-form-item>
 
                     <el-form-item label="背景：" prop="bgUrlsIndex">
