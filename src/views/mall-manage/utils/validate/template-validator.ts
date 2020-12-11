@@ -163,7 +163,7 @@ class HomeValidator <T extends TemplateB | TemplateC | TemplateD> extends BaseVa
         const { errList, moduleModels } = this
 
         try {
-            if (moduleModels.Classify.showStatue !== 1) return
+            if (!moduleModels.Classify || moduleModels.Classify.showStatue !== 1) return
 
             await new ClassifyListValidator().validate(moduleModels.Classify)
         } catch (error) {
