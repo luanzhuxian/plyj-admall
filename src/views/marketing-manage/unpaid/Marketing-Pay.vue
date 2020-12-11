@@ -27,6 +27,7 @@
                             <span v-if="programId === '7'">抽奖嗨翻天</span>
                             <span v-if="programId === '8'">支持多商品兑换，使用即可减免商品费用</span>
                             <span v-if="programId === '9'">低价购买福利红包，支付抵扣享优惠</span>
+                            <span v-if="programId === '10'">低成本高引流，多种主题任意选</span>
                         </p>
                         <p class="active count">
                             当前活动：0个
@@ -46,6 +47,7 @@
                         <img v-if="programId === '7'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png">
                         <img v-if="programId === '8'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png">
                         <img v-if="programId === '9'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png">
+                        <img v-if="programId === '10'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png">
                     </div>
                 </div>
             </el-form-item>
@@ -251,7 +253,7 @@ export default {
                 throw e
             }
         },
-        async payDone () {
+        payDone () {
             this.showPayCode = false
             switch (this.programId) {
                 case '1':
@@ -280,6 +282,9 @@ export default {
                     break
                 case '9':
                     this.$router.replace({ name: 'RedPackage' })
+                    break
+                case '10':
+                    this.$router.replace({ name: 'LuckyDraw' })
                     break
             }
             // 粽粽有礼信息

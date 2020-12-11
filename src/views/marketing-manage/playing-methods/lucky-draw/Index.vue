@@ -1,0 +1,41 @@
+<template>
+    <div>
+        <router-view v-if="loading" :info="info" />
+    </div>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
+import { MutationTypes } from '@/store/mutation-type'
+import moment from 'moment'
+
+const account = namespace('account')
+
+    @Component
+export default class LuckDrawIndex extends Vue {
+        @account.Getter marketStatusAuth!: any[]
+        @account.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
+
+        loading = false
+        programId = '10'
+        info = {}
+
+        async created () {
+            try {
+                if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
+                this.loading = true
+                const info: any = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
+                this.info = info
+                if (!info || moment(info.validity).valueOf() < Date.now()) {
+                    this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
+                }
+            } catch (e) {
+                throw e
+            }
+        }
+}
+</script>
+
+<style lang="scss">
+</style>

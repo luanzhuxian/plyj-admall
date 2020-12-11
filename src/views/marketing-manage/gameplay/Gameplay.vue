@@ -169,6 +169,21 @@
                     }
                 }"
             />
+            <SchemePack
+                name="抽奖乐翻天"
+                desc="低成本高引流，多种主题任意选"
+                :expired="activitys.LuckyDraw.status ? `${getDate(activitys.LuckyDraw.data.createTime)}--${getDate(activitys.LuckyDraw.data.validity)}` : ''"
+                :count="activitiesInfo.LuckyDrawActivityCount"
+                :tags="['限','新']"
+                :is-lock="!activitys.LuckyDraw.status"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png"
+                :route-info="{
+                    name: 'LuckyDraw',
+                    params: {
+                        programId: '10'
+                    }
+                }"
+            />
         </div>
         <!--        双十二 新春 隐藏               -->
         <!--        <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />-->
@@ -317,6 +332,10 @@ export default class Gameplay extends Vue {
         redPackage: {
             data: {},
             status: false
+        },
+        LuckyDraw: {
+            data: {},
+            status: false
         }
     }
 
@@ -368,7 +387,8 @@ export default class Gameplay extends Vue {
             benefit: '6',
             LongmenLottery: '7',
             redeemCode: '8',
-            redPackage: '9'
+            redPackage: '9',
+            LuckyDraw: '10'
         }
 
         for (const key of Object.keys(info)) {
