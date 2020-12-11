@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import ActiveTime from '../../components/Active-Time.vue'
+import ActiveTime from '../../../../components/marketing-manage/Active-Time.vue'
 import { getLotteryStatistics } from '../../../../apis/marketing-manage/lonmen-festival/lottery'
 export default {
     name: 'HappyLotteryDetail',

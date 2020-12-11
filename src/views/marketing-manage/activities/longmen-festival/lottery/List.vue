@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import ListHeader from '../../../components/List-Header'
+import ListHeader from '../../../../../components/marketing-manage/List-Header'
 import { mapGetters, mapActions } from 'vuex'
 import Share from '../../../../../components/common/Share.vue'
 import moment from 'moment'

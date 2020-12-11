@@ -177,9 +177,9 @@
 </template>
 
 <script>
-import { getCouponList } from '../../../apis/marketing-manage/coupon'
-import { resetForm } from '../../../assets/ts/utils'
-import { SessionEnum } from '../../../enum/storage'
+import { getCouponList } from '../../apis/marketing-manage/coupon'
+import { resetForm } from '../../assets/ts/utils'
+import { SessionEnum } from '../../enum/storage'
 
 export default {
     name: 'SelectCoupon',

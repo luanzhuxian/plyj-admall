@@ -242,7 +242,7 @@ import NewcomersSetting from './Newcomers-Setting'
 import PresentDialog from './PresentDetail'
 import Preview from '../../../../components/common/Preview'
 import NewUserPreview from './components/New-User-Preview.vue'
-import ListHeader from '../../components/List-Header'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 
 export default {
     name: 'NewcomersGiftList',

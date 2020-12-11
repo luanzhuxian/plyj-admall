@@ -258,8 +258,8 @@
 import moment from 'moment'
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import SchemeLabel from '../components/Scheme-Label.vue'
-import SchemePack from '../components/Scheme-Pack.vue'
+import SchemeLabel from '../../../components/marketing-manage/Scheme-Label.vue'
+import SchemePack from '../../../components/marketing-manage/Scheme-Pack.vue'
 import { getActivitiesInfo, getActivityAuth } from '../../../apis/marketing-manage/gameplay'
 import { MutationTypes } from '@/store/mutation-type'
 const account = namespace('account')

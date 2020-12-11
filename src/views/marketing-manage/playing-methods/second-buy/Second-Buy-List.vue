@@ -209,7 +209,7 @@ import { secondActivityPage, duplicateSecondActivity, updateActivityStatus } fro
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import Share from '../../../../components/common/Share'
 import Setting from './Second-Buy-Setting'
-import ListHeader from '../../components/List-Header'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'SecondBuyList',
@@ -348,7 +348,7 @@ export default {
             this.singleGoods = result
             this.showPreview = true
         },
-        async handleShare (row) {
+        handleShare (row) {
             this.qrcodeText = `${ this.mallUrl }/detail/product/${ row.productId }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         },
@@ -394,7 +394,7 @@ export default {
             }
         },
         // 确认结束本次活动
-        async handleConfirmResatartd () {
+        handleConfirmResatartd () {
             try {
                 this.$confirm({
                     title: '确认要重新开启本次活动吗？',

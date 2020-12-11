@@ -186,7 +186,7 @@ import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import { getLotteryStatisticsList, exportLotteryStatistic, getWinningGift } from '../../../../apis/marketing-manage/lonmen-festival/lottery'
 import verification from '../../../../components/order-center/Verification.vue'
-import GiftList from '../../activities/longmen-festival/components/Gift-List'
+import GiftList from '../../../../components/marketing-manage/Gift-List'
 
 export default {
     name: 'HappyLotteryData',

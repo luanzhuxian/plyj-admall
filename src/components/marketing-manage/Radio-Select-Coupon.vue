@@ -163,8 +163,8 @@
 </template>
 
 <script>
-import { getCouponList } from '../../../apis/marketing-manage/coupon'
-import { resetForm } from '../../../assets/ts/utils'
+import { getCouponList } from '../../apis/marketing-manage/coupon'
+import { resetForm } from '../../assets/ts/utils'
 
 export default {
     name: 'RadioSelectCoupon',

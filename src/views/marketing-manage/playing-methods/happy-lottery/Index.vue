@@ -12,13 +12,13 @@ import moment from 'moment'
 
 const account = namespace('account')
 
-    @Component
+@Component
 export default class HappyLotteryIndex extends Vue {
         @account.Getter marketStatusAuth!: any[]
         @account.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
 
         loading = false
-        programId = '10'
+        programId = '7'
         info = {}
 
         async created () {

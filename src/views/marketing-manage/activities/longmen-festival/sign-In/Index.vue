@@ -23,7 +23,7 @@
 import GeneralSetting from './Setting'
 import { mapGetters, mapActions } from 'vuex'
 import { MutationTypes } from '../../../../../store/mutation-type'
-import ListHeader from '../../../components/List-Header'
+import ListHeader from '../../../../../components/marketing-manage/List-Header'
 import moment from 'moment'
 export default {
     name: 'GeneralIndex',

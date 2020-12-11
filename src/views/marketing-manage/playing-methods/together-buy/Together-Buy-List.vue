@@ -254,7 +254,7 @@ import GoodsPreview from '../../../../components/product-center/goods/Goods-Prev
 import { togetherActivityPage, togetherActivityDetail, deleteActivityStatus, endActivityStatus } from '../../../../apis/marketing-manage/together'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import Share from '../../../../components/common/Share'
-import ListHeader from '../../components/List-Header'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 import { MutationTypes } from '../../../../store/mutation-type'
 import Setting from './Together-Buy-Setting'
 export default {
@@ -399,7 +399,7 @@ export default {
             this.singleGoods = res.result
             this.showPreview = true
         },
-        async handleShare (row) {
+        handleShare (row) {
             this.qrcodeText = `${ this.mallUrl }/detail/product/${ row.productId }?noCache=${ Date.now() }`
             this.qrcodeShow = true
         },
@@ -438,7 +438,7 @@ export default {
             } catch (e) { throw e }
         },
         // 确认结束本次活动
-        async handleConfirmResatartd () {
+        handleConfirmResatartd () {
             try {
                 this.$confirm({
                     title: '确认要重新开启本次活动吗？',

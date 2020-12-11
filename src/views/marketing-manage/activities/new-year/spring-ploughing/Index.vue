@@ -23,7 +23,7 @@
 </template>
 <script>
 import Setting from './components/Setting'
-import ListHeader from '../../../components/List-Header'
+import ListHeader from '../../../../../components/marketing-manage/List-Header'
 export default {
     name: 'SpringPloughing',
     components: { ListHeader, Setting },

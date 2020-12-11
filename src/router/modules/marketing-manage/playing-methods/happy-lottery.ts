@@ -2,11 +2,12 @@ export default [
     {
         path: 'happy-lottery',
         name: 'HappyLottery',
-        redirect: 'lottery/list',
+        redirect: 'happy-lottery/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Index.vue'),
         meta: {
             title: '抽奖乐翻天',
-            index: '8-21'
+            index: '8-21',
+            ignore: true
         },
         children: [
             {
@@ -15,7 +16,8 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/List.vue'),
                 meta: {
                     title: '列表',
-                    index: '8-21-1'
+                    index: '8-21-1',
+                    ignore: true
                 }
             },
             // 之所以添加也有id，是因为存在复制这么一种情况
@@ -26,7 +28,8 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Add.vue'),
                 meta: {
                     title: '新建活动',
-                    index: '8-21-2'
+                    index: '8-21-2',
+                    ignore: true
                 }
             },
             {
@@ -36,7 +39,8 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Add.vue'),
                 meta: {
                     title: '编辑活动',
-                    index: '8-21-3'
+                    index: '8-21-3',
+                    ignore: true
                 }
             },
             {
@@ -47,7 +51,8 @@ export default [
                 props: true,
                 meta: {
                     title: '活动详情',
-                    index: '8-21-4'
+                    index: '8-21-4',
+                    ignore: true
                 },
                 children: [
                     {

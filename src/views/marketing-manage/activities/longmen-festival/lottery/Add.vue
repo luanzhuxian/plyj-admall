@@ -332,7 +332,7 @@ import UserGroup from '../../../../../components/common/User-Group.vue'
 import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
 import ScholarshipBox from '../../../../../components/marketing-manage/Scholarship.vue'
 import ImageManager from '../../../../../components/common/file/Image-Manager.vue'
-import RadioSelectCoupon from '../../../components/Radio-Select-Coupon.vue'
+import RadioSelectCoupon from '../../../../../components/marketing-manage/Radio-Select-Coupon.vue'
 import { SectionToChinese } from '../../../../../assets/ts/utils'
 import {
     addLottery,

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ListHeader from '../../../components/List-Header'
+import ListHeader from '../../../../../components/marketing-manage/List-Header'
 import Setting from './Road-Learning-Setting'
 export default {
     name: 'RoadLearning',

@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Vue, Component, Watch, Prop } from 'vue-property-decorator'
-import ListHeader from '../../../components/List-Header.vue'
+import ListHeader from '../../../../../components/marketing-manage/List-Header.vue'
 
 @Component({
     components: {

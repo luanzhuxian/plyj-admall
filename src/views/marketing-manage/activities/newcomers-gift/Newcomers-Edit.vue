@@ -340,7 +340,7 @@
 
 <script>
 import moment from 'moment/moment'
-import SelectCoupon from '../../components/Select-Coupon.vue'
+import SelectCoupon from '../../../../components/marketing-manage/Select-Coupon.vue'
 import {
     saveNewcomerActivitys,
     getNewcomerActivitysDeatil,

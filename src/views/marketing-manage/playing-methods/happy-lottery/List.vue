@@ -1,9 +1,9 @@
 <template>
-    <div class="bg-white pb-20">
+    <div class="bg-white wrap">
         <ListHeader
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png"
-            title="龙门抽大奖"
-            description="回馈新老用户，加享赢大礼"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/%E6%8A%BD%E5%A5%96%E4%B9%90%E7%BF%BB%E5%A4%A9.png"
+            title="抽奖乐翻天"
+            description="低成本高引流，多种主题任意选"
             :start-time="HappyLotteryInformation.createTime"
             end-time="2020-08-31"
         />
@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import ListHeader from '../../components/List-Header'
+import ListHeader from '../../../../components/marketing-manage/List-Header.vue'
 import { mapGetters, mapActions } from 'vuex'
 import Share from '../../../../components/common/Share.vue'
 import moment from 'moment'

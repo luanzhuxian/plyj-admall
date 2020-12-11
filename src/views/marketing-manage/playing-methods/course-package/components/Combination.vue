@@ -394,8 +394,8 @@ import moment from 'moment'
 import ImageManager from '../../../../../components/common/file/Image-Manager.vue'
 import ProductSelector from '../../../../../components/product-center/goods/Product-Sku-Selector.vue'
 import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
-import ModelCourse from '../../../components/Modal-Course.vue'
-import ModelCoupon from '../../../components/Modal-Coupon.vue'
+import ModelCourse from '../../../../../components/marketing-manage/Modal-Course.vue'
+import ModelCoupon from '../../../../../components/marketing-manage/Modal-Coupon.vue'
 import { checkNumber } from '../../../../../assets/ts/validate'
 
 export default {
@@ -608,7 +608,7 @@ export default {
             }
             // this.initValidityPeriod = []
         },
-        async dateChange ({ start = '', end = '' }) {
+        dateChange ({ start = '', end = '' }) {
             this.model.startTime = start
             this.model.endTime = end
             if (this.$refs.form) {

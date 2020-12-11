@@ -151,7 +151,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import SchemeLabel from './../../../marketing-manage/components/Scheme-Label.vue'
+import SchemeLabel from '../../../../components/marketing-manage/Scheme-Label.vue'
 import Progress from '../../../../components/base-setting/account-manage/Progress.vue'
 import OnlinePack from './../compoonents/Online-Pack.vue'
 import { getLineTeachingInfo } from './../../../../apis/product-center/online-teaching/knowledge-course'

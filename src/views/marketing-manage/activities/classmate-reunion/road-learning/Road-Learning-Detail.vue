@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import NumberCard from '../../../components/NumberCard'
+import NumberCard from '../../../../../components/marketing-manage/NumberCard'
 import Verification from '../../../../../components/order-center/Verification.vue'
 import moment from 'moment/moment'
 import { createObjectUrl } from '../../../../../assets/ts/upload'

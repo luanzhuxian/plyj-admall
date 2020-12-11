@@ -293,7 +293,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
 import Share from '../../../../components/common/Share'
-import ListHeader from '../../components/List-Header'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 import { bookingActivityPage, duplicateBookingActivity, updateActivityStatus } from '../../../../apis/marketing-manage/booking'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import { MutationTypes } from '../../../../store/mutation-type'
