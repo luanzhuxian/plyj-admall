@@ -420,9 +420,10 @@ export default class ModalProd extends Vue {
                 page: this.pagination.current,
                 size: this.pagination.size
             }
-            const { result }: any = await getRedPackageList(params)
+            const { result } = await getRedPackageList(params)
+            // 过滤未开始/进行中、未隐藏的福利红包
             this.productList = result.records
-                // .filter((item: { showStatus: number; issueVolume: number }) => item.showStatus)
+                .filter((item: { activityStatus: number; showStatus: number }) => ~[0, 1].indexOf(item.activityStatus) && item.showStatus)
                 .map((item: { price: number }) => {
                     item.price = fenToYuan(item.price)
                     return item

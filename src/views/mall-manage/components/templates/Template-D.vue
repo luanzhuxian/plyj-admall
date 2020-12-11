@@ -38,6 +38,10 @@
             >
                 <Classify :data="Classify" />
             </ModuleWrapper>
+            <!-- 福利红包 -->
+            <div :class="$style.redPackage" v-if="isRedPackageShow">
+                <img src="https://mallcdn.youpenglai.com/static/mall/2.13.0/red-package/rp-banner.png" alt="">
+            </div>
             <!-- 优惠券 -->
             <div
                 id="Coupon"
@@ -338,6 +342,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import Live from '../home/Live.vue'
 import SingleCourse from '../home/Single-Course.vue'
 import SeriesCourse from '../home/Series-Course.vue'
@@ -359,6 +364,8 @@ import ModuleWrapper from '../Module-Wrapper.vue'
 import SkinTitle from '../skin/Skin-Title.vue'
 import { skinClassNameMap, navBarMap } from '../../utils/map'
 import { TemplateD as TemplateDType } from '../../utils/types'
+
+const mall = namespace('mall')
 
 @Component({
     components: {
@@ -408,6 +415,8 @@ export default class TemplateD extends Vue {
     navBarMap = Object.freeze(navBarMap)
 
     /* computed */
+    @mall.Getter('isRedPackageShow') isRedPackageShow!: boolean
+
     get Banner () {
         return this.data.Banner || { values: [] }
     }
@@ -603,6 +612,19 @@ export default class TemplateD extends Vue {
 
 .module-classify {
     margin-top: 5px;
+}
+
+.red-package {
+    display: block;
+    box-sizing: border-box;
+    padding: 5px 12px;
+    height: 82px;
+    text-align: center;
+    > img {
+        width: 339px;
+        height: 72px;
+        object-fit: cover;
+    }
 }
 
 .pointer {

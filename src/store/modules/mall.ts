@@ -12,8 +12,9 @@ export default {
         currentActivity: {},
         // 模板使用权限: 1 '开启', 2: '过期', 3: '未开启活动'
         double12LockStatus: 3, // 双十二权限
-        springLockStatus: 3 // 新春权限
+        springLockStatus: 3, // 新春权限
         // dragonGateLockStatus = 3 // 龙门节权限
+        redPackageList: []
     },
     getters: {
         liveInfo: state => state.liveInfo,
@@ -23,7 +24,8 @@ export default {
         currentHomeType: state => state.currentHome.type,
         currentActivityType: state => state.currentActivity.type,
         double12LockStatus: state => state.double12LockStatus,
-        springLockStatus: state => state.springLockStatus
+        springLockStatus: state => state.springLockStatus,
+        isRedPackageShow: state => !!state.redPackageList.length
     },
     mutations: {
         setLiveInfo: (state, payload) => {
@@ -43,6 +45,9 @@ export default {
         },
         setSpringLockStatus: (state, payload) => {
             state.springLockStatus = payload
+        },
+        setRedPackage: (state, payload) => {
+            state.redPackageList = payload
         }
     },
     actions: {

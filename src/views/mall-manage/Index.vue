@@ -15,6 +15,7 @@ import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
 import { getActivityAuth } from '../../apis/marketing-manage/gameplay'
+import { getRedPackageSortListListNew } from '../../apis/marketing-manage/red-package'
 
 const mall = namespace('mall')
 
@@ -42,6 +43,7 @@ export default class MallManage extends Vue {
     @mall.Mutation setNwEvent!: (payload: {}) => void
     @mall.Mutation setDouble12LockStatus!: (payload: {}) => void
     @mall.Mutation setSpringLockStatus!: (payload: {}) => void
+    @mall.Mutation setRedPackage!: (payload: {}) => void
     get showTabs () {
         return !!this.$route.name && this.tabs.map(tab => tab.name).includes(this.$route.name)
     }
@@ -61,13 +63,15 @@ export default class MallManage extends Vue {
             getLiveInfo(),
             getNianweiInfo(),
             getActivityAuth(), // 进入店铺管理要提前调用 getActivityAuth 主会场模板使用权限接口，通知后端更新草稿箱数据
+            getRedPackageSortListListNew(),
             this.getCurrentTemplate(1),
             this.getCurrentTemplate(2)
         ]
         const [
             { result: live = {} },
             { result: nianwei = [] },
-            { result: lockStatusInfo = [] }
+            { result: lockStatusInfo = [] },
+            { result: redPackageList = [] }
         ] = await Promise.all(requests.map((p: Promise<any>) => p.catch(e => {
             console.error(e)
             return { result: null }
@@ -81,6 +85,12 @@ export default class MallManage extends Vue {
         // lockStatus 1 '开启', 2: '过期', 3: '未开启活动'
         this.setDouble12LockStatus(double12?.lockStatus || 3)
         this.setSpringLockStatus(spring?.lockStatus || 3)
+        // 进行中、未隐藏且有库存的福利红包
+        this.setRedPackage(redPackageList.filter((item: {
+            activityStatus: number;
+            showStatus: number;
+            issueVolume: number;
+        }) => ~[0, 1].indexOf(item.activityStatus) && item.showStatus && item.issueVolume))
     }
 
     /* methods */
@@ -92,10 +102,3 @@ export default class MallManage extends Vue {
     }
 }
 </script>
-
-<style lang="scss">
-.mall-manage {
-
-}
-
-</style>
