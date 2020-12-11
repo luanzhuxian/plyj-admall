@@ -44,7 +44,7 @@
                             <span v-if="item.goodsInfo.activityInfo.multiple && item.goodsInfo.activityInfo.multipleNumber > 1 && item.goodsInfo.activityInfo.activityPrice">{{ `抵￥${item.goodsInfo.activityInfo.activityPrice}` }}</span>
                         </div>
                         <div :class="$style.original">
-                            原价：<del>{{ data.goodsInfo.activityInfo.skuPrice }}</del>
+                            原价：<del>{{ item.goodsInfo.activityInfo.skuPrice }}</del>
                         </div>
                         <div :class="$style.price">
                             预计到手价
