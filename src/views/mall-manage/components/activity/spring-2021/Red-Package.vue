@@ -55,12 +55,12 @@
                             <p :class="$style.count">剩余<span>22</span>张</p>
                         </div>
                         <div :class="$style.redPackageListItemRight">
-                            <b :class="$style.rule">满400可抵200</b>
+                            <b :class="$style.rule">50可抵200</b>
                             <p :class="$style.name">威巴克专属福利红包</p>
                             <p :class="$style.time">使用时间：2020.11.12-2020.12.12</p>
                             <p :class="$style.link">指定商品可用 ></p>
                             <div :class="$style.bottom">
-                                <b :class="$style.price">仅需1元</b>
+                                <b :class="$style.price">仅需50元</b>
                                 <button :class="$style.button">立即领取</button>
                             </div>
                         </div>

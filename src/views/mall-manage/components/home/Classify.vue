@@ -88,10 +88,12 @@ export default class Classify extends Vue {
             object-fit: cover;
         }
         &-name {
+            max-width: 75px;
             font-size: 10px;
             line-height: 14px;
             color: #333333;
             text-align: center;
+            @include elps();
         }
     }
 }
