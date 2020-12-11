@@ -161,7 +161,9 @@ export default {
                 startDate: '',
                 endDate: '',
                 current: 1,
-                size: 10
+                size: 10,
+                // 活动类型 1 龙门节抽奖 2 抽奖乐翻天
+                type: 1
             },
             data: [],
             total: 0,

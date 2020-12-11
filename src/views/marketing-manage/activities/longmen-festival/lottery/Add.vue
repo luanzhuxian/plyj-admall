@@ -25,7 +25,6 @@
                 <el-form-item label="活动时间" prop="startTime">
                     <date-range
                         :init="defaultDate"
-                        type="datetime"
                         @change="dateChange"
                         :disabled-start-time="status === 2"
                         disable-before
@@ -191,7 +190,6 @@
                                         <p v-else-if="item.awardType === 1">
                                             <date-range
                                                 :init="[row.giftUseStartTime, row.giftUseEndTime]"
-                                                type="datetime"
                                                 :disabled-start-time="status === 2 && Boolean(row.id)"
                                                 disable-before
                                                 @change="date => validateDateChange(date, item)"
@@ -315,7 +313,6 @@
             @confirm="confirmPresent"
             :start-min-date="form.startTime"
             :end-min-date="form.endTime"
-            date-type="datetime"
         />
         <RadioSelectCoupon
             :show.sync="showCoupon"
@@ -478,7 +475,9 @@ export default {
                     availableLuckDrawNumber: 1,
                     luckDrawType: 1
                 }],
-                activityRule: ACTIVE_RULES
+                activityRule: ACTIVE_RULES,
+                // 活动类型 1 龙门节抽奖 2 抽奖乐翻天
+                type: 1
             },
             map: [
                 {

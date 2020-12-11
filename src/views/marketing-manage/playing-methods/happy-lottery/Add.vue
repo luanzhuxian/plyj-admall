@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrap">
         <Panel :title="id ? '编辑抽奖' : '添加抽奖'" width="90%" :top="20">
             <el-form
                 class="wrap"
@@ -25,7 +25,6 @@
                 <el-form-item label="活动时间" prop="startTime">
                     <date-range
                         :init="defaultDate"
-                        type="datetime"
                         @change="dateChange"
                         :disabled-start-time="status === 2"
                         disable-before
@@ -191,7 +190,6 @@
                                         <p v-else-if="item.awardType === 1">
                                             <date-range
                                                 :init="[row.giftUseStartTime, row.giftUseEndTime]"
-                                                type="datetime"
                                                 :disabled-start-time="status === 2 && Boolean(row.id)"
                                                 disable-before
                                                 @change="date => validateDateChange(date, item)"
@@ -315,7 +313,6 @@
             @confirm="confirmPresent"
             :start-min-date="form.startTime"
             :end-min-date="form.endTime"
-            date-type="datetime"
         />
         <RadioSelectCoupon
             :show.sync="showCoupon"
@@ -436,15 +433,6 @@ export default {
                 callback()
             }
         }
-        const checkDate = (rule, value, callback) => {
-            // 非进行中的活动校验开始时间
-
-            if (moment(this.form.startTime).valueOf() < Date.now() && this.status !== 2) {
-                callback(new Error('活动开始时间不能小于当前时间'))
-            } else {
-                callback()
-            }
-        }
         this.checkGroup = checkGroup
         this.checkGifts = checkGifts
         return {
@@ -478,7 +466,9 @@ export default {
                     availableLuckDrawNumber: 1,
                     luckDrawType: 1
                 }],
-                activityRule: ACTIVE_RULES
+                activityRule: ACTIVE_RULES,
+                // 活动类型 1 龙门节抽奖 2 抽奖乐翻天
+                type: 2
             },
             map: [
                 {
@@ -500,8 +490,7 @@ export default {
                     { max: 10, message: '活动名称不可超过10个字符', trigger: 'blur' }
                 ],
                 startTime: [
-                    { required: true, message: '请选择活动时间', trigger: 'none' },
-                    { validator: checkDate, trigger: 'none' }
+                    { required: true, message: '请选择活动时间', trigger: 'none' }
                 ],
                 userGroups: [
                     { validator: checkGroup, trigger: 'none' }
@@ -934,4 +923,11 @@ export default {
       }
     }
   }
+</style>
+<style scoped lang="scss">
+    ::v-deep {
+        .el-table__empty-block {
+            min-height: 150px;
+        }
+    }
 </style>
