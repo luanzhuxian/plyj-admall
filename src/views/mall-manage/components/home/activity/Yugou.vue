@@ -44,7 +44,7 @@
                             <span v-if="item.goodsInfo.activityInfo.multiple && item.goodsInfo.activityInfo.multipleNumber > 1 && item.goodsInfo.activityInfo.activityPrice">{{ `抵￥${item.goodsInfo.activityInfo.activityPrice}` }}</span>
                         </div>
                         <div :class="$style.original">
-                            原价：<del>{{ getPrice(item.goodsInfo.productSkuModels)('originalPrice') }}</del>
+                            原价：<del>{{ data.goodsInfo.activityInfo.skuPrice }}</del>
                         </div>
                         <div :class="$style.price">
                             预计到手价
@@ -98,7 +98,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Countdown from '../../Countdown.vue'
-import { getDuration, getPrice, getTotalPrice } from '../../../utils/helper'
+import { getDuration, getTotalPrice } from '../../../utils/helper'
 
 @Component({
     components: { Countdown }
@@ -114,7 +114,6 @@ export default class Yugou extends Vue {
 
     /* methods */
     getDuration = getDuration
-    getPrice = getPrice
     getTotalPrice = getTotalPrice
 }
 </script>

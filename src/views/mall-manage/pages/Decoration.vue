@@ -758,11 +758,6 @@ export default class MallDecoration extends Vue {
             if (!selectedList.length) return
 
             for (const prod of selectedList) {
-                if (currentModule === 'Yugou') {
-                    for (const sku of prod.skus) {
-                        sku.originalPrice = sku.originPrice
-                    }
-                }
                 module.values.push({
                     type: '',
                     image: prod.productMainImage || '',
@@ -776,7 +771,6 @@ export default class MallDecoration extends Vue {
                             ...(currentModule === 'Pintuan' ? { activityPrice: prod.price } : null),
                             activityStock: prod.stock
                         },
-                        ...(currentModule === 'Yugou' ? { productSkuModels: prod.skus } : null),
                         ...(currentModule === 'Pintuan' ? { pageviews: prod.pageviews } : null)
                     }
                 })

@@ -37,8 +37,8 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import YugouItemLarge from './components/Yugou-Item-Large.vue'
-import YugouItemSmall from './components/Yugou-Item-Small.vue'
+import YugouItemLarge from './items/Yugou-Item-Large.vue'
+import YugouItemSmall from './items/Yugou-Item-Small.vue'
 
 @Component({
     components: {
@@ -67,11 +67,9 @@ export default class Yugou extends Vue {
                 price: 100,
                 activityPrice: 1000,
                 number: 99,
-                status: 1
-            },
-            productSkuModels: [{
-                price: 3000
-            }]
+                status: 1,
+                skuPrice: 3000
+            }
         }
     }
 
@@ -86,11 +84,9 @@ export default class Yugou extends Vue {
                 price: 100,
                 activityPrice: 1000,
                 number: 99,
-                status: 1
-            },
-            productSkuModels: [{
-                price: 3000
-            }]
+                status: 1,
+                skuPrice: 3000
+            }
         }
     }
 

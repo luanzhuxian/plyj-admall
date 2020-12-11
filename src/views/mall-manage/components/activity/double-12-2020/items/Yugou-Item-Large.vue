@@ -1,6 +1,6 @@
 <template>
     <li v-if="data.goodsInfo && data.goodsInfo.activityInfo" :class="$style.yugouItemLarge">
-        <div :class="$style.imgWrapper">
+        <div :class="$style.imgWrapper" class="img-wrapper">
             <img :src="data.goodsInfo.productMainImage + '?x-oss-process=style/thum-middle'">
             <div :class="$style.bar">
                 <div :class="$style.rule">
@@ -30,7 +30,7 @@
                 <div :class="$style.price">
                     到手价：<b>{{ getTotalPrice(data) }}</b>
                 </div>
-                <del :class="$style.original">{{ `现价：¥${getPrice(data.goodsInfo.productSkuModels)('price')}` }}</del>
+                <del :class="$style.original">{{ `现价：¥${data.goodsInfo.activityInfo.skuPrice}` }}</del>
                 <span :class="$style.count">{{ `${data.goodsInfo.activityInfo.number}人预定` }}</span>
             </div>
         </div>
@@ -41,7 +41,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModuleItem } from '../../../../utils/types'
 import Countdown from '../../../Countdown.vue'
-import { getDuration, getTotalPrice, getPrice } from '../../../../utils/helper'
+import { getDuration, getTotalPrice } from '../../../../utils/helper'
 
 @Component({
     components: {
@@ -60,7 +60,6 @@ export default class YugouItemLarge extends Vue {
     /* methods */
     getDuration = getDuration
     getTotalPrice = getTotalPrice
-    getPrice = getPrice
 }
 </script>
 

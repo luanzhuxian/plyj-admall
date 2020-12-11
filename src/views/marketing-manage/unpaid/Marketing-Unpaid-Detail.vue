@@ -148,7 +148,7 @@ export default {
             }
         },
         getValidity () {
-            this.info = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
+            this.info = this.marketStatusAuth.find(({ programId }) => programId === '9')
             if (this.info) this.day = moment(this.info.validity).diff(moment(), 'day')
         }
     }

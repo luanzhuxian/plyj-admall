@@ -41,8 +41,8 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import ProductItemLarge from '../double-12-2020/components/Product-Item-Large.vue'
-import ProductItemSmall from '../double-12-2020/components/Product-Item-Small.vue'
+import ProductItemLarge from '../double-12-2020/items/Product-Item-Large.vue'
+import ProductItemSmall from '../double-12-2020/items/Product-Item-Small.vue'
 
 @Component({
     components: {

@@ -133,15 +133,11 @@ export const multiply = (...args: number[]) => args.reduce((acc, current) => {
 
 export const getTotalPrice = (item: TemplateModuleItem) => {
     if (isPlainObject<DynamicObject>(item.goodsInfo) && !(item.goodsInfo instanceof Array)) {
-        if (!item.goodsInfo.productSkuModels || !item.goodsInfo.productSkuModels.length) return false
-
-        const prodPrice = getPrice<DynamicObject, string>(item.goodsInfo.productSkuModels)('price')
-
-        if (item.goodsInfo.activityInfo.activityPrice >= prodPrice) {
+        if (item.goodsInfo.activityInfo.activityPrice >= item.goodsInfo.activityInfo.skuPrice) {
             return item.goodsInfo.activityInfo.price
         }
 
-        return sub(prodPrice, Number(sub(Number(item.goodsInfo.activityInfo.activityPrice), Number(item.goodsInfo.activityInfo.price))))
+        return sub(Number(item.goodsInfo.activityInfo.skuPrice), Number(sub(Number(item.goodsInfo.activityInfo.activityPrice), Number(item.goodsInfo.activityInfo.price))))
     }
 }
 

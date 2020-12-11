@@ -27,7 +27,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { TemplateModule } from '../../../utils/types'
 import Panel from './Panel.vue'
-import PintuanItem from '../double-12-2020/components//Pintuan-Item.vue'
+import PintuanItem from '../double-12-2020/items//Pintuan-Item.vue'
 
 @Component({
     components: {

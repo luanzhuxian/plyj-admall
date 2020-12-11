@@ -28,7 +28,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import Panel from './Panel.vue'
-import PackageItem from './components/Package-Item.vue'
+import PackageItem from './items/Package-Item.vue'
 import { TemplateModule } from '../../../utils/types'
 
 const user = namespace('user')

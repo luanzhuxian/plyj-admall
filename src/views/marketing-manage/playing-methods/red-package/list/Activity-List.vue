@@ -253,10 +253,10 @@
                                     删除
                                 </a>
                                 <!-- pauseStatus  true是停止 false开启-->
-                                <a v-if="row.pauseStatus" @click="changeStatus(row)">
+                                <a v-if="row.pauseStatus && row.activityStatus !== 3" @click="changeStatus(row)">
                                     开启
                                 </a>
-                                <a v-if="!row.pauseStatus" @click="changeStatus(row)">
+                                <a v-if="!row.pauseStatus && row.activityStatus !== 3" @click="changeStatus(row)">
                                     停止
                                 </a>
                             </template>
