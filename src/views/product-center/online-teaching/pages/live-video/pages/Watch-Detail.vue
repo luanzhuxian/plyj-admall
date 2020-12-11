@@ -202,11 +202,11 @@ import {
     exportWatchDetail,
     getActiveCompleteInfo,
     cancelGive
-} from './../../../../../../apis/product-center/online-teaching/live'
-import { createObjectUrl } from './../../../../../../assets/ts/upload'
-import SendLive from './../components/Send-Live.vue'
-import SelectStudents from './../components/Select-Students.vue'
-import ExportDialog from './../../../../../order-manage/components/Export-Dialog.vue'
+} from '../../../../../../apis/product-center/online-teaching/live'
+import { createObjectUrl } from '../../../../../../assets/ts/upload'
+import SendLive from '../components/Send-Live.vue'
+import SelectStudents from '../components/Select-Students.vue'
+import ExportDialog from '../../../../../../components/common/Export-Dialog.vue'
 export default {
     name: 'WatchDetail',
     components: {
