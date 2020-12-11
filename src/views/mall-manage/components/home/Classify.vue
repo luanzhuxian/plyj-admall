@@ -73,9 +73,11 @@ export default class Classify extends Vue {
 .classify-list {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    // align-items: center;
+    box-sizing: border-box;
     background: #fff;
     border-radius: 10px;
+    padding-top: 22px;
     height: 107px;
     &-item {
         display: flex;
@@ -88,12 +90,11 @@ export default class Classify extends Vue {
             object-fit: cover;
         }
         &-name {
-            max-width: 75px;
             font-size: 10px;
             line-height: 14px;
             color: #333333;
             text-align: center;
-            @include elps();
+            @include elps-wrap(2);
         }
     }
 }
