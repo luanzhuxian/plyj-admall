@@ -70,26 +70,28 @@
                         class="date-detail">自动锁定</span></span>
                 </div>
             </div>
-            <div class="deatil-title" v-if="programId !== '8'">
-                活动详情：
-            </div>
-            <div class="detail-box">
-                <img v-if="programId === '1'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/组合聚惠学.jpg" alt="">
-                <img v-if="programId === '2'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/粽粽有礼.jpg" alt="">
-                <img v-if="programId === '3'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/限时秒杀.jpg" alt="">
-                <img v-if="programId === '4'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/众志成团2.jpg" alt="">
-                <img v-if="programId === '5'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/预购.jpg" alt="">
-                <img v-if="programId === '6'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/公益棕行动.jpg" alt="">
-                <img v-if="programId === '7'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/龙门抽大奖.jpg" alt="">
-                <div class="red-package-bg" v-if="programId === '9'">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+            <div class="content-deatil">
+                <div class="deatil-title" v-if="programId !== '8'">
+                    活动详情：
                 </div>
-                <div class="red-package-bg" v-if="programId === '10'">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
-                    <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+                <div class="detail-box">
+                    <img v-if="programId === '1'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/组合聚惠学.jpg" alt="">
+                    <img v-if="programId === '2'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/粽粽有礼.jpg" alt="">
+                    <img v-if="programId === '3'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/限时秒杀.jpg" alt="">
+                    <img v-if="programId === '4'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/众志成团2.jpg" alt="">
+                    <img v-if="programId === '5'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/预购.jpg" alt="">
+                    <img v-if="programId === '6'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/公益棕行动.jpg" alt="">
+                    <img v-if="programId === '7'" src="https://mallcdn.youpenglai.com/static/admall/2.8.0/龙门抽大奖.jpg" alt="">
+                    <div class="red-package-bg" v-if="programId === '9'">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+                    </div>
+                    <div class="red-package-bg" v-if="programId === '10'">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -270,22 +272,27 @@ export default {
             }
 
             .expiration-date {
-                padding-bottom: 24px;
+                padding: 24px 40px;
                 margin-top: 56px;
-                border-bottom: 1px solid #e7e7e7;
-                font-size: 18px;
-                color: #666;
-
+                border: 1px solid #E7E7E7;
+                border-radius: 10px;
+                font-size: 14px;
+                color: #333;
+                div{
+                    > span:first-child {
+                        color: #333333;
+                        font-weight: bold;
+                        font-size: 14px;
+                    }
+                }
                 .precautions {
                     display: flex;
-                    margin-top: 16px;
-
+                    margin-top: 10px;
                     > span:first-child {
                         display: flex;
-                        min-width: 104px;
-                        padding-left: 18px;
+                        margin-right: 10px;
+                        padding-left: 14px;
                     }
-
                     .date-detail {
                         margin-left: 0;
                     }
@@ -293,7 +300,7 @@ export default {
 
                 .date-detail {
                     margin-left: 10px;
-                    color: #ec742e;
+                    color: #F79F1A;
                 }
             }
 
@@ -308,25 +315,30 @@ export default {
                 }
             }
 
-            .deatil-title {
+            .content-deatil{
+                padding: 20px;
                 margin-top: 24px;
-                font-size: 18px;
-                font-weight: bold;
-                color: #333;
-            }
-
-            .detail-box {
-                margin-top: 16px;
-                background: #f8f8f8;
-
-                >img {
-                    width: 100%;
+                border: 1px solid #E7E7E7;
+                border-radius: 10px;
+                .deatil-title {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #333;
                 }
 
-                .red-package-bg {
-                    padding: 0 32px;
-                    >img{
-                        padding: 16px 0;
+                .detail-box {
+                    margin-top: 16px;
+                    background: #f8f8f8;
+
+                    >img {
+                        width: 100%;
+                    }
+
+                    .red-package-bg {
+                        padding: 0 32px;
+                        >img{
+                            padding: 16px 0;
+                        }
                     }
                 }
             }
@@ -339,22 +351,6 @@ export default {
                     padding-top: 10px;
                     padding-left: 15px;
                     color: #D0423C;
-                }
-            }
-
-            .deatil-title {
-                margin-top: 24px;
-                font-size: 18px;
-                font-weight: bold;
-                color: #333;
-            }
-
-            .detail-box {
-                margin-top: 16px;
-                background: #f8f8f8;
-
-                img {
-                    width: 100%;
                 }
             }
         }
