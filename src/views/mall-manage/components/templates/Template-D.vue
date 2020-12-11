@@ -589,6 +589,7 @@ export default class TemplateD extends Vue {
     padding: 10px 12px;
 }
 
+.module-classify,
 .module-activity,
 .module-coupon,
 .module-live,
@@ -601,7 +602,7 @@ export default class TemplateD extends Vue {
 }
 
 .module-classify {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .pointer {

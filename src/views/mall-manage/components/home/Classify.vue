@@ -75,6 +75,7 @@ export default class Classify extends Vue {
     justify-content: space-around;
     align-items: center;
     background: #fff;
+    border-radius: 10px;
     height: 107px;
     &-item {
         display: flex;
