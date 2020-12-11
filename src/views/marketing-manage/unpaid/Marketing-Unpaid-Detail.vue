@@ -137,13 +137,9 @@ export default {
                 throw e
             }
         },
-        async getValidity () {
-            try {
-                this.info = this.marketStatusAuth.find(({ programId }) => programId === '9')
-                if (this.info) this.day = moment(this.info.validity).diff(moment(), 'day')
-            } catch (e) {
-                throw e
-            }
+        getValidity () {
+            this.info = this.marketStatusAuth.find(({ programId }) => programId === '9')
+            if (this.info) this.day = moment(this.info.validity).diff(moment(), 'day')
         }
     }
 }

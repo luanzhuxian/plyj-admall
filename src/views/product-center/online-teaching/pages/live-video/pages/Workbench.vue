@@ -386,7 +386,7 @@ export default class Workbench extends Vue {
         return num
     }
 
-    async share (item: LiveData) {
+    share (item: LiveData) {
         this.currentLive = item
         this.showQrCode = true
     }

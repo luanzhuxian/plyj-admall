@@ -612,7 +612,7 @@ export default {
             this.model.startTime = start
             this.model.endTime = end
             if (this.$refs.form) {
-                this.$refs.form.validateField('productModelList')
+                await this.$refs.form.validateField('productModelList')
             }
             // this.initValidityPeriod = []
         },

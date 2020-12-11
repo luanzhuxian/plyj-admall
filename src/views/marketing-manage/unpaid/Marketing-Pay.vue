@@ -251,7 +251,7 @@ export default {
                 throw e
             }
         },
-        async payDone () {
+        payDone () {
             this.showPayCode = false
             switch (this.programId) {
                 case '1':
