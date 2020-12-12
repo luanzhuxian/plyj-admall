@@ -578,7 +578,8 @@ export default {
                         terms,
                         userGroups,
                         gifts,
-                        status
+                        status,
+                        type = 2
                     }
                 } = await getLotteryDetail(this.id)
                 // 回显金额单位为分  需除100
@@ -626,7 +627,8 @@ export default {
                     logImageUrl,
                     terms,
                     userGroups,
-                    gifts
+                    gifts,
+                    type
                 }
             } catch (e) {
                 throw e
