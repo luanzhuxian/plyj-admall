@@ -184,6 +184,21 @@
                     }
                 }"
             />
+            <SchemePack
+                name="打卡聪明年"
+                desc="打卡签到答题参与抽奖"
+                :expired="activitys.dumplings.status ? `${getDate(activitys.dumplings.data.createTime)}-2020.08.31` : ''"
+                :count="activitiesInfo.dragonBoatSigninActivityCount"
+                :is-lock="!activitys.dumplings.status"
+                :tags="['限','新']"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png"
+                :route-info="{
+                    name: 'NewYearSignIn',
+                    params: {
+                        programId: '11'
+                    }
+                }"
+            />
         </div>
         <!--        双十二 新春 隐藏               -->
         <!--        <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />-->
