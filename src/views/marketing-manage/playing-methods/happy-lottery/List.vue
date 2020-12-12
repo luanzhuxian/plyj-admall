@@ -66,7 +66,7 @@
             <el-table-column label="参与人数" width="150" prop="joinUserNumber" />
             <el-table-column label="活动时间" width="300">
                 <template #default="{ row }">
-                    <span>{{ row.startTime }} ~ {{ row.endTime }}</span>
+                    <span>{{ row.startTime | dateFormat('YYYY-MM-DD') }} ~ {{ row.endTime | dateFormat('YYYY-MM-DD') }}</span>
                 </template>
             </el-table-column>
             <el-table-column label="活动状态" width="150">
