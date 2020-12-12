@@ -317,8 +317,8 @@ export default {
                 type: 'text',
                 required: true,
                 validate: val => {
-                    if (val.length > 12) {
-                        return '名称长度不能超过12个字符'
+                    if (val.length > 50) {
+                        return '名称长度不能超过50个字符'
                     }
                     return ''
                 }
@@ -437,7 +437,7 @@ export default {
                 }
             }
         },
-        async inputFileName () {
+        inputFileName () {
             // 调用上传文件弹窗
             this.$refs.VideoManager.showSelectBox()
         },
