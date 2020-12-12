@@ -377,12 +377,12 @@ const skinModels = [{
     img: 'https://mallcdn.youpenglai.com/static/admall/skin/welcome-new/cover.jpg',
     isHover: false,
     templateName: '欢迎新同学'
-}, {
-    category: 'skin',
-    skinId: 23,
-    img: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/cover.jpg',
-    isHover: false,
-    templateName: '圣诞皮肤'
+// }, {
+//     category: 'skin',
+//     skinId: 23,
+//     img: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/cover.jpg',
+//     isHover: false,
+//     templateName: '圣诞皮肤'
 }]
 
 @Component({
