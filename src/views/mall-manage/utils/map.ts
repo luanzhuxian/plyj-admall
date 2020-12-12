@@ -296,7 +296,7 @@ export const navBarMap: DynamicObject = {
     20: 'https://mallcdn.youpenglai.com/static/admall/skin/party/bottom.jpg',
     21: 'https://mallcdn.youpenglai.com/static/admall/skin/good-course/bottom.jpg',
     22: 'https://mallcdn.youpenglai.com/static/admall/skin/welcome-new/bottom.jpg',
-    23: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas/4bacb47a-2cbb-42fd-a763-2c765023477f.png',
+    23: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/bottom.jpg',
     get (id: number) {
         return Reflect.has(this, id) ? this[id] : this[0]
     }
