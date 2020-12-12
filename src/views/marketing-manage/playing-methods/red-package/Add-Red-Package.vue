@@ -41,10 +41,10 @@
                     auto-scroll-to-error
                 >
                     <el-form-item label="福利红包名称：" prop="name">
-                        <el-input style="width: 320px" v-model="form.name" @change="getBrief" maxlength="12" show-word-limit placeholder="请输入福利红包名称" />
+                        <el-input style="width: 320px" v-model.trim="form.name" @change="getBrief" maxlength="12" show-word-limit placeholder="请输入福利红包名称" />
                     </el-form-item>
                     <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
-                        <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="status" maxlength="50" placeholder="请输入福利红包金额" /> 元 <span class="label-warning">开始后不可修改</span>
+                        <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="disabled" maxlength="50" placeholder="请输入福利红包金额" /> 元 <span class="label-warning">开始后不可修改</span>
                         <p class="description">
                             福利红包面额，是活动期间通过免费领取或者付费领取后，可获得的实际福利红包,在购买指定范围内的产品时，可抵扣相应金额使用。
                         </p>
@@ -318,7 +318,7 @@
                                     v-for="(item, index) of redPackageBg"
                                     :key="index"
                                 >
-                                    <div class="slide-title">默认背景</div>
+                                    <div class="slide-title">{{ item.name }}</div>
                                     <div class="img-box">
                                         <el-checkbox
                                             v-model="item.check"
