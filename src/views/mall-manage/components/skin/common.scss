@@ -549,3 +549,25 @@
         @include copyright(45px, #FFFFFF);
     }
 }
+
+// 圣诞
+.skin-xmas-2020 {
+    @extend .skin-common;
+    background: #0A866A !important;
+    .container {
+        $background-image: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/bg.png';
+        @include container(65px, $background-image);
+        > .module.active {
+            border-color: #E5800E !important;
+        }
+        .skin-title {
+            margin-bottom: 10px;
+        }
+    }
+    .module-search {
+        @include search();
+    }
+    .module-copyright {
+        @include copyright(45px, #E5800E);
+    }
+}

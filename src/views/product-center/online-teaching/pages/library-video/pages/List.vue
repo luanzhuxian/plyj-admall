@@ -466,7 +466,7 @@ export default {
             } catch (e) { throw e }
         },
         // 是否续费
-        async renewals ({ resourceId: id }) {
+        renewals ({ resourceId: id }) {
             this.$router.push({ name: 'VideoRepositoryBuyNow', params: { id } })
         },
         // 打开折行
