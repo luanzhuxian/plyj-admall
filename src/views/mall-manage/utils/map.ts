@@ -232,8 +232,42 @@ export const skinClassNameMap = {
     17: 'skinSports',
     18: 'skinArts',
     19: 'skinDouble12',
+    20: 'skinParty',
+    21: 'skinGoodCourse',
+    22: 'skinWelcomeNew',
+    23: 'skinXmas2020',
     has (id: number | string) {
         return Reflect.has(this, id)
+    }
+}
+
+// 各个皮肤对应的标题组件名
+export const skinTitleMap: DynamicObject = {
+    1: 'TitleXmas',
+    2: 'TitleYuanDan',
+    3: 'TitleNewYear',
+    4: 'TitleXiaoNian',
+    5: 'TitleYuanXiao',
+    6: 'TitleWomenDay',
+    7: 'TitleNianNianFan',
+    8: 'TitleEarthDay',
+    9: 'TitleLabourDay',
+    10: 'TitleMothersDay',
+    11: 'TitleChildrenDay',
+    12: 'TitleFathersDay',
+    13: 'TitleDragonBoat',
+    14: 'TitleMidAutumnFestival',
+    15: 'TitleNationalDay',
+    16: 'TitleCulture',
+    17: 'TitleSports',
+    18: 'TitleArts',
+    19: 'TitleDouble12',
+    20: 'TitleParty',
+    21: 'TitleGoodCourse',
+    22: 'TitleWelcomeNew',
+    23: 'TitleXmas2020',
+    get (id: number | string) {
+        return Reflect.has(this, id) ? this[id] : this[0]
     }
 }
 
@@ -259,6 +293,10 @@ export const navBarMap: DynamicObject = {
     17: 'https://mallcdn.youpenglai.com/static/admall/skin/sports/bottom.jpg',
     18: 'https://mallcdn.youpenglai.com/static/admall/skin/art/bottom.jpg',
     19: 'https://mallcdn.youpenglai.com/static/admall/skin/double-12/bottom.jpg',
+    20: 'https://mallcdn.youpenglai.com/static/admall/skin/party/bottom.jpg',
+    21: 'https://mallcdn.youpenglai.com/static/admall/skin/good-course/bottom.jpg',
+    22: 'https://mallcdn.youpenglai.com/static/admall/skin/welcome-new/bottom.jpg',
+    23: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/bottom.jpg',
     get (id: number) {
         return Reflect.has(this, id) ? this[id] : this[0]
     }

@@ -225,14 +225,6 @@ const templateModels = [{
     isFree: false,
     charge: '新春用户可用',
     expire: '2021.03.31'
-// }, {
-//     category: 'template',
-//     type: 13,
-//     img: 'https://mallcdn.youpenglai.com/static/admall/mall-management/spring-2020/template-top-red.jpg',
-//     isHover: false,
-//     isFree: false,
-//     charge: '新春用户可用',
-//     expire: '2020.12.31'
 }]
 
 const skinModels = [{
@@ -367,6 +359,30 @@ const skinModels = [{
     charge: '限时免费',
     chargeTextColor: 'red',
     expire: '2020.12.31'
+}, {
+    category: 'skin',
+    skinId: 20,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/party/cover.jpg',
+    isHover: false,
+    templateName: '狂欢派对'
+}, {
+    category: 'skin',
+    skinId: 21,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/good-course/cover.jpg',
+    isHover: false,
+    templateName: '好课连连'
+}, {
+    category: 'skin',
+    skinId: 22,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/welcome-new/cover.jpg',
+    isHover: false,
+    templateName: '欢迎新同学'
+// }, {
+//     category: 'skin',
+//     skinId: 23,
+//     img: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/cover.jpg',
+//     isHover: false,
+//     templateName: '圣诞皮肤'
 }]
 
 @Component({

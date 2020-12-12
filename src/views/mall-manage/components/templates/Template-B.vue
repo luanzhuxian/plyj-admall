@@ -213,7 +213,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import Component, { mixins } from 'vue-class-component'
+import { Prop } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import Live from '../home/Live.vue'
 import SingleCourse from '../home/Single-Course.vue'
@@ -230,6 +231,7 @@ import ModuleWrapper from '../Module-Wrapper.vue'
 import SkinTitle from '../skin/Skin-Title.vue'
 import { skinClassNameMap, navBarMap } from '../../utils/map'
 import { TemplateB as TemplateBType } from '../../utils/types'
+import SkinMixin from '../skin/mixin'
 
 const mall = namespace('mall')
 
@@ -250,7 +252,7 @@ const mall = namespace('mall')
         SkinTitle
     }
 })
-export default class TemplateB extends Vue {
+export default class TemplateB extends mixins(SkinMixin) {
     /* props */
     @Prop({
         type: Object,
@@ -323,6 +325,12 @@ export default class TemplateB extends Vue {
 
     get isSkinShow () {
         return skinClassNameMap.has(this.skinId)
+    }
+
+    mounted () {
+        if (this.skinId === 23) {
+            this.setSkinTitleClassName()
+        }
     }
 
     /* methods */

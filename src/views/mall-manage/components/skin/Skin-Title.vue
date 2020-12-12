@@ -1,24 +1,10 @@
 <template>
-    <div :class="$style.skinTitle">
-        <TitleXmas v-if="skinId === 1" :data="data" />
-        <TitleYuanDan v-if="skinId === 2" :data="data" />
-        <TitleNewYear v-if="skinId === 3" :data="data" />
-        <TitleXiaoNian v-if="skinId === 4" :data="data" />
-        <TitleYuanXiao v-if="skinId === 5" :data="data" />
-        <TitleWomenDay v-if="skinId === 6" :data="data" />
-        <TitleNianNianFan v-if="skinId === 7" :data="data" />
-        <TitleEarthDay v-if="skinId === 8" :data="data" />
-        <TitleLabourDay v-if="skinId === 9" :data="data" />
-        <TitleMothersDay v-if="skinId === 10" :data="data" />
-        <TitleChildrenDay v-if="skinId === 11" :data="data" />
-        <TitleFathersDay v-if="skinId === 12" :data="data" />
-        <TitleDragonBoat v-if="skinId === 13" :data="data" />
-        <TitleMidAutumnFestival v-if="skinId === 14" :data="data" />
-        <TitleNationalDay v-if="skinId === 15" :data="data" />
-        <TitleCulture v-if="skinId === 16" :data="data" />
-        <TitleSports v-if="skinId === 17" :data="data" />
-        <TitleArts v-if="skinId === 18" :data="data" />
-        <TitleDouble12 v-if="skinId === 19" :data="data" />
+    <div class="skin-title">
+        <components
+            :is="currentSkinTitle"
+            :data="data"
+            v-bind="$attrs"
+        />
     </div>
 </template>
 
@@ -43,6 +29,11 @@ import TitleCulture from './Title-Culture.vue'
 import TitleSports from './Title-Sports.vue'
 import TitleArts from './Title-Arts.vue'
 import TitleDouble12 from './Title-Double-12.vue'
+import TitleParty from './Title-Party.vue'
+import TitleGoodCourse from './Title-Good-Course.vue'
+import TitleWelcomeNew from './Title-Welcome-New.vue'
+import TitleXmas2020 from './Title-Xmas-2020.vue'
+import { skinTitleMap } from '../../utils/map'
 
 @Component({
     components: {
@@ -64,15 +55,19 @@ import TitleDouble12 from './Title-Double-12.vue'
         TitleCulture,
         TitleSports,
         TitleArts,
-        TitleDouble12
+        TitleDouble12,
+        TitleParty,
+        TitleGoodCourse,
+        TitleWelcomeNew,
+        TitleXmas2020
     }
 })
 export default class SkinTitle extends Vue {
     @Prop(String) data!: string
     @Prop([Number, String]) skinId!: number | string
+
+    get currentSkinTitle () {
+        return skinTitleMap.get(this.skinId)
+    }
 }
 </script>
-
-<style lang="scss" module>
-.skin-title {}
-</style>

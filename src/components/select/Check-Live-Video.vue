@@ -167,8 +167,8 @@ export default {
                 type: 'text',
                 required: true,
                 validate: val => {
-                    if (val.length > 12) {
-                        return '名称长度不能超过12个字符'
+                    if (val.length > 50) {
+                        return '名称长度不能超过50个字符'
                     }
                     return ''
                 }
@@ -202,12 +202,10 @@ export default {
             }
             this.currentChecked = row
         },
-        async confirm () {
-            try {
-                // 选中的视频信息
-                this.$emit('confirm', this.currentChecked)
-                this.close()
-            } catch (e) { throw e }
+        confirm () {
+            // 选中的视频信息
+            this.$emit('confirm', this.currentChecked)
+            this.close()
         },
         close () {
             this.$emit('update:show', false)
@@ -231,7 +229,7 @@ export default {
                 this.$refs.table.toggleRowExpansion(item, item.expand)
             }
         },
-        async inputFileName () {
+        inputFileName () {
             // 调用上传文件弹窗
             this.$refs.VideoManager.showSelectBox()
         },
