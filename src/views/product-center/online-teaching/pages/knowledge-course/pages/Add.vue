@@ -701,7 +701,7 @@ export default {
             this.video = []
             this.form.supportWatchUrl = ''
         },
-        async videoChange (list) {
+        videoChange (list) {
             this.video = list
             this.form.supportWatchUrl = list[0] || ''
         },

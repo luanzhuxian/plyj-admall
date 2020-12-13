@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view v-if="loading" :info="info" />
+        <router-view v-if="!loading" :info="info" />
     </div>
 </template>
 
@@ -17,14 +17,14 @@ export default class RedPackageList extends Vue {
     @account.Getter marketStatusAuth!: any[]
     @account.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
 
-    loading = false
+    loading = true
     programId = '9'
     info = {}
 
     async created () {
         try {
-            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
             this.loading = true
+            if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
             const info: any = this.marketStatusAuth.find(({ programId }) => programId === '9')
             this.info = info
             if (!info || moment(info.validity).valueOf() < Date.now()) {
@@ -32,6 +32,8 @@ export default class RedPackageList extends Vue {
             }
         } catch (e) {
             throw e
+        } finally {
+            this.loading = false
         }
     }
 }
