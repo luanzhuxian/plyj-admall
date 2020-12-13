@@ -187,9 +187,9 @@
             <SchemePack
                 name="打卡聪明年"
                 desc="打卡签到答题参与抽奖"
-                :expired="activitys.dumplings.status ? `${getDate(activitys.dumplings.data.createTime)}-2020.08.31` : ''"
+                :expired="activitys.newYearSignIn.status ? `${getDate(activitys.newYearSignIn.data.createTime)}-2020.08.31` : ''"
                 :count="activitiesInfo.dragonBoatSigninActivityCount"
-                :is-lock="!activitys.dumplings.status"
+                :is-lock="!activitys.newYearSignIn.status"
                 :tags="['限','新']"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png"
                 :route-info="{
@@ -351,6 +351,10 @@ export default class Gameplay extends Vue {
         happyLottery: {
             data: {},
             status: false
+        },
+        newYearSignIn: {
+            data: {},
+            status: false
         }
     }
 
@@ -403,7 +407,8 @@ export default class Gameplay extends Vue {
             LongmenLottery: '7',
             redeemCode: '8',
             redPackage: '9',
-            happyLottery: '10'
+            happyLottery: '10',
+            newYearSignIn: '11'
         }
 
         for (const key of Object.keys(info)) {

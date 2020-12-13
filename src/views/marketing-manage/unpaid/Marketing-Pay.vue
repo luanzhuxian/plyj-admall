@@ -286,6 +286,9 @@ export default {
                 case '10':
                     this.$router.replace({ name: 'happyLottery' })
                     break
+                case '11':
+                    this.$router.replace({ name: 'NewYearSignIn' })
+                    break
             }
             // 粽粽有礼信息
             // 秒杀信息
