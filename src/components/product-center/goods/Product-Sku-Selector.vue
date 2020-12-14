@@ -277,7 +277,7 @@ export default {
             }
         },
         // 设置默认选中的享
-        async setDefaultSelection () {
+        setDefaultSelection () {
             for (const pro of this.goodsList) {
                 for (const sku of pro.skuEntityList) {
                     const ct = this.$refs && this.$refs.table && this.$refs.table.$refs[`child-table-${ sku.id }`]
@@ -315,7 +315,7 @@ export default {
      * 因此，在确认的时候，取药判断一下，取消了哪些商品，排除掉这些商品后，将新选择的列表与老列表进行合并后再发送出去
      * @return {Promise<void>}
      */
-        async confirmGoods () {
+        confirmGoods () {
             const currentData = []
             // TODO: 等flat支持性更好一些后用flat，更简洁
             for (const skus of Object.values(this.selectedGoods)) {

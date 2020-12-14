@@ -464,7 +464,7 @@ export default class MemberManageDetail extends Vue {
         })
     }
 
-    async tabClick (data: DynamicObject) {
+    tabClick (data: DynamicObject) {
         this.tabName = data.name
         this.$router.push({ name: data.name, query: this.$route.query })
     }
