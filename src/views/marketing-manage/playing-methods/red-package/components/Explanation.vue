@@ -53,12 +53,6 @@
                 福利红包领取在使用有效期前需尽快使用，若未使用或福利红包过期，购买福利红包金额不会退回到用户的账户
             </p>
             <h4 class="explanation-subtitle p-l-5">
-                · 使用限制
-            </h4>
-            <p class="explanation-text p-l-15">
-                设置活动，活动期间该页面展示的所有组合购买商品均以组合折扣价位售卖活动期间商品不退款，不支持线上发票仅在该页面下单可享受优惠，其他页面点击或购物车购买不享受优惠
-            </p>
-            <h4 class="explanation-subtitle p-l-5">
                 · 福利红包不支持开具发票
             </h4>
             <p class="explanation-text p-l-15">
@@ -74,7 +68,7 @@
                 · 订单退款
             </h4>
             <p class="explanation-text p-l-15">
-                使用福利红包抵扣的订单在发生退款时，若使用福利红包的商品全额退款，福利红包自动返回至用户的【卡券】内；若部分退款则福利红包视为损耗不予退回
+                使用福利红包抵扣的订单在发生退单时，福利红包视为消耗不予退回
             </p>
         </div>
         <div slot="footer" class="explanation-footer">
