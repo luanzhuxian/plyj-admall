@@ -11,6 +11,7 @@
                 :class="[$style.popularListItem, $style.marginT0]"
                 :data="first"
                 :rank="1"
+                price-label="双十二价"
             />
             <ProductItemSmall
                 :class="[$style.popularListItem, (!isOdd && (i === 0 || i === 1)) ? $style.marginT0 : '']"
@@ -18,6 +19,7 @@
                 :key="i"
                 :data="item"
                 :rank="isOdd ? i + 2 : i + 1"
+                price-label="双十二价"
             />
         </ul>
         <ul :class="$style.popularList" v-else>
@@ -25,6 +27,7 @@
                 :class="[$style.popularListItem, $style.marginT0]"
                 :data="defaultDataLarge"
                 :rank="1"
+                price-label="双十二价"
             />
             <ProductItemSmall
                 :class="$style.popularListItem"
@@ -32,6 +35,7 @@
                 :key="i"
                 :data="defaultDataSmall"
                 :rank="i + 2"
+                price-label="双十二价"
             />
         </ul>
     </Panel>

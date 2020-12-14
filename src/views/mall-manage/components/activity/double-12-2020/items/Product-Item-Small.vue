@@ -8,7 +8,7 @@
         </div>
         <div :class="$style.info">
             <div :class="$style.infoPrice">
-                双十二价<b>{{ data.goodsInfo.productSkuModels && data.goodsInfo.productSkuModels.length && getPrice(data.goodsInfo.productSkuModels)('price') }}</b>
+                {{ priceLabel }}<b>{{ data.goodsInfo.productSkuModels && data.goodsInfo.productSkuModels.length && getPrice(data.goodsInfo.productSkuModels)('price') }}</b>
             </div>
             <div :class="$style.infoName">
                 {{ data.goodsInfo.productName }}
@@ -40,6 +40,7 @@ export default class ProductItemSmall extends Vue {
     }) readonly data!: TemplateModuleItem
 
     @Prop(Number) readonly rank!: number
+    @Prop(String) readonly priceLabel!: string
 
     /* methods */
     getPrice = getPrice

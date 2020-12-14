@@ -37,7 +37,7 @@
             </div>
             <div :class="$style.statisticsItem">
                 <div>支付金额</div>
-                <div><b :class="$style.number">{{ statisticsData.payAmount }}</b>元</div>
+                <div><b :class="$style.number">{{ Number(statisticsData.payAmount/100) }}</b>元</div>
             </div>
         </section>
         <section :class="$style.searchBox">

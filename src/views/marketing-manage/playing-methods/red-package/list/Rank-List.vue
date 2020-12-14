@@ -1,8 +1,23 @@
 <template>
     <div :class="$style.redPackageRankList">
         <div v-show="!showSortTable" :class="$style.explanation">
-            可自定义设置所有福利红包活动在商城活动界面的展示顺序
+            <pl-svg name="yaji-tips" width="20" />
+            <div>
+                <p>温馨提示</p>
+                <p>
+                    可自定义设置所有福利红包活动在商城活动界面的展示顺序
+                </p>
+            </div>
         </div>
+        <!--        <div class="tips">-->
+        <!--            <pl-svg name="yaji-tips" width="20" />-->
+        <!--            <div>-->
+        <!--                <p>温馨提示</p>-->
+        <!--                <p>-->
+        <!--                    福利红包仅仅支持线上购买“课程、商品”时使用，满足使用条件将自动抵扣相应的支付金额，暂不支持直播类产品的使用。-->
+        <!--                </p>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div v-show="!showSortTable">
             <el-form :class="$style.operation" inline style="justify-content: space-between;">
                 <div>
@@ -320,12 +335,26 @@ export default class RedPackageRankList extends Vue {
 }
 .explanation {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 55px;
-    background: rgba(110, 123, 142, .2);
-    font-size: 14px;
-    color: #6E7B8E;
+    padding: 16px;
+    margin-top: 15px;
+    background-color: #FFFAF3;
+    border: 1px solid #F79F1A;
+    border-radius: 10px;
+    >div{
+        padding-left: 9px;
+        p:first-child{
+            font-size: 14px;
+            font-weight: 400;
+        }
+        p:last-child{
+            font-size: 12px;
+            font-weight: 400;
+            color: #999999;
+            >span{
+                color: #F79F1A;
+            }
+        }
+    }
 }
 .operation {
     display: flex;
