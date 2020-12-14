@@ -943,7 +943,7 @@ export default {
             this.form.themeModel = data
         },
         // 生成主题图，这个方法在商品详情提交的时候调用，因为只有那时，才能正确获取规格最小价格，也能避免频繁修改造成图片反复上传
-        async generateImage () {
+        generateImage () {
             // 没有图片
             if (!this.imageList.length) {
                 this.$warning('请至少上传一张商品图片')

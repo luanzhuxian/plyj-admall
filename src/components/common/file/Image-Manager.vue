@@ -282,7 +282,7 @@ export default {
         showSelectImageBox () {
             this.$refs.imageSelector2.$el.click()
         },
-        async fileChange (e) {
+        fileChange (e) {
             const files = Array.from(e.target.files)
             const reg = new RegExp('jpg|png|jpeg|bmp', 'i')
             // 可上传的图片总数

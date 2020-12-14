@@ -374,12 +374,12 @@ export default class HelperManageList extends Vue {
         }
     }
 
-    async belongBatched () {
+    belongBatched () {
         this.currentUserIds = this.currentSelect.map(item => item.mallUserId)
         this.showDialog = true
     }
 
-    async showDialogBox (row: DynamicObject) {
+    showDialogBox (row: DynamicObject) {
         this.showDialog = true
         this.currentUserInfo = row
         this.currentUserIds = [row.mallUserId]
