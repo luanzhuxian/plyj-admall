@@ -330,8 +330,8 @@
                                     <el-button size="large" type="text" @click="preview(index)">预览</el-button>
                                 </swiperSlide>
                             </swiper>
-                            <div class="swiper-button-prev" />
-                            <div class="swiper-button-next" />
+                            <!--                            <div class="swiper-button-prev" />-->
+                            <!--                            <div class="swiper-button-next" />-->
                         </div>
                         <p class="description">
                             可选择更换福利红包详情页的背景，提供不同福利红包
