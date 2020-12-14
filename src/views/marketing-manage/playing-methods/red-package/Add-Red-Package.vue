@@ -44,7 +44,7 @@
                         <el-input style="width: 320px" v-model.trim="form.name" @change="getBrief" maxlength="12" show-word-limit placeholder="请输入福利红包名称" />
                     </el-form-item>
                     <el-form-item label="福利红包面额：" prop="redPacketCouponDTO.amount">
-                        <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="disabled" maxlength="50" placeholder="请输入福利红包金额" /> 元 <span class="label-warning">开始后不可修改</span>
+                        <el-input style="width: 160px" @change="getBrief" type="number" v-model="form.redPacketCouponDTO.amount" :disabled="disabled" maxlength="50" placeholder="请输入福利红包金额" /> 元 <span v-if="$route.name !== 'EditRedPackage'" class="label-warning">开始后不可修改</span>
                         <p class="description">
                             福利红包面额，是活动期间通过免费领取或者付费领取后，可获得的实际福利红包,在购买指定范围内的产品时，可抵扣相应金额使用。
                         </p>
@@ -232,7 +232,7 @@
                     </el-form-item>
 
                     <el-form-item label="抵扣规则：" prop="redPacketCouponDTO.useLimitAmount">
-                        购买金额满 <el-input :disabled="disabled" style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="请输入金额" /> 元 <span class="label-warning">开始后不可修改</span>
+                        购买金额满 <el-input :disabled="disabled" style="width: 160px" type="number" @change="getBrief" v-model="form.redPacketCouponDTO.useLimitAmount" placeholder="请输入金额" /> 元 <span v-if="$route.name !== 'EditRedPackage'" class="label-warning">开始后不可修改</span>
                     </el-form-item>
 
                     <el-form-item label="使用限制：" prop="redPacketCouponDTO.useStackable">
@@ -244,7 +244,7 @@
                                 不支持叠加使用
                             </el-radio>
                         </el-radio-group>
-                        <span class="label-warning">开始后不可修改</span>
+                        <span v-if="$route.name !== 'EditRedPackage'" class="label-warning">开始后不可修改</span>
                         <div class="stackable" v-if="form.redPacketCouponDTO.useStackable">
                             <el-checkbox :disabled="disabled" @change="getBrief" :true-label="1" :false-label="0" v-model="form.redPacketCouponDTO.useWithCoupon">满减券/品类券</el-checkbox>
                             <el-checkbox :disabled="disabled" @change="getBrief" :true-label="1" :false-label="0" v-model="form.redPacketCouponDTO.scholarship">奖学金</el-checkbox>
@@ -263,7 +263,7 @@
                             v-model="form.redPacketCouponDTO.brief"
                             maxlength="200"
                             style="width: 500px;"
-                            :rows="8"
+                            :rows="10"
                             resize="none"
                             show-word-limit
                             :editable="false"
