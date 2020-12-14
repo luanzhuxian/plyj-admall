@@ -28,6 +28,7 @@
                             <span v-if="programId === '8'">支持多商品兑换，使用即可减免商品费用</span>
                             <span v-if="programId === '9'">低价购买福利红包，支付抵扣享优惠</span>
                             <span v-if="programId === '10'">低成本高引流，多种主题任意选</span>
+                            <span v-if="programId === '11'">打卡签到答题，即可参与抽奖，有机会获得智慧礼</span>
                         </p>
                         <p class="active count">
                             当前活动：0个
@@ -48,6 +49,7 @@
                         <img v-if="programId === '8'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png">
                         <img v-if="programId === '9'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png">
                         <img v-if="programId === '10'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png">
+                        <img v-if="programId === '11'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png">
                     </div>
                 </div>
             </el-form-item>

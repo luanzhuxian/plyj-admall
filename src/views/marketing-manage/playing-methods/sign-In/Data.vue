@@ -222,11 +222,11 @@
 </template>
 
 <script>
-import ExportDialog from '../../../../../components/common/Export-Dialog.vue'
-import verification from '../../../../../components/order-center/Verification.vue'
+import ExportDialog from '../../../../components/common/Export-Dialog.vue'
+import verification from '../../../../components/order-center/Verification.vue'
 import moment from 'moment/moment'
-import { createObjectUrl } from '../../../../../assets/ts/upload'
-import { activityStatistic, queryActivityList, exportActivityStatistic, queryActivityGiftDetail } from '../../../../../apis/marketing-manage/new-year/year-flavor'
+import { createObjectUrl } from '../../../../assets/ts/upload'
+import { activityStatistic, queryActivityList, exportActivityStatistic, queryActivityGiftDetail } from '../../../../apis/marketing-manage/new-year/year-flavor'
 export default {
     name: 'SignInData',
     components: {

@@ -25,10 +25,10 @@ export default class RedPackageList extends Vue {
         try {
             this.loading = true
             if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
-            const info: any = this.marketStatusAuth.find(({ programId }) => programId === '9')
+            const info: any = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
             this.info = info
             if (!info || moment(info.validity).valueOf() < Date.now()) {
-                this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: '9' } })
+                this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
             }
         } catch (e) {
             throw e

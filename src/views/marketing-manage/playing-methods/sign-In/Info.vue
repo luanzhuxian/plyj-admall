@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import { getUserTagList } from '../../../../../apis/marketing-manage/together'
-import { materialSchemeList } from '../../../../../apis/marketing-manage/new-year/year-flavor'
+import { getUserTagList } from '../../../../apis/marketing-manage/together'
+import { materialSchemeList } from '../../../../apis/marketing-manage/new-year/year-flavor'
 export default {
     name: 'SignInInfo',
     data () {

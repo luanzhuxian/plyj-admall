@@ -43,6 +43,7 @@
                 <span v-if="programId === '8'">支持多商品兑换，使用即可减免商品费用</span>
                 <span v-if="programId === '9'">低价购买福利红包，支付抵扣享优惠</span>
                 <span v-if="programId === '10'">低成本高引流，多种主题任意选</span>
+                <span v-if="programId === '11'">打卡签到答题，即可参与抽奖，有机会获得智慧礼</span>
             </div>
             <div class="price-box">
                 <span>￥{{ getBaseMarketData.presentPrice }}</span>
@@ -92,6 +93,11 @@
                         <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
                         <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
                     </div>
+                    <div class="red-package-bg" v-if="programId === '11'">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,7 +136,7 @@ export default {
         try {
             if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
             await this.getBaseMarket(this.programId)
-            this.hasTips = ['9', '10'].includes(this.programId)
+            this.hasTips = ['9', '10', '11'].includes(this.programId)
             if (this.hasTips) this.getValidity()
         } catch (e) {
             throw e
@@ -148,7 +154,7 @@ export default {
             }
         },
         getValidity () {
-            this.info = this.marketStatusAuth.find(({ programId }) => programId === '9')
+            this.info = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
             if (this.info) this.day = moment(this.info.validity).diff(moment(), 'day')
         }
     }

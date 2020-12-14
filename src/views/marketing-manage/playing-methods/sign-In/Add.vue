@@ -30,31 +30,30 @@
                     </el-tooltip>
                 </el-form-item>
 
-                <el-form-item label="端午活动内容" prop="materialSchemeModels">
-                    <div>
-                        <span>已选择 {{ form.materialSchemeModels.length }} 个端午活动</span>
-                        <el-checkbox
-                            style="margin-left: 20px"
-                            :indeterminate="materialSchemeModels.length < yearFlavorList.length"
-                            v-model="checkAll"
-                            @change="checkAllChange"
-                            :disabled="status === 1"
-                        >
-                            全选
-                        </el-checkbox>
-                        <span class="purchase-sort-description">（请选择活动界面中需要展示签到的端午活动，建议可选择30个端午活动进行签到）</span>
-                    </div>
-                    <div class="checked-group">
-                        <el-checkbox-group :disabled="status === 1" v-model="materialSchemeModels" @change="materialSchemeChange">
-                            <el-checkbox
-                                v-for="(item, i) of yearFlavorList"
-                                :key="i"
-                                :label="item.id"
-                            >
-                                {{ item.materialName }}
-                            </el-checkbox>
-                        </el-checkbox-group>
-                    </div>
+                <el-form-item label="答题数量" prop="materialSchemeModels">
+                    <el-input-number v-model="form.materialSchemeModels" :min="7" :max="20" label="描述文字" />
+                    <span class="purchase-sort-description">可选择活动界面需要展示的答题数量，至多可设置7-20个题目</span>
+                    <!--                    <span>已选择 {{ form.materialSchemeModels.length }} 个端午活动</span>-->
+                    <!--                    <el-checkbox-->
+                    <!--                        style="margin-left: 20px"-->
+                    <!--                        :indeterminate="materialSchemeModels.length < yearFlavorList.length"-->
+                    <!--                        v-model="checkAll"-->
+                    <!--                        @change="checkAllChange"-->
+                    <!--                        :disabled="status === 1"-->
+                    <!--                    >-->
+                    <!--                        全选-->
+                    <!--                    </el-checkbox>-->
+                    <!--                    <div class="checked-group">-->
+                    <!--                        <el-checkbox-group :disabled="status === 1" v-model="materialSchemeModels" @change="materialSchemeChange">-->
+                    <!--                            <el-checkbox-->
+                    <!--                                v-for="(item, i) of yearFlavorList"-->
+                    <!--                                :key="i"-->
+                    <!--                                :label="item.id"-->
+                    <!--                            >-->
+                    <!--                                {{ item.materialName }}-->
+                    <!--                            </el-checkbox>-->
+                    <!--                        </el-checkbox-group>-->
+                    <!--                    </div>-->
                 </el-form-item>
 
                 <el-form-item label="适用用户">
@@ -300,12 +299,12 @@
     </div>
 </template>
 <script>
-import { getUserTtagList } from '../../../../../apis/marketing-manage/coupon'
-import { materialSchemeList, addSigninActivity, signinActivityDetail, editActivityInfoDataStart, editActivityInfoNotStart } from '../../../../../apis/marketing-manage/new-year/spring-ploughing'
-import Ladder from '../../longmen-festival/components/Ladder.vue'
-import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
-import UploadImage from '../../../../../components/common/file/Image-Manager'
-import { checkNumber } from '../../../../../assets/ts/validate'
+import { getUserTtagList } from '../../../../apis/marketing-manage/coupon'
+import { addSigninActivity, signinActivityDetail, editActivityInfoDataStart, editActivityInfoNotStart } from '../../../../apis/marketing-manage/new-year/spring-ploughing'
+import Ladder from '../../activities/longmen-festival/components/Ladder.vue'
+import EditPresent from '../../../../components/marketing-manage/Edit-Present.vue'
+import UploadImage from '../../../../components/common/file/Image-Manager'
+import { checkNumber } from '../../../../assets/ts/validate'
 class LadderData {
     // 礼品名称
   giftName = ''
@@ -346,13 +345,13 @@ export default {
         UploadImage
     },
     data () {
-        const checkMaterial = (rule, value, callBack) => {
-            if (value.length < 7) {
-                callBack(new Error(rule.message))
-            } else {
-                callBack()
-            }
-        }
+        // const checkMaterial = (rule, value, callBack) => {
+        //     if (value.length < 7) {
+        //         callBack(new Error(rule.message))
+        //     } else {
+        //         callBack()
+        //     }
+        // }
         const checkGiftModels = (rule, value, callBack) => {
             if (!value.length) {
                 callBack(new Error('请添加粽粽大礼'))
@@ -419,7 +418,7 @@ export default {
                 // 部分用户标签
                 userGroupTagModels: [],
                 // 粽粽标签
-                materialSchemeModels: [],
+                materialSchemeModels: 20,
                 // 粽粽大礼
                 giftModels: [],
                 // 是否设置阶梯奖
@@ -431,8 +430,6 @@ export default {
             },
             // logo 图片地址
             logImgUrl: [],
-            // 粽粽id
-            materialSchemeModels: [],
             // 活动状态 0  未开始  1 进行中   2  活动已结束
             status: 0,
             rules: {
@@ -440,7 +437,7 @@ export default {
                     { required: true, message: '请选择活动时间', trigger: 'blur' }
                 ],
                 materialSchemeModels: [
-                    { validator: checkMaterial, message: '端午活动选择不能少于7个', trigger: 'blur' }
+                    { validator: checkNumber(20, 7, 0), trigger: 'blur' }
                 ],
                 activityRule: [
                     { required: true, message: '使用须知不能为空', trigger: 'blur' },
@@ -568,7 +565,7 @@ export default {
                         activityRule,
                         userScope,
                         userGroupTagModels: tagGroups.map(item => item.groupTagId),
-                        materialSchemeModels: materialSchemes.map(item => ({ materialId: item.materialId, materialOrder: item.materialOrder })),
+                        materialSchemeModels: materialSchemes,
                         // 粽粽大礼数据回填
                         giftModels: bigGifts.map(item => ({
                             giftName: item.giftName,
@@ -596,7 +593,6 @@ export default {
                         logImgUrl
                     }
                     this.logImgUrl = logImgUrl ? [logImgUrl] : []
-                    this.materialSchemeModels = materialSchemes.map(item => item.materialId)
                     this.initDate = [activityStartTime, activityEndTime]
                     this.form = form
                     this.status = status
@@ -617,14 +613,15 @@ export default {
         // 获取粽粽和用户分组
         async getTagListFun () {
             try {
-                const res = await Promise.all([getUserTtagList(), materialSchemeList({ activityType: 3 })])
-                this.userTagList = res[0].result
-                this.yearFlavorList = res[1].result
-                // 粽粽默认全选
-                if (!this.id) {
-                    this.form.materialSchemeModels = this.yearFlavorList.map((item, index) => ({ materialId: item.id, materialOrder: index }))
-                    this.materialSchemeModels = this.yearFlavorList.map(({ id }) => id)
-                }
+                const { result } = await getUserTtagList()
+                // const res = await Promise.all([ materialSchemeList({ activityType: 3 })])
+                // this.yearFlavorList = res[1].result
+                this.userTagList = result
+                // // 粽粽默认全选
+                // if (!this.id) {
+                //     this.form.materialSchemeModels = this.yearFlavorList.map((item, index) => ({ materialId: item.id, materialOrder: index }))
+                //     this.materialSchemeModels = this.yearFlavorList.map(({ id }) => id)
+                // }
             } catch (e) {
                 throw e
             }
@@ -663,26 +660,26 @@ export default {
             this.form.giftModels.splice(index, 1)
         },
         // 粽粽全选
-        checkAllChange (val) {
-            if (val) {
-                this.form.materialSchemeModels = this.yearFlavorList.map(item => ({
-                    materialId: item.id,
-                    materialOrder: Number(item.id)
-                }))
-                this.materialSchemeModels = this.yearFlavorList.map(item => item.id)
-            } else {
-                this.form.materialSchemeModels = []
-                this.materialSchemeModels = []
-            }
-        },
+        // checkAllChange (val) {
+        //     if (val) {
+        //         this.form.materialSchemeModels = this.yearFlavorList.map(item => ({
+        //             materialId: item.id,
+        //             materialOrder: Number(item.id)
+        //         }))
+        //         this.materialSchemeModels = this.yearFlavorList.map(item => item.id)
+        //     } else {
+        //         this.form.materialSchemeModels = []
+        //         this.materialSchemeModels = []
+        //     }
+        // },
         // 粽粽改变后
-        materialSchemeChange (val) {
-            this.form.materialSchemeModels = val.map((item, index) => ({
-                materialId: item,
-                materialOrder: index
-            }))
-            this.getBrief()
-        },
+        // materialSchemeChange (val) {
+        //     this.form.materialSchemeModels = val.map((item, index) => ({
+        //         materialId: item,
+        //         materialOrder: index
+        //     }))
+        //     this.getBrief()
+        // },
         // 修改奖品数量
         bigGiftCountChange (row, count, isEdit) {
             if (!isEdit) {
@@ -695,7 +692,7 @@ export default {
         },
         getBrief () {
             if (this.briefEdit) return
-            this.form.activityRule = `1.在活动有效期内，签到${ this.materialSchemeModels.length }个端午活动，即可有机会参与粽粽大礼的抽奖
+            this.form.activityRule = `1.在活动有效期内，签到${ this.form.materialSchemeModels }个端午活动，即可有机会参与粽粽大礼的抽奖
 2.每人仅有1次抽取粽粽大礼的机会；
 3.粽粽大礼：用户抽奖粽粽大奖的方式，采取的是随机抽奖的方式；
 4.获得的粽粽大礼将自动存入“我的礼品”中，兑换有效期内用户可随时查看；
@@ -705,10 +702,10 @@ export default {
 8.优惠券和奖学金在有效期内未使用，将自动过期，过期后购买商品将不可进行抵扣。`
         },
         checkData () {
-            if (Math.max(...this.ladderAwardLocationList) >= this.form.materialSchemeModels.length) {
-                this.$warning('最大阶梯不能大于等于端午活动数量')
-                return false
-            }
+            // if (Math.max(...this.ladderAwardLocationList) >= this.form.materialSchemeModels.length) {
+            //     this.$warning('最大阶梯不能大于等于端午活动数量')
+            //     return false
+            // }
             if (Array.from(new Set(this.ladderAwardLocationList)).length !== this.ladderAwardLocationList.length) {
                 this.$warning('阶梯累计年俗数量不能相同')
                 return false

@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { queryGiftList } from '../../../../../apis/marketing-manage/new-year/year-flavor'
+import { queryGiftList } from '../../../../apis/marketing-manage/new-year/year-flavor'
 export default {
     name: 'SignInGiftData',
     data () {

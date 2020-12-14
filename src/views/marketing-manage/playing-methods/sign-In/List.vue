@@ -170,10 +170,10 @@
     </div>
 </template>
 <script>
-import Pagination from '../../../../../components/common/Pagination.vue'
-import Share from '../../../../../components/common/Share.vue'
-import { couponModifystatus } from '../../../../../apis/marketing-manage/coupon'
-import { queryActivityInfo, endingActivity } from '../../../../../apis/marketing-manage/new-year/year-flavor'
+import Pagination from '../../../../components/common/Pagination.vue'
+import Share from '../../../../components/common/Share.vue'
+import { couponModifystatus } from '../../../../apis/marketing-manage/coupon'
+import { queryActivityInfo, endingActivity } from '../../../../apis/marketing-manage/new-year/year-flavor'
 export default {
     name: 'SignInList',
     components: {

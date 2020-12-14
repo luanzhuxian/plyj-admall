@@ -3,57 +3,63 @@ export default [
         path: 'new-year-sign-in',
         name: 'NewYearSignIn',
         redirect: 'new-year-sign-in/list',
-        component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Index.vue'),
+        component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Index.vue'),
         meta: {
             title: '打卡聪明年',
-            index: '11-11'
+            index: '11-11',
+            ignore: true
         },
         children: [
             {
                 path: 'list',
                 name: 'SignInList',
-                component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/List.vue'),
+                component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/List.vue'),
                 meta: {
                     title: '列表',
-                    index: '11-11-1'
+                    index: '11-11-1',
+                    ignore: true
                 }
             },
             {
                 path: 'add',
                 name: 'SignInAdd',
-                component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Add.vue'),
+                component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Add.vue'),
                 meta: {
                     title: '新建活动',
-                    index: '11-11-2'
+                    index: '11-11-2',
+                    ignore: true
                 }
             },
             {
                 path: 'edit/:id',
                 name: 'SignInEdit',
                 props: true,
-                component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Add.vue'),
+                component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Add.vue'),
                 meta: {
                     title: '编辑活动',
-                    index: '11-11-3'
+                    index: '11-11-3',
+                    ignore: true
                 }
             },
             {
                 path: 'setting',
                 name: 'SignInSetting',
-                component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Setting.vue'),
+                component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Setting.vue'),
                 meta: {
                     title: '活动设置',
-                    index: '11-11-4'
+                    index: '11-11-4',
+                    ignore: true
                 }
             },
             {
                 path: 'edit/:id',
                 name: 'SignInCopy',
                 props: true,
-                component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Add.vue'),
+                component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Add.vue'),
                 meta: {
                     title: '复制活动',
-                    index: '11-11-5'
+                    index: '11-11-5',
+                    ignore: true
                 }
             },
             {
@@ -61,17 +67,18 @@ export default [
                 name: 'SignInDetail',
                 redirect: 'detail/:id/info',
                 props: true,
-                component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Detail.vue'),
+                component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Detail.vue'),
                 meta: {
                     title: '活动详情',
-                    index: '11-11-6'
+                    index: '11-11-6',
+                    ignore: true
                 },
                 children: [
                     // 活动详情
                     {
                         path: 'info',
                         name: 'SignInInfo',
-                        component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Info.vue'),
+                        component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Info.vue'),
                         meta: {
                             ignore: true
                         }
@@ -80,7 +87,7 @@ export default [
                     {
                         path: 'data',
                         name: 'SignInData',
-                        component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Data.vue'),
+                        component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Data.vue'),
                         meta: {
                             title: '活动数据',
                             ignore: true
@@ -90,7 +97,7 @@ export default [
                     {
                         path: 'gift-data',
                         name: 'SignInGiftData',
-                        component: () => import('../../../../../views/marketing-manage/activities/new-year/sign-In/Gift-Data.vue'),
+                        component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Gift-Data.vue'),
                         meta: {
                             title: '礼品发放数据',
                             ignore: true

@@ -35,8 +35,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { signinActivityDetail } from '../../../../../apis/marketing-manage/new-year/spring-ploughing'
-import { MutationTypes } from '../../../../../store/mutation-type'
+import { signinActivityDetail } from '../../../../apis/marketing-manage/new-year/spring-ploughing'
+import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'SignInDetail',
     data () {

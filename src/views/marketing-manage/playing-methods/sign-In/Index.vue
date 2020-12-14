@@ -8,9 +8,9 @@
             :start-time="start"
             :end-time="end"
         />
-        <!--        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name === 'SignInList'">-->
-        <!--            新建活动-->
-        <!--        </el-button>-->
+        <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name === 'SignInList'">
+            新建活动
+        </el-button>
         <el-button type="text" @click="showExplanation = true" v-show="$route.name === 'SignInList'">
             活动说明
         </el-button>
@@ -22,8 +22,8 @@
 <script>
 import SignInSetting from './Setting'
 import { mapGetters, mapActions } from 'vuex'
-import { MutationTypes } from '../../../../../store/mutation-type'
-import ListHeader from '../../../../../components/marketing-manage/List-Header'
+import { MutationTypes } from '../../../../store/mutation-type'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 import moment from 'moment'
 export default {
     name: 'SignInIndex',
@@ -33,7 +33,8 @@ export default {
             showTop: false,
             start: '',
             end: '',
-            showExplanation: false
+            showExplanation: false,
+            programId: '11'
         }
     },
     computed: {
@@ -44,10 +45,9 @@ export default {
     async created () {
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
-        const info = this.marketStatusAuth.find(({ programId }) => programId === '11')
+        const info = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
         if (!info || moment(info.validity).valueOf() < Date.now()) {
-            await this.$router.replace({ name: 'MarketingGameplayList' })
-            await this.$alert('打卡聪明年专属活动，若要开通请联系城市经理或者客服')
+            this.$router.replace({ name: 'MarketingUnpaidDetail', params: { programId: this.programId } })
             return
         }
 
