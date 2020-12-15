@@ -71,17 +71,22 @@
                             部分用户可用<span class="purchase-sort-description"> （请先在会员中心-设置用户分组）</span>
                         </el-radio>
                     </el-radio-group>
-                    <div v-if="form.userScope === 3" class="checked-group">
-                        <el-checkbox-group :disabled="status === 1" v-model="form.userGroupTagModels">
-                            <el-checkbox
-                                v-for="(item, i) of userTagList"
-                                :key="i"
-                                :label="item.id"
-                            >
-                                {{ item.tagName }}
-                            </el-checkbox>
-                        </el-checkbox-group>
-                    </div>
+                    <!--                    <div v-if="form.userScope === 3" class="checked-group">-->
+                    <!--                        <el-checkbox-group :disabled="status === 1" v-model="form.userGroupTagModels">-->
+                    <!--                            <el-checkbox-->
+                    <!--                                v-for="(item, i) of userTagList"-->
+                    <!--                                :key="i"-->
+                    <!--                                :label="item.id"-->
+                    <!--                            >-->
+                    <!--                                {{ item.tagName }}-->
+                    <!--                            </el-checkbox>-->
+                    <!--                        </el-checkbox-group>-->
+                    <!--                    </div>-->
+                    <UserGroup
+                        v-show="form.userScope === 3"
+                        :disabled="status === 1"
+                        v-model="form.userGroupTagModels"
+                    />
                 </el-form-item>
 
                 <el-form-item label="抽奖条件">
@@ -299,11 +304,11 @@
     </div>
 </template>
 <script>
-import { getUserTtagList } from '../../../../apis/marketing-manage/coupon'
 import { addSigninActivity, signinActivityDetail, editActivityInfoDataStart, editActivityInfoNotStart } from '../../../../apis/marketing-manage/new-year/spring-ploughing'
 import Ladder from '../../activities/longmen-festival/components/Ladder.vue'
 import EditPresent from '../../../../components/marketing-manage/Edit-Present.vue'
 import UploadImage from '../../../../components/common/file/Image-Manager'
+import UserGroup from '../../../../components/common/User-Group.vue'
 import { checkNumber } from '../../../../assets/ts/validate'
 class LadderData {
     // 礼品名称
@@ -342,7 +347,8 @@ export default {
     components: {
         Ladder,
         EditPresent,
-        UploadImage
+        UploadImage,
+        UserGroup
     },
     data () {
         // const checkMaterial = (rule, value, callBack) => {
@@ -392,7 +398,6 @@ export default {
             previewShow: false,
             showPresent: false,
             yearFlavorList: [],
-            userTagList: [],
             editIndex: -1,
             initDate: ['', ''],
             form: {
@@ -476,7 +481,7 @@ export default {
     },
     async created () {
         try {
-            await this.getTagListFun()
+            // await this.getTagListFun()
             await this.getDetail()
         } catch (e) {
             throw e
@@ -611,21 +616,21 @@ export default {
             this.$refs.form.clearValidate('awardModels')
         },
         // 获取粽粽和用户分组
-        async getTagListFun () {
-            try {
-                const { result } = await getUserTtagList()
-                // const res = await Promise.all([ materialSchemeList({ activityType: 3 })])
-                // this.yearFlavorList = res[1].result
-                this.userTagList = result
-                // // 粽粽默认全选
-                // if (!this.id) {
-                //     this.form.materialSchemeModels = this.yearFlavorList.map((item, index) => ({ materialId: item.id, materialOrder: index }))
-                //     this.materialSchemeModels = this.yearFlavorList.map(({ id }) => id)
-                // }
-            } catch (e) {
-                throw e
-            }
-        },
+        // async getTagListFun () {
+        //     try {
+        //         const { result } = await getUserTtagList()
+        //         // const res = await Promise.all([ materialSchemeList({ activityType: 3 })])
+        //         // this.yearFlavorList = res[1].result
+        //         this.userTagList = result
+        //         // // 粽粽默认全选
+        //         // if (!this.id) {
+        //         //     this.form.materialSchemeModels = this.yearFlavorList.map((item, index) => ({ materialId: item.id, materialOrder: index }))
+        //         //     this.materialSchemeModels = this.yearFlavorList.map(({ id }) => id)
+        //         // }
+        //     } catch (e) {
+        //         throw e
+        //     }
+        // },
         // 选择粽粽大礼
         selectPresent (data) {
             data = data.giftDetail
