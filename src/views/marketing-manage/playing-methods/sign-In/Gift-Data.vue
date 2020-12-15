@@ -3,7 +3,7 @@
         <div :class="$style.tabCardContent">
             <div :class="$style.tabCardItem">
                 <div :class="$style.cardItemTitle">
-                    粽粽大礼
+                    智慧礼
                 </div>
                 <div :class="$style.cardItemContent">
                     <i v-text="statistics.finalCount || 0" /> <span /> <span>类</span>
@@ -11,7 +11,7 @@
             </div>
             <div :class="$style.tabCardItem">
                 <div :class="$style.cardItemTitle">
-                    已领取粽粽大礼
+                    已领取智慧礼
                 </div>
                 <div :class="$style.cardItemContent">
                     <i v-text="statistics.finalSum || 0" /> <span>个</span>
@@ -50,7 +50,7 @@
                 align="left"
             >
                 <template #default="{row}">
-                    {{ row.awardType === 1 ? '阶梯奖品' : '粽粽大礼' }}
+                    {{ row.awardType === 1 ? '阶梯奖品' : '智慧礼' }}
                 </template>
             </el-table-column>
             <el-table-column

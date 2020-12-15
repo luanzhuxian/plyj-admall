@@ -16,17 +16,9 @@
                 </div>
             </li>
             <li>
-                <label>端午活动内容：</label>
-                <div :class="[$style.value,$style.checkedGroup]">
-                    <el-checkbox-group disabled :value="activityDetail.materialSchemes.map( ({materialId}) => String(materialId) )">
-                        <el-checkbox
-                            v-for="(item, i) of yearFlavorList"
-                            :key="i"
-                            :label="item.id"
-                        >
-                            {{ item.materialName }}
-                        </el-checkbox>
-                    </el-checkbox-group>
+                <label>答题数量：</label>
+                <div :class="$style.value">
+                    {{ activityDetail.entity.checkDays }}个智力题目
                 </div>
             </li>
             <li>
@@ -47,7 +39,7 @@
             <li>
                 <label>抽奖时间：</label>
                 <div :class="$style.value">
-                    用户签到参与全部的端午活动，即可进行粽粽大礼的抽奖
+                    用户签到参与全部的端午活动，即可进行智慧礼的抽奖
                 </div>
             </li>
             <li>
@@ -61,7 +53,7 @@
                 </div>
             </li>
             <li>
-                <label>粽粽大礼：</label>
+                <label>智慧礼：</label>
                 <div>
                     <div :class="$style.product" v-for="(item,index) in activityDetail.bigGifts" :key="index">
                         <img :src="item.giftImage">
@@ -191,24 +183,6 @@ export default {
                 width: 130px;
                 color: #999;
                 margin-right: 10px;
-            }
-            > .checked-group {
-                display: flex;
-                width: max-content;
-                padding: 10px;
-                margin-top: 5px;
-                background-color: #eee;
-                box-shadow: 0 0 0 1px #ccc inset;
-                > div {
-                    display: inline-grid;
-                    grid-template-columns: auto auto auto ;
-                    flex-wrap: wrap;
-                    > label {
-                        display: inline-flex;
-                        align-items: center;
-                        height: 24px !important;
-                    }
-                }
             }
             > .value {
                 color: #333;

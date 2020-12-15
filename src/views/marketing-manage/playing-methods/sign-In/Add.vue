@@ -1,18 +1,22 @@
 <template>
-    <div class="add-product">
+    <div class="sign-box">
         <div class="add-content">
             <div class="content-title">
                 基本信息
+                <div style="margin-left: 20px" class="purchase-sort-description">
+                    参与打卡答题活动，即可参与抽奖，有机会获得活动大奖
+                </div>
             </div>
             <el-form
-                class="wrap"
-                label-width="150px"
-                label-position="left"
+                label-width="170px"
+                label-position="right"
                 ref="form"
+                class="main-form"
                 :model="form"
                 :rules="rules"
+                auto-scroll-to-error
             >
-                <el-form-item label="活动时间" prop="activityStartTime">
+                <el-form-item label="活动时间：" prop="activityStartTime">
                     <date-range
                         :disable-before="true"
                         style="display: inline-block;"
@@ -30,34 +34,16 @@
                     </el-tooltip>
                 </el-form-item>
 
-                <el-form-item label="答题数量" prop="materialSchemeModels">
-                    <el-input-number v-model="form.materialSchemeModels" :min="7" :max="20" label="描述文字" />
-                    <span class="purchase-sort-description">可选择活动界面需要展示的答题数量，至多可设置7-20个题目</span>
-                    <!--                    <span>已选择 {{ form.materialSchemeModels.length }} 个端午活动</span>-->
-                    <!--                    <el-checkbox-->
-                    <!--                        style="margin-left: 20px"-->
-                    <!--                        :indeterminate="materialSchemeModels.length < yearFlavorList.length"-->
-                    <!--                        v-model="checkAll"-->
-                    <!--                        @change="checkAllChange"-->
-                    <!--                        :disabled="status === 1"-->
-                    <!--                    >-->
-                    <!--                        全选-->
-                    <!--                    </el-checkbox>-->
-                    <!--                    <div class="checked-group">-->
-                    <!--                        <el-checkbox-group :disabled="status === 1" v-model="materialSchemeModels" @change="materialSchemeChange">-->
-                    <!--                            <el-checkbox-->
-                    <!--                                v-for="(item, i) of yearFlavorList"-->
-                    <!--                                :key="i"-->
-                    <!--                                :label="item.id"-->
-                    <!--                            >-->
-                    <!--                                {{ item.materialName }}-->
-                    <!--                            </el-checkbox>-->
-                    <!--                        </el-checkbox-group>-->
-                    <!--                    </div>-->
+                <el-form-item label="答题数量：" prop="checkDays" required>
+                    <el-input-number v-model="form.checkDays" :min="7" :max="20" label="描述文字" />
+                    个智力题目
+                    <el-button type="text">预览题目</el-button>
+                    <p class="purchase-sort-description" style="margin-left: 0">可选择活动界面需要展示的答题数量，至多可设置7-20个题目</p>
                 </el-form-item>
 
-                <el-form-item label="适用用户">
-                    <el-radio-group :disabled="status === 1" v-model="form.userScope" @change="form.userGroupTagModels = []">
+                <el-form-item label="适用用户：" prop="userScope" required>
+                    <el-radio-group :disabled="status === 1" v-model="form.userScope"
+                                    @change="form.userGroupTagModels = []">
                         <el-radio :label="0">
                             所有注册用户
                         </el-radio>
@@ -71,17 +57,6 @@
                             部分用户可用<span class="purchase-sort-description"> （请先在会员中心-设置用户分组）</span>
                         </el-radio>
                     </el-radio-group>
-                    <!--                    <div v-if="form.userScope === 3" class="checked-group">-->
-                    <!--                        <el-checkbox-group :disabled="status === 1" v-model="form.userGroupTagModels">-->
-                    <!--                            <el-checkbox-->
-                    <!--                                v-for="(item, i) of userTagList"-->
-                    <!--                                :key="i"-->
-                    <!--                                :label="item.id"-->
-                    <!--                            >-->
-                    <!--                                {{ item.tagName }}-->
-                    <!--                            </el-checkbox>-->
-                    <!--                        </el-checkbox-group>-->
-                    <!--                    </div>-->
                     <UserGroup
                         v-show="form.userScope === 3"
                         :disabled="status === 1"
@@ -89,15 +64,15 @@
                     />
                 </el-form-item>
 
-                <el-form-item label="抽奖条件">
-                    集齐已勾选的全部端午活动，即可获得1次抽奖机会
+                <el-form-item label="抽奖条件：" required>
+                    签到指定数量的智力题目，即可获得1次抽奖机会
                 </el-form-item>
 
-                <el-form-item label="抽奖时间">
-                    用户签到参与全部的端午活动，即可进行粽粽大礼的抽奖
+                <el-form-item label="抽奖时间：" required>
+                    用户打卡签到指定数量的智力题目，即可进行智慧礼的抽奖
                 </el-form-item>
 
-                <el-form-item label="活动细则" prop="activityRule">
+                <el-form-item label="活动细则：" prop="activityRule">
                     <div class="flex align-item-end">
                         <el-input
                             :disabled="!briefEdit"
@@ -111,39 +86,49 @@
                             show-word-limit
                             :editable="false"
                         />
-                        <pl-svg v-if="!briefEdit" class="brief-edit" width="24" name="icon-bianji1" fill="#4F63FF" @click="briefEdit = true" />
+                        <pl-svg v-if="!briefEdit" class="brief-edit" width="24" name="icon-bianji1" fill="#4F63FF"
+                                @click="briefEdit = true" />
                     </div>
                 </el-form-item>
-
-                <el-form-item label="总中奖率" prop="winningProbability">
-                    <el-input type="number" :disabled="status === 1" v-model.number="form.winningProbability" style="width: 60px;" /> %
-                    <span class="purchase-sort-description">（总中奖率仅针对粽粽大礼抽奖概率的设置）</span>
+                <div class="content-title">
+                    奖品设置
+                </div>
+                <el-form-item label="总中奖率：" prop="winningProbability">
+                    <el-input type="number" :disabled="status === 1" v-model.number="form.winningProbability"
+                              style="width: 60px;" />
+                    %
+                    <span class="purchase-sort-description">（总中奖率仅针对智慧礼抽奖概率的设置）</span>
                     <el-tooltip popper-class="winning-probabilit" placement="top" effect="light">
                         <ul class="win-rate" slot="content">
-                            <li>总中奖率仅针对粽粽大礼的抽奖，不针对阶梯奖品。</li>
+                            <li>总中奖率仅针对智慧礼的抽奖，不针对阶梯奖品。</li>
                             <li>设置可分为2种情况：</li>
                             <li>
-                                情况1：如果粽粽大礼每个参与用户均可有机会获得奖品；
+                                情况1：如果智慧礼每个参与用户均可有机会获得奖品；
+                            </li>
+                            <li>
                                 设置中奖率为100%，则每个抽奖用户，均有机会获得
-                                粽粽大礼，抽奖的概率按照库存数量进行计算，库存量
+                                智慧礼，
+                            </li>
+                            <li>
+                                抽奖的概率按照库存数量进行计算，库存量
                                 越少抽中概率越低，库存越多抽中概率越高；
                             </li>
                             <li>情况2：只有部分参与用户可有机会获得奖品；</li>
                             <li>设置中奖概率在1%-99%之间:</li>
                             <li>
                                 如，中奖率设置1%，则200个人抽奖，仅有2个用户可有机
-                                会获得粽粽大礼；
+                                会获得智慧礼；
                             </li>
                             <li>
                                 如，中奖率设置为10%，则如果有200个人抽奖，有20个人
-                                有机会抽中粽粽大礼；
+                                有机会抽中智慧礼；
                             </li>
                         </ul>
                         <u style="cursor:pointer;color:#4F63FF">示例</u>
                     </el-tooltip>
                 </el-form-item>
 
-                <el-form-item label="粽粽大礼" prop="giftModels">
+                <el-form-item label="智慧礼：" prop="giftModels">
                     <el-table
                         class="table mb-20"
                         :data="form.giftModels"
@@ -154,9 +139,9 @@
                         <el-table-column label="礼品库存">
                             <template #default="{ row }">
                                 <!--
-                  最小库存限制，
-                  如果是编辑活动，且活动处于进行中，且是原来存在的礼品，最小库存可以为0
-                 -->
+                      最小库存限制，
+                      如果是编辑活动，且活动处于进行中，且是原来存在的礼品，最小库存可以为0
+                     -->
                                 <el-input-number
                                     v-model="row.allAwardLimit"
                                     :min="row.id && status === 1 ? (row.allAwardLimitCopy || 1) : 1"
@@ -174,12 +159,15 @@
                                 <span v-text="row.useEndTime" />
                             </template>
                         </el-table-column>
-                        <el-table-column class-name="edit-big-gifts" label="操作" width="250" align="right" header-align="right">
+                        <el-table-column class-name="edit-big-gifts" label="操作" width="250" align="right"
+                                         header-align="right">
                             <template #default="scope">
-                                <el-button v-if="status !== 1 || !scope.row.awardId" type="text" @click="editPresent(scope.row, scope.$index)">
+                                <el-button v-if="status !== 1 || !scope.row.awardId" type="text"
+                                           @click="editPresent(scope.row, scope.$index)">
                                     编辑
                                 </el-button>
-                                <el-button class="mr-10 ml-10" v-if="status !== 1 || !scope.row.awardId" type="text" @click="removePresent(scope.$index)">
+                                <el-button class="mr-10 ml-10" v-if="status !== 1 || !scope.row.awardId" type="text"
+                                           @click="removePresent(scope.$index)">
                                     删除
                                 </el-button>
                                 <el-switch
@@ -195,7 +183,8 @@
                                     content="设置为神秘奖，则在活动界面显示为“神秘大奖”图样，用户中奖后可展示实际奖品内容"
                                     placement="bottom"
                                 >
-                                    <pl-svg name="icon-jinggao" width="18" fill="#999" class="ml-10" style="vertical-align: middle;" />
+                                    <pl-svg name="icon-jinggao" width="18" fill="#999" class="ml-10"
+                                            style="vertical-align: middle;" />
                                 </el-tooltip>
                             </template>
                         </el-table-column>
@@ -208,10 +197,10 @@
                     >
                         添加礼品
                     </el-button>
-                    <span class="purchase-sort-description ml-10">（仅可支持添加至多3个粽粽大礼）</span>
+                    <span class="purchase-sort-description ml-10">（仅可支持添加至多3个智慧礼）</span>
                 </el-form-item>
 
-                <el-form-item label="阶梯奖品" prop="awardModels">
+                <el-form-item label="阶梯奖品：" prop="awardModels">
                     <el-radio-group v-model="form.ladderAward" :disabled="status === 1" @change="awardChange">
                         <el-radio :label="0">
                             不设置奖品
@@ -230,7 +219,9 @@
                                     :model="item"
                                     :status="status"
                                     :min-ladder="form.awardModels[i - 1] ? form.awardModels[i - 1].ladderAwardLocation + 1 : i + 1"
-                                    material-type="端午活动"
+                                    :max-ladder="19"
+                                    material-type="智力题"
+                                    prefix="累计打卡"
                                     @remove="form.awardModels.splice(i, 1)"
                                     @ladderAwardLocationChange="ladderAwardLocationChange"
                                 />
@@ -248,7 +239,7 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item label="品牌曝光" prop="logoModels">
+                <el-form-item label="品牌曝光：" prop="logoModels">
                     <div class="mb-10">
                         <el-checkbox :true-label="1" :false-label="0" v-model="form.isShowLog">
                             展示品牌 logo
@@ -269,22 +260,16 @@
                     </template>
                 </el-form-item>
             </el-form>
-            <div class="btn-box">
-                <el-button size="mini" plain style="width: 90px;margin-left: 20px" @click="cancel">
+            <div class="add-btn-wrap">
+                <el-button plain round @click="cancel">
                     取消
                 </el-button>
                 <!--<el-button size="mini" type="primary" plain @click="preview">
           预览
         </el-button>-->
-                <el-button size="mini" type="primary" plain :loading="loading" @click="save">
+                <el-button type="primary" round :loading="loading" @click="save">
                     保存
                 </el-button>
-            </div>
-            <div class="preview">
-                <div class="newcomer-example-title">
-                    活动预览
-                </div>
-                <img src="https://mallcdn.youpenglai.com/static/admall/2.9.0/longmen-sign-preview.jpg">
             </div>
         </div>
         <!--
@@ -304,44 +289,51 @@
     </div>
 </template>
 <script>
-import { addSigninActivity, signinActivityDetail, editActivityInfoDataStart, editActivityInfoNotStart } from '../../../../apis/marketing-manage/new-year/spring-ploughing'
+import {
+    addSigninActivity,
+    signinActivityDetail,
+    editActivityInfoDataStart,
+    editActivityInfoNotStart
+} from '../../../../apis/marketing-manage/new-year/spring-ploughing'
 import Ladder from '../../activities/longmen-festival/components/Ladder.vue'
 import EditPresent from '../../../../components/marketing-manage/Edit-Present.vue'
 import UploadImage from '../../../../components/common/file/Image-Manager'
 import UserGroup from '../../../../components/common/User-Group.vue'
 import { checkNumber } from '../../../../assets/ts/validate'
+
 class LadderData {
-    // 礼品名称
-  giftName = ''
-  // 礼品简介
-  giftBrief = ''
-  // 礼品图片
-  giftImage = ''
-  //  礼品库存
-  stock = 1
-  useStartTime = ''
-  useEndTime = ''
-  // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
-  ladderAwardType = 1
-  // 奖品位置（排序）
-  ladderAwardLocation = 1
-  // 是否隐藏 (暂无此字段)
-  isShow = ''
-  // 是否隐藏
-  allAwardLimit = ''
-  // 奖品派发量(剩余量，添加时等于库存)
-  awardDraw = ''
-  // 奖学金
-  scholarshipPrice = ''
-  // 奖学金有效时间
-  scholarshipEffectiveTime = ''
-  // 奖品Id（优惠券才有）
-  awardId = ''
-  // 奖品类型 1 阶梯奖 2 终极大奖
-  awardType = 1
-  // key, 排序动画有用
-  key = Math.random()
+        // 礼品名称
+        giftName = ''
+        // 礼品简介
+        giftBrief = ''
+        // 礼品图片
+        giftImage = ''
+        //  礼品库存
+        stock = 1
+        useStartTime = ''
+        useEndTime = ''
+        // 奖品类型 1 礼品 2 奖学金  3 全场满减券 4 品类券
+        ladderAwardType = 1
+        // 奖品位置（排序）
+        ladderAwardLocation = 1
+        // 是否隐藏 (暂无此字段)
+        isShow = ''
+        // 是否隐藏
+        allAwardLimit = ''
+        // 奖品派发量(剩余量，添加时等于库存)
+        awardDraw = ''
+        // 奖学金
+        scholarshipPrice = ''
+        // 奖学金有效时间
+        scholarshipEffectiveTime = ''
+        // 奖品Id（优惠券才有）
+        awardId = ''
+        // 奖品类型 1 阶梯奖 2 终极大奖
+        awardType = 1
+        // key, 排序动画有用
+        key = Math.random()
 }
+
 export default {
     name: 'SignInAdd',
     components: {
@@ -351,16 +343,9 @@ export default {
         UserGroup
     },
     data () {
-        // const checkMaterial = (rule, value, callBack) => {
-        //     if (value.length < 7) {
-        //         callBack(new Error(rule.message))
-        //     } else {
-        //         callBack()
-        //     }
-        // }
         const checkGiftModels = (rule, value, callBack) => {
             if (!value.length) {
-                callBack(new Error('请添加粽粽大礼'))
+                callBack(new Error('请添加智慧礼'))
             } else {
                 callBack()
             }
@@ -399,32 +384,32 @@ export default {
             showPresent: false,
             yearFlavorList: [],
             editIndex: -1,
-            initDate: ['', ''],
+            initDate: [],
             form: {
-                activityName: '粽粽有礼',
-                activityType: 3,
+                activityName: '打卡聪明年',
+                activityType: 4,
                 // 活动时间
                 activityStartTime: '',
                 activityEndTime: '',
                 // 中奖率
-                winningProbability: '',
+                winningProbability: '10',
                 // 使用说明
                 activityRule:
-          `1.在活动有效期内，签到30个端午活动，即可有机会参与粽粽大礼的抽奖；
-2.每人仅有1次抽取粽粽大礼的机会；
-3.粽粽大礼：用户抽奖粽粽大奖的方式，采取的是随机抽奖的方式；
-4.获得的粽粽大礼将自动存入“我的礼品”中，兑换有效期内用户可随时查看；
-5.“我的礼品”中存放的粽粽大奖需在该礼品使用有效期内到店兑换；过期或已使用将不予兑换，请妥善保管；
-6.阶梯奖励：用户参与活动过程中，签到指定数量的端午活动，还可额外获得优惠券、奖学金或小礼品；
-7.优惠券获得后，会直接放入我的卡券中，用户在商城购买商品时，可根据优惠券使用范围，抵扣相应的金额；
-8.优惠券和奖学金在有效期内未使用，将自动过期，过期后购买商品将不可进行抵扣。`,
+                        `1.在活动有效期内，签到30个智力题目，即可有机会参与智慧礼的抽奖；
+                            2.每人仅有1次抽取智慧礼的机会；
+                            3.智慧礼：用户抽奖粽粽大奖的方式，采取的是随机抽奖的方式；
+                            4.获得的智慧礼将自动存入“我的礼品”中，兑换有效期内用户可随时查看；
+                            5.“我的礼品”中存放的粽粽大奖需在该礼品使用有效期内到店兑换；过期或已使用将不予兑换，请妥善保管；
+                            6.用户参与活动过程中，打卡签到指定数量的智力题目，还可额外获得优惠券、奖学金或小礼品；
+                            7.优惠券获得后，会直接放入我的卡券中，用户在商城购买商品时，可根据优惠券使用范围，抵扣相应的金额；
+                            8.活动最终解释权归我们所有；`,
                 // 适用用户
                 userScope: 0,
                 // 部分用户标签
                 userGroupTagModels: [],
                 // 粽粽标签
-                materialSchemeModels: 20,
-                // 粽粽大礼
+                checkDays: 20,
+                // 智慧礼
                 giftModels: [],
                 // 是否设置阶梯奖
                 ladderAward: 0,
@@ -439,27 +424,58 @@ export default {
             status: 0,
             rules: {
                 activityStartTime: [
-                    { required: true, message: '请选择活动时间', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '请选择活动时间',
+                        trigger: 'blur'
+                    }
                 ],
-                materialSchemeModels: [
-                    { validator: checkNumber(20, 7, 0), trigger: 'blur' }
+                checkDays: [
+                    {
+                        validator: checkNumber(20, 7, 0),
+                        trigger: 'blur'
+                    }
                 ],
                 activityRule: [
-                    { required: true, message: '使用须知不能为空', trigger: 'blur' },
-                    { max: 500, message: '使用须知不能超过500个字符', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '使用须知不能为空',
+                        trigger: 'blur'
+                    },
+                    {
+                        max: 500,
+                        message: '使用须知不能超过500个字符',
+                        trigger: 'blur'
+                    }
                 ],
                 winningProbability: [
-                    { required: true, message: '总中奖率不能为空', trigger: 'blur' },
-                    { validator: checkNumber(100, 1, 0), trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '总中奖率不能为空',
+                        trigger: 'blur'
+                    },
+                    {
+                        validator: checkNumber(100, 1, 0),
+                        trigger: 'blur'
+                    }
                 ],
                 giftModels: [
-                    { validator: checkGiftModels, trigger: 'blur' }
+                    {
+                        validator: checkGiftModels,
+                        trigger: 'blur'
+                    }
                 ],
                 awardModels: [
-                    { validator: checkAwardModels, trigger: 'blur' }
+                    {
+                        validator: checkAwardModels,
+                        trigger: 'blur'
+                    }
                 ],
                 logoModels: [
-                    { validator: checkLogoModels, trigger: 'blur' }
+                    {
+                        validator: checkLogoModels,
+                        trigger: 'blur'
+                    }
                 ]
             }
         }
@@ -471,9 +487,10 @@ export default {
         }
     },
     computed: {
-    // 阶梯数量列表
+        // 阶梯数量列表
         ladderAwardLocationList () {
-            return this.form.awardModels.map(item => item.ladderAwardLocation).sort((a, b) => a - b)
+            return this.form.awardModels.map(item => item.ladderAwardLocation)
+                .sort((a, b) => a - b)
         },
         isCopy () {
             return this.$route.query.isCopy
@@ -481,14 +498,13 @@ export default {
     },
     async created () {
         try {
-            // await this.getTagListFun()
             await this.getDetail()
         } catch (e) {
             throw e
         }
     },
     methods: {
-    // 阶梯礼品添加对象，最多6个
+        // 阶梯礼品添加对象，最多6个
         addLadderGiftItem () {
             if (this.form.awardModels.length > 5) return this.$error('最多添加6个阶梯奖')
             const ladder = new LadderData()
@@ -501,15 +517,16 @@ export default {
             try {
                 if (this.id) {
                     const data = await signinActivityDetail(this.id)
+                    console.log(data)
                     // 将详情数据格式处理到与添加数据格式基本已知
                     let {
                         bigGifts,
-                        materialSchemes,
                         smallGifts,
                         tagGroups,
                         entity
                     } = data.result
                     const {
+                        checkDays,
                         ladderAward,
                         userScope,
                         winningProbability,
@@ -562,16 +579,16 @@ export default {
                     }))
                     // 添加key，支持排序动画
                     const form = {
-                        activityName: '粽粽有礼',
-                        activityType: 3,
+                        activityName: '打卡聪明年',
+                        activityType: 4,
                         activityStartTime,
                         activityEndTime,
                         winningProbability,
                         activityRule,
                         userScope,
                         userGroupTagModels: tagGroups.map(item => item.groupTagId),
-                        materialSchemeModels: materialSchemes,
-                        // 粽粽大礼数据回填
+                        checkDays,
+                        // 智慧礼数据回填
                         giftModels: bigGifts.map(item => ({
                             giftName: item.giftName,
                             giftBrief: item.giftBrief,
@@ -615,23 +632,7 @@ export default {
             this.form.awardModels = []
             this.$refs.form.clearValidate('awardModels')
         },
-        // 获取粽粽和用户分组
-        // async getTagListFun () {
-        //     try {
-        //         const { result } = await getUserTtagList()
-        //         // const res = await Promise.all([ materialSchemeList({ activityType: 3 })])
-        //         // this.yearFlavorList = res[1].result
-        //         this.userTagList = result
-        //         // // 粽粽默认全选
-        //         // if (!this.id) {
-        //         //     this.form.materialSchemeModels = this.yearFlavorList.map((item, index) => ({ materialId: item.id, materialOrder: index }))
-        //         //     this.materialSchemeModels = this.yearFlavorList.map(({ id }) => id)
-        //         // }
-        //     } catch (e) {
-        //         throw e
-        //     }
-        // },
-        // 选择粽粽大礼
+        // 选择智慧礼
         selectPresent (data) {
             data = data.giftDetail
             data = {
@@ -654,38 +655,16 @@ export default {
             }
             this.editPresentData = null
         },
-        // 编辑粽粽大礼
+        // 编辑智慧礼
         editPresent (detail, index) {
             this.editPresentData = detail
             this.showPresent = true
             this.editIndex = index
         },
-        // 删除一个粽粽大礼
+        // 删除一个智慧礼
         removePresent (index) {
             this.form.giftModels.splice(index, 1)
         },
-        // 粽粽全选
-        // checkAllChange (val) {
-        //     if (val) {
-        //         this.form.materialSchemeModels = this.yearFlavorList.map(item => ({
-        //             materialId: item.id,
-        //             materialOrder: Number(item.id)
-        //         }))
-        //         this.materialSchemeModels = this.yearFlavorList.map(item => item.id)
-        //     } else {
-        //         this.form.materialSchemeModels = []
-        //         this.materialSchemeModels = []
-        //     }
-        // },
-        // 粽粽改变后
-        // materialSchemeChange (val) {
-        //     this.form.materialSchemeModels = val.map((item, index) => ({
-        //         materialId: item,
-        //         materialOrder: index
-        //     }))
-        //     this.getBrief()
-        // },
-        // 修改奖品数量
         bigGiftCountChange (row, count, isEdit) {
             if (!isEdit) {
                 row.stock = count
@@ -697,22 +676,22 @@ export default {
         },
         getBrief () {
             if (this.briefEdit) return
-            this.form.activityRule = `1.在活动有效期内，签到${ this.form.materialSchemeModels }个端午活动，即可有机会参与粽粽大礼的抽奖
-2.每人仅有1次抽取粽粽大礼的机会；
-3.粽粽大礼：用户抽奖粽粽大奖的方式，采取的是随机抽奖的方式；
-4.获得的粽粽大礼将自动存入“我的礼品”中，兑换有效期内用户可随时查看；
-5.“我的礼品”中存放的粽粽大奖需在该礼品使用有效期内到店兑换；过期或已使用将不予兑换，请妥善保管；
-6.阶梯奖里：用户参与活动过程中，签到指定数量的端午活动，还可额外获得优惠券、奖学金或小礼品；
-7.优惠券和奖学金获得后，会直接放入我的卡券中，用户在商城购买商品时，可抵扣相应的金额；
-8.优惠券和奖学金在有效期内未使用，将自动过期，过期后购买商品将不可进行抵扣。`
+            this.form.activityRule = `1.在活动有效期内，签到${ this.form.checkDays }个智力题目，即可有机会参与智慧礼的抽奖
+                                        2.每人仅有1次抽取智慧礼的机会；
+                                        3.智慧礼：用户抽奖粽粽大奖的方式，采取的是随机抽奖的方式；
+                                        4.获得的智慧礼将自动存入“我的礼品”中，兑换有效期内用户可随时查看；
+                                        5.“我的礼品”中存放的粽粽大奖需在该礼品使用有效期内到店兑换；过期或已使用将不予兑换，请妥善保管；
+                                        6.用户参与活动过程中，打卡签到指定数量的智力题目，还可额外获得优惠券、奖学金或小礼品；
+                                        7.优惠券获得后，会直接放入我的卡券中，用户在商城购买商品时，可根据优惠券使用范围，抵扣相应的金额；
+                                        8.活动最终解释权归我们所有；`
         },
         checkData () {
-            // if (Math.max(...this.ladderAwardLocationList) >= this.form.materialSchemeModels.length) {
-            //     this.$warning('最大阶梯不能大于等于端午活动数量')
-            //     return false
-            // }
+            if (Math.max(...this.ladderAwardLocationList) >= this.form.checkDays) {
+                this.$warning('最大阶梯不能大于等于智力题目数量')
+                return false
+            }
             if (Array.from(new Set(this.ladderAwardLocationList)).length !== this.ladderAwardLocationList.length) {
-                this.$warning('阶梯累计年俗数量不能相同')
+                this.$warning('阶梯累计智力题数量不能相同')
                 return false
             }
             return true
@@ -723,7 +702,6 @@ export default {
                 message: '请确定您所作的修改已经保存！'
             })
                 .then(() => {
-                    // this.clearData()
                     this.$router.back()
                 })
         },
@@ -762,107 +740,68 @@ export default {
             } finally {
                 this.loading = false
             }
-        },
-        async preview () {
-            try {
-                await this.$refs.form.validate()
-                this.previewShow = true
-            } catch (e) {
-                if (e) throw e
-            }
         }
     }
 }
 </script>
 <style lang="scss" scoped>
-.win-rate {
-    width: 300px;
-    > li {
-        margin-bottom: 15px;
-    }
-}
+    .sign-box {
+        .win-rate {
+            width: 300px;
 
-::v-deep .edit-big-gifts {
-    > .cell {
-        > button:nth-of-type(2) {
-            margin: 0 10px !important;
+            > li {
+                margin-bottom: 15px;
+            }
         }
-        > span {
-            margin-left: 5px;
-        }
-    }
-}
-.add-product {
-    min-width: 1600px;
-    position: relative;
-    background-color: #f5f6f7;
-}
-.checked-group {
-    display: flex;
-    width: max-content;
-    padding: 10px;
-    margin-top: 5px;
-    background-color: #eee;
-    box-shadow: 0 0 0 1px #ccc inset;
-    > div {
-        display: inline-grid;
-        grid-template-columns: auto auto auto auto;
-        flex-wrap: wrap;
-        > label {
-            display: inline-flex;
-            align-items: center;
-            height: 30px !important;
-        }
-    }
-}
 
-.purchase-sort-description {
-    margin-left: 17px;
-    font-size: 14px;
-    color: #999;
-    &.red {
-        color: #d0423c;
-    }
-}
-.add-content {
-    background-color: #fff;
-    .content-title {
-        display: flex;
-        align-items: center;
-        height: 60px;
-        padding-left: 30px;
-        font-size: 14px;
-        font-weight: bold;
-        background-color: #fbfbfb;
-    }
-    .btn-box {
-        border-top: 1px solid #e7e7e7;
-        padding: 24px;
-    }
-}
+        ::v-deep .edit-big-gifts {
+            > .cell {
+                > button:nth-of-type(2) {
+                    margin: 0 10px !important;
+                }
 
-.preview {
-    position: absolute;
-    top: 100px;
-    right: 100px;
-    .newcomer-example-title {
-        color: #666;
-        font-size: 16px;
-        padding-bottom: 14px;
+                > span {
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .purchase-sort-description {
+            margin-left: 17px;
+            font-size: 14px;
+            color: #999;
+            font-weight: 400;
+
+            &.red {
+                color: #d0423c;
+            }
+        }
+
+        .add-content {
+            background-color: #fff;
+
+            .content-title {
+                display: flex;
+                align-items: center;
+                height: 60px;
+                padding-left: 30px;
+                font-size: 14px;
+                font-weight: bold;
+                background-color: #fbfbfb;
+            }
+        }
+
+        .table {
+            margin-top: 10px;
+            border: 1px solid #ebeef5;
+            border-bottom: none;
+        }
+
+        .brief-edit {
+            padding-left: 10px;
+            cursor: pointer;
+            display: inline-block;
+        }
     }
-    img {
-        width: 360px;
-    }
-}
-.table {
-    margin-top: 10px;
-    border: 1px solid #ebeef5;
-    border-bottom: none;
-}
-.brief-edit {
-    padding-left: 10px;
-    cursor: pointer;
-    display: inline-block;
-}
 
 </style>

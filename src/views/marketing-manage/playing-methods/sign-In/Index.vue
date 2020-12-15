@@ -1,10 +1,10 @@
 <template>
-    <div class="newcomers-gift-list wrap">
+    <div class="sign-in wrap">
         <ListHeader
             v-if="$route.name === 'SignInList'"
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
             title="打卡聪明年"
-            description="签到参与端午活动，即可参与抽奖，有机会获得粽粽大礼"
+            description="打卡签到答题，即可参与抽奖，有机会获得智慧礼"
             :start-time="start"
             :end-time="end"
         />
@@ -65,8 +65,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.newcomers-gift-list {
-  .activity-icon{
+.sign-in {
+    background-color: #ffffff;
+    border: 1px solid #e7e7e7;
+    .activity-icon{
     width: 23px;
   }
   .newcomers-list-header {

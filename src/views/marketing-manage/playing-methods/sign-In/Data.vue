@@ -35,7 +35,7 @@
             </div>
             <div :class="$style.tabCardItem">
                 <div :class="$style.cardItemTitle">
-                    获得粽粽大礼人数
+                    获得智慧礼人数
                 </div>
                 <div :class="$style.cardItemContent">
                     <i v-text="statistics.finalSum || 0" /><span>人</span>

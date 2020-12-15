@@ -1,13 +1,13 @@
 <template>
     <div class="year-flavor-ladder">
-        <span>累计获得 </span>
+        <span>{{ prefix }}</span>
         <el-input-number
             :disabled="status === 1"
             :key="_uid"
             v-model="model.ladderAwardLocation"
             @change="ladderAwardLocationChange"
             :min="minLadder || 1"
-            :max="29"
+            :max="maxLadder"
             :step="1"
             :precision="0"
         />
@@ -29,7 +29,6 @@
         <el-button
             v-if="!model.giftName"
             style="width: 100px"
-            size="mini"
             type="primary"
             class="ml-20"
             @click="addLadderGift(model.ladderAwardType)"
@@ -39,7 +38,6 @@
         <el-button
             :disabled="status === 1"
             style="width: 100px"
-            size="mini"
             type="danger"
             class="ml-20"
             @click="remove"
@@ -79,7 +77,8 @@
                         :step="1"
                         :precision="0"
                         @change="giftCountChange"
-                    /> 份
+                    />
+                    份
                 </template>
             </el-table-column>
 
@@ -127,7 +126,8 @@
                 header-align="right"
             >
                 <template>
-                    <el-button v-if="model.ladderAwardType !== 3 && (status !== 1 || !model.id)" @click="editLadderGif" type="text">
+                    <el-button v-if="model.ladderAwardType !== 3 && (status !== 1 || !model.id)" @click="editLadderGif"
+                               type="text">
                         编辑
                     </el-button>
                     <el-button v-if="status !== 1 || !model.id" @click="removeLadderGift(null)" type="text">
@@ -164,186 +164,195 @@
 
 <script>
 /* eslint-disable */
-import RadioSelectCoupon from '../../../../../components/marketing-manage/Radio-Select-Coupon.vue'
-import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
-import { resetForm } from '../../../../../assets/ts/utils'
-import Scholarship from '../../../../../components/marketing-manage/Scholarship.vue'
-export default {
-  name: 'Ladder',
-  components: {
-    EditPresent,
-    RadioSelectCoupon,
-    Scholarship
-  },
-  data () {
-    return {
-      showSelectCoupon: false,
-      showPresent: false,
-      showScholarship: false,
-      giftDetail: null,
-      scholarshipData: null,
-      GiftTypeMap: [
-        {
-          label: '礼品',
-          type: 1
+    import RadioSelectCoupon from '../../../../../components/marketing-manage/Radio-Select-Coupon.vue'
+    import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
+    import { resetForm } from '../../../../../assets/ts/utils'
+    import Scholarship from '../../../../../components/marketing-manage/Scholarship.vue'
+
+    export default {
+        name: 'Ladder',
+        components: {
+            EditPresent,
+            RadioSelectCoupon,
+            Scholarship
         },
-        {
-          label: '奖学金',
-          type: 2
+        data () {
+            return {
+                showSelectCoupon: false,
+                showPresent: false,
+                showScholarship: false,
+                giftDetail: null,
+                scholarshipData: null,
+                GiftTypeMap: [
+                    {
+                        label: '礼品',
+                        type: 1
+                    },
+                    {
+                        label: '奖学金',
+                        type: 2
+                    },
+                    {
+                        label: '优惠券',
+                        type: 3
+                    }
+                ]
+            }
         },
-        {
-          label: '优惠券',
-          type: 3
+        props: {
+            model: {
+                type: Object,
+                default () {
+                    return {}
+                }
+            },
+            status: {
+                type: Number,
+                default: 0
+            },
+            minLadder: {
+                type: Number,
+                default: 0
+            },
+            maxLadder: {
+                type: Number,
+                default: 29
+            },
+            materialType: {
+                type: String,
+                default: '年味'
+            },
+            prefix: {
+                type: String,
+                default: '累计获得'
+            }
+        },
+        // watch: {
+        //   'model.stock' (val) {
+        //     if (this.model.ladderAwardType === 2) {
+        //       this.model.awardDraw = val * this.model.scholarshipPrice
+        //       return
+        //     }
+        //     this.model.awardDraw = val
+        //   }
+        // },
+        methods: {
+            remove (e) {
+                this.$emit('remove', e)
+            },
+            ladderAwardLocationChange (val) {
+                this.$emit('ladderAwardLocationChange', val)
+            },
+            // 选择优惠券
+            SelectedCoupon (data) {
+                const {
+                    couponName,
+                    brief,
+                    id,
+                    useStartTime,
+                    useEndTime,
+                    stock = 1,
+                    couponType
+                } = data
+                const model = this.model
+                model.giftName = couponName
+                model.giftBrief = brief
+                model.stock = stock
+                model.awardDraw = stock
+                model.allAwardLimit = stock
+                model.useStartTime = useStartTime
+                model.useEndTime = useEndTime
+                model.awardId = id
+                model.couponType = couponType
+            },
+            // 选择礼品
+            selectPresent (data) {
+                data = data.giftDetail
+                const {
+                    giftName,
+                    giftBrief,
+                    giftImage,
+                    stock,
+                    useStartTime,
+                    useEndTime
+                } = data
+                const model = this.model
+                model.giftName = giftName
+                model.giftBrief = giftBrief
+                model.giftImage = giftImage
+                model.stock = stock
+                model.allAwardLimit = stock
+                model.useStartTime = useStartTime
+                model.useEndTime = useEndTime
+            },
+            // 选择奖学金
+            selectScholarship (data) {
+                const {
+                    stock,
+                    scholarshipPrice,
+                    scholarshipEffectiveTime
+                } = data
+                const model = this.model
+                model.giftName = '奖学金'
+                model.scholarshipPrice = scholarshipPrice
+                model.stock = stock
+                model.allAwardLimit = stock
+                model.scholarshipEffectiveTime = scholarshipEffectiveTime
+                // model.awardDraw = stock * scholarshipPrice
+            },
+            // 添加优惠券，礼品，奖学金
+            addLadderGift (type) {
+                // 选择礼品
+                if (type === 1) {
+                    this.showPresent = true
+                    return
+                }
+                if (type === 2) {
+                    this.showScholarship = true
+                    return
+                }
+                // 选择优惠券
+                if (type === 3) {
+                    this.showSelectCoupon = true
+                }
+            },
+            // 编辑礼品
+            editLadderGif () {
+                // 编辑礼品
+                if (this.model.ladderAwardType === 1) {
+                    this.showPresent = true
+                    this.giftDetail = this.model
+                    return
+                }
+                // 编辑奖学金
+                if (this.model.ladderAwardType === 2) {
+                    this.showScholarship = true
+                    this.scholarshipData = this.model
+                }
+            },
+            // 删除阶梯礼品, 切换奖品类型时会传入新的ladderAwardType
+            removeLadderGift (ladderAwardType) {
+                resetForm(this.model, {
+                    stock: 1,
+                    ladderAwardLocation: this.model.ladderAwardType,
+                    key: this.model.key,
+                    awardType: 1,
+                    ladderAwardType: ladderAwardType || this.model.ladderAwardType
+                })
+            },
+            // 库存修改后，同步更改剩余库存
+            giftCountChange (val) {
+                if (!this.model.id || this.status !== 1) {
+                    this.model.stock = val
+                }
+            }
         }
-      ]
     }
-  },
-  props: {
-    model: {
-      type: Object,
-      default () {
-        return {}
-      }
-    },
-    status: {
-      type: Number,
-      default: 0
-    },
-    minLadder: {
-      type: Number,
-      default: 0
-    },
-    materialType: {
-      type: String,
-      default: '年味'
-    }
-  },
-  // watch: {
-  //   'model.stock' (val) {
-  //     if (this.model.ladderAwardType === 2) {
-  //       this.model.awardDraw = val * this.model.scholarshipPrice
-  //       return
-  //     }
-  //     this.model.awardDraw = val
-  //   }
-  // },
-  methods: {
-    remove (e) {
-      this.$emit('remove', e)
-    },
-    ladderAwardLocationChange (val) {
-      this.$emit('ladderAwardLocationChange', val)
-    },
-    // 选择优惠券
-    SelectedCoupon (data) {
-      const {
-        couponName,
-        brief,
-        id,
-        useStartTime,
-        useEndTime,
-        stock = 1,
-        couponType
-      } = data
-      const model = this.model
-      model.giftName = couponName
-      model.giftBrief = brief
-      model.stock = stock
-      model.awardDraw = stock
-      model.allAwardLimit = stock
-      model.useStartTime = useStartTime
-      model.useEndTime = useEndTime
-      model.awardId = id
-      model.couponType = couponType
-    },
-    // 选择礼品
-    selectPresent (data) {
-      data = data.giftDetail
-      const {
-        giftName,
-        giftBrief,
-        giftImage,
-        stock,
-        useStartTime,
-        useEndTime
-      } = data
-      const model = this.model
-      model.giftName = giftName
-      model.giftBrief = giftBrief
-      model.giftImage = giftImage
-      model.stock = stock
-      model.allAwardLimit = stock
-      model.useStartTime = useStartTime
-      model.useEndTime = useEndTime
-    },
-    // 选择奖学金
-    selectScholarship (data) {
-      const {
-        stock,
-        scholarshipPrice,
-        scholarshipEffectiveTime
-      } = data
-      const model = this.model
-      model.giftName = '奖学金'
-      model.scholarshipPrice = scholarshipPrice
-      model.stock = stock
-      model.allAwardLimit = stock
-      model.scholarshipEffectiveTime = scholarshipEffectiveTime
-      // model.awardDraw = stock * scholarshipPrice
-    },
-    // 添加优惠券，礼品，奖学金
-    addLadderGift (type) {
-      // 选择礼品
-      if (type === 1) {
-        this.showPresent = true
-        return
-      }
-      if (type === 2) {
-        this.showScholarship = true
-        return
-      }
-      // 选择优惠券
-      if (type === 3) {
-        this.showSelectCoupon = true
-      }
-    },
-    // 编辑礼品
-    editLadderGif () {
-      // 编辑礼品
-      if (this.model.ladderAwardType === 1) {
-        this.showPresent = true
-        this.giftDetail = this.model
-        return
-      }
-      // 编辑奖学金
-      if (this.model.ladderAwardType === 2) {
-        this.showScholarship = true
-        this.scholarshipData = this.model
-      }
-    },
-    // 删除阶梯礼品, 切换奖品类型时会传入新的ladderAwardType
-    removeLadderGift (ladderAwardType) {
-      resetForm(this.model, {
-        stock: 1,
-        ladderAwardLocation: this.model.ladderAwardType,
-        key: this.model.key,
-        awardType: 1,
-        ladderAwardType: ladderAwardType || this.model.ladderAwardType
-      })
-    },
-    // 库存修改后，同步更改剩余库存
-    giftCountChange (val) {
-      if (!this.model.id || this.status !== 1) {
-        this.model.stock = val
-      }
-    }
-  }
-}
 </script>
 
 <style scoped lang="scss">
-.year-flavor-ladder {
-    margin-bottom: 20px;
-}
+    .year-flavor-ladder {
+        margin-bottom: 20px;
+    }
 
 </style>
