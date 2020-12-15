@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view v-if="!loading" :info="info" />
+        <router-view v-if="loading" :info="info" />
     </div>
 </template>
 
