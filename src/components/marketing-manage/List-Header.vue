@@ -21,16 +21,16 @@
             <!--                <span v-if="newcomersStatus === 2">进行中</span>...-->
             <!--            </div>-->
 
-            <div v-if="typeof coursePackageStatus === 'number' && coursePackageStatus !== -1" :class="{
+            <div v-if="typeof status === 'number' && status !== -1" :class="{
                 'activity-status': true,
-                'not-started': coursePackageStatus === 0,
-                'ongoing': coursePackageStatus === 1,
-                'finished': coursePackageStatus === 2
+                'not-started': status === 0,
+                'ongoing': status === 1,
+                'finished': status === 2
             }">
                 <pl-svg name="icon-shijian" width="16" />
-                <span v-if="coursePackageStatus === 1">进行中</span>
-                <span v-else-if="coursePackageStatus === 0">未开始</span>
-                <span v-else-if="coursePackageStatus === 2">已结束</span>
+                <span v-if="status === 1">进行中</span>
+                <span v-else-if="status === 0">未开始</span>
+                <span v-else-if="status === 2">已结束</span>
             </div>
             <div class="validity">
                 {{ timeTitle }}：
@@ -99,7 +99,7 @@ export default class ListHeader extends Vue {
     @Prop({
         type: Number,
         default: undefined
-    }) readonly coursePackageStatus: number |undefined
+    }) readonly status: number |undefined
 
     @Prop({
         type: Array,

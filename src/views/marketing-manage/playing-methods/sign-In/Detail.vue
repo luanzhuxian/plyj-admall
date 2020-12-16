@@ -1,22 +1,31 @@
 <template>
     <div class="newcomers-gift-list">
-        <div class="newcomers-list-header">
-            <img class="mr-10"
-                 width="48"
-                 src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
-            >
-            <span class="mr-30 font-weight-bold">端午佳话粽粽有礼</span>
-            <div :class="{
-                'activity-status': true,
-                'not-started': status === 0,
-                'ongoing': status === 1,
-                'finished': status === 2
-            }">
-                <pl-svg width="16" name="icon-shijian1" fill="#fff" />
-                {{ activeStatus[status] }}
-            </div>
-            <span class="items description time"><pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" /> 使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}</span>
-        </div>
+        <!--        <div class="newcomers-list-header">-->
+        <!--            <img class="mr-10"-->
+        <!--                 width="48"-->
+        <!--                 src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年.png"-->
+        <!--            >-->
+        <!--            <span class="mr-30 font-weight-bold">打卡聪明年</span>-->
+        <!--            <div :class="{-->
+        <!--                'activity-status': true,-->
+        <!--                'not-started': status === 0,-->
+        <!--                'ongoing': status === 1,-->
+        <!--                'finished': status === 2-->
+        <!--            }">-->
+        <!--                <pl-svg width="16" name="icon-shijian1" fill="#fff" />-->
+        <!--                {{ activeStatus[status] }}-->
+        <!--            </div>-->
+        <!--            <span class="items description time"><pl-svg name="icon-riqi" fill="#999" width="16" class="mr-10" /> 使用有效期：{{ start | dateFormat('YYYY.MM.DD') }} - {{ end | dateFormat('YYYY.MM.DD') }}</span>-->
+        <!--        </div>-->
+
+        <ListHeader
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年.png"
+            title="打卡聪明年"
+            description="打卡签到答题，即可参与抽奖，有机会获得智慧礼"
+            :status="status"
+            :start-time="start"
+            :end-time="end"
+        />
 
         <pl-tabs
             v-if="activeTab === 'SignInInfo' || activeTab === 'SignInData' || activeTab === 'SignInGiftData'"
@@ -36,9 +45,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { signinActivityDetail } from '../../../../apis/marketing-manage/new-year/spring-ploughing'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'SignInDetail',
+    components: { ListHeader },
     data () {
         return {
             data: '',
