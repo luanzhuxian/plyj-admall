@@ -191,7 +191,7 @@
                 :count="activitiesInfo.dragonBoatSigninActivityCount"
                 :is-lock="!activitys.newYearSignIn.status"
                 :tags="['限','新']"
-                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年.png"
                 :route-info="{
                     name: 'NewYearSignIn',
                     params: {

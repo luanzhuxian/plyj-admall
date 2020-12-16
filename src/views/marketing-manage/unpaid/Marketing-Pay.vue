@@ -49,7 +49,7 @@
                         <img v-if="programId === '8'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/兑换码.png">
                         <img v-if="programId === '9'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/福利红包.png">
                         <img v-if="programId === '10'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png">
-                        <img v-if="programId === '11'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png">
+                        <img v-if="programId === '11'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年.png">
                     </div>
                 </div>
             </el-form-item>

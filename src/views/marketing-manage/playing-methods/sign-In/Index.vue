@@ -2,7 +2,7 @@
     <div class="sign-in wrap">
         <ListHeader
             v-if="$route.name === 'SignInList'"
-            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/粽粽有礼.png"
+            icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年.png"
             title="打卡聪明年"
             description="打卡签到答题，即可参与抽奖，有机会获得智慧礼"
             :start-time="start"
