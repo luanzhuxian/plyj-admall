@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { getLiveInfo, getNianweiInfo } from '../../apis/mall'
+import { getLiveInfo, getNianweiInfo, getCurrentLottery } from '../../apis/mall'
 import { getActivityAuth } from '../../apis/marketing-manage/gameplay'
 import { getRedPackageSortListListNew } from '../../apis/marketing-manage/red-package'
 
@@ -44,6 +44,7 @@ export default class MallManage extends Vue {
     @mall.Mutation setDouble12LockStatus!: (payload: {}) => void
     @mall.Mutation setSpringLockStatus!: (payload: {}) => void
     @mall.Mutation setRedPackage!: (payload: {}) => void
+    @mall.Mutation setCurrentLottery!: (payload: {}) => void
     get showTabs () {
         return !!this.$route.name && this.tabs.map(tab => tab.name).includes(this.$route.name)
     }
@@ -64,6 +65,7 @@ export default class MallManage extends Vue {
             getNianweiInfo(),
             getActivityAuth(), // 进入店铺管理要提前调用 getActivityAuth 主会场模板使用权限接口，通知后端更新草稿箱数据
             getRedPackageSortListListNew(),
+            getCurrentLottery(),
             this.getCurrentTemplate(1),
             this.getCurrentTemplate(2)
         ]
@@ -71,7 +73,8 @@ export default class MallManage extends Vue {
             { result: live = {} },
             { result: nianwei = [] },
             { result: lockStatusInfo = [] },
-            { result: redPackageList = [] }
+            { result: redPackageList = [] },
+            { result: currentLottery = {} }
         ] = await Promise.all(requests.map((p: Promise<any>) => p.catch(e => {
             console.error(e)
             return { result: null }
@@ -91,6 +94,7 @@ export default class MallManage extends Vue {
             showStatus: number;
             issueVolume: number;
         }) => ~[0, 1].indexOf(item.activityStatus) && item.showStatus && item.issueVolume))
+        this.setCurrentLottery(currentLottery)
     }
 
     /* methods */

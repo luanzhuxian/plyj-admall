@@ -16,6 +16,8 @@
                         <Live :data="Live" />
                     </Panel>
                 </ModuleWrapper>
+                <!-- 抽奖 -->
+                <HappyLottery :class="[$style.module, $style.moduleHappyLottery]" :data="currentLottery" v-if="currentLottery && currentLottery.id" />
                 <!-- 福利红包 -->
                 <section
                     id="RedPackage"
@@ -132,6 +134,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import Live from '../activity/spring-2021/Live.vue'
 import RedPackage from '../activity/spring-2021/Red-Package.vue'
 import Coupon from '../activity/double-12-2020/Coupon.vue'
@@ -143,6 +146,8 @@ import Popular from '../activity/spring-2021/Popular.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
 import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
+
+const mall = namespace('mall')
 
 @Component({
     components: {
@@ -178,6 +183,8 @@ export default class TemplateSpring2021Red extends Vue {
     @Prop(String) current!: string
 
     /* computed */
+    @mall.Getter currentLottery!: object
+
     get Live () {
         return this.data.Live || { values: [] }
     }
@@ -394,6 +401,9 @@ export default class TemplateSpring2021Red extends Vue {
     padding: 10px 0 0;
 }
 .module-yugou {
+    padding: 10px 0 20px;
+}
+.module-happy-lottery {
     padding: 10px 0 20px;
 }
 

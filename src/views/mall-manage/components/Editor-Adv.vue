@@ -38,24 +38,6 @@
                                 <div :class="$style.iconWrapper" @click="openModal">
                                     <i class="el-icon-arrow-right" />
                                 </div>
-                                <!-- <el-dropdown
-                                    v-else
-                                    trigger="click"
-                                    @command="onDropdownSelect($event, index, item)"
-                                >
-                                    <span class="el-dropdown-link">
-                                    <i class="el-icon-arrow-down el-icon--right" />
-                                    </span>
-                                    <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item
-                                        v-for="(option, j) of options"
-                                        :key="j"
-                                        :command="option.value"
-                                    >
-                                        {{ option.label }}
-                                    </el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown> -->
                             </template>
                             <template v-else>
                                 <el-select
@@ -143,6 +125,10 @@ export default class EditorAdv extends Vue {
     defaultOptions = Object.freeze([{
         value: 'cloud',
         label: '云课堂',
+        disabled: false
+    }, {
+        value: 'happy-lottery',
+        label: '抽奖乐翻天',
         disabled: false
     }, {
         value: 'newyear',

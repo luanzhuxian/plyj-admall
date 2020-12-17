@@ -14,7 +14,8 @@ export default {
         double12LockStatus: 3, // 双十二权限
         springLockStatus: 3, // 新春权限
         // dragonGateLockStatus = 3 // 龙门节权限
-        redPackageList: []
+        redPackageList: [],
+        currentLottery: {}
     },
     getters: {
         liveInfo: state => state.liveInfo,
@@ -25,7 +26,8 @@ export default {
         currentActivityType: state => state.currentActivity.type,
         double12LockStatus: state => state.double12LockStatus,
         springLockStatus: state => state.springLockStatus,
-        isRedPackageShow: state => !!state.redPackageList.length
+        isRedPackageShow: state => !!state.redPackageList.length,
+        currentLottery: state => state.currentLottery
     },
     mutations: {
         setLiveInfo: (state, payload) => {
@@ -48,6 +50,9 @@ export default {
         },
         setRedPackage: (state, payload) => {
             state.redPackageList = payload
+        },
+        setCurrentLottery: (state, payload) => {
+            state.currentLottery = payload
         }
     },
     actions: {
