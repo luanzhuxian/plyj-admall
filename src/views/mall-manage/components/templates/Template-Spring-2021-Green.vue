@@ -17,7 +17,7 @@
                     </Panel>
                 </ModuleWrapper>
                 <!-- 抽奖 -->
-                <HappyLottery :class="[$style.module, $style.moduleHappyLottery]" :data="currentLottery" v-if="currentLottery && currentLottery.id" />
+                <HappyLottery :class="[$style.module, $style.moduleHappyLottery]" :data="currentLottery" v-if="currentLottery && currentLottery.id && ~[1, 2].indexOf(currentLottery.status)" />
                 <!-- 福利红包 -->
                 <section
                     id="RedPackage"
