@@ -929,7 +929,7 @@ export default {
 <style scoped lang="scss">
     ::v-deep {
         .el-table__empty-block {
-            min-height: 150px;
+            min-height: 210px;
         }
     }
 </style>
