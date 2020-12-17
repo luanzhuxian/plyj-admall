@@ -37,7 +37,7 @@
                 <el-form-item label="答题数量：" prop="checkDays" required>
                     <el-input-number v-model="form.checkDays" :min="7" :max="20" label="描述文字" />
                     个智力题目
-                    <el-button type="text">预览题目</el-button>
+                    <el-button @click="showAnswerPreview = true" type="text">预览题目</el-button>
                     <p class="purchase-sort-description" style="margin-left: 0">可选择活动界面需要展示的答题数量，至多可设置7-20个题目</p>
                 </el-form-item>
 
@@ -286,6 +286,24 @@
             :gift-detail.sync="editPresentData"
             :min-stock="editPresentData && editPresentData.id && status === 1 ? 0 : 1"
         />
+
+        <el-dialog
+            title="预览题目"
+            :visible.sync="showAnswerPreview"
+            :close-on-click-modal="false"
+            :close-on-press-escape="false"
+            width="770px"
+        >
+            <div class="answer-preview">
+                <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年题目预览.jpg" alt="">
+                <el-button
+                    type="primary"
+                    @click="showAnswerPreview = false"
+                >
+                    我知道了
+                </el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -374,6 +392,7 @@ export default {
             }
         }
         return {
+            showAnswerPreview: false,
             loading: false,
             checkAll: true,
             // 是否可以编辑细则
@@ -801,6 +820,16 @@ export default {
             padding-left: 10px;
             cursor: pointer;
             display: inline-block;
+        }
+
+        .answer-preview{
+            text-align: center;
+            img{
+                width: 100%;
+            }
+            >button{
+                margin-top: 20px;
+            }
         }
     }
 

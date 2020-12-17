@@ -6,8 +6,7 @@ export default [
         component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Index.vue'),
         meta: {
             title: '打卡聪明年',
-            index: '11-11',
-            ignore: true
+            index: '11-11'
         },
         children: [
             {
@@ -16,8 +15,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/List.vue'),
                 meta: {
                     title: '列表',
-                    index: '11-11-1',
-                    ignore: true
+                    index: '11-11-1'
                 }
             },
             {
@@ -26,8 +24,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Add.vue'),
                 meta: {
                     title: '新建活动',
-                    index: '11-11-2',
-                    ignore: true
+                    index: '11-11-2'
                 }
             },
             {
@@ -37,8 +34,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Add.vue'),
                 meta: {
                     title: '编辑活动',
-                    index: '11-11-3',
-                    ignore: true
+                    index: '11-11-3'
                 }
             },
             {
@@ -47,8 +43,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Setting.vue'),
                 meta: {
                     title: '活动设置',
-                    index: '11-11-4',
-                    ignore: true
+                    index: '11-11-4'
                 }
             },
             {
@@ -58,8 +53,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Add.vue'),
                 meta: {
                     title: '复制活动',
-                    index: '11-11-5',
-                    ignore: true
+                    index: '11-11-5'
                 }
             },
             {
@@ -70,8 +64,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Detail.vue'),
                 meta: {
                     title: '活动详情',
-                    index: '11-11-6',
-                    ignore: true
+                    index: '11-11-6'
                 },
                 children: [
                     // 活动详情
@@ -80,7 +73,6 @@ export default [
                         name: 'SignInInfo',
                         component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Info.vue'),
                         meta: {
-                            ignore: true
                         }
                     },
                     // 活动数据
@@ -89,8 +81,7 @@ export default [
                         name: 'SignInData',
                         component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Data.vue'),
                         meta: {
-                            title: '活动数据',
-                            ignore: true
+                            title: '活动数据'
                         }
                     },
                     // 活动数据
@@ -99,8 +90,7 @@ export default [
                         name: 'SignInGiftData',
                         component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Gift-Data.vue'),
                         meta: {
-                            title: '礼品发放数据',
-                            ignore: true
+                            title: '礼品发放数据'
                         }
                     }
                 ]
