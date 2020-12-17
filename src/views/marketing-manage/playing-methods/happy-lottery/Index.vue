@@ -18,7 +18,7 @@ export default class HappyLotteryIndex extends Vue {
         @account.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
 
         loading = false
-        programId = '10'
+        programId = '7'
         info = {}
 
         async created () {
