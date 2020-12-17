@@ -71,26 +71,32 @@ export default [
                     {
                         path: 'info',
                         name: 'SignInInfo',
+                        props: true,
                         component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Info.vue'),
                         meta: {
+                            ignore: true
                         }
                     },
                     // 活动数据
                     {
                         path: 'data',
                         name: 'SignInData',
+                        props: true,
                         component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Data.vue'),
                         meta: {
-                            title: '活动数据'
+                            title: '活动数据',
+                            ignore: true
                         }
                     },
                     // 活动数据
                     {
                         path: 'gift-data',
                         name: 'SignInGiftData',
+                        props: true,
                         component: () => import('../../../../views/marketing-manage/playing-methods/sign-In/Gift-Data.vue'),
                         meta: {
-                            title: '礼品发放数据'
+                            title: '礼品发放数据',
+                            ignore: true
                         }
                     }
                 ]

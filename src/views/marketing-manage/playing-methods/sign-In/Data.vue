@@ -24,6 +24,7 @@
                 <div :class="$style.cardItemContent">
                     <i v-text="statistics.takeSum || 0" /> <span>人</span>
                 </div>
+                <el-button @click="getDataDetail" type="text">查看明细</el-button>
             </div>
             <div :class="$style.tabCardItem">
                 <div :class="$style.cardItemTitle">
@@ -178,7 +179,8 @@
 
         <!-- 导出 -->
         <ExportDialog :show.sync="showExport" title="导出数据" @confirm="exportList" @close="exportClose">
-            <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px" label-position="left">
+            <el-form ref="exportForm" :model="exportData" :rules="exportRules" label-width="100px"
+                     label-position="left">
                 <el-form-item label="搜索内容" prop="condition">
                     <el-input
                         v-model.trim="exportData.condition"
@@ -218,6 +220,80 @@
         </ExportDialog>
 
         <verification :dialog-verification-visible.sync="dialogVerificationVisible" />
+
+        <el-dialog
+            title="查看示例"
+            :visible.sync="showDataDetail"
+            :close-on-click-modal="false"
+            :close-on-press-escape="false"
+            width="770px"
+        >
+            <div :class="$style.dataDetail">
+                <el-table :data="dataDetail" class="mt-10" stripe>
+                    <span slot="empty" class="empty">
+                        <pl-svg name="icon-empty" width="16" style="margin-right: 4px;" />
+                        没有查到数据，请确认后重新查询！
+                    </span>
+                    <el-table-column
+                        prop="time"
+                        label="活动日期"
+                        header-align="left"
+                        align="left"
+                    />
+                    <el-table-column
+                        width="180"
+                        prop="everyAddPeople"
+                    >
+                        <span slot="header">
+                            新增打卡人数
+                            <el-tooltip class="item" style="display: inline-block" effect="dark" placement="bottom">
+                                <div slot="content">
+                                    新增打卡人数，是指每天新加入打<br>
+                                    卡活动且首次打卡成功的用户人数
+                                </div>
+                                <pl-svg name="yaji-jinggao" fill="#999999" style="margin-left: 4px;" />
+                            </el-tooltip>
+                        </span>
+                    </el-table-column>
+                    <el-table-column
+                        width="180"
+                        prop="eodaySigninPeople"
+                    >
+                        <span slot="header">
+                            当日打卡人数
+                            <el-tooltip class="item" style="display: inline-block" effect="dark" placement="bottom">
+                                <div slot="content">
+                                    当日打卡人数，是指当天进行打<br>
+                                    卡，并打卡成功的用户人数
+                                </div>
+                                <pl-svg name="yaji-jinggao" fill="#999999" style="margin-left: 4px;" />
+                            </el-tooltip>
+                        </span>
+                    </el-table-column>
+                    <el-table-column
+                        width="180"
+                        prop="totalPeople"
+                    >
+                        <span slot="header">
+                            累计参与人数
+                            <el-tooltip class="item" style="display: inline-block" effect="dark" placement="bottom">
+                                <div slot="content">
+                                    累计打卡人数，是指累计历史参<br>
+                                    与打卡活动的所有用户的总额
+                                </div>
+                                <pl-svg name="yaji-jinggao" fill="#999999" style="margin-left: 4px;" />
+                            </el-tooltip>
+                        </span>
+                    </el-table-column>
+                </el-table>
+                <el-button
+                    type="primary"
+                    @click="showDataDetail = false"
+                >
+                    我知道了
+                </el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -226,15 +302,31 @@ import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import verification from '../../../../components/order-center/Verification.vue'
 import moment from 'moment/moment'
 import { createObjectUrl } from '../../../../assets/ts/upload'
-import { activityStatistic, queryActivityList, exportActivityStatistic, queryActivityGiftDetail } from '../../../../apis/marketing-manage/new-year/year-flavor'
+import {
+    activityStatistic,
+    queryActivityList,
+    exportActivityStatistic,
+    queryActivityGiftDetail,
+    signTimeInterval,
+    signEveryAddPeopleStatistic,
+    signTodaySigninPeopleStatistic
+} from '../../../../apis/marketing-manage/new-year/year-flavor'
+
 export default {
     name: 'SignInData',
     components: {
         verification,
         ExportDialog
     },
+    props: {
+        id: {
+            type: String,
+            default: ''
+        }
+    },
     data () {
         return {
+            showDataDetail: false,
             showExport: false,
             exportData: {
                 condition: '',
@@ -245,7 +337,11 @@ export default {
             },
             exportRules: {
                 startTime: [
-                    { required: true, message: '请选择时间', trigger: 'blur' }
+                    {
+                        required: true,
+                        message: '请选择时间',
+                        trigger: 'blur'
+                    }
                 ]
             },
             filterForm: {
@@ -276,22 +372,60 @@ export default {
                 drawSum: 0,
                 // 端午活动大礼包人数
                 finalSum: 0
-            }
+            },
+            dataDetail: []
         }
     },
     async created () {
         try {
             await this.getData()
             await this.getList()
-        } catch (e) { throw e }
+        } catch (e) {
+            throw e
+        }
     },
     methods: {
+        async getDataDetail () {
+            try {
+                console.log(this.dataDetail)
+                console.log(this.dataDetail.length)
+                if (!this.dataDetail || !this.dataDetail.length) {
+                    const { result: res1 } = await signTimeInterval(this.id)
+                    const { result: res2 } = await signEveryAddPeopleStatistic(this.id)
+                    const { result: res3 } = await signTodaySigninPeopleStatistic(this.id)
+                    const data = []
+                    res1.forEach(item1 => {
+                        if (moment(item1) > moment()) return
+                        const item2 = res2.find(item => item.everyTime === item1)
+                        const item3 = res3.find(item => item.everyTime === item1)
+                        data.push({
+                            time: item1,
+                            everyAddPeople: item2 ? item2.addCount : 0,
+                            eodaySigninPeople: item3 ? item3.addCount : 0
+                        })
+                    })
+                    data.forEach((item, index) => {
+                        if (index) {
+                            item.totalPeople = data[index - 1].totalPeople + item.eodaySigninPeople
+                        } else {
+                            item.totalPeople = item.eodaySigninPeople
+                        }
+                    })
+                    this.dataDetail = data
+                }
+                this.showDataDetail = true
+            } catch (e) {
+                throw e
+            }
+        },
         async search () {
             try {
                 this.filterForm.current = 1
                 await this.getList()
                 await this.getData()
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            }
         },
         async resetFilter () {
             try {
@@ -316,7 +450,9 @@ export default {
                 this.filterForm.endTime = end || ''
                 await this.getList()
                 await this.getData()
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            }
         },
         async sizeChange (val) {
             try {
@@ -324,30 +460,38 @@ export default {
                 this.filterForm.size = val
                 await this.getList()
                 await this.getData()
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            }
         },
         async getData () {
             try {
-                const { result } = await activityStatistic(this.$route.params.id)
+                const { result } = await activityStatistic(this.id)
                 this.statistics = result
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            }
         },
         // 获得奖品详情
         async getActivityGiftDetail ({ userId }) {
             try {
-                const activityId = this.$route.params.id
+                const activityId = this.id
                 const { result } = await queryActivityGiftDetail(activityId, userId)
                 this.giftData = result
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            }
         },
         // 获取列表数据
         async getList () {
             try {
-                const activityId = this.$route.params.id
+                const activityId = this.id
                 const { result: { records, total } } = await queryActivityList(activityId, this.filterForm)
                 this.tableData = records || []
                 this.total = total
-            } catch (e) { throw e }
+            } catch (e) {
+                throw e
+            }
         },
         changeExport () {
             this.exportData = {
@@ -391,8 +535,10 @@ export default {
             }
 
             this.exportDatechange({
-                start: start && `${ moment(start).format(formatType) } 00:00:00`,
-                end: end && `${ moment(end).format(formatType) } 23:59:59`
+                start: start && `${ moment(start)
+                    .format(formatType) } 00:00:00`,
+                end: end && `${ moment(end)
+                    .format(formatType) } 23:59:59`
             })
         },
         // 导出数据
@@ -405,12 +551,13 @@ export default {
                     endTime: exportData.endTime,
                     condition: exportData.condition
                 }
-                const activityId = this.$route.params.id
+                const activityId = this.id
                 const blob = await exportActivityStatistic(activityId, params)
                 const url = createObjectUrl(blob)
                 const a = document.createElement('a')
                 a.href = url
-                a.download = `数据-${ moment(new Date()).format('YYYY-MM-DD HH-mm-ss') }.xls`
+                a.download = `数据-${ moment(new Date())
+                    .format('YYYY-MM-DD HH-mm-ss') }.xls`
                 a.click()
                 a.remove()
                 this.exportClose()
@@ -432,85 +579,109 @@ export default {
 
 <style lang="scss" module scoped>
 
-  .container {
-    min-height: calc(100vh - 120px);
-    padding-bottom: 30px;
-    background-color: #ffffff;
-    .el-form-item__label{
-      color: #333333;
-      font-size: 12px;
-      font-weight: bold;
+    .container {
+        min-height: calc(100vh - 120px);
+        padding-bottom: 30px;
+        background-color: #ffffff;
+
+        .el-form-item__label {
+            color: #333333;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .wrap {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e7e7e7;
+            padding: 12px 20px;
+            padding-bottom: 0 !important;
+        }
+
+        > .tab-card-content {
+            display: flex;
+            height: 205px;
+            padding: 23px 0;
+
+            > .tab-card-item {
+                position: relative;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: space-around;
+                padding-left: 40px;
+                width: max-content;
+
+                > button {
+                    position: absolute;
+                    bottom: -10px;
+                }
+
+                &:nth-last-of-type(1):after {
+                    display: none;
+                }
+
+                &:after {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    content: '';
+                    width: 1px;
+                    height: 100%;
+                    background-color: $--border-color;
+                }
+
+                > .yesterday, .see-detail {
+                    font-size: 14px;
+                    line-height: 19px;
+                    padding: 0;
+                    color: $--color-primary-blue;
+                }
+
+                > .card-item-title {
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+                > .card-item-content {
+                    display: flex;
+                    align-items: flex-end;
+                    position: relative;
+                    font-size: 14px;
+                    padding-right: 20px;
+                    color: #666;
+
+                    > i {
+                        color: #333;
+                        line-height: 67px;
+                        font-size: 50px;
+                        word-break: keep-all;
+                    }
+
+                    > span {
+                        margin-left: 14px;
+                        line-height: 40px;
+                    }
+
+                    > .watch-detail {
+                        color: $--color-primary-blue;
+                        font-size: 12px;
+                        position: absolute;
+                        cursor: pointer;
+                        bottom: -29px;
+                        left: -11px;
+                    }
+                }
+            }
+        }
+
+        .data-detail {
+            text-align: center;
+            >button{
+                margin-top: 10px;
+            }
+        }
     }
-    .wrap {
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid #e7e7e7;
-      padding: 12px 20px;
-      padding-bottom: 0 !important;
-    }
-    > .tab-card-content {
-      display: flex;
-      height: 205px;
-      padding: 23px 0;
-      > .tab-card-item {
-        position: relative;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: space-around;
-        padding-left: 40px;
-        width: max-content;
-        &:nth-last-of-type(1):after {
-          display: none;
-        }
-        &:after {
-          position: absolute;
-          right: 0;
-          top: 0;
-          content: '';
-          width: 1px;
-          height: 100%;
-          background-color: $--border-color;
-        }
-        > .yesterday, .see-detail {
-          font-size: 14px;
-          line-height: 19px;
-          padding: 0;
-          color: $--color-primary-blue;
-        }
-        > .card-item-title {
-          font-size: 18px;
-          font-weight: bold;
-        }
-        > .card-item-content {
-          display: flex;
-          align-items: flex-end;
-          position: relative;
-          font-size: 14px;
-          padding-right: 20px;
-          color: #666;
-          > i {
-            color: #333;
-            line-height: 67px;
-            font-size: 50px;
-            word-break: keep-all;
-          }
-          > span {
-            margin-left: 14px;
-            line-height: 40px;
-          }
-          > .watch-detail {
-            color: $--color-primary-blue;
-            font-size:12px;
-            position: absolute;
-            cursor: pointer;
-            bottom: -29px;
-            left: -11px;
-          }
-        }
-      }
-    }
-  }
 
 </style>
