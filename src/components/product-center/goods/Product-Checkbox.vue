@@ -218,7 +218,7 @@ export default {
                 throw e
             }
         },
-        async confirmGoods () {
+        confirmGoods () {
             this.$emit('confirm', this.selectedGoods)
             this.$emit('update:visible', false)
         },

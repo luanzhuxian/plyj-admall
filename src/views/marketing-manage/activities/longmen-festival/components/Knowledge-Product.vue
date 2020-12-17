@@ -150,7 +150,7 @@ export default {
                 }
             } catch (e) { throw e }
         },
-        async clearGoodsSearch () {
+        clearGoodsSearch () {
             this.form = {
                 current: 1,
                 size: 4,
@@ -170,7 +170,7 @@ export default {
             this.$emit('update:visible', false)
             this.clearGoodsSearch()
         },
-        async confirmGoods () {
+        confirmGoods () {
             const list = JSON.parse(JSON.stringify(this.selectedCourses))
             this.$emit('confirm', list)
             this.$emit('update:visible', false)

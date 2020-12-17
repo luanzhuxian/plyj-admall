@@ -3,7 +3,7 @@
         <div class="header" v-show="Object.keys(statistics).length">
             <img class="mr-10"
                  width="48"
-                 src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/龙门抽大奖.png"
+                 src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/%E6%8A%BD%E5%A5%96%E4%B9%90%E7%BF%BB%E5%A4%A9.png"
             >
             <span class="fz-16 font-weight-bold mr-30">{{ statistics.name }}</span>
             <div :class="{

@@ -307,7 +307,7 @@ export default {
         async search () {
             try {
                 this.form.current = 1
-                this.getList()
+                await this.getList()
             } catch (e) {
                 throw e
             }
@@ -316,7 +316,7 @@ export default {
             try {
                 this.form.current = 1
                 this.form.size = val
-                this.getList()
+                await this.getList()
             } catch (e) {
                 throw e
             }
@@ -363,16 +363,16 @@ export default {
                 throw e
             }
         },
-        async preview (row) {
+        preview (row) {
             this.detail = row
             this.showPreview = true
         },
-        async showShare (row) {
+        showShare (row) {
             this.qrcode.qrcodeText = `${ this.mallUrl }/detail/image-text/${ row.id }?noCache=${ Date.now() }`
             this.qrcode.qrcodeShow = true
             this.qrcode.thumbnail = row.graphicMainImg || row.graphicImgs[0]
         },
-        async dateChange (val) {
+        dateChange (val) {
             try {
                 this.form.startTime = val.start
                 this.form.endTime = val.end

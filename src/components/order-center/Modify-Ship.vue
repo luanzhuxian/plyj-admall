@@ -140,7 +140,7 @@ export default {
             this.companyList = [...res1, ...res2]
         },
         // 确认发货按钮
-        async confirmShip () {
+        confirmShip () {
             this.form.orderId = this.orderId
             try {
                 this.$refs.shipForm.validate(async val => {

@@ -243,7 +243,7 @@ export default {
         colorChange (c) {
             this.quill.format('color', c)
         },
-        async linkHandler () {
+        linkHandler () {
             const range = this.quill.getSelection(true)
             const { index, length } = range
             this.$prompt('请输入链接地址')
@@ -289,7 +289,7 @@ export default {
         /**
      * 如果用户从其他地方复制过来的图片是base64，就将base64转为blob,并上传至oss
      */
-        convertBase64: throttle(async function () {
+        convertBase64: throttle(function () {
             const imgs = this.container.querySelectorAll('img')
             for (const img of imgs) {
                 if (img.src.indexOf('base64') > -1) {

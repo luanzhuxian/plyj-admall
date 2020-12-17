@@ -461,7 +461,7 @@ export default {
         this.getBrief()
     },
     methods: {
-        async userGroupInited (val) {
+        userGroupInited (val) {
             this.checkListArray = val
         },
         checkLimitAmount () {

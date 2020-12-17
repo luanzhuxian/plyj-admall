@@ -223,7 +223,7 @@ export default {
         async search () {
             try {
                 this.filterForm.current = 1
-                this.getList()
+                await this.getList()
             } catch (e) { throw e }
         },
         async dateChange ({ start, end }) {
@@ -231,14 +231,14 @@ export default {
                 this.filterForm.current = 1
                 this.filterForm.startTime = start || ''
                 this.filterForm.endTime = end || ''
-                this.getList()
+                await this.getList()
             } catch (e) { throw e }
         },
         async sizeChange (val) {
             try {
                 this.filterForm.current = 1
                 this.filterForm.size = val
-                this.getList()
+                await this.getList()
             } catch (e) { throw e }
         },
         async getData () {

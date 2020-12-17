@@ -171,7 +171,7 @@ export default class LiveServiceOrder extends Vue {
 
     async sizeChange (val) {
         this.query.size = val
-        this.search()
+        await this.search()
     }
 
     async search () {
