@@ -249,7 +249,7 @@ export default {
             }
         },
         share (row) {
-            this.shareText = `${ this.$store.getters['user/mallUrl'] }/longmen-festival/lottery/${ row.id }`
+            this.shareText = `${ this.$store.getters['user/mallUrl'] }/happy-lottery/${ row.id }`
             this.showShare = true
         }
     }
