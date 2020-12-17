@@ -7,9 +7,9 @@
             :start-time="LongmenLotteryInformation.createTime"
             end-time="2020-08-31"
         />
-        <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">
+        <!--<el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">
             新建活动
-        </el-button>
+        </el-button>-->
         <search-box inline class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable v-model="form.activityName" placeholder="活动名称" @change="getLottery(1)" />
