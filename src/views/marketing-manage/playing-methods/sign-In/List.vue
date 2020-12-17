@@ -164,7 +164,7 @@
             <Share
                 :show.sync="showShare"
                 :qrcode-text="shareText"
-                qrcode-image-name="粽粽有礼分享二维码"
+                qrcode-image-name="打卡聪明年分享二维码"
             />
         </a>
     </div>
