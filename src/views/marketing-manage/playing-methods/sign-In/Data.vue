@@ -387,8 +387,6 @@ export default {
     methods: {
         async getDataDetail () {
             try {
-                console.log(this.dataDetail)
-                console.log(this.dataDetail.length)
                 if (!this.dataDetail || !this.dataDetail.length) {
                     const { result: res1 } = await signTimeInterval(this.id)
                     const { result: res2 } = await signEveryAddPeopleStatistic(this.id)
