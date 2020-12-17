@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.happyLottery">
         <div :class="$style.bg">
-            <div :class="$style.count">
+            <div :class="$style.count" v-if="data.status === 2 && data.participantsNum > 10">
                 {{ `${data.participantsNum}人参与` }}
             </div>
             <div :class="$style.countdownWrapper">
