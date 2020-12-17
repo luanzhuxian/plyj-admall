@@ -45,6 +45,7 @@
 <script>
 import ActiveTime from '../../../../components/marketing-manage/Active-Time.vue'
 import { getLotteryStatistics } from '../../../../apis/marketing-manage/lonmen-festival/lottery'
+import moment from 'moment'
 export default {
     name: 'HappyLotteryDetail',
     components: {
@@ -78,6 +79,8 @@ export default {
         async getLotteryStatistics () {
             try {
                 const { result } = await getLotteryStatistics(this.id)
+                result.startTime = moment(result.endTime).format('YYYY-MM-DD')
+                result.endTime = moment(result.endTime).format('YYYY-MM-DD')
                 this.statistics = result
             } catch (e) {
                 throw e
