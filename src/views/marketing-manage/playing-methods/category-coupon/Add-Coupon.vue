@@ -886,12 +886,13 @@ export default {
         }
     },
     async beforeRouteLeave (to, from, next) {
-        if (to.name !== 'CategoryCouponList' && to.name !== 'OrgIndex' && to.name !== 'AddLongmenLottery' && to.name !== 'EditLongmenLottery' && to.name !== 'NewcomersAdd' && to.name !== 'NewcomersEdit' && to.name !== 'NewcomersCopy') {
-            await this.$confirm({
-                title: '放弃编辑？',
-                message: '是否要放弃当前品类券编辑，放弃后将不可恢复！'
-            })
-        }
+        // 判断过多，暂时不判断
+        // if (to.name !== 'CategoryCouponList' && to.name !== 'OrgIndex' && to.name !== 'AddLongmenLottery' && to.name !== 'EditLongmenLottery' && to.name !== 'NewcomersAdd' && to.name !== 'NewcomersEdit' && to.name !== 'NewcomersCopy') {
+        //     await this.$confirm({
+        //         title: '放弃编辑？',
+        //         message: '是否要放弃当前品类券编辑，放弃后将不可恢复！'
+        //     })
+        // }
         if (to.name === 'NewcomersAdd' || to.name === 'NewcomersEdit' || to.name === 'NewcomersCopy') {
             sessionStorage.setItem(SessionEnum.couponResultData, JSON.stringify(this.resultData))
         }
