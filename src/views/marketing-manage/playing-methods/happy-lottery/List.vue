@@ -83,16 +83,16 @@
                 <template slot-scope="{ row }">
                     <Operating>
                         <template slot="button-box">
-                            <!--                            <a-->
-                            <!--                                @click="endLottery(row)" v-if="row.status === 1 || row.status === 2"-->
-                            <!--                            >-->
-                            <!--                                结束-->
-                            <!--                            </a>-->
-                            <!--                            <a-->
-                            <!--                                v-if="row.status === 1 || row.status === 2" @click="$router.push({ name: 'EditHappyLottery', params: { id: row.id } })"-->
-                            <!--                            >-->
-                            <!--                                编辑-->
-                            <!--                            </a>-->
+                            <a
+                                @click="endLottery(row)" v-if="row.status === 1 || row.status === 2"
+                            >
+                                结束
+                            </a>
+                            <a
+                                v-if="row.status === 1 || row.status === 2" @click="$router.push({ name: 'EditHappyLottery', params: { id: row.id } })"
+                            >
+                                编辑
+                            </a>
                             <a
                                 @click="$router.push({name: 'HappyLotteryInfo', params: {id : row.id},query: {status: row.status}})"
                             >
@@ -108,16 +108,16 @@
                             >
                                 删除
                             </a>
-                            <!--                            <a-->
-                            <!--                                @click="$router.push({ name: 'AddHappyLottery', params: { id: row.id }, query: { copy: 1 } })"-->
-                            <!--                            >-->
-                            <!--                                复制-->
-                            <!--                            </a>-->
-                            <!--                            <a-->
-                            <!--                                v-if="row.status === 1 || row.status === 2" @click="share(row)"-->
-                            <!--                            >-->
-                            <!--                                分享活动-->
-                            <!--                            </a>-->
+                            <a
+                                @click="$router.push({ name: 'AddHappyLottery', params: { id: row.id }, query: { copy: 1 } })"
+                            >
+                                复制
+                            </a>
+                            <a
+                                v-if="row.status === 1 || row.status === 2" @click="share(row)"
+                            >
+                                分享活动
+                            </a>
                         </template>
                     </Operating>
                 </template>
