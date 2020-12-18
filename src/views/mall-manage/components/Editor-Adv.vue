@@ -94,7 +94,7 @@ import Draggable from '../../../components/common/draggable'
 import ImageManager from '../../../components/common/file/Image-Manager.vue'
 import { findBrothersComponents } from '../utils/helper'
 import { TemplateModule } from '../utils/types'
-import { ModuleIds, ModalType } from '../utils/map'
+import { ModuleTypes, ModalType } from '../utils/map'
 
 @Component({
     components: {
@@ -154,15 +154,15 @@ export default class EditorAdv extends Vue {
 
     /* computed */
     get isImgShow () {
-        return this.data.moduleType !== ModuleIds.Activity
+        return this.data.moduleType !== ModuleTypes.Activity
     }
 
     get isSelectShow () {
-        return this.data.moduleType === ModuleIds.Activity
+        return this.data.moduleType === ModuleTypes.Activity
     }
 
     get max () {
-        return this.data.moduleType === ModuleIds.Activity ? 6 : 1
+        return this.data.moduleType === ModuleTypes.Activity ? 6 : 1
     }
 
     /* watch */

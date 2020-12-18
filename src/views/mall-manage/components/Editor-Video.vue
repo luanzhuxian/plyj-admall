@@ -98,7 +98,7 @@ import {
 } from '../../../apis/mall'
 import { findBrothersComponents } from '../utils/helper'
 import { TemplateModule } from '../utils/types'
-import { TemplateTypes, ModuleIds } from '../utils/map'
+import { TemplateTypes, ModuleTypes } from '../utils/map'
 
 const editorMap: DynamicObject = {
     20: {
@@ -153,15 +153,15 @@ export default class EditorVideo extends Vue {
     }
 
     get isLive () {
-        return this.data.moduleType === ModuleIds.Live
+        return this.data.moduleType === ModuleTypes.Live
     }
 
     get isCourse () {
-        return ~[ModuleIds.SingleCourse, ModuleIds.SeriesCourse].indexOf(this.data.moduleType)
+        return ~[ModuleTypes.SingleCourse, ModuleTypes.SeriesCourse].indexOf(this.data.moduleType)
     }
 
     get isImageText () {
-        return this.data.moduleType === ModuleIds.ImageText
+        return this.data.moduleType === ModuleTypes.ImageText
     }
 
     get title () {
@@ -200,7 +200,7 @@ export default class EditorVideo extends Vue {
     async getDefaultCourseInfo () {
         try {
             const { moduleType } = this
-            const courseType = moduleType === ModuleIds.SingleCourse ? 1 : 2
+            const courseType = moduleType === ModuleTypes.SingleCourse ? 1 : 2
             const { result } = await getCourseInfo({ courseType })
             this.data.defaultValues = result.records.length
                 ? [{

@@ -14,7 +14,7 @@ import {
     TemplateModule,
     TemplateModuleItem
 } from './types'
-import { TemplateTypes, ModuleIds } from './map'
+import { TemplateTypes, ModuleTypes } from './map'
 
 // 找到指定模块
 const findModule = function (modules: TemplateModule[]) {
@@ -141,132 +141,132 @@ export const rebuild = (tmplType: number, modules: TemplateModule[]): TemplateCr
     // 首页
     if (tmplType === TemplateTypes.TemplateB) {
         templateModel = {} as TemplateB
-        templateModel.Banner = reset(findModuleById(ModuleIds.Banner), 'Banner')
-        templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
-        templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
-        templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
-        templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
-        templateModel.Appointment = reset(findModuleById(ModuleIds.Appointment), 'Appointment')
-        templateModel.Propagate = reset(findModuleById(ModuleIds.Propagate), 'Propagate')
-        templateModel.Class = reset(findModuleById(ModuleIds.Class), 'Class')
-        templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
+        templateModel.Banner = reset(findModuleById(ModuleTypes.Banner), 'Banner')
+        templateModel.Live = reset(findModuleById(ModuleTypes.Live), 'Live')
+        templateModel.SingleCourse = reset(findModuleById(ModuleTypes.SingleCourse), 'SingleCourse')
+        templateModel.SeriesCourse = reset(findModuleById(ModuleTypes.SeriesCourse), 'SeriesCourse')
+        templateModel.ImageText = reset(findModuleById(ModuleTypes.ImageText), 'ImageText')
+        templateModel.Popular = reset(findModuleById(ModuleTypes.Popular), 'Popular')
+        templateModel.Appointment = reset(findModuleById(ModuleTypes.Appointment), 'Appointment')
+        templateModel.Propagate = reset(findModuleById(ModuleTypes.Propagate), 'Propagate')
+        templateModel.Class = reset(findModuleById(ModuleTypes.Class), 'Class')
+        templateModel.Recommend = reset(findModuleById(ModuleTypes.Recommend), 'Recommend')
     }
     if (tmplType === TemplateTypes.TemplateB2) {
         templateModel = {} as TemplateB
         templateModel.Banner = reset(modules[0], 'Banner')
         templateModel.Adv = reset(modules[1], 'Adv')
-        templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
-        templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
-        templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
-        templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
-        templateModel.Appointment = reset(findModuleById(ModuleIds.Appointment), 'Appointment')
-        templateModel.Propagate = reset(findModuleById(ModuleIds.Propagate), 'Propagate')
-        templateModel.Class = reset(findModuleById(ModuleIds.Class), 'Class')
-        templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
+        templateModel.Live = reset(findModuleById(ModuleTypes.Live), 'Live')
+        templateModel.SingleCourse = reset(findModuleById(ModuleTypes.SingleCourse), 'SingleCourse')
+        templateModel.SeriesCourse = reset(findModuleById(ModuleTypes.SeriesCourse), 'SeriesCourse')
+        templateModel.ImageText = reset(findModuleById(ModuleTypes.ImageText), 'ImageText')
+        templateModel.Popular = reset(findModuleById(ModuleTypes.Popular), 'Popular')
+        templateModel.Appointment = reset(findModuleById(ModuleTypes.Appointment), 'Appointment')
+        templateModel.Propagate = reset(findModuleById(ModuleTypes.Propagate), 'Propagate')
+        templateModel.Class = reset(findModuleById(ModuleTypes.Class), 'Class')
+        templateModel.Recommend = reset(findModuleById(ModuleTypes.Recommend), 'Recommend')
     }
     if (tmplType === TemplateTypes.TemplateC) {
         templateModel = {} as TemplateC
-        templateModel.Propagate = reset(findModuleById(ModuleIds.Propagate), 'Propagate')
-        templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
-        templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
-        templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
-        templateModel.Appointment = reset(findModuleById(ModuleIds.Appointment), 'Appointment')
-        templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
-        templateModel.Teachers = reset(findModuleById(ModuleIds.Teachers), 'Teachers')
-        templateModel.Class = reset(findModuleById(ModuleIds.Class), 'Class')
-        templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
+        templateModel.Propagate = reset(findModuleById(ModuleTypes.Propagate), 'Propagate')
+        templateModel.Live = reset(findModuleById(ModuleTypes.Live), 'Live')
+        templateModel.SingleCourse = reset(findModuleById(ModuleTypes.SingleCourse), 'SingleCourse')
+        templateModel.SeriesCourse = reset(findModuleById(ModuleTypes.SeriesCourse), 'SeriesCourse')
+        templateModel.ImageText = reset(findModuleById(ModuleTypes.ImageText), 'ImageText')
+        templateModel.Appointment = reset(findModuleById(ModuleTypes.Appointment), 'Appointment')
+        templateModel.Popular = reset(findModuleById(ModuleTypes.Popular), 'Popular')
+        templateModel.Teachers = reset(findModuleById(ModuleTypes.Teachers), 'Teachers')
+        templateModel.Class = reset(findModuleById(ModuleTypes.Class), 'Class')
+        templateModel.Recommend = reset(findModuleById(ModuleTypes.Recommend), 'Recommend')
     }
     if (tmplType === TemplateTypes.TemplateD) {
         templateModel = {} as TemplateD
-        templateModel.Banner = reset(findModuleById(ModuleIds.Banner), 'Banner')
-        templateModel.Classify = reset(findModuleById(ModuleIds.Classify), 'Classify')
-        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
-        templateModel.Activity = reset(findModuleById(ModuleIds.Activity), 'Activity')
-        templateModel.Live = reset(findModuleById(ModuleIds.Live), 'Live')
-        templateModel.SingleCourse = reset(findModuleById(ModuleIds.SingleCourse), 'SingleCourse')
-        templateModel.SeriesCourse = reset(findModuleById(ModuleIds.SeriesCourse), 'SeriesCourse')
-        templateModel.ImageText = reset(findModuleById(ModuleIds.ImageText), 'ImageText')
-        templateModel.Appointment = reset(findModuleById(ModuleIds.Appointment), 'Appointment')
-        templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
-        templateModel.Package = reset(findModuleById(ModuleIds.Package), 'Package')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Yugou = reset(findModuleById(ModuleIds.Yugou), 'Yugou')
-        templateModel.Propagate = reset(findModuleById(ModuleIds.Propagate), 'Propagate')
-        templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
-        templateModel.Class = reset(findModuleById(ModuleIds.Class), 'Class')
-        templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
+        templateModel.Banner = reset(findModuleById(ModuleTypes.Banner), 'Banner')
+        templateModel.Classify = reset(findModuleById(ModuleTypes.Classify), 'Classify')
+        templateModel.Coupon = reset(findModuleById(ModuleTypes.Coupon), 'Coupon')
+        templateModel.Activity = reset(findModuleById(ModuleTypes.Activity), 'Activity')
+        templateModel.Live = reset(findModuleById(ModuleTypes.Live), 'Live')
+        templateModel.SingleCourse = reset(findModuleById(ModuleTypes.SingleCourse), 'SingleCourse')
+        templateModel.SeriesCourse = reset(findModuleById(ModuleTypes.SeriesCourse), 'SeriesCourse')
+        templateModel.ImageText = reset(findModuleById(ModuleTypes.ImageText), 'ImageText')
+        templateModel.Appointment = reset(findModuleById(ModuleTypes.Appointment), 'Appointment')
+        templateModel.Miaosha = reset(findModuleById(ModuleTypes.Miaosha), 'Miaosha')
+        templateModel.Package = reset(findModuleById(ModuleTypes.Package), 'Package')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(ModuleTypes.Yugou), 'Yugou')
+        templateModel.Propagate = reset(findModuleById(ModuleTypes.Propagate), 'Propagate')
+        templateModel.Popular = reset(findModuleById(ModuleTypes.Popular), 'Popular')
+        templateModel.Class = reset(findModuleById(ModuleTypes.Class), 'Class')
+        templateModel.Recommend = reset(findModuleById(ModuleTypes.Recommend), 'Recommend')
     }
 
     // 主会场
     if (tmplType === TemplateTypes.TemplateFengQiang) {
         templateModel = {} as TemplateFengQiang
-        templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Maisong = reset(findModuleById(ModuleIds.Maisong), 'Maisong')
-        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
-        templateModel.Yugou = reset(findModuleById(ModuleIds.Yugou), 'Yugou')
-        templateModel.Fengqiang = reset(findModuleById(ModuleIds.Class), 'Fengqiang')
-        templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
+        templateModel.Miaosha = reset(findModuleById(ModuleTypes.Miaosha), 'Miaosha')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Maisong = reset(findModuleById(ModuleTypes.Maisong), 'Maisong')
+        templateModel.Coupon = reset(findModuleById(ModuleTypes.Coupon), 'Coupon')
+        templateModel.Yugou = reset(findModuleById(ModuleTypes.Yugou), 'Yugou')
+        templateModel.Fengqiang = reset(findModuleById(ModuleTypes.Class), 'Fengqiang')
+        templateModel.Recommend = reset(findModuleById(ModuleTypes.Recommend), 'Recommend')
     }
     if (tmplType === TemplateTypes.TemplateBaoFa) {
         templateModel = {} as TemplateBaoFa
-        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
-        templateModel.Maisong = reset(findModuleById(ModuleIds.Maisong), 'Maisong')
-        templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Fengqiang = reset(findModuleById(ModuleIds.Class), 'Fengqiang')
+        templateModel.Coupon = reset(findModuleById(ModuleTypes.Coupon), 'Coupon')
+        templateModel.Maisong = reset(findModuleById(ModuleTypes.Maisong), 'Maisong')
+        templateModel.Miaosha = reset(findModuleById(ModuleTypes.Miaosha), 'Miaosha')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Fengqiang = reset(findModuleById(ModuleTypes.Class), 'Fengqiang')
     }
     if (tmplType === TemplateTypes.TemplateFanChang) {
         templateModel = {} as TemplateFanChang
-        templateModel.Maisong = reset(findModuleById(ModuleIds.Maisong), 'Maisong')
-        templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Fengqiang = reset(findModuleById(ModuleIds.Class), 'Fengqiang')
-        templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
+        templateModel.Maisong = reset(findModuleById(ModuleTypes.Maisong), 'Maisong')
+        templateModel.Miaosha = reset(findModuleById(ModuleTypes.Miaosha), 'Miaosha')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Fengqiang = reset(findModuleById(ModuleTypes.Class), 'Fengqiang')
+        templateModel.Recommend = reset(findModuleById(ModuleTypes.Recommend), 'Recommend')
     }
     if (tmplType === TemplateTypes.TemplateSpring2020) {
         templateModel = {} as TemplateSpring2020
-        templateModel.Propagate = reset(findModuleById(ModuleIds.Propagate), 'Propagate')
-        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
-        templateModel.Chunyun = reset(findModuleById(ModuleIds.Chunyun), 'Chunyun')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Yugou = reset(findModuleById(ModuleIds.Yugou), 'Yugou')
-        templateModel.Fengqiang = reset(findModuleById(ModuleIds.Popular), 'Fengqiang')
+        templateModel.Propagate = reset(findModuleById(ModuleTypes.Propagate), 'Propagate')
+        templateModel.Coupon = reset(findModuleById(ModuleTypes.Coupon), 'Coupon')
+        templateModel.Chunyun = reset(findModuleById(ModuleTypes.Chunyun), 'Chunyun')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(ModuleTypes.Yugou), 'Yugou')
+        templateModel.Fengqiang = reset(findModuleById(ModuleTypes.Popular), 'Fengqiang')
     }
     if (tmplType === TemplateTypes.TemplateDragonGate) {
         templateModel = {} as TemplateDragonGate
-        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
-        templateModel.Charity = reset(findModuleById(ModuleIds.Charity), 'Charity')
-        templateModel.Activity = reset(findModuleById(ModuleIds.DragonGateActivity), 'Activity')
-        templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
-        templateModel.Distribution = reset(findModuleById(ModuleIds.Distribution), 'Distribution')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Yugou = reset(findModuleById(ModuleIds.Yugou), 'Yugou')
-        templateModel.Package = reset(findModuleById(ModuleIds.Package), 'Package')
-        templateModel.Recommend = reset(findModuleById(ModuleIds.Recommend), 'Recommend')
+        templateModel.Coupon = reset(findModuleById(ModuleTypes.Coupon), 'Coupon')
+        templateModel.Charity = reset(findModuleById(ModuleTypes.Charity), 'Charity')
+        templateModel.Activity = reset(findModuleById(ModuleTypes.DragonGateActivity), 'Activity')
+        templateModel.Miaosha = reset(findModuleById(ModuleTypes.Miaosha), 'Miaosha')
+        templateModel.Distribution = reset(findModuleById(ModuleTypes.Distribution), 'Distribution')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(ModuleTypes.Yugou), 'Yugou')
+        templateModel.Package = reset(findModuleById(ModuleTypes.Package), 'Package')
+        templateModel.Recommend = reset(findModuleById(ModuleTypes.Recommend), 'Recommend')
     }
     if (tmplType === TemplateTypes.TemplateDouble122020) {
         templateModel = {} as TemplateDouble122020
-        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
-        templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Yugou = reset(findModuleById(ModuleIds.Yugou), 'Yugou')
-        templateModel.Package = reset(findModuleById(ModuleIds.Package), 'Package')
-        templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
+        templateModel.Coupon = reset(findModuleById(ModuleTypes.Coupon), 'Coupon')
+        templateModel.Miaosha = reset(findModuleById(ModuleTypes.Miaosha), 'Miaosha')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(ModuleTypes.Yugou), 'Yugou')
+        templateModel.Package = reset(findModuleById(ModuleTypes.Package), 'Package')
+        templateModel.Popular = reset(findModuleById(ModuleTypes.Popular), 'Popular')
     }
     if (tmplType === TemplateTypes.TemplateSpring2021) {
         templateModel = {} as TemplateSpring2021
-        templateModel.Live = findModuleById(ModuleIds.Live)
-        templateModel.RedPackage = reset(findModuleById(ModuleIds.RedPackage), 'RedPackage')
-        templateModel.Coupon = reset(findModuleById(ModuleIds.Coupon), 'Coupon')
-        templateModel.Miaosha = reset(findModuleById(ModuleIds.Miaosha), 'Miaosha')
-        templateModel.Pintuan = reset(findModuleById(ModuleIds.Pintuan), 'Pintuan')
-        templateModel.Yugou = reset(findModuleById(ModuleIds.Yugou), 'Yugou')
-        templateModel.Package = reset(findModuleById(ModuleIds.Package), 'Package')
-        templateModel.Popular = reset(findModuleById(ModuleIds.Popular), 'Popular')
+        templateModel.Live = findModuleById(ModuleTypes.Live)
+        templateModel.RedPackage = reset(findModuleById(ModuleTypes.RedPackage), 'RedPackage')
+        templateModel.Coupon = reset(findModuleById(ModuleTypes.Coupon), 'Coupon')
+        templateModel.Miaosha = reset(findModuleById(ModuleTypes.Miaosha), 'Miaosha')
+        templateModel.Pintuan = reset(findModuleById(ModuleTypes.Pintuan), 'Pintuan')
+        templateModel.Yugou = reset(findModuleById(ModuleTypes.Yugou), 'Yugou')
+        templateModel.Package = reset(findModuleById(ModuleTypes.Package), 'Package')
+        templateModel.Popular = reset(findModuleById(ModuleTypes.Popular), 'Popular')
     }
     return templateModel || {}
 }

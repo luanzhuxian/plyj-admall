@@ -87,7 +87,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import CustomTable from './Custom-Table.vue'
-import { modalTitleMap, ModalType, ProductStatus } from '../utils/map'
+import { modalTitleMap, ModalType, ProductType, ProductStatus } from '../utils/map'
 import { getGoods } from '../../../apis/product-center/goods'
 import { getCategory } from '../../../apis/product-center/category'
 import { getVideoList } from '../../../apis/product-center/online-teaching/knowledge-course'
@@ -288,11 +288,14 @@ export default class ModalProdCategory extends Vue {
     confirm () {
         let updateType
         // 商品分类
-        if (this.type === ModalType.ProductAndCategoryModal) updateType = this.currentTab === 'category' ? 1 : 2
+        if (this.type === ModalType.ProductAndCategoryModal) {
+            updateType = this.currentTab === 'category'
+                ? ProductType.Category : ProductType.Product
+        }
         // 分类
-        if (this.type === ModalType.CategoryModal) updateType = 1
+        if (this.type === ModalType.CategoryModal) updateType = ProductType.Category
         // 知识课程
-        if (this.type === ModalType.CourseModal) updateType = 3
+        if (this.type === ModalType.CourseModal) updateType = ProductType.Course
 
         this.$emit('update', {
             type: updateType,

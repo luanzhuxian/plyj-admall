@@ -123,7 +123,7 @@ import Draggable from '../../../components/common/draggable'
 import { updateModule } from '../../../apis/mall'
 import { findBrothersComponents } from '../utils/helper'
 import { TemplateModule } from '../utils/types'
-import { TemplateTypes, ModuleIds } from '../utils/map'
+import { TemplateTypes, ModuleTypes } from '../utils/map'
 
 const editorMap: DynamicObject = {
     2: {
@@ -208,7 +208,7 @@ export default class EditorModule extends Vue {
     }
 
     get isClass () {
-        return this.moduleType === ModuleIds.Class
+        return this.moduleType === ModuleTypes.Class
     }
 
     get title () {
@@ -241,7 +241,7 @@ export default class EditorModule extends Vue {
             list[0].open({
                 modalType: this.hideRadio ? moduleType : goodsSource,
                 radio: otherInfo,
-                ...(moduleType === ModuleIds.Miaosha ? { range: [] } : null)
+                ...(moduleType === ModuleTypes.Miaosha ? { range: [] } : null)
             })
         }
     }
