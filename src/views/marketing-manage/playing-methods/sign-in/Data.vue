@@ -111,7 +111,7 @@
             />
             <el-table-column
                 prop="signinCount"
-                label="获得端午活动数量"
+                label="打卡次数"
                 header-align="center"
                 align="center"
             />
