@@ -131,7 +131,7 @@
         <Share
             :show.sync="showShare"
             :qrcode-text="shareText"
-            qrcode-image-name="龙门抽大奖分享二维码"
+            qrcode-image-name="抽奖乐翻天分享二维码"
         />
     </div>
 </template>
