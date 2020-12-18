@@ -198,7 +198,7 @@ export default {
                 }
             } catch (e) { throw e }
         },
-        async clearGoodsSearch () {
+        clearGoodsSearch () {
             this.form = {
                 type: 'ALL',
                 productName: '',
@@ -222,7 +222,7 @@ export default {
             this.$emit('update:visible', false)
             this.clearGoodsSearch()
         },
-        async confirmGoods () {
+        confirmGoods () {
             const list = JSON.parse(JSON.stringify(this.selectedGoods))
             this.$emit('confirm', list)
             this.$emit('update:visible', false)

@@ -90,17 +90,23 @@ const map = {
         sub: '抽奖嗨翻天',
         icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/present.png',
         width: '32'
+    },
+    'happy-lottery': {
+        main: '抽奖乐翻天',
+        sub: '好礼享不停',
+        icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/happy-lottery.png',
+        width: '48'
     }
 }
 
 const defaultData = [{
     value: 'cloud'
 }, {
+    value: 'happy-lottery'
+}, {
     value: 'newyear'
 }, {
-    value: 'dragon-gate-charity'
-}, {
-    value: 'dragon-gate-play'
+    value: 'distribution'
 }]
 
 @Component

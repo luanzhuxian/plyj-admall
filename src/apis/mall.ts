@@ -247,3 +247,8 @@ export const cancelSkinStatus = (params: { type: number}) => axios.get('/apis/v1
  * @property {object} params.type 1 首页
  */
 export const getSkinStatus = (params: { type: number}) => axios.get('/apis/v1/mall/template/getSkinStatus', { params })
+
+/**
+ * 当前抽奖活动
+ */
+export const getCurrentLottery = () => axios.get('/apis/v1/luckdraw/findLuckDraw/activityIng')

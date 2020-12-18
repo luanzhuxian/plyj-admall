@@ -507,7 +507,7 @@ export default {
                 })
             }
         },
-        async dateChange ({ start, end }) {
+        dateChange ({ start, end }) {
             this.model.startTime = start || ''
             this.model.endTime = end || ''
             if (this.$refs.form) {

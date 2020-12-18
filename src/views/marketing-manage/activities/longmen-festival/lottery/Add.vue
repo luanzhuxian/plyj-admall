@@ -212,7 +212,7 @@
                                         /> %
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="操作" align="right" header-align="right" v-if="!item || !item.id">
+                                <el-table-column label="操作" align="right" header-align="right" v-if="status < 2">
                                     <template>
                                         <el-button type="text" @click="removeAward(item)">
                                             移除
@@ -598,7 +598,7 @@ export default {
                 await getLotteryDetailStock(this.id)
                 this.selectedUserGroups = userGroups.map(item => item.groupId)
                 this.defaultDate = [startTime, endTime]
-                this.status = status
+                this.status = Number(status) || 0
 
                 // 如果是复制
                 if (this.$route.query.copy) {
