@@ -122,27 +122,9 @@
                 align="center"
             >
                 <template #default="{row}">
-                    <el-popover
-                        placement="top"
-                        trigger="click"
-                    >
-                        <el-table :data="giftData">
-                            <el-table-column align="center" width="150" prop="awardName" label="获得奖品" />
-                            <el-table-column align="center" prop="awardCount" label="获得数量" />
-                            <el-table-column align="center" width="150" prop="gainTime" label="获奖时间" />
-                            <el-table-column align="center" width="150" prop="useTime" label="使用时间" />
-                            <el-table-column align="center" prop="address" label="状态">
-                                <template #default="{row:{status,awardType}}">
-                                    <span v-if="awardType === 1">{{ giftStatus[status] || '其他' }}</span>
-                                    <span v-else-if="awardType === 2">{{ useStatus[status] || '其他' }}</span>
-                                    <span v-else>{{ couponStatus[status] || '其他' }}</span>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                        <el-button plan slot="reference" @click="getActivityGiftDetail(row)">
-                            查看 ({{ row.awardCount || 0 }})
-                        </el-button>
-                    </el-popover>
+                    <el-button plain slot="reference" @click="getActivityGiftDetail(row)">
+                        查看 ({{ row.awardCount || 0 }})
+                    </el-button>
                 </template>
             </el-table-column>
             <el-table-column
@@ -220,7 +202,7 @@
         </ExportDialog>
 
         <verification :dialog-verification-visible.sync="dialogVerificationVisible" />
-
+        <GiftList :obtain-time="true" :show.sync="showGift" :gift-data="giftData" />
         <el-dialog
             title="查看示例"
             :visible.sync="showDataDetail"
@@ -300,6 +282,7 @@
 <script>
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import verification from '../../../../components/order-center/Verification.vue'
+import GiftList from '../../../../components/marketing-manage/Gift-List'
 import moment from 'moment/moment'
 import { createObjectUrl } from '../../../../assets/ts/upload'
 import {
@@ -316,7 +299,8 @@ export default {
     name: 'SignInData',
     components: {
         verification,
-        ExportDialog
+        ExportDialog,
+        GiftList
     },
     props: {
         id: {
@@ -326,6 +310,7 @@ export default {
     },
     data () {
         return {
+            showGift: false,
             showDataDetail: false,
             showExport: false,
             exportData: {
@@ -355,12 +340,6 @@ export default {
             giftData: [],
             dialogVerificationVisible: false,
             total: 0,
-            // 礼品状态
-            giftStatus: ['待使用', '已使用', '已过期'],
-            // 奖学金状态
-            useStatus: ['待领取', '未使用', '已使用', '已过期', '已失效', '已删除'],
-            // 券使用状态
-            couponStatus: ['待使用', '已使用', '已过期'],
             statistics: {
                 // 浏览量
                 pv: 0,
@@ -476,6 +455,7 @@ export default {
                 const activityId = this.id
                 const { result } = await queryActivityGiftDetail(activityId, userId)
                 this.giftData = result
+                this.showGift = true
             } catch (e) {
                 throw e
             }

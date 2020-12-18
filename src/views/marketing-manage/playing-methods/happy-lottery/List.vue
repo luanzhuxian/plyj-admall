@@ -139,7 +139,6 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import ListHeader from '../../../../components/marketing-manage/List-Header.vue'
-import { mapGetters, mapActions } from 'vuex'
 import { namespace } from 'vuex-class'
 import Share from '../../../../components/common/Share.vue'
 import moment from 'moment'

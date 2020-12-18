@@ -34,7 +34,13 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="礼品名称" prop="awardName" />
-                <el-table-column label="有效时间">
+                <el-table-column align="center" prop="awardCount" label="获得数量" />
+                <el-table-column v-if="obtainTime" label="获奖时间">
+                    <template slot-scope="{ row }">
+                        {{ row.gainTime }}
+                    </template>
+                </el-table-column>
+                <el-table-column v-else label="有效时间">
                     <template slot-scope="{ row }">
                         {{ row.startTime }}-{{ row.endTime }}
                     </template>
@@ -42,6 +48,13 @@
                 <el-table-column label="使用时间" prop="useLuckDrawNumber">
                     <template slot-scope="{ row }">
                         {{ row.useTime }}
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" prop="address" label="状态">
+                    <template #default="{row:{status,awardType}}">
+                        <span v-if="awardType === 1">{{ giftStatus[status] || '其他' }}</span>
+                        <span v-else-if="awardType === 2">{{ useStatus[status] || '其他' }}</span>
+                        <span v-else>{{ couponStatus[status] || '其他' }}</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -54,9 +67,23 @@ export default {
     name: 'GiftList',
     props: {
         show: Boolean,
+        obtainTime: {
+            type: Boolean,
+            default: false
+        },
         giftData: {
             type: Array,
             default: () => []
+        }
+    },
+    data () {
+        return {
+            // 礼品状态
+            giftStatus: ['待使用', '已使用', '已过期'],
+            // 奖学金状态
+            useStatus: ['待领取', '未使用', '已使用', '已过期', '已失效', '已删除'],
+            // 券使用状态
+            couponStatus: ['待使用', '已使用', '已过期']
         }
     },
     methods: {
