@@ -20,7 +20,7 @@
                 {{ form.name }}
             </el-form-item>
             <el-form-item label="活动时间">
-                {{ form.startTime }} - {{ form.endTime }}
+                {{ form.startTime | dateFormat('YYYY-MM-DD') }} - {{ form.endTime | dateFormat('YYYY-MM-DD') }}
             </el-form-item>
             <el-form-item label="活动对象">
                 <span v-if="form.userRange === 0">所有用户</span>
