@@ -312,7 +312,7 @@ export default {
                 throw e
             }
         },
-        sizeChange (val) {
+        async sizeChange (val) {
             try {
                 this.form.current = 1
                 this.form.size = val
