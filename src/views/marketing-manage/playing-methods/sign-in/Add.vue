@@ -304,6 +304,15 @@
                 </el-button>
             </div>
         </el-dialog>
+
+        <div class="preview">
+            <div class="newcomer-example-title">
+                活动预览
+            </div>
+            <div class="img-box">
+                <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年预览.png">
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -830,6 +839,24 @@ export default {
             }
             >button{
                 margin-top: 20px;
+            }
+        }
+
+        .preview {
+            position: absolute;
+            top: 100px;
+            right: 100px;
+            .newcomer-example-title {
+                color: #666;
+                font-size: 16px;
+                padding-bottom: 14px;
+            }
+            .img-box{
+                height: 700px;
+                overflow-y: scroll;
+                >img {
+                    width: 360px;
+                }
             }
         }
     }

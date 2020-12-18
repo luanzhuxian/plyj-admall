@@ -99,14 +99,12 @@
                         <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
                     </div>
                     <div class="red-package-bg" v-if="programId === '10'">
-                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
-                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
-                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/抽奖乐翻天01.jpg" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/抽奖乐翻天02.jpg" alt="">
                     </div>
                     <div class="red-package-bg" v-if="programId === '11'">
-                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包01.png" alt="">
-                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包02.png" alt="">
-                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/福利红包03.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/打卡聪明年01.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/打卡聪明年02.jpg" alt="">
                     </div>
                 </div>
             </div>
