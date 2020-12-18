@@ -178,7 +178,7 @@
                 :is-lock="!activitys.happyLottery.status"
                 img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png"
                 :route-info="{
-                    name: 'HappyLottery',
+                    name: 'luckDrawActivityCount1',
                     params: {
                         programId: '10'
                     }
