@@ -23,9 +23,11 @@
         </div>
         <div class="content">
             <div class="pay-detail">
-                <img v-if="programId === '9'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心福利红包.png" alt="">
-                <img v-if="programId === '10'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心抽奖乐翻天.png" alt="">
-                <img v-if="programId === '11'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心打卡聪明年.png" alt="">
+                <div class="img-box" v-if="['9','10','11'].includes(programId)">
+                    <img v-if="programId === '9'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心福利红包.png" alt="">
+                    <img v-if="programId === '10'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心抽奖乐翻天.png" alt="">
+                    <img v-if="programId === '11'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心打卡聪明年.png" alt="">
+                </div>
                 <div>
                     <div class="title">
                         <span>{{ getBaseMarketData.programName }}</span>
@@ -220,9 +222,12 @@ export default {
 
             .pay-detail{
                 display: flex;
-                >img{
+                .img-box{
                     width: 400px;
                     margin-right: 20px;
+                    >img{
+                        width: 100%;
+                    }
                 }
                 .title {
                     display: flex;

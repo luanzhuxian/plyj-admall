@@ -172,7 +172,7 @@
             <SchemePack
                 name="抽奖乐翻天"
                 desc="低成本高引流，多种主题任意选"
-                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--${getDate(activitys.happyLottery.data.validity)}` : ''"
+                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--2020-03-31` : ''"
                 :count="activitiesInfo.luckDrawActivityCount1"
                 :tags="['限','新']"
                 :is-lock="!activitys.happyLottery.status"
@@ -187,7 +187,7 @@
             <SchemePack
                 name="打卡聪明年"
                 desc="打卡签到答题参与抽奖"
-                :expired="activitys.newYearSignIn.status ? `${getDate(activitys.newYearSignIn.data.createTime)}-2020.08.31` : ''"
+                :expired="activitys.newYearSignIn.status ? `${getDate(activitys.newYearSignIn.data.createTime)}-2020.03.31` : ''"
                 :count="activitiesInfo.smartYearCount"
                 :is-lock="!activitys.newYearSignIn.status"
                 :tags="['限','新']"
