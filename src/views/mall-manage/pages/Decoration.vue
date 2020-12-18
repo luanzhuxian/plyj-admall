@@ -150,7 +150,7 @@
             :title.sync="modalOption.title"
             :type.sync="modalOption.type"
             :radio.sync="modalOption.radio"
-            @update="updateEditor"
+            @update="updateModules"
         />
         <ModalProd
             :show.sync="ActivityModalOption.show"
@@ -159,7 +159,7 @@
             :range.sync="ActivityModalOption.range"
             :default-checkbox="defaultSelection"
             :reserve-selection="reserveSelection"
-            @update="updateEditor"
+            @update="updateModules"
         />
         <TemplatePreview :show.sync="showPreview">
             <Render
@@ -212,25 +212,34 @@ import { validatorProducer } from '../utils/validate/index'
 import { rebuild, rebuildBeforeSubmit } from '../utils/rebuild'
 import { isString, isPlainObject } from '../utils/helper'
 import {
-    editorMap,
-    moduleIdMap,
-    productTypeMap1,
-    tagMap,
-    TemplateTypes,
-    ModalType
-} from '../utils/map'
-import {
     TemplateCrosses,
     Template,
     TemplateModuleItem
 } from '../utils/types'
+import {
+    TemplateTypes,
+    ModalType,
+    tagMap,
+    editorMap,
+    moduleIdMap
+} from '../utils/map'
 import {
     getDefaultTemplateList,
     updateCurrentTemplate,
     getTemplateById,
     checkIsFull
 } from '../../../apis/mall'
-import { getSpringPloughingDetail } from '../../../apis/marketing-manage/new-year/spring-ploughing'
+import {
+    updateBanner,
+    updateCatagoryProduct,
+    updateProduct,
+    updatePackage,
+    updateDistribution,
+    updateOnlineCourse,
+    updateCoupon,
+    updatePintuanYugou,
+    updateMiaosha
+} from '../utils/update-modules'
 
 const mall = namespace('mall')
 
@@ -591,244 +600,57 @@ export default class MallDecoration extends Vue {
         this.currentModule = this.currentModule === moduleName ? '' : moduleName
     }
 
-    // 进行装修操作后更新数据
-    async updateEditor ({ type, selectedList = [], index }: { type: number; selectedList: DynamicObject[]; index: number}) {
+    // 进行装修操作后更新模块数据
+    updateModules ({ type, selectedList = [], index }: { type: number; selectedList: DynamicObject[]; index: number}) {
         const { moduleModels, currentModule, tmplType } = this
-        // TODO:
         // @ts-ignore
         const module = moduleModels[currentModule]
 
         // 首页模块
         if (~['Banner', 'Adv'].indexOf(currentModule)) {
-        // 商品/分类单选
-            const selected = selectedList[0]
-            if (!selected || !selected.id) return
-            module.values[index].type = type
-            module.values[index].valueName = type === 3 ? selected.courseName : type === 1 ? selected.categoryName : selected.productName
-            module.values[index].value = selected.id
+            updateBanner(module, selectedList, type, index)
         }
-
         if (~['Popular', 'Class'].indexOf(currentModule)) {
             if (type === ModalType.CategoryModal) {
-            // 分类单选
-                const selected = selectedList[0]
-                if (!selected || !selected.id) return
-                module.otherValue = selected.categoryName
-                module.otherInfo = selected.id
+                // 分类单选
+                updateCatagoryProduct(module, selectedList)
                 // @ts-ignore
                 this.$refs['editor-module'].getProductsByCategory(module)
-            }
-            if (type === ModalType.ProductModal || type === ModalType.ClassModal) {
-            // 商品、课程多选
-                if (!selectedList.length) return
-
-                for (const prod of selectedList) {
-                    const obj = {
-                        type: productTypeMap1[prod.productType],
-                        image: prod.productMainImage,
-                        name: prod.productName,
-                        value: prod.id,
-                        goodsInfo: prod
-                    }
-                    obj.goodsInfo.productSkuModels = prod.skuEntityList
-                    obj.goodsInfo.labelModels = prod.labelList.map((label: string) => ({ labelName: label }))
-                    module.productValues.push(obj)
-                }
-
-                const max = type === ModalType.ProductModal ? 9 : 12
-                if (module.productValues.length > max) {
-                    module.productValues.length = max
-                }
-                module.values = module.productValues
+            } else if (type === ModalType.ProductModal || type === ModalType.ClassModal) {
+                // 实体商品、虚拟商品、正式课、体验课多选
+                updateProduct(module, selectedList, type)
             }
             // @ts-ignore
             this.$refs['editor-module'].$forceUpdate()
         }
-        // 组合课
         if (currentModule === 'Package') {
-            if (!selectedList.length) return
-
-            const result = await Promise.all(selectedList
-                .map(item => getSpringPloughingDetail(item.id))
-                .map((p: Promise<any>) => p.catch(e => {
-                    console.error(e)
-                    return { result: null }
-                })))
-
-            module.values = result
-                // .filter(({ data }) => data)
-                .map(({ result }) => result)
-                .slice(0, 8)
+            updatePackage(module, selectedList)
         }
-        // 分销
         if (currentModule === 'Distribution') {
-            if (!selectedList.length) return
-            for (const prod of selectedList) {
-                module.values.push({
-                    type: '',
-                    image: prod.productImage || '',
-                    name: prod.productName || '',
-                    value: prod.productId,
-                    goodsInfo: {
-                        ...prod,
-                        productMainImage: prod.productImg || ''
-                    }
-                })
-            }
-            if (module.values.length > 6) {
-                module.values.length = 6
-            }
+            updateDistribution(module, selectedList)
         }
-        // 单课、系列课
         if (~['SingleCourse', 'SeriesCourse', 'ImageText'].indexOf(currentModule)) {
-            if (!selectedList.length) return
-            for (const item of selectedList) {
-                module.values.push({
-                    type: '',
-                    image: currentModule === 'ImageText' ? item.graphicMainImg : item.courseImg,
-                    name: currentModule === 'ImageText' ? item.graphicName : item.courseName,
-                    value: item.id,
-                    goodsInfo: item
-                })
-            }
-            if (module.values.length > 12) {
-                module.values.length = 12
-            }
+            updateOnlineCourse(module, selectedList)
         }
 
         // 主会场模块
         if (currentModule === 'Fengqiang') {
-            if (type === 1) {
-            // 分类单选
-                const selected = selectedList[0]
-                if (!selected || !selected.id) return
-                module.otherValue = selected.categoryName
-                module.otherInfo = selected.id
+            if (type === ModalType.CategoryModal) {
+                updateCatagoryProduct(module, selectedList)
                 // @ts-ignore
                 this.$refs['editor-module'].getProductsByCategory(module)
-            }
-            if (type === 2 || type === 3) {
-            // 商品、课程多选
-                if (!selectedList.length) return
-
-                for (const prod of selectedList) {
-                    const obj = {
-                        type,
-                        image: prod.productMainImage,
-                        name: prod.productName,
-                        value: prod.id,
-                        goodsInfo: prod
-                    }
-                    obj.goodsInfo.productSkuModels = prod.skuEntityList
-                    obj.goodsInfo.labelModels = prod.labelList.map((label: string) => ({ labelName: label }))
-                    module.productValues.push(obj)
-                }
-
-                const max = 12
-                if (module.productValues.length > max) {
-                    module.productValues.length = max
-                }
-                module.values = module.productValues
+            } else if (type === ModalType.ProductModal || type === ModalType.ClassModal) {
+                updateProduct(module, selectedList, type)
             }
         }
-
         if (currentModule === 'Coupon' || currentModule === 'RedPackage') {
-            if (!selectedList.length) return
-
-            selectedList = selectedList.map(prod => ({
-                type: '',
-                image: prod.productMainImage || '',
-                name: prod.productName || prod.name || '',
-                value: prod.id,
-                goodsInfo: prod
-            }))
-
-            const max = currentModule === 'RedPackage'
-                ? 10
-                : tmplType === TemplateTypes.TemplateDragonGate
-                    ? 2
-                    : 3
-            module.values = selectedList
-            if (module.values.length > max) {
-                module.values.length = max
-            }
+            updateCoupon(module, selectedList, tmplType)
         }
-
         if (~['Pintuan', 'Yugou'].indexOf(currentModule)) {
-            if (!selectedList.length) return
-
-            for (const prod of selectedList) {
-                module.values.push({
-                    type: '',
-                    image: prod.productMainImage || '',
-                    name: prod.productName || '',
-                    value: prod.id,
-                    goodsInfo: {
-                        productMainImage: prod.productMainImage,
-                        productName: prod.productName,
-                        activityInfo: {
-                            ...prod,
-                            ...(currentModule === 'Pintuan' ? { activityPrice: prod.price } : null),
-                            activityStock: prod.stock
-                        },
-                        ...(currentModule === 'Pintuan' ? { pageviews: prod.pageviews } : null)
-                    }
-                })
-            }
-
-            const max = 6
-            if (module.values.length > max) {
-                module.values.length = max
-            }
+            updatePintuanYugou(module, selectedList)
         }
-
         if (currentModule === 'Miaosha') {
-            if (!selectedList.length) return
-
-            if (tmplType === TemplateTypes.TemplateBaoFa) {
-                for (const prod of selectedList) {
-                    for (const sku of prod.skus) {
-                        sku.originalPrice = sku.originPrice
-                    }
-                    module.values[index].goodsInfo.push({
-                        productMainImage: prod.productMainImage,
-                        productName: prod.productName,
-                        productSkuModels: prod.skus,
-                        pageviews: prod.pageviews,
-                        activityInfo: {
-                            ...prod,
-                            activityPrice: prod.price,
-                            activityStock: prod.stock
-                        }
-                    })
-                }
-            } else {
-                for (const prod of selectedList) {
-                    for (const sku of prod.skus) {
-                        sku.originalPrice = sku.originPrice
-                    }
-                    module.values.push({
-                        type: '',
-                        image: prod.productMainImage || '',
-                        name: prod.productName || '',
-                        value: prod.id,
-                        goodsInfo: {
-                            productMainImage: prod.productMainImage,
-                            productName: prod.productName,
-                            productSkuModels: prod.skus,
-                            pageviews: prod.pageviews,
-                            activityInfo: {
-                                ...prod,
-                                activityPrice: prod.price,
-                                activityStock: prod.stock
-                            }
-                        }
-                    })
-                }
-                if (module.values.length > 6) {
-                    module.values.length = 6
-                }
-            }
+            updateMiaosha(module, selectedList, tmplType, index)
         }
     }
 

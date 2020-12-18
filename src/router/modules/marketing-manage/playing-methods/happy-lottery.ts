@@ -2,7 +2,6 @@ export default [
     {
         path: 'happy-lottery',
         name: 'HappyLottery',
-        redirect: 'happy-lottery/list',
         component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Index.vue'),
         meta: {
             title: '抽奖乐翻天',

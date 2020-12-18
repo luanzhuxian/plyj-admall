@@ -17,10 +17,9 @@
                     <el-input-number v-model="scholarshipForm.stock" :min="1" step-strictly label="礼品库存" /> 个
                     <span class="purchase-sort-description">（奖学金发放的数量，即可领取奖学金的人数最高限额）</span>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item prop="scholarshipEffectiveTime">
                     <span slot="label">
                         <span>有效时间</span>
-                        <span class="red">*</span>
                         <el-tooltip class="item" effect="dark" placement="bottom">
                             <div slot="content">
                                 有效期按自然天计算。<br>
@@ -28,7 +27,7 @@
                                 12：00时领取奖学金，则该奖学金的可用时间为12月1日<br>
                                 12:00:00至12月10日的23:59:59.
                             </div>
-                            <pl-svg name="icon-jinggao" style="margin-left: 4px;" width="16" />
+                            <pl-svg name="yaji-jinggao" style="margin-left: 4px;" width="16" fill="#333" />
                         </el-tooltip>
                     </span>
                     奖学金领取当日起，<el-input v-model="scholarshipForm.scholarshipEffectiveTime" autocomplete="off" placeholder="请输入天数" type="number" style="width:100px;" /> 日内使用，过期自动作废
@@ -61,13 +60,15 @@ export default {
             scholarshipRules: {
                 scholarshipPrice: [
                     { required: true, message: '请输入金额', trigger: 'blur' },
-                    { validator: checkNumber(undefined, 1, 0), trigger: 'blur' }
+                    { validator: checkNumber(9999999999, 1, 0), trigger: 'blur' }
                 ],
                 scholarshipEffectiveTime: [
-                    { required: true, message: '请输入有效时间', trigger: 'blur' }
+                    { required: true, message: '请输入有效时间', trigger: 'blur' },
+                    { validator: checkNumber(9999999999, 1, 0), trigger: 'blur' }
                 ],
                 stock: [
-                    { required: true, message: '请输入发放数量', trigger: 'change' }
+                    { required: true, message: '请输入发放数量', trigger: 'change' },
+                    { validator: checkNumber(9999999999, 1, 0), trigger: 'blur' }
                 ]
             },
             giftTitle: '新增奖学金'
