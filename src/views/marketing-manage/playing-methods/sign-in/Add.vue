@@ -292,7 +292,7 @@
             :visible.sync="showAnswerPreview"
             :close-on-click-modal="false"
             :close-on-press-escape="false"
-            width="770px"
+            width="1000px"
         >
             <div class="answer-preview">
                 <img src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年题目预览.jpg" alt="">
