@@ -174,14 +174,36 @@ export const updateCoupon = (module: TemplateModule, selectedList: any[], tmplTy
         goodsInfo: prod
     }))
 
-    const max = module.moduleType === ModuleTypes.RedPackage
-        ? 10
-        : tmplType === TemplateTypes.TemplateDragonGate
-            ? 2
-            : 3
     module.values = selectedList
+    const max = tmplType === TemplateTypes.TemplateDragonGate ? 2 : 3
     if (module.values.length > max) {
         module.values.length = max
+    }
+    return module
+}
+
+/**
+ * 向福利红包模块添加数据
+ * @param {object} module 单个模块
+ * @param {array} selectedList 添加的数据
+ * @return {object} module
+ */
+export const updateRedPackage = (module: TemplateModule, selectedList: any[]) => {
+    if (!selectedList.length) return
+
+    for (const prod of selectedList) {
+        module.values.push({
+            id: '',
+            type: '',
+            image: prod.productMainImage || '',
+            name: prod.productName || prod.name || '',
+            value: prod.id,
+            valueName: '',
+            goodsInfo: prod
+        })
+    }
+    if (module.values.length > 10) {
+        module.values.length = 10
     }
     return module
 }
