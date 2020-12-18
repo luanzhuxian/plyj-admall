@@ -610,7 +610,6 @@ export default class MallDecoration extends Vue {
         if (~['Banner', 'Adv'].indexOf(currentModule)) {
             updateBanner(module, selectedList, type, index)
         }
-
         if (~['Popular', 'Class'].indexOf(currentModule)) {
             if (type === ModalType.CategoryModal) {
                 // 分类单选
@@ -624,15 +623,12 @@ export default class MallDecoration extends Vue {
             // @ts-ignore
             this.$refs['editor-module'].$forceUpdate()
         }
-
         if (currentModule === 'Package') {
             updatePackage(module, selectedList)
         }
-
         if (currentModule === 'Distribution') {
             updateDistribution(module, selectedList)
         }
-
         if (~['SingleCourse', 'SeriesCourse', 'ImageText'].indexOf(currentModule)) {
             updateOnlineCourse(module, selectedList)
         }
@@ -647,15 +643,12 @@ export default class MallDecoration extends Vue {
                 updateProduct(module, selectedList, type)
             }
         }
-
         if (currentModule === 'Coupon' || currentModule === 'RedPackage') {
             updateCoupon(module, selectedList, tmplType)
         }
-
         if (~['Pintuan', 'Yugou'].indexOf(currentModule)) {
             updatePintuanYugou(module, selectedList)
         }
-
         if (currentModule === 'Miaosha') {
             updateMiaosha(module, selectedList, tmplType, index)
         }
