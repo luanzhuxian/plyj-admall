@@ -573,6 +573,20 @@
                         </menus>
                     </menu>
 
+                    <menu aclCode="2-8-21" name="抽奖乐翻天" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HappyLottery" roles="0">
+                        <menus>
+                            <menu aclCode="2-8-21-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="HappyLotteryList" roles="0" />
+                            <menu aclCode="2-8-21-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="AddHappyLottery" roles="0"/>
+                            <menu aclCode="2-8-21-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="EditHappyLottery" roles="0"/>
+                            <menu aclCode="2-8-21-4" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HappyLotteryDetail" roles="0">
+                                <menus>
+                                    <menu aclCode="2-8-21-4-1" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HappyLotteryInfo" roles="0"/>
+                                    <menu aclCode="2-8-21-4-2" name="活动数据" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="HappyLotteryData" roles="0"/>
+                                </menus>
+                            </menu>
+                        </menus>
+                    </menu>
+
                     <menu aclCode="2-8-22" name="打卡聪明年" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="NewYearSignIn" roles="0">
                         <menus>
                             <menu aclCode="2-8-22-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="SignInList" roles="0"/>

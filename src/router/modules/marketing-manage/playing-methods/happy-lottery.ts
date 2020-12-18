@@ -6,8 +6,7 @@ export default [
         component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Index.vue'),
         meta: {
             title: '抽奖乐翻天',
-            index: '8-21',
-            ignore: true
+            index: '8-21'
         },
         children: [
             {
@@ -16,8 +15,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/List.vue'),
                 meta: {
                     title: '列表',
-                    index: '8-21-1',
-                    ignore: true
+                    index: '8-21-1'
                 }
             },
             // 之所以添加也有id，是因为存在复制这么一种情况
@@ -28,8 +26,7 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Add.vue'),
                 meta: {
                     title: '新建活动',
-                    index: '8-21-2',
-                    ignore: true
+                    index: '8-21-2'
                 }
             },
             {
@@ -39,20 +36,17 @@ export default [
                 component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Add.vue'),
                 meta: {
                     title: '编辑活动',
-                    index: '8-21-3',
-                    ignore: true
+                    index: '8-21-3'
                 }
             },
             {
                 path: 'detail/:id',
                 name: 'HappyLotteryDetail',
-                redirect: 'detail/:id/info',
                 component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Detail.vue'),
                 props: true,
                 meta: {
                     title: '活动详情',
-                    index: '8-21-4',
-                    ignore: true
+                    index: '8-21-4'
                 },
                 children: [
                     {
@@ -61,7 +55,7 @@ export default [
                         component: () => import('../../../../views/marketing-manage/playing-methods/happy-lottery/Detail-Info.vue'),
                         props: true,
                         meta: {
-                            ignore: true
+                            index: '8-21-4-1'
                         }
                     },
                     {
@@ -71,7 +65,7 @@ export default [
                         props: true,
                         meta: {
                             title: '活动数据',
-                            ignore: true
+                            index: '8-21-4-2'
                         }
                     }
                 ]
