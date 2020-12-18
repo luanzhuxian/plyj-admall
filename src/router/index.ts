@@ -146,11 +146,12 @@ const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
      * 如果页面被忽略，则不校验
      */
     if (!to.meta.ignore) {
-        const newTo = checkAuth(to)
-        if (newTo.name !== to.name) {
+        const redirectRoute = checkAuth(to)
+        if (redirectRoute.name !== to.name) {
+            console.log(redirectRoute)
             NProgress.done()
-            newTo.replace = true
-            return newTo.noAuth && from.name ? next(false) : next(newTo)
+            redirectRoute.replace = true
+            return redirectRoute.noAuth && from.name ? next(false) : next(redirectRoute)
         }
     }
 

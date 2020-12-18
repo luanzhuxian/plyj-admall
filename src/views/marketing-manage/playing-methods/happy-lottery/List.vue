@@ -136,122 +136,128 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
 import ListHeader from '../../../../components/marketing-manage/List-Header.vue'
 import { mapGetters, mapActions } from 'vuex'
+import { namespace } from 'vuex-class'
 import Share from '../../../../components/common/Share.vue'
 import moment from 'moment'
 import {
     getLottery,
     endLottery,
-    delLottery
+    delLottery,
+    GetLotteryFrom
 } from '../../../../apis/marketing-manage/lonmen-festival/lottery'
 import { MutationTypes } from '../../../../store/mutation-type'
-export default {
-    name: 'HappyLotteryList',
+
+const accountModule = namespace('account')
+@Component({
     components: {
         ListHeader,
         Share
-    },
-    data () {
-        return {
-            moment,
-            form: {
-                activityName: '',
-                startDate: '',
-                endDate: '',
-                current: 1,
-                size: 10,
-                // 活动类型 1 龙门节抽奖 2 抽奖乐翻天
-                type: 2
-            },
-            data: [],
-            total: 0,
-            userGroupMap: ['所有用户', 'Helper', '普通会员', '指定用户分组'],
-            statusMap: ['', '未开始', '进行中', '已结束', '已关闭'],
-            HappyLotteryInformation: {},
-            showShare: false,
-            shareText: ''
-        }
-    },
-    computed: {
-        ...mapGetters({
-            marketStatusAuth: 'account/marketStatusAuth'
-        })
-    },
+    }
+})
+export default class HappyLotteryList extends Vue {
+    moment = moment
+    form = new GetLotteryFrom({
+        size: 10,
+        type: 2,
+        current: 1,
+        startDate: '',
+        endDate: '',
+        activityName: ''
+    })
+
+    data = []
+    total = 0
+    userGroupMap = ['所有用户', 'Helper', '普通会员', '指定用户分组']
+    statusMap = ['', '未开始', '进行中', '已结束', '已关闭']
+    HappyLotteryInformation = {}
+    showShare = false
+    shareText = ''
+
+    @accountModule.Getter('marketStatusAuth') marketStatusAuth!: any[]
+    @accountModule.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
+
     async created () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
+        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
         this.HappyLotteryInformation = this.marketStatusAuth.find(({ programId }) => programId === '7')
         try {
-            await this.getLottery()
+            await this.getLottery(1)
         } catch (e) {
             throw e
         }
-    },
-    methods: {
-        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
-        async getLottery (page) {
-            if (page) {
-                this.form.current = page
-            }
-            try {
-                const { result } = await getLottery(this.form)
-                this.total = result.total
-                this.data = result.records
-            } catch (e) {
-                throw e
-            }
-        },
-        async resetFilter () {
-            this.form = {
-                activityName: '',
-                startDate: '',
-                endDate: '',
-                current: 1,
-                size: 10
-            }
-            this.$refs.dateRange.clear()
-            await this.getLottery()
-        },
-        dateChange ({ start, end }) {
-            this.form.startDate = start || ''
-            this.form.endDate = end || ''
-            try {
-                this.getLottery(1)
-            } catch (e) {
-                throw e
-            }
-        },
-        async endLottery (row) {
-            try {
-                await this.$confirm({
-                    title: '确定结束该活动吗？',
-                    message: '活动结束后，用户不可获得抽奖机会，所有未抽奖的用户，抽奖次数新增'
-                })
-                await endLottery(row.id)
-                this.$success('已结束')
-                await this.getLottery()
-            } catch (e) {
-                if (e) throw e
-            }
-        },
-        async delLottery (row) {
-            try {
-                await this.$confirm({
-                    title: '确认要删除此活动吗？',
-                    message: '活动删除后，将不可查看活动期间的相关数据！请谨慎进行删除操作。'
-                })
-                await delLottery(row.id)
-                this.$success('已删除')
-                await this.getLottery()
-            } catch (e) {
-                if (e) throw e
-            }
-        },
-        share (row) {
-            this.shareText = `${ this.$store.getters['user/mallUrl'] }/happy-lottery/${ row.id }`
-            this.showShare = true
+    }
+
+    // methods
+    async getLottery (page = 0) {
+        if (page) {
+            this.form.current = page
         }
+        try {
+            const { result } = await getLottery(this.form)
+            this.total = result.total
+            this.data = result.records
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async resetFilter () {
+        this.form = new GetLotteryFrom({
+            size: 10,
+            type: 2,
+            current: 1,
+            startDate: '',
+            endDate: '',
+            activityName: ''
+        });
+        (this.$refs.dateRange as HTMLFormElement).clear()
+        await this.getLottery(1)
+    }
+
+    dateChange ({ start, end }: { start: string; end: string }) {
+        this.form.startDate = start || ''
+        this.form.endDate = end || ''
+        try {
+            this.getLottery(1)
+        } catch (e) {
+            throw e
+        }
+    }
+
+    async endLottery (row: any) {
+        try {
+            await this.$confirm({
+                title: '确定结束该活动吗？',
+                message: '活动结束后，用户不可获得抽奖机会，所有未抽奖的用户，抽奖次数新增'
+            })
+            await endLottery(row.id)
+            this.$success('已结束')
+            await this.getLottery()
+        } catch (e) {
+            if (e) throw e
+        }
+    }
+
+    async delLottery (row: any) {
+        try {
+            await this.$confirm({
+                title: '确认要删除此活动吗？',
+                message: '活动删除后，将不可查看活动期间的相关数据！请谨慎进行删除操作。'
+            })
+            await delLottery(row.id)
+            this.$success('已删除')
+            await this.getLottery()
+        } catch (e) {
+            if (e) throw e
+        }
+    }
+
+    share (row: any) {
+        this.shareText = `${ this.$store.getters['user/mallUrl'] }/happy-lottery/${ row.id }`
+        this.showShare = true
     }
 }
 </script>

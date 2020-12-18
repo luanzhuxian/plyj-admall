@@ -208,7 +208,8 @@ export default {
                 startDate: '',
                 endDate: '',
                 current: 1,
-                size: 10
+                size: 10,
+                type: 1
             }
             this.$refs.dateRange.clear()
             await this.getLottery()
