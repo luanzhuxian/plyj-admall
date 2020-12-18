@@ -172,7 +172,7 @@
             <SchemePack
                 name="抽奖乐翻天"
                 desc="低成本高引流，多种主题任意选"
-                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--2020-03-31` : ''"
+                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--2020.03.31` : ''"
                 :count="activitiesInfo.luckDrawActivityCount1"
                 :tags="['限','新']"
                 :is-lock="!activitys.happyLottery.status"
