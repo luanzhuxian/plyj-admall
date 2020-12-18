@@ -33,13 +33,13 @@
             <li>
                 <label>抽奖条件：</label>
                 <div :class="$style.value">
-                    参与已勾选的全部端午活动，即可获得 1 次抽奖机会
+                    参与已勾选的全部智力题，即可获得 1 次抽奖机会
                 </div>
             </li>
             <li>
                 <label>抽奖时间：</label>
                 <div :class="$style.value">
-                    用户签到参与全部的端午活动，即可进行智慧礼的抽奖
+                    用户签到参与全部的智力题，即可进行智慧礼的抽奖
                 </div>
             </li>
             <li>
@@ -71,7 +71,7 @@
                     <span v-if="activityDetail.entity.ladderAward !== undefined && activityDetail.entity.ladderAward === 0">无</span>
                     <template v-else>
                         <div :class="$style.gifts" v-for="(item,index) in activityDetail.smallGifts" :key="index">
-                            <span>累计获得 {{ item.location }} 个端午活动，可获得{{ ladderTag[item.ladderAwardType - 1] || '' }}</span>
+                            <span>累计获得打卡 {{ item.location }} 个智力题，可获得{{ ladderTag[item.ladderAwardType - 1] || '' }}</span>
                         </div>
                     </template>
                 </div>
