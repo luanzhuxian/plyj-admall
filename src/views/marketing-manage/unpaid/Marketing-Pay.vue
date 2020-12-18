@@ -284,7 +284,7 @@ export default {
                     this.$router.replace({ name: 'RedPackage' })
                     break
                 case '10':
-                    this.$router.replace({ name: 'happyLottery' })
+                    this.$router.replace({ name: 'HappyLottery' })
                     break
             }
             // 粽粽有礼信息
