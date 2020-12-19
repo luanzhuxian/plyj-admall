@@ -132,7 +132,7 @@
                     <el-table
                         class="table mb-20"
                         :data="form.giftModels"
-                        style="width: 800px;"
+                        style="width: 850px;"
                         v-if="form.giftModels.length"
                     >
                         <el-table-column label="礼品名称" prop="giftName" />
@@ -159,14 +159,14 @@
                                 <span v-text="row.useEndTime" />
                             </template>
                         </el-table-column>
-                        <el-table-column class-name="edit-big-gifts" label="操作" width="250" align="right"
+                        <el-table-column class-name="edit-big-gifts" label="操作" width="300" align="right"
                                          header-align="right">
                             <template #default="scope">
-                                <el-button v-if="status !== 1 || !scope.row.awardId" type="text"
+                                <el-button size="mini" v-if="status !== 1 || !scope.row.awardId" type="text"
                                            @click="editPresent(scope.row, scope.$index)">
                                     编辑
                                 </el-button>
-                                <el-button class="mr-10 ml-10" v-if="status !== 1 || !scope.row.awardId" type="text"
+                                <el-button size="mini" v-if="status !== 1 || !scope.row.awardId" type="text"
                                            @click="removePresent(scope.$index)">
                                     删除
                                 </el-button>
