@@ -6,7 +6,7 @@
             title="打卡聪明年"
             description="打卡签到答题，即可参与抽奖，有机会获得智慧礼"
             :start-time="start"
-            :end-time="end"
+            end-time="2021-03-31"
         />
         <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name === 'SignInList'">
             新建活动

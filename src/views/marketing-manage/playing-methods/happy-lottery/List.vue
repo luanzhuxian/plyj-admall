@@ -5,7 +5,7 @@
             title="抽奖乐翻天"
             description="低成本高引流，多种主题任意选"
             :start-time="HappyLotteryInformation.createTime"
-            end-time="2020-08-31"
+            end-time="2021-03-31"
         />
         <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddHappyLottery' })">
             新建活动

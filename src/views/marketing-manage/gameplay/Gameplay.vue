@@ -187,7 +187,7 @@
             <SchemePack
                 name="打卡聪明年"
                 desc="打卡签到答题参与抽奖"
-                :expired="activitys.newYearSignIn.status ? `${getDate(activitys.newYearSignIn.data.createTime)}-2020.03.31` : ''"
+                :expired="activitys.newYearSignIn.status ? `${getDate(activitys.newYearSignIn.data.createTime)}-2021.03.31` : ''"
                 :count="activitiesInfo.smartYearCount"
                 :is-lock="!activitys.newYearSignIn.status"
                 :tags="['限','新']"
