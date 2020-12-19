@@ -35,7 +35,7 @@
                 </el-form-item>
 
                 <el-form-item label="答题数量：" prop="checkDays" required>
-                    <el-input-number v-model="form.checkDays" :min="7" :max="20" label="描述文字" />
+                    <el-input-number :disabled="status === 1" v-model="form.checkDays" :min="7" :max="20" label="描述文字" />
                     个智力题目
                     <el-button @click="showAnswerPreview = true" type="text">预览题目</el-button>
                     <p class="purchase-sort-description" style="margin-left: 0">可选择活动界面需要展示的答题数量，至多可设置7-20个题目</p>
