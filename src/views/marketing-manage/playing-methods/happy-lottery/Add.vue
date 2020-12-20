@@ -319,6 +319,7 @@
             @confirm="confirmCoupon"
             coupon-type="1,2"
             :coupon-status="4"
+            :distribution-method="1"
         />
     </div>
 </template>
@@ -699,7 +700,6 @@ export default {
         // 添加奖学金
         addScholarship () {
             this.showScholarship = true
-            // this.currentEditGift = index
         },
         // 确认添加奖学金
         confirmScholarship (data) {
@@ -861,7 +861,20 @@ export default {
     },
     beforeRouteLeave (to, from, next) {
         next()
+        sessionStorage.setItem('CURRENT_EDIT_GIFT', this.currentEditGift)
         this.currentEditGift = -1
+    },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'AddReductionCoupon' || from.name === 'AddCategoryCoupon') {
+            next(vm => {
+                vm.currentEditGift = Number(sessionStorage.getItem('CURRENT_EDIT_GIFT'))
+                if (vm.currentEditGift > -1) {
+                    vm.showCoupon = true
+                }
+            })
+            return
+        }
+        next()
     }
 }
 </script>

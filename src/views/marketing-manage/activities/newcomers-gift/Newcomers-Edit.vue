@@ -331,6 +331,7 @@
             coupon-type="1,2"
             :max-select="10"
             @confirm="SelectedCoupon"
+            :distribution-method="1"
         />
         <AddPresent :show.sync="addPresentShow" :form="present" />
         <AddScholarship :show.sync="addScholarshipShow" :form="scholarship" />

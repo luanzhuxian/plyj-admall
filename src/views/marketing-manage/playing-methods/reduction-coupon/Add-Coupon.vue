@@ -439,7 +439,8 @@ export default {
         }
     },
     async created () {
-    // 此数据是用来告诉选择优惠券页面，新建的优惠券数据，必须手动清空，不然会有数据残留
+        this.form.distributionMethod = Number(this.$route.query.distributionMethod) || 0
+        // 此数据是用来告诉选择优惠券页面，新建的优惠券数据，必须手动清空，不然会有数据残留
         this.resultData = {}
         const params = this.$route.params
         this.id = params.id
@@ -745,13 +746,6 @@ export default {
         }
         await this.clearData()
         next()
-    },
-    beforeRouteEnter (to, from, next) {
-        next(vm => {
-            if (from.name === 'NewcomersEdit' || from.name === 'NewcomersAdd' || from.name === 'NewcomersCopy') {
-                vm.form.distributionMethod = 1
-            }
-        })
     }
 }
 </script>

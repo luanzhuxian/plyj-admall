@@ -185,6 +185,11 @@ export default {
     name: 'SelectCoupon',
     props: {
         show: Boolean,
+        // 添加优惠券时，默认的领取方式, 0 自行领取，1 活动发放
+        distributionMethod: {
+            type: Number,
+            default: 0
+        },
         // 是否可以新增优惠券
         canAdd: Boolean,
         // 默认传入的已选择的优惠券列表
@@ -406,7 +411,7 @@ export default {
         addCoupon (name) {
             // 记录当前页面的选择
             sessionStorage.setItem(SessionEnum.selectedCouponList, JSON.stringify(this.allSelect))
-            this.$router.push({ name })
+            this.$router.push({ name, query: { distributionMethod: this.distributionMethod } })
         },
         confirm () {
             if (this.maxSelect && this.allSelect.length > this.maxSelect) {
