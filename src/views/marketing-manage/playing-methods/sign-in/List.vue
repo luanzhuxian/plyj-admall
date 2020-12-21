@@ -282,7 +282,7 @@ export default {
             }
         },
         share ({ activityId }) {
-            this.shareText = `${ this.$store.getters['user/mallUrl'] }/longmen-festival/sign-in/${ activityId }`
+            this.shareText = `${ this.$store.getters['user/mallUrl'] }/new-year-2021/sign-in/${ activityId }`
             this.showShare = true
         },
         sizeChange (val) {
