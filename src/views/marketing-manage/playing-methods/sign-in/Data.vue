@@ -61,6 +61,16 @@
                     ref="dateRange"
                 />
             </el-form-item>
+            <el-form-item label="打卡次数：">
+                <el-select v-model="filterForm.signinCount" @change="search" clearable>
+                    <el-option
+                        v-for="item in signinCountMap"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    />
+                </el-select>
+            </el-form-item>
             <div />
             <el-form-item>
                 <el-button
@@ -306,6 +316,10 @@ export default {
         id: {
             type: String,
             default: ''
+        },
+        data: {
+            type: Object,
+            default: () => ({})
         }
     },
     data () {
@@ -333,11 +347,13 @@ export default {
                 startTime: '',
                 endTime: '',
                 condition: '',
+                signinCount: '',
                 current: 1,
                 size: 10
             },
             tableData: [],
             giftData: [],
+            signinCountMap: [],
             dialogVerificationVisible: false,
             total: 0,
             statistics: {
@@ -359,6 +375,12 @@ export default {
         try {
             await this.getData()
             await this.getList()
+            for (let i = 0; i < this.data.entity.checkDays; i++) {
+                this.signinCountMap.push({
+                    label: i + 1,
+                    value: i + 1
+                })
+            }
         } catch (e) {
             throw e
         }
@@ -410,6 +432,7 @@ export default {
                     sstartTime: '',
                     endTime: '',
                     condition: '',
+                    signinCount: '',
                     current: 1,
                     size: 10
                 }
