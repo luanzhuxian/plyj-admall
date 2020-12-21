@@ -3,7 +3,7 @@
     <div>
         <el-dialog
             title=""
-            width="640px"
+            width="1000px"
             :visible="show"
             :before-close="closeGiftPreview"
         >
