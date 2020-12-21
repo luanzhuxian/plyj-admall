@@ -419,6 +419,16 @@ export default class Gameplay extends Vue {
                 status
             }
         }
+
+        this.activitys.happyLottery = {
+            data: {
+                validity: '2021-03-31 23:59:59',
+                createTime: '2020-12-21 00:00:00',
+                programId: '10',
+                programName: '福利红包'
+            },
+            status: true
+        }
     }
 
     private getDate (date: string): string | undefined {
