@@ -6,7 +6,7 @@
             title="打卡聪明年"
             description="打卡签到答题，即可参与抽奖，有机会获得智慧礼"
             :start-time="start"
-            end-time="2021-03-31"
+            :end-time="end"
         />
         <el-button type="primary" round @click="add" icon="el-icon-plus" v-show="$route.name === 'SignInList'">
             新建活动
@@ -15,7 +15,7 @@
             活动说明
         </el-button>
         <router-view />
-        <SignInSetting :show.sync="showExplanation" />W
+        <SignInSetting :show.sync="showExplanation" />
     </div>
 </template>
 
@@ -49,7 +49,7 @@ export default {
         })
     },
     async created () {
-        if (Object.Keys(this.info)) {
+        if (Object.keys(this.info)) {
             this.start = this.info.createTime || ''
             this.end = this.info.validity || ''
             return

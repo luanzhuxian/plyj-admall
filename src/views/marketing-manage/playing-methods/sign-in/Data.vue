@@ -383,9 +383,9 @@ export default {
                     })
                     data.forEach((item, index) => {
                         if (index) {
-                            item.totalPeople = data[index - 1].totalPeople + item.eodaySigninPeople
+                            item.totalPeople = data[index - 1].totalPeople + item.everyAddPeople
                         } else {
-                            item.totalPeople = item.eodaySigninPeople
+                            item.totalPeople = item.everyAddPeople
                         }
                     })
                     this.dataDetail = data

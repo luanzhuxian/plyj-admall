@@ -6,8 +6,8 @@
             description="打卡签到答题，即可参与抽奖，有机会获得智慧礼"
             time-title="活动有效期"
             :status="status"
-            :start-time="data.entity.createTime"
-            :end-time="data.entity.activityEndTime"
+            :start-time="data.entity && data.entity.activityStartTime || ''"
+            :end-time="data.entity && data.entity.activityEndTime || ''"
         />
 
         <pl-tabs
@@ -34,7 +34,7 @@ export default {
     data () {
         return {
             data: '',
-            status: '',
+            status: undefined,
             activeStatus: {
                 0: '未开始',
                 1: '进行中',
