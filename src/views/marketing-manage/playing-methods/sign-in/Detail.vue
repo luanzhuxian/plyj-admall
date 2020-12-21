@@ -26,10 +26,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import { signinActivityDetail } from '../../../../apis/marketing-manage/new-year/spring-ploughing'
 import ListHeader from '../../../../components/marketing-manage/List-Header'
-import { MutationTypes } from '../../../../store/mutation-type'
 export default {
     name: 'SignInDetail',
     components: { ListHeader },
@@ -48,11 +46,11 @@ export default {
             end: ''
         }
     },
-    computed: {
-        ...mapGetters({
-            marketStatusAuth: 'account/marketStatusAuth'
-        })
-    },
+    // computed: {
+    //     ...mapGetters({
+    //         marketStatusAuth: 'account/marketStatusAuth'
+    //     })
+    // },
     watch: {
         $route (to) {
             this.activeTab = to.name
@@ -68,7 +66,7 @@ export default {
     },
 
     methods: {
-        ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
+        // ...mapActions('account', [MutationTypes.getMarketStatusAuth]),
         async getDetail () {
             const { result } = await signinActivityDetail(this.$route.params.id)
             this.data = result

@@ -15,7 +15,7 @@
             活动说明
         </el-button>
         <router-view />
-        <SignInSetting :show.sync="showExplanation" />
+        <SignInSetting :show.sync="showExplanation" />W
     </div>
 </template>
 
@@ -34,7 +34,13 @@ export default {
             start: '',
             end: '',
             showExplanation: false,
-            programId: '11'
+            programId: '11',
+            info: {
+                validity: '2021-03-31 23:59:59',
+                createTime: '2020-12-21 00:00:00',
+                programId: '11',
+                programName: '打卡聪明年'
+            }
         }
     },
     computed: {
@@ -43,6 +49,11 @@ export default {
         })
     },
     async created () {
+        if (Object.Keys(this.info)) {
+            this.start = this.info.createTime || ''
+            this.end = this.info.validity || ''
+            return
+        }
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
         if (!this.marketStatusAuth || !this.marketStatusAuth.length) return
         const info = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
