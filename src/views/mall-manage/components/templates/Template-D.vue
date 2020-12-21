@@ -493,7 +493,10 @@ export default class TemplateD extends mixins(SkinMixin) {
 
     mounted () {
         if (this.skinId === 23) {
-            this.setSkinTitleClassName()
+            this.setTitleCampusSupplyClassName()
+        }
+        if (this.skinId === 24) {
+            this.setTitleXmasClassName()
         }
     }
 

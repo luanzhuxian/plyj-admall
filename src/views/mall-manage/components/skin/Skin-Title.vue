@@ -32,6 +32,7 @@ import TitleDouble12 from './Title-Double-12.vue'
 import TitleParty from './Title-Party.vue'
 import TitleGoodCourse from './Title-Good-Course.vue'
 import TitleWelcomeNew from './Title-Welcome-New.vue'
+import TitleCampusSupply from './Title-Campus-Supply.vue'
 import TitleXmas2020 from './Title-Xmas-2020.vue'
 import { skinTitleMap } from '../../utils/map'
 
@@ -59,6 +60,7 @@ import { skinTitleMap } from '../../utils/map'
         TitleParty,
         TitleGoodCourse,
         TitleWelcomeNew,
+        TitleCampusSupply,
         TitleXmas2020
     }
 })
