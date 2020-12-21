@@ -41,7 +41,7 @@ export default class TitleCampusSupply extends Vue {
     background: url(https://mallcdn.youpenglai.com/static/admall/skin/campus-supply/title-2.jpg) no-repeat center;
     background-size: 375px 62px;
     > div {
-        top: 2px;
+        top: 1px;
     }
 }
 .title-campus-supply-3 {
