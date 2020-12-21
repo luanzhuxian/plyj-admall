@@ -331,6 +331,7 @@
             coupon-type="1,2"
             :max-select="10"
             @confirm="SelectedCoupon"
+            :distribution-method="1"
         />
         <AddPresent :show.sync="addPresentShow" :form="present" />
         <AddScholarship :show.sync="addScholarshipShow" :form="scholarship" />
@@ -340,7 +341,7 @@
 
 <script>
 import moment from 'moment/moment'
-import SelectCoupon from '../../components/Select-Coupon.vue'
+import SelectCoupon from '../../../../components/marketing-manage/Select-Coupon.vue'
 import {
     saveNewcomerActivitys,
     getNewcomerActivitysDeatil,

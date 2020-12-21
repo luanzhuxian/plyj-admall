@@ -254,7 +254,7 @@ import GoodsPreview from '../../../../components/product-center/goods/Goods-Prev
 import { togetherActivityPage, togetherActivityDetail, deleteActivityStatus, endActivityStatus } from '../../../../apis/marketing-manage/together'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import Share from '../../../../components/common/Share'
-import ListHeader from '../../components/List-Header'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 import { MutationTypes } from '../../../../store/mutation-type'
 import Setting from './Together-Buy-Setting'
 export default {
@@ -443,7 +443,7 @@ export default {
                 title: '确认要重新开启本次活动吗？',
                 message: '确定重新开启本次活动，开启后用户将可继续， 已拼团付费成功用户不受此次更改影响'
             })
-            this.getList()
+            await this.getList()
         },
         async copyLink (row) {
             try {

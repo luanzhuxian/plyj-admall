@@ -211,7 +211,7 @@
 
 <script>
 import moment from 'moment'
-import ExportDialog from './../../../../../order-manage/components/Export-Dialog'
+import ExportDialog from '../../../../../../components/common/Export-Dialog.vue'
 import { getPlayDetail, exportDataList, submitSendCourseUsersList } from './../../../../../../apis/product-center/online-teaching/knowledge-course'
 import { getTagList } from './../../../../../../apis/member'
 import { createObjectUrl } from './../../../../../../assets/ts/upload'

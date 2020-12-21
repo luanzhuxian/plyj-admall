@@ -42,7 +42,7 @@
 
 <script>
 import moment from 'moment'
-import ExportDialog from './../../../../../order-manage/components/Export-Dialog'
+import ExportDialog from '../../../../../../components/common/Export-Dialog.vue'
 export default {
     name: 'ExportData',
     components: {

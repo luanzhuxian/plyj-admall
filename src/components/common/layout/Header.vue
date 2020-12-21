@@ -9,7 +9,7 @@
                     <el-breadcrumb-item
                         :key="i"
                         v-if="route.meta && route.meta.title && !route.meta.hide"
-                        :to="route.meta.noClick ? null : { path: route.path }"
+                        :to="route.meta.noClick ? null : { name: route.name }"
                     >
                         {{ route.meta.title }}
                     </el-breadcrumb-item>

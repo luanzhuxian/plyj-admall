@@ -608,7 +608,7 @@
 </template>
 <script>
 import moment from 'moment'
-import ModelCourse from '../../components/Modal-Course.vue'
+import ModelCourse from '../../../../components/marketing-manage/Modal-Course.vue'
 import { getActivity, getProductJust, getProductSkuByProductId, getCategoryName, getProductByCategoryId, marketingActivityCreate, updateMarketingActivity } from '../../../../apis/marketing-manage/helper.js'
 import { getCategoryTreePlatform } from '../../../../apis/product-center/goods'
 export default {

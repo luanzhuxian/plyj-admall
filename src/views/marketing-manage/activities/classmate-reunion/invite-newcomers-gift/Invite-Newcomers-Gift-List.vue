@@ -22,7 +22,7 @@
 
 <script>
 import InviteNewcomersSetting from './Invite-Newcomers-Setting'
-import ListHeader from '../../../components/List-Header'
+import ListHeader from '../../../../../components/marketing-manage/List-Header'
 export default {
     name: 'InviteNewcomersGift',
     components: { ListHeader, InviteNewcomersSetting },

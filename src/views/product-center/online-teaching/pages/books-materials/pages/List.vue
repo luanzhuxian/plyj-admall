@@ -316,7 +316,7 @@ export default {
             try {
                 this.form.current = 1
                 this.form.size = val
-                this.getList()
+                await this.getList()
             } catch (e) {
                 throw e
             }

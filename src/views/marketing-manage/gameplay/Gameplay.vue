@@ -169,8 +169,38 @@
                     }
                 }"
             />
+            <SchemePack
+                name="抽奖乐翻天"
+                desc="低成本高引流，多种主题任意选"
+                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--2021.03.31` : ''"
+                :count="activitiesInfo.luckDrawActivityCount1"
+                :tags="['限','新']"
+                :is-lock="!activitys.happyLottery.status"
+                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/抽奖乐翻天.png"
+                :route-info="{
+                    name: 'HappyLottery',
+                    params: {
+                        programId: '10'
+                    }
+                }"
+            />
+            <!--            <SchemePack-->
+            <!--                name="打卡聪明年"-->
+            <!--                desc="打卡签到答题，参与抽奖"-->
+            <!--                :expired="activitys.newYearSignIn.status ? `${getDate(activitys.newYearSignIn.data.createTime)}&#45;&#45;2020.03.31` : ''"-->
+            <!--                :count="activitiesInfo.smartYearCount"-->
+            <!--                :is-lock="!activitys.newYearSignIn.status"-->
+            <!--                :tags="['限','新']"-->
+            <!--                img-src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/打卡聪明年.png"-->
+            <!--                :route-info="{-->
+            <!--                    name: 'NewYearSignIn',-->
+            <!--                    params: {-->
+            <!--                        programId: '11'-->
+            <!--                    }-->
+            <!--                }"-->
+            <!--            />-->
         </div>
-        <!--        双十二 新春 隐藏               -->
+        <!--           双十二 新春 隐藏               -->
         <!--        <SchemeLabel :class="$style.label" name="双十二疯狂同学会" content="吸粉、老客带新客，提高下单转化率" />-->
         <!--        <div :class="$style.packageContainer" @click.capture="tryTo(menuArray[0].lockStatus, '双十二疯狂同学会', $event)">-->
         <!--            <SchemePack-->
@@ -243,8 +273,8 @@
 import moment from 'moment'
 import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import SchemeLabel from '../components/Scheme-Label.vue'
-import SchemePack from '../components/Scheme-Pack.vue'
+import SchemeLabel from '../../../components/marketing-manage/Scheme-Label.vue'
+import SchemePack from '../../../components/marketing-manage/Scheme-Pack.vue'
 import { getActivitiesInfo, getActivityAuth } from '../../../apis/marketing-manage/gameplay'
 import { MutationTypes } from '@/store/mutation-type'
 const account = namespace('account')
@@ -317,6 +347,14 @@ export default class Gameplay extends Vue {
         redPackage: {
             data: {},
             status: false
+        },
+        happyLottery: {
+            data: {},
+            status: false
+        },
+        newYearSignIn: {
+            data: {},
+            status: false
         }
     }
 
@@ -368,7 +406,9 @@ export default class Gameplay extends Vue {
             benefit: '6',
             LongmenLottery: '7',
             redeemCode: '8',
-            redPackage: '9'
+            redPackage: '9',
+            happyLottery: '10',
+            newYearSignIn: '11'
         }
 
         for (const key of Object.keys(info)) {
@@ -378,6 +418,16 @@ export default class Gameplay extends Vue {
                 data,
                 status
             }
+        }
+
+        this.activitys.happyLottery = {
+            data: {
+                validity: '2021-03-31 23:59:59',
+                createTime: '2020-12-21 00:00:00',
+                programId: '10',
+                programName: '福利红包'
+            },
+            status: true
         }
     }
 

@@ -139,6 +139,7 @@
         <RadioSelectCoupon
             :show.sync="showSelectCoupon"
             @confirm="SelectedCoupon"
+            :distribution-method="1"
             :coupon-status="4"
             package-type="2019_02"
             coupon-type="1,2"
@@ -164,7 +165,7 @@
 
 <script>
 /* eslint-disable */
-import RadioSelectCoupon from '../../../../components/Radio-Select-Coupon.vue'
+import RadioSelectCoupon from '../../../../../../components/marketing-manage/Radio-Select-Coupon.vue'
 import EditPresent from '../../../../../../components/marketing-manage/Edit-Present.vue'
 import { resetForm } from '../../../../../../assets/ts/utils'
 import Scholarship from '../../../../../../components/marketing-manage/Scholarship.vue'

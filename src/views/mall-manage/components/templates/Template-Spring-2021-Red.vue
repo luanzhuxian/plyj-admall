@@ -16,6 +16,10 @@
                         <Live :data="Live" />
                     </Panel>
                 </ModuleWrapper>
+                <!-- 抽奖 -->
+                <HappyLottery :class="[$style.module, $style.moduleHappyLottery]" :data="currentLottery" v-if="currentLottery && currentLottery.id && ~[1, 2].indexOf(currentLottery.status)" />
+                <!-- 签到 -->
+                <!-- <NewyearSign :class="[$style.module, $style.moduleNewyearSign]" :data="currentSign" v-if="currentSign && currentSign.id && ~[0, 1].indexOf(currentSign.status)" /> -->
                 <!-- 福利红包 -->
                 <section
                     id="RedPackage"
@@ -132,6 +136,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
+import { namespace } from 'vuex-class'
 import Live from '../activity/spring-2021/Live.vue'
 import RedPackage from '../activity/spring-2021/Red-Package.vue'
 import Coupon from '../activity/double-12-2020/Coupon.vue'
@@ -140,9 +145,13 @@ import Pintuan from '../activity/spring-2021/Pintuan.vue'
 import Yugou from '../activity/spring-2021/Yugou.vue'
 import Package from '../activity/spring-2021/Package.vue'
 import Popular from '../activity/spring-2021/Popular.vue'
+import HappyLottery from '../activity/spring-2021/Happy-Lottery.vue'
+// import NewyearSign from '../activity/spring-2021/Newyear-Sign.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
 import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
+
+const mall = namespace('mall')
 
 @Component({
     components: {
@@ -154,6 +163,8 @@ import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
         Yugou,
         Package,
         Popular,
+        HappyLottery,
+        // NewyearSign,
         Panel,
         ModuleWrapper
     }
@@ -178,6 +189,9 @@ export default class TemplateSpring2021Red extends Vue {
     @Prop(String) current!: string
 
     /* computed */
+    @mall.Getter currentLottery!: object
+    @mall.Getter currentSign!: object
+
     get Live () {
         return this.data.Live || { values: [] }
     }
@@ -383,7 +397,9 @@ export default class TemplateSpring2021Red extends Vue {
     }
 }
 
-.module-live,
+.module-live {
+    padding: 0 12px;
+}
 .module-coupon {
     padding: 10px 12px;
 }
@@ -395,6 +411,10 @@ export default class TemplateSpring2021Red extends Vue {
 }
 .module-yugou {
     padding: 10px 0 20px;
+}
+.module-happy-lottery,
+.module-newyear-sign {
+    padding: 10px 0 10px;
 }
 
 .module-copyright {

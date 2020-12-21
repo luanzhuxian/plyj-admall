@@ -44,7 +44,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 import { TemplateModule } from '../utils/types'
-import { ModuleIds } from '../utils/map'
+import { ModuleTypes } from '../utils/map'
 import Draggable from '../../../components/common/draggable'
 import { findBrothersComponents } from '../utils/helper'
 
@@ -76,7 +76,7 @@ export default class EditorCoupon extends Vue {
     }
 
     get name () {
-        return this.moduleType === ModuleIds.RedPackage ? '福利红包' : '优惠券'
+        return this.moduleType === ModuleTypes.RedPackage ? '福利红包' : '优惠券'
     }
 
     /* methods */

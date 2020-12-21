@@ -7,9 +7,9 @@
             :start-time="LongmenLotteryInformation.createTime"
             end-time="2020-08-31"
         />
-        <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">
+        <!--<el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddLongmenLottery' })">
             新建活动
-        </el-button>
+        </el-button>-->
         <search-box inline class="mt-24">
             <el-form-item label="搜索内容：">
                 <el-input clearable v-model="form.activityName" placeholder="活动名称" @change="getLottery(1)" />
@@ -66,7 +66,7 @@
             <el-table-column label="参与人数" width="150" prop="joinUserNumber" />
             <el-table-column label="活动时间" width="300">
                 <template #default="{ row }">
-                    <span>{{ row.startTime }} ~ {{ row.endTime }}</span>
+                    <span>{{ row.startTime | dateFormat('YYYY-MM-DD') }} ~ {{ row.endTime | dateFormat('YYYY-MM-DD') }}</span>
                 </template>
             </el-table-column>
             <el-table-column label="活动状态" width="150">
@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import ListHeader from '../../../components/List-Header'
+import ListHeader from '../../../../../components/marketing-manage/List-Header'
 import { mapGetters, mapActions } from 'vuex'
 import Share from '../../../../../components/common/Share.vue'
 import moment from 'moment'
@@ -161,7 +161,9 @@ export default {
                 startDate: '',
                 endDate: '',
                 current: 1,
-                size: 10
+                size: 10,
+                // 活动类型 1 龙门节抽奖 2 抽奖乐翻天
+                type: 1
             },
             data: [],
             total: 0,
@@ -206,7 +208,8 @@ export default {
                 startDate: '',
                 endDate: '',
                 current: 1,
-                size: 10
+                size: 10,
+                type: 1
             }
             this.$refs.dateRange.clear()
             await this.getLottery()

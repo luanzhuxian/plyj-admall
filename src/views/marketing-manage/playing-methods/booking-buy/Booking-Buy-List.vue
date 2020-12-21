@@ -293,7 +293,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import GoodsPreview from '../../../../components/product-center/goods/Goods-Preview.vue'
 import Share from '../../../../components/common/Share'
-import ListHeader from '../../components/List-Header'
+import ListHeader from '../../../../components/marketing-manage/List-Header'
 import { bookingActivityPage, duplicateBookingActivity, updateActivityStatus } from '../../../../apis/marketing-manage/booking'
 import { getSingleGoods } from '../../../../apis/product-center/goods'
 import { MutationTypes } from '../../../../store/mutation-type'
@@ -505,8 +505,8 @@ export default {
                     message: '结束活动将不影响已付费成功用户'
                 })
                 await updateActivityStatus({ id, status: 2 })
-                this.getList()
                 this.$success('操作成功')
+                await this.getList()
             } catch (e) {
                 throw e
             }
@@ -517,7 +517,7 @@ export default {
                 title: '确认要重新开启本次活动吗？',
                 message: '确定重新开启本次活动，开启后用户将可继续， 已付费成功用户不受此次更改影响'
             })
-            this.getList()
+            await this.getList()
         },
         copyLink (row) {
             this.$copyText(row.productLink)

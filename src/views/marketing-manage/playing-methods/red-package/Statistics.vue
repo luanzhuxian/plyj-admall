@@ -311,7 +311,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import moment from 'moment'
-import ListHeader from '../../components/List-Header.vue'
+import ListHeader from '../../../../components/marketing-manage/List-Header.vue'
 import ExportDialog from '../../../../components/common/Export-Dialog.vue'
 import Share from '../../../../components/common/Share.vue'
 import { createObjectUrl } from '../../../../assets/ts/upload'

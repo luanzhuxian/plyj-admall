@@ -235,7 +235,7 @@ import {
     getActivityListUseCoupon,
     deleteCoupon
 } from '../../../../apis/marketing-manage/coupon'
-import ListHeader from '../../components/List-Header.vue'
+import ListHeader from '../../../../components/marketing-manage/List-Header.vue'
 export default {
     name: 'CouponList',
     components: {

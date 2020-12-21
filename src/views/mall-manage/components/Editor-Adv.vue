@@ -38,24 +38,6 @@
                                 <div :class="$style.iconWrapper" @click="openModal">
                                     <i class="el-icon-arrow-right" />
                                 </div>
-                                <!-- <el-dropdown
-                                    v-else
-                                    trigger="click"
-                                    @command="onDropdownSelect($event, index, item)"
-                                >
-                                    <span class="el-dropdown-link">
-                                    <i class="el-icon-arrow-down el-icon--right" />
-                                    </span>
-                                    <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item
-                                        v-for="(option, j) of options"
-                                        :key="j"
-                                        :command="option.value"
-                                    >
-                                        {{ option.label }}
-                                    </el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown> -->
                             </template>
                             <template v-else>
                                 <el-select
@@ -112,7 +94,7 @@ import Draggable from '../../../components/common/draggable'
 import ImageManager from '../../../components/common/file/Image-Manager.vue'
 import { findBrothersComponents } from '../utils/helper'
 import { TemplateModule } from '../utils/types'
-import { ModuleIds, ModalType } from '../utils/map'
+import { ModuleTypes, ModalType } from '../utils/map'
 
 @Component({
     components: {
@@ -145,6 +127,14 @@ export default class EditorAdv extends Vue {
         label: '云课堂',
         disabled: false
     }, {
+        value: 'happy-lottery',
+        label: '抽奖乐翻天',
+        disabled: false
+    // }, {
+    //     value: 'newyear-sign',
+    //     label: '打卡聪明年',
+    //     disabled: false
+    }, {
         value: 'newyear',
         label: '我心中的年味',
         disabled: false
@@ -168,15 +158,15 @@ export default class EditorAdv extends Vue {
 
     /* computed */
     get isImgShow () {
-        return this.data.moduleType !== ModuleIds.Activity
+        return this.data.moduleType !== ModuleTypes.Activity
     }
 
     get isSelectShow () {
-        return this.data.moduleType === ModuleIds.Activity
+        return this.data.moduleType === ModuleTypes.Activity
     }
 
     get max () {
-        return this.data.moduleType === ModuleIds.Activity ? 6 : 1
+        return this.data.moduleType === ModuleTypes.Activity ? 6 : 1
     }
 
     /* watch */

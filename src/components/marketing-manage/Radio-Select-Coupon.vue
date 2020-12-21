@@ -97,7 +97,7 @@
             >
                 <template slot-scope="{ row }">
                     <el-radio class="coupon-radio" v-model="radioCoupon" :label="row">
-            &nbsp;
+                        &nbsp;
                     </el-radio>
                 </template>
             </el-table-column>
@@ -163,29 +163,34 @@
 </template>
 
 <script>
-import { getCouponList } from '../../../apis/marketing-manage/coupon'
-import { resetForm } from '../../../assets/ts/utils'
+import { getCouponList } from '../../apis/marketing-manage/coupon'
+import { resetForm } from '../../assets/ts/utils'
 
 export default {
     name: 'RadioSelectCoupon',
     props: {
         show: Boolean,
+        // 添加优惠券时，默认的领取方式, 0 自行领取，1 活动发放
+        distributionMethod: {
+            type: Number,
+            default: 0
+        },
 
         /** couponStatus
-     * 1 3 结束  0停止
-     * 4 进行中  2带开始
-     * 5 包含 2，4
-     */
+         * 1 3 结束  0停止
+         * 4 进行中  2带开始
+         * 5 包含 2，4
+         */
         couponStatus: {
             type: Number,
             default: 5
         },
 
         /** packageType
-     * 2019_01    2019年双十二优惠券
-     * 2019_02       2019年新春优惠券
-     * 2019_01，2019_02   双十二优惠券和新春优惠券
-     */
+         * 2019_01    2019年双十二优惠券
+         * 2019_02       2019年新春优惠券
+         * 2019_01，2019_02   双十二优惠券和新春优惠券
+         */
         // packageType: {
         //   type: String,
         //   default: '2019_01'
@@ -274,7 +279,7 @@ export default {
             this.$emit('close')
         },
         jump (routeName) {
-            this.$router.push({ name: routeName })
+            this.$router.push({ name: routeName, query: { distributionMethod: this.distributionMethod } })
             this.closeHandler()
         }
     },
@@ -286,9 +291,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  ::v-deep .coupon-radio{
-  .el-radio__label{
-    display: none;
-  }
-}
+    ::v-deep .coupon-radio {
+        .el-radio__label {
+            display: none;
+        }
+    }
 </style>

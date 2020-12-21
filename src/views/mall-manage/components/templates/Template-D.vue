@@ -40,7 +40,7 @@
             </ModuleWrapper>
             <!-- 福利红包 -->
             <div :class="$style.redPackage" v-if="isRedPackageShow">
-                <img src="https://mallcdn.youpenglai.com/static/mall/2.13.0/red-package/rp-banner.png" alt="">
+                <img src="https://mallcdn.youpenglai.com/static/mall/2.13.0/rp-banner.png" alt="">
             </div>
             <!-- 优惠券 -->
             <div

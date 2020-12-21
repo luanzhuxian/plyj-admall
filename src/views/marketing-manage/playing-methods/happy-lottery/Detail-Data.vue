@@ -182,14 +182,14 @@
 
 <script>
 import moment from 'moment/moment'
-import ExportDialog from '../../../../../components/common/Export-Dialog.vue'
-import { createObjectUrl } from '../../../../../assets/ts/upload'
-import { getLotteryStatisticsList, exportLotteryStatistic, getWinningGift } from '../../../../../apis/marketing-manage/lonmen-festival/lottery'
-import verification from '../../../../../components/order-center/Verification.vue'
-import GiftList from '../../../../../components/marketing-manage/Gift-List'
+import ExportDialog from '../../../../components/common/Export-Dialog.vue'
+import { createObjectUrl } from '../../../../assets/ts/upload'
+import { getLotteryStatisticsList, exportLotteryStatistic, getWinningGift } from '../../../../apis/marketing-manage/lonmen-festival/lottery'
+import verification from '../../../../components/order-center/Verification.vue'
+import GiftList from '../../../../components/marketing-manage/Gift-List'
 
 export default {
-    name: 'LongmenLotteryData',
+    name: 'HappyLotteryData',
     components: {
         verification,
         GiftList,

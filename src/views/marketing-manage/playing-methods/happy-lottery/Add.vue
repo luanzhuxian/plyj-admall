@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrap">
         <Panel :title="id ? '编辑抽奖' : '添加抽奖'" width="90%" :top="20">
             <el-form
                 class="wrap"
@@ -295,7 +295,7 @@
             </el-form>
             <hr class="hr">
             <div class="wrap">
-                <el-button round @click="$router.push({ name: 'LongmenLotteryList' })">
+                <el-button round @click="$router.push({ name: 'HappyLotteryList' })">
                     取消
                 </el-button>
                 <el-button round type="primary" :loading="loading" @click="save">
@@ -325,19 +325,19 @@
 </template>
 
 <script>
-import Panel from '../../../../../components/common/Panel.vue'
-import UserGroup from '../../../../../components/common/User-Group.vue'
-import EditPresent from '../../../../../components/marketing-manage/Edit-Present.vue'
-import ScholarshipBox from '../../../../../components/marketing-manage/Scholarship.vue'
-import ImageManager from '../../../../../components/common/file/Image-Manager.vue'
-import RadioSelectCoupon from '../../../../../components/marketing-manage/Radio-Select-Coupon.vue'
-import { SectionToChinese } from '../../../../../assets/ts/utils'
+import Panel from '../../../../components/common/Panel.vue'
+import UserGroup from '../../../../components/common/User-Group.vue'
+import EditPresent from '../../../../components/marketing-manage/Edit-Present.vue'
+import ScholarshipBox from '../../../../components/marketing-manage/Scholarship.vue'
+import ImageManager from '../../../../components/common/file/Image-Manager.vue'
+import RadioSelectCoupon from '../../../../components/marketing-manage/Radio-Select-Coupon.vue'
+import { SectionToChinese } from '../../../../assets/ts/utils'
 import {
     addLottery,
     getLotteryDetail,
     editLottery,
     getLotteryDetailStock
-} from '../../../../../apis/marketing-manage/lonmen-festival/lottery'
+} from '../../../../apis/marketing-manage/lonmen-festival/lottery'
 import moment from 'moment'
 // 奖品类
 class Award {
@@ -410,7 +410,7 @@ const ACTIVE_RULES = `1.在活动有效期内，用户满足抽奖条件，即�
 2.奖品：用户可随机获得不同额度优惠券，奖学金以及礼品；
 3.用户领取成功后，优惠券将自动存入“我的卡包”中，奖学金将自动存入“我的奖学金”中，礼品将自动存入“我的礼品中”，使用有效期内用户可随时查看使用。`
 export default {
-    name: 'AddLongmenLottery',
+    name: 'AddHappyLottery',
     components: {
         Panel,
         UserGroup,
@@ -430,15 +430,6 @@ export default {
         const checkGifts = (rule, value, callback) => {
             if (this.awards.length < 3) {
                 callback(new Error('请至少设置三个奖品'))
-            } else {
-                callback()
-            }
-        }
-        const checkDate = (rule, value, callback) => {
-            // 非进行中的活动校验开始时间
-
-            if (moment(this.form.startTime).valueOf() < Date.now() && this.status !== 2) {
-                callback(new Error('活动开始时间不能小于当前时间'))
             } else {
                 callback()
             }
@@ -478,7 +469,7 @@ export default {
                 }],
                 activityRule: ACTIVE_RULES,
                 // 活动类型 1 龙门节抽奖 2 抽奖乐翻天
-                type: 1
+                type: 2
             },
             map: [
                 {
@@ -500,8 +491,7 @@ export default {
                     { max: 10, message: '活动名称不可超过10个字符', trigger: 'blur' }
                 ],
                 startTime: [
-                    { required: true, message: '请选择活动时间', trigger: 'none' },
-                    { validator: checkDate, trigger: 'none' }
+                    { required: true, message: '请选择活动时间', trigger: 'none' }
                 ],
                 userGroups: [
                     { validator: checkGroup, trigger: 'none' }
@@ -589,7 +579,8 @@ export default {
                         terms,
                         userGroups,
                         gifts,
-                        status
+                        status,
+                        type = 2
                     }
                 } = await getLotteryDetail(this.id)
                 // 回显金额单位为分  需除100
@@ -607,7 +598,7 @@ export default {
                     for (const G of gifts) {
                         delete G.id
                     }
-                    this.$router.replace({ name: 'AddLongmenLottery' })
+                    this.$router.replace({ name: 'AddHappyLottery' })
                 }
 
                 // gifts.sort((a, b) => a.winningProbability - b.winningProbability)
@@ -637,7 +628,8 @@ export default {
                     logImageUrl,
                     terms,
                     userGroups,
-                    gifts
+                    gifts,
+                    type
                 }
             } catch (e) {
                 throw e
@@ -708,7 +700,6 @@ export default {
         // 添加奖学金
         addScholarship () {
             this.showScholarship = true
-            // this.currentEditGift = index
         },
         // 确认添加奖学金
         confirmScholarship (data) {
@@ -806,7 +797,7 @@ export default {
                         return
                     }
                     this.$success('保存成功')
-                    this.$router.push({ name: 'LongmenLotteryList' })
+                    this.$router.push({ name: 'HappyLotteryList' })
                 }
             } catch (e) {
                 throw e
@@ -870,7 +861,20 @@ export default {
     },
     beforeRouteLeave (to, from, next) {
         next()
+        sessionStorage.setItem('CURRENT_EDIT_GIFT', this.currentEditGift)
         this.currentEditGift = -1
+    },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'AddReductionCoupon' || from.name === 'AddCategoryCoupon') {
+            next(vm => {
+                vm.currentEditGift = Number(sessionStorage.getItem('CURRENT_EDIT_GIFT'))
+                if (vm.currentEditGift > -1) {
+                    vm.showCoupon = true
+                }
+            })
+            return
+        }
+        next()
     }
 }
 </script>
@@ -934,4 +938,11 @@ export default {
       }
     }
   }
+</style>
+<style scoped lang="scss">
+    ::v-deep {
+        .el-table__empty-block {
+            min-height: 210px;
+        }
+    }
 </style>

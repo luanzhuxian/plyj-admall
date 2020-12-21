@@ -19,26 +19,26 @@ export default [
                 }
             },
             // 之所以添加也有id，是因为存在复制这么一种情况
-            {
-                path: 'add/:id?',
-                props: true,
-                name: 'AddLongmenLottery',
-                component: () => import('../../../../../views/marketing-manage/activities/longmen-festival/lottery/Add.vue'),
-                meta: {
-                    title: '新建活动',
-                    index: '8-12-2'
-                }
-            },
-            {
-                path: 'edit/:id',
-                name: 'EditLongmenLottery',
-                props: true,
-                component: () => import('../../../../../views/marketing-manage/activities/longmen-festival/lottery/Add.vue'),
-                meta: {
-                    title: '编辑活动',
-                    index: '8-12-3'
-                }
-            },
+            // {
+            //     path: 'add/:id?',
+            //     props: true,
+            //     name: 'AddLongmenLottery',
+            //     component: () => import('../../../../../views/marketing-manage/activities/longmen-festival/lottery/Add.vue'),
+            //     meta: {
+            //         title: '新建活动',
+            //         index: '8-12-2'
+            //     }
+            // },
+            // {
+            //     path: 'edit/:id',
+            //     name: 'EditLongmenLottery',
+            //     props: true,
+            //     component: () => import('../../../../../views/marketing-manage/activities/longmen-festival/lottery/Add.vue'),
+            //     meta: {
+            //         title: '编辑活动',
+            //         index: '8-12-3'
+            //     }
+            // },
             {
                 path: 'detail/:id',
                 name: 'LongmenLotteryDetail',

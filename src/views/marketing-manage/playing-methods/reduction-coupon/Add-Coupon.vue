@@ -439,7 +439,8 @@ export default {
         }
     },
     async created () {
-    // 此数据是用来告诉选择优惠券页面，新建的优惠券数据，必须手动清空，不然会有数据残留
+        this.form.distributionMethod = Number(this.$route.query.distributionMethod) || 0
+        // 此数据是用来告诉选择优惠券页面，新建的优惠券数据，必须手动清空，不然会有数据残留
         this.resultData = {}
         const params = this.$route.params
         this.id = params.id
@@ -730,12 +731,13 @@ export default {
         }
     },
     async beforeRouteLeave (to, from, next) {
-        if (to.name !== 'ReductionCouponList' && to.name !== 'OrgIndex' && to.name !== 'AddLongmenLottery' && to.name !== 'EditLongmenLottery' && to.name !== 'NewcomersAdd' && to.name !== 'NewcomersEdit' && to.name !== 'NewcomersCopy') {
-            await this.$confirm({
-                title: '放弃编辑？',
-                message: '是否要放弃当前满减券编辑，放弃后将不可恢复！'
-            })
-        }
+        // 判断过多，暂时不判断
+        // if (to.name !== 'ReductionCouponList' && to.name !== 'OrgIndex' && to.name !== 'AddLongmenLottery' && to.name !== 'EditLongmenLottery' && to.name !== 'NewcomersAdd' && to.name !== 'NewcomersEdit' && to.name !== 'NewcomersCopy') {
+        //     await this.$confirm({
+        //         title: '放弃编辑？',
+        //         message: '是否要放弃当前满减券编辑，放弃后将不可恢复！'
+        //     })
+        // }
         if (to.name === 'NewcomersAdd' || to.name === 'NewcomersEdit' || to.name === 'NewcomersCopy') {
             sessionStorage.setItem(SessionEnum.couponResultData, JSON.stringify(this.resultData))
         }
@@ -744,13 +746,6 @@ export default {
         }
         await this.clearData()
         next()
-    },
-    beforeRouteEnter (to, from, next) {
-        next(vm => {
-            if (from.name === 'NewcomersEdit' || from.name === 'NewcomersAdd' || from.name === 'NewcomersCopy') {
-                vm.form.distributionMethod = 1
-            }
-        })
     }
 }
 </script>

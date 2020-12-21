@@ -1,4 +1,16 @@
 
+// 模板状态
+export enum TemplateStatus {
+    // 下架
+    OffShelf,
+    // 上架
+    OnShelf,
+    // 草稿箱
+    Draft,
+    // 过期
+    Expire
+}
+
 // 直播活动状态
 export enum LiveStatus {
     // 已结束
@@ -33,16 +45,14 @@ export enum ProductStatus {
     Draft
 }
 
-// 模板状态
-export enum TemplateStatus {
-    // 下架
-    OffShelf,
-    // 上架
-    OnShelf,
-    // 草稿箱
-    Draft,
-    // 过期
-    Expire
+// 添加数据类型
+export enum ProductType {
+    // 分类
+    Category = 1,
+    // 商品
+    Product = 2,
+    // 知识课程
+    Course = 3
 }
 
 // 弹窗的类型
@@ -106,7 +116,7 @@ export enum TemplateTypes {
 }
 
 // 模块id
-export enum ModuleIds {
+export enum ModuleTypes {
     // 轮播图
     Banner = 1,
     // 商品模块
@@ -175,21 +185,21 @@ export const tagMap: DynamicObject = {
     }
 }
 
-export const productTypeMap = {
+export const productTypeMap: DynamicObject = {
     VIRTUAL_GOODS: '虚拟商品',
     PHYSICAL_GOODS: '虚拟商品',
     FORMAL_CLASS: '正式课',
     EXPERIENCE_CLASS: '体验课'
 }
 
-export const productTypeMap1: DynamicObject = {
-    PHYSICAL_GOODS: 2,
-    VIRTUAL_GOODS: 2,
-    FORMAL_CLASS: 3,
-    EXPERIENCE_CLASS: 3
-}
+// export const productTypeMap1: DynamicObject = {
+//     PHYSICAL_GOODS: 2,
+//     VIRTUAL_GOODS: 2,
+//     FORMAL_CLASS: 3,
+//     EXPERIENCE_CLASS: 3
+// }
 
-export const productTypeMap2 = {
+export const productTypeMap2: DynamicObject = {
     PHYSICAL_GOODS: '购买',
     VIRTUAL_GOODS: '购买',
     FORMAL_CLASS: '学习',
