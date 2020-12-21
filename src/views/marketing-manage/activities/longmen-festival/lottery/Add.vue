@@ -319,6 +319,7 @@
             @confirm="confirmCoupon"
             coupon-type="1,2"
             :coupon-status="4"
+            :distribution-method="1"
         />
     </div>
 </template>

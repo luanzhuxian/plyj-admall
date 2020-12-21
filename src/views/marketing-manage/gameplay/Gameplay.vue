@@ -172,7 +172,7 @@
             <SchemePack
                 name="抽奖乐翻天"
                 desc="低成本高引流，多种主题任意选"
-                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--2020.03.31` : ''"
+                :expired="activitys.happyLottery.status ? `${getDate(activitys.happyLottery.data.createTime)}--2021.03.31` : ''"
                 :count="activitiesInfo.luckDrawActivityCount1"
                 :tags="['限','新']"
                 :is-lock="!activitys.happyLottery.status"
@@ -418,6 +418,16 @@ export default class Gameplay extends Vue {
                 data,
                 status
             }
+        }
+
+        this.activitys.happyLottery = {
+            data: {
+                validity: '2021-03-31 23:59:59',
+                createTime: '2020-12-21 00:00:00',
+                programId: '10',
+                programName: '福利红包'
+            },
+            status: true
         }
     }
 

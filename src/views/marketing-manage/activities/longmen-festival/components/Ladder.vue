@@ -142,6 +142,7 @@
             :coupon-status="4"
             package-type="2019_02"
             coupon-type="1,2"
+            :distribution-method="1"
         />
         <!--
       最小库存限制，

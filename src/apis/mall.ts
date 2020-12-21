@@ -252,3 +252,8 @@ export const getSkinStatus = (params: { type: number}) => axios.get('/apis/v1/ma
  * 当前抽奖活动
  */
 export const getCurrentLottery = () => axios.get('/apis/v1/luckdraw/findLuckDraw/activityIng')
+
+/**
+ * 当前签到活动
+ */
+export const getCurrentSign = () => axios.get('/apis/v1/signinActivity/customer/findActivity/signiNing')

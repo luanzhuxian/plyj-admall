@@ -19,10 +19,19 @@ export default class HappyLotteryIndex extends Vue {
 
         loading = false
         programId = '10'
-        info = {}
+        info = {
+            validity: '2021-03-31 23:59:59',
+            createTime: '2020-12-21 00:00:00',
+            programId: '10',
+            programName: '福利红包'
+        }
 
         async created () {
             try {
+                if (Object.keys(this.info)) {
+                    this.loading = true
+                    return
+                }
                 if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
                 this.loading = true
                 const info: any = this.marketStatusAuth.find(({ programId }) => programId === this.programId)

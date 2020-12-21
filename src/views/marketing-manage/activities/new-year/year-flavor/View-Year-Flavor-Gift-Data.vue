@@ -130,7 +130,7 @@ export default {
             try {
                 this.filterForm.current = 1
                 this.filterForm.size = val
-                this.getList()
+                await this.getList()
             } catch (e) { throw e }
         },
         // 获取列表数据

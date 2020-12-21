@@ -204,10 +204,17 @@ export default {
             if (val) {
                 copyFields(this.form, val)
                 this.imgList = val.categoryPic ? [val.categoryPic] : []
+            } else {
+                this.form = {
+                    parentCode: '',
+                    categoryName: '',
+                    hidden: false,
+                    categoryPic: ''
+                }
             }
         },
         show (val) {
-            if (!val) {
+            if (val) {
                 this.form.parentCode = (this.parent && this.parent.id) || ''
                 this.$nextTick(() => {
                     this.$refs.form.clearValidate()

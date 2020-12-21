@@ -139,6 +139,7 @@
         <RadioSelectCoupon
             :show.sync="showSelectCoupon"
             @confirm="SelectedCoupon"
+            :distribution-method="1"
             :coupon-status="4"
             package-type="2019_02"
             coupon-type="1,2"

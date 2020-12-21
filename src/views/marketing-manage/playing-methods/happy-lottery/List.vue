@@ -4,8 +4,8 @@
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/%E6%8A%BD%E5%A5%96%E4%B9%90%E7%BF%BB%E5%A4%A9.png"
             title="抽奖乐翻天"
             description="低成本高引流，多种主题任意选"
-            :start-time="HappyLotteryInformation.createTime"
-            end-time="2021-03-31"
+            :start-time="info.createTime"
+            :end-time="info.validity"
         />
         <el-button type="primary" round icon="el-icon-plus" @click="$router.push({ name: 'AddHappyLottery' })">
             新建活动
@@ -137,7 +137,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import ListHeader from '../../../../components/marketing-manage/List-Header.vue'
 import { namespace } from 'vuex-class'
 import Share from '../../../../components/common/Share.vue'
@@ -172,16 +172,24 @@ export default class HappyLotteryList extends Vue {
     total = 0
     userGroupMap = ['所有用户', 'Helper', '普通会员', '指定用户分组']
     statusMap = ['', '未开始', '进行中', '已结束', '已关闭']
-    HappyLotteryInformation = {}
     showShare = false
     shareText = ''
+
+    @Prop({
+        type: Object,
+        default () {
+            return {}
+        }
+    }) info: {
+        validity: string;
+        createTime: string;
+        programId: string;
+    } | undefined
 
     @accountModule.Getter('marketStatusAuth') marketStatusAuth!: any[]
     @accountModule.Action(MutationTypes.getMarketStatusAuth) getMarketStatusAuth!: Function
 
     async created () {
-        if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this.getMarketStatusAuth()
-        this.HappyLotteryInformation = this.marketStatusAuth.find(({ programId }) => programId === '7')
         try {
             await this.getLottery(1)
         } catch (e) {

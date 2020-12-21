@@ -165,6 +165,14 @@ export default {
             if (val) {
                 copyFields(this.form, val)
                 this.imgList = val.bannerPic ? [val.bannerPic] : []
+            } else {
+                this.form = {
+                    categoryName: '',
+                    mallId: '',
+                    sort: 1,
+                    hidden: false,
+                    bannerPic: ''
+                }
             }
         }
     },

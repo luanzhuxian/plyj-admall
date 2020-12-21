@@ -237,6 +237,7 @@ import {
     updateDistribution,
     updateOnlineCourse,
     updateCoupon,
+    updateRedPackage,
     updatePintuanYugou,
     updateMiaosha
 } from '../utils/update-modules'
@@ -643,8 +644,11 @@ export default class MallDecoration extends Vue {
                 updateProduct(module, selectedList, type)
             }
         }
-        if (currentModule === 'Coupon' || currentModule === 'RedPackage') {
+        if (currentModule === 'Coupon') {
             updateCoupon(module, selectedList, tmplType)
+        }
+        if (currentModule === 'RedPackage') {
+            updateRedPackage(module, selectedList)
         }
         if (~['Pintuan', 'Yugou'].indexOf(currentModule)) {
             updatePintuanYugou(module, selectedList)

@@ -130,6 +130,10 @@ export default class EditorAdv extends Vue {
         value: 'happy-lottery',
         label: '抽奖乐翻天',
         disabled: false
+    // }, {
+    //     value: 'newyear-sign',
+    //     label: '打卡聪明年',
+    //     disabled: false
     }, {
         value: 'newyear',
         label: '我心中的年味',
