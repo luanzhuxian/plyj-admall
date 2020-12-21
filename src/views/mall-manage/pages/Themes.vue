@@ -229,18 +229,6 @@ const templateModels = [{
 
 const skinModels = [{
     category: 'skin',
-    skinId: 1,
-    img: 'https://mallcdn.youpenglai.com/static/admall/skin/5974a66e-2638-4023-b520-441d776feba7.jpeg',
-    isHover: false,
-    templateName: '圣诞皮肤'
-}, {
-    category: 'skin',
-    skinId: 2,
-    img: 'https://mallcdn.youpenglai.com/static/admall/skin/2a7871e3-d5d7-4801-ab2d-86cf7b532418.jpeg',
-    isHover: false,
-    templateName: '元旦皮肤'
-}, {
-    category: 'skin',
     skinId: 3,
     img: 'https://mallcdn.youpenglai.com/static/admall/skin/2d8b1945-12d4-4bca-aacc-0e0ce9a8af5e.jpeg',
     isHover: false,
@@ -377,12 +365,30 @@ const skinModels = [{
     img: 'https://mallcdn.youpenglai.com/static/admall/skin/welcome-new/cover.jpg',
     isHover: false,
     templateName: '欢迎新同学'
-// }, {
-//     category: 'skin',
-//     skinId: 23,
-//     img: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/cover.jpg',
-//     isHover: false,
-//     templateName: '圣诞皮肤'
+}, {
+    category: 'skin',
+    skinId: 23,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/campus-supply/cover.jpg',
+    isHover: false,
+    templateName: '校园好物'
+}, {
+    category: 'skin',
+    skinId: 1,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/5974a66e-2638-4023-b520-441d776feba7.jpeg',
+    isHover: false,
+    templateName: '圣诞皮肤'
+}, {
+    category: 'skin',
+    skinId: 24,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/xmas-2020/cover.jpg',
+    isHover: false,
+    templateName: '圣诞皮肤'
+}, {
+    category: 'skin',
+    skinId: 2,
+    img: 'https://mallcdn.youpenglai.com/static/admall/skin/2a7871e3-d5d7-4801-ab2d-86cf7b532418.jpeg',
+    isHover: false,
+    templateName: '元旦皮肤'
 }]
 
 @Component({
