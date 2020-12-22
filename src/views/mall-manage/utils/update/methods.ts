@@ -1,23 +1,29 @@
-import { getSpringPloughingDetail } from '../../../apis/marketing-manage/new-year/spring-ploughing'
-import { TemplateModule } from './types'
+import { getSpringPloughingDetail } from '../../../../apis/marketing-manage/new-year/spring-ploughing'
+import {
+    TemplateModule,
+    UpdateData,
+    UpdateFn
+} from '../types'
 import {
     TemplateTypes,
     ModuleTypes,
     ModalType,
     ProductType
-} from './map'
+} from '../map'
 
 /**
  * 向 banner轮播 / 广告 模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
- * @param {number} type 添加的数据类型 1 分类 2 商品 3 课程
- * @param {number} index 添加到 values 列表的第几位
+ * @param {array} updateData.selectedList 添加的数据
+ * @param {number} updateData.type 添加的数据类型 1 分类 2 商品 3 课程
+ * @param {number} updateData.index 添加到 values 列表的第几位
  * @return {object} module
  */
-export const updateBanner = (module: TemplateModule, selectedList: any[], type: number, index: number) => {
+export const updateBanner: UpdateFn = (module: TemplateModule, updateData) => {
+    const { selectedList = [], type, index } = updateData
     const selected = selectedList[0]
     if (!selected || !selected.id) return
+    if (!index && index !== 0) return
 
     module.values[index].type = type
     module.values[index].valueName = type === ProductType.Course
@@ -30,59 +36,57 @@ export const updateBanner = (module: TemplateModule, selectedList: any[], type: 
 /**
  * 向商品模块添加某个分类下的商品
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
+ * @param {number} updateData.type 添加的数据类型 1 分类 2 商品 3 课程
  * @return {object} module
  */
-export const updateCatagoryProduct = (module: TemplateModule, selectedList: any[]) => {
-    const selected = selectedList[0]
-    if (!selected || !selected.id) return
+export const updateCatagoryProduct: UpdateFn = (module, updateData) => {
+    const { selectedList = [], type } = updateData
 
-    module.otherValue = selected.categoryName
-    module.otherInfo = selected.id
-    return module
-}
+    if (type === ModalType.CategoryModal) {
+        // 分类单选
+        const selected = selectedList[0]
+        if (!selected || !selected.id) return
+        module.otherValue = selected.categoryName
+        module.otherInfo = selected.id
+    } else if (type === ModalType.ProductModal || type === ModalType.ClassModal) {
+        // 实体商品、虚拟商品、正式课、体验课多选
+        if (!selectedList.length) return
+        if (!module.productValues) return
 
-/**
- * 向商品模块添加商品
- * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
- * @param {number} type 添加的数据类型 1 分类 2 商品 3 课程
- * @return {object} module
- */
-export const updateProduct = (module: TemplateModule, selectedList: any[], type: number) => {
-    if (!selectedList.length) return
-    if (!module.productValues) return
-
-    for (const prod of selectedList) {
-        const obj = {
-            id: '',
-            type,
-            image: prod.productMainImage,
-            name: prod.productName,
-            value: prod.id,
-            valueName: '',
-            goodsInfo: prod
+        for (const prod of selectedList) {
+            const obj = {
+                id: '',
+                type,
+                image: prod.productMainImage,
+                name: prod.productName,
+                value: prod.id,
+                valueName: '',
+                goodsInfo: prod
+            }
+            obj.goodsInfo.productSkuModels = prod.skuEntityList
+            obj.goodsInfo.labelModels = prod.labelList.map((label: string) => ({ labelName: label }))
+            module.productValues.push(obj)
         }
-        obj.goodsInfo.productSkuModels = prod.skuEntityList
-        obj.goodsInfo.labelModels = prod.labelList.map((label: string) => ({ labelName: label }))
-        module.productValues.push(obj)
+
+        const max = type === ModalType.ProductModal ? 9 : 12
+        if (module.productValues.length > max) {
+            module.productValues.length = max
+            module.values = module.productValues
+        }
     }
 
-    const max = type === ModalType.ProductModal ? 9 : 12
-    if (module.productValues.length > max) {
-        module.productValues.length = max
-        module.values = module.productValues
-    }
     return module
 }
 
 /**
  * 向组合课模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
  * @return {object} module
  */
-export const updatePackage = async (module: TemplateModule, selectedList: any[]) => {
+export const updatePackage = async (module: TemplateModule, updateData: UpdateData) => {
+    const { selectedList = [] } = updateData
     if (!selectedList.length) return
 
     const result = await Promise.all(selectedList
@@ -102,10 +106,11 @@ export const updatePackage = async (module: TemplateModule, selectedList: any[])
 /**
  * 向分销模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
  * @return {object} module
  */
-export const updateDistribution = (module: TemplateModule, selectedList: any[]) => {
+export const updateDistribution: UpdateFn = (module, updateData) => {
+    const { selectedList = [] } = updateData
     if (!selectedList.length) return
 
     for (const prod of selectedList) {
@@ -131,10 +136,11 @@ export const updateDistribution = (module: TemplateModule, selectedList: any[]) 
 /**
  * 向线上课程模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
  * @return {object} module
  */
-export const updateOnlineCourse = (module: TemplateModule, selectedList: any[]) => {
+export const updateOnlineCourse: UpdateFn = (module, updateData) => {
+    const { selectedList = [] } = updateData
     if (!selectedList.length) return
 
     for (const item of selectedList) {
@@ -157,11 +163,12 @@ export const updateOnlineCourse = (module: TemplateModule, selectedList: any[]) 
 /**
  * 向优惠券模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
  * @param {number} tmplType 模板id
  * @return {object} module
  */
-export const updateCoupon = (module: TemplateModule, selectedList: any[], tmplType: number) => {
+export const updateCoupon: UpdateFn = (module, updateData, tmplType) => {
+    let { selectedList = [] } = updateData
     if (!selectedList.length) return
 
     selectedList = selectedList.map(prod => ({
@@ -185,10 +192,11 @@ export const updateCoupon = (module: TemplateModule, selectedList: any[], tmplTy
 /**
  * 向福利红包模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
  * @return {object} module
  */
-export const updateRedPackage = (module: TemplateModule, selectedList: any[]) => {
+export const updateRedPackage: UpdateFn = (module, updateData) => {
+    const { selectedList = [] } = updateData
     if (!selectedList.length) return
 
     for (const prod of selectedList) {
@@ -211,10 +219,11 @@ export const updateRedPackage = (module: TemplateModule, selectedList: any[]) =>
 /**
  * 向拼团预购模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
  * @return {object} module
  */
-export const updatePintuanYugou = (module: TemplateModule, selectedList: any[]) => {
+export const updatePintuanYugou: UpdateFn = (module, updateData) => {
+    const { selectedList = [] } = updateData
     if (!selectedList.length) return
 
     for (const prod of selectedList) {
@@ -248,15 +257,17 @@ export const updatePintuanYugou = (module: TemplateModule, selectedList: any[]) 
 /**
  * 向秒杀模块添加数据
  * @param {object} module 单个模块
- * @param {array} selectedList 添加的数据
+ * @param {array} updateData.selectedList 添加的数据
+ * @param {number} updateData.index 添加到 values 列表的第几位
  * @param {number} tmplType 模板id
- * @param {number} index 添加到 values 列表的第几位
  * @return {object} module
  */
-export const updateMiaosha = (module: TemplateModule, selectedList: any[], tmplType: number, index: number) => {
+export const updateMiaosha: UpdateFn = (module, updateData, tmplType) => {
+    const { selectedList = [], index } = updateData
     if (!selectedList.length) return
 
     if (tmplType === TemplateTypes.TemplateBaoFa) {
+        if (!index && index !== 0) return
         if (!module.values[index] || !module.values[index].goodsInfo) return
 
         for (const prod of selectedList) {

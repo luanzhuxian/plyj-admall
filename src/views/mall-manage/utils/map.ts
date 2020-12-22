@@ -119,6 +119,7 @@ export enum TemplateTypes {
 export enum ModuleTypes {
     // 轮播图
     Banner = 1,
+    Adv = 1,
     // 商品模块
     Popular = 2,
     // 精品课程

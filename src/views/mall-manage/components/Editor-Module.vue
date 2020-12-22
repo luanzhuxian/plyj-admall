@@ -267,7 +267,7 @@ export default class EditorModule extends Vue {
         if (val === 1 && this.data.categoryValues) {
             this.data.values = this.data.categoryValues
         }
-        if (val === 2 && this.data.productValues) {
+        if ((val === 2 || val === 3) && this.data.productValues) {
             this.data.values = this.data.productValues
         }
     }

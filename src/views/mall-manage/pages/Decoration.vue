@@ -178,6 +178,7 @@
 
 <script lang="ts">
 /* eslint-disable func-style */
+/* eslint-disable require-await */
 
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
@@ -208,16 +209,19 @@ import ModalProd from '../components/Modal-Prod.vue'
 import ModalTimeSetting from '../components/Modal-Time-Setting.vue'
 import Render from '../components/Render'
 import { teacherEditorOptions, maisongEditorOptions } from '../utils/config'
-import { validatorProducer } from '../utils/validate/index'
 import { rebuild, rebuildBeforeSubmit } from '../utils/rebuild'
 import { isString, isPlainObject } from '../utils/helper'
+import { validatorProducer } from '../utils/validate/index'
+import { initModuleUpdater } from '../utils/update/index'
 import {
     TemplateCrosses,
     Template,
-    TemplateModuleItem
+    TemplateModuleItem,
+    UpdateData
 } from '../utils/types'
 import {
     TemplateTypes,
+    ModuleTypes,
     ModalType,
     tagMap,
     editorMap,
@@ -229,18 +233,6 @@ import {
     getTemplateById,
     checkIsFull
 } from '../../../apis/mall'
-import {
-    updateBanner,
-    updateCatagoryProduct,
-    updateProduct,
-    updatePackage,
-    updateDistribution,
-    updateOnlineCourse,
-    updateCoupon,
-    updateRedPackage,
-    updatePintuanYugou,
-    updateMiaosha
-} from '../utils/update-modules'
 
 const mall = namespace('mall')
 
@@ -287,10 +279,11 @@ export default class MallDecoration extends Vue {
     skinId = 0
     // 当前模板
     templateModel: Template | {} = {}
-    // 当前模板的module列表
+    // 当前模板的 module 列表
     moduleModels: TemplateCrosses | {} = {}
-    // 当前处于点击状态的module
+    // 当前处于点击状态的 module
     currentModule = ''
+    modulesUpdater!: DynamicObject
     unWatch!: Function
 
     // 模块装饰器的位置
@@ -471,6 +464,7 @@ export default class MallDecoration extends Vue {
                 this.setWatcher(Number(type))
             }
             await this.getData()
+            this.modulesUpdater = initModuleUpdater(this.moduleModels)
         } catch (error) {
             throw error
         } finally {
@@ -496,6 +490,7 @@ export default class MallDecoration extends Vue {
         this.unWatch = this.$watch(currentTemplate, (template: Template) => {
             if (template && template.type) {
                 this.updateTemplate(type)
+                this.modulesUpdater = initModuleUpdater(this.moduleModels)
                 this.loaded = true
             }
         })
@@ -520,7 +515,7 @@ export default class MallDecoration extends Vue {
             const { type, id } = this.$route.query
             // 获取当前使用模板数据
             if (this.from === 'CURRENT') {
-                this.updateTemplate(Number(type))
+                await this.updateTemplate(Number(type))
             }
             // 装修新模板时的初始数据
             if (this.from === 'THEME') {
@@ -541,7 +536,7 @@ export default class MallDecoration extends Vue {
      * @param {Number} type  1: 首页模板 2：主会场模板
      * @returns {Promise<Number>}
      */
-    updateTemplate (type = 1) {
+    async updateTemplate (type = 1) {
         const template = type === 2 ? this.currentActivity : this.currentHome
         if (template && template.type) {
             this.tmplType = template.type
@@ -599,62 +594,25 @@ export default class MallDecoration extends Vue {
         this.editorPosition[editorName] = this.getEditorPosition(target)
         await this.$nextTick()
         this.currentModule = this.currentModule === moduleName ? '' : moduleName
+        if (this.currentModule) {
+            if (this.currentModule in ModuleTypes) {
+                // @ts-ignore
+                this.modulesUpdater.switch(ModuleTypes[this.currentModule])
+            }
+        }
     }
 
     // 进行装修操作后更新模块数据
-    updateModules ({ type, selectedList = [], index }: { type: number; selectedList: DynamicObject[]; index: number}) {
-        const { moduleModels, currentModule, tmplType } = this
-        // @ts-ignore
-        const module = moduleModels[currentModule]
+    updateModules ({ type, selectedList = [], index }: UpdateData) {
+        const { current } = this.modulesUpdater
 
-        // 首页模块
-        if (~['Banner', 'Adv'].indexOf(currentModule)) {
-            updateBanner(module, selectedList, type, index)
-        }
-        if (~['Popular', 'Class'].indexOf(currentModule)) {
+        current.update({ type, selectedList, index }, this.tmplType)
+        // TODO:
+        if (~[ModuleTypes.Popular, ModuleTypes.Class].indexOf(current.moduleType)) {
             if (type === ModalType.CategoryModal) {
-                // 分类单选
-                updateCatagoryProduct(module, selectedList)
                 // @ts-ignore
-                this.$refs['editor-module'].getProductsByCategory(module)
-            } else if (type === ModalType.ProductModal || type === ModalType.ClassModal) {
-                // 实体商品、虚拟商品、正式课、体验课多选
-                updateProduct(module, selectedList, type)
+                this.$refs['editor-module'].getProductsByCategory(current.data)
             }
-            // @ts-ignore
-            this.$refs['editor-module'].$forceUpdate()
-        }
-        if (currentModule === 'Package') {
-            updatePackage(module, selectedList)
-        }
-        if (currentModule === 'Distribution') {
-            updateDistribution(module, selectedList)
-        }
-        if (~['SingleCourse', 'SeriesCourse', 'ImageText'].indexOf(currentModule)) {
-            updateOnlineCourse(module, selectedList)
-        }
-
-        // 主会场模块
-        if (currentModule === 'Fengqiang') {
-            if (type === ModalType.CategoryModal) {
-                updateCatagoryProduct(module, selectedList)
-                // @ts-ignore
-                this.$refs['editor-module'].getProductsByCategory(module)
-            } else if (type === ModalType.ProductModal || type === ModalType.ClassModal) {
-                updateProduct(module, selectedList, type)
-            }
-        }
-        if (currentModule === 'Coupon') {
-            updateCoupon(module, selectedList, tmplType)
-        }
-        if (currentModule === 'RedPackage') {
-            updateRedPackage(module, selectedList)
-        }
-        if (~['Pintuan', 'Yugou'].indexOf(currentModule)) {
-            updatePintuanYugou(module, selectedList)
-        }
-        if (currentModule === 'Miaosha') {
-            updateMiaosha(module, selectedList, tmplType, index)
         }
     }
 

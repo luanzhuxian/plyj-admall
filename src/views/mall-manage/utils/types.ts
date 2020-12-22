@@ -209,3 +209,12 @@ export interface SkinModel {
     chargeTextColor: string;
     expire: string;
 }
+
+export type UpdateData = {
+    type: number;
+    selectedList: any[];
+    index?: number;
+    tmplType?: number;
+}
+
+export type UpdateFn = (module: TemplateModule, updateData: UpdateData, tmplType?: number) => TemplateModule | Promise<TemplateModule | undefined> | undefined
