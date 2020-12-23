@@ -28,7 +28,7 @@
             </div>
             <div :class="$style.tabCardItem">
                 <div :class="$style.cardItemTitle">
-                    获得抽奖机会人数
+                    已获得奖品人数
                 </div>
                 <div :class="$style.cardItemContent">
                     <i v-text="statistics.drawSum || 0" /> <span /> <span>人</span>
@@ -53,7 +53,6 @@
             </el-form-item>
             <el-form-item label="参与时间：">
                 <date-range
-                    size="small"
                     :clearable="true"
                     @change="dateChange"
                     type="datetime"
@@ -71,7 +70,6 @@
                     />
                 </el-select>
             </el-form-item>
-            <div />
             <el-form-item>
                 <el-button
                     round
@@ -139,7 +137,7 @@
             </el-table-column>
             <el-table-column
                 prop="drawTime"
-                label="抽奖时间"
+                label="最近获奖时间"
                 header-align="center"
                 align="center"
             />

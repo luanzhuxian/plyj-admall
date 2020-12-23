@@ -78,7 +78,7 @@
                     prop="drawSum"
                 />
                 <el-table-column
-                    label="中奖人数"
+                    label="已获得奖品人数"
                     prop="hasSum"
                 />
                 <el-table-column
@@ -86,7 +86,7 @@
                     width="300"
                 >
                     <template slot-scope="{row}">
-                        {{ row.startTime }} ~ {{ row.endTime }}
+                        {{ row.startTime | dateFormat('YYYY.MM.DD') }} ~ {{ row.endTime | dateFormat('YYYY.MM.DD') }}
                     </template>
                 </el-table-column>
                 <el-table-column

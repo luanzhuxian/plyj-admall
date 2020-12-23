@@ -775,6 +775,7 @@ export default {
 </script>
 <style lang="scss" scoped>
     .sign-box {
+        padding-bottom: 120px;
         .win-rate {
             width: 300px;
 
