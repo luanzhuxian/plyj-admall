@@ -54,7 +54,8 @@ export const initModuleUpdater = (modules: TemplateCrosses | {}) => {
         module = modules[name]
         // 首页模块
         if (module.moduleType === ModuleTypes.Banner) {
-            updater = getModulesUpdater(module, 'Banner', updateBanner)
+            const moduleName = module.sort === 2 ? 'Adv' : 'Banner'
+            updater = getModulesUpdater(module, moduleName, updateBanner)
             modulesUpdater.add(updater)
         }
         if (module.moduleType === ModuleTypes.Popular) {

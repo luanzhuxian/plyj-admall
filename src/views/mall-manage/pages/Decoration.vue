@@ -595,10 +595,13 @@ export default class MallDecoration extends Vue {
         await this.$nextTick()
         this.currentModule = this.currentModule === moduleName ? '' : moduleName
         if (this.currentModule) {
-            if (this.currentModule in ModuleTypes) {
-                // @ts-ignore
-                this.modulesUpdater.switch(ModuleTypes[this.currentModule])
+            // 因为双十二普通模板 Banner 和 Adv 的 moduleType 都是 1，所以用 moduleName 区分
+            if (this.currentModule === 'Banner' || this.currentModule === 'Adv') {
+                this.modulesUpdater.switch(this.currentModule)
+                return
             }
+            // @ts-ignore
+            this.modulesUpdater.switch(ModuleTypes[this.currentModule])
         }
     }
 
