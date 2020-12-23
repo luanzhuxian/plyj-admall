@@ -58,6 +58,11 @@ export class ModulesUpdater {
     }
 }
 
+/**
+ * 工厂函数
+ * @param {object} options
+ * @return {object} StateMachine
+ */
 export const getStateMachine = (options: DynamicObject) => new StateMachine(options)
 
 /**
