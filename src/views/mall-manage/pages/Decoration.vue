@@ -16,14 +16,15 @@
                     :class="$style.editor"
                     :style="{ '--top': `${editorPosition.Banner}px` }"
                     :show="isEditorBannerShow"
-                    :data="isEditorBannerShow ? moduleModels.Banner : {}"
+                    :data="isEditorBannerShow ? moduleModels[currentModule] : {}"
+                    :current-module="currentModule"
                     @close="currentModule = ''"
                 />
-                <EditorAdv
+                <EditorActivity
                     :class="$style.editor"
-                    :style="{ '--top': `${editorPosition.Adv}px` }"
-                    :show="isEditorAdvShow"
-                    :data="isEditorAdvShow ? moduleModels[currentModule] : {}"
+                    :style="{ '--top': `${editorPosition.Activity}px` }"
+                    :show="isEditorActivityShow"
+                    :data="isEditorActivityShow ? moduleModels[currentModule] : {}"
                     @close="currentModule = ''"
                 />
                 <EditorModule
@@ -194,7 +195,7 @@ import TemplateDouble122020 from '../components/templates/Template-Double-12-202
 import TemplateSpring2021 from '../components/templates/Template-Spring-2021-Green.vue'
 import TemplatePreview from '../components/Template-Preview.vue'
 import EditorBanner from '../components/Editor-Banner.vue'
-import EditorAdv from '../components/Editor-Adv.vue'
+import EditorActivity from '../components/Editor-Activity.vue'
 import EditorModule from '../components/Editor-Module.vue'
 import EditorVideo from '../components/Editor-Video.vue'
 import EditorSort from '../components/Editor-Sort.vue'
@@ -250,7 +251,7 @@ const mall = namespace('mall')
         TemplateSpring2021,
         TemplatePreview,
         EditorBanner,
-        EditorAdv,
+        EditorActivity,
         EditorModule,
         EditorVideo,
         EditorSort,
@@ -289,7 +290,7 @@ export default class MallDecoration extends Vue {
     // 模块装饰器的位置
     editorPosition: DynamicObject = {
         Banner: 0,
-        Adv: 0,
+        Activity: 0,
         Module: 0,
         Video: 0,
         Sort: 0,
@@ -344,11 +345,11 @@ export default class MallDecoration extends Vue {
     }
 
     get isEditorBannerShow () {
-        return this.currentModule === 'Banner'
+        return this.currentModule === 'Banner' || this.currentModule === 'Adv'
     }
 
-    get isEditorAdvShow () {
-        return ['Adv', 'Activity'].includes(this.currentModule)
+    get isEditorActivityShow () {
+        return this.currentModule === 'Activity'
     }
 
     get isEditorModuleShow () {

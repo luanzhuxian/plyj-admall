@@ -233,12 +233,11 @@ export default class EditorModule extends Vue {
 
     /* methods */
     add (modalName: string) {
-        // moduleType: 模块的id
         const { moduleType, goodsSource, otherInfo } = this.data
-        const list = findBrothersComponents(this, modalName)
-        if (list.length) {
+        const [modal]: Vue[] = findBrothersComponents(this, modalName)
+        if (modal) {
             // @ts-ignore
-            list[0].open({
+            modal.open({
                 modalType: this.hideRadio ? moduleType : goodsSource,
                 radio: otherInfo,
                 ...(moduleType === ModuleTypes.Miaosha ? { range: [] } : null)

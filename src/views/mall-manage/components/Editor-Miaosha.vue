@@ -141,11 +141,10 @@ export default class EditorMiaosha extends Vue {
             const endTime = (item.range && item.range.length && item.range[1])
                 ? moment(item.range[1]).format('YYYY-MM-DD HH:mm:ss')
                 : ''
-            // this.$emit('open', { modalType: moduleType, index, range: [startTime, endTime] })
-            const list = findBrothersComponents(this, 'ModalProd')
-            if (list.length) {
+            const [modal]: Vue[] = findBrothersComponents(this, 'ModalProd')
+            if (modal) {
                 // @ts-ignore
-                list[0].open({
+                modal.open({
                     modalType: moduleType,
                     range: [startTime, endTime],
                     index

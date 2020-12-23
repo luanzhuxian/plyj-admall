@@ -82,10 +82,10 @@ export default class EditorCoupon extends Vue {
     /* methods */
     add () {
         const { moduleType, otherInfo } = this.data
-        const list = findBrothersComponents(this, 'ModalProd')
-        if (list.length) {
+        const [modal]: Vue[] = findBrothersComponents(this, 'ModalProd')
+        if (modal) {
             // @ts-ignore
-            list[0].open({
+            modal.open({
                 modalType: moduleType,
                 radio: otherInfo
             })

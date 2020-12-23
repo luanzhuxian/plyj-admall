@@ -1,7 +1,7 @@
 <template>
     <div class="editor-banner" :class="$style.editorBanner" v-if="show">
         <div :class="$style.editorBannerHeader">
-            Banner
+            {{ currentModule === 'Adv' ? '广告活动' : 'Banner' }}
             <i class="el-icon-close" @click="close" />
         </div>
         <div :class="$style.editorBannerContent">
@@ -31,35 +31,49 @@
                             更换图片
                         </div>
                     </div>
-                    <div :class="$style.operate">
-                        <el-input
-                            v-model.trim="item.name"
-                            placeholder="图片标题"
-                            maxlength="10"
-                        />
-                        <div :class="$style.link">
+                    <div :class="$style.operation">
+                        <template v-if="currentModule === 'Banner'">
                             <el-input
-                                v-model.trim="item.valueName"
-                                placeholder="选择跳转路径"
-                                disabled
+                                v-model.trim="item.name"
+                                placeholder="图片标题"
+                                maxlength="10"
                             />
-                            <el-cascader
-                                :ref="`cascader-${index}`"
-                                v-model="cascaderValue"
-                                :options="options"
-                                :props="{ expandTrigger: 'click' }"
-                                @change="value => onCascaderChange(value, item, index)"
+                            <div :class="$style.link">
+                                <el-input
+                                    v-model.trim="item.valueName"
+                                    placeholder="选择跳转路径"
+                                    disabled
+                                />
+                                <el-cascader
+                                    :ref="`cascader-${index}`"
+                                    v-model="cascaderValue"
+                                    :options="options"
+                                    :props="{ expandTrigger: 'click' }"
+                                    @change="value => onCascaderChange(value, item, index)"
+                                />
+                            </div>
+                            <el-input
+                                v-if="item.type === 7"
+                                v-model.trim="item.value"
+                                placeholder="输入自定义跳转路径"
+                                :disabled="item.type !== 7"
                             />
-                        </div>
-                        <el-input
-                            v-if="item.type === 7"
-                            v-model.trim="item.value"
-                            placeholder="输入自定义跳转路径"
-                            :disabled="item.type !== 7"
-                        />
+                        </template>
+                        <template v-if="currentModule === 'Adv'">
+                            <div :class="$style.link">
+                                <el-input v-model.trim="item.valueName" placeholder="选择跳转路径" disabled />
+                                <div :class="$style.iconWrapper" @click="openModal({
+                                    modalType: 4,
+                                    index: 0,
+                                    radio: data.values.length ? data.values[0].value : ''
+                                })">
+                                    <i class="el-icon-arrow-right" />
+                                </div>
+                            </div>
+                        </template>
                     </div>
                     <div style="width: 28px;">
-                        <i v-if="data.values.length > 1" class="el-icon-delete-solid" @click.stop="remove(index)" />
+                        <i v-if="currentModule === 'Adv' || data.values.length > 1" class="el-icon-delete-solid" @click.stop="remove(index)" />
                     </div>
                 </li>
             </Draggable>
@@ -111,20 +125,7 @@ export default class EditorBanner extends Vue {
         }
     }) data!: TemplateModule
 
-    @Prop({
-        type: Number,
-        default: 750
-    }) width!: number
-
-    @Prop({
-        type: Number,
-        default: 500
-    }) height!: number
-
-    @Prop({
-        type: Number,
-        default: 10
-    }) max!: number
+    @Prop(String) currentModule!: string
 
     /* data */
     dragging = false
@@ -175,6 +176,20 @@ export default class EditorBanner extends Vue {
         label: '自定义'
     }])
 
+    /* computed */
+    get max () {
+        return this.currentModule === 'Adv' ? 1 : 10
+    }
+
+    get width () {
+        return 750
+    }
+
+    get height () {
+        return this.currentModule === 'Adv' ? 200 : 500
+    }
+
+    /* methods */
     add () {
         if (this.data.values.length >= this.max) return
         this.data.values.push({
@@ -246,10 +261,10 @@ export default class EditorBanner extends Vue {
     }
 
     openModal (params: { modalType: number; radio: string; index: number }) {
-        const list = findBrothersComponents(this, 'ModalProdCategory')
-        if (list.length) {
+        const [modal]: Vue[] = findBrothersComponents(this, 'ModalProdCategory')
+        if (modal) {
             // @ts-ignore
-            list[0].open(params)
+            modal.open(params)
         }
     }
 
@@ -311,8 +326,8 @@ export default class EditorBanner extends Vue {
 .editor-banner {
     width: 330px;
     background: #fff;
-    border: 1px solid rgba(231,231,231,1);
-    box-shadow: 0 0 12px rgba(0,0,0,.1);
+    border: 1px solid rgba(231, 231, 231, 1);
+    box-shadow: 0 0 12px rgba(0, 0, 0, .1);
     padding: 0 18px;
 
     &-header {
@@ -389,7 +404,7 @@ export default class EditorBanner extends Vue {
             font-size: 12px;
             line-height: 16px;
         }
-        .operate {
+        .operation {
             display: block;
             flex: 1;
             padding: 0 7px 0 10px;
@@ -403,6 +418,16 @@ export default class EditorBanner extends Vue {
             align-items: center;
             background-color: #fff;
             border: 1px solid #e4e7ed;
+        }
+        .icon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 25px;
+            color: #666;
+            cursor: pointer;
+            border-left: 1px solid #dedede;
         }
     }
     &-btn {

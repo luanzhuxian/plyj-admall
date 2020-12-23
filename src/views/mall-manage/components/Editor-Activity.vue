@@ -1,18 +1,12 @@
 <template>
-    <div class="editor-adv" :class="$style.editorAdv" v-if="show">
-        <div :class="$style.editorAdvHeader">
+    <div class="editor-activity" :class="$style.editorActivity" v-if="show">
+        <div :class="$style.editorActivityHeader">
             活动模块
             <i class="el-icon-close" @click="close" />
         </div>
-        <div :class="$style.editorAdvContent">
-            <label :class="$style.important" v-if="isImgShow">
-                添加图片
-            </label>
-            <p v-if="isImgShow">
-                建议尺寸750x200，大小小于3MB，最少添加一个。
-            </p>
+        <div :class="$style.editorActivityContent">
             <Draggable
-                :class="$style.editorAdvList"
+                :class="$style.editorActivityList"
                 :list="data.values"
                 tag="ul"
                 animation="200"
@@ -20,26 +14,10 @@
                 @start="dragging=true"
                 @end="dragging=false"
             >
-                <li :class="$style.editorAdvListItem" v-for="(item, i) of data.values" :key="i">
-                    <div :class="$style.imgWrapper" v-if="isImgShow">
-                        <img v-if="item.image" :src="item.image">
-                        <div v-else :class="$style.defaultImg">
-                            <PlSvg name="icon-icon--shangchuan" width="18" fill="#999" />
-                            <span>上传图片</span>
-                        </div>
-                        <div :class="$style.mask" @click="selectImage(i)">
-                            更换图片
-                        </div>
-                    </div>
+                <li :class="$style.editorActivityListItem" v-for="(item, i) of data.values" :key="i">
                     <div :class="$style.operation">
                         <div :class="$style.link">
-                            <template v-if="!isSelectShow">
-                                <el-input v-model.trim="item.valueName" placeholder="选择跳转路径" disabled />
-                                <div :class="$style.iconWrapper" @click="openModal">
-                                    <i class="el-icon-arrow-right" />
-                                </div>
-                            </template>
-                            <template v-else>
+                            <template>
                                 <el-select
                                     :class="$style.select"
                                     v-model="item.value"
@@ -66,7 +44,7 @@
             </Draggable>
             <button
                 v-if="data.values.length < max"
-                :class="$style.editorAdvBtn"
+                :class="$style.editorActivityBtn"
                 type="button"
                 @click.stop="add"
             >
@@ -74,35 +52,20 @@
                 <span>{{ `添加${data.values.length}/${max}` }}</span>
             </button>
         </div>
-        <ImageManager
-            ref="image-manager"
-            :show-list="false"
-            :show-selector="false"
-            need-edit
-            :width="750"
-            :height="200"
-            :size="0.5"
-            :count="100"
-            @change="uploadSuccess"
-        />
     </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Emit, Watch } from 'vue-property-decorator'
 import Draggable from '../../../components/common/draggable'
-import ImageManager from '../../../components/common/file/Image-Manager.vue'
-import { findBrothersComponents } from '../utils/helper'
 import { TemplateModule } from '../utils/types'
-import { ModuleTypes, ModalType } from '../utils/map'
 
 @Component({
     components: {
-        Draggable,
-        ImageManager
+        Draggable
     }
 })
-export default class EditorAdv extends Vue {
+export default class EditorActivity extends Vue {
     /* props */
     @Prop(Boolean) show!: boolean
     @Prop({
@@ -121,7 +84,6 @@ export default class EditorAdv extends Vue {
 
     /* data */
     dragging = false
-    currentImgIndex!: number
     defaultOptions = Object.freeze([{
         value: 'cloud',
         label: '云课堂',
@@ -157,16 +119,8 @@ export default class EditorAdv extends Vue {
     }])
 
     /* computed */
-    get isImgShow () {
-        return this.data.moduleType !== ModuleTypes.Activity
-    }
-
-    get isSelectShow () {
-        return this.data.moduleType === ModuleTypes.Activity
-    }
-
     get max () {
-        return this.data.moduleType === ModuleTypes.Activity ? 6 : 1
+        return 6
     }
 
     /* watch */
@@ -183,16 +137,6 @@ export default class EditorAdv extends Vue {
     /* methods */
     onSelectChange (index: number) {
         console.log(`select ${ index }`)
-    }
-
-    selectImage (index: number) {
-        this.currentImgIndex = index
-        // @ts-ignore
-        this.$refs['image-manager'].showSelectImageBox()
-    }
-
-    uploadSuccess (urls: string[]) {
-        this.data.values[this.currentImgIndex].image = urls[0]
     }
 
     add () {
@@ -220,18 +164,6 @@ export default class EditorAdv extends Vue {
         }
     }
 
-    openModal () {
-        const list = findBrothersComponents(this, 'ModalProdCategory')
-        if (list.length) {
-            // @ts-ignore
-            list[0].open({
-                modalType: ModalType.ProductAndCategoryModal,
-                index: 0,
-                radio: this.data.values.length ? this.data.values[0].value : ''
-            })
-        }
-    }
-
     @Emit()
     close () {
         return true
@@ -240,7 +172,7 @@ export default class EditorAdv extends Vue {
 </script>
 
 <style lang="scss">
-.editor-adv {
+.editor-activity {
     .el-icon-close {
         font-size: 16px;
         cursor: pointer;
@@ -284,7 +216,7 @@ export default class EditorAdv extends Vue {
 }
 </style>
 <style module lang="scss">
-.editor-adv {
+.editor-activity {
     width: 330px;
     background: #fff;
     border: 1px solid rgba(231,231,231,1);
@@ -318,54 +250,6 @@ export default class EditorAdv extends Vue {
         height: 86px;
         background-color: #f9f9f9;
         cursor: pointer;
-        .img-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 98px;
-            height: 86px;
-            cursor: pointer;
-            &:hover {
-                .mask {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-            }
-        }
-        img {
-            display: block;
-            width: 100%;
-            height: 43px;
-            object-fit: cover;
-        }
-        .default-img {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            line-height: 22px;
-            color: #999;
-            background-color: #f8f8f8;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
-        .mask {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, .4);
-            opacity: 1;
-            color: #fff;
-            font-size: 12px;
-            line-height: 16px;
-        }
         .operation {
             flex: 1;
             width: 0;
@@ -377,16 +261,6 @@ export default class EditorAdv extends Vue {
             align-items: center;
             background-color: #fff;
             border: 1px solid #e4e7ed;
-        }
-        .icon-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 30px;
-            height: 25px;
-            color: #666;
-            cursor: pointer;
-            border-left: 1px solid #dedede;
         }
     }
     &-btn {
@@ -409,7 +283,6 @@ export default class EditorAdv extends Vue {
         }
     }
 }
-
 .select {
     width: 100%;
 }

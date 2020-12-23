@@ -331,7 +331,7 @@ export default class EditorVideo extends Vue {
     add (modalName: string) {
         // moduleType: 模块的id
         const { moduleType } = this.data
-        const [modal] = findBrothersComponents(this, modalName)
+        const [modal]: Vue[] = findBrothersComponents(this, modalName)
         if (modal) {
             // @ts-ignore
             modal.open({

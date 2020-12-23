@@ -319,7 +319,8 @@ export const navBarMap: DynamicObject = {
 // 各个模块装修时对应的 editor
 export const editorMap: DynamicObject = {
     Banner: 'Banner',
-    Adv: 'Adv',
+    Adv: 'Banner',
+    Activity: 'Activity',
     Popular: 'Module',
     Class: 'Module',
     Recommend: 'Sort',
@@ -332,7 +333,6 @@ export const editorMap: DynamicObject = {
     Pintuan: 'Module',
     Yugou: 'Module',
     Fengqiang: 'Module',
-    Activity: 'Adv',
     Package: 'Module',
     Distribution: 'Module',
     Live: 'Video',

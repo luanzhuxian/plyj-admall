@@ -351,10 +351,10 @@ export default class Home extends Vue {
     }
 
     beforeDestroy () {
-        const list = findBrothersComponents(this, 'MainNavbar')
-        if (list.length) {
+        const [navbar]: Vue[] = findBrothersComponents(this, 'MainNavbar')
+        if (navbar) {
             // @ts-ignore
-            list[0].showGuid = false
+            navbar.showGuid = false
         }
     }
 
