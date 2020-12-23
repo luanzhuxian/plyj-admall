@@ -62,7 +62,7 @@ export default class ModalTimeSetting extends Vue {
         })
     }
 
-    async onConfirm () {
+    onConfirm () {
         if (!this.time) {
             this.isAlertShow = true
             return

@@ -255,7 +255,7 @@ export default {
             this.form.useStartTime = start || ''
             this.form.useEndTime = end || ''
         },
-        async okHandler () {
+        okHandler () {
             this.$refs.presentForm.validate(valid => {
                 if (valid) {
                     const params = {

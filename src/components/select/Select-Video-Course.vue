@@ -309,7 +309,7 @@ export default {
      * 点击全选按钮时要么全部选中当前页，要么全部删除当前页
      * @param selection
      */
-        async handleSelectAll (selection) {
+        handleSelectAll (selection) {
             // 如果有系列课的情况，取消全选，selection里面也会有系列课子课节的信息，过滤掉即可
             selection = selection.filter(item => !item.isChildren)
             // 是否全选，对比的是非子节点的数据

@@ -321,7 +321,7 @@ export default {
             }
         },
         // 选择单个用户
-        async selectTagUser (item, setVal) {
+        selectTagUser (item, setVal) {
             if (!item) return
             const index = this.currentTagUser.findIndex(iItem => iItem.userId === item.userId)
             if (index === -1) return

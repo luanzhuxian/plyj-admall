@@ -261,11 +261,9 @@ export default {
             this.videoSrc = url
             this.videoShow = true
         },
-        async target (id) {
-            try {
-                this.expand = false
-                this.$router.push({ name: 'VideoRepositoryDetail', params: { id } })
-            } catch (e) { throw e }
+        target (id) {
+            this.expand = false
+            this.$router.push({ name: 'VideoRepositoryDetail', params: { id } })
         },
         async getRepositoryDetail () {
             try {

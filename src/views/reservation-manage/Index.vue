@@ -517,7 +517,7 @@ export default class ReservationManage extends Vue {
             }
         }
 
-        async changeExport () {
+        changeExport () {
             this.exportData = {
                 ...this.exportData,
                 ...this.form

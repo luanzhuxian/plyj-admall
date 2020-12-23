@@ -404,7 +404,7 @@ export default {
             this.selectedLiveInfo = row
             this.showSelectedStudentDialog = true
         },
-        async sendLive (row) {
+        sendLive (row) {
             this.selectedLiveInfo = row
             this.showSendLiveDialog = true
         },
@@ -423,7 +423,7 @@ export default {
                 throw e
             }
         },
-        async share (row) {
+        share (row) {
             this.selectedLiveInfo = row
             this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/lived/play-back/${ row.videoLibId }/${ row.id }/0`
             this.qrcodeShow = true

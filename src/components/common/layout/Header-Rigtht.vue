@@ -100,9 +100,8 @@ export default class HeaderRigtht extends Vue {
     @userModule.Getter('headImgUrl') headImgUrl!: string
 
     @Getter('roleMap') roleMap!: any
-
     @Watch('$route', { immediate: true })
-    async onRouteChange (to: Route) {
+    onRouteChange (to: Route) {
         this.showPop = false
         this.showMallUrl = false
         this.showCreateMall = Boolean(to.query.showCreateMall)

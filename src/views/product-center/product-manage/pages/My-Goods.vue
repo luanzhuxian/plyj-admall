@@ -970,7 +970,7 @@ export default {
             this.filter.current = 1
             await this.search()
         },
-        async showShare (row) {
+        showShare (row) {
             this.currentShareShow = {
                 qrcodeText: `${ this.mallUrl }/detail/product/${ row.id }`,
                 thumbnail: row.productMainImage

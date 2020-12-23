@@ -612,7 +612,7 @@ export default class MemberManageList extends Vue {
 
   async created () {
       const fn = throttle(this.getTagList, 2000)
-      this.getTagList = async () => fn(this)
+      this.getTagList = async () => fn(await this)
       await this.getMemberData()
       await this.getMemberList()
       await this.getTagList()
@@ -1045,7 +1045,7 @@ export default class MemberManageList extends Vue {
   }
 
   // 新建/编辑用户标签
-  async editTag (tagInfo: any) {
+  editTag (tagInfo: any) {
       if (tagInfo) {
           this.currentTag = { id: tagInfo.id, sort: tagInfo.sort, tagName: tagInfo.tagName }
       } else {

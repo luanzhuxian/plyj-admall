@@ -230,7 +230,7 @@ export default {
         }
     },
     methods: {
-        async storeEntranceChange (val) {
+        storeEntranceChange (val) {
             if (!val[0]) {
                 this.form.storeEntrancePicUrl = ''
                 this.form.storeEntrancePic = ''
@@ -238,7 +238,7 @@ export default {
             }
             this.form.storeEntrancePicUrl = val[0]
         },
-        async indoorChange (val) {
+        indoorChange (val) {
             if (!val[0]) {
                 this.form.indoorPicUrl = ''
                 this.form.indoorPic = ''

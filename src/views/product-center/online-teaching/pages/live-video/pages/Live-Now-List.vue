@@ -382,11 +382,11 @@ export default {
                 throw e
             }
         },
-        async sendLive (row) {
+        sendLive (row) {
             this.selectedLiveInfo = row
             this.showSendLiveDialog = true
         },
-        async share (row) {
+        share (row) {
             this.selectedLiveInfo = row
             this.qrcodeText = `${ this.$store.getters['user/mallUrl'] }/lived/room/${ row.roomValue }`
             this.qrcodeShow = true

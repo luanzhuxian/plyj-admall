@@ -213,7 +213,7 @@ export default {
             //  复制
             this.$router.push({ name: 'RoadLearningEdit', params: { id: row.id, isCopy: 'true' } })
         },
-        async share (row) {
+        share (row) {
             try {
                 // TODO.当前只有一个活动链接，需要特殊定制的话，改变url即可
                 this.qrcodeText = `${ this.mallUrl }/road-learning/${ row.id }?noCache=${ Date.now() }`

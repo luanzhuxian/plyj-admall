@@ -475,7 +475,7 @@ export default {
             this.$refs.submitDate.clear()
             await this.getList()
         },
-        async getCancelOrderData (id) {
+        getCancelOrderData (id) {
             this.closeConfirmId = id
             this.closeOrderVisible = true
         }

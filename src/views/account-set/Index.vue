@@ -186,7 +186,7 @@ export default class AccountSet extends Vue {
         this.avatar = avatar ? [avatar] : []
     }
 
-    async mounted () {
+    mounted () {
         const wechatCode = sessionStorage.getItem(SessionEnum.redirectCode)
         if (wechatCode) {
             WxBind(wechatCode)

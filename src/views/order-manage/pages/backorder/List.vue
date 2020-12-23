@@ -680,7 +680,7 @@ export default {
             this.form.auditStatus = this.auditStatusMap[val] || []
             await this.search()
         },
-        async exportOrderStatusChange (val) {
+        exportOrderStatusChange (val) {
             this.exportReturnStatus = val
             this.exportData.auditStatus = this.form.auditStatus.slice()
             this.exportData.businessStatus = this.form.businessStatus.slice()

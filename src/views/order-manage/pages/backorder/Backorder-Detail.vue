@@ -633,7 +633,7 @@ export default {
             }
         },
         // 获取发票详情
-        async getInvoiceDetail () {
+        getInvoiceDetail () {
             this.invoiceId = this.detailInfo.orderDetailsModel.invoiceId
             this.InvoiceDetailsVisible = true
         },

@@ -131,13 +131,6 @@ export default {
         event: 'change',
         prop: 'classification'
     },
-    async mounted () {
-    // try {
-    //   await this.getTree()
-    // } catch (e) {
-    //   throw e
-    // }
-    },
     methods: {
         async getTree () {
             try {
@@ -165,7 +158,7 @@ export default {
                 this.changeHandler([res.parentCode, res.id])
             }
         },
-        async init () {
+        init () {
             if (this.categoryType === 0) {
                 const categoryTree = JSON.parse(JSON.stringify(this.categoryTree))
                 if (this.disabledIds[1]) {

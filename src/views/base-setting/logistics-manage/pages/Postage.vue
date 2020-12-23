@@ -600,7 +600,7 @@ export default {
                 postageNo: ''
             }
         },
-        async submitData () {
+        submitData () {
             this.$refs.form.validate(async msg => {
                 if (msg) {
                     const obj = {

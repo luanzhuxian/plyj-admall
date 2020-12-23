@@ -103,12 +103,6 @@ export default {
             immediate: true
         }
     },
-    async mounted () {
-        try {
-        } catch (e) {
-            throw e
-        }
-    },
     methods: {
         async positionChange (val, listType) {
             try {

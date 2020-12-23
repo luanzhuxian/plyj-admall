@@ -139,7 +139,7 @@ export default {
             }
         }
     },
-    async created () {
+    created () {
         try {
             this.realTimer = setInterval(() => {
                 this.getCountInTwoMinute()

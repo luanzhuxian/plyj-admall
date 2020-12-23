@@ -198,7 +198,7 @@ export default {
             }
         },
         // 选择今日或者昨日的时候不发起请求，从当前列表中筛选
-        async radioChange (val) {
+        radioChange (val) {
             this.empty = false
             let key = ''
             switch (val) {

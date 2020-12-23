@@ -350,7 +350,7 @@ export default {
                 throw e
             }
         },
-        async confirmGoods (pro) {
+        confirmGoods (pro) {
             this.marketingForm.product = pro
         },
         removeProduct () {

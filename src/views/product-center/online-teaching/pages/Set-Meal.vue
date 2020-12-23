@@ -193,7 +193,7 @@ export default {
                 throw e
             }
         },
-        async buy (item) {
+        buy (item) {
             sessionStorage.setItem('SetMealModel', JSON.stringify(item))
             this.$router.push({ name: 'PayAndOrder', params: { type: '1', isRenew: '0', backRouteName: this.$route.params.backRouteName } })
         }

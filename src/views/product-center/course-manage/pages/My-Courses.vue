@@ -958,7 +958,7 @@ export default {
             this.filter.current = 1
             await this.search()
         },
-        async showShare (row) {
+        showShare (row) {
             this.qrcode.qrcodeText = `${ this.mallUrl }/detail/product/${ row.id }?noCache=${ Date.now() }`
             this.qrcode.qrcodeShow = true
             this.qrcode.thumbnail = row.productMainImage

@@ -520,7 +520,7 @@ export default {
                 throw e
             }
         },
-        async rowDetail (row) {
+        rowDetail (row) {
             this.id = row.id
             this.InvoiceDetailsVisible = true
         },

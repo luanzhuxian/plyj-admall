@@ -215,7 +215,7 @@ export const breakpointUpload = async (file: Blob, callback: BreakpointUploadCal
         const client = await getClient()
         const key = mallId ? `${ VIDEO_PATH }/${ mallId }/${ randomString() }.${ ext }` : `${ VIDEO_PATH }/${ randomString() }.${ ext }`
         const { res } = await client.multipartUpload(key, file, {
-            async progress (p: number, checkpoint: object) {
+            progress (p: number, checkpoint: object) {
                 callback(p, checkpoint, key, client)
             },
             meta: {
@@ -243,7 +243,7 @@ export const resumeBreakpointUpload = async (key: string, file: Blob, tempCheckp
     try {
         const resumeclient = await getClient()
         const { res } = await resumeclient.multipartUpload(key, file, {
-            async progress (p: number, checkpoint: object) {
+            progress (p: number, checkpoint: object) {
                 callback(p, checkpoint, key, resumeclient)
             },
             parallel: 2,

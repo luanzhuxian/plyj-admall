@@ -12,7 +12,7 @@ interface SelectMallInterface {
 }
 /* eslint-disable no-async-promise-executor */
 /* eslint-disable prefer-promise-reject-errors */
-const select = (agencyList: any[], roleMap: DynamicObject): Promise<DynamicObject> => new Promise(async (resolve, reject) => {
+const select = (agencyList: any[], roleMap: DynamicObject): Promise<DynamicObject> => new Promise((resolve, reject) => {
     const Instance: SelectMallInterface = new SelectMallClass({
         el: document.createElement('div')
     })

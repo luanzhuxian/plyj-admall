@@ -93,7 +93,7 @@ export default {
     },
     methods: {
     // 提示用户数据变更情况
-        async notice () {
+        notice () {
             this.isAlreadyShowCourseDataChange = localStorage.getItem('isAlreadyShowCourseDataChange') === 'true'
             this.isShowNotice = !this.isAlreadyShowCourseDataChange
         },
