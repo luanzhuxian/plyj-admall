@@ -13,7 +13,7 @@
                 class="main-form"
                 auto-scroll-to-error
             >
-                <el-form-item label="课程类型" prop="productType">
+                <el-form-item label="商品类型" prop="productType">
                     <el-radio v-model="form.productType" label="PHYSICAL_GOODS" border class="pro-type el-icon-check">
                         实体商品
                     </el-radio>

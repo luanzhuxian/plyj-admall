@@ -33,3 +33,12 @@ export const queryActivityGiftDetail = (activityId, userId) => axios.get(`/apis/
 
 // 年味礼品发放数据
 export const queryGiftList = (activityId, params) => axios.get(`/apis/v1/signinActivity/queryGift/${ activityId }`, { params })
+
+// 数据查看详情时间区间
+export const signTimeInterval = activityId => axios.get(`/apis/v1/signinActivity/timeInterval/${ activityId }`)
+
+// 数据查看详情每日新增
+export const signEveryAddPeopleStatistic = activityId => axios.get(`/apis/v1/signinActivity/queryEveryAddPeopleStatistic/${ activityId }`)
+
+// 数据查看详情当日打卡统计
+export const signTodaySigninPeopleStatistic = activityId => axios.get(`/apis/v1/signinActivity/queryTodaySigninPeopleStatistic/${ activityId }`)

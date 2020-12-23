@@ -22,43 +22,54 @@
             </div>
         </div>
         <div class="content">
-            <div class="title">
-                <span>{{ getBaseMarketData.programName }}</span>
-                <span class="status" v-if="moment(getBaseMarketData.activityStartTime).valueOf() > moment().valueOf()"><pl-svg
-                    width="16" name="icon-timeOut-d1750" />暂未开启</span>
-                <span class="status" v-if="moment(getBaseMarketData.activityEndTime).valueOf() < moment().valueOf()"><pl-svg
-                    width="16" name="icon-timeOut-d1750" />已结束</span>
-                <span class="status status-open"
-                      v-if="moment(getBaseMarketData.activityStartTime).valueOf() < moment().valueOf() && moment(getBaseMarketData.activityEndTime).valueOf() > moment().valueOf()"><pl-svg
-                          width="16" name="icon-bofang" />已开启</span>
+            <div class="pay-detail">
+                <div class="img-box" v-if="['9','10','11'].includes(programId)">
+                    <img v-if="programId === '9'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心福利红包.png" alt="">
+                    <img v-if="programId === '10'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心抽奖乐翻天.png" alt="">
+                    <img v-if="programId === '11'" src="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/营销中心打卡聪明年.png" alt="">
+                </div>
+                <div>
+                    <div class="title">
+                        <span>{{ getBaseMarketData.programName }}</span>
+                        <span class="status" v-if="moment(getBaseMarketData.activityStartTime).valueOf() > moment().valueOf()"><pl-svg
+                            width="16" name="icon-timeOut-d1750" />暂未开启</span>
+                        <span class="status" v-if="moment(getBaseMarketData.activityEndTime).valueOf() < moment().valueOf()"><pl-svg
+                            width="16" name="icon-timeOut-d1750" />已结束</span>
+                        <span class="status status-open"
+                              v-if="moment(getBaseMarketData.activityStartTime).valueOf() < moment().valueOf() && moment(getBaseMarketData.activityEndTime).valueOf() > moment().valueOf()"><pl-svg
+                                  width="16" name="icon-bofang" />已开启</span>
+                    </div>
+                    <div class="title-p">
+                        <span v-if="programId === '1'">组合商品打包售卖，立享优惠</span>
+                        <span v-if="programId === '2'">粽行四海，端午安康</span>
+                        <span v-if="programId === '3'">限时抢购，引导用户消费</span>
+                        <span v-if="programId === '4'">微信裂变，快速引流</span>
+                        <span v-if="programId === '5'">分批支付，提前享服务</span>
+                        <span v-if="programId === '6'">学子携手，贡献爱心</span>
+                        <span v-if="programId === '7'">抽奖嗨翻天</span>
+                        <span v-if="programId === '8'">支持多商品兑换，使用即可减免商品费用</span>
+                        <span v-if="programId === '9'">低价购买福利红包，支付抵扣享优惠</span>
+                        <span v-if="programId === '10'">低成本高引流，多种主题任意选</span>
+                        <span v-if="programId === '11'">打卡签到答题，即可参与抽奖，有机会获得智慧礼</span>
+                    </div>
+                    <div class="price-box">
+                        <span>￥{{ getBaseMarketData.presentPrice }}</span>
+                        <span class="original-price">原价：<span class="price">{{ getBaseMarketData.originalPrice }}</span></span>
+                        <!--        <span class="use-num">{{ getBaseMarketData.sales }} 家已使用</span>-->
+                    </div>
+                    <div class="longmen-hint">
+                        <el-button class="buy" type="primary" size="large" round
+                                   :disabled="!(moment(getBaseMarketData.activityStartTime).valueOf() < moment().valueOf() && moment(getBaseMarketData.activityEndTime).valueOf() > moment().valueOf())"
+                                   @click="$router.replace({ name:'MarketingPay', params: { programId: programId }})">
+                            立即订购
+                        </el-button>
+                        <!--                <div v-if="programId === '3' || programId === '4' || programId === '5'">-->
+                        <!--                    (龙门节用户免费使用，请联系城市经理或者客服开通)-->
+                        <!--                </div>-->
+                    </div>
+                </div>
             </div>
-            <div class="title-p">
-                <span v-if="programId === '1'">组合商品打包售卖，立享优惠</span>
-                <span v-if="programId === '2'">粽行四海，端午安康</span>
-                <span v-if="programId === '3'">限时抢购，引导用户消费</span>
-                <span v-if="programId === '4'">微信裂变，快速引流</span>
-                <span v-if="programId === '5'">分批支付，提前享服务</span>
-                <span v-if="programId === '6'">学子携手，贡献爱心</span>
-                <span v-if="programId === '7'">抽奖嗨翻天</span>
-                <span v-if="programId === '8'">支持多商品兑换，使用即可减免商品费用</span>
-                <span v-if="programId === '9'">低价购买福利红包，支付抵扣享优惠</span>
-                <span v-if="programId === '10'">低成本高引流，多种主题任意选</span>
-            </div>
-            <div class="price-box">
-                <span>￥{{ getBaseMarketData.presentPrice }}</span>
-                <span class="original-price">原价：<span class="price">{{ getBaseMarketData.originalPrice }}</span></span>
-                <!--        <span class="use-num">{{ getBaseMarketData.sales }} 家已使用</span>-->
-            </div>
-            <div class="longmen-hint">
-                <el-button class="buy" type="primary" size="large"
-                           :disabled="!(moment(getBaseMarketData.activityStartTime).valueOf() < moment().valueOf() && moment(getBaseMarketData.activityEndTime).valueOf() > moment().valueOf())"
-                           @click="$router.replace({ name:'MarketingPay', params: { programId: programId }})">
-                    立即订购
-                </el-button>
-                <!--                <div v-if="programId === '3' || programId === '4' || programId === '5'">-->
-                <!--                    (龙门节用户免费使用，请联系城市经理或者客服开通)-->
-                <!--                </div>-->
-            </div>
+
             <div class="expiration-date">
                 <div>
                     <span>使用有效期:</span>
@@ -91,6 +102,10 @@
                         <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/抽奖乐翻天01.jpg" alt="">
                         <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/抽奖乐翻天02.jpg" alt="">
                     </div>
+                    <div class="red-package-bg" v-if="programId === '11'">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/打卡聪明年01.png" alt="">
+                        <img src="https://mallcdn.youpenglai.com/static/admall/2.8.0/打卡聪明年02.jpg" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,7 +119,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { MutationTypes } from '../../../store/mutation-type'
 
 export default {
-    name: 'CoursePackagePayDetali',
+    name: 'MarketingPayDetail',
     props: {
         programId: {
             type: String,
@@ -129,7 +144,7 @@ export default {
         try {
             if (!this.marketStatusAuth || !this.marketStatusAuth.length) await this[MutationTypes.getMarketStatusAuth]()
             await this.getBaseMarket(this.programId)
-            this.hasTips = ['9', '10'].includes(this.programId)
+            this.hasTips = ['9', '10', '11'].includes(this.programId)
             if (this.hasTips) this.getValidity()
         } catch (e) {
             throw e
@@ -147,7 +162,7 @@ export default {
             }
         },
         getValidity () {
-            this.info = this.marketStatusAuth.find(({ programId }) => programId === '9')
+            this.info = this.marketStatusAuth.find(({ programId }) => programId === this.programId)
             if (this.info) this.day = moment(this.info.validity).diff(moment(), 'day')
         }
     }
@@ -201,73 +216,82 @@ export default {
         }
 
         .content {
-            padding: 24px;
+            padding: 24px 40px;
 
-            .title {
+            .pay-detail{
                 display: flex;
-                align-items: center;
-                font-size: 32px;
-                font-weight: bold;
-                color: #333;
-
-                .status {
-                    margin-left: 16px;
-                    padding: 6px 12px;
-                    background: #ccc;
-                    border-radius: 130px;
-                    color: #fff;
-                    font-size: 16px;
-                    font-weight: 400;
-
-                    svg {
-                        margin-right: 8px;
+                .img-box{
+                    width: 400px;
+                    margin-right: 20px;
+                    >img{
+                        width: 100%;
                     }
                 }
+                .title {
+                    display: flex;
+                    align-items: center;
+                    font-size: 28px;
+                    font-weight: bold;
+                    color: #333;
 
-                .status-open {
-                    background-color: #ec742e;
-                }
-            }
+                    .status {
+                        margin-left: 16px;
+                        padding: 6px 12px;
+                        background: #ccc;
+                        border-radius: 130px;
+                        color: #fff;
+                        font-size: 16px;
+                        font-weight: 400;
 
-            .title-p {
-                margin-top: 18px;
-                font-size: 22px;
-                font-weight: 400;
-                color: #666;
-            }
-
-            .price-box {
-                margin-top: 41px;
-                font-size: 36px;
-                font-weight: bold;
-                color: #ec742e;
-
-                .original-price {
-                    margin-left: 10px;
-                    font-size: 12px;
-                    color: #999;
-                    text-decoration: line-through;
-
-                    .price {
-                        &:before {
-                            content: '￥';
+                        svg {
+                            margin-right: 8px;
                         }
                     }
+
+                    .status-open {
+                        background-color: #ec742e;
+                    }
                 }
 
-                .use-num {
-                    margin-left: 32px;
-                    font-size: 18px;
+                .title-p {
+                    margin-top: 18px;
+                    font-size: 22px;
                     font-weight: 400;
-                    color: #999;
+                    color: #666;
                 }
-            }
 
-            .buy {
-                width: 280px;
-                height: 56px;
-                margin-top: 18px;
-                font-size: 18px;
+                .price-box {
+                    margin-top: 41px;
+                    font-size: 36px;
+                    font-weight: bold;
+                    color: #ec742e;
+
+                    .original-price {
+                        margin-left: 10px;
+                        font-size: 12px;
+                        color: #999;
+                        text-decoration: line-through;
+
+                        .price {
+                            &:before {
+                                content: '￥';
+                            }
+                        }
+                    }
+
+                    .use-num {
+                        margin-left: 32px;
+                        font-size: 18px;
+                        font-weight: 400;
+                        color: #999;
+                    }
+                }
+
+                .buy {
+                    width: 180px;
+                    margin-top: 18px;
+                    font-size: 18px;
+                }
             }
 
             .expiration-date {

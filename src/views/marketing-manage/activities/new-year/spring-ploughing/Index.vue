@@ -5,7 +5,7 @@
             icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/春耘.png"
             title="春耘计划"
             :description="activityName"
-            :course-package-status="activityStatus"
+            :status="activityStatus"
             :start-time="start"
             :end-time="end"
         />

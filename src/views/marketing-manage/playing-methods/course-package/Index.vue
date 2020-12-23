@@ -6,7 +6,7 @@
                 icon="https://mallcdn.youpenglai.com/static/admall-new/3.0.0/组合聚惠学.png"
                 title="组合聚惠学"
                 :description="activityName"
-                :course-package-status="activityStatus"
+                :status="activityStatus"
                 :start-time="start"
                 :end-time="end"
             />

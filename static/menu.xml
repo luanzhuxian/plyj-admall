@@ -586,6 +586,17 @@
                             </menu>
                         </menus>
                     </menu>
+
+                    <menu aclCode="2-8-22" name="打卡聪明年" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="NewYearSignIn" roles="0">
+                        <menus>
+                            <menu aclCode="2-8-22-1" name="列表" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="0" operator="system" routePath="SignInList" roles="0"/>
+                            <menu aclCode="2-8-22-2" name="新建活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SignInAdd" roles="0"/>
+                            <menu aclCode="2-8-22-3" name="编辑活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SignInEdit" roles="0"/>
+                            <menu aclCode="2-8-22-4" name="活动设置" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SignInSetting" roles="0"/>
+                            <menu aclCode="2-8-22-5" name="复制活动" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SignInCopy" roles="0"/>
+                            <menu aclCode="2-8-22-6" name="活动详情" aliasName="" permission="" clientType="merchant_mall_manager"  type="2" status="1" operator="system" routePath="SignInDetail" roles="0"/>
+                        </menus>
+                    </menu>
                 </menus>
             </menu>
 
