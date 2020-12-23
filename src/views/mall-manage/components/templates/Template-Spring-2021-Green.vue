@@ -19,7 +19,7 @@
                 <!-- 抽奖 -->
                 <HappyLottery :class="[$style.module, $style.moduleHappyLottery]" :data="currentLottery" v-if="currentLottery && currentLottery.id && ~[1, 2].indexOf(currentLottery.status)" />
                 <!-- 签到 -->
-                <!-- <NewyearSign :class="[$style.module, $style.moduleNewyearSign]" :data="currentSign" v-if="currentSign && currentSign.id && ~[0, 1].indexOf(currentSign.status)" /> -->
+                <NewyearSign :class="[$style.module, $style.moduleNewyearSign]" :data="currentSign" v-if="currentSign && currentSign.id && ~[0, 1].indexOf(currentSign.status)" />
                 <!-- 福利红包 -->
                 <section
                     id="RedPackage"
@@ -145,7 +145,7 @@ import Yugou from '../activity/spring-2021/Yugou.vue'
 import Package from '../activity/spring-2021/Package.vue'
 import Popular from '../activity/spring-2021/Popular.vue'
 import HappyLottery from '../activity/spring-2021/Happy-Lottery.vue'
-// import NewyearSign from '../activity/spring-2021/Newyear-Sign.vue'
+import NewyearSign from '../activity/spring-2021/Newyear-Sign.vue'
 import Panel from '../activity/double-12-2020/Panel.vue'
 import ModuleWrapper from '../Module-Wrapper.vue'
 import { TemplateSpring2021 as TemplateSpring } from '../../utils/types'
@@ -163,7 +163,7 @@ const mall = namespace('mall')
         Package,
         Popular,
         HappyLottery,
-        // NewyearSign,
+        NewyearSign,
         Panel,
         ModuleWrapper
     }
