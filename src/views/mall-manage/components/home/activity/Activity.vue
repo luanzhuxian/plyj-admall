@@ -96,12 +96,12 @@ const map = {
         sub: '好礼享不停',
         icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/happy-lottery.png',
         width: '48'
-    // },
-    // 'newyear-sign': {
-    //     main: '打卡聪明年',
-    //     sub: '开启智慧大脑',
-    //     icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/newyear-sign.png',
-    //     width: '36'
+    },
+    'newyear-sign': {
+        main: '打卡聪明年',
+        sub: '开启智慧大脑',
+        icon: 'https://mallcdn.youpenglai.com/static/mall/icons/2.9.0/newyear-sign.png',
+        width: '36'
     }
 }
 
