@@ -272,7 +272,7 @@ export default class MallDecoration extends Vue {
     loaded = false
     show = false
     showPreview = false
-    // 进入编辑页的入口 DRAFT：草稿箱列表 THEME：主题页 CURRENT：当前首页\主会场
+    // 进入编辑页的入口 DRAFT：草稿箱列表 THEME：主题页 CURRENT：当前首页\主会场编辑
     from = ''
     // 模板类型
     tmplType = 0
@@ -413,6 +413,7 @@ export default class MallDecoration extends Vue {
         return {}
     }
 
+    // 商品弹窗已选商品是否默认选中
     get defaultSelection () {
         if (this.currentModule === 'Coupon') {
             if ('Coupon' in this.moduleModels) {

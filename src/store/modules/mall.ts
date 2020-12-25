@@ -4,12 +4,14 @@ import { getCurrentTemplate } from '../../apis/mall'
 export default {
     namespaced: true,
     state: {
+        // 当前首页
+        currentHome: {},
+        // 当前主会场
+        currentActivity: {},
         // 直播
         liveInfo: {},
         // 是否展示年味活动
         hasNwEvent: false,
-        currentHome: {},
-        currentActivity: {},
         // 模板使用权限: 1 '开启', 2: '过期', 3: '未开启活动'
         double12LockStatus: 3, // 双十二权限
         springLockStatus: 3, // 新春权限

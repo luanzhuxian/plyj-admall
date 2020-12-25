@@ -286,6 +286,7 @@ export const rebuildBeforeSubmit = (modules: TemplateCrosses, tmplType: number):
             moduleModels[name].otherValue = moduleModels[name].goodsSource === 1 ? moduleModels[name].otherValue : ''
             moduleModels[name].otherInfo = moduleModels[name].goodsSource === 1 ? moduleModels[name].otherInfo : ''
             moduleModels[name].number = moduleModels[name].goodsSource === 1 ? moduleModels[name].number : ''
+            // goodsSource === 1分类values传空，goodsSource === 2商品需要传values
             moduleModels[name].values = moduleModels[name].goodsSource === 1 ? [] : moduleModels[name].productValues
             Reflect.deleteProperty(moduleModels[name], 'productValues')
             Reflect.deleteProperty(moduleModels[name], 'categoryValues')
