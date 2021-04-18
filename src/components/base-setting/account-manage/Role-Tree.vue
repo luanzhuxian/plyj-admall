@@ -53,6 +53,26 @@
 import { getAllRolesByCode } from '../../../apis/setting'
 export default {
     name: 'RoleTree',
+    props: {
+        visible: {
+            type: Boolean,
+            default: false
+        },
+        roleCode: {
+            type: String,
+            default: ''
+        },
+        showCheckbox: {
+            type: Boolean,
+            default: false
+        },
+        treeList: {
+            type: Array,
+            default () {
+                return []
+            }
+        }
+    },
     data () {
         return {
             show: false,
@@ -89,26 +109,6 @@ export default {
             }
         }
     },
-    props: {
-        visible: {
-            type: Boolean,
-            default: false
-        },
-        roleCode: {
-            type: String,
-            default: ''
-        },
-        showCheckbox: {
-            type: Boolean,
-            default: false
-        },
-        treeList: {
-            type: Array,
-            default () {
-                return []
-            }
-        }
-    },
     created () {
         this.show = this.visible
     },
@@ -134,6 +134,7 @@ export default {
                     item.checked = true
                     item.disabled = true
                 }
+                // status=0选中
                 if (item.checked || item.status === 0) {
                     if (item.children) {
                         this.searchKeyOfSelected(item.children)
@@ -143,6 +144,10 @@ export default {
                 }
             }
         },
+
+        /**
+         * @param {array} currentData 当前操作的同级数据
+         */
         check (currentData, allChecked) {
             const { tree } = this.$refs
             const { checkedKeys, halfCheckedKeys } = allChecked
@@ -154,8 +159,11 @@ export default {
              */
             if (currentData.status === 0 && !checkedKeys.includes(currentData.aclCode)) {
                 // 当前项的同级节点是否全部被取消，须排除当前选项和其它统计必须项（有些模块一个级别有两个以上的必选项，如：helper管理）
-                const anotherAllCancel = currentNode.parent.data.children.filter(item => currentData.aclCode !== item.aclCode && Number(item.status) !== 0).every(item => !item.checked)
+                const anotherAllCancel = currentNode.parent.data.children
+                    .filter(item => currentData.aclCode !== item.aclCode && Number(item.status) !== 0)
+                    .every(item => !item.checked)
                 if (!anotherAllCancel) {
+                    // 设置以此 aclCode 为 key 的节点为选中
                     tree.setChecked(currentData.aclCode, true, true)
                     !checkedKeys.includes(currentData.aclCode) && checkedKeys.push(currentData.aclCode)
                     this.$warning('请先取消其它同级权限，再取消此权限')
@@ -185,6 +193,7 @@ export default {
             this.selected = [...checkedKeys, ...halfCheckedKeys]
             this.save()
         },
+        // 根据 tree 组件的勾选情况修改 model roleList
         changeNode (key, list) {
             for (const item of list) {
                 if (key.includes(item.aclCode)) {

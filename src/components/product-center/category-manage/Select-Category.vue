@@ -38,33 +38,9 @@ export default {
         EditMain,
         EditSubset
     },
-    data () {
-        return {
-            showAddCategory: false,
-            // 手动销毁级联选择器
-            destroyCascader: true,
-            // 分类
-            category: [],
-            parent: {}
-        }
-    },
-    computed: {
-        ...mapGetters({
-            categoryTree: 'goods/categoryTree',
-            courseCategoryTree: 'goods/courseCategoryTree'
-        }),
-        // 知识课程分类树
-        knowledgeCourse () {
-            return this.courseCategoryTree[0] ? this.courseCategoryTree[0][this.props.children] : []
-        },
-        // 系列课分类树
-        seriesOfCourses () {
-            return this.courseCategoryTree[1] ? this.courseCategoryTree[1][this.props.children] : []
-        },
-        // 标记分类数据是否已经全部加载完毕
-        loaded () {
-            return this.categoryTree.length > 0 && this.courseCategoryTree.length > 0
-        }
+    model: {
+        prop: 'classification',
+        event: 'change'
     },
     props: {
         // 绑定值
@@ -99,6 +75,34 @@ export default {
         },
         // 是否显示全部
         showAll: Boolean
+    },
+    data () {
+        return {
+            showAddCategory: false,
+            // 手动销毁级联选择器
+            destroyCascader: true,
+            // 分类
+            category: [],
+            parent: {}
+        }
+    },
+    computed: {
+        ...mapGetters({
+            categoryTree: 'goods/categoryTree',
+            courseCategoryTree: 'goods/courseCategoryTree'
+        }),
+        // 知识课程分类树
+        knowledgeCourse () {
+            return this.courseCategoryTree[0] ? this.courseCategoryTree[0][this.props.children] : []
+        },
+        // 系列课分类树
+        seriesOfCourses () {
+            return this.courseCategoryTree[1] ? this.courseCategoryTree[1][this.props.children] : []
+        },
+        // 标记分类数据是否已经全部加载完毕
+        loaded () {
+            return this.categoryTree.length > 0 && this.courseCategoryTree.length > 0
+        }
     },
     watch: {
         courseCategoryTree () {
@@ -140,10 +144,6 @@ export default {
             immediate: true
         }
     },
-    model: {
-        event: 'change',
-        prop: 'classification'
-    },
     methods: {
         async getTree () {
             try {
@@ -157,11 +157,11 @@ export default {
         },
 
         /**
-     * 添加分类成功
-     * 成功后，用新分类填充表单
-     * @param res {object} 返回结果
-     * @param type {number} 1 主分类 2 子分类
-     */
+         * 添加分类成功
+         * 成功后，用新分类填充表单
+         * @param res {object} 返回结果
+         * @param type {number} 1 主分类 2 子分类
+         */
         addSuccess (res, type) {
             if (type === 1) {
                 this.changeHandler([res.id])

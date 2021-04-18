@@ -8,6 +8,7 @@
         >
         <div :class="$style.menuWrap">
             <el-menu
+                ref="menu"
                 text-color="#b3b9bf"
                 active-text-color="#fff"
                 background-color="#001629"
@@ -15,7 +16,6 @@
                 router
                 :default-active="defaultActive"
                 :default-openeds="defaultOpeneds"
-                ref="menu"
             >
                 <el-menu-item index="1" :route="{ name: 'Home' }">
                     <h2 :class="$style.title">
@@ -142,6 +142,7 @@ import { Component, Watch } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
 import OperationGuide from './Operation-Guide.vue'
 const userModule = namespace('user')
+
 @Component({
     components: {
         OperationGuide

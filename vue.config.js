@@ -38,7 +38,11 @@ module.exports = {
     pages: {
         index: {
             entry: 'src/main.ts',
-            template: MODEL === 'local' ? 'public-dev/local.html' : MODEL === 'development' ? 'public-dev/index.html' : 'public/index.html',
+            template: MODEL === 'local' 
+                ? 'public-dev/local.html' 
+                : MODEL === 'development' 
+                    ? 'public-dev/index.html' 
+                    : 'public/index.html',
             filename: 'index.html'
         }
     },
@@ -63,11 +67,19 @@ module.exports = {
         proxy: {
             // 134 前端服务器
             '/apis/v1': {
-                target: `http://192.168.50.${ SERVER || 178 }`
+                // target: `http://192.168.50.${ SERVER || 134 }`
                 // target: 'https://admall.youpenglai.com'
+                target: 'http://42.192.54.104'
             },
             '/apis/v2': {
-                target: `http://192.168.50.${ SERVER || 178 }`
+                // target: `http://192.168.50.${ SERVER || 134 }`
+                target: 'http://42.192.54.104'
+
+                // target: 'http://localhost:8888',
+                // changeOrigin: true,
+                // pathRewrite: {          
+                //     '^/apis': 'hehe', 
+                // }
             }
         }
     },

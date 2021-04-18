@@ -11,7 +11,7 @@ const assetsDir = `${ VERSION }/static/js`
 // 资源跟目录
 const dir = 'admall'
 // 项目名称
-const project = 'admall'
+const project = 'plyj-admall'
 // 组织
 const ORG = 'penglai'
 console.log('version: ', VERSION)

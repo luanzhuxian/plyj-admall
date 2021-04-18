@@ -42,7 +42,7 @@ class Validator {
 
     // 沿原型链找出属性名
     // TODO: ts DynamicObject
-    _findKeys (instance: DynamicObject, { prefix, Type, filter }: { prefix?: string; Type?: new() => unknown; filter?: Function }) {
+    _findKeys (instance: DynamicObject, { prefix, Type, filter }: { prefix?: string; Type?: new () => unknown; filter?: Function }) {
         // TODO: ts (key as string)
         function _shouldKeep (key: string | number | symbol) {
             if (filter) {
@@ -126,8 +126,8 @@ class Validator {
     async _check (key: string | number | symbol, field: any) {
         const isFunction = typeof ((this as any)[key]) === 'function'
         let result
-        // 函数验证
         if (isFunction) {
+            // 函数验证
             try {
                 result = new RuleFieldResult(true, '')
                 result.value = await (this as any)[key](this.data)

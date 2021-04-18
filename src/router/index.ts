@@ -80,16 +80,18 @@ const checkAuth = to => {
     const routeNames = store.getters['user/routeNames']
     const currentHasPower = routeNames.has(to.name)
     const index = routeNames.get(to.name)
+
     // 有权限
     if (currentHasPower) {
-        const routeNameArr = [...routeNames]
+        const routeNamesCopy = [...routeNames]
         // 找出当前路由的所有子路由
-        const allChildren = routeNameArr.filter(item => item[1] !== index && item[1].indexOf(`${ index }-`) === 0)
+        const allChildren = routeNamesCopy.filter(item => item[1] !== index && item[1].indexOf(`${ index }-`) === 0)
         if (allChildren.length) {
             return { name: allChildren[0][0], params: to.params, query: to.query }
         }
         return to
     }
+
     // 此处是判断当前路由是否是从另一个路由重定向而来的，如果是，则显示重定向之前的路由title
     const currentRoute = to.matched && to.matched[to.matched.length - 1]
     let pageName = ''
@@ -100,10 +102,7 @@ const checkAuth = to => {
     }
     pageName = pageName || to.meta?.title || ''
 
-    /**
-     * 无权限访问，返回一个重定向路由，并提示用户
-     * 返回路由列表中的第一个路由
-     */
+    // 无权限访问，返回一个重定向路由，并提示用户，返回路由列表中的第一个路由
     MessageBox.alert(`<strong>${ pageName }</strong> 页面暂无权限，请联系管理员`, { title: '暂无权限', dangerouslyUseHTMLString: true })
     return { name: routeNames.keys().next().value, noAuth: true }
 }

@@ -190,10 +190,10 @@ export default {
         disabledDraggable: Boolean,
 
         /*
-      * 有时候，你可能并不需要组件内置的图片显示列表，你可能在外部自己维护了一个图片显示的列表
-      * 这个时候你需要设置 showList 为 false, 内置的列表将不会显示, 但是，必须调用showSelectBox方法来手动打开图片选择窗口
-      * 此时依然支持 needCrop 属性
-      * */
+        * 有时候，你可能并不需要组件内置的图片显示列表，你可能在外部自己维护了一个图片显示的列表
+        * 这个时候你需要设置 showList 为 false, 内置的列表将不会显示, 但是，必须调用showSelectBox方法来手动打开图片选择窗口
+        * 此时依然支持 needCrop 属性
+        * */
         showList: {
             type: Boolean,
             default: true
@@ -272,13 +272,13 @@ export default {
         }
     },
     computed: {
-    // 总共可上传的数量
+        // 总共可上传的数量
         total () {
             return this.totalCount || this.imageCount + this.videoCount
         }
     },
     methods: {
-    // 手动显示图片选择窗口
+        // 手动显示图片选择窗口
         showSelectImageBox () {
             this.$refs.imageSelector2.$el.click()
         },

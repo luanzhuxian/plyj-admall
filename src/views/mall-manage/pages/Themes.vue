@@ -545,45 +545,46 @@ export default class MallThemes extends Vue {
 
     // 检查是否有模板使用权限
     check (item: Template) {
-        // 双十二
-        if (item.type === TemplateTypes.TemplateDouble122020) {
-            if (this.double12LockStatus === 1) {
-                return item
-            }
+        // // 双十二
+        // if (item.type === TemplateTypes.TemplateDouble122020) {
+        //     if (this.double12LockStatus === 1) {
+        //         return item
+        //     }
 
-            const modalText = this.double12LockStatus === 2
-                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-                : '参与双十二的用户，请联系您的城市经理和客服开通使用权限。'
-            this.$confirm({
-                title: modalText,
-                confirmButtonText: '朕知道了',
-                showCancelButton: false
-            })
-        }
-        // 新春
-        if (item.type === TemplateTypes.TemplateSpring2021) {
-            if (this.springLockStatus === 1) {
-                return item
-            }
+        //     const modalText = this.double12LockStatus === 2
+        //         ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+        //         : '参与双十二的用户，请联系您的城市经理和客服开通使用权限。'
+        //     this.$confirm({
+        //         title: modalText,
+        //         confirmButtonText: '朕知道了',
+        //         showCancelButton: false
+        //     })
+        // }
+        // // 新春
+        // if (item.type === TemplateTypes.TemplateSpring2021) {
+        //     if (this.springLockStatus === 1) {
+        //         return item
+        //     }
 
-            const modalText = this.springLockStatus === 2
-                ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
-                : '参与新春开学季的用户，请联系您的城市经理和客服开通使用权限。'
-            this.$confirm({
-                title: modalText,
-                confirmButtonText: '朕知道了',
-                showCancelButton: false
-            })
-        }
-        // 新春、龙门节
-        if (item.type === TemplateTypes.TemplateSpring2020 || item.type === TemplateTypes.TemplateDragonGate) {
-            this.$confirm({
-                title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
-                confirmButtonText: '朕知道了',
-                showCancelButton: false
-            })
-        }
-        return false
+        //     const modalText = this.springLockStatus === 2
+        //         ? '该主会场模板已过期，不可使用，请选择其他主会场模板吧~'
+        //         : '参与新春开学季的用户，请联系您的城市经理和客服开通使用权限。'
+        //     this.$confirm({
+        //         title: modalText,
+        //         confirmButtonText: '朕知道了',
+        //         showCancelButton: false
+        //     })
+        // }
+        // // 新春、龙门节
+        // if (item.type === TemplateTypes.TemplateSpring2020 || item.type === TemplateTypes.TemplateDragonGate) {
+        //     this.$confirm({
+        //         title: '该主会场模板已过期，不可使用，请选择其他主会场模板吧~',
+        //         confirmButtonText: '朕知道了',
+        //         showCancelButton: false
+        //     })
+        // }
+        // return false
+        return item
     }
 
     // 皮肤是否过期
