@@ -290,17 +290,17 @@ export default {
         },
 
         /**
-     * 数据模块,表示单个组合对象
-     * name {string}              组合名字
-     * imageUrl {string}          封面图
-     * startTime {string}         开始时间
-     * endTime {string}           结束时间
-     * productModelList {array}   商品列表
-     * discount {number}          折扣
-     * stock {number}             库存
-     * haveGift {number}          附赠礼品：0 无礼品 1 有礼品
-     * giftModelList {array}      礼品列表
-     */
+         * 数据模块,表示单个组合对象
+         * name {string}              组合名字
+         * imageUrl {string}          封面图
+         * startTime {string}         开始时间
+         * endTime {string}           结束时间
+         * productModelList {array}   商品列表
+         * discount {number}          折扣
+         * stock {number}             库存
+         * haveGift {number}          附赠礼品：0 无礼品 1 有礼品
+         * giftModelList {array}      礼品列表
+         */
         model: {
             type: Object,
             default () {
