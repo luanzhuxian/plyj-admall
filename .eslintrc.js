@@ -2,20 +2,23 @@
 
 module.exports = {
   root: true,
-
   parserOptions: {
     "ecmaVersion": 2020,
     sourceType: 'module',
     parser: '@typescript-eslint/parser'
   },
-
-  env: {
-    browser: true
-  },
   // parser: './eslint-parser.js',
   // parser: 'vue-eslint-parser',
   // parser: '@typescript-eslint/parser',
-  // add your custom rules here
+  env: {
+    browser: true
+  },
+  // 优先使用vue强烈推荐的配置和标准配置，其余配置在rules中修改
+  extends: [
+    'plugin:vue/strongly-recommended',
+    '@vue/standard',
+    '@vue/typescript/recommended',
+  ],
   rules: {
     // https://eslint.org/docs/rules/require-await#disallow-async-functions-which-have-no-await-expression-require-await
     'require-await': 'error',
@@ -104,12 +107,5 @@ module.exports = {
     'no-underscore-dangle': 'error',
     'vue/no-mutating-props': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off'
-  },
-
-  // 优先使用vue强烈推荐的配置和标准配置，其余配置在rules中修改
-  extends: [
-    'plugin:vue/strongly-recommended',
-    '@vue/standard',
-    '@vue/typescript/recommended',
-  ]
+  }
 }
