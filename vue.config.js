@@ -39,7 +39,7 @@ module.exports = {
         index: {
             entry: 'src/main.ts',
             template: MODEL === 'local' 
-                ? 'public-dev/local.html' 
+                ? 'public-dev/my.html' 
                 : MODEL === 'development' 
                     ? 'public-dev/index.html' 
                     : 'public/index.html',
