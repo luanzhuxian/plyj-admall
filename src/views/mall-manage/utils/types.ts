@@ -1,5 +1,31 @@
+// type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; }
+// 通过使用 Pick 和 Exclude 来组合
+// type Omit<T, K> = Pick<T, Exclude<keyof T, K>> = { [P in Exclude<keyof T, K>]: T[P]; }
+// Construct a type with the properties of T except for those in type K.
+// 从 T 中移除属性 K
+
+// type Exclude<T, U> = T extends U ? never : T
+// Exclude from T those types that are assignable to U
+// 从 T 中移除集合 U 中的元素
+// type test = Exclude<1 | 2 | 3 | 4 | 5, 3 | 4>
+// type test = 1 | 2 | 5
+// type test = Exclude<keyof { a: 1; b: 2 }, 'a'>
+// type test = "b"
+
+// type Pick<T, K extends keyof T> = { [P in K]: T[P]; }
+// From T, pick a set of properties whose keys are in the union K
+// 从 T 中选出集合 K 中的属性
+// type test = Pick<{ a: 1; b: 2; c: 3 }, 'a' | 'b'>
+// test = Pick<{ a: 1; b: 2 }
+
+// type Partial<T> = { [P in keyof T]?: T[P] | undefined; }
+// Make all properties in T optional
 // 将属性全部变为可选
-type Partial<T> = { [P in keyof T]?: T[P] }
+// keyof 产生联合类型，in 则可以遍历枚举类型
+
+// type Required<T> = { [P in keyof T]-?: T[P]; }
+// Make all properties in T required
+// 将属性全部变为必选
 
 // 将交叉类型合并
 type Compute<A extends any> = A extends Function ? A : { [K in keyof A]: A[K] }
