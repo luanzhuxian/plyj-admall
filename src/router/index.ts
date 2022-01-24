@@ -76,6 +76,7 @@ export const router = new Router({
     }),
     routes
 })
+
 const checkAuth = to => {
     const routeNames = store.getters['user/routeNames']
     const currentHasPower = routeNames.has(to.name)
@@ -106,6 +107,7 @@ const checkAuth = to => {
     MessageBox.alert(`<strong>${ pageName }</strong> 页面暂无权限，请联系管理员`, { title: '暂无权限', dangerouslyUseHTMLString: true })
     return { name: routeNames.keys().next().value, noAuth: true }
 }
+
 const beforeResolve = async (to: Route, from: Route, next: RouteNext) => {
     // 存储微信登录code
     if (to.query.code) {
